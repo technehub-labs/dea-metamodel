@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/process.json",
+  "title": "Process",
+  "description": "A business or operational process that delivers value.",
+  "type": "object",
+  "required": ["id", "name", "type", "version", "process_type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": ["dea:process-order-management"]
+    },
+    "type": { "type": "string", "const": "Process" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "process_type": {
+      "type": "string",
+      "enum": ["business", "operational", "support", "management"],
+      "description": "BPMN-style process category."
+    },
+    "owner": { "type": "string" },
+    "trigger": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "What initiates this process."
+    },
+    "outcome": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Expected result of process completion."
+    },
+    "parent_process": { "type": "string" },
+    "child_processes": { "type": "array", "items": { "type": "string" } },
+    "capabilities_delivered": { "type": "array", "items": { "type": "string" } },
+    "services_provided": { "type": "array", "items": { "type": "string" } },
+    "components_involved": { "type": "array", "items": { "type": "string" } },
+    "kpis": { "type": "array", "items": { "type": "string" } },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

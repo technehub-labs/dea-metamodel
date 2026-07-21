@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/metric.json",
+  "title": "Metric",
+  "description": "A measurable indicator used to track EA health, performance, and maturity.",
+  "type": "object",
+  "required": ["id", "name", "type", "version", "metric_type", "unit"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": ["dea:metric-api-adoption-rate"]
+    },
+    "type": { "type": "string", "const": "Metric" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "metric_type": {
+      "type": "string",
+      "enum": ["kpi", "health", "maturity", "performance", "adoption", "compliance", "risk"],
+      "description": "Category of metric."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Measurement unit.",
+      "examples": [["%", "count", "days", "USD", "ms"]]
+    },
+    "measurement_method": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "How this metric is collected or calculated."
+    },
+    "baseline_value": { "type": ["number", "string"] },
+    "target_value": { "type": ["number", "string"] },
+    "thresholds": {
+      "type": "object",
+      "properties": {
+        "red": { "type": ["number", "string"] },
+        "amber": { "type": ["number", "string"] },
+        "green": { "type": ["number", "string"] }
+      }
+    },
+    "frequency": {
+      "type": "string",
+      "enum": ["realtime", "hourly", "daily", "weekly", "monthly", "quarterly"]
+    },
+    "entities_measured": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Entity IDs this metric tracks."
+    },
+    "owner": { "type": "string" },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

@@ -1,0 +1,183 @@
+# DEA Metamodel — OWL/RDF Turtle Serialization
+# Version: 0.1.0-alpha
+# Canonical RDF representation of the DEA metamodel ontology.
+
+@prefix dea:    <https://technehub-labs.github.io/dea-metamodel/ontology#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix dct:    <http://purl.org/dc/terms/> .
+
+@prefix deaent: <https://technehub-labs.github.io/dea-metamodel/entities/> .
+@prefix dearel: <https://technehub-labs.github.io/dea-metamodel/relationships/> .
+
+# ─── Ontology Declaration ──────────────────────────────────
+
+dea: a owl:Ontology ;
+    owl:versionInfo "0.1.0-alpha" ;
+    rdfs:label "Digital Enterprise Architecture Metamodel" ;
+    dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
+    dct:creator "TechneHub Labs" ;
+    dct:license <https://opensource.org/licenses/MIT> .
+
+# ─── Core Classes ─────────────────────────────────────────
+
+dea:Entity a owl:Class ;
+    rdfs:label "Entity" ;
+    skos:definition "Abstract root type for all DEA metamodel entities." ;
+    rdfs:isDefinedBy dea: .
+
+dea:Principle a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Principle" ;
+    skos:definition "An architectural guiding principle that governs design and decision-making." ;
+    dea:specification <schemas/entities/principle.json> .
+
+dea:ArchitecturePattern a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ArchitecturePattern" ;
+    skos:definition "A reusable architectural pattern that solves a recurring design problem." ;
+    dea:specification <schemas/entities/architecture-pattern.json> .
+
+dea:Standard a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Standard" ;
+    skos:definition "A referenced industry standard or framework." ;
+    dea:specification <schemas/entities/standard.json> .
+
+dea:ReferenceModel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ReferenceModel" ;
+    skos:definition "A reference architecture model serving as a template for concrete architectures." ;
+    dea:specification <schemas/entities/reference-model.json> .
+
+dea:Capability a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Capability" ;
+    skos:definition "A business or technical capability the enterprise possesses or requires." ;
+    dea:specification <schemas/entities/capability.json> .
+
+dea:Process a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Process" ;
+    skos:definition "A business or operational process that delivers value." ;
+    dea:specification <schemas/entities/process.json> .
+
+dea:BusinessService a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BusinessService" ;
+    skos:definition "A service exposed to the business or to external consumers." ;
+    dea:specification <schemas/entities/business-service.json> .
+
+dea:SolutionComponent a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "SolutionComponent" ;
+    skos:definition "A physical or logical component that implements capabilities." ;
+    dea:specification <schemas/entities/solution-component.json> .
+
+dea:ApplicationComponent a owl:Class ;
+    rdfs:subClassOf dea:SolutionComponent ;
+    rdfs:label "ApplicationComponent" .
+
+dea:InfrastructureComponent a owl:Class ;
+    rdfs:subClassOf dea:SolutionComponent ;
+    rdfs:label "InfrastructureComponent" .
+
+dea:IntegrationComponent a owl:Class ;
+    rdfs:subClassOf dea:SolutionComponent ;
+    rdfs:label "IntegrationComponent" .
+
+dea:Technology a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Technology" ;
+    dea:specification <schemas/entities/technology.json> .
+
+dea:Metric a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Metric" ;
+    skos:definition "A measurable indicator used to track EA health and performance." ;
+    dea:specification <schemas/entities/metric.json> .
+
+dea:GlossaryTerm a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "GlossaryTerm" ;
+    skos:definition "A controlled vocabulary term with definition and cross-references." ;
+    dea:specification <schemas/entities/glossary-term.json> .
+
+dea:TaxonomyNode a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "TaxonomyNode" .
+
+dea:Viewpoint a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Viewpoint" ;
+    skos:definition "A filtered perspective on the metamodel for a specific stakeholder." ;
+    dea:specification <schemas/entities/viewpoint.json> .
+
+# ─── Relationship Types ─────────────────────────────────────
+
+dea:Relationship a owl:Class ;
+    rdfs:label "Relationship" .
+
+dea:mapsTo a owl:ObjectProperty ;
+    rdfs:domain dea:Entity ;
+    rdfs:range dea:Entity ;
+    rdfs:label "maps-to" ;
+    skos:definition "General-purpose cross-catalog mapping between any two entities." ;
+    rdfs:subPropertyOf dea:Relationship .
+
+dea:realizes a owl:ObjectProperty ;
+    rdfs:domain dea:SolutionComponent ;
+    rdfs:range dea:Capability ;
+    rdfs:label "realizes" ;
+    skos:definition "A SolutionComponent delivers a Capability." .
+
+dea:implements a owl:ObjectProperty ;
+    rdfs:domain dea:ArchitecturePattern ;
+    rdfs:range dea:Standard ;
+    rdfs:label "implements" ;
+    skos:definition "An ArchitecturePattern implements a Standard." .
+
+dea:influencedBy a owl:ObjectProperty ;
+    rdfs:domain dea:Entity ;
+    rdfs:range dea:Principle ;
+    rdfs:label "influenced-by" ;
+    skos:definition "An entity is governed or shaped by a Principle." .
+
+dea:decomposes a owl:ObjectProperty ;
+    rdfs:domain dea:Capability ;
+    rdfs:range dea:Capability ;
+    rdfs:label "decomposes" ;
+    skos:definition "Parent Capability breaks down into child Capabilities." .
+
+dea:orchestrates a owl:ObjectProperty ;
+    rdfs:domain dea:Process ;
+    rdfs:range dea:Process ;
+    rdfs:label "orchestrates" ;
+    skos:definition "Parent Process coordinates child Processes." .
+
+dea:consumes a owl:ObjectProperty ;
+    rdfs:domain dea:SolutionComponent ;
+    rdfs:range dea:BusinessService ;
+    rdfs:label "consumes" ;
+    skos:definition "A SolutionComponent uses an external BusinessService." .
+
+dea:provides a owl:ObjectProperty ;
+    rdfs:domain dea:SolutionComponent ;
+    rdfs:range dea:BusinessService ;
+    rdfs:label "provides" ;
+    skos:definition "A SolutionComponent exposes a BusinessService." .
+
+dea:governs a owl:ObjectProperty ;
+    rdfs:domain dea:Standard ;
+    rdfs:range dea:Entity ;
+    rdfs:label "governs" ;
+    skos:definition "A Standard governs entity behavior." .
+
+dea:measuredBy a owl:ObjectProperty ;
+    rdfs:domain dea:Entity ;
+    rdfs:range dea:Metric ;
+    rdfs:label "measured-by" ;
+    skos:definition "An entity is tracked or assessed via a Metric." .

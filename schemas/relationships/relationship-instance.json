@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/relationships/relationship-instance.json",
+  "title": "RelationshipInstance",
+  "description": "An instantiated typed relationship between two entities.",
+  "type": "object",
+  "required": ["source_id", "target_id", "relationship_type"],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Source entity ID."
+    },
+    "target_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Target entity ID."
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "maps-to", "realizes", "implements", "influenced-by",
+        "decomposes", "orchestrates", "consumes", "provides",
+        "governs", "measured-by"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "weight": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional confidence or strength of the relationship."
+    },
+    "provenance": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Source or authority for this relationship."
+    },
+    "bidirectional": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

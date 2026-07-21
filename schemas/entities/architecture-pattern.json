@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/architecture-pattern.json",
+  "title": "ArchitecturePattern",
+  "description": "A reusable architectural pattern that solves a recurring design problem.",
+  "type": "object",
+  "required": ["id", "name", "type", "version", "problem", "solution", "applicability"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": ["dea:pattern-api-gateway"]
+    },
+    "type": { "type": "string", "const": "ArchitecturePattern" },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "examples": ["API Gateway"]
+    },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "problem": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "The problem context this pattern addresses.",
+      "examples": ["Clients need a unified entry point to consume multiple backend services."]
+    },
+    "solution": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "How this pattern solves the problem."
+    },
+    "forces": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 300 },
+      "description": "Forces (constraints, trade-offs) that influence the pattern application."
+    },
+    "consequences": {
+      "type": "object",
+      "properties": {
+        "benefits": { "type": "array", "items": { "type": "string" } },
+        "drawbacks": { "type": "array", "items": { "type": "string" } },
+        "tradeoffs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "applicability": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Use contexts where this pattern is appropriate.",
+      "examples": [["Microservices entry points", "Legacy service encapsulation", "API rate limiting"]]
+    },
+    "anti_patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Patterns that conflict or should not be used alongside this one."
+    },
+    "related_patterns": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Complementary or successor patterns."
+    },
+    "related_principles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "related_standards": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "maturity": {
+      "type": "string",
+      "enum": ["emerging", "established", "canonical", "deprecated"]
+    },
+    "implementation_hints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
+  "title": "DEA Metamodel Entity Graph",
+  "description": "Mapping from metamodel entities to the catalog repositories that host them. Drives the interactive viewer at technehub-labs.github.io/metamodel/.",
+  "type": "object",
+  "required": ["metamodel_version", "entities"],
+  "properties": {
+    "metamodel_version": { "type": "string" },
+    "description": { "type": "string" },
+    "viewer_route": { "type": "string" },
+    "viewer_url": { "type": "string", "format": "uri" },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entity_id", "class_alias", "display_name", "layer", "catalog_repo", "repo_url"],
+        "properties": {
+          "entity_id": { "type": "string", "pattern": "^dea:entity-[a-z-]+$" },
+          "class_alias": { "type": "string", "maxLength": 5 },
+          "display_name": { "type": "string" },
+          "layer": { "type": "string", "enum": ["L1", "L2", "L3", "L4", "L5"] },
+          "layer_name": { "type": "string" },
+          "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "catalog_repo": { "type": "string", "pattern": "^dea-[a-z-]+$" },
+          "repo_url": { "type": "string", "format": "uri" },
+          "status": { "type": "string", "enum": ["existing", "existing-extended", "planned"] },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}

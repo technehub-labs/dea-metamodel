@@ -1,0 +1,50 @@
+name: Render Metamodel
+
+on:
+  pull_request:
+    paths: ['metamodel-puml/**', 'viewer/**']
+  push:
+    branches: [main]
+
+jobs:
+  validate-graph:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema
+        run: pip install jsonschema
+      - name: Validate entity-graph.json
+        run: |
+          python -c "
+          import json
+          from jsonschema import validate, ValidationError
+          with open('viewer/entity-graph.schema.json') as f: schema = json.load(f)
+          with open('viewer/entity-graph.json') as f: graph = json.load(f)
+          try:
+              validate(instance=graph, schema=schema)
+              print(f'OK — {len(graph[\"entities\"])} entities validated')
+              for e in graph['entities']:
+                  print(f'  {e[\"layer\"]}  {e[\"class_alias\"]:4s}  {e[\"display_name\"]:30s} -> {e[\"catalog_repo\"]}')
+          except ValidationError as ex:
+              print(f'VALIDATION FAILED: {ex.message}')
+              exit(1)
+          "
+
+  render-puml:
+    runs-on: ubuntu-latest
+    needs: validate-graph
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render PlantUML
+        uses: plantuml/plantuml-action@v1
+        with:
+          args: -v -tpng metamodel-puml/metamodel-v2.puml
+      - name: Upload rendered diagram
+        uses: actions/upload-artifact@v4
+        with:
+          name: metamodel-v2-diagram
+          path: metamodel-puml/metamodel-v2.png

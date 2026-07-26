@@ -1,0 +1,145 @@
+@startuml
+!theme plain
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 60
+skinparam defaultFontName Arial
+skinparam class {
+    BackgroundColor White
+    BorderColor #2C3E50
+    ArrowColor #2C3E50
+}
+
+' --- LAYER DEFINITIONS ---
+package "Layer 1: Strategic & Investment (The 'Why' & 'When')" #E8F8F5 {
+    entity "Strategic Objective" as SO {
+        + id : string
+        + name : string
+    }
+    entity "Investment Initiative" as II {
+        + id : string
+        + budget : decimal
+    }
+}
+
+package "Layer 2: Business Operating Model (The 'What' & 'Who')" #FEF9E7 {
+    entity "Value Stream" as VS {
+        + id : string
+        + name : string
+    }
+    entity "Business Capability" as BC {
+        + id : string
+        + ecfCoordinates : (Domain, Stage)
+    }
+    entity "Business Process" as BP {
+        + id : string
+        + name : string
+    }
+    entity "Business Object" as BO {
+        + id : string
+        + name : string
+    }
+    entity "Journey Touchpoint" as JT {
+        + id : string
+        + channel : string
+    }
+    entity "Organizational Unit" as OU {
+        + id : string
+        + name : string
+    }
+}
+
+package "Layer 3: Digital Ecosystem & Intelligence (The 'Digital Era')" #D6EAF8 {
+    entity "Digital Identity" as DI {
+        + id : string
+        + type : (Customer, Partner, Bot)
+    }
+    entity "Event / Event Stream" as EVT {
+        + id : string
+        + topic : string
+        + schema : string
+    }
+    entity "AI / ML Model" as AI {
+        + id : string
+        + modelType : string
+        + version : string
+    }
+    entity "Data Product" as DP {
+        + id : string
+        + SLA : string
+        + domainOwner : string
+    }
+}
+
+package "Layer 4: Technology & Execution (The 'How')" #F4ECF7 {
+    entity "System Function" as SF {
+        + id : string
+        + name : string
+    }
+    entity "Application Component" as AC {
+        + id : string
+        + name : string
+    }
+    entity "API / Service Contract" as API {
+        + id : string
+        + version : string
+    }
+    entity "Data Entity" as DE {
+        + id : string
+        + name : string
+    }
+    entity "Information Class" as IC {
+        + id : string
+        + securityLevel : string
+    }
+    entity "Platform Service" as PS {
+        + id : string
+        + type : (Compute, DB, Network)
+    }
+}
+
+package "Layer 5: Measurement & Governance (Cross-Cutting)" #FADBD8 {
+    entity "Performance Metric" as PM {
+        + id : string
+        + targetValue : string
+    }
+}
+
+' --- RELATIONSHIPS ---
+
+' Layer 1 & 2
+SO ||--o{ II : "drives"
+II }o--|{ BC : "funds"
+VS }o--|{ BC : "traverses"
+VS ||--o{ JT : "experienced via"
+BC ||--o{ BP : "implemented by"
+BC ||--|{ OU : "owned by"
+BC ||--o{ BO : "produces/consumes"
+
+' Layer 2 & 3 (Digital Integration)
+JT ||--o{ DI : "authenticates"
+DI }o--|{ DE : "represented by"
+BP ||--o{ SF : "automated by"
+BO ||--|| DE : "digitized as"
+
+' Layer 3 Internal (Intelligence & Data)
+DE }o--|{ IC : "classified by"
+DE }o--o{ DP : "curated into"
+SF ||--o{ EVT : "publishes / subscribes to"
+EVT }o--o{ DE : "carries payload of"
+DP ||--o{ API : "exposed via"
+AI ||--o{ DP : "trained on"
+AI ||--o{ SF : "enhances / automates"
+
+' Layer 4 (Technology Execution)
+SF ||--o{ AC : "hosted by"
+AC }o--o{ PS : "deployed on"
+SF ||--o{ API : "exposed via"
+API }o--o{ DE : "serves/exchanges"
+
+' Measurement (Cross-cutting)
+SO ||--o{ PM : "measured by"
+BC ||--o{ PM : "evaluated by"
+SF ||--o{ PM : "evaluated by"
+
+@enduml

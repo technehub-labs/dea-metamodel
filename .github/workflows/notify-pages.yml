@@ -1,0 +1,18 @@
+name: Notify Pages of Metamodel Update
+
+on:
+  push:
+    branches: [main]
+    paths: ['viewer/**']
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger sync in technehub-labs.github.io
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: technehub-labs/technehub-labs.github.io
+          event-type: metamodel-updated
+          client-payload: '{"source": "dea-metamodel", "commit": "${{ github.sha }}"}'

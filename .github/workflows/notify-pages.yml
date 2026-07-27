@@ -3,7 +3,7 @@ name: Notify Pages of Metamodel Update
 on:
   push:
     branches: [main]
-    paths: ['viewer/**']
+    paths: ['viewer/**', 'metamodel-puml/**']
 
 jobs:
   notify:

@@ -39,10 +39,16 @@ jobs:
     needs: validate-graph
     steps:
       - uses: actions/checkout@v4
-      - name: Render PlantUML
-        uses: plantuml/plantuml-action@v1
-        with:
-          args: -v -tpng metamodel-puml/metamodel-v2.puml
+      - name: Install PlantUML
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y plantuml
+          plantuml -version
+      - name: Render metamodel-v2.puml to PNG
+        run: |
+          set -euo pipefail
+          plantuml -tpng metamodel-puml/metamodel-v2.puml
+          ls -la metamodel-puml/metamodel-v2.png
       - name: Upload rendered diagram
         uses: actions/upload-artifact@v4
         with:

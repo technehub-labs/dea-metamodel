@@ -11,7 +11,7 @@ skinparam class {
 }
 
 ' --- LAYER DEFINITIONS ---
-package "Layer 1: Strategic & Investment (The \u0027Why\u0027 & \u0027When\u0027)" #E8F8F5 {
+package "Layer 1: Strategic & Investment (The &apos;Why&apos; & &apos;When&apos;)" #E8F8F5 {
     entity "Strategic Objective" as SO {
         + id : string
         + name : string
@@ -22,7 +22,7 @@ package "Layer 1: Strategic & Investment (The \u0027Why\u0027 & \u0027When\u0027
     }
 }
 
-package "Layer 2: Business Operating Model (The \u0027What\u0027 & \u0027Who\u0027)" #FEF9E7 {
+package "Layer 2: Business Operating Model (The &apos;What&apos; & &apos;Who&apos;)" #FEF9E7 {
     entity "Value Stream" as VS {
         + id : string
         + name : string
@@ -49,7 +49,7 @@ package "Layer 2: Business Operating Model (The \u0027What\u0027 & \u0027Who\u00
     }
 }
 
-package "Layer 3: Digital Ecosystem & Intelligence (The \u0027Digital Era\u0027)" #D6EAF8 {
+package "Layer 3: Digital Ecosystem & Intelligence (The &apos;Digital Era&apos;)" #D6EAF8 {
     entity "Digital Identity" as DI {
         + id : string
         + type : (Customer, Partner, Bot)
@@ -71,7 +71,7 @@ package "Layer 3: Digital Ecosystem & Intelligence (The \u0027Digital Era\u0027)
     }
 }
 
-package "Layer 4: Technology & Execution (The \u0027How\u0027)" #F4ECF7 {
+package "Layer 4: Technology & Execution (The &apos;How&apos;)" #F4ECF7 {
     entity "System Function" as SF {
         + id : string
         + name : string

@@ -49,4 +49,6 @@ jobs:
           cd typescript
           npm install --silent
           npx tsc --noEmit
-        continue-on-error: true
+        # No continue-on-error: type failures must block CI.
+        # Previously silenced via continue-on-error: true; removed so future
+        # type regressions surface immediately.

@@ -52,6 +52,15 @@ entities:
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/reference_model.py
 
+  - name: Actor
+    description: Performer of enterprise processes — human, team, system, or AI agent. Internal performers; distinct from Stakeholder (external/affected party).
+    schema: schemas/entities/actor.json
+    ttl: ttl/entities/actor.ttl
+    sqlite_table: actors
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/actor.py
+    catalog_repo: dea-catalog-actors
+
   - name: Capability
     description: Business or technical capability that the enterprise possesses or requires.
     schema: schemas/entities/capability.json

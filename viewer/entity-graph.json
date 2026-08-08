@@ -57,13 +57,13 @@
       "entity_id": "dea:entity-business-process",
       "class_alias": "BP",
       "display_name": "Business Process",
-      "layer": "L2",
-      "layer_name": "Business Operating Model",
-      "color": "#FEF9E7",
-      "catalog_repo": "dea-catalog-digital-business-service-factory",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-business-service-factory",
-      "status": "existing-extended",
-      "description": "A structured set of activities that produces a defined outcome."
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-processes",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-processes",
+      "status": "scaffold",
+      "description": "A structured set of activities that produces a defined outcome. Classified by intent (operational/support/management) and audience (ECF domain). v3.0.0-alpha."
     },
     {
       "entity_id": "dea:entity-business-object",

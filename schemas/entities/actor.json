@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/actor.json",
+  "title": "Actor",
+  "description": "A performer of enterprise processes — human, team, system, or AI agent. Actors are internal performers; external or affected parties are Stakeholders (separate entity). Catalog: technehub-labs/dea-catalog-actors.",
+  "type": "object",
+  "required": ["id", "name", "type", "version", "actor_type"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": ["dea:actor-payroll-specialist", "dea:actor-hris-system", "dea:actor-customer-success-ml-model"]
+    },
+    "type": { "type": "string", "const": "Actor" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "actor_type": {
+      "type": "string",
+      "enum": ["human", "team", "system", "ai-agent", "hybrid"],
+      "description": "The kind of performer. 'human' is an individual person; 'team' is a group of humans acting as a unit; 'system' is software/hardware automation; 'ai-agent' is an ML/LLM/agent-based system that performs autonomously; 'hybrid' is a human-team-system composition."
+    },
+    "scope": {
+      "type": "string",
+      "enum": ["individual", "team", "departmental", "enterprise", "ecosystem"],
+      "description": "The scope at which the actor operates."
+    },
+    "owner": { "type": "string" },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to Capabilities in technehub-labs/dea-catalog-business-capabilities that this Actor performs."
+    },
+    "processes_performed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to Processes in technehub-labs/dea-catalog-processes that this Actor performs."
+    },
+    "links": {
+      "type": "object",
+      "description": "Optional links to other catalogs. stakeholder_ref points to a Stakeholder entry when the Actor represents an internal user who is also a stakeholder in some other process; digital_identity_ref points to a dea-catalog-digital-identities entry when the Actor has a digital twin.",
+      "properties": {
+        "stakeholder_ref": { "type": "string" },
+        "digital_identity_ref": { "type": "string" }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

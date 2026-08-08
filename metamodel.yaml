@@ -61,12 +61,14 @@ entities:
     pydantic_model: pydantic/capability.py
 
   - name: Process
-    description: Business or operational process that delivers value.
+    description: Business or operational process that delivers value. Classified by intent (operational/support/management) and audience (ECF domain). Stakeholders and actors are multi-valued typed references.
     schema: schemas/entities/process.json
     ttl: ttl/entities/process.ttl
     sqlite_table: processes
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/process.py
+    catalog_repo: dea-catalog-processes
+    docs: docs/process-type-taxonomy.md
 
   - name: BusinessService
     description: Service exposed to the business or to external consumers.

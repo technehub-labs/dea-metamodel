@@ -60,6 +60,15 @@ entities:
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/capability.py
 
+  - name: Stakeholder
+    description: External or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes. Distinct from Actor (internal performer).
+    schema: schemas/entities/stakeholder.json
+    ttl: ttl/entities/stakeholder.ttl
+    sqlite_table: stakeholders
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/stakeholder.py
+    catalog_repo: dea-catalog-stakeholders
+
   - name: Process
     description: Business or operational process that delivers value.
     schema: schemas/entities/process.json

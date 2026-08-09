@@ -104,18 +104,22 @@ jobs:
           ls -la metamodel-puml/metamodel-v2.png
 
       - name: Cross-format validator (SVG entity count vs entity-graph)
+        id: validator
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python3 .github/scripts/validate_svg_graph.py
 
-      - name: Upload rendered diagram artifacts
+      - name: Always upload artifacts (even on failure, for debugging)
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: metamodel-v2-diagram
           path: |
             viewer/metamodel.svg
             metamodel-puml/metamodel-v2.png
+            metamodel-puml/metamodel-v2.svg
+          if-no-files-found: warn
 
   commit-svg:
     runs-on: ubuntu-latest

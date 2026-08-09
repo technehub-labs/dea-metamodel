@@ -7,6 +7,7 @@ on:
       - 'viewer/**'
       - '.github/workflows/render-metamodel.yml'
       - '.github/scripts/generate_puml.py'
+      - '.github/scripts/inject_svg_attributes.py'
       - '.github/scripts/validate_svg_graph.py'
   push:
     branches: [main]
@@ -15,6 +16,7 @@ on:
       - 'viewer/**'
       - '.github/workflows/render-metamodel.yml'
       - '.github/scripts/generate_puml.py'
+      - '.github/scripts/inject_svg_attributes.py'
       - '.github/scripts/validate_svg_graph.py'
 
 permissions:
@@ -106,6 +108,14 @@ jobs:
           plantuml -tpng metamodel-v2.puml
           cd ..
 
+      - name: Inject SVG attributes for interactivity
+        run: |
+          # PlantUML 1.2024.x emits <g id="elem_<ALIAS>"> for entities
+          # but doesn't add class="entity" or data-alias attributes.
+          # The Pages site's viewer.js selects `g.entity[data-alias]`
+          # to wire click + hover handlers; inject these to restore
+          # interactivity parity with the previous version.
+          python3 .github/scripts/inject_svg_attributes.py viewer/metamodel.svg
 
       - name: Cross-format validator (SVG vs entity-graph)
         run: |

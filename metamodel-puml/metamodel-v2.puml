@@ -9,79 +9,125 @@ skinparam class {
     ArrowColor #2C3E50
 }
 
-' --- LAYER DEFINITIONS ---
-package "Layer 1: Strategic & Investment (Why & When)" #E8F8F5 {
-    entity "Strategic Objective" as SO {
+' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---
+' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
+
+package "Layer 1: Strategic & Investment" #E8F8F5 {
+    ' (scaffold)
+    entity "Actor" as AC {
+        + id : string
+        + name : string
+    }
+    entity "Architecture Pattern" as AP {
+        + id : string
+        + name : string
+    }
+    ' (scaffold)
+    entity "Business Process" as BP {
+        + id : string
+        + name : string
+    }
+    entity "Glossary Term" as GT {
         + id : string
         + name : string
     }
     entity "Investment Initiative" as II {
         + id : string
-        + budget : decimal
+        + name : string
+    }
+    entity "Principle" as PR {
+        + id : string
+        + name : string
+    }
+    ' (scaffold)
+    entity "Stakeholder" as SH {
+        + id : string
+        + name : string
+    }
+    entity "Strategic Objective" as SO {
+        + id : string
+        + name : string
+    }
+    entity "Standard" as STD {
+        + id : string
+        + name : string
+    }
+    entity "Viewpoint" as VP {
+        + id : string
+        + name : string
     }
 }
 
-package "Layer 2: Business Operating Model (What & Who)" #FEF9E7 {
-    entity "Value Stream" as VS {
-        + id : string
-        + name : string
-    }
-    entity "Business Capability" as BC {
-        + id : string
-        + ecfCoordinates : (Domain, Stage)
-    }
-    entity "Business Process" as BP {
-        + id : string
-        + name : string
-    }
+package "Layer 2: Business Operating Model" #FEF9E7 {
+    ' (scaffold)
     entity "Business Object" as BO {
+        + id : string
+        + name : string
+    }
+    ' (existing)
+    entity "Business Service" as BS {
+        + id : string
+        + name : string
+    }
+    entity "Business Capability" as CAP {
         + id : string
         + name : string
     }
     entity "Journey Touchpoint" as JT {
         + id : string
-        + channel : string
+        + name : string
     }
+    ' (scaffold)
     entity "Organizational Unit" as OU {
         + id : string
         + name : string
     }
+    entity "Reference Model" as RM {
+        + id : string
+        + name : string
+    }
+    ' (existing)
+    entity "Solution Component" as SC {
+        + id : string
+        + name : string
+    }
+    entity "Taxonomy Node" as TXN {
+        + id : string
+        + name : string
+    }
+    entity "Value Stream" as VS {
+        + id : string
+        + name : string
+    }
 }
 
-package "Layer 3: Digital Ecosystem & Intelligence (Digital Era)" #D6EAF8 {
+package "Layer 3: Digital & Data" #FDEDEC {
+    entity "AI/ML Model" as AIM {
+        + id : string
+        + name : string
+    }
     entity "Digital Identity" as DI {
         + id : string
-        + type : (Customer, Partner, Bot)
-    }
-    entity "Event / Event Stream" as EVT {
-        + id : string
-        + topic : string
-        + schema : string
-    }
-    entity "AI / ML Model" as AI {
-        + id : string
-        + modelType : string
-        + version : string
+        + name : string
     }
     entity "Data Product" as DP {
         + id : string
-        + SLA : string
-        + domainOwner : string
+        + name : string
+    }
+    entity "Event" as EVT {
+        + id : string
+        + name : string
     }
 }
 
-package "Layer 4: Technology & Execution (How)" #F4ECF7 {
-    entity "System Function" as SF {
+package "Layer 4: Technical & Integration" #E8DAEF {
+    entity "Application Component" as APC {
         + id : string
         + name : string
     }
-    entity "Application Component" as AC {
+    entity "API" as API {
         + id : string
         + name : string
-    }
-    entity "API / Service Contract" as API {
-        + id : string
-        + version : string
     }
     entity "Data Entity" as DE {
         + id : string
@@ -89,56 +135,41 @@ package "Layer 4: Technology & Execution (How)" #F4ECF7 {
     }
     entity "Information Class" as IC {
         + id : string
-        + securityLevel : string
+        + name : string
+    }
+    entity "Infrastructure Component" as IFC {
+        + id : string
+        + name : string
+    }
+    entity "Integration Component" as IGC {
+        + id : string
+        + name : string
     }
     entity "Platform Service" as PS {
         + id : string
-        + type : (Compute, DB, Network)
+        + name : string
+    }
+    entity "System Function" as SF {
+        + id : string
+        + name : string
+    }
+    entity "Technology" as TEC {
+        + id : string
+        + name : string
     }
 }
 
-package "Layer 5: Measurement & Governance (Cross-Cutting)" #FADBD8 {
-    entity "Performance Metric" as PM {
+package "Layer 5: Measurement & Governance" #FADBD8 {
+    ' (existing)
+    entity "Performance Metric" as MTR {
         + id : string
-        + targetValue : string
+        + name : string
     }
 }
 
 ' --- RELATIONSHIPS ---
-
-' Layer 1 & 2
-SO ||--o{ II : "drives"
-II }o--|{ BC : "funds"
-VS }o--|{ BC : "traverses"
-VS ||--o{ JT : "experienced via"
-BC ||--o{ BP : "implemented by"
-BC ||--|{ OU : "owned by"
-BC ||--o{ BO : "produces/consumes"
-
-' Layer 2 & 3 (Digital Integration)
-JT ||--o{ DI : "authenticates"
-DI }o--|{ DE : "represented by"
-BP ||--o{ SF : "automated by"
-BO ||--|| DE : "digitized as"
-
-' Layer 3 Internal (Intelligence & Data)
-DE }o--|{ IC : "classified by"
-DE }o--o{ DP : "curated into"
-SF ||--o{ EVT : "publishes / subscribes to"
-EVT }o--o{ DE : "carries payload of"
-DP ||--o{ API : "exposed via"
-AI ||--o{ DP : "trained on"
-AI ||--o{ SF : "enhances / automates"
-
-' Layer 4 (Technology Execution)
-SF ||--o{ AC : "hosted by"
-AC }o--o{ PS : "deployed on"
-SF ||--o{ API : "exposed via"
-API }o--o{ DE : "serves/exchanges"
-
-' Measurement (Cross-cutting)
-SO ||--o{ PM : "measured by"
-BC ||--o{ PM : "evaluated by"
-SF ||--o{ PM : "evaluated by"
+' (The interactive viewer at https://technehub-labs.github.io/metamodel/
+'  renders typed relationships from the relationship-instance graph.
+'  The static SVG snapshot is an entity catalog view only.)
 
 @enduml

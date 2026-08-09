@@ -83,19 +83,22 @@ jobs:
       - name: Render PUML to SVG
         run: |
           set -euo pipefail
-          # Render alongside the input file (no -o flag = output dir matches input dir)
-          plantuml -tsvg metamodel-puml/metamodel-v2.puml
-          # PlantUML writes to metamodel-puml/metamodel-v2.svg
+          # PlantUML 1.2024.x writes SVG to CWD (not alongside input).
+          # Render from the input dir so output lands alongside input.
+          cd metamodel-puml
+          plantuml -tsvg metamodel-v2.puml
+          cd ..
+          # Sanity check
           if [ ! -f metamodel-puml/metamodel-v2.svg ]; then
             echo "ERROR: PlantUML did not produce metamodel-puml/metamodel-v2.svg"
             ls -la metamodel-puml/
             exit 1
           fi
-          # Move to viewer/ overwriting the committed version
           mkdir -p viewer
           cp metamodel-puml/metamodel-v2.svg viewer/metamodel.svg
           ls -la viewer/metamodel.svg
-          echo "Rendered SVG entity blocks: $(grep -c 'class=\"entity' viewer/metamodel.svg)"
+          elem_count=$(grep -c 'id="elem_' viewer/metamodel.svg || echo 0)
+          echo "Rendered SVG elem_ id count: $elem_count"
 
       - name: Render PUML to PNG (build artifact)
         run: |

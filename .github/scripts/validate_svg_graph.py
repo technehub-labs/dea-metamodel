@@ -3,7 +3,7 @@
 canonical entity-graph.
 
 Reads:
-  - viewer/metamodel.svg (the rendered diagram)
+  - viewer/metamodel.svg (the rendered diagram — written by CI)
   - viewer/entity-graph.json (canonical registry)
 
 Extracts entity display_names from the SVG and compares against the
@@ -17,10 +17,16 @@ Why this matters:
 
 Extraction strategy:
   PlantUML emits one <g class="entity ..."> block per entity. Inside
-  each block, the first substantial <text>...</text> is the display
-  name (e.g. "Strategic Objective"); subsequent <text> blocks hold
-  attribute labels. We extract the longest text content per entity
-  block, which empirically is the display name.
+  each block, the longest <text>...</text> is empirically the display
+  name (e.g. "Strategic Objective"). Attribute labels like
+  "id : string" or "ecfCoordinates : (Domain, Stage)" are also rendered
+  as <text> but are either:
+    (a) shorter than the display name, or
+    (b) contain " : " — a clear attribute pattern.
+  We filter out anything matching the attribute pattern to be defensive.
+
+  We also exclude any text starting with "(scaffold)" or "(existing)"
+  status markers that may render as text in some PlantUML versions.
 """
 import sys
 import json
@@ -32,26 +38,30 @@ SVG = BASE / "viewer" / "metamodel.svg"
 GRAPH = BASE / "viewer" / "entity-graph.json"
 
 
+# Text that looks like an attribute: "<name> : <type>"
+ATTRIBUTE_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*\s*:\s*")
+
+# Status markers and other noise to skip
+NOISE_PATTERNS = [
+    re.compile(r"^\(scaffold\)$"),
+    re.compile(r"^\(existing\)$"),
+    re.compile(r"^\(planned\)$"),
+]
+
+
+def is_attribute_label(text: str) -> bool:
+    """True if text looks like an attribute ('name : type')."""
+    return bool(ATTRIBUTE_PATTERN.match(text.strip()))
+
+
+def is_noise(text: str) -> bool:
+    """True if text is a known noise pattern (status markers, etc.)."""
+    t = text.strip()
+    return any(p.match(t) for p in NOISE_PATTERNS)
+
+
 def extract_svg_entity_names():
-    """Parse SVG and extract entity display names.
-
-    PlantUML SVG structure for one entity (simplified):
-
-        <g class="entity" data-qualified-name="..." id="ent0003"
-           data-alias="SO" data-layer="L1">
-          <title>SO · L1</title>
-          <rect .../>
-          <ellipse .../>
-          <text>Strategic Objective</text>     <-- display name
-          <line .../>
-          <text>id : string</text>
-          <text>name : string</text>
-          ...
-        </g>
-
-    Strategy: split SVG by `<g class="entity` boundaries, then take the
-    longest `<text>` content from each block as the display name.
-    """
+    """Parse SVG and extract entity display names."""
     if not SVG.exists():
         return []
 
@@ -63,16 +73,22 @@ def extract_svg_entity_names():
 
     names = []
     for block in blocks:
-        # Only process if this is a real entity block (has class="entity")
         if 'class="entity"' not in block[:200]:
             continue
-        # Find all <text>...</text> in this block
+        # Find all <text>...</text> in this block, in document order
         texts = re.findall(r'<text[^>]*>([^<]+)</text>', block)
         if not texts:
             continue
-        # Take the longest text (empirically = display name)
-        longest = max(texts, key=len).strip()
-        if longest and not longest.startswith("("):
+        # Skip attribute labels and noise; pick the longest remaining
+        candidates = [
+            t.strip() for t in texts
+            if t.strip() and not is_attribute_label(t) and not is_noise(t)
+        ]
+        if not candidates:
+            continue
+        # Take the longest — empirically the display name
+        longest = max(candidates, key=len)
+        if longest:
             names.append(longest)
     return names
 

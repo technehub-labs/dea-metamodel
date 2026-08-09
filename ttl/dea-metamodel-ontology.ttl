@@ -77,6 +77,18 @@ dea:OrganizationalUnit a owl:Class ;
     skos:definition "A unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects." ;
     dea:specification <schemas/entities/organizational-unit.json> .
 
+dea:Stakeholder a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Stakeholder" ;
+    skos:definition "An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes. Stakeholders are distinct from Actors (internal performers); external or affected parties are Stakeholders, not Actors." ;
+    dea:specification <schemas/entities/stakeholder.json> .
+
+dea:Actor a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Actor" ;
+    skos:definition "A performer of enterprise processes — human, team, system, or AI agent. Actors are internal performers; the Employees of the enterprise are modelled as Actors." ;
+    dea:specification <schemas/entities/actor.json> .
+
 dea:BusinessService a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BusinessService" ;

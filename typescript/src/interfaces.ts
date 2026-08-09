@@ -221,6 +221,50 @@ export interface BusinessObject extends BaseEntity {
   components_realizing?: string[];
 }
 
+// v1.0.0-alpha: Organizational Unit (OU) — owner of capabilities,
+// runner of processes, custodian of business objects. Mirrors
+// schemas/entities/organizational-unit.json. Catalog:
+// technehub-labs/dea-catalog-organizational-units.
+//
+// Reuses EcfDomain + EcfStage from the BusinessObject declaration above.
+export type OUType =
+  | 'business-unit'
+  | 'division'
+  | 'department'
+  | 'team'
+  | 'role-cluster'
+  | 'virtual-team'
+  | 'governance-body'
+  | 'external-partner-role';
+
+export type OUScope =
+  | 'individual'
+  | 'team'
+  | 'departmental'
+  | 'division'
+  | 'enterprise'
+  | 'ecosystem';
+
+export type OULifecycle = 'permanent' | 'temporary' | 'ad-hoc' | 'sunsetting';
+
+export interface OrganizationalUnit extends BaseEntity {
+  type: 'OrganizationalUnit';
+  ou_type: OUType;
+  ou_scope: OUScope;
+  ou_lifecycle: OULifecycle;
+  ecf_domain?: EcfDomain;
+  ecf_stage?: EcfStage;
+  parent_ou?: string;
+  child_ous?: string[];
+  owned_capabilities?: string[];
+  owned_processes?: string[];
+  owned_objects?: string[];
+  actors?: string[];
+  stakeholders?: string[];
+  cost_center?: string;
+  head_count?: number;
+}
+
 export type ServiceType = 'internal' | 'external' | 'partner' | 'public';
 
 export interface BusinessService extends BaseEntity {

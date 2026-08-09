@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/organizational-unit.json",
+  "title": "OrganizationalUnit",
+  "description": "A unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects. Classified by structural type, vertical scope, and ECF coordinates. Members (actors) and served stakeholders are referenced from typed catalogs. Catalog: technehub-labs/dea-catalog-organizational-units.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "ou_type",
+    "ou_scope",
+    "ou_lifecycle"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": ["dea:ou-customer-success-division", "dea:ou-platform-engineering-team"]
+    },
+    "type": { "type": "string", "const": "OrganizationalUnit" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+
+    "ou_type": {
+      "type": "string",
+      "enum": [
+        "business-unit",
+        "division",
+        "department",
+        "team",
+        "role-cluster",
+        "virtual-team",
+        "governance-body",
+        "external-partner-role"
+      ],
+      "description": "Structural kind of unit. 'business-unit' is a P&L-bearing organisational entity; 'division' is a top-level grouping under the enterprise; 'department' is a function-aligned grouping; 'team' is a stable working group; 'role-cluster' is a group defined by shared role rather than hierarchy; 'virtual-team' crosses formal boundaries for a specific purpose; 'governance-body' is a decision-making forum (committee, board, council); 'external-partner-role' is an external party acting as a unit (e.g. outsourced operations partner)."
+    },
+    "ou_scope": {
+      "type": "string",
+      "enum": ["individual", "team", "departmental", "division", "enterprise", "ecosystem"],
+      "description": "Vertical span — the breadth of the organisation this unit reaches. 'ecosystem' spans partner / supplier / customer networks; 'enterprise' is the full organisation; lower values are nested internal scopes."
+    },
+    "ou_lifecycle": {
+      "type": "string",
+      "enum": ["permanent", "temporary", "ad-hoc", "sunsetting"],
+      "description": "Formality and time horizon. 'permanent' is a stable org structure; 'temporary' has a defined end (project, programme); 'ad-hoc' is informal and may dissolve; 'sunsetting' is being decommissioned."
+    },
+
+    "ecf_domain": {
+      "type": "string",
+      "enum": [
+        "governance-existence",
+        "supply-resources",
+        "people-organization",
+        "customer-demand",
+        "product-offering",
+        "operations-delivery",
+        "finance-value"
+      ],
+      "description": "The Enterprise Concept Framework domain this unit primarily serves. Optional — units that span domains (e.g. COO office) may leave this unset or set a 'multi' marker via tags."
+    },
+    "ecf_stage": {
+      "type": "string",
+      "enum": [
+        "conceive",
+        "design",
+        "build",
+        "activate",
+        "operate",
+        "improve",
+        "retire"
+      ],
+      "description": "The lifecycle stage this unit primarily operates in. Optional."
+    },
+
+    "parent_ou": {
+      "type": "string",
+      "description": "Reference to the parent OrganizationalUnit (one level up in the hierarchy). Forms a forest of trees under the enterprise root."
+    },
+    "child_ous": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to child OrganizationalUnits. Inverse of parent_ou — both are maintained for query convenience."
+    },
+
+    "owned_capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to Business Capabilities in technehub-labs/dea-catalog-business-capabilities that this OrganizationalUnit owns (is accountable for delivering)."
+    },
+    "owned_processes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to Processes in technehub-labs/dea-catalog-processes that this OrganizationalUnit runs (is accountable for executing)."
+    },
+    "owned_objects": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to Business Objects in technehub-labs/dea-catalog-business-objects for which this OrganizationalUnit is custodian (the data/system-of-record owner)."
+    },
+
+    "actors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to entries in technehub-labs/dea-catalog-actors that belong to this OrganizationalUnit. May overlap with parent_ou's actors — membership is the canonical source of truth."
+    },
+    "stakeholders": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to entries in technehub-labs/dea-catalog-stakeholders that this OrganizationalUnit primarily serves."
+    },
+
+    "cost_center": {
+      "type": "string",
+      "maxLength": 100,
+      "description": "Finance cost-center code, where applicable."
+    },
+    "head_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Planned headcount. Snapshot — actual is derived from actors[]."
+    },
+
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

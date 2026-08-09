@@ -71,6 +71,12 @@ dea:BusinessObject a owl:Class ;
     skos:definition "A real-world entity of interest to the business. The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state." ;
     dea:specification <schemas/entities/business-object.json> .
 
+dea:OrganizationalUnit a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "OrganizationalUnit" ;
+    skos:definition "A unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects." ;
+    dea:specification <schemas/entities/organizational-unit.json> .
+
 dea:BusinessService a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BusinessService" ;

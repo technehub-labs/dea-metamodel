@@ -94,22 +94,17 @@ def main():
     print("skinparam ranksep 60")
     print("skinparam defaultFontName Arial")
     print("skinparam class {")
-    print("    BackgroundColor White")
-    print("    BorderColor #2C3E50")
-    print("    ArrowColor #2C3E50")
-    print("}")
-    # Dark-theme cluster fills matching the previous (manually-uploaded)
-    # SVG. PlantUML 1.2026.x used dark defaults; 1.2024.x uses light
-    # defaults — explicit overrides restore the visual continuity.
-    print("skinparam package {")
-    print("    BackgroundColor #0d2620")
-    print("    FontColor #e6edf3")
-    print("    BorderColor #e6edf3")
-    print("}")
-    print("skinparam rectangle {")
     print("    BackgroundColor #0d1117")
-    print("    FontColor #e6edf3")
-    print("    BorderColor #2dd4bf")
+    print("    FontColor       #e6edf3")
+    print("    BorderColor     #2dd4bf")
+    print("    ArrowColor      #2dd4bf")
+    print("}")
+    # Relationship arrows + labels (matches the previous
+    # manually-uploaded SVG's italic labels and teal arrows).
+    print("skinparam arrow {")
+    print("    Color     #2dd4bf")
+    print("    FontColor #8b949e")
+    print("    FontStyle italic")
     print("}")
     print()
     print("' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---")
@@ -118,11 +113,22 @@ def main():
 
     # ─── Layer packages with entities ───
     valid_aliases = {e["class_alias"] for e in entities}
+    dark_palette = {
+        "L1": "#0d2620",
+        "L2": "#2e2010",
+        "L3": "#0f1d2e",
+        "L4": "#1f1735",
+        "L5": "#2e1212",
+    }
     for layer_key in ("L1", "L2", "L3", "L4", "L5"):
         if layer_key not in by_layer:
             continue
         num, label, color = LAYER_DEFS[layer_key]
-        print(f'package "{label}" {color} {{')
+        # Per-package inline dark fill (3rd arg). PlantUML 1.2024.x's
+        # packageBackgroundColor skinparam is unreliable; inline
+        # color works deterministically across PlantUML versions.
+        dark = dark_palette[layer_key]
+        print(f'package "{label}" {dark} {{')
         for e in by_layer[layer_key]:
             alias = e["class_alias"]
             display = e["display_name"]

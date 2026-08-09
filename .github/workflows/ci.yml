@@ -32,6 +32,11 @@ jobs:
       - name: Parse all Turtle files
         run: python3 .github/scripts/validate_ttl.py
 
+      - name: Cross-repo validator (entity-graph <-> schemas/entities <-> ttl)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 .github/scripts/validate_cross_repo.py
+
       - name: Apply SQLite schema (dry-run)
         run: |
           sqlite3 :memory: < sqlite/schema.sql

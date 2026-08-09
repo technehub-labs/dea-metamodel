@@ -103,6 +103,29 @@ CREATE TABLE processes (
     outcome             TEXT
 );
 
+-- Business Objects (v1.0.0-alpha)
+-- Atom of the ECF matrix. The (ecf_domain, ecf_stage) tuple places the object
+-- in a specific matrix cell. object_class / object_subclass are free-form
+-- (e.g. customer / retail-customer). current_state is a domain-specific
+-- business label distinct from the universal ecf_stage coordinate. State
+-- history + identity are stored as JSON for flexibility.
+CREATE TABLE business_objects (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    object_class        TEXT NOT NULL,
+    object_subclass     TEXT,
+    ecf_domain          TEXT NOT NULL CHECK(ecf_domain IN (
+                            'governance-existence','supply-resources','people-organization',
+                            'customer-demand','product-offering','operations-delivery','finance-value')),
+    ecf_stage           TEXT NOT NULL CHECK(ecf_stage IN (
+                            'conceive','design','build','activate','operate','improve','retire')),
+    current_state       TEXT,
+    state_history_json  TEXT,    -- JSON array of BusinessObjectStateTransition
+    identity_json       TEXT,    -- JSON BusinessObjectIdentity { primary_id, external_ids }
+    owner               TEXT
+);
+CREATE INDEX ix_business_objects_ecf ON business_objects(ecf_domain, ecf_stage);
+CREATE INDEX ix_business_objects_class ON business_objects(object_class);
+
 -- Business Services
 CREATE TABLE business_services (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,

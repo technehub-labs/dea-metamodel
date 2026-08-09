@@ -169,6 +169,58 @@ export interface Process extends BaseEntity {
   kpis?: string[];
 }
 
+// v1.0.0-alpha: Business Object (BO) — atom of the ECF matrix.
+// Mirrors schemas/entities/business-object.json. Catalog:
+// technehub-labs/dea-catalog-business-objects.
+export type EcfDomain =
+  | 'governance-existence'
+  | 'supply-resources'
+  | 'people-organization'
+  | 'customer-demand'
+  | 'product-offering'
+  | 'operations-delivery'
+  | 'finance-value';
+
+export type EcfStage =
+  | 'conceive'
+  | 'design'
+  | 'build'
+  | 'activate'
+  | 'operate'
+  | 'improve'
+  | 'retire';
+
+export interface BusinessObjectStateTransition {
+  state: string;
+  ecf_stage?: EcfStage;
+  entered: string;
+  exited?: string;
+  note?: string;
+}
+
+export interface BusinessObjectIdentity {
+  primary_id?: string;
+  external_ids?: Record<string, string>;
+}
+
+export interface BusinessObject extends BaseEntity {
+  type: 'BusinessObject';
+  object_class: string;
+  object_subclass?: string;
+  ecf_domain: EcfDomain;
+  ecf_stage: EcfStage;
+  current_state?: string;
+  state_history?: BusinessObjectStateTransition[];
+  identity?: BusinessObjectIdentity;
+  owner?: string;
+  stakeholders?: string[];
+  capabilities_consumed?: string[];
+  processes_involved?: string[];
+  events?: string[];
+  data_entities?: string[];
+  components_realizing?: string[];
+}
+
 export type ServiceType = 'internal' | 'external' | 'partner' | 'public';
 
 export interface BusinessService extends BaseEntity {

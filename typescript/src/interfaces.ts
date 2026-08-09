@@ -139,9 +139,25 @@ export interface Capability extends BaseEntity {
 
 export type ProcessType = 'business' | 'operational' | 'support' | 'management';
 
+export type ProcessIntent = 'operational' | 'support' | 'management';
+
+export type ProcessAudience =
+  | 'governance-existence'
+  | 'supply-resources'
+  | 'people-organization'
+  | 'customer-demand'
+  | 'product-offering'
+  | 'operations-delivery'
+  | 'finance-value';
+
 export interface Process extends BaseEntity {
   type: 'Process';
-  process_type: ProcessType;
+  // v3.0.0-alpha: replaced process_type (4-value legacy enum) with two
+  // orthogonal axes. See docs/process-type-taxonomy.md for rationale.
+  process_intent: ProcessIntent;
+  process_audience: ProcessAudience;
+  stakeholders?: string[];
+  actors?: string[];
   owner?: string;
   trigger?: string;
   outcome?: string;

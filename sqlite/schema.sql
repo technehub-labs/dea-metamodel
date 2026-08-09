@@ -89,12 +89,18 @@ CREATE TABLE capabilities (
 );
 
 -- Processes
+-- v3.0.0-alpha: replaced process_type (4-value legacy enum) with two
+-- orthogonal axes (process_intent, process_audience) per
+-- docs/process-type-taxonomy.md. Mirrors schemas/entities/process.json.
 CREATE TABLE processes (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    process_type    TEXT CHECK(process_type IN ('business','operational','support','management')),
-    owner           TEXT,
-    trigger         TEXT,
-    outcome         TEXT
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    process_intent      TEXT NOT NULL CHECK(process_intent IN ('operational','support','management')),
+    process_audience    TEXT NOT NULL CHECK(process_audience IN (
+                            'governance-existence','supply-resources','people-organization',
+                            'customer-demand','product-offering','operations-delivery','finance-value')),
+    owner               TEXT,
+    trigger             TEXT,
+    outcome             TEXT
 );
 
 -- Business Services

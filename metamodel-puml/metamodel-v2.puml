@@ -9,6 +9,16 @@ skinparam class {
     BorderColor #2C3E50
     ArrowColor #2C3E50
 }
+skinparam package {
+    BackgroundColor #0d2620
+    FontColor #e6edf3
+    BorderColor #e6edf3
+}
+skinparam rectangle {
+    BackgroundColor #0d1117
+    FontColor #e6edf3
+    BorderColor #2dd4bf
+}
 
 ' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py

@@ -95,6 +95,13 @@ entities:
     ts_interface: src/interfaces.ts
     catalog_repo: dea-catalog-business-objects
 
+  - name: OrganizationalUnit
+    description: Unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects. Classified by (ou_type, ou_scope, ou_lifecycle) structural axes plus optional (ecf_domain, ecf_stage) primary coordinates.
+    schema: schemas/entities/organizational-unit.json
+    sqlite_table: organizational_units
+    ts_interface: src/interfaces.ts
+    catalog_repo: dea-catalog-organizational-units
+
   - name: BusinessService
     description: Service exposed to the business or to external consumers.
     schema: schemas/entities/business-service.json

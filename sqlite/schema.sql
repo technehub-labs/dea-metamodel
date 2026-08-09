@@ -126,6 +126,35 @@ CREATE TABLE business_objects (
 CREATE INDEX ix_business_objects_ecf ON business_objects(ecf_domain, ecf_stage);
 CREATE INDEX ix_business_objects_class ON business_objects(object_class);
 
+-- Organizational Units (v1.0.0-alpha)
+-- Owner of capabilities, runner of processes, custodian of business objects.
+-- (ou_type, ou_scope, ou_lifecycle) classify the structural / temporal shape;
+-- ecf_domain + ecf_stage are the optional primary coordinates when the unit
+-- primarily serves one cell of the ECF matrix. Hierarchical structure via
+-- parent_ou / child_ous forms a forest under the enterprise root.
+CREATE TABLE organizational_units (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    ou_type             TEXT NOT NULL CHECK(ou_type IN (
+                            'business-unit','division','department','team',
+                            'role-cluster','virtual-team','governance-body',
+                            'external-partner-role')),
+    ou_scope            TEXT NOT NULL CHECK(ou_scope IN (
+                            'individual','team','departmental','division',
+                            'enterprise','ecosystem')),
+    ou_lifecycle        TEXT NOT NULL CHECK(ou_lifecycle IN (
+                            'permanent','temporary','ad-hoc','sunsetting')),
+    ecf_domain          TEXT CHECK(ecf_domain IN (
+                            'governance-existence','supply-resources','people-organization',
+                            'customer-demand','product-offering','operations-delivery','finance-value')),
+    ecf_stage           TEXT CHECK(ecf_stage IN (
+                            'conceive','design','build','activate','operate','improve','retire')),
+    parent_ou           TEXT,    -- self-reference; forest under enterprise root
+    cost_center         TEXT,
+    head_count          INTEGER
+);
+CREATE INDEX ix_organizational_units_type ON organizational_units(ou_type);
+CREATE INDEX ix_organizational_units_parent ON organizational_units(parent_ou);
+
 -- Business Services
 CREATE TABLE business_services (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,

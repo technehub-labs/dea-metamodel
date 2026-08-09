@@ -9,24 +9,17 @@ Reads:
 Extracts entity display_names from the SVG and compares against the
 canonical entity-graph. Exits 0 on match, 1 on drift.
 
-Why this matters:
-  The SVG used to be hand-maintained and drifted from the entity-graph
-  for over a month (committed July 27; entity-graph evolved Aug 8-9).
-  After PR-2 wires SVG-in-repo automation, this validator ensures CI
-  catches any future drift where the generator and the graph diverge.
+PlantUML SVG structure:
+  - Each entity is wrapped in `<g id="elem_ALIAS">...</g>` (PUML 1.2024.x)
+  - or `<g id="entNNN">...</g>` (PUML 1.2026.x)
+  - Layer packages are wrapped in `<g id="cluster_Layer N: ...">`
+  - The display name is the first <text> inside each entity block
 
-Extraction strategy:
-  PlantUML emits one <g class="entity ..."> block per entity. Inside
-  each block, the longest <text>...</text> is empirically the display
-  name (e.g. "Strategic Objective"). Attribute labels like
-  "id : string" or "ecfCoordinates : (Domain, Stage)" are also rendered
-  as <text> but are either:
-    (a) shorter than the display name, or
-    (b) contain " : " — a clear attribute pattern.
-  We filter out anything matching the attribute pattern to be defensive.
-
-  We also exclude any text starting with "(scaffold)" or "(existing)"
-  status markers that may render as text in some PlantUML versions.
+Extraction strategy: use regex to find entity block START positions
+in the document, then iterate through the document capturing text
+content between consecutive entity blocks. The text immediately
+before each block (or the part of the opening tag after id=) identifies
+which entity we're processing.
 """
 import sys
 import json
@@ -38,63 +31,69 @@ SVG = BASE / "viewer" / "metamodel.svg"
 GRAPH = BASE / "viewer" / "entity-graph.json"
 
 
-# Text that looks like an attribute: "<name> : <type>"
 ATTRIBUTE_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*\s*:\s*")
-
-# Status markers and other noise to skip
 NOISE_PATTERNS = [
     re.compile(r"^\(scaffold\)$"),
     re.compile(r"^\(existing\)$"),
     re.compile(r"^\(planned\)$"),
 ]
 
+# Pattern that matches an entity block START.
+ENTITY_START = re.compile(r'<g\s+id="(?:elem_|ent)([^"]*)"')
+
+# Pattern that matches a layer cluster START.
+LAYER_START = re.compile(r'<g\s+id="cluster_')
+
 
 def is_attribute_label(text: str) -> bool:
-    """True if text looks like an attribute ('name : type')."""
     return bool(ATTRIBUTE_PATTERN.match(text.strip()))
 
 
 def is_noise(text: str) -> bool:
-    """True if text is a known noise pattern (status markers, etc.)."""
     t = text.strip()
-    return any(p.match(t) for p in NOISE_PATTERNS)
+    if any(p.match(t) for p in NOISE_PATTERNS):
+        return True
+    # Layer labels: "Layer 1: Strategic & Investment"
+    if t.startswith("Layer ") and ("&amp;" in t or ":" in t):
+        return True
+    return False
 
 
 def extract_svg_entity_names():
-    """Parse SVG and extract entity display names."""
+    """Parse SVG and extract entity display names.
+
+    Strategy: walk the document finding entity block start markers.
+    For each, capture text content up to the next entity block start.
+    """
     if not SVG.exists():
         return []
 
     content = SVG.read_text()
 
-    # Split on entity block boundaries. Each entity <g> is uniquely
-    # identified by `class="entity"` (not "cluster" or "link").
-    blocks = re.split(r'(?=<g\s+class="entity")', content)
+    # Find positions of all entity block starts
+    starts = [(m.start(), m.group(1)) for m in ENTITY_START.finditer(content)]
+    # Find positions of all layer cluster starts (to filter out layer labels)
+    cluster_starts = {m.start() for m in LAYER_START.finditer(content)}
 
     names = []
-    for block in blocks:
-        if 'class="entity"' not in block[:200]:
-            continue
-        # Find all <text>...</text> in this block, in document order
+    for i, (start_pos, alias) in enumerate(starts):
+        # Block runs from start_pos to the next entity start (or end of doc)
+        end_pos = starts[i+1][0] if i + 1 < len(starts) else len(content)
+        block = content[start_pos:end_pos]
+        # Extract texts
         texts = re.findall(r'<text[^>]*>([^<]+)</text>', block)
-        if not texts:
-            continue
-        # Skip attribute labels and noise; pick the longest remaining
+        # Filter
         candidates = [
             t.strip() for t in texts
             if t.strip() and not is_attribute_label(t) and not is_noise(t)
         ]
-        if not candidates:
-            continue
-        # Take the longest — empirically the display name
-        longest = max(candidates, key=len)
-        if longest:
+        if candidates:
+            longest = max(candidates, key=len)
             names.append(longest)
     return names
 
 
 def load_graph_display_names():
-    """Load canonical entity display names from entity-graph.json."""
     if not GRAPH.exists():
         return []
     with open(GRAPH) as f:
@@ -103,7 +102,6 @@ def load_graph_display_names():
 
 
 def normalize(s):
-    """Normalize for comparison: collapse whitespace, lowercase."""
     return re.sub(r"\s+", " ", s.strip().lower())
 
 

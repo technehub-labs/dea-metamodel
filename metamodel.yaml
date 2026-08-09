@@ -187,10 +187,10 @@ entities:
     pydantic_model: pydantic/viewpoint.py
 
 relationships:
-  - name: maps-to
+  - name: mapsTo
     description: General-purpose cross-catalog mapping between any two entities.
-    schema: schemas/relationships/maps-to.json
-    ttl: ttl/relationships/maps-to.ttl
+    schema: schemas/relationships/mapsTo.json
+    ttl: ttl/relationships/mapsTo.ttl
     sqlite_table: rel_maps_to
 
   - name: realizes
@@ -205,10 +205,10 @@ relationships:
     ttl: ttl/relationships/implements.ttl
     sqlite_table: rel_implements
 
-  - name: influenced-by
+  - name: influencedBy
     description: An entity is governed or shaped by a Principle.
-    schema: schemas/relationships/influenced-by.json
-    ttl: ttl/relationships/influenced-by.ttl
+    schema: schemas/relationships/influencedBy.json
+    ttl: ttl/relationships/influencedBy.ttl
     sqlite_table: rel_influenced_by
 
   - name: decomposes
@@ -230,19 +230,19 @@ relationships:
     sqlite_table: rel_consumes
 
   - name: provides
-    description: A SolutionComponent exposes a BusinessService.
+    description: A SolutionComponent or Actor provides a BusinessService or Capability.
     schema: schemas/relationships/provides.json
     ttl: ttl/relationships/provides.ttl
     sqlite_table: rel_provides
 
   - name: governs
-    description: A Standard governs entity behavior.
+    description: A Principle or Standard governs an entity.
     schema: schemas/relationships/governs.json
     ttl: ttl/relationships/governs.ttl
     sqlite_table: rel_governs
 
-  - name: measured-by
-    description: An entity is tracked or assessed via a Metric.
-    schema: schemas/relationships/measured-by.json
-    ttl: ttl/relationships/measured-by.ttl
+  - name: measuredBy
+    description: A Metric measures an entity's performance, health, or maturity.
+    schema: schemas/relationships/measuredBy.json
+    ttl: ttl/relationships/measuredBy.ttl
     sqlite_table: rel_measured_by

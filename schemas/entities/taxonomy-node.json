@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/taxonomy-node.json",
+  "title": "TaxonomyNode",
+  "description": "A node in a controlled vocabulary taxonomy. Used to model hierarchical classifications (e.g. industry sectors, capability trees, technology stacks) where each node has a parent and zero or more children. Catalog: technehub-labs/dea-catalog-taxonomy.",
+  "type": "object",
+  "required": ["id", "name", "type", "version", "taxonomy"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$" },
+    "type": { "type": "string", "const": "TaxonomyNode" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "description": { "type": "string", "maxLength": 2000 },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "taxonomy": {
+      "type": "string",
+      "description": "Name of the taxonomy this node belongs to (e.g. 'industry-sectors', 'technology-stacks', 'business-functions')."
+    },
+    "parent_node": { "type": "string", "description": "URN of the parent node in the same taxonomy." },
+    "child_nodes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "URNs of child nodes in the same taxonomy."
+    },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

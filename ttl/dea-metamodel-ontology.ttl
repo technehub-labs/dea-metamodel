@@ -91,15 +91,18 @@ dea:SolutionComponent a owl:Class ;
 
 dea:ApplicationComponent a owl:Class ;
     rdfs:subClassOf dea:SolutionComponent ;
-    rdfs:label "ApplicationComponent" .
+    rdfs:label "ApplicationComponent" ;
+    dea:specification <schemas/entities/application-component.json> .
 
 dea:InfrastructureComponent a owl:Class ;
     rdfs:subClassOf dea:SolutionComponent ;
-    rdfs:label "InfrastructureComponent" .
+    rdfs:label "InfrastructureComponent" ;
+    dea:specification <schemas/entities/infrastructure-component.json> .
 
 dea:IntegrationComponent a owl:Class ;
     rdfs:subClassOf dea:SolutionComponent ;
-    rdfs:label "IntegrationComponent" .
+    rdfs:label "IntegrationComponent" ;
+    dea:specification <schemas/entities/integration-component.json> .
 
 dea:Technology a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -120,7 +123,8 @@ dea:GlossaryTerm a owl:Class ;
 
 dea:TaxonomyNode a owl:Class ;
     rdfs:subClassOf dea:Entity ;
-    rdfs:label "TaxonomyNode" .
+    rdfs:label "TaxonomyNode" ;
+    dea:specification <schemas/entities/taxonomy-node.json> .
 
 dea:Viewpoint a owl:Class ;
     rdfs:subClassOf dea:Entity ;

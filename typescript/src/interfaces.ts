@@ -3,17 +3,20 @@
 // Do not edit manually — regenerate with: npm run generate
 
 export type EntityStatus = 'draft' | 'candidate' | 'approved' | 'deprecated';
+// v1.0.0-alpha: Relationship type vocabulary. CamelCase to match
+// ttl/dea-metamodel-ontology.ttl ObjectProperty declarations and
+// metamodel.yaml relationships[].
 export type RelationshipType =
-  | 'maps-to'
+  | 'mapsTo'
   | 'realizes'
   | 'implements'
-  | 'influenced-by'
+  | 'influencedBy'
   | 'decomposes'
   | 'orchestrates'
   | 'consumes'
   | 'provides'
   | 'governs'
-  | 'measured-by';
+  | 'measuredBy';
 
 export interface EntityMetadata {
   created_at?: string;
@@ -305,6 +308,70 @@ export interface SolutionComponent extends BaseEntity {
   security_classification?: SecurityClassification;
 }
 
+// v1.0.0-alpha: SolutionComponent subClasses (discriminated union by
+// component_type). Each subClass narrows component_type to one of the
+// three SolutionComponent.component_type enum values.
+// Mirrors schemas/entities/{application,infrastructure,integration}-component.json.
+// Catalog: technehub-labs/dea-catalog-application-components.
+export type ApplicationDeploymentUnit =
+  | 'service' | 'batch-job' | 'scheduled-task'
+  | 'event-handler' | 'lambda' | 'daemon';
+
+export interface ApplicationComponent extends BaseEntity {
+  type: 'ApplicationComponent';
+  component_type: 'application';
+  deployment_unit: ApplicationDeploymentUnit;
+  runtime?: string;
+}
+
+export type InfrastructureType =
+  | 'compute' | 'network' | 'storage' | 'security'
+  | 'container' | 'serverless' | 'database-host';
+
+export interface InfrastructureComponent extends BaseEntity {
+  type: 'InfrastructureComponent';
+  component_type: 'infrastructure';
+  infrastructure_type: InfrastructureType;
+  iac_tool?: string;
+}
+
+export type IntegrationPattern =
+  | 'api-gateway' | 'message-queue' | 'file-transfer'
+  | 'event-stream' | 'etl' | 'rpc' | 'graphql-federation';
+export type IntegrationDirection = 'inbound' | 'outbound' | 'bidirectional';
+
+export interface IntegrationComponent extends BaseEntity {
+  type: 'IntegrationComponent';
+  component_type: 'integration';
+  integration_pattern: IntegrationPattern;
+  direction: IntegrationDirection;
+}
+
+// v1.0.0-alpha: Technology. Mirrors schemas/entities/technology.json.
+// Catalog: technehub-labs/dea-catalog-patterns.
+export type TechnologyCategory =
+  | 'language' | 'framework' | 'runtime' | 'database' | 'library'
+  | 'build-tool' | 'ci-cd' | 'monitoring' | 'orchestration' | 'platform';
+export type TechnologyLifecycleStatus =
+  | 'approved' | 'deprecated' | 'banned' | 'experimental';
+
+export interface Technology extends BaseEntity {
+  type: 'Technology';
+  technology_category: TechnologyCategory;
+  vendor?: string;
+  version_requirement?: string;
+  lifecycle_status?: TechnologyLifecycleStatus;
+}
+
+// v1.0.0-alpha: TaxonomyNode. Mirrors schemas/entities/taxonomy-node.json.
+// Catalog: technehub-labs/dea-catalog-taxonomy.
+export interface TaxonomyNode extends BaseEntity {
+  type: 'TaxonomyNode';
+  taxonomy: string;
+  parent_node?: string;
+  child_nodes?: string[];
+}
+
 export type MetricType = 'kpi' | 'health' | 'maturity' | 'performance' | 'adoption' | 'compliance' | 'risk';
 export type MetricFrequency = 'realtime' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'quarterly';
 
@@ -387,14 +454,14 @@ export const ENTITY_TYPES = [
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [
-  'maps-to',
+  'mapsTo',
   'realizes',
   'implements',
-  'influenced-by',
+  'influencedBy',
   'decomposes',
   'orchestrates',
   'consumes',
   'provides',
   'governs',
-  'measured-by',
+  'measuredBy',
 ];

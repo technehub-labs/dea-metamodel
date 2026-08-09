@@ -1,4 +1,5 @@
 @startuml
+!theme plain
 skinparam linetype ortho
 skinparam nodesep 60
 skinparam ranksep 60
@@ -167,9 +168,38 @@ package "Layer 5: Measurement & Governance" #FADBD8 {
     }
 }
 
-' --- RELATIONSHIPS ---
-' (The interactive viewer at https://technehub-labs.github.io/metamodel/
-'  renders typed relationships from the relationship-instance graph.
-'  The static SVG snapshot is an entity catalog view only.)
+' --- RELATIONSHIPS (curated set; sync with viewer.js RELATIONSHIPS) ---
+SO -- II : "drives"
+II -- CAP : "funds"
+VS -- CAP : "traverses"
+VS -- JT : "experienced via"
+CAP -- BP : "implemented by"
+CAP -- OU : "owned by"
+CAP -- BO : "produces / consumes"
+SH .. BP : "served by"
+AC -- BP : "performs"
+JT -- DI : "authenticates"
+DI -- DE : "represented by"
+BP -- SF : "automated by"
+BO -- DE : "digitized as"
+OU .. BO : "custodian of"
+BS -- BO : "exposes"
+DE .. IC : "classified by"
+DE .. DP : "curated into"
+SF -- EVT : "publishes / subscribes"
+EVT .. DE : "carries payload of"
+DP -- API : "exposed via"
+AIM -- DP : "trained on"
+AIM -- SF : "enhances / automates"
+SF -- APC : "hosted by"
+APC .. PS : "deployed on"
+SF -- API : "exposed via"
+API .. DE : "serves / exchanges"
+TEC -- APC : "implements"
+SO .. MTR : "measured by"
+CAP .. MTR : "evaluated by"
+SF .. MTR : "evaluated by"
+
+' Generated 30 relationship edges
 
 @enduml

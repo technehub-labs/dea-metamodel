@@ -2,11 +2,13 @@
 
 This script regenerates the canonical PlantUML source for the metamodel
 viewer diagram. Output is deterministic (entities grouped by layer, then
-sorted alphabetically within layer).
+sorted alphabetically within layer), with skinparam styling for the
+dark theme and a curated set of typed relationship edges.
 
 Run: python3 .github/scripts/generate_puml.py > metamodel-puml/metamodel-v2.puml
 """
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -23,19 +25,51 @@ LAYER_DEFS = {
 }
 
 
-def camel_to_title(camel: str) -> str:
-    """Convert CamelCase to space-separated Title Case.
-
-    'AI/MLModel' -> 'AI/ML Model'
-    'BusinessObject' -> 'Business Object'
-    'JourneyTouchpoint' -> 'Journey Touchpoint'
-    """
-    import re
-    # Insert space before uppercase letters preceded by lowercase or digit
-    s = re.sub(r'(?<=[a-z0-9])(?=[A-Z])', ' ', camel)
-    # Insert space between consecutive uppercase + lowercase (e.g. AI/ML)
-    s = re.sub(r'(?<=[A-Z])(?=[A-Z][a-z])', ' ', s)
-    return s
+# Curated relationship set — matches the OLD viewer.js RELATIONSHIPS array
+# and viewer.html legend. Each entry is (from_alias, to_alias, label, style)
+# where style is 'solid' or 'dashed'. Aliases must match class_alias in
+# entity-graph.json. Adding a relationship here requires updating
+# technehub-labs.github.io/metamodel/viewer.js's RELATIONSHIPS array too
+# (the static SVG relationship lines are decorative — the JS overlay
+# draws the same edges on top of the entity cards for hover/select
+# interactivity).
+RELATIONSHIPS = [
+    # Layer 1 & 2
+    ("SO",   "II",  "drives",                   "solid"),
+    ("II",   "CAP", "funds",                    "solid"),
+    ("VS",   "CAP", "traverses",                "solid"),
+    ("VS",   "JT",  "experienced via",          "solid"),
+    ("CAP",  "BP",  "implemented by",           "solid"),
+    ("CAP",  "OU",  "owned by",                 "solid"),
+    ("CAP",  "BO",  "produces / consumes",      "solid"),
+    ("SH",   "BP",  "served by",                "dashed"),
+    ("AC",   "BP",  "performs",                 "solid"),
+    # Layer 2 & 3 (Digital Integration)
+    ("JT",   "DI",  "authenticates",            "solid"),
+    ("DI",   "DE",  "represented by",           "solid"),
+    ("BP",   "SF",  "automated by",             "solid"),
+    ("BO",   "DE",  "digitized as",             "solid"),
+    ("OU",   "BO",  "custodian of",             "dashed"),
+    ("BS",   "BO",  "exposes",                  "solid"),
+    # Layer 3 Internal (Intelligence & Data)
+    ("DE",   "IC",  "classified by",            "dashed"),
+    ("DE",   "DP",  "curated into",             "dashed"),
+    ("SF",   "EVT", "publishes / subscribes",   "solid"),
+    ("EVT",  "DE",  "carries payload of",       "dashed"),
+    ("DP",   "API", "exposed via",              "solid"),
+    ("AIM",  "DP",  "trained on",               "solid"),
+    ("AIM",  "SF",  "enhances / automates",     "solid"),
+    # Layer 4 (Technology Execution)
+    ("SF",   "APC", "hosted by",                "solid"),
+    ("APC",  "PS",  "deployed on",              "dashed"),
+    ("SF",   "API", "exposed via",              "solid"),
+    ("API",  "DE",  "serves / exchanges",       "dashed"),
+    ("TEC",  "APC", "implements",               "solid"),
+    # Measurement (Cross-cutting)
+    ("SO",   "MTR", "measured by",              "dashed"),
+    ("CAP",  "MTR", "evaluated by",             "dashed"),
+    ("SF",   "MTR", "evaluated by",             "dashed"),
+]
 
 
 def main():
@@ -52,7 +86,9 @@ def main():
     for layer in by_layer:
         by_layer[layer].sort(key=lambda e: e["class_alias"])
 
+    # ─── Header ───
     print("@startuml")
+    print("!theme plain")
     print("skinparam linetype ortho")
     print("skinparam nodesep 60")
     print("skinparam ranksep 60")
@@ -67,6 +103,8 @@ def main():
     print("' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py")
     print()
 
+    # ─── Layer packages with entities ───
+    valid_aliases = {e["class_alias"] for e in entities}
     for layer_key in ("L1", "L2", "L3", "L4", "L5"):
         if layer_key not in by_layer:
             continue
@@ -77,25 +115,31 @@ def main():
             display = e["display_name"]
             status = e.get("status", "")
             if status == "scaffold":
-                print(f"    ' (scaffold)")
+                print("    ' (scaffold)")
             elif status == "existing":
-                print(f"    ' (existing)")
+                print("    ' (existing)")
             print(f'    entity "{display}" as {alias} {{')
             print("        + id : string")
-            # Show first 2 attributes from schema if known
-            print(f'        + name : string')
+            print("        + name : string")
             print("    }")
         print("}")
         print()
 
-    # Relationship section (placeholder — manual relationships in real diagrams)
-    # For now, we don't have a relationship vocabulary in entity-graph.json;
-    # relationships are documented in metamodel.yaml + ttl. The PUML viewer
-    # currently shows no relationships (it's an entity catalog view).
-    print("' --- RELATIONSHIPS ---")
-    print("' (The interactive viewer at https://technehub-labs.github.io/metamodel/")
-    print("'  renders typed relationships from the relationship-instance graph.")
-    print("'  The static SVG snapshot is an entity catalog view only.)")
+    # ─── Typed relationships ───
+    print("' --- RELATIONSHIPS (curated set; sync with viewer.js RELATIONSHIPS) ---")
+    valid_count = 0
+    for from_alias, to_alias, label, style in RELATIONSHIPS:
+        if from_alias not in valid_aliases:
+            print(f"' WARNING: RELATIONSHIPS contains unknown alias '{from_alias}' — skipping")
+            continue
+        if to_alias not in valid_aliases:
+            print(f"' WARNING: RELATIONSHIPS contains unknown alias '{to_alias}' — skipping")
+            continue
+        edge = ".." if style == "dashed" else "--"
+        print(f'{from_alias} {edge} {to_alias} : "{label}"')
+        valid_count += 1
+    print()
+    print(f"' Generated {valid_count} relationship edges")
     print()
     print("@enduml")
 

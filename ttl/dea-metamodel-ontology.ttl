@@ -65,6 +65,12 @@ dea:Process a owl:Class ;
     skos:definition "A business or operational process that delivers value." ;
     dea:specification <schemas/entities/process.json> .
 
+dea:BusinessObject a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BusinessObject" ;
+    skos:definition "A real-world entity of interest to the business. The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state." ;
+    dea:specification <schemas/entities/business-object.json> .
+
 dea:BusinessService a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BusinessService" ;

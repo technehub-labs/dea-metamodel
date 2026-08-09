@@ -88,6 +88,13 @@ entities:
     catalog_repo: dea-catalog-processes
     docs: docs/process-type-taxonomy.md
 
+  - name: BusinessObject
+    description: Real-world entity of interest to the business. The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state. Classified by (ecf_domain, ecf_stage) coordinates plus a free-form object_class label.
+    schema: schemas/entities/business-object.json
+    sqlite_table: business_objects
+    ts_interface: src/interfaces.ts
+    catalog_repo: dea-catalog-business-objects
+
   - name: BusinessService
     description: Service exposed to the business or to external consumers.
     schema: schemas/entities/business-service.json

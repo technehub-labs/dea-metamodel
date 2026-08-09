@@ -2,10 +2,20 @@ name: Render Metamodel
 
 on:
   pull_request:
-    paths: ['metamodel-puml/**', 'viewer/**', '.github/workflows/render-metamodel.yml', '.github/scripts/generate_puml.py']
+    paths:
+      - 'metamodel-puml/**'
+      - 'viewer/**'
+      - '.github/workflows/render-metamodel.yml'
+      - '.github/scripts/generate_puml.py'
+      - '.github/scripts/validate_svg_graph.py'
   push:
     branches: [main]
-    paths: ['metamodel-puml/**', 'viewer/**']
+    paths:
+      - 'metamodel-puml/**'
+      - 'viewer/**'
+      - '.github/workflows/render-metamodel.yml'
+      - '.github/scripts/generate_puml.py'
+      - '.github/scripts/validate_svg_graph.py'
 
 permissions:
   contents: write
@@ -47,8 +57,23 @@ jobs:
       - name: Install PlantUML + Graphviz
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y plantuml graphviz
-          plantuml -version
+          sudo apt-get install -y graphviz
+          # Ubuntu 24.04 apt ships PlantUML 1.2020.02, which emits an older
+          # SVG format without class="entity" markers on entity <g>
+          # blocks. Download a recent PlantUML JAR directly to ensure the
+          # SVG output matches the structure the validator expects.
+          sudo apt-get install -y plantuml  # keep for dot/graphviz deps
+          curl -sSL -o /tmp/plantuml.jar \
+            "https://github.com/plantuml/plantuml/releases/download/v1.2024.7/plantuml-1.2024.7.jar"
+          ls -la /tmp/plantuml.jar
+          # Use a wrapper so 'plantuml' command uses the newer JAR
+          sudo mv /usr/bin/plantuml /usr/bin/plantuml.distrib
+          sudo tee /usr/bin/plantuml > /dev/null << 'WRAPPER'
+          #!/bin/sh
+          exec java -jar /tmp/plantuml.jar "$@"
+          WRAPPER
+          sudo chmod +x /usr/bin/plantuml
+          plantuml -version || java -jar /tmp/plantuml.jar -version
           dot -V
 
       - name: Generate canonical PUML from entity-graph

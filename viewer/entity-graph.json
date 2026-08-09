@@ -1,7 +1,7 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "v2.0.0-alpha",
-  "description": "Entity-to-repo mapping for the interactive metamodel viewer. Each class in metamodel-v2.puml has a canonical repo that hosts its catalog.",
+  "description": "Entity-to-repo mapping for the interactive metamodel viewer. Each class has a canonical kebab-singular entity_id (dea:entity-<kebab-id>) matching its schemas/entities/<kebab-id>.json filename. Aliases (class_alias) are 2-3 letter abbreviations for the PUML viewer cells.",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
   "entities": [
@@ -30,6 +30,102 @@
       "description": "A funded programme of work that realises one or more strategic objectives."
     },
     {
+      "entity_id": "dea:entity-principle",
+      "class_alias": "PR",
+      "display_name": "Principle",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-principles",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-principles",
+      "status": "planned",
+      "description": "An architectural guiding principle (e.g. API-first, data sovereignty) that informs all downstream decisions."
+    },
+    {
+      "entity_id": "dea:entity-architecture-pattern",
+      "class_alias": "AP",
+      "display_name": "Architecture Pattern",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-patterns",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-patterns",
+      "status": "planned",
+      "description": "A reusable architecture pattern (e.g. API Gateway, Event Sourcing, CQRS) that resolves a recurring design problem."
+    },
+    {
+      "entity_id": "dea:entity-standard",
+      "class_alias": "STD",
+      "display_name": "Standard",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-standards",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-standards",
+      "status": "planned",
+      "description": "A referenced industry standard or framework (TOGAF, Zachman, ISO, IEEE) the enterprise aligns to."
+    },
+    {
+      "entity_id": "dea:entity-stakeholder",
+      "class_alias": "SH",
+      "display_name": "Stakeholder",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-stakeholders",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-stakeholders",
+      "status": "scaffold",
+      "description": "An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes. Stakeholders are distinct from Actors (internal performers)."
+    },
+    {
+      "entity_id": "dea:entity-actor",
+      "class_alias": "AC",
+      "display_name": "Actor",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-actors",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-actors",
+      "status": "scaffold",
+      "description": "A performer of enterprise processes \u2014 human, team, system, or AI agent. Actors are internal performers; external or affected parties are Stakeholders."
+    },
+    {
+      "entity_id": "dea:entity-process",
+      "class_alias": "BP",
+      "display_name": "Business Process",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-processes",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-processes",
+      "status": "scaffold",
+      "description": "A structured set of activities that produces a defined outcome. Classified by intent (operational/support/management) and audience (ECF domain). An enterprise IS its processes; foundational (L1). v3.0.0-alpha."
+    },
+    {
+      "entity_id": "dea:entity-glossary-term",
+      "class_alias": "GT",
+      "display_name": "Glossary Term",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-catalog-glossary",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-glossary",
+      "status": "planned",
+      "description": "A canonical business or technical term with a controlled definition, used to disambiguate cross-domain communication."
+    },
+    {
+      "entity_id": "dea:entity-viewpoint",
+      "class_alias": "VP",
+      "display_name": "Viewpoint",
+      "layer": "L1",
+      "layer_name": "Strategic & Investment",
+      "color": "#E8F8F5",
+      "catalog_repo": "dea-web-viewer",
+      "repo_url": "https://github.com/technehub-labs/dea-web-viewer",
+      "status": "planned",
+      "description": "A tailored perspective on the metamodel for a specific stakeholder concern (e.g. capability map, application landscape, technology inventory). Renders a curated subset of entities + relationships."
+    },
+    {
       "entity_id": "dea:entity-value-stream",
       "class_alias": "VS",
       "display_name": "Value Stream",
@@ -39,11 +135,11 @@
       "catalog_repo": "dea-catalog-value-streams",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-value-streams",
       "status": "planned",
-      "description": "An end-to-end collection of value-creating activities."
+      "description": "An end-to-end collection of value-creating activities spanning multiple capabilities and processes."
     },
     {
-      "entity_id": "dea:entity-business-capability",
-      "class_alias": "BC",
+      "entity_id": "dea:entity-capability",
+      "class_alias": "CAP",
       "display_name": "Business Capability",
       "layer": "L2",
       "layer_name": "Business Operating Model",
@@ -51,19 +147,7 @@
       "catalog_repo": "dea-catalog-business-capabilities",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-business-capabilities",
       "status": "planned",
-      "description": "An ability the business possesses or requires to deliver value. Maps to ECF coordinates (Domain, Stage)."
-    },
-    {
-      "entity_id": "dea:entity-business-process",
-      "class_alias": "BP",
-      "display_name": "Business Process",
-      "layer": "L1",
-      "layer_name": "Strategic & Investment",
-      "color": "#E8F8F5",
-      "catalog_repo": "dea-catalog-processes",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-processes",
-      "status": "scaffold",
-      "description": "A structured set of activities that produces a defined outcome. Classified by intent (operational/support/management) and audience (ECF domain). v3.0.0-alpha."
+      "description": "An ability the business possesses or requires to deliver value. Maps to ECF coordinates (Domain, Stage). An enterprise IS its capabilities."
     },
     {
       "entity_id": "dea:entity-business-object",
@@ -75,19 +159,7 @@
       "catalog_repo": "dea-catalog-business-objects",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-business-objects",
       "status": "scaffold",
-      "description": "A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state. v1.0.0-alpha."
-    },
-    {
-      "entity_id": "dea:entity-journey-touchpoint",
-      "class_alias": "JT",
-      "display_name": "Journey Touchpoint",
-      "layer": "L2",
-      "layer_name": "Business Operating Model",
-      "color": "#FEF9E7",
-      "catalog_repo": "dea-catalog-journey-touchpoints",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-journey-touchpoints",
-      "status": "planned",
-      "description": "A point of interaction on a customer or user journey, across a specific channel."
+      "description": "A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix \u2014 every (domain, stage) cell contains the business objects currently in that lifecycle state. v1.0.0-alpha."
     },
     {
       "entity_id": "dea:entity-organizational-unit",
@@ -102,128 +174,224 @@
       "description": "A unit of organisation (team, division, business unit) that owns capabilities, runs processes, and is custodian for business objects. v1.0.0-alpha."
     },
     {
+      "entity_id": "dea:entity-journey-touchpoint",
+      "class_alias": "JT",
+      "display_name": "Journey Touchpoint",
+      "layer": "L2",
+      "layer_name": "Business Operating Model",
+      "color": "#FEF9E7",
+      "catalog_repo": "dea-catalog-journey-touchpoints",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-journey-touchpoints",
+      "status": "planned",
+      "description": "A point of interaction on a customer or user journey, across a specific channel."
+    },
+    {
+      "entity_id": "dea:entity-business-service",
+      "class_alias": "BS",
+      "display_name": "Business Service",
+      "layer": "L2",
+      "layer_name": "Business Operating Model",
+      "color": "#FEF9E7",
+      "catalog_repo": "dea-catalog-digital-business-service-factory",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-business-service-factory",
+      "status": "existing",
+      "description": "A service exposed to the business or to external consumers. Composite of capabilities, realised by solution components. Hosted in DBSF."
+    },
+    {
+      "entity_id": "dea:entity-solution-component",
+      "class_alias": "SC",
+      "display_name": "Solution Component",
+      "layer": "L2",
+      "layer_name": "Business Operating Model",
+      "color": "#FEF9E7",
+      "catalog_repo": "dea-catalog-digital-business-service-factory",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-business-service-factory",
+      "status": "existing",
+      "description": "A software or infrastructure component that realises one or more capabilities. The three component subClasses (ApplicationComponent, InfrastructureComponent, IntegrationComponent) form a discriminated union by component_type. Hosted in DBSF."
+    },
+    {
+      "entity_id": "dea:entity-reference-model",
+      "class_alias": "RM",
+      "display_name": "Reference Model",
+      "layer": "L2",
+      "layer_name": "Business Operating Model",
+      "color": "#FEF9E7",
+      "catalog_repo": "dea-catalog-reference-models",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-reference-models",
+      "status": "planned",
+      "description": "A reference architecture model (e.g. Digital Platform, Integration Hub) that provides a reusable template for solution design."
+    },
+    {
       "entity_id": "dea:entity-digital-identity",
       "class_alias": "DI",
       "display_name": "Digital Identity",
       "layer": "L3",
-      "layer_name": "Digital Ecosystem & Intelligence",
-      "color": "#D6EAF8",
+      "layer_name": "Digital & Data",
+      "color": "#FDEDEC",
       "catalog_repo": "dea-catalog-digital-identities",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-identities",
       "status": "planned",
-      "description": "A digital representation of a Customer, Partner, or Bot that participates in the ecosystem."
+      "description": "A digital representation (twin) of a stakeholder or actor for authentication, authorisation, and traceability purposes."
     },
     {
       "entity_id": "dea:entity-event",
       "class_alias": "EVT",
-      "display_name": "Event / Event Stream",
+      "display_name": "Event",
       "layer": "L3",
-      "layer_name": "Digital Ecosystem & Intelligence",
-      "color": "#D6EAF8",
+      "layer_name": "Digital & Data",
+      "color": "#FDEDEC",
       "catalog_repo": "dea-catalog-event-streams",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-event-streams",
       "status": "planned",
-      "description": "A discrete state change or a stream of such changes, with topic and schema."
+      "description": "A significant state change or business occurrence that business objects participate in. Forms the event-driven integration backbone."
     },
     {
       "entity_id": "dea:entity-ai-ml-model",
-      "class_alias": "AI",
-      "display_name": "AI / ML Model",
+      "class_alias": "AIM",
+      "display_name": "AI/ML Model",
       "layer": "L3",
-      "layer_name": "Digital Ecosystem & Intelligence",
-      "color": "#D6EAF8",
+      "layer_name": "Digital & Data",
+      "color": "#FDEDEC",
       "catalog_repo": "dea-catalog-ai-ml-models",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-ai-ml-models",
       "status": "planned",
-      "description": "An AI or machine learning model that augments or automates a system function."
+      "description": "A machine-learning or AI model that augments or replaces human decision-making within a capability."
     },
     {
       "entity_id": "dea:entity-data-product",
       "class_alias": "DP",
       "display_name": "Data Product",
       "layer": "L3",
-      "layer_name": "Digital Ecosystem & Intelligence",
-      "color": "#D6EAF8",
+      "layer_name": "Digital & Data",
+      "color": "#FDEDEC",
       "catalog_repo": "dea-catalog-data-products",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-data-products",
       "status": "planned",
-      "description": "A domain-owned, SLA-backed dataset exposed as a product via APIs."
+      "description": "A curated, discoverable, governed dataset or data service with clear ownership and SLAs (data-mesh pattern)."
     },
     {
       "entity_id": "dea:entity-system-function",
       "class_alias": "SF",
       "display_name": "System Function",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-system-functions",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-system-functions",
       "status": "planned",
-      "description": "A capability exposed by an application or platform that automates a business process."
+      "description": "A functional capability exposed by a single application or system (the atomic level of software decomposition)."
     },
     {
       "entity_id": "dea:entity-application-component",
-      "class_alias": "AC",
+      "class_alias": "APC",
       "display_name": "Application Component",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-application-components",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-application-components",
       "status": "planned",
-      "description": "A deployable unit of software that hosts one or more system functions."
+      "description": "A deployable unit of an application system (service, batch job, scheduled task). SubClass of SolutionComponent with component_type='application'."
+    },
+    {
+      "entity_id": "dea:entity-infrastructure-component",
+      "class_alias": "IFC",
+      "display_name": "Infrastructure Component",
+      "layer": "L4",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
+      "catalog_repo": "dea-catalog-application-components",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-application-components",
+      "status": "planned",
+      "description": "An IaC-managed resource (compute, network, storage) that hosts solution components. SubClass of SolutionComponent with component_type='infrastructure'."
+    },
+    {
+      "entity_id": "dea:entity-integration-component",
+      "class_alias": "IGC",
+      "display_name": "Integration Component",
+      "layer": "L4",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
+      "catalog_repo": "dea-catalog-application-components",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-application-components",
+      "status": "planned",
+      "description": "A component that bridges systems via APIs, queues, file transfers. SubClass of SolutionComponent with component_type='integration'."
+    },
+    {
+      "entity_id": "dea:entity-technology",
+      "class_alias": "TEC",
+      "display_name": "Technology",
+      "layer": "L4",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
+      "catalog_repo": "dea-catalog-patterns",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-patterns",
+      "status": "planned",
+      "description": "A technology choice (language, framework, runtime, database) governed via Standards + Principles. Top-level entity (subClassOf dea:Entity)."
+    },
+    {
+      "entity_id": "dea:entity-taxonomy-node",
+      "class_alias": "TXN",
+      "display_name": "Taxonomy Node",
+      "layer": "L2",
+      "layer_name": "Business Operating Model",
+      "color": "#FEF9E7",
+      "catalog_repo": "dea-catalog-taxonomy",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-taxonomy",
+      "status": "planned",
+      "description": "A node in a controlled vocabulary taxonomy. Hierarchical via parent_node/child_nodes. Top-level entity."
     },
     {
       "entity_id": "dea:entity-api",
       "class_alias": "API",
-      "display_name": "API / Service Contract",
+      "display_name": "API",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-api-contracts",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-api-contracts",
       "status": "planned",
-      "description": "A versioned contract that exposes a system function or data product."
+      "description": "A contract defining the request/response shape of a service interface. The published surface of an application component."
     },
     {
       "entity_id": "dea:entity-data-entity",
       "class_alias": "DE",
       "display_name": "Data Entity",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-data-entities",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-data-entities",
       "status": "planned",
-      "description": "A typed, persisted structure used by application components."
+      "description": "A persistent data structure (table, document, graph node) that realises one or more business objects."
     },
     {
       "entity_id": "dea:entity-information-class",
       "class_alias": "IC",
       "display_name": "Information Class",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-information-classes",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-information-classes",
       "status": "planned",
-      "description": "A classification of data entities by sensitivity and protection requirements."
+      "description": "A classification of information by sensitivity (public, internal, confidential, restricted) and regulatory regime (PII, PHI, PCI)."
     },
     {
       "entity_id": "dea:entity-platform-service",
       "class_alias": "PS",
       "display_name": "Platform Service",
       "layer": "L4",
-      "layer_name": "Technology & Execution",
-      "color": "#F4ECF7",
+      "layer_name": "Technical & Integration",
+      "color": "#E8DAEF",
       "catalog_repo": "dea-catalog-platform-services",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-platform-services",
       "status": "planned",
-      "description": "A foundational capability (compute, database, network) on which application components are deployed."
+      "description": "A shared infrastructure or runtime service consumed by multiple application components (databases, message brokers, identity providers)."
     },
     {
-      "entity_id": "dea:entity-performance-metric",
-      "class_alias": "PM",
+      "entity_id": "dea:entity-metric",
+      "class_alias": "MTR",
       "display_name": "Performance Metric",
       "layer": "L5",
       "layer_name": "Measurement & Governance",
@@ -231,7 +399,7 @@
       "catalog_repo": "dea-catalog-metrics",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-metrics",
       "status": "existing",
-      "description": "A measured quantity used to evaluate outcomes against targets."
+      "description": "A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance | adoption | compliance | risk."
     }
   ]
 }

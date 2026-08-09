@@ -45,6 +45,53 @@ export interface BaseEntity {
 
 // ─── Entity Sub-types ───────────────────────────────────────
 
+// v1.0.0-alpha: Stakeholder (SH) — external/affected parties.
+// Mirrors schemas/entities/stakeholder.json. Catalog:
+// technehub-labs/dea-catalog-stakeholders.
+export type StakeholderType =
+  | 'customer'
+  | 'partner'
+  | 'supplier'
+  | 'regulator'
+  | 'investor'
+  | 'community'
+  | 'board';
+
+export type StakeholderRelationshipDirection =
+  | 'inbound'
+  | 'outbound'
+  | 'bidirectional'
+  | 'governance';
+
+export interface Stakeholder extends BaseEntity {
+  type: 'Stakeholder';
+  stakeholder_type: StakeholderType;
+  relationship_direction?: StakeholderRelationshipDirection;
+  primary_contact?: string;
+  external_identifiers?: Record<string, string>;
+}
+
+// v1.0.0-alpha: Actor (AC) — internal performers.
+// Mirrors schemas/entities/actor.json. Catalog:
+// technehub-labs/dea-catalog-actors.
+export type ActorType = 'human' | 'team' | 'system' | 'ai-agent' | 'hybrid';
+export type ActorScope = 'individual' | 'team' | 'departmental' | 'enterprise' | 'ecosystem';
+
+export interface ActorLinks {
+  stakeholder_ref?: string;
+  digital_identity_ref?: string;
+}
+
+export interface Actor extends BaseEntity {
+  type: 'Actor';
+  actor_type: ActorType;
+  scope?: ActorScope;
+  owner?: string;
+  capabilities?: string[];
+  processes_performed?: string[];
+  links?: ActorLinks;
+}
+
 export type PrincipleTier = 'mandatory' | 'recommended' | 'aspirational';
 
 export interface Principle extends BaseEntity {

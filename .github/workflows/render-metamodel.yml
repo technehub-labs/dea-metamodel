@@ -2,10 +2,20 @@ name: Render Metamodel
 
 on:
   pull_request:
-    paths: ['metamodel-puml/**', 'viewer/**', '.github/workflows/render-metamodel.yml', '.github/scripts/generate_puml.py']
+    paths:
+      - 'metamodel-puml/**'
+      - 'viewer/**'
+      - '.github/workflows/render-metamodel.yml'
+      - '.github/scripts/generate_puml.py'
+      - '.github/scripts/validate_svg_graph.py'
   push:
     branches: [main]
-    paths: ['metamodel-puml/**', 'viewer/**']
+    paths:
+      - 'metamodel-puml/**'
+      - 'viewer/**'
+      - '.github/workflows/render-metamodel.yml'
+      - '.github/scripts/generate_puml.py'
+      - '.github/scripts/validate_svg_graph.py'
 
 permissions:
   contents: write

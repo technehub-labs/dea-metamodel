@@ -11,7 +11,7 @@ Checks:
   2. Entity markers: every <g id="elem_X"> should have class="entity" + data-alias="X"
      (these are injected by .github/scripts/inject_svg_attributes.py
      for Pages-site interactivity)
-  3. Relationship edges (informational): warn if the SVG has 0 <g class="link">
+  3. Relationship edges (informational): warn if the SVG has 0 <g id="link_*">
      (relationship lines should be drawn; if missing, check the PUML)
 
 Exits 0 on match, 1 on drift.
@@ -39,6 +39,13 @@ NOISE_PATTERNS = [
 ENTITY_START = re.compile(r'<g\s+(?:id="(?:elem_|ent)([^"]*)"|class="entity")')
 LAYER_START = re.compile(r'<g\s+id="cluster_')
 
+# PlantUML 1.2024.x emits relationship groups as <g id="link_*">;
+# PlantUML 1.2026.x used <g class="link">. We must chop these out of
+# the content before scanning entity text, otherwise the LAST entity
+# block's contents include all relationship labels that follow it in
+# the file.
+LINK_BLOCK_PATTERN = re.compile(r'<g\s+(?:id="link_[^"]*"|class="link")[^>]*>.*?</g>', re.DOTALL)
+
 
 def is_attribute_label(text: str) -> bool:
     return bool(ATTRIBUTE_PATTERN.match(text.strip()))
@@ -54,16 +61,25 @@ def is_noise(text: str) -> bool:
 
 
 def extract_svg_entity_names():
+    """Parse SVG and extract entity display names.
+
+    Strategy: chop out all <g id="link_*"> / <g class="link"> blocks
+    before extracting entity text. This prevents relationship labels
+    from polluting the last entity block (whose range extends to
+    end-of-document).
+    """
     if not SVG.exists():
         return []
 
     content = SVG.read_text()
-    starts = [(m.start(), m.group(1)) for m in ENTITY_START.finditer(content)]
+    scrubbed = LINK_BLOCK_PATTERN.sub("", content)
+
+    starts = [(m.start(), m.group(1)) for m in ENTITY_START.finditer(scrubbed)]
 
     names = []
     for i, (start_pos, alias) in enumerate(starts):
-        end_pos = starts[i+1][0] if i + 1 < len(starts) else len(content)
-        block = content[start_pos:end_pos]
+        end_pos = starts[i+1][0] if i + 1 < len(starts) else len(scrubbed)
+        block = scrubbed[start_pos:end_pos]
         texts = re.findall(r'<text[^>]*>([^<]+)</text>', block)
         candidates = [
             t.strip() for t in texts
@@ -103,8 +119,15 @@ def check_interactivity_attrs(content):
 
 
 def check_relationship_lines(content):
-    """Warn (do not fail) if no relationship lines are present."""
-    return content.count('class="link')
+    """Return total relationship <g> count.
+
+    PlantUML 1.2024.x emits relationship groups as <g id="link_*">
+    (no class="link" attribute). PlantUML 1.2026.x used <g class="link">.
+    Both formats count.
+    """
+    new_format = content.count('<g id="link_')
+    old_format = content.count('class="link"')
+    return new_format + old_format
 
 
 def load_graph_display_names():

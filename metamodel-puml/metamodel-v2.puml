@@ -5,25 +5,21 @@ skinparam nodesep 60
 skinparam ranksep 60
 skinparam defaultFontName Arial
 skinparam class {
-    BackgroundColor White
-    BorderColor #2C3E50
-    ArrowColor #2C3E50
-}
-skinparam package {
-    BackgroundColor #0d2620
-    FontColor #e6edf3
-    BorderColor #e6edf3
-}
-skinparam rectangle {
     BackgroundColor #0d1117
-    FontColor #e6edf3
-    BorderColor #2dd4bf
+    FontColor       #e6edf3
+    BorderColor     #2dd4bf
+    ArrowColor      #2dd4bf
+}
+skinparam arrow {
+    Color     #2dd4bf
+    FontColor #8b949e
+    FontStyle italic
 }
 
 ' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
-package "Layer 1: Strategic & Investment" #E8F8F5 {
+package "Layer 1: Strategic & Investment" #0d2620 {
     ' (scaffold)
     entity "Actor" as AC {
         + id : string
@@ -69,7 +65,7 @@ package "Layer 1: Strategic & Investment" #E8F8F5 {
     }
 }
 
-package "Layer 2: Business Operating Model" #FEF9E7 {
+package "Layer 2: Business Operating Model" #2e2010 {
     ' (scaffold)
     entity "Business Object" as BO {
         + id : string
@@ -112,7 +108,7 @@ package "Layer 2: Business Operating Model" #FEF9E7 {
     }
 }
 
-package "Layer 3: Digital & Data" #FDEDEC {
+package "Layer 3: Digital & Data" #0f1d2e {
     entity "AI/ML Model" as AIM {
         + id : string
         + name : string
@@ -131,7 +127,7 @@ package "Layer 3: Digital & Data" #FDEDEC {
     }
 }
 
-package "Layer 4: Technical & Integration" #E8DAEF {
+package "Layer 4: Technical & Integration" #1f1735 {
     entity "Application Component" as APC {
         + id : string
         + name : string
@@ -170,7 +166,7 @@ package "Layer 4: Technical & Integration" #E8DAEF {
     }
 }
 
-package "Layer 5: Measurement & Governance" #FADBD8 {
+package "Layer 5: Measurement & Governance" #2e1212 {
     ' (existing)
     entity "Performance Metric" as MTR {
         + id : string

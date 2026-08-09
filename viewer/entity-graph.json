@@ -72,10 +72,10 @@
       "layer": "L2",
       "layer_name": "Business Operating Model",
       "color": "#FEF9E7",
-      "catalog_repo": "dea-catalog-digital-business-service-factory",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-business-service-factory",
-      "status": "existing-extended",
-      "description": "A real-world entity of interest to the business (e.g. Customer, Order)."
+      "catalog_repo": "dea-catalog-business-objects",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-business-objects",
+      "status": "scaffold",
+      "description": "A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state. v1.0.0-alpha."
     },
     {
       "entity_id": "dea:entity-journey-touchpoint",
@@ -96,10 +96,10 @@
       "layer": "L2",
       "layer_name": "Business Operating Model",
       "color": "#FEF9E7",
-      "catalog_repo": "dea-catalog-digital-business-service-factory",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-digital-business-service-factory",
-      "status": "existing-extended",
-      "description": "A unit of organisation (team, division, business unit) that owns capabilities."
+      "catalog_repo": "dea-catalog-organizational-units",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-organizational-units",
+      "status": "scaffold",
+      "description": "A unit of organisation (team, division, business unit) that owns capabilities, runs processes, and is custodian for business objects. v1.0.0-alpha."
     },
     {
       "entity_id": "dea:entity-digital-identity",

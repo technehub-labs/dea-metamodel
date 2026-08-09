@@ -24,7 +24,7 @@
           "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
           "catalog_repo": { "type": "string", "pattern": "^dea-[a-z-]+$" },
           "repo_url": { "type": "string", "format": "uri" },
-          "status": { "type": "string", "enum": ["existing", "existing-extended", "planned"] },
+          "status": { "type": "string", "enum": ["existing", "existing-extended", "planned", "scaffold"] },
           "description": { "type": "string" }
         }
       }

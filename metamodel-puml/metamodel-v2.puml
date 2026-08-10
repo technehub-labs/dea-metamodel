@@ -1,9 +1,12 @@
 @startuml
 !theme plain
 skinparam linetype ortho
-skinparam nodesep 60
-skinparam ranksep 60
+skinparam nodesep 80
+skinparam ranksep 90
+skinparam dpi 96
+skinparam maxMessageSize 200
 skinparam defaultFontName Arial
+!pragma layout elk
 skinparam class {
     BackgroundColor #0d1117
     FontColor       #e6edf3
@@ -19,7 +22,7 @@ skinparam arrow {
 ' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
-package "Layer 1: Strategic & Investment" #0d2620 {
+package "Layer 1: Strategic & Investment" #1A6F67 {
     ' (scaffold)
     entity "Actor" as AC {
         + id : string
@@ -65,7 +68,7 @@ package "Layer 1: Strategic & Investment" #0d2620 {
     }
 }
 
-package "Layer 2: Business Operating Model" #2e2010 {
+package "Layer 2: Business Operating Model" #81651A {
     ' (scaffold)
     entity "Business Object" as BO {
         + id : string
@@ -108,7 +111,7 @@ package "Layer 2: Business Operating Model" #2e2010 {
     }
 }
 
-package "Layer 3: Digital & Data" #0f1d2e {
+package "Layer 3: Digital & Data" #24759B {
     entity "AI/ML Model" as AIM {
         + id : string
         + name : string
@@ -127,7 +130,7 @@ package "Layer 3: Digital & Data" #0f1d2e {
     }
 }
 
-package "Layer 4: Technical & Integration" #1f1735 {
+package "Layer 4: Technical & Integration" #67579C {
     entity "Application Component" as APC {
         + id : string
         + name : string
@@ -166,7 +169,7 @@ package "Layer 4: Technical & Integration" #1f1735 {
     }
 }
 
-package "Layer 5: Measurement & Governance" #2e1212 {
+package "Layer 5: Measurement & Governance" #994856 {
     ' (existing)
     entity "Performance Metric" as MTR {
         + id : string

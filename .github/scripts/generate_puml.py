@@ -17,11 +17,11 @@ GRAPH = BASE / "viewer" / "entity-graph.json"
 
 # Layer definitions (number, label, color)
 LAYER_DEFS = {
-    "L1": (1, "Layer 1: Strategic & Investment", "#E8F8F5"),
-    "L2": (2, "Layer 2: Business Operating Model", "#FEF9E7"),
-    "L3": (3, "Layer 3: Digital & Data", "#FDEDEC"),
-    "L4": (4, "Layer 4: Technical & Integration", "#E8DAEF"),
-    "L5": (5, "Layer 5: Measurement & Governance", "#FADBD8"),
+    "L1": (1, "Layer 1: Strategic & Investment",        "#2DD4BF"),
+    "L2": (2, "Layer 2: Business Operating Model",     "#FBBF24"),
+    "L3": (3, "Layer 3: Digital & Data",               "#38BDF8"),
+    "L4": (4, "Layer 4: Technical & Integration",      "#A78BFA"),
+    "L5": (5, "Layer 5: Measurement & Governance",     "#FB7185"),
 }
 
 
@@ -90,9 +90,14 @@ def main():
     print("@startuml")
     print("!theme plain")
     print("skinparam linetype ortho")
-    print("skinparam nodesep 60")
-    print("skinparam ranksep 60")
+    print("skinparam nodesep 80")
+    print("skinparam ranksep 90")
+    print("skinparam dpi 96")
+    print("skinparam maxMessageSize 200")
     print("skinparam defaultFontName Arial")
+    # ELK layout engine produces more balanced (closer to square) layouts
+    # than the default GraphViz dot, especially for many-cluster diagrams.
+    print("!pragma layout elk")
     print("skinparam class {")
     print("    BackgroundColor #0d1117")
     print("    FontColor       #e6edf3")
@@ -114,11 +119,11 @@ def main():
     # ─── Layer packages with entities ───
     valid_aliases = {e["class_alias"] for e in entities}
     dark_palette = {
-        "L1": "#0d2620",
-        "L2": "#2e2010",
-        "L3": "#0f1d2e",
-        "L4": "#1f1735",
-        "L5": "#2e1212",
+        "L1": "#1A6F67",
+        "L2": "#81651A",
+        "L3": "#24759B",
+        "L4": "#67579C",
+        "L5": "#994856",
     }
     for layer_key in ("L1", "L2", "L3", "L4", "L5"):
         if layer_key not in by_layer:

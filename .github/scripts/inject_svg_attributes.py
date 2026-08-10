@@ -305,28 +305,27 @@ REL_HALO_STYLE = 'paint-order: stroke; stroke: #080B10; stroke-width: 2.5px;'
 
 
 def lift_relationship_text(content: str) -> str:
-    """Pass 5: lift #8B949E -> #B1BAC4 + halo on italic relationship labels."""
-    def rewrite_link_group(lm):
-        open_tag, inner, close_tag = lm.group(1), lm.group(2), lm.group(3)
-        if "paint-order: stroke" in inner:
-            # Group already processed.
-            return lm.group(0)
+    """Pass 5: lift #8B949E -> #B1BAC4 + halo on italic relationship labels.
 
-        def rewrite_text(tm):
-            head, body = tm.group(1), tm.group(2)
-            # Idempotence: skip if paint-order halo already present.
-            if "paint-order: stroke" in head:
-                return tm.group(0)
-            new_head = head.replace(
-                'fill="#8B949E"',
-                f'fill="#B1BAC4" style="{REL_HALO_STYLE}"',
-            )
-            return new_head + body
+    NOTE: PlantUML 1.2024.7 with linetype ortho emits link labels as loose
+    <text> elements in the SVG body (NOT wrapped in <g id="link_*">). We
+    therefore apply the rewrite to the whole content, scoped only to italic
+    texts with fill="#8B949E" (Task 5 spec). Attribute text (Task 4) uses a
+    different regex so it is not affected.
+    """
 
-        new_inner = REL_TEXT_RE.sub(rewrite_text, inner)
-        return open_tag + new_inner + close_tag
+    def rewrite_text(tm):
+        head, body = tm.group(1), tm.group(2)
+        # Idempotence: skip if paint-order halo already present.
+        if "paint-order: stroke" in head:
+            return tm.group(0)
+        new_head = head.replace(
+            'fill="#8B949E"',
+            f'fill="#B1BAC4" style="{REL_HALO_STYLE}"',
+        )
+        return new_head + body
 
-    return LINK_GROUP_RE.sub(rewrite_link_group, content)
+    return REL_TEXT_RE.sub(rewrite_text, content)
 
 
 # ---------------------------------------------------------------------------

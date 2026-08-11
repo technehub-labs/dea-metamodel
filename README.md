@@ -19,13 +19,13 @@ dea-metamodel (this repo)
        │
    ┌───┴───────────────────────────────────────┐
    │  dea-catalog-principles                   │
-   │  dea-catalog-patterns                      │
-   │  dea-catalog-standards                     │
+   │  dea-catalog-patterns                     │
+   │  dea-catalog-standards                    │
    │  dea-catalog-reference-models             │
-   │  dea-catalog-metrics                       │
-   │  dea-catalog-ontologies                    │
-   │  dea-catalog-taxonomy                      │
-   │  dea-catalog-glossary                      │
+   │  dea-catalog-metrics                      │
+   │  dea-catalog-ontologies                   │
+   │  dea-catalog-taxonomy                     │
+   │  dea-catalog-glossary                     │
    └───────────────────────────────────────────┘
 ```
 

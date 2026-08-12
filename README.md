@@ -1,4 +1,4 @@
-# DEA Metamodel — Digital Enterprise Architecture Metamodel
+# OpenDEA Metamodel — Open Digital Enterprise Architecture Metamodel
 
 > **Canonical entity definitions, relationships, and schemas for all DEA catalog repositories.**
 

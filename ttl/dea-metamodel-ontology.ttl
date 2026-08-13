@@ -173,6 +173,78 @@ dea:BusinessFunction a owl:Class ;
     skos:definition "A grouping of business capabilities by organisational function; owned by an organizational unit (OpenDEAM v0.2.0, L3; CAP -> BF -> OU)." ;
     dea:specification <schemas/entities/business-function.json> .
 
+dea:EcosystemPlatform a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EcosystemPlatform" ;
+    skos:definition "Standing multi-sided structure the enterprise hosts for repeated exchange among many third parties (L1, ADR-0003)." ;
+    dea:specification <schemas/entities/ecosystem-platform.json> .
+
+dea:Risk a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Risk" ;
+    skos:definition "Condition or event threatening the enterprise's ability to persist or realise value (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/risk.json> .
+
+dea:Control a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Control" ;
+    skos:definition "Mechanism that mitigates a Risk or enforces a Regulation (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/control.json> .
+
+dea:Regulation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Regulation" ;
+    skos:definition "Externally imposed obligation with force of law or contract (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/regulation.json> .
+
+dea:Signal a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Signal" ;
+    skos:definition "Weak or early indicator of environmental change (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/signal.json> .
+
+dea:Experiment a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Experiment" ;
+    skos:definition "Bounded, time-boxed test of a Signal's relevance (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/experiment.json> .
+
+dea:TechnologyRadarEntry a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "TechnologyRadarEntry" ;
+    skos:definition "Emerging technology tracked through assess/trial/adopt/hold (L2, ADR-0003)." ;
+    dea:specification <schemas/entities/technology-radar-entry.json> .
+
+dea:Skill a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Skill" ;
+    skos:definition "Capability an individual Actor possesses or must develop (L3, ADR-0003)." ;
+    dea:specification <schemas/entities/skill.json> .
+
+dea:Role a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Role" ;
+    skos:definition "Defined set of required Skills and responsibilities an Actor fulfills (L3, ADR-0003)." ;
+    dea:specification <schemas/entities/role.json> .
+
+dea:ChangeInitiative a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ChangeInitiative" ;
+    skos:definition "Deliberate effort to shift Skills, Roles, or culture (L3, ADR-0003)." ;
+    dea:specification <schemas/entities/change-initiative.json> .
+
+dea:ModelDeployment a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ModelDeployment" ;
+    skos:definition "Running instance of an AI/ML Model with operational lifecycle (L4, ADR-0003)." ;
+    dea:specification <schemas/entities/model-deployment.json> .
+
+dea:ModelFeedbackSignal a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ModelFeedbackSignal" ;
+    skos:definition "Drift/performance feedback from Events driving retraining (L4, ADR-0003)." ;
+    dea:specification <schemas/entities/model-feedback-signal.json> .
+
 dea:mapsTo a owl:ObjectProperty ;
     rdfs:domain dea:Entity ;
     rdfs:range dea:Entity ;

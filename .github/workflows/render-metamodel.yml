@@ -73,7 +73,8 @@ jobs:
               validate(instance=graph, schema=schema)
               print(f'OK — {len(graph[\"entities\"])} entities validated')
               for e in graph['entities']:
-                  print(f'  {e[\"layer\"]}  {e[\"class_alias\"]:4s}  {e[\"display_name\"]:30s} -> {e[\"catalog_repo\"]}')
+                  loc = e.get('layer') or e.get('dimension', '?')
+                  print(f'  {loc}  {e[\"class_alias\"]:4s}  {e[\"display_name\"]:30s} -> {e[\"catalog_repo\"]}')
           except ValidationError as ex:
               print(f'VALIDATION FAILED: {ex.message}')
               exit(1)

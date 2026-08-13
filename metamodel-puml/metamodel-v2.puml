@@ -188,7 +188,7 @@ package "Layer 5: Technology & Execution" #783C48 {
     }
 }
 
-package "Measurement Dimension — cross-cutting" #374151 <<dimension>> {
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
     ' (existing)
     entity "Performance Metric" as MTR {
         + id : string

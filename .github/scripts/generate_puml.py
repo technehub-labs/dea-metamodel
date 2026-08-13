@@ -101,7 +101,7 @@ def main():
         dim_names = {d["id"]: d["name"] for d in g.get("dimensions", [])}
         for e in dimension_entities:
             dim_label = dim_names.get(e.get("dimension", ""), "Dimension")
-            print(f'package "{dim_label} — cross-cutting" #374151 <<dimension>> {{')
+            print(f'package "{dim_label} (cross-cutting)" <<dimension>> #374151 {{')
             emit_entity(e)
             print("}")
             print()

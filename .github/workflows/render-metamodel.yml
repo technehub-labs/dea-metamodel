@@ -1,6 +1,7 @@
 name: Render Metamodel
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'metamodel-puml/**'

@@ -183,7 +183,9 @@ def check_cross_repo(graph):
     warnings = []
 
     # C1. Every catalog_repo in entity-graph must exist on GitHub.
-    catalog_repos = sorted(set(e["catalog_repo"] for e in graph["entities"]))
+    # Entities with catalog_repo=None (status=planned, repo TBD — e.g. the
+    # ADR-0002 D2/D3 entities EA/VE/CA/BF) are skipped by design.
+    catalog_repos = sorted({e["catalog_repo"] for e in graph["entities"] if e.get("catalog_repo")})
     print(f"\nC1: Verifying {len(catalog_repos)} catalog repos on GitHub...")
     for repo in catalog_repos:
         if not github_repo_exists(repo):

@@ -1,75 +1,26 @@
 """Generate metamodel-puml/metamodel-v2.puml from viewer/entity-graph.json.
 
-This script regenerates the canonical PlantUML source for the metamodel
-viewer diagram. Output is deterministic (entities grouped by layer, then
-sorted alphabetically within layer), with skinparam styling for the
-dark theme and a curated set of typed relationship edges.
+Regenerates the canonical PlantUML source for the metamodel viewer diagram.
+As of OpenDEAM v0.2.0 (ADR-0002) everything is derived from the graph —
+which is itself generated from the OpenDEAM root model by
+generate_entity_graph.py. No hardcoded layer definitions or relationship
+lists live here anymore.
+
+  - Layer packages  <- graph.layers (id, name, dark_color)
+  - Dimension block <- graph.dimensions + dimension entities (e.g. MTR)
+  - Edges           <- graph.relationships (style derived from rel_type)
+  - Inheritance     <- entity.specializes (ADR-0002 D3), emitted as --|>
+
+Output is deterministic: layers in graph order, entities alphabetically
+by class_alias within each layer.
 
 Run: python3 .github/scripts/generate_puml.py > metamodel-puml/metamodel-v2.puml
 """
 import json
-import re
-import sys
 from pathlib import Path
 
 BASE = Path(__file__).parent.parent.parent
 GRAPH = BASE / "viewer" / "entity-graph.json"
-
-# Layer definitions (number, label, color)
-LAYER_DEFS = {
-    "L1": (1, "Layer 1: Strategic & Investment",        "#2DD4BF"),
-    "L2": (2, "Layer 2: Business Operating Model",     "#FBBF24"),
-    "L3": (3, "Layer 3: Digital & Data",               "#38BDF8"),
-    "L4": (4, "Layer 4: Technical & Integration",      "#A78BFA"),
-    "L5": (5, "Layer 5: Measurement & Governance",     "#FB7185"),
-}
-
-
-# Curated relationship set — matches the OLD viewer.js RELATIONSHIPS array
-# and viewer.html legend. Each entry is (from_alias, to_alias, label, style)
-# where style is 'solid' or 'dashed'. Aliases must match class_alias in
-# entity-graph.json. Adding a relationship here requires updating
-# technehub-labs.github.io/metamodel/viewer.js's RELATIONSHIPS array too
-# (the static SVG relationship lines are decorative — the JS overlay
-# draws the same edges on top of the entity cards for hover/select
-# interactivity).
-RELATIONSHIPS = [
-    # Layer 1 & 2
-    ("SO",   "II",  "drives",                   "solid"),
-    ("II",   "CAP", "funds",                    "solid"),
-    ("VS",   "CAP", "traverses",                "solid"),
-    ("VS",   "JT",  "experienced via",          "solid"),
-    ("CAP",  "BP",  "implemented by",           "solid"),
-    ("CAP",  "OU",  "owned by",                 "solid"),
-    ("CAP",  "BO",  "produces / consumes",      "solid"),
-    ("SH",   "BP",  "served by",                "dashed"),
-    ("AC",   "BP",  "performs",                 "solid"),
-    # Layer 2 & 3 (Digital Integration)
-    ("JT",   "DI",  "authenticates",            "solid"),
-    ("DI",   "DE",  "represented by",           "solid"),
-    ("BP",   "SF",  "automated by",             "solid"),
-    ("BO",   "DE",  "digitized as",             "solid"),
-    ("OU",   "BO",  "custodian of",             "dashed"),
-    ("BS",   "BO",  "exposes",                  "solid"),
-    # Layer 3 Internal (Intelligence & Data)
-    ("DE",   "IC",  "classified by",            "dashed"),
-    ("DE",   "DP",  "curated into",             "dashed"),
-    ("SF",   "EVT", "publishes / subscribes",   "solid"),
-    ("EVT",  "DE",  "carries payload of",       "dashed"),
-    ("DP",   "API", "exposed via",              "solid"),
-    ("AIM",  "DP",  "trained on",               "solid"),
-    ("AIM",  "SF",  "enhances / automates",     "solid"),
-    # Layer 4 (Technology Execution)
-    ("SF",   "APC", "hosted by",                "solid"),
-    ("APC",  "PS",  "deployed on",              "dashed"),
-    ("SF",   "API", "exposed via",              "solid"),
-    ("API",  "DE",  "serves / exchanges",       "dashed"),
-    ("TEC",  "APC", "implements",               "solid"),
-    # Measurement (Cross-cutting)
-    ("SO",   "MTR", "measured by",              "dashed"),
-    ("CAP",  "MTR", "evaluated by",             "dashed"),
-    ("SF",   "MTR", "evaluated by",             "dashed"),
-]
 
 
 def main():
@@ -77,12 +28,16 @@ def main():
         g = json.load(f)
 
     entities = g["entities"]
+    layers = g["layers"]
+    relationships = g.get("relationships", [])
 
-    # Group by layer
     by_layer = {}
+    dimension_entities = []
     for e in entities:
-        layer = e["layer"]
-        by_layer.setdefault(layer, []).append(e)
+        if "layer" in e:
+            by_layer.setdefault(e["layer"], []).append(e)
+        else:
+            dimension_entities.append(e)
     for layer in by_layer:
         by_layer[layer].sort(key=lambda e: e["class_alias"])
 
@@ -104,66 +59,75 @@ def main():
     print("    BorderColor     #2dd4bf")
     print("    ArrowColor      #2dd4bf")
     print("}")
-    # Relationship arrows + labels (matches the previous
-    # manually-uploaded SVG's italic labels and teal arrows).
     print("skinparam arrow {")
     print("    Color     #2dd4bf")
     print("    FontColor #8b949e")
     print("    FontStyle italic")
     print("}")
     print()
-    print("' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---")
+    print("' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM " +
+          g["metamodel_version"] + ", pin " + g.get("opendeam_model_pin", "?") + ") ---")
     print("' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py")
     print()
 
+    def emit_entity(e, indent="    "):
+        alias = e["class_alias"]
+        display = e["display_name"]
+        status = e.get("status", "")
+        marker = ""
+        if e.get("abstract"):
+            marker = " <<abstract>>"
+        if status in ("scaffold", "existing"):
+            print(f"{indent}' ({status})")
+        print(f'{indent}entity "{display}" as {alias}{marker} {{')
+        print(f"{indent}    + id : string")
+        print(f"{indent}    + name : string")
+        print(f"{indent}}}")
+
     # ─── Layer packages with entities ───
-    valid_aliases = {e["class_alias"] for e in entities}
-    dark_palette = {
-        "L1": "#1A6F67",
-        "L2": "#81651A",
-        "L3": "#24759B",
-        "L4": "#67579C",
-        "L5": "#994856",
-    }
-    for layer_key in ("L1", "L2", "L3", "L4", "L5"):
-        if layer_key not in by_layer:
+    for l in layers:
+        lid = l["id"]
+        if lid not in by_layer:
             continue
-        num, label, color = LAYER_DEFS[layer_key]
-        # Per-package inline dark fill (3rd arg). PlantUML 1.2024.x's
-        # packageBackgroundColor skinparam is unreliable; inline
-        # color works deterministically across PlantUML versions.
-        dark = dark_palette[layer_key]
-        print(f'package "{label}" {dark} {{')
-        for e in by_layer[layer_key]:
-            alias = e["class_alias"]
-            display = e["display_name"]
-            status = e.get("status", "")
-            if status == "scaffold":
-                print("    ' (scaffold)")
-            elif status == "existing":
-                print("    ' (existing)")
-            print(f'    entity "{display}" as {alias} {{')
-            print("        + id : string")
-            print("        + name : string")
-            print("    }")
+        num = lid[1:]
+        print(f'package "Layer {num}: {l["name"]}" {l["dark_color"]} {{')
+        for e in by_layer[lid]:
+            emit_entity(e)
         print("}")
         print()
 
-    # ─── Typed relationships ───
-    print("' --- RELATIONSHIPS (curated set; sync with viewer.js RELATIONSHIPS) ---")
+    # ─── Dimension entities (ADR-0002 D1: cross-cutting, no home layer) ───
+    if dimension_entities:
+        dim_names = {d["id"]: d["name"] for d in g.get("dimensions", [])}
+        for e in dimension_entities:
+            dim_label = dim_names.get(e.get("dimension", ""), "Dimension")
+            print(f'package "{dim_label} — cross-cutting" #374151 <<dimension>> {{')
+            emit_entity(e)
+            print("}")
+            print()
+
+    # ─── Inheritance (ADR-0002 D3: specializes) ───
+    specializations = [(e["class_alias"], e["specializes"]) for e in entities if e.get("specializes")]
+    if specializations:
+        print("' --- SPECIALIZATION (entity.specializes) ---")
+        for child, parent in specializations:
+            print(f"{child} --|> {parent}")
+        print()
+
+    # ─── Typed relationships (rel_type + cardinality; style derived) ───
+    print("' --- RELATIONSHIPS (from graph; style derived from rel_type) ---")
+    valid_aliases = {e["class_alias"] for e in entities}
     valid_count = 0
-    for from_alias, to_alias, label, style in RELATIONSHIPS:
-        if from_alias not in valid_aliases:
-            print(f"' WARNING: RELATIONSHIPS contains unknown alias '{from_alias}' — skipping")
+    for r in relationships:
+        if r["from"] not in valid_aliases or r["to"] not in valid_aliases:
+            print(f"' WARNING: relationship references unknown alias — skipping {r['from']}->{r['to']}")
             continue
-        if to_alias not in valid_aliases:
-            print(f"' WARNING: RELATIONSHIPS contains unknown alias '{to_alias}' — skipping")
-            continue
-        edge = ".." if style == "dashed" else "--"
-        print(f'{from_alias} {edge} {to_alias} : "{label}"')
+        edge = ".." if r.get("style") == "dashed" else "--"
+        label = f'{r["label"]} [{r["cardinality"]}]' if r.get("cardinality") else r["label"]
+        print(f'{r["from"]} {edge} {r["to"]} : "{label}"')
         valid_count += 1
     print()
-    print(f"' Generated {valid_count} relationship edges")
+    print(f"' Generated {valid_count} relationship edges, {len(specializations)} specialization edges")
     print()
     print("@enduml")
 

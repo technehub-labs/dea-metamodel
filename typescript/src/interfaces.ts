@@ -2,6 +2,10 @@
 // Auto-generated from schemas/entities/*.json
 // Do not edit manually — regenerate with: npm run generate
 
+// v0.2.0 (ADR-0002): architecture layers L1–L5. Measurement is a
+// cross-cutting dimension, not a layer — Metrics carry scope_layers.
+export type ArchitectureLayerId = 'L1' | 'L2' | 'L3' | 'L4' | 'L5';
+
 export type EntityStatus = 'draft' | 'candidate' | 'approved' | 'deprecated';
 // v1.0.0-alpha: Relationship type vocabulary. CamelCase to match
 // ttl/dea-metamodel-ontology.ttl ObjectProperty declarations and
@@ -341,6 +345,9 @@ export type DeploymentModel =
   | 'multi-cloud';
 export type SecurityClassification = 'public' | 'internal' | 'confidential' | 'restricted';
 
+// v0.2.0 (ADR-0002 D3): SolutionComponent is an ABSTRACT parent declared in
+// L3; its concrete subclasses are realized in L5 (discriminated by
+// component_type). Do not instantiate directly.
 export interface SolutionComponent extends BaseEntity {
   type: 'SolutionComponent';
   component_type: ComponentType;
@@ -426,6 +433,9 @@ export interface Metric extends BaseEntity {
   type: 'Metric';
   metric_type: MetricType;
   unit: string;
+  // v0.2.0 (ADR-0002 D1): Metric belongs to the cross-cutting Measurement
+  // Dimension — scope_layers declares which layers it may evaluate.
+  scope_layers?: ArchitectureLayerId[];
   measurement_method?: string;
   baseline_value?: string | number;
   target_value?: string | number;
@@ -464,6 +474,57 @@ export interface Viewpoint extends BaseEntity {
   generated_from?: string;
 }
 
+// ─── v0.2.0 entities (ADR-0002) ───────────────────────────
+
+// EcosystemActor (EA) — L1 External Parties. Active value-exchange party;
+// distinct from Stakeholder (affected/engaged, may be passive).
+// Mirrors schemas/entities/ecosystem-actor.json. Catalog repo TBD (planned).
+export type EcosystemActorKind =
+  | 'customer' | 'supplier' | 'partner' | 'regulator' | 'platform' | 'competitor';
+
+export interface EcosystemActor extends BaseEntity {
+  type: 'EcosystemActor';
+  actor_kind: EcosystemActorKind;
+  exchange_directions?: ('inbound' | 'outbound')[];
+  digital_identity_ref?: string;
+}
+
+// ValueExchange (VE) — L1 Value Flows.
+// Mirrors schemas/entities/value-exchange.json. Catalog repo TBD (planned).
+export type ValueFlowType = 'information' | 'goods' | 'funds' | 'service';
+export type ValueFlowDirection = 'inbound' | 'outbound' | 'bidirectional';
+
+export interface ValueExchange extends BaseEntity {
+  type: 'ValueExchange';
+  flow_type: ValueFlowType;
+  direction: ValueFlowDirection;
+  counterparty_ref?: string;
+  governed_by_ref?: string;
+  payload_refs?: string[];
+}
+
+// CollaborationAgreement (CA) — L1 Agreements (moved from L2 by ADR-0002 D2).
+// Mirrors schemas/entities/collaboration-agreement.json. Catalog repo TBD (planned).
+export type AgreementKind = 'cooperative' | 'mandated';
+
+export interface CollaborationAgreement extends BaseEntity {
+  type: 'CollaborationAgreement';
+  agreement_kind: AgreementKind;
+  parties?: string[];
+  governs_exchanges?: string[];
+  effective_from?: string;
+  effective_to?: string;
+}
+
+// BusinessFunction (BF) — L3 Work Organization. Groups capabilities
+// (CAP → BF), owned by an Organizational Unit (BF → OU, 1:1).
+// Mirrors schemas/entities/business-function.json. Catalog repo TBD (planned).
+export interface BusinessFunction extends BaseEntity {
+  type: 'BusinessFunction';
+  grouped_capabilities?: string[];
+  owning_unit_ref?: string;
+}
+
 // ─── Union type for all concrete entities ─────────────────
 
 export type AnyEntity =
@@ -477,7 +538,11 @@ export type AnyEntity =
   | SolutionComponent
   | Metric
   | GlossaryTerm
-  | Viewpoint;
+  | Viewpoint
+  | EcosystemActor
+  | ValueExchange
+  | CollaborationAgreement
+  | BusinessFunction;
 
 // ─── Metamodel index ──────────────────────────────────────
 
@@ -498,6 +563,10 @@ export const ENTITY_TYPES = [
   'GlossaryTerm',
   'TaxonomyNode',
   'Viewpoint',
+  'EcosystemActor',
+  'ValueExchange',
+  'CollaborationAgreement',
+  'BusinessFunction',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [

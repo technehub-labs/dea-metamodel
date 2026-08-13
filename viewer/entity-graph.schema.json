@@ -2,30 +2,90 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "title": "DEA Metamodel Entity Graph",
-  "description": "Mapping from metamodel entities to the catalog repositories that host them. Drives the interactive viewer at technehub-labs.github.io/metamodel/.",
+  "description": "Viewer graph generated from the OpenDEAM root model (dea-architecture-framework). Drives the interactive viewer at technehub-labs.github.io/metamodel/. v0.2.0 (ADR-0002): dimension entities carry `dimension` instead of `layer`; relationships carry rel_type + cardinality with derived style.",
   "type": "object",
-  "required": ["metamodel_version", "entities"],
+  "required": ["metamodel_version", "layers", "entities", "relationships"],
   "properties": {
     "metamodel_version": { "type": "string" },
+    "opendeam_model_repo": { "type": "string" },
+    "opendeam_model_pin": { "type": "string" },
     "description": { "type": "string" },
     "viewer_route": { "type": "string" },
     "viewer_url": { "type": "string", "format": "uri" },
+    "layers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "qualifier", "color", "dark_color"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^L[0-9]+$" },
+          "name": { "type": "string" },
+          "qualifier": { "type": "string" },
+          "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "dark_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+        }
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "kind"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "kind": { "type": "string" }
+        }
+      }
+    },
     "entities": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["entity_id", "class_alias", "display_name", "layer", "catalog_repo", "repo_url"],
+        "required": ["entity_id", "class_alias", "display_name", "catalog_repo", "repo_url", "status"],
         "properties": {
           "entity_id": { "type": "string", "pattern": "^dea:entity-[a-z-]+$" },
           "class_alias": { "type": "string", "maxLength": 5 },
           "display_name": { "type": "string" },
-          "layer": { "type": "string", "enum": ["L1", "L2", "L3", "L4", "L5"] },
+          "layer": { "type": "string", "pattern": "^L[0-9]+$" },
           "layer_name": { "type": "string" },
+          "building_block": { "type": "string" },
+          "building_block_name": { "type": "string" },
+          "dimension": { "type": "string" },
           "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
-          "catalog_repo": { "type": "string", "pattern": "^dea-[a-z-]+$" },
-          "repo_url": { "type": "string", "format": "uri" },
-          "status": { "type": "string", "enum": ["existing", "existing-extended", "planned", "scaffold"] },
+          "catalog_repo": { "type": ["string", "null"], "pattern": "^[a-z0-9-]+$" },
+          "repo_url": { "type": ["string", "null"], "format": "uri" },
+          "status": { "type": "string", "enum": ["proposed", "planned", "scaffold", "existing", "deprecated", "retired"] },
+          "abstract": { "type": "boolean" },
+          "specializes": { "type": "string", "maxLength": 5 },
+          "realized_in_layers": { "type": "array", "items": { "type": "string", "pattern": "^L[0-9]+$" } },
+          "discriminator": { "type": "string" },
+          "ecf_coordinates": {
+            "type": "object",
+            "properties": {
+              "domain": { "type": ["string", "null"] },
+              "stage": { "type": ["string", "null"] }
+            }
+          },
+          "measured_by": { "type": "array", "items": { "type": "string", "maxLength": 5 } },
+          "scope_layers": { "type": "array", "items": { "type": "string", "pattern": "^L[0-9]+$" } },
           "description": { "type": "string" }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "label", "rel_type", "cardinality", "style"],
+        "properties": {
+          "from": { "type": "string", "maxLength": 5 },
+          "to": { "type": "string", "maxLength": 5 },
+          "label": { "type": "string" },
+          "rel_type": { "type": "string", "enum": ["realization", "composition", "aggregation", "dependency", "flow", "governance", "association"] },
+          "cardinality": { "type": "string", "pattern": "^(0\\.\\.1|1|0\\.\\.N|1\\.\\.N):(0\\.\\.1|1|0\\.\\.N|1\\.\\.N)$" },
+          "style": { "type": "string", "enum": ["solid", "dashed"], "deprecated": true }
         }
       }
     }

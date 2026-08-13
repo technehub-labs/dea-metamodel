@@ -1,0 +1,96 @@
+name: OpenDEAM model sync
+
+# Receiver for the OpenDEAM fan-out (dea-architecture-framework/.github/
+# workflows/fan-out.yml). When the root model changes on main, this workflow
+# regenerates the derived artifacts from the pinned model and commits them:
+#
+#   opendeam-model.yaml (T0) → entity-graph.json → metamodel-v2.puml
+#                                                     ↓ (dispatch)
+#                                        render-metamodel.yml → SVG
+#                                                     ↓ (dispatch)
+#                                        technehub-labs.github.io sync
+#
+# GITHUB_TOKEN pushes never fire on:push workflows (GitHub recursion guard),
+# so the downstream render + Pages notification are explicitly dispatched
+# from the final step instead of relying on push triggers.
+
+on:
+  repository_dispatch:
+    types: [opendeam-model-changed]
+  workflow_dispatch:
+    inputs:
+      model_ref:
+        description: "Tag/SHA of dea-architecture-framework to sync from"
+        required: false
+        default: "v0.2.0"
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve model ref
+        id: ref
+        run: |
+          REF="${{ github.event.client_payload.model_version || inputs.model_ref }}"
+          REF="${REF:-v0.2.0}"
+          echo "model_ref=$REF" >> "$GITHUB_OUTPUT"
+
+      - name: Check out OpenDEAM model @ ${{ steps.ref.outputs.model_ref }}
+        uses: actions/checkout@v4
+        with:
+          repository: technehub-labs/dea-architecture-framework
+          ref: ${{ steps.ref.outputs.model_ref }}
+          path: .opendeam
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - run: pip install pyyaml
+
+      - name: Regenerate entity graph + PUML from pinned model
+        run: |
+          python3 .github/scripts/generate_entity_graph.py --model .opendeam/model/opendeam-model.yaml
+          python3 .github/scripts/generate_puml.py > metamodel-puml/metamodel-v2.puml
+
+      - name: Stage and check for changes
+        id: diff
+        run: |
+          git add viewer/ metamodel-puml/
+          if git diff --cached --quiet -- viewer/ metamodel-puml/; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Already in sync with the pinned model."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit + push regenerated artifacts
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "dea-metamodel-bot"
+          git config user.email "dea-metamodel-bot@users.noreply.github.com"
+          git commit -m "ci(sync): regenerate entity-graph + PUML from OpenDEAM ${{ steps.ref.outputs.model_ref }}"
+          git push
+
+      - name: Dispatch downstream render + Pages sync
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run render-metamodel.yml --ref main
+      # Pages notification (notify-pages.yml is push-triggered, which this
+      # bot's GITHUB_TOKEN push will not fire — dispatch Pages sync directly)
+      - name: Notify Pages of metamodel update
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: technehub-labs/technehub-labs.github.io
+          event-type: metamodel-updated
+          client-payload: '{"source": "dea-metamodel (opendeam-sync)"}'

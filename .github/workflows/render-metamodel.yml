@@ -1,6 +1,7 @@
 name: Render Metamodel
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'metamodel-puml/**'
@@ -198,6 +199,12 @@ jobs:
           cd metamodel-puml
           plantuml -tsvg metamodel-v2.puml
           cd ..
+          # Mirror the render job: the cross-format validator reads
+          # viewer/metamodel.svg, so the fresh render must be copied there.
+          cp metamodel-puml/metamodel-v2.svg viewer/metamodel.svg
+      - name: Inject SVG attributes for interactivity
+        run: |
+          python3 .github/scripts/inject_svg_attributes.py viewer/metamodel.svg
       - name: Cross-format validator
         run: |
           python3 .github/scripts/validate_svg_graph.py

@@ -32,6 +32,32 @@ jobs:
       - name: Parse all Turtle files
         run: python3 .github/scripts/validate_ttl.py
 
+      - name: Validate entity graph against its schema
+        run: |
+          python3 -c "
+          import json, jsonschema
+          g = json.load(open('viewer/entity-graph.json'))
+          s = json.load(open('viewer/entity-graph.schema.json'))
+          jsonschema.Draft7Validator.check_schema(s)
+          errs = list(jsonschema.Draft7Validator(s).iter_errors(g))
+          for e in errs: print('  ✗', list(e.absolute_path), e.message)
+          raise SystemExit(1 if errs else 0)
+          "
+
+      - name: Verify pydantic models are current + compile
+        run: |
+          pip install pydantic
+          python3 .github/scripts/generate_pydantic.py
+          git diff --exit-code -- pydantic/ || { echo "pydantic/ is stale — regenerate with .github/scripts/generate_pydantic.py"; exit 1; }
+          cd pydantic
+          python3 -c "
+          import sys, glob, py_compile
+          sys.path.insert(0, '.')
+          for f in glob.glob('*.py'): py_compile.compile(f, doraise=True)
+          import metric, ecosystem_actor, value_exchange, collaboration_agreement, business_function
+          print('pydantic scaffold compiles and imports cleanly')
+          "
+
       - name: Apply SQLite schema (dry-run)
         run: |
           sqlite3 :memory: < sqlite/schema.sql

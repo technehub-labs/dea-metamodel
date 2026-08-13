@@ -19,21 +19,35 @@ skinparam arrow {
     FontStyle italic
 }
 
-' --- ENTITY DEFINITIONS (auto-generated from viewer/entity-graph.json) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.2.0, pin v0.2.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
-package "Layer 1: Strategic & Investment" #1A6F67 {
-    ' (scaffold)
-    entity "Actor" as AC {
+package "Layer 1: Ecosystem & Value Network" #1B6963 {
+    entity "Collaboration Agreement" as CA {
         + id : string
         + name : string
     }
+    entity "Ecosystem Actor" as EA {
+        + id : string
+        + name : string
+    }
+    entity "Journey Touchpoint" as JT {
+        + id : string
+        + name : string
+    }
+    ' (scaffold)
+    entity "Stakeholder" as SH {
+        + id : string
+        + name : string
+    }
+    entity "Value Exchange" as VE {
+        + id : string
+        + name : string
+    }
+}
+
+package "Layer 2: Strategic & Governance" #785F1D {
     entity "Architecture Pattern" as AP {
-        + id : string
-        + name : string
-    }
-    ' (scaffold)
-    entity "Business Process" as BP {
         + id : string
         + name : string
     }
@@ -49,8 +63,7 @@ package "Layer 1: Strategic & Investment" #1A6F67 {
         + id : string
         + name : string
     }
-    ' (scaffold)
-    entity "Stakeholder" as SH {
+    entity "Reference Model" as RM {
         + id : string
         + name : string
     }
@@ -62,15 +75,33 @@ package "Layer 1: Strategic & Investment" #1A6F67 {
         + id : string
         + name : string
     }
+    entity "Taxonomy Node" as TXN {
+        + id : string
+        + name : string
+    }
     entity "Viewpoint" as VP {
         + id : string
         + name : string
     }
 }
 
-package "Layer 2: Business Operating Model" #81651A {
+package "Layer 3: Business Operating Model" #205E7C {
+    ' (scaffold)
+    entity "Actor" as AC {
+        + id : string
+        + name : string
+    }
+    entity "Business Function" as BF {
+        + id : string
+        + name : string
+    }
     ' (scaffold)
     entity "Business Object" as BO {
+        + id : string
+        + name : string
+    }
+    ' (scaffold)
+    entity "Business Process" as BP {
         + id : string
         + name : string
     }
@@ -83,25 +114,13 @@ package "Layer 2: Business Operating Model" #81651A {
         + id : string
         + name : string
     }
-    entity "Journey Touchpoint" as JT {
-        + id : string
-        + name : string
-    }
     ' (scaffold)
     entity "Organizational Unit" as OU {
         + id : string
         + name : string
     }
-    entity "Reference Model" as RM {
-        + id : string
-        + name : string
-    }
     ' (existing)
     entity "Solution Component" as SC {
-        + id : string
-        + name : string
-    }
-    entity "Taxonomy Node" as TXN {
         + id : string
         + name : string
     }
@@ -111,8 +130,12 @@ package "Layer 2: Business Operating Model" #81651A {
     }
 }
 
-package "Layer 3: Digital & Data" #24759B {
+package "Layer 4: Digital & Intelligence" #52487D {
     entity "AI/ML Model" as AIM {
+        + id : string
+        + name : string
+    }
+    entity "Data Entity" as DE {
         + id : string
         + name : string
     }
@@ -128,22 +151,18 @@ package "Layer 3: Digital & Data" #24759B {
         + id : string
         + name : string
     }
+    entity "Information Class" as IC {
+        + id : string
+        + name : string
+    }
 }
 
-package "Layer 4: Technical & Integration" #67579C {
+package "Layer 5: Technology & Execution" #783C48 {
     entity "Application Component" as APC {
         + id : string
         + name : string
     }
     entity "API" as API {
-        + id : string
-        + name : string
-    }
-    entity "Data Entity" as DE {
-        + id : string
-        + name : string
-    }
-    entity "Information Class" as IC {
         + id : string
         + name : string
     }
@@ -169,7 +188,7 @@ package "Layer 4: Technical & Integration" #67579C {
     }
 }
 
-package "Layer 5: Measurement & Governance" #994856 {
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
     ' (existing)
     entity "Performance Metric" as MTR {
         + id : string
@@ -177,38 +196,50 @@ package "Layer 5: Measurement & Governance" #994856 {
     }
 }
 
-' --- RELATIONSHIPS (curated set; sync with viewer.js RELATIONSHIPS) ---
-SO -- II : "drives"
-II -- CAP : "funds"
-VS -- CAP : "traverses"
-VS -- JT : "experienced via"
-CAP -- BP : "implemented by"
-CAP -- OU : "owned by"
-CAP -- BO : "produces / consumes"
-SH .. BP : "served by"
-AC -- BP : "performs"
-JT -- DI : "authenticates"
-DI -- DE : "represented by"
-BP -- SF : "automated by"
-BO -- DE : "digitized as"
-OU .. BO : "custodian of"
-BS -- BO : "exposes"
-DE .. IC : "classified by"
-DE .. DP : "curated into"
-SF -- EVT : "publishes / subscribes"
-EVT .. DE : "carries payload of"
-DP -- API : "exposed via"
-AIM -- DP : "trained on"
-AIM -- SF : "enhances / automates"
-SF -- APC : "hosted by"
-APC .. PS : "deployed on"
-SF -- API : "exposed via"
-API .. DE : "serves / exchanges"
-TEC -- APC : "implements"
-SO .. MTR : "measured by"
-CAP .. MTR : "evaluated by"
-SF .. MTR : "evaluated by"
+' --- SPECIALIZATION (entity.specializes) ---
+APC --|> SC
+IFC --|> SC
+IGC --|> SC
 
-' Generated 30 relationship edges
+' --- RELATIONSHIPS (from graph; style derived from rel_type) ---
+SO .. II : "drives [1:0..N]"
+II .. CAP : "funds [1:0..N]"
+VS -- CAP : "traverses [1..N:1..N]"
+VS -- JT : "experienced via [1:0..N]"
+CAP -- BP : "implemented by [1:1..N]"
+CAP .. BO : "produces / consumes [0..N:0..N]"
+SH .. BP : "served by [0..N:0..N]"
+AC .. BP : "performs [0..N:0..N]"
+JT .. DI : "authenticates [0..N:1]"
+DI -- DE : "represented by [1:1]"
+BP -- SF : "automated by [0..N:0..N]"
+BO -- DE : "digitized as [1:0..N]"
+OU .. BO : "custodian of [1:0..N]"
+BS .. BO : "exposes [0..N:0..N]"
+DE .. IC : "classified by [0..N:1..N]"
+DE -- DP : "curated into [0..N:0..N]"
+SF -- EVT : "publishes / subscribes [0..N:0..N]"
+EVT .. DE : "carries payload of [0..N:0..1]"
+DP -- API : "exposed via [1:1..N]"
+AIM .. DP : "trained on [0..N:0..N]"
+AIM .. SF : "enhances / automates [0..N:0..N]"
+SF -- APC : "hosted by [0..N:1]"
+APC .. PS : "deployed on [0..N:0..N]"
+SF -- API : "exposed via [0..N:0..N]"
+API -- DE : "serves / exchanges [0..N:0..N]"
+TEC .. APC : "implements [0..N:0..N]"
+SO .. MTR : "measured by [1:0..N]"
+CAP .. MTR : "evaluated by [1:0..N]"
+SF .. MTR : "evaluated by [1:0..N]"
+EA .. CA : "engages in [0..N:0..N]"
+CA .. VE : "governs [1:0..N]"
+EA .. SO : "influences [0..N:0..N]"
+VE -- JT : "crosses boundary at [0..N:0..N]"
+VE .. BO : "transports (payload) [0..N:0..N]"
+EA -- DI : "represented by [1:1]"
+CAP -- BF : "grouped by [0..N:1]"
+BF .. OU : "owned by [1:1]"
+
+' Generated 37 relationship edges, 3 specialization edges
 
 @enduml

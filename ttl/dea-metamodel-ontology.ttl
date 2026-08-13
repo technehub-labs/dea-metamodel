@@ -149,6 +149,30 @@ dea:Viewpoint a owl:Class ;
 dea:Relationship a owl:Class ;
     rdfs:label "Relationship" .
 
+dea:EcosystemActor a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EcosystemActor" ;
+    skos:definition "External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner (OpenDEAM v0.2.0, L1)." ;
+    dea:specification <schemas/entities/ecosystem-actor.json> .
+
+dea:ValueExchange a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ValueExchange" ;
+    skos:definition "A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound (OpenDEAM v0.2.0, L1)." ;
+    dea:specification <schemas/entities/value-exchange.json> .
+
+dea:CollaborationAgreement a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "CollaborationAgreement" ;
+    skos:definition "Terms governing cooperation with an ecosystem actor — cooperative or mandated (OpenDEAM v0.2.0, L1; moved from L2 by ADR-0002 D2)." ;
+    dea:specification <schemas/entities/collaboration-agreement.json> .
+
+dea:BusinessFunction a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BusinessFunction" ;
+    skos:definition "A grouping of business capabilities by organisational function; owned by an organizational unit (OpenDEAM v0.2.0, L3; CAP -> BF -> OU)." ;
+    dea:specification <schemas/entities/business-function.json> .
+
 dea:mapsTo a owl:ObjectProperty ;
     rdfs:domain dea:Entity ;
     rdfs:range dea:Entity ;

@@ -2,51 +2,124 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/solution-component.json",
   "title": "SolutionComponent",
-  "description": "A physical or logical software or hardware component that implements capabilities.",
+  "description": "A physical or logical software or hardware component that implements capabilities. OpenDEAM v0.2.0 (ADR-0002 D3): this is an ABSTRACT parent \u2014 concrete subclasses (ApplicationComponent, InfrastructureComponent, IntegrationComponent) are realized in L5 and discriminated by component_type.",
   "type": "object",
-  "required": ["id", "name", "type", "version", "component_type", "deployment_model"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "component_type",
+    "deployment_model"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:component-order-service"]
+      "examples": [
+        "dea:component-order-service"
+      ]
     },
-    "type": { "type": "string", "const": "SolutionComponent" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "type": {
+      "type": "string",
+      "const": "SolutionComponent"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "component_type": {
       "type": "string",
-      "enum": ["application", "infrastructure", "integration"],
+      "enum": [
+        "application",
+        "infrastructure",
+        "integration"
+      ],
       "description": "Component category (discriminator for subtypes)."
     },
     "deployment_model": {
       "type": "string",
-      "enum": ["on-premise", "iaas", "paas", "saas", "faas", "hybrid", "multi-cloud"],
+      "enum": [
+        "on-premise",
+        "iaas",
+        "paas",
+        "saas",
+        "faas",
+        "hybrid",
+        "multi-cloud"
+      ],
       "description": "Deployment context."
     },
     "technology_stack": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Technology IDs used in this component."
     },
-    "capabilities_realized": { "type": "array", "items": { "type": "string" } },
-    "services_provided": { "type": "array", "items": { "type": "string" } },
-    "services_consumed": { "type": "array", "items": { "type": "string" } },
-    "patterns_applied": { "type": "array", "items": { "type": "string" } },
-    "owner": { "type": "string" },
+    "capabilities_realized": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "services_provided": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "services_consumed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "patterns_applied": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner": {
+      "type": "string"
+    },
     "dependencies": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "security_classification": {
       "type": "string",
-      "enum": ["public", "internal", "confidential", "restricted"]
+      "enum": [
+        "public",
+        "internal",
+        "confidential",
+        "restricted"
+      ]
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
-  }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  },
+  "x-abstract": true,
+  "x-realized-in-layers": [
+    "L5"
+  ]
 }

@@ -3,7 +3,8 @@
 # For machine validation, use schemas/entities/<entity>.json and schemas/relationships/<rel>.json
 
 metamodel:
-  version: "0.1.0-alpha"
+  version: "0.2.0"
+  opendeam_model: technehub-labs/dea-architecture-framework@v0.2.0
   schema_base: ./schemas/entities
   ttl_base: ./ttl
   sqlite_schema: ./sqlite/schema.sql
@@ -185,6 +186,38 @@ entities:
     sqlite_table: viewpoints
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/viewpoint.py
+
+  - name: BusinessFunction
+    description: Grouping of business capabilities by organisational function; owned by an organizational unit (CAP → BF → OU).
+    schema: schemas/entities/business-function.json
+    ttl: ttl/entities/business-function.ttl
+    sqlite_table: business_functions
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/business_function.py
+
+  - name: EcosystemActor
+    description: External party that actively exchanges value with the enterprise (L1, ADR-0002).
+    schema: schemas/entities/ecosystem-actor.json
+    ttl: ttl/entities/ecosystem-actor.ttl
+    sqlite_table: ecosystem_actors
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/ecosystem_actor.py
+
+  - name: ValueExchange
+    description: Flow of value between the enterprise and an ecosystem actor (L1, ADR-0002).
+    schema: schemas/entities/value-exchange.json
+    ttl: ttl/entities/value-exchange.ttl
+    sqlite_table: value_exchanges
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/value_exchange.py
+
+  - name: CollaborationAgreement
+    description: Terms governing cooperation with an ecosystem actor (L1 as of ADR-0002 D2).
+    schema: schemas/entities/collaboration-agreement.json
+    ttl: ttl/entities/collaboration-agreement.ttl
+    sqlite_table: collaboration_agreements
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/collaboration_agreement.py
 
 relationships:
   - name: mapsTo

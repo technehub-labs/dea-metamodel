@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/experiment.json",
+  "title": "Experiment",
+  "description": "A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment. OpenDEAM v0.3.0 (ADR-0003), L2/Innovation & Foresight.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:experiment-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "Experiment"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "hypothesis": {
+      "type": "string",
+      "description": "What the experiment tests."
+    },
+    "signal_ref": {
+      "type": "string",
+      "description": "The Signal that triggered this experiment."
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "validated",
+        "invalidated",
+        "inconclusive"
+      ],
+      "description": "Experiment result."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

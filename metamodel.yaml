@@ -3,8 +3,8 @@
 # For machine validation, use schemas/entities/<entity>.json and schemas/relationships/<rel>.json
 
 metamodel:
-  version: "0.2.0"
-  opendeam_model: technehub-labs/dea-architecture-framework@v0.2.0
+  version: "0.3.0"
+  opendeam_model: technehub-labs/dea-architecture-framework@v0.3.0
   schema_base: ./schemas/entities
   ttl_base: ./ttl
   sqlite_schema: ./sqlite/schema.sql
@@ -218,6 +218,102 @@ entities:
     sqlite_table: collaboration_agreements
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/collaboration_agreement.py
+
+  - name: EcosystemPlatform
+    description: Standing multi-sided structure the enterprise hosts for repeated exchange among many third parties (L1, ADR-0003).
+    schema: schemas/entities/ecosystem-platform.json
+    ttl: ttl/entities/ecosystem-platform.ttl
+    sqlite_table: ecosystem_platforms
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/ecosystem_platform.py
+
+  - name: Risk
+    description: Condition or event threatening the enterprise's ability to persist or realise value (L2, ADR-0003).
+    schema: schemas/entities/risk.json
+    ttl: ttl/entities/risk.ttl
+    sqlite_table: risks
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/risk.py
+
+  - name: Control
+    description: Mechanism that mitigates a Risk or enforces a Regulation (L2, ADR-0003).
+    schema: schemas/entities/control.json
+    ttl: ttl/entities/control.ttl
+    sqlite_table: controls
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/control.py
+
+  - name: Regulation
+    description: Externally imposed obligation with force of law or contract (L2, ADR-0003).
+    schema: schemas/entities/regulation.json
+    ttl: ttl/entities/regulation.ttl
+    sqlite_table: regulations
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/regulation.py
+
+  - name: Signal
+    description: Weak or early indicator of environmental change (L2, ADR-0003).
+    schema: schemas/entities/signal.json
+    ttl: ttl/entities/signal.ttl
+    sqlite_table: signals
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/signal.py
+
+  - name: Experiment
+    description: Bounded, time-boxed test of a Signal's relevance (L2, ADR-0003).
+    schema: schemas/entities/experiment.json
+    ttl: ttl/entities/experiment.ttl
+    sqlite_table: experiments
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/experiment.py
+
+  - name: TechnologyRadarEntry
+    description: Emerging technology tracked through assess/trial/adopt/hold (L2, ADR-0003).
+    schema: schemas/entities/technology-radar-entry.json
+    ttl: ttl/entities/technology-radar-entry.ttl
+    sqlite_table: technology_radar_entries
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/technology_radar_entry.py
+
+  - name: Skill
+    description: Capability an individual Actor possesses or must develop (L3, ADR-0003).
+    schema: schemas/entities/skill.json
+    ttl: ttl/entities/skill.ttl
+    sqlite_table: skills
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/skill.py
+
+  - name: Role
+    description: Defined set of required Skills and responsibilities an Actor fulfills (L3, ADR-0003).
+    schema: schemas/entities/role.json
+    ttl: ttl/entities/role.ttl
+    sqlite_table: roles
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/role.py
+
+  - name: ChangeInitiative
+    description: Deliberate effort to shift Skills, Roles, or culture (L3, ADR-0003).
+    schema: schemas/entities/change-initiative.json
+    ttl: ttl/entities/change-initiative.ttl
+    sqlite_table: change_initiatives
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/change_initiative.py
+
+  - name: ModelDeployment
+    description: Running instance of an AI/ML Model with operational lifecycle (L4, ADR-0003).
+    schema: schemas/entities/model-deployment.json
+    ttl: ttl/entities/model-deployment.ttl
+    sqlite_table: model_deployments
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/model_deployment.py
+
+  - name: ModelFeedbackSignal
+    description: Drift/performance feedback from Events driving retraining (L4, ADR-0003).
+    schema: schemas/entities/model-feedback-signal.json
+    ttl: ttl/entities/model-feedback-signal.ttl
+    sqlite_table: model_feedback_signals
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/model_feedback_signal.py
 
 relationships:
   - name: mapsTo

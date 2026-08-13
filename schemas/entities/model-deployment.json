@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/model-deployment.json",
+  "title": "ModelDeployment",
+  "description": "A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state, and health. OpenDEAM v0.3.0 (ADR-0003), L4/Model Operations.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:model-deployment-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "ModelDeployment"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "model_ref": {
+      "type": "string",
+      "description": "The AI/ML Model this deployment instantiates."
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "dev",
+        "staging",
+        "production"
+      ],
+      "description": "Deployment environment."
+    },
+    "deployment_kind": {
+      "type": "string",
+      "enum": [
+        "api-endpoint",
+        "batch",
+        "embedded",
+        "streaming"
+      ],
+      "description": "Discriminator within dea-catalog-model-deployments (ADR-0002 D6)."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

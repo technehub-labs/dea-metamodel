@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/model-feedback-signal.json",
+  "title": "ModelFeedbackSignal",
+  "description": "Drift, performance-degradation, or outcome-quality feedback captured from Events, used to trigger retraining of an AI/ML Model. OpenDEAM v0.3.0 (ADR-0003), L4/Model Operations.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:model-feedback-signal-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "ModelFeedbackSignal"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "signal_kind": {
+      "type": "string",
+      "enum": [
+        "drift",
+        "performance-degradation",
+        "outcome-quality"
+      ],
+      "description": "Discriminator within dea-catalog-model-deployments (ADR-0002 D6)."
+    },
+    "derived_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Event/streams the feedback is captured from."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

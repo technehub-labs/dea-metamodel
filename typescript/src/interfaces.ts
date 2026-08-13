@@ -525,6 +525,89 @@ export interface BusinessFunction extends BaseEntity {
   owning_unit_ref?: string;
 }
 
+// ─── v0.3.0 entities (ADR-0003 comprehensiveness expansion) ──
+
+// EcosystemPlatform (EP) — L1 Ecosystem Platforms. Multi-sided standing
+// structure for repeated exchange (marketplace, developer portal, partner
+// API program). Mirrors schemas/entities/ecosystem-platform.json.
+export type PlatformKind = 'marketplace' | 'developer-portal' | 'partner-api-program' | 'data-exchange';
+export interface EcosystemPlatform extends BaseEntity {
+  type: 'EcosystemPlatform';
+  platform_kind: PlatformKind;
+  participant_count?: number;
+}
+
+// Risk (RSK) / Control (CTL) / Regulation (REG) — L2 Risk & Compliance.
+export type RiskCategory = 'strategic' | 'operational' | 'regulatory' | 'technology' | 'financial' | 'reputational';
+export interface Risk extends BaseEntity {
+  type: 'Risk';
+  risk_category: RiskCategory;
+  likelihood?: 'rare' | 'unlikely' | 'possible' | 'likely' | 'almost-certain';
+  impact?: 'negligible' | 'minor' | 'moderate' | 'major' | 'severe';
+}
+export type ControlType = 'preventive' | 'detective' | 'corrective';
+export interface Control extends BaseEntity {
+  type: 'Control';
+  control_type: ControlType;
+  mitigates?: string[];
+}
+export interface Regulation extends BaseEntity {
+  type: 'Regulation';
+  jurisdiction?: string;
+  mandates?: string[];
+}
+
+// Signal (SIG) / Experiment (EXP) / TechnologyRadarEntry (TRE) — L2 Innovation & Foresight.
+export interface Signal extends BaseEntity {
+  type: 'Signal';
+  signal_source: 'market' | 'technology' | 'regulatory' | 'competitor' | 'customer';
+  strength?: 'weak' | 'emerging' | 'strong';
+}
+export interface Experiment extends BaseEntity {
+  type: 'Experiment';
+  hypothesis: string;
+  signal_ref?: string;
+  outcome?: 'pending' | 'validated' | 'invalidated' | 'inconclusive';
+}
+export interface TechnologyRadarEntry extends BaseEntity {
+  type: 'TechnologyRadarEntry';
+  radar_ring: 'assess' | 'trial' | 'adopt' | 'hold';
+  graduates_to?: string;
+}
+
+// Skill (SKL) / Role (ROL) / ChangeInitiative (CHI) — L3 People, Skills & Culture.
+export interface Skill extends BaseEntity {
+  type: 'Skill';
+  skill_domain?: string;
+  proficiency_levels?: string;
+}
+export interface Role extends BaseEntity {
+  type: 'Role';
+  required_skills?: string[];
+  fulfilled_by?: string[];
+}
+export interface ChangeInitiative extends BaseEntity {
+  type: 'ChangeInitiative';
+  change_scope: 'skills' | 'roles' | 'culture' | 'structure';
+  targets?: string[];
+  funded_by?: string;
+}
+
+// ModelDeployment (MDP) / ModelFeedbackSignal (MFS) — L4 Model Operations.
+// Share dea-catalog-model-deployments, discriminated by deployment_kind /
+// signal_kind respectively (ADR-0002 D6).
+export interface ModelDeployment extends BaseEntity {
+  type: 'ModelDeployment';
+  model_ref: string;
+  environment: 'dev' | 'staging' | 'production';
+  deployment_kind: 'api-endpoint' | 'batch' | 'embedded' | 'streaming';
+}
+export interface ModelFeedbackSignal extends BaseEntity {
+  type: 'ModelFeedbackSignal';
+  signal_kind: 'drift' | 'performance-degradation' | 'outcome-quality';
+  derived_from?: string[];
+}
+
 // ─── Union type for all concrete entities ─────────────────
 
 export type AnyEntity =
@@ -542,7 +625,19 @@ export type AnyEntity =
   | EcosystemActor
   | ValueExchange
   | CollaborationAgreement
-  | BusinessFunction;
+  | BusinessFunction
+  | EcosystemPlatform
+  | Risk
+  | Control
+  | Regulation
+  | Signal
+  | Experiment
+  | TechnologyRadarEntry
+  | Skill
+  | Role
+  | ChangeInitiative
+  | ModelDeployment
+  | ModelFeedbackSignal;
 
 // ─── Metamodel index ──────────────────────────────────────
 
@@ -567,6 +662,18 @@ export const ENTITY_TYPES = [
   'ValueExchange',
   'CollaborationAgreement',
   'BusinessFunction',
+  'EcosystemPlatform',
+  'Risk',
+  'Control',
+  'Regulation',
+  'Signal',
+  'Experiment',
+  'TechnologyRadarEntry',
+  'Skill',
+  'Role',
+  'ChangeInitiative',
+  'ModelDeployment',
+  'ModelFeedbackSignal',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [

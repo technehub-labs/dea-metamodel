@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/risk.json",
+  "title": "Risk",
+  "description": "A condition or event that threatens the enterprise's ability to persist or to realize a capability/objective. OpenDEAM v0.3.0 (ADR-0003), L2/Risk & Compliance.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:risk-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "Risk"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "risk_category": {
+      "type": "string",
+      "enum": [
+        "strategic",
+        "operational",
+        "regulatory",
+        "technology",
+        "financial",
+        "reputational"
+      ],
+      "description": "Risk classification."
+    },
+    "likelihood": {
+      "type": "string",
+      "enum": [
+        "rare",
+        "unlikely",
+        "possible",
+        "likely",
+        "almost-certain"
+      ],
+      "description": "Assessed likelihood."
+    },
+    "impact": {
+      "type": "string",
+      "enum": [
+        "negligible",
+        "minor",
+        "moderate",
+        "major",
+        "severe"
+      ],
+      "description": "Assessed impact."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

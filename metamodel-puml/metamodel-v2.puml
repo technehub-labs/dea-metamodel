@@ -19,7 +19,7 @@ skinparam arrow {
     FontStyle italic
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.2.0, pin v0.2.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.2.1, pin v0.2.1) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {

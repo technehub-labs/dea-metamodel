@@ -1,8 +1,8 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-  "metamodel_version": "0.2.1",
+  "metamodel_version": "0.3.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.2.1",
+  "opendeam_model_pin": "v0.3.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -53,6 +53,11 @@
       "id": "measurement-dimension",
       "name": "Measurement Dimension",
       "kind": "cross-cutting evaluative overlay (not a layer as of v0.2.0)"
+    },
+    {
+      "id": "ai-automation-governance",
+      "name": "AI & Automation Governance",
+      "kind": "cross-cutting policy overlay (not a layer, not \"Responsible AI\" as a separate structure)"
     }
   ],
   "entities": [
@@ -82,6 +87,20 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-external-parties",
       "building_block_name": "External Parties",
+      "color": "#2DD4BF"
+    },
+    {
+      "entity_id": "dea:entity-ecosystem-platform",
+      "class_alias": "EP",
+      "display_name": "Ecosystem Platform",
+      "catalog_repo": "dea-catalog-ecosystem-platforms",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-ecosystem-platforms",
+      "status": "proposed",
+      "description": "A standing multi-sided structure the enterprise hosts for repeated exchange among many ecosystem actors (marketplace, partner API program, developer portal).",
+      "layer": "L1",
+      "layer_name": "Ecosystem & Value Network",
+      "building_block": "L1-ecosystem-platforms",
+      "building_block_name": "Ecosystem Platforms",
       "color": "#2DD4BF"
     },
     {
@@ -142,6 +161,34 @@
       "discriminator": "pattern_kind"
     },
     {
+      "entity_id": "dea:entity-control",
+      "class_alias": "CTL",
+      "display_name": "Control",
+      "catalog_repo": "dea-catalog-controls",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-controls",
+      "status": "proposed",
+      "description": "A mechanism (process, technical, or organizational) that mitigates a Risk or enforces a Regulation.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-risk-compliance",
+      "building_block_name": "Risk & Compliance",
+      "color": "#FBBF24"
+    },
+    {
+      "entity_id": "dea:entity-experiment",
+      "class_alias": "EXP",
+      "display_name": "Experiment",
+      "catalog_repo": "dea-catalog-experiments",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-experiments",
+      "status": "proposed",
+      "description": "A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-innovation-foresight",
+      "building_block_name": "Innovation & Foresight",
+      "color": "#FBBF24"
+    },
+    {
       "entity_id": "dea:entity-glossary-term",
       "class_alias": "GT",
       "display_name": "Glossary Term",
@@ -184,6 +231,20 @@
       "color": "#FBBF24"
     },
     {
+      "entity_id": "dea:entity-regulation",
+      "class_alias": "REG",
+      "display_name": "Regulation",
+      "catalog_repo": "dea-catalog-regulations",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-regulations",
+      "status": "proposed",
+      "description": "An externally imposed obligation (law, industry standard with force, contractual mandate) the enterprise must comply with.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-risk-compliance",
+      "building_block_name": "Risk & Compliance",
+      "color": "#FBBF24"
+    },
+    {
       "entity_id": "dea:entity-reference-model",
       "class_alias": "RM",
       "display_name": "Reference Model",
@@ -195,6 +256,34 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-reusable-knowledge",
       "building_block_name": "Reusable Knowledge",
+      "color": "#FBBF24"
+    },
+    {
+      "entity_id": "dea:entity-risk",
+      "class_alias": "RSK",
+      "display_name": "Risk",
+      "catalog_repo": "dea-catalog-risk-register",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-risk-register",
+      "status": "proposed",
+      "description": "A condition or event that threatens the enterprise's ability to persist or to realize a capability/objective.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-risk-compliance",
+      "building_block_name": "Risk & Compliance",
+      "color": "#FBBF24"
+    },
+    {
+      "entity_id": "dea:entity-signal",
+      "class_alias": "SIG",
+      "display_name": "Signal",
+      "catalog_repo": "dea-catalog-signals",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-signals",
+      "status": "proposed",
+      "description": "A weak or early indicator of environmental change (market, technology, regulatory, competitive) worth tracking before it forces adaptation.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-innovation-foresight",
+      "building_block_name": "Innovation & Foresight",
       "color": "#FBBF24"
     },
     {
@@ -223,6 +312,20 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-rules-guidance",
       "building_block_name": "Rules & Guidance",
+      "color": "#FBBF24"
+    },
+    {
+      "entity_id": "dea:entity-technology-radar-entry",
+      "class_alias": "TRE",
+      "display_name": "Technology Radar Entry",
+      "catalog_repo": "dea-catalog-technology-radar",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-technology-radar",
+      "status": "proposed",
+      "description": "An emerging technology or technique being tracked (assess/trial/adopt/hold) prior to becoming a governed L5 Technology.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-innovation-foresight",
+      "building_block_name": "Innovation & Foresight",
       "color": "#FBBF24"
     },
     {
@@ -328,8 +431,7 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-service-offerings",
       "building_block_name": "Service Offerings",
-      "color": "#38BDF8",
-      "discriminator": "entry_kind"
+      "color": "#38BDF8"
     },
     {
       "entity_id": "dea:entity-capability",
@@ -353,6 +455,20 @@
       ]
     },
     {
+      "entity_id": "dea:entity-change-initiative",
+      "class_alias": "CHI",
+      "display_name": "Change Initiative",
+      "catalog_repo": "dea-catalog-change-initiatives",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-change-initiatives",
+      "status": "proposed",
+      "description": "A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an Investment Initiative.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-people-skills-culture",
+      "building_block_name": "People, Skills & Culture",
+      "color": "#38BDF8"
+    },
+    {
       "entity_id": "dea:entity-organizational-unit",
       "class_alias": "OU",
       "display_name": "Organizational Unit",
@@ -364,6 +480,20 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-work-organization",
       "building_block_name": "Work Organization",
+      "color": "#38BDF8"
+    },
+    {
+      "entity_id": "dea:entity-role",
+      "class_alias": "ROL",
+      "display_name": "Role",
+      "catalog_repo": "dea-catalog-roles",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-roles",
+      "status": "proposed",
+      "description": "A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-people-skills-culture",
+      "building_block_name": "People, Skills & Culture",
       "color": "#38BDF8"
     },
     {
@@ -382,8 +512,21 @@
       "abstract": true,
       "realized_in_layers": [
         "L5"
-      ],
-      "discriminator": "entry_kind"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-skill",
+      "class_alias": "SKL",
+      "display_name": "Skill",
+      "catalog_repo": "dea-catalog-skills",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-skills",
+      "status": "proposed",
+      "description": "A capability an individual Actor possesses or must develop. Distinct from Business Capability, which belongs to the enterprise, not a person.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-people-skills-culture",
+      "building_block_name": "People, Skills & Culture",
+      "color": "#38BDF8"
     },
     {
       "entity_id": "dea:entity-value-stream",
@@ -406,7 +549,7 @@
       "catalog_repo": "dea-catalog-ai-ml-models",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-ai-ml-models",
       "status": "planned",
-      "description": "A machine-learning or AI model that augments or replaces human decision-making within a capability.",
+      "description": "A machine-learning or AI model that augments or replaces human decision-making within a capability. May declare governed_by (RSK/CTL/REG ids) per the ai-automation-governance dimension.",
       "layer": "L4",
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-intelligence",
@@ -482,6 +625,35 @@
       "building_block": "L4-data-foundation",
       "building_block_name": "Data Foundation",
       "color": "#A78BFA"
+    },
+    {
+      "entity_id": "dea:entity-model-deployment",
+      "class_alias": "MDP",
+      "display_name": "Model Deployment",
+      "catalog_repo": "dea-catalog-model-deployments",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-model-deployments",
+      "status": "proposed",
+      "description": "A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state, and health.",
+      "layer": "L4",
+      "layer_name": "Digital & Intelligence",
+      "building_block": "L4-model-operations",
+      "building_block_name": "Model Operations",
+      "color": "#A78BFA"
+    },
+    {
+      "entity_id": "dea:entity-model-feedback-signal",
+      "class_alias": "MFS",
+      "display_name": "Model Feedback Signal",
+      "catalog_repo": "dea-catalog-model-deployments",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-model-deployments",
+      "status": "proposed",
+      "description": "Drift, performance-degradation, or outcome-quality feedback captured from Events, used to trigger retraining of an AI/ML Model.",
+      "layer": "L4",
+      "layer_name": "Digital & Intelligence",
+      "building_block": "L4-model-operations",
+      "building_block_name": "Model Operations",
+      "color": "#A78BFA",
+      "discriminator": "signal_kind"
     },
     {
       "entity_id": "dea:entity-application-component",
@@ -905,6 +1077,158 @@
       "label": "owned by",
       "rel_type": "governance",
       "cardinality": "1:1",
+      "style": "dashed"
+    },
+    {
+      "from": "EP",
+      "to": "EA",
+      "label": "hosts",
+      "rel_type": "aggregation",
+      "cardinality": "1:0..N",
+      "style": "solid"
+    },
+    {
+      "from": "EP",
+      "to": "API",
+      "label": "exposed via",
+      "rel_type": "realization",
+      "cardinality": "1:0..N",
+      "style": "solid"
+    },
+    {
+      "from": "RSK",
+      "to": "CAP",
+      "label": "threatens",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "RSK",
+      "to": "SF",
+      "label": "threatens",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "CTL",
+      "to": "RSK",
+      "label": "mitigates",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "REG",
+      "to": "CTL",
+      "label": "mandates",
+      "rel_type": "governance",
+      "cardinality": "1:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "AIM",
+      "to": "RSK",
+      "label": "subject to (governed_by)",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "SIG",
+      "to": "EXP",
+      "label": "triggers",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "EXP",
+      "to": "II",
+      "label": "informs",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..1",
+      "style": "dashed"
+    },
+    {
+      "from": "TRE",
+      "to": "EXP",
+      "label": "evaluated via",
+      "rel_type": "dependency",
+      "cardinality": "1:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "TRE",
+      "to": "TEC",
+      "label": "graduates to",
+      "rel_type": "realization",
+      "cardinality": "0..1:0..1",
+      "style": "solid"
+    },
+    {
+      "from": "SKL",
+      "to": "ROL",
+      "label": "required by",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "ROL",
+      "to": "AC",
+      "label": "fulfilled by",
+      "rel_type": "realization",
+      "cardinality": "1:0..N",
+      "style": "solid"
+    },
+    {
+      "from": "CHI",
+      "to": "OU",
+      "label": "targets",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "CHI",
+      "to": "II",
+      "label": "funded by",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..1",
+      "style": "dashed"
+    },
+    {
+      "from": "MDP",
+      "to": "AIM",
+      "label": "instance of",
+      "rel_type": "realization",
+      "cardinality": "0..N:1",
+      "style": "solid"
+    },
+    {
+      "from": "MDP",
+      "to": "APC",
+      "label": "hosted by",
+      "rel_type": "composition",
+      "cardinality": "0..N:1",
+      "style": "solid"
+    },
+    {
+      "from": "MFS",
+      "to": "EVT",
+      "label": "derived from",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "MFS",
+      "to": "AIM",
+      "label": "triggers retraining of",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
       "style": "dashed"
     }
   ]

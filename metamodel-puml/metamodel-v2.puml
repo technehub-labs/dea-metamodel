@@ -19,7 +19,7 @@ skinparam arrow {
     FontStyle italic
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.2.1, pin v0.2.1) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.3.0, pin v0.3.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -28,6 +28,10 @@ package "Layer 1: Ecosystem & Value Network" #1B6963 {
         + name : string
     }
     entity "Ecosystem Actor" as EA {
+        + id : string
+        + name : string
+    }
+    entity "Ecosystem Platform" as EP {
         + id : string
         + name : string
     }
@@ -51,6 +55,14 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
+    entity "Control" as CTL {
+        + id : string
+        + name : string
+    }
+    entity "Experiment" as EXP {
+        + id : string
+        + name : string
+    }
     entity "Glossary Term" as GT {
         + id : string
         + name : string
@@ -63,7 +75,19 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
+    entity "Regulation" as REG {
+        + id : string
+        + name : string
+    }
     entity "Reference Model" as RM {
+        + id : string
+        + name : string
+    }
+    entity "Risk" as RSK {
+        + id : string
+        + name : string
+    }
+    entity "Signal" as SIG {
         + id : string
         + name : string
     }
@@ -72,6 +96,10 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + name : string
     }
     entity "Standard" as STD {
+        + id : string
+        + name : string
+    }
+    entity "Technology Radar Entry" as TRE {
         + id : string
         + name : string
     }
@@ -114,13 +142,25 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
+    entity "Change Initiative" as CHI {
+        + id : string
+        + name : string
+    }
     ' (scaffold)
     entity "Organizational Unit" as OU {
         + id : string
         + name : string
     }
+    entity "Role" as ROL {
+        + id : string
+        + name : string
+    }
     ' (existing)
     entity "Solution Component" as SC {
+        + id : string
+        + name : string
+    }
+    entity "Skill" as SKL {
         + id : string
         + name : string
     }
@@ -152,6 +192,14 @@ package "Layer 4: Digital & Intelligence" #52487D {
         + name : string
     }
     entity "Information Class" as IC {
+        + id : string
+        + name : string
+    }
+    entity "Model Deployment" as MDP {
+        + id : string
+        + name : string
+    }
+    entity "Model Feedback Signal" as MFS {
         + id : string
         + name : string
     }
@@ -239,7 +287,26 @@ VE .. BO : "transports (payload) [0..N:0..N]"
 EA -- DI : "represented by [1:1]"
 CAP -- BF : "grouped by [0..N:1]"
 BF .. OU : "owned by [1:1]"
+EP -- EA : "hosts [1:0..N]"
+EP -- API : "exposed via [1:0..N]"
+RSK .. CAP : "threatens [0..N:0..N]"
+RSK .. SF : "threatens [0..N:0..N]"
+CTL .. RSK : "mitigates [0..N:0..N]"
+REG .. CTL : "mandates [1:0..N]"
+AIM .. RSK : "subject to (governed_by) [0..N:0..N]"
+SIG .. EXP : "triggers [0..N:0..N]"
+EXP .. II : "informs [0..N:0..1]"
+TRE .. EXP : "evaluated via [1:0..N]"
+TRE -- TEC : "graduates to [0..1:0..1]"
+SKL .. ROL : "required by [0..N:0..N]"
+ROL -- AC : "fulfilled by [1:0..N]"
+CHI .. OU : "targets [0..N:0..N]"
+CHI .. II : "funded by [0..N:0..1]"
+MDP -- AIM : "instance of [0..N:1]"
+MDP -- APC : "hosted by [0..N:1]"
+MFS .. EVT : "derived from [0..N:0..N]"
+MFS .. AIM : "triggers retraining of [0..N:0..N]"
 
-' Generated 37 relationship edges, 3 specialization edges
+' Generated 56 relationship edges, 3 specialization edges
 
 @enduml

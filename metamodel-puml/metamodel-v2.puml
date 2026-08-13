@@ -120,7 +120,7 @@ package "Layer 3: Business Operating Model" #205E7C {
         + name : string
     }
     ' (existing)
-    entity "Solution Component" as SC <<abstract>> {
+    entity "Solution Component" as SC {
         + id : string
         + name : string
     }

@@ -74,12 +74,13 @@ def main():
         alias = e["class_alias"]
         display = e["display_name"]
         status = e.get("status", "")
-        marker = ""
-        if e.get("abstract"):
-            marker = " <<abstract>>"
+        # NOTE: no <<abstract>> stereotype on entities — PlantUML renders it
+        # as a «abstract» text line that the SVG cross-format validator's
+        # longest-text heuristic picks up as the entity name. Abstractness
+        # lives in the graph data (abstract: true), not the diagram.
         if status in ("scaffold", "existing"):
             print(f"{indent}' ({status})")
-        print(f'{indent}entity "{display}" as {alias}{marker} {{')
+        print(f'{indent}entity "{display}" as {alias} {{')
         print(f"{indent}    + id : string")
         print(f"{indent}    + name : string")
         print(f"{indent}}}")

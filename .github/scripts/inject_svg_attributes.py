@@ -91,12 +91,16 @@ def inject_classes(content: str) -> str:
 # ---------------------------------------------------------------------------
 
 # Layer palette (must stay in sync with viewer.css --l1..--l5 tokens).
+# Colors match OpenDEAM v0.2.0 architecture.layers[].color exactly.
+# "DIM" = measurement-dimension entities (ADR-0002 D1 — no home layer;
+# neutral gray matching the graph's dimension color #9CA3AF).
 LAYER_HEX = {
-    "L1": "#2DD4BF",  # Strategic & Investment
-    "L2": "#FBBF24",  # Business Operating Model
-    "L3": "#38BDF8",  # Digital & Data
-    "L4": "#A78BFA",  # Technical & Integration
-    "L5": "#FB7185",  # Measurement & Governance
+    "L1": "#2DD4BF",  # Ecosystem & Value Network
+    "L2": "#FBBF24",  # Strategic & Governance
+    "L3": "#38BDF8",  # Business Operating Model
+    "L4": "#A78BFA",  # Digital & Intelligence
+    "L5": "#FB7185",  # Technology & Execution
+    "DIM": "#9CA3AF",  # Measurement Dimension (cross-cutting)
 }
 
 # Stereotype ellipse fill = layer accent blended into #0D1117 at alpha 0.18.
@@ -107,16 +111,21 @@ LAYER_STEREO = {
     "L3": "#142F3F",
     "L4": "#28263F",
     "L5": "#37222A",
+    "DIM": "#263232",
 }
 
 
 def load_alias_to_layer(repo_root: Path) -> dict:
-    """Read viewer/entity-graph.json and build {class_alias: layer} map."""
+    """Read viewer/entity-graph.json and build {class_alias: layer} map.
+
+    Dimension entities (no home layer, e.g. MTR as of OpenDEAM v0.2.0)
+    map to "DIM" — styled with the neutral dimension palette.
+    """
     graph_path = repo_root / "viewer" / "entity-graph.json"
     if not graph_path.exists():
         return {}
     graph = json.loads(graph_path.read_text())
-    return {e["class_alias"]: e["layer"] for e in graph.get("entities", [])}
+    return {e["class_alias"]: e.get("layer", "DIM") for e in graph.get("entities", [])}
 
 
 # Match an entity group: opening tag must contain data-alias="<X>" (either

@@ -224,7 +224,7 @@ package "Layer 5: Technology & Execution" #783C48 {
     }
 }
 
-package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+package "Semantic Dimension (cross-cutting)" <<dimension>> #374151 {
     entity "Concept" as CON {
         + id : string
         + name : string

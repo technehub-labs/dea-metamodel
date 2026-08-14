@@ -46,6 +46,14 @@ STYLE_BY_REL_TYPE = {
     "association": "dashed",
 }
 
+# Dimension entity -> orthogonal allocator id. The OpenDEAM model declares
+# the allocators but not which dimension entity backs each, so the mapping
+# is maintained here (v0.4.0: CON joins MTR — ADR-0004 D2).
+DIMENSION_ALLOCATOR = {
+    "MTR": "measurement-dimension",
+    "CON": "semantic-dimension",
+}
+
 
 def darken(hex_color: str, factor: float = 0.45, bg: str = "#0d1117") -> str:
     """Blend a bright layer color toward the dark theme background.
@@ -123,10 +131,24 @@ def main() -> int:
                 "color": l["color"],
             })
         else:
-            g["dimension"] = "measurement-dimension"
+            # OpenDEAM v0.4.0 (ADR-0004): two dimension entities — MTR backs
+            # measurement-dimension, CON backs semantic-dimension. The model
+            # does not declare the entity->allocator link, so it is kept here;
+            # unknown dimension entities warn rather than silently mislabel.
+            alloc = DIMENSION_ALLOCATOR.get(e["class_alias"])
+            if not alloc:
+                print(
+                    f"WARNING: dimension entity {e['class_alias']} has no "
+                    f"allocator mapping in DIMENSION_ALLOCATOR",
+                    file=sys.stderr,
+                )
+                alloc = "unknown"
+            g["dimension"] = alloc
             g["color"] = "#9CA3AF"
         for opt in ("abstract", "specializes", "realized_in_layers", "discriminator",
-                    "ecf_coordinates", "measured_by", "scope_layers"):
+                    "ecf_coordinates", "measured_by", "scope_layers",
+                    "governed_by", "defined_by", "parent_concept",
+                    "enforcement", "migration_note"):
             if opt in e:
                 g[opt] = e[opt]
         graph_entities.append(g)

@@ -29,11 +29,11 @@ dea:Entity a owl:Class ;
     skos:definition "Abstract root type for all DEA metamodel entities." ;
     rdfs:isDefinedBy dea: .
 
-dea:Principle a owl:Class ;
+dea:Tenet a owl:Class ;
     rdfs:subClassOf dea:Entity ;
-    rdfs:label "Principle" ;
-    skos:definition "An architectural guiding principle that governs design and decision-making." ;
-    dea:specification <schemas/entities/principle.json> .
+    rdfs:label "Tenet" ;
+    skos:definition "A non-binding, human-authored belief that guides decisions and informs Guardrails (renamed from Principle in v0.4.0, ADR-0004 D3)." ;
+    dea:specification <schemas/entities/tenet.json> .
 
 dea:ArchitecturePattern a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -41,17 +41,17 @@ dea:ArchitecturePattern a owl:Class ;
     skos:definition "A reusable architectural pattern that solves a recurring design problem." ;
     dea:specification <schemas/entities/architecture-pattern.json> .
 
-dea:Standard a owl:Class ;
+dea:Guardrail a owl:Class ;
     rdfs:subClassOf dea:Entity ;
-    rdfs:label "Standard" ;
-    skos:definition "A referenced industry standard or framework." ;
-    dea:specification <schemas/entities/standard.json> .
+    rdfs:label "Guardrail" ;
+    skos:definition "An enforceable constraint on technology or solution choices with an enforcement maturity level (renamed from Standard in v0.4.0, ADR-0004 D4)." ;
+    dea:specification <schemas/entities/guardrail.json> .
 
-dea:ReferenceModel a owl:Class ;
+dea:Blueprint a owl:Class ;
     rdfs:subClassOf dea:Entity ;
-    rdfs:label "ReferenceModel" ;
-    skos:definition "A reference architecture model serving as a template for concrete architectures." ;
-    dea:specification <schemas/entities/reference-model.json> .
+    rdfs:label "Blueprint" ;
+    skos:definition "A composed, reusable target-state design assembled from Architecture Patterns (renamed from ReferenceModel in v0.4.0, ADR-0004 D5)." ;
+    dea:specification <schemas/entities/blueprint.json> .
 
 dea:Capability a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -127,22 +127,11 @@ dea:Metric a owl:Class ;
     skos:definition "A measurable indicator used to track EA health and performance." ;
     dea:specification <schemas/entities/metric.json> .
 
-dea:GlossaryTerm a owl:Class ;
+dea:Concept a owl:Class ;
     rdfs:subClassOf dea:Entity ;
-    rdfs:label "GlossaryTerm" ;
-    skos:definition "A controlled vocabulary term with definition and cross-references." ;
-    dea:specification <schemas/entities/glossary-term.json> .
-
-dea:TaxonomyNode a owl:Class ;
-    rdfs:subClassOf dea:Entity ;
-    rdfs:label "TaxonomyNode" ;
-    dea:specification <schemas/entities/taxonomy-node.json> .
-
-dea:Viewpoint a owl:Class ;
-    rdfs:subClassOf dea:Entity ;
-    rdfs:label "Viewpoint" ;
-    skos:definition "A filtered perspective on the metamodel for a specific stakeholder." ;
-    dea:specification <schemas/entities/viewpoint.json> .
+    rdfs:label "Concept" ;
+    skos:definition "A canonical, definable unit of meaning other entities link to via defined_by; dimension entity of semantic-dimension (merged from GlossaryTerm + TaxonomyNode in v0.4.0, ADR-0004 D2)." ;
+    dea:specification <schemas/entities/concept.json> .
 
 # ─── Relationship Types ─────────────────────────────────────
 
@@ -260,15 +249,15 @@ dea:realizes a owl:ObjectProperty ;
 
 dea:implements a owl:ObjectProperty ;
     rdfs:domain dea:ArchitecturePattern ;
-    rdfs:range dea:Standard ;
+    rdfs:range dea:Guardrail ;
     rdfs:label "implements" ;
-    skos:definition "An ArchitecturePattern implements a Standard." .
+    skos:definition "An ArchitecturePattern implements a Guardrail." .
 
 dea:influencedBy a owl:ObjectProperty ;
     rdfs:domain dea:Entity ;
-    rdfs:range dea:Principle ;
+    rdfs:range dea:Tenet ;
     rdfs:label "influenced-by" ;
-    skos:definition "An entity is governed or shaped by a Principle." .
+    skos:definition "An entity is guided or shaped by a Tenet." .
 
 dea:decomposes a owl:ObjectProperty ;
     rdfs:domain dea:Capability ;

@@ -1,25 +1,25 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/reference-model.json",
-  "title": "ReferenceModel",
-  "description": "A reference architecture model serving as a template for concrete architectures.",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/blueprint.json",
+  "title": "Blueprint",
+  "description": "A composed, reusable target-state design assembled from Architecture Patterns, providing a template for solution design. Renamed from Reference Model in v0.4.0 (ADR-0004 D5). Catalog: technehub-labs/dea-catalog-blueprints.",
   "type": "object",
   "required": ["id", "name", "type", "version", "domain", "abstraction_level"],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:refmodel-digital-platform"]
+      "examples": ["dea:blueprint-digital-platform"]
     },
-    "type": { "type": "string", "const": "ReferenceModel" },
+    "type": { "type": "string", "const": "Blueprint" },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 200,
-      "examples": ["Digital Platform Reference Architecture"]
+      "examples": ["Digital Platform Blueprint"]
     },
     "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "version": { "type": "string", "pattern": "^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$" },
     "domain": {
       "type": "string",
       "enum": ["integration", "data", "application", "infrastructure",
@@ -29,12 +29,12 @@
     "abstraction_level": {
       "type": "string",
       "enum": ["conceptual", "logical", "physical"],
-      "description": "Abstraction level of this reference model."
+      "description": "Abstraction level of this blueprint."
     },
     "scope": {
       "type": "string",
       "maxLength": 1000,
-      "description": "What the model covers and boundaries."
+      "description": "What the blueprint covers and boundaries."
     },
     "layers": {
       "type": "array",
@@ -51,19 +51,19 @@
     "key_components": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "SolutionComponent IDs that define this reference model."
+      "description": "SolutionComponent IDs that define this blueprint."
     },
     "patterns": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "ArchitecturePattern IDs used in this model."
+      "description": "ArchitecturePattern IDs this blueprint is composed of (ADR-0004 D5)."
     },
-    "related_reference_models": {
+    "related_blueprints": {
       "type": "array",
       "items": { "type": "string" }
     },
-    "related_standards": { "type": "array", "items": { "type": "string" } },
-    "related_principles": { "type": "array", "items": { "type": "string" } },
+    "related_guardrails": { "type": "array", "items": { "type": "string" } },
+    "related_tenets": { "type": "array", "items": { "type": "string" } },
     "relationships": {
       "type": "array",
       "items": { "$ref": "../relationships/relationship-instance.json" }

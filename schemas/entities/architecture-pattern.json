@@ -60,11 +60,11 @@
       "items": { "type": "string" },
       "description": "Complementary or successor patterns."
     },
-    "related_principles": {
+    "related_tenets": {
       "type": "array",
       "items": { "type": "string" }
     },
-    "related_standards": {
+    "related_guardrails": {
       "type": "array",
       "items": { "type": "string" }
     },

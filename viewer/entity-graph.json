@@ -78,7 +78,8 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-agreements",
       "building_block_name": "Collaboration Agreements",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "migration_note": "Reallocated from L2-agreements to L1-agreements in v0.2.0 (ADR-0002 D2)."
     },
     {
       "entity_id": "dea:entity-ecosystem-actor",
@@ -177,7 +178,8 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-reusable-knowledge",
       "building_block_name": "Patterns & Blueprints",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "migration_note": "Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns rather than standing alone."
     },
     {
       "entity_id": "dea:entity-control",
@@ -219,7 +221,9 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-rules-guidance",
       "building_block_name": "Tenets & Guardrails",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "enforcement": "automated-block",
+      "migration_note": "Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements Control, closing the gap where Technology claimed to be \"governed via Standards\" with no such relationship existing."
     },
     {
       "entity_id": "dea:entity-investment-initiative",
@@ -303,7 +307,8 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-rules-guidance",
       "building_block_name": "Tenets & Guardrails",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "migration_note": "Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather than a standalone documentation-catalog entry."
     },
     {
       "entity_id": "dea:entity-technology-radar-entry",
@@ -517,7 +522,8 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-intelligence",
       "building_block_name": "Intelligence",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "governed_by": []
     },
     {
       "entity_id": "dea:entity-data-entity",
@@ -734,7 +740,7 @@
       "repo_url": "https://github.com/technehub-labs/dea-catalog-concepts",
       "status": "proposed",
       "description": "A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.\n",
-      "dimension": "measurement-dimension",
+      "dimension": "semantic-dimension",
       "color": "#9CA3AF",
       "scope_layers": [
         "L1",
@@ -742,7 +748,8 @@
         "L3",
         "L4",
         "L5"
-      ]
+      ],
+      "parent_concept": null
     },
     {
       "entity_id": "dea:entity-metric",

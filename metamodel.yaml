@@ -21,13 +21,13 @@ entities:
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/entity.py
 
-  - name: Principle
-    description: Architectural guiding principle (e.g., "API-first", "Data sovereignty").
-    schema: schemas/entities/principle.json
-    ttl: ttl/entities/principle.ttl
-    sqlite_table: principles
+  - name: Tenet
+    description: Non-binding, human-authored belief that guides decisions (e.g., "API-first", "prefer managed services"). Informs Guardrails; enforces nothing on its own. Renamed from Principle in v0.4.0 (ADR-0004 D3).
+    schema: schemas/entities/tenet.json
+    ttl: ttl/entities/tenet.ttl
+    sqlite_table: tenets
     ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/principle.py
+    pydantic_model: pydantic/tenet.py
 
   - name: ArchitecturePattern
     description: Reusable architecture pattern (e.g., "API Gateway", "Event Sourcing", "CQRS").
@@ -37,21 +37,21 @@ entities:
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/architecture_pattern.py
 
-  - name: Standard
-    description: Referenced industry standard or framework (TOGAF, Zachman, ISO, IEEE).
-    schema: schemas/entities/standard.json
-    ttl: ttl/entities/standard.ttl
-    sqlite_table: standards
+  - name: Guardrail
+    description: Enforceable constraint on technology or solution choices with an enforcement maturity level (advisory | automated-warn | automated-block | platform-enforced). Renamed from Standard in v0.4.0 (ADR-0004 D4).
+    schema: schemas/entities/guardrail.json
+    ttl: ttl/entities/guardrail.ttl
+    sqlite_table: guardrails
     ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/standard.py
+    pydantic_model: pydantic/guardrail.py
 
-  - name: ReferenceModel
-    description: Reference architecture model (e.g., "Digital Platform", "Integration Hub").
-    schema: schemas/entities/reference-model.json
-    ttl: ttl/entities/reference-model.ttl
-    sqlite_table: reference_models
+  - name: Blueprint
+    description: Composed, reusable target-state design assembled from Architecture Patterns (e.g., "Digital Platform", "Integration Hub"). Renamed from Reference Model in v0.4.0 (ADR-0004 D5).
+    schema: schemas/entities/blueprint.json
+    ttl: ttl/entities/blueprint.ttl
+    sqlite_table: blueprints
     ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/reference_model.py
+    pydantic_model: pydantic/blueprint.py
 
   - name: Actor
     description: Performer of enterprise processes — human, team, system, or AI agent. Internal performers; distinct from Stakeholder (external/affected party).
@@ -163,29 +163,13 @@ entities:
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/metric.py
 
-  - name: GlossaryTerm
-    description: Controlled vocabulary term with definition and synonyms.
-    schema: schemas/entities/glossary-term.json
-    ttl: ttl/entities/glossary-term.ttl
-    sqlite_table: glossary_terms
+  - name: Concept
+    description: Canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from GlossaryTerm + TaxonomyNode in v0.4.0 (ADR-0004 D2); dimension entity of semantic-dimension.
+    schema: schemas/entities/concept.json
+    ttl: ttl/entities/concept.ttl
+    sqlite_table: concepts
     ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/glossary_term.py
-
-  - name: TaxonomyNode
-    description: Node in a hierarchical taxonomy (capability, technology, domain).
-    schema: schemas/entities/taxonomy-node.json
-    ttl: ttl/entities/taxonomy-node.ttl
-    sqlite_table: taxonomy_nodes
-    ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/taxonomy_node.py
-
-  - name: Viewpoint
-    description: Filtered perspective on the metamodel for a specific stakeholder or concern.
-    schema: schemas/entities/viewpoint.json
-    ttl: ttl/entities/viewpoint.ttl
-    sqlite_table: viewpoints
-    ts_interface: src/interfaces.ts
-    pydantic_model: pydantic/viewpoint.py
+    pydantic_model: pydantic/concept.py
 
   - name: BusinessFunction
     description: Grouping of business capabilities by organisational function; owned by an organizational unit (CAP → BF → OU).

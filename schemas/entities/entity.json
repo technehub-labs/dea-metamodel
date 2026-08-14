@@ -10,8 +10,8 @@
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "description": "URN-style identifier, e.g. dea:principle-api-first",
-      "examples": ["dea:principle-api-first"]
+      "description": "URN-style identifier, e.g. dea:tenet-api-first",
+      "examples": ["dea:tenet-api-first"]
     },
     "type": {
       "type": "string",

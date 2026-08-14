@@ -31,7 +31,7 @@ class ArchitecturePattern(Entity):
     """Patterns that conflict or should not be used alongside this one."""
     related_patterns: Optional[list[str]] = None
     """Complementary or successor patterns."""
-    related_principles: Optional[list[str]] = None
-    related_standards: Optional[list[str]] = None
+    related_tenets: Optional[list[str]] = None
+    related_guardrails: Optional[list[str]] = None
     maturity: Optional[Literal['emerging', 'established', 'canonical', 'deprecated']] = None
     implementation_hints: Optional[list[str]] = None

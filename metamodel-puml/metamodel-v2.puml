@@ -19,7 +19,7 @@ skinparam arrow {
     FontStyle italic
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.3.0, pin v0.3.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.4.0, pin v0.4.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -55,6 +55,10 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
+    entity "Blueprint" as BLU {
+        + id : string
+        + name : string
+    }
     entity "Control" as CTL {
         + id : string
         + name : string
@@ -63,7 +67,7 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
-    entity "Glossary Term" as GT {
+    entity "Guardrail" as GRD {
         + id : string
         + name : string
     }
@@ -71,15 +75,7 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
-    entity "Principle" as PR {
-        + id : string
-        + name : string
-    }
     entity "Regulation" as REG {
-        + id : string
-        + name : string
-    }
-    entity "Reference Model" as RM {
         + id : string
         + name : string
     }
@@ -95,19 +91,11 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
-    entity "Standard" as STD {
+    entity "Tenet" as TNT {
         + id : string
         + name : string
     }
     entity "Technology Radar Entry" as TRE {
-        + id : string
-        + name : string
-    }
-    entity "Taxonomy Node" as TXN {
-        + id : string
-        + name : string
-    }
-    entity "Viewpoint" as VP {
         + id : string
         + name : string
     }
@@ -237,6 +225,13 @@ package "Layer 5: Technology & Execution" #783C48 {
 }
 
 package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Concept" as CON {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
     ' (existing)
     entity "Performance Metric" as MTR {
         + id : string
@@ -306,7 +301,14 @@ MDP -- AIM : "instance of [0..N:1]"
 MDP -- APC : "hosted by [0..N:1]"
 MFS .. EVT : "derived from [0..N:0..N]"
 MFS .. AIM : "triggers retraining of [0..N:0..N]"
+TNT .. GRD : "informs [0..N:0..N]"
+GRD -- CTL : "implements [0..N:1]"
+GRD .. TEC : "governs [0..N:0..N]"
+GRD .. SC : "governs [0..N:0..N]"
+BLU -- AP : "composed of [1:1..N]"
+CON .. CAP : "defines [0..N:0..N]"
+CON .. BO : "defines [0..N:0..N]"
 
-' Generated 56 relationship edges, 3 specialization edges
+' Generated 63 relationship edges, 3 specialization edges
 
 @enduml

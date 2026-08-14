@@ -1,8 +1,8 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-  "metamodel_version": "0.3.0",
+  "metamodel_version": "0.4.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.3.0",
+  "opendeam_model_pin": "v0.4.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -58,6 +58,11 @@
       "id": "ai-automation-governance",
       "name": "AI & Automation Governance",
       "kind": "cross-cutting policy overlay (not a layer, not \"Responsible AI\" as a separate structure)"
+    },
+    {
+      "id": "semantic-dimension",
+      "name": "Semantic Dimension",
+      "kind": "cross-cutting concept graph (not a layer, not a static glossary)"
     }
   ],
   "entities": [
@@ -156,9 +161,23 @@
       "layer": "L2",
       "layer_name": "Strategic & Governance",
       "building_block": "L2-reusable-knowledge",
-      "building_block_name": "Reusable Knowledge",
+      "building_block_name": "Patterns & Blueprints",
       "color": "#FBBF24",
       "discriminator": "pattern_kind"
+    },
+    {
+      "entity_id": "dea:entity-blueprint",
+      "class_alias": "BLU",
+      "display_name": "Blueprint",
+      "catalog_repo": "dea-catalog-blueprints",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-blueprints",
+      "status": "planned",
+      "description": "A composed, reusable target-state design assembled from Architecture Patterns, providing a template for solution design.",
+      "layer": "L2",
+      "layer_name": "Strategic & Governance",
+      "building_block": "L2-reusable-knowledge",
+      "building_block_name": "Patterns & Blueprints",
+      "color": "#FBBF24"
     },
     {
       "entity_id": "dea:entity-control",
@@ -189,17 +208,17 @@
       "color": "#FBBF24"
     },
     {
-      "entity_id": "dea:entity-glossary-term",
-      "class_alias": "GT",
-      "display_name": "Glossary Term",
-      "catalog_repo": "dea-catalog-glossary",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-glossary",
+      "entity_id": "dea:entity-guardrail",
+      "class_alias": "GRD",
+      "display_name": "Guardrail",
+      "catalog_repo": "dea-catalog-guardrails",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-guardrails",
       "status": "planned",
-      "description": "A canonical business or technical term with a controlled definition.",
+      "description": "An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory | automated-warn | automated-block | platform-enforced) — modeling policy-as-code / platform-guardrail practice rather than a static compliance document someone checks against manually.\n",
       "layer": "L2",
       "layer_name": "Strategic & Governance",
-      "building_block": "L2-semantics",
-      "building_block_name": "Semantics & Classification",
+      "building_block": "L2-rules-guidance",
+      "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24"
     },
     {
@@ -217,20 +236,6 @@
       "color": "#FBBF24"
     },
     {
-      "entity_id": "dea:entity-principle",
-      "class_alias": "PR",
-      "display_name": "Principle",
-      "catalog_repo": "dea-catalog-principles",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-principles",
-      "status": "planned",
-      "description": "An architectural guiding principle (e.g. API-first, data sovereignty).",
-      "layer": "L2",
-      "layer_name": "Strategic & Governance",
-      "building_block": "L2-rules-guidance",
-      "building_block_name": "Rules & Guidance",
-      "color": "#FBBF24"
-    },
-    {
       "entity_id": "dea:entity-regulation",
       "class_alias": "REG",
       "display_name": "Regulation",
@@ -242,20 +247,6 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-risk-compliance",
       "building_block_name": "Risk & Compliance",
-      "color": "#FBBF24"
-    },
-    {
-      "entity_id": "dea:entity-reference-model",
-      "class_alias": "RM",
-      "display_name": "Reference Model",
-      "catalog_repo": "dea-catalog-reference-models",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-reference-models",
-      "status": "planned",
-      "description": "A reference architecture model providing a reusable template for solution design.",
-      "layer": "L2",
-      "layer_name": "Strategic & Governance",
-      "building_block": "L2-reusable-knowledge",
-      "building_block_name": "Reusable Knowledge",
       "color": "#FBBF24"
     },
     {
@@ -301,17 +292,17 @@
       "color": "#FBBF24"
     },
     {
-      "entity_id": "dea:entity-standard",
-      "class_alias": "STD",
-      "display_name": "Standard",
-      "catalog_repo": "dea-catalog-standards",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-standards",
+      "entity_id": "dea:entity-tenet",
+      "class_alias": "TNT",
+      "display_name": "Tenet",
+      "catalog_repo": "dea-catalog-tenets",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-tenets",
       "status": "planned",
-      "description": "A referenced industry standard or framework (TOGAF, Zachman, ISO, IEEE) the enterprise aligns to.",
+      "description": "A non-binding, human-authored belief that guides decisions (e.g. API-first, prefer managed services). Informs one or more Guardrails; enforces nothing on its own.",
       "layer": "L2",
       "layer_name": "Strategic & Governance",
       "building_block": "L2-rules-guidance",
-      "building_block_name": "Rules & Guidance",
+      "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24"
     },
     {
@@ -326,34 +317,6 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-innovation-foresight",
       "building_block_name": "Innovation & Foresight",
-      "color": "#FBBF24"
-    },
-    {
-      "entity_id": "dea:entity-taxonomy-node",
-      "class_alias": "TXN",
-      "display_name": "Taxonomy Node",
-      "catalog_repo": "dea-catalog-taxonomy",
-      "repo_url": "https://github.com/technehub-labs/dea-catalog-taxonomy",
-      "status": "planned",
-      "description": "A node in a controlled vocabulary taxonomy. Hierarchical via parent_node/child_nodes.",
-      "layer": "L2",
-      "layer_name": "Strategic & Governance",
-      "building_block": "L2-semantics",
-      "building_block_name": "Semantics & Classification",
-      "color": "#FBBF24"
-    },
-    {
-      "entity_id": "dea:entity-viewpoint",
-      "class_alias": "VP",
-      "display_name": "Viewpoint",
-      "catalog_repo": "dea-web-viewer",
-      "repo_url": "https://github.com/technehub-labs/dea-web-viewer",
-      "status": "planned",
-      "description": "A tailored perspective on the metamodel for a specific stakeholder concern.",
-      "layer": "L2",
-      "layer_name": "Strategic & Governance",
-      "building_block": "L2-architecture-views",
-      "building_block_name": "Architecture Views",
       "color": "#FBBF24"
     },
     {
@@ -755,13 +718,31 @@
       "catalog_repo": "dea-catalog-patterns",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-patterns",
       "status": "planned",
-      "description": "A technology choice (language, framework, runtime, database) governed via Standards + Principles.",
+      "description": "A technology choice (language, framework, runtime, database) governed via Guardrails, motivated by Tenets.",
       "layer": "L5",
       "layer_name": "Technology & Execution",
       "building_block": "L5-technology",
       "building_block_name": "Technology Portfolio",
       "color": "#FB7185",
       "discriminator": "technology_kind"
+    },
+    {
+      "entity_id": "dea:entity-concept",
+      "class_alias": "CON",
+      "display_name": "Concept",
+      "catalog_repo": "dea-catalog-concepts",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-concepts",
+      "status": "proposed",
+      "description": "A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.\n",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
     },
     {
       "entity_id": "dea:entity-metric",
@@ -1228,6 +1209,62 @@
       "to": "AIM",
       "label": "triggers retraining of",
       "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "TNT",
+      "to": "GRD",
+      "label": "informs",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "GRD",
+      "to": "CTL",
+      "label": "implements",
+      "rel_type": "realization",
+      "cardinality": "0..N:1",
+      "style": "solid"
+    },
+    {
+      "from": "GRD",
+      "to": "TEC",
+      "label": "governs",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "GRD",
+      "to": "SC",
+      "label": "governs",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "BLU",
+      "to": "AP",
+      "label": "composed of",
+      "rel_type": "composition",
+      "cardinality": "1:1..N",
+      "style": "solid"
+    },
+    {
+      "from": "CON",
+      "to": "CAP",
+      "label": "defines",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "CON",
+      "to": "BO",
+      "label": "defines",
+      "rel_type": "governance",
       "cardinality": "0..N:0..N",
       "style": "dashed"
     }

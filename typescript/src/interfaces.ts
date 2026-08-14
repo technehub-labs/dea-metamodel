@@ -99,18 +99,19 @@ export interface Actor extends BaseEntity {
   links?: ActorLinks;
 }
 
-export type PrincipleTier = 'mandatory' | 'recommended' | 'aspirational';
+export type TenetTier = 'mandatory' | 'recommended' | 'aspirational';
 
-export interface Principle extends BaseEntity {
-  type: 'Principle';
+// v0.4.0 (ADR-0004 D3): renamed from Principle. Non-binding belief that
+// informs Guardrails; enforces nothing on its own.
+// Mirrors schemas/entities/tenet.json. Catalog: technehub-labs/dea-catalog-tenets.
+export interface Tenet extends BaseEntity {
+  type: 'Tenet';
   statement: string;
   rationale: string;
-  applicability: string[];
-  exceptions?: string[];
-  conflicts_with?: string[];
-  related_patterns?: string[];
-  related_standards?: string[];
-  tier?: PrincipleTier;
+  applicability: string;
+  tier?: TenetTier;
+  informs_guardrails?: string[];
+  related_tenets?: string[];
 }
 
 export type PatternMaturity = 'emerging' | 'established' | 'canonical' | 'deprecated';
@@ -128,13 +129,13 @@ export interface ArchitecturePattern extends BaseEntity {
   applicability: string[];
   anti_patterns?: string[];
   related_patterns?: string[];
-  related_principles?: string[];
-  related_standards?: string[];
+  related_tenets?: string[];
+  related_guardrails?: string[];
   maturity?: PatternMaturity;
   implementation_hints?: string[];
 }
 
-export type StandardDomain =
+export type GuardrailDomain =
   | 'enterprise-architecture'
   | 'data-architecture'
   | 'software-architecture'
@@ -144,22 +145,30 @@ export type StandardDomain =
   | 'process-architecture'
   | 'governance';
 
-export interface Standard extends BaseEntity {
-  type: 'Standard';
-  standard_body: string;
-  domain: StandardDomain;
+// v0.4.0 (ADR-0004 D4): renamed from Standard. Enforceable constraint with
+// an enforcement maturity ladder — policy-as-code, not a static document.
+// Mirrors schemas/entities/guardrail.json. Catalog: technehub-labs/dea-catalog-guardrails.
+export type GuardrailEnforcement = 'advisory' | 'automated-warn' | 'automated-block' | 'platform-enforced';
+
+export interface Guardrail extends BaseEntity {
+  type: 'Guardrail';
+  enforcement: GuardrailEnforcement;
+  domain: GuardrailDomain;
+  source?: string;
   url?: string;
-  license?: string;
+  implements_controls?: string[];
+  informed_by_tenets?: string[];
   coverage?: string[];
-  conforms_to?: string[];
-  related_patterns?: string[];
-  related_principles?: string[];
+  related_guardrails?: string[];
 }
 
 export type AbstractionLevel = 'conceptual' | 'logical' | 'physical';
 
-export interface ReferenceModel extends BaseEntity {
-  type: 'ReferenceModel';
+// v0.4.0 (ADR-0004 D5): renamed from ReferenceModel. Composed, reusable
+// target-state design assembled from Architecture Patterns.
+// Mirrors schemas/entities/blueprint.json. Catalog: technehub-labs/dea-catalog-blueprints.
+export interface Blueprint extends BaseEntity {
+  type: 'Blueprint';
   domain: string;
   abstraction_level: AbstractionLevel;
   scope?: string;
@@ -170,9 +179,9 @@ export interface ReferenceModel extends BaseEntity {
   }>;
   key_components?: string[];
   patterns?: string[];
-  related_reference_models?: string[];
-  related_standards?: string[];
-  related_principles?: string[];
+  related_blueprints?: string[];
+  related_guardrails?: string[];
+  related_tenets?: string[];
 }
 
 export type CapabilityType = 'business' | 'technical' | 'hybrid';
@@ -417,15 +426,6 @@ export interface Technology extends BaseEntity {
   lifecycle_status?: TechnologyLifecycleStatus;
 }
 
-// v1.0.0-alpha: TaxonomyNode. Mirrors schemas/entities/taxonomy-node.json.
-// Catalog: technehub-labs/dea-catalog-taxonomy.
-export interface TaxonomyNode extends BaseEntity {
-  type: 'TaxonomyNode';
-  taxonomy: string;
-  parent_node?: string;
-  child_nodes?: string[];
-}
-
 export type MetricType = 'kpi' | 'health' | 'maturity' | 'performance' | 'adoption' | 'compliance' | 'risk';
 export type MetricFrequency = 'realtime' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'quarterly';
 
@@ -449,29 +449,18 @@ export interface Metric extends BaseEntity {
   owner?: string;
 }
 
-export interface GlossaryTerm extends BaseEntity {
-  type: 'GlossaryTerm';
+// v0.4.0 (ADR-0004 D2): Concept merges GlossaryTerm + TaxonomyNode into a
+// single dimension entity of semantic-dimension — a queryable concept graph.
+// Mirrors schemas/entities/concept.json. Catalog: technehub-labs/dea-catalog-concepts.
+export interface Concept extends BaseEntity {
+  type: 'Concept';
   definition: string;
   abbreviation?: string;
   synonyms?: string[];
-  antonyms?: string[];
-  related_terms?: string[];
-  metamodel_entity?: string;
+  parent_concept?: string | null;
+  related_concepts?: string[];
+  defines_entities?: string[];
   usage_context?: string;
-}
-
-export type PresentationFormat = 'diagram' | 'table' | 'matrix' | 'dashboard' | 'narrative' | 'multi';
-
-export interface Viewpoint extends BaseEntity {
-  type: 'Viewpoint';
-  stakeholder: string;
-  concern: string;
-  entities_included?: string[];
-  entities_excluded?: string[];
-  relationships_included?: RelationshipType[];
-  filter_criteria?: Record<string, unknown>;
-  presentation_format?: PresentationFormat;
-  generated_from?: string;
 }
 
 // ─── v0.2.0 entities (ADR-0002) ───────────────────────────
@@ -611,17 +600,16 @@ export interface ModelFeedbackSignal extends BaseEntity {
 // ─── Union type for all concrete entities ─────────────────
 
 export type AnyEntity =
-  | Principle
+  | Tenet
   | ArchitecturePattern
-  | Standard
-  | ReferenceModel
+  | Guardrail
+  | Blueprint
   | Capability
   | Process
   | BusinessService
   | SolutionComponent
   | Metric
-  | GlossaryTerm
-  | Viewpoint
+  | Concept
   | EcosystemActor
   | ValueExchange
   | CollaborationAgreement
@@ -642,10 +630,10 @@ export type AnyEntity =
 // ─── Metamodel index ──────────────────────────────────────
 
 export const ENTITY_TYPES = [
-  'Principle',
+  'Tenet',
   'ArchitecturePattern',
-  'Standard',
-  'ReferenceModel',
+  'Guardrail',
+  'Blueprint',
   'Capability',
   'Process',
   'BusinessService',
@@ -655,9 +643,7 @@ export const ENTITY_TYPES = [
   'IntegrationComponent',
   'Technology',
   'Metric',
-  'GlossaryTerm',
-  'TaxonomyNode',
-  'Viewpoint',
+  'Concept',
   'EcosystemActor',
   'ValueExchange',
   'CollaborationAgreement',

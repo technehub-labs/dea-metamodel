@@ -12,10 +12,10 @@ PRAGMA foreign_keys = ON;
 CREATE TABLE entities (
     id              TEXT PRIMARY KEY,
     type            TEXT NOT NULL CHECK(type IN (
-        'Principle','ArchitecturePattern','Standard','ReferenceModel',
+        'Tenet','ArchitecturePattern','Guardrail','Blueprint',
         'Capability','Process','BusinessService','SolutionComponent',
         'ApplicationComponent','InfrastructureComponent','IntegrationComponent',
-        'Technology','Metric','GlossaryTerm','TaxonomyNode','Viewpoint'
+        'Technology','Metric','Concept'
     )),
     name            TEXT NOT NULL,
     description     TEXT,
@@ -37,14 +37,12 @@ CREATE INDEX idx_entities_tags       ON entities(tags);
 -- Entity extension tables (type-specific fields)
 -- ═══════════════════════════════════════════════════════════
 
--- Principles
-CREATE TABLE principles (
+-- Tenets (v0.4.0 — renamed from principles, ADR-0004 D3)
+CREATE TABLE tenets (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     statement       TEXT NOT NULL,
     rationale       TEXT,
-    applicability   TEXT,                          -- JSON array
-    exceptions      TEXT,                          -- JSON array
-    conflicts_with  TEXT,                          -- JSON array of IDs
+    applicability   TEXT,
     tier            TEXT CHECK(tier IN ('mandatory','recommended','aspirational'))
 );
 
@@ -59,19 +57,18 @@ CREATE TABLE architecture_patterns (
     maturity             TEXT CHECK(maturity IN ('emerging','established','canonical','deprecated'))
 );
 
--- Standards
-CREATE TABLE standards (
+-- Guardrails (v0.4.0 — renamed from standards, ADR-0004 D4; adds enforcement)
+CREATE TABLE guardrails (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    standard_body   TEXT,
+    enforcement     TEXT NOT NULL CHECK(enforcement IN ('advisory','automated-warn','automated-block','platform-enforced')),
     domain          TEXT,
+    source          TEXT,
     url             TEXT,
-    license         TEXT,
-    coverage        TEXT,                          -- JSON array
-    conforms_to     TEXT                           -- JSON array
+    coverage        TEXT                           -- JSON array
 );
 
--- Reference Models
-CREATE TABLE reference_models (
+-- Blueprints (v0.4.0 — renamed from reference_models, ADR-0004 D5)
+CREATE TABLE blueprints (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     domain              TEXT,
     abstraction_level   TEXT CHECK(abstraction_level IN ('conceptual','logical','physical')),
@@ -186,27 +183,14 @@ CREATE TABLE metrics (
     owner               TEXT
 );
 
--- Glossary Terms
-CREATE TABLE glossary_terms (
+-- Concepts (v0.4.0 — merged from glossary_terms + taxonomy_nodes, ADR-0004 D2)
+CREATE TABLE concepts (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     definition      TEXT NOT NULL,
     abbreviation    TEXT,
     synonyms        TEXT,                          -- JSON array
-    antonyms        TEXT,                          -- JSON array
-    usage_context   TEXT,
-    metamodel_entity TEXT
-);
-
--- Viewpoints
-CREATE TABLE viewpoints (
-    entity_id               TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    stakeholder             TEXT NOT NULL,
-    concern                 TEXT NOT NULL,
-    entities_included       TEXT,                  -- JSON array
-    entities_excluded       TEXT,                  -- JSON array
-    relationships_included TEXT,                  -- JSON array
-    filter_criteria_json   TEXT,
-    presentation_format     TEXT CHECK(presentation_format IN ('diagram','table','matrix','dashboard','narrative','multi'))
+    parent_concept  TEXT,                          -- ID of parent Concept (NULL = root)
+    usage_context   TEXT
 );
 
 -- ═══════════════════════════════════════════════════════════
@@ -242,7 +226,7 @@ CREATE INDEX idx_rel_type       ON relationships(relationship_type);
 
 CREATE TABLE entity_cross_refs (
     entity_id       TEXT NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
-    ref_type        TEXT NOT NULL,   -- e.g. 'related_patterns', 'related_principles'
+    ref_type        TEXT NOT NULL,   -- e.g. 'related_patterns', 'related_tenets'
     ref_ids         TEXT NOT NULL,   -- JSON array of entity IDs
     PRIMARY KEY (entity_id, ref_type)
 );

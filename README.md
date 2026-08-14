@@ -2,8 +2,8 @@
 
 > **Canonical entity definitions, relationships, and schemas for all DEA catalog repositories.**
 
-[![Metamodel Version](https://img.shields.io/badge/version-0.3.0-blue)](./VERSION)
-[![OpenDEAM Pin](https://img.shields.io/badge/OpenDEAM-v0.3.0-2DD4BF)](https://github.com/technehub-labs/dea-architecture-framework/tree/v0.3.0)
+[![Metamodel Version](https://img.shields.io/badge/version-0.4.0-blue)](./VERSION)
+[![OpenDEAM Pin](https://img.shields.io/badge/OpenDEAM-v0.4.0-2DD4BF)](https://github.com/technehub-labs/dea-architecture-framework/tree/v0.4.0)
 [![Metamodel Schema](https://img.shields.io/badge/schema-JSON%20Schema-blue)](./schemas/)
 [![RDF Format](https://img.shields.io/badge/rdf-TTL-orange)](./ttl/)
 
@@ -19,14 +19,13 @@ dea-metamodel (this repo)
        │ version-pinned by all catalog repos
        │
    ┌───┴───────────────────────────────────────┐
-   │  dea-catalog-principles                   │
+   │  dea-catalog-tenets                       │
    │  dea-catalog-patterns                     │
-   │  dea-catalog-standards                    │
-   │  dea-catalog-reference-models             │
+   │  dea-catalog-guardrails                   │
+   │  dea-catalog-blueprints                   │
    │  dea-catalog-metrics                      │
    │  dea-catalog-ontologies                   │
-   │  dea-catalog-taxonomy                     │
-   │  dea-catalog-glossary                     │
+   │  dea-catalog-concepts                     │
    └───────────────────────────────────────────┘
 ```
 
@@ -53,10 +52,10 @@ dea-metamodel/
 
 ```
 Entity (abstract root)
-├── Principle
+├── Tenet
 ├── ArchitecturePattern
-├── Standard
-├── ReferenceModel
+├── Guardrail
+├── Blueprint
 │   ├── IntegrationPattern
 │   ├── DataPattern
 │   └── ApplicationPattern
@@ -69,9 +68,7 @@ Entity (abstract root)
 │   └── IntegrationComponent
 ├── Technology
 ├── Metric
-├── GlossaryTerm
-├── TaxonomyNode
-└── Viewpoint
+└── Concept
 ```
 
 ## Relationship Types
@@ -80,13 +77,13 @@ Entity (abstract root)
 |---|---|---|---|
 | `maps-to` | any Entity | any Entity | General-purpose cross-catalog mapping |
 | `realizes` | SolutionComponent | Capability | Component implements a capability |
-| `implements` | ArchitecturePattern | Standard | Pattern implements a standard |
-| `influenced-by` | any Entity | Principle | Entity is governed by a principle |
+| `implements` | ArchitecturePattern | Guardrail | Pattern implements a guardrail |
+| `influenced-by` | any Entity | Tenet | Entity is guided by a tenet |
 | `decomposes` | Capability | Capability | Parent capability breaks into sub-capabilities |
 | `orchestrates` | Process | Process | Parent process coordinates sub-processes |
 | `consumes` | SolutionComponent | BusinessService | Component uses an external service |
 | `provides` | SolutionComponent | BusinessService | Component exposes a service |
-| `governs` | Standard | any Entity | Standard governs entity behavior |
+| `governs` | Guardrail | any Entity | Guardrail governs entity behavior |
 | `measured-by` | any Entity | Metric | Entity is tracked via metric |
 
 ## Quick Start
@@ -95,7 +92,7 @@ Entity (abstract root)
 
 ```bash
 # Validate a JSON entity
-python3 scripts/validate_entity.py --schema schemas/entities/principle.json --entity my-principle.json
+python3 scripts/validate_entity.py --schema schemas/entities/tenet.json --entity my-tenet.json
 
 # Validate RDF serialization
 python3 scripts/validate_rdf.py --schema ttl/dea-metamodel.ttl --input my-entity.ttl

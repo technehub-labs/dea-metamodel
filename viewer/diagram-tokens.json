@@ -1,0 +1,36 @@
+{
+  "name": "dea-metamodel-diagram-tokens",
+  "version": "1.0.0",
+  "description": "Design tokens for the OpenDEAM metamodel diagram (viewer/metamodel.svg). Every diagram regeneration consumes these tokens — generate_puml.py (PlantUML source) and inject_svg_attributes.py (SVG post-processing) MUST read this file and MUST NOT hardcode design values. Design principle (locked 2026-08-15, variant 'C2'): the diagram has no canvas of its own — the SVG background is transparent and inherits the page background; packages carry the layer's dark color with a layer-accent stroke; relationship labels are small italic grey with no outline/halo; attribute text is light grey on the dark entity fill. Per-layer accent and dark colors are NOT stored here — they cascade from the OpenDEAM root model via viewer/entity-graph.json (layers[].color / layers[].dark_color). When the model adds a layer or package, its colors flow through automatically; extend the 'dimension' token only for new cross-cutting dimensions.",
+  "canvas": {
+    "background": "transparent"
+  },
+  "entity": {
+    "fill": "#0D1117",
+    "stroke_width": 1.5,
+    "name_text": "#E6EDF3",
+    "attribute_text": "#B1BAC4",
+    "accent_bar_width": 3,
+    "stereotype_blend_alpha": 0.18,
+    "comment": "stereotype badge fill = layer accent blended into entity.fill at stereotype_blend_alpha (computed deterministically at injection time). Entity stroke, accent bar, badge stroke and visibility dots all use the layer accent from entity-graph.json."
+  },
+  "relationship_label": {
+    "text": "#B1BAC4",
+    "font_size": 11,
+    "font_style": "italic",
+    "halo": false,
+    "comment": "No outline/halo and no label background — labels sit directly on the page background. font_size is enforced in the PUML (skinparam arrow FontSize) and re-enforced during injection."
+  },
+  "package": {
+    "fill": "layer-dark",
+    "stroke": "layer-accent",
+    "title_text": "layer-accent",
+    "stroke_width": 1.0,
+    "comment": "fill/stroke/title resolve per package from entity-graph.json: layers[].dark_color for fill, layers[].color for stroke and title. 'layer-dark'/'layer-accent' are symbolic references, not literal colors."
+  },
+  "dimension": {
+    "fill": "#374151",
+    "accent": "#9CA3AF",
+    "comment": "Cross-cutting dimension packages (e.g. measurement, semantic) have no home layer; they use these neutral tokens instead of layer colors."
+  }
+}

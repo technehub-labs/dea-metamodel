@@ -48,6 +48,25 @@ dea-metamodel/
     └── metamodel/            # Entity narrative docs
 ```
 
+## Diagram Design Tokens
+
+The rendered metamodel diagram (`viewer/metamodel.svg`) follows a locked
+design defined in **`viewer/diagram-tokens.json`** — no canvas (transparent
+background inheriting the page), dark layer-colored packages, small italic
+relationship labels with no outline, light-grey attribute text on dark entity
+fills.
+
+Every regeneration consumes these tokens: `generate_puml.py` (PlantUML skin
+params) and `inject_svg_attributes.py` (SVG post-processing) load them via
+`.github/scripts/diagram_tokens.py`. Do not hardcode design values in the
+pipeline scripts.
+
+Per-layer accent/dark colors are **not** in the token file — they cascade
+from the OpenDEAM root model through `viewer/entity-graph.json`
+(`layers[].color` / `layers[].dark_color`), so new layers and packages pick
+up color coding automatically. Extend the token file (e.g. the `dimension`
+tokens) only when adding a new cross-cutting dimension.
+
 ## Entity Hierarchy
 
 ```

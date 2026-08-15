@@ -6,17 +6,19 @@ skinparam ranksep 90
 skinparam dpi 96
 skinparam maxMessageSize 200
 skinparam defaultFontName Arial
+skinparam backgroundColor transparent
 !pragma layout elk
 skinparam class {
-    BackgroundColor #0d1117
-    FontColor       #e6edf3
+    BackgroundColor #0D1117
+    FontColor       #E6EDF3
     BorderColor     #2dd4bf
     ArrowColor      #2dd4bf
 }
 skinparam arrow {
     Color     #2dd4bf
-    FontColor #8b949e
+    FontColor #B1BAC4
     FontStyle italic
+    FontSize  11
 }
 
 ' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.4.0, pin v0.4.0) ---

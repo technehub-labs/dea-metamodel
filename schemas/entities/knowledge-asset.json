@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/knowledge-asset.json",
+  "title": "KnowledgeAsset",
+  "description": "Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3), which an Actor personally possesses (OpenDEAM v0.5.0, ADR-0005 D4, L4/Information & Knowledge). Catalog: technehub-labs/dea-catalog-knowledge-assets.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:knowledge-asset-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "KnowledgeAsset"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "knowledge_form": {
+      "type": "string",
+      "enum": [
+        "playbook",
+        "runbook",
+        "guideline",
+        "case-study",
+        "lesson-learned",
+        "other"
+      ],
+      "description": "The durable form the know-how is captured in."
+    },
+    "captured_from": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "References to Actor entries in technehub-labs/dea-catalog-actors whose tacit skill was made explicit here."
+    },
+    "review_cycle": {
+      "type": "string",
+      "description": "How often the asset must be refreshed (e.g. quarterly) — knowledge decays."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

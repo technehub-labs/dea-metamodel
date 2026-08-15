@@ -449,7 +449,8 @@
       "building_block": "L3-resources",
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
-      "specializes": "RES"
+      "specializes": "RES",
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-intangible-resource",
@@ -464,7 +465,8 @@
       "building_block": "L3-resources",
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
-      "specializes": "RES"
+      "specializes": "RES",
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-organizational-unit",
@@ -493,7 +495,8 @@
       "building_block": "L3-resources",
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
-      "specializes": "RES"
+      "specializes": "RES",
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-resource",
@@ -511,7 +514,9 @@
       "abstract": true,
       "realized_in_layers": [
         "L3"
-      ]
+      ],
+      "entity_role": "content",
+      "completeness_contract": "Any T2 catalog specializing Resource must classify instances along exactly one of three dimensions: liquidity (-> Financial Resource), maintenance regime (-> Physical Resource), or legal protection type (-> Intangible Resource). Each dimension implies a distinct governance/relationship pattern, not merely a different label. (ADR-0005 D3)\n"
     },
     {
       "entity_id": "dea:entity-role",
@@ -656,7 +661,8 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-information-knowledge",
       "building_block_name": "Information & Knowledge",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-information-class",
@@ -684,7 +690,8 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-information-knowledge",
       "building_block_name": "Information & Knowledge",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-model-deployment",

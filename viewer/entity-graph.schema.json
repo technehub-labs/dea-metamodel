@@ -70,6 +70,8 @@
           },
           "measured_by": { "type": "array", "items": { "type": "string", "maxLength": 5 } },
           "scope_layers": { "type": "array", "items": { "type": "string", "pattern": "^L[0-9]+$" } },
+          "entity_role": { "type": "string", "enum": ["content", "governance"], "description": "ADR-0005 D2 — content: populated by T2 catalogs; governance: constrains/defines other entities' catalogs." },
+          "completeness_contract": { "type": "string", "description": "ADR-0005 D2 — what a T2 catalog under this entity must classify by to be MECE-complete." },
           "description": { "type": "string" }
         }
       }

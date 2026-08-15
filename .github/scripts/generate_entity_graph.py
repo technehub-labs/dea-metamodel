@@ -148,7 +148,8 @@ def main() -> int:
         for opt in ("abstract", "specializes", "realized_in_layers", "discriminator",
                     "ecf_coordinates", "measured_by", "scope_layers",
                     "governed_by", "defined_by", "parent_concept",
-                    "enforcement", "migration_note"):
+                    "enforcement", "migration_note",
+                    "entity_role", "completeness_contract"):
             if opt in e:
                 g[opt] = e[opt]
         graph_entities.append(g)

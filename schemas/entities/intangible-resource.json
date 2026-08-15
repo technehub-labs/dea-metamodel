@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/intangible-resource.json",
+  "title": "IntangibleResource",
+  "description": "Legally protected non-physical economic value (patents, trademarks, brand equity, licenses). Specializes Resource (OpenDEAM v0.5.0, ADR-0005 D3, L3/Enterprise Resources). Catalog: technehub-labs/dea-catalog-intangible-resources.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:intangible-resource-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "IntangibleResource"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "protection_type": {
+      "type": "string",
+      "enum": [
+        "patent",
+        "trademark",
+        "copyright",
+        "trade-secret",
+        "license",
+        "brand",
+        "other"
+      ],
+      "description": "Legal protection type — the governance dimension for this specialization (ADR-0005 D3)."
+    },
+    "protection_expiry": {
+      "type": "string",
+      "description": "ISO 8601 date on which the legal protection lapses, where applicable."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

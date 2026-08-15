@@ -1,8 +1,8 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-  "metamodel_version": "0.4.0",
+  "metamodel_version": "0.5.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.4.0",
+  "opendeam_model_pin": "v0.5.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -437,6 +437,36 @@
       "color": "#38BDF8"
     },
     {
+      "entity_id": "dea:entity-financial-resource",
+      "class_alias": "FR",
+      "display_name": "Financial Resource",
+      "catalog_repo": "dea-catalog-financial-resources",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-financial-resources",
+      "status": "proposed",
+      "description": "Liquid or near-liquid economic value the enterprise holds (accounts, instruments, funding lines). Catalog instances include cash, credit facilities, and similar.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-resources",
+      "building_block_name": "Enterprise Resources",
+      "color": "#38BDF8",
+      "specializes": "RES"
+    },
+    {
+      "entity_id": "dea:entity-intangible-resource",
+      "class_alias": "INR",
+      "display_name": "Intangible Resource",
+      "catalog_repo": "dea-catalog-intangible-resources",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-intangible-resources",
+      "status": "proposed",
+      "description": "Legally protected non-physical economic value (patents, trademarks, brand equity, licenses). Catalog instances include a specific trademark registration or license.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-resources",
+      "building_block_name": "Enterprise Resources",
+      "color": "#38BDF8",
+      "specializes": "RES"
+    },
+    {
       "entity_id": "dea:entity-organizational-unit",
       "class_alias": "OU",
       "display_name": "Organizational Unit",
@@ -449,6 +479,39 @@
       "building_block": "L3-work-organization",
       "building_block_name": "Work Organization",
       "color": "#38BDF8"
+    },
+    {
+      "entity_id": "dea:entity-physical-resource",
+      "class_alias": "PHR",
+      "display_name": "Physical Resource",
+      "catalog_repo": "dea-catalog-physical-resources",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-physical-resources",
+      "status": "proposed",
+      "description": "Tangible assets requiring an ongoing maintenance regime (equipment, vehicles, premises, inventory stock). Catalog instances include an oven, a van, a warehouse shelf.",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-resources",
+      "building_block_name": "Enterprise Resources",
+      "color": "#38BDF8",
+      "specializes": "RES"
+    },
+    {
+      "entity_id": "dea:entity-resource",
+      "class_alias": "RES",
+      "display_name": "Resource",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "The economic/physical substrate a bounded entity maintains to persist, distinct from what it exchanges (L1) or builds digitally (L4/L5).",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-resources",
+      "building_block_name": "Enterprise Resources",
+      "color": "#38BDF8",
+      "abstract": true,
+      "realized_in_layers": [
+        "L3"
+      ]
     },
     {
       "entity_id": "dea:entity-role",
@@ -582,6 +645,20 @@
       "color": "#A78BFA"
     },
     {
+      "entity_id": "dea:entity-information-asset",
+      "class_alias": "IA",
+      "display_name": "Information Asset",
+      "catalog_repo": "dea-catalog-information-assets",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-information-assets",
+      "status": "proposed",
+      "description": "Data given context and form for a specific consuming purpose (a report, dashboard, invoice) — distinct from the raw Data Entity it's contextualized from.",
+      "layer": "L4",
+      "layer_name": "Digital & Intelligence",
+      "building_block": "L4-information-knowledge",
+      "building_block_name": "Information & Knowledge",
+      "color": "#A78BFA"
+    },
+    {
       "entity_id": "dea:entity-information-class",
       "class_alias": "IC",
       "display_name": "Information Class",
@@ -593,6 +670,20 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-data-foundation",
       "building_block_name": "Data Foundation",
+      "color": "#A78BFA"
+    },
+    {
+      "entity_id": "dea:entity-knowledge-asset",
+      "class_alias": "KA",
+      "display_name": "Knowledge Asset",
+      "catalog_repo": "dea-catalog-knowledge-assets",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-knowledge-assets",
+      "status": "proposed",
+      "description": "Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3), which an Actor personally possesses.",
+      "layer": "L4",
+      "layer_name": "Digital & Intelligence",
+      "building_block": "L4-information-knowledge",
+      "building_block_name": "Information & Knowledge",
       "color": "#A78BFA"
     },
     {
@@ -1272,6 +1363,62 @@
       "to": "BO",
       "label": "defines",
       "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "FR",
+      "to": "II",
+      "label": "funds",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "PHR",
+      "to": "BP",
+      "label": "enables",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "INR",
+      "to": "CAP",
+      "label": "protects",
+      "rel_type": "governance",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "IA",
+      "to": "DE",
+      "label": "contextualized from",
+      "rel_type": "dependency",
+      "cardinality": "0..N:1..N",
+      "style": "dashed"
+    },
+    {
+      "from": "IA",
+      "to": "AC",
+      "label": "consumed by",
+      "rel_type": "flow",
+      "cardinality": "0..N:0..N",
+      "style": "solid"
+    },
+    {
+      "from": "KA",
+      "to": "AC",
+      "label": "captured from",
+      "rel_type": "dependency",
+      "cardinality": "0..N:0..N",
+      "style": "dashed"
+    },
+    {
+      "from": "KA",
+      "to": "TNT",
+      "label": "informs",
+      "rel_type": "dependency",
       "cardinality": "0..N:0..N",
       "style": "dashed"
     }

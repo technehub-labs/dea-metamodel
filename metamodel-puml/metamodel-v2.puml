@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.4.0, pin v0.4.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 0.5.0, pin v0.5.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -136,8 +136,24 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
+    entity "Financial Resource" as FR {
+        + id : string
+        + name : string
+    }
+    entity "Intangible Resource" as INR {
+        + id : string
+        + name : string
+    }
     ' (scaffold)
     entity "Organizational Unit" as OU {
+        + id : string
+        + name : string
+    }
+    entity "Physical Resource" as PHR {
+        + id : string
+        + name : string
+    }
+    entity "Resource" as RES {
         + id : string
         + name : string
     }
@@ -181,7 +197,15 @@ package "Layer 4: Digital & Intelligence" #52487D {
         + id : string
         + name : string
     }
+    entity "Information Asset" as IA {
+        + id : string
+        + name : string
+    }
     entity "Information Class" as IC {
+        + id : string
+        + name : string
+    }
+    entity "Knowledge Asset" as KA {
         + id : string
         + name : string
     }
@@ -242,6 +266,9 @@ package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
 }
 
 ' --- SPECIALIZATION (entity.specializes) ---
+FR --|> RES
+INR --|> RES
+PHR --|> RES
 APC --|> SC
 IFC --|> SC
 IGC --|> SC
@@ -310,7 +337,14 @@ GRD .. SC : "governs [0..N:0..N]"
 BLU -- AP : "composed of [1:1..N]"
 CON .. CAP : "defines [0..N:0..N]"
 CON .. BO : "defines [0..N:0..N]"
+FR .. II : "funds [0..N:0..N]"
+PHR .. BP : "enables [0..N:0..N]"
+INR .. CAP : "protects [0..N:0..N]"
+IA .. DE : "contextualized from [0..N:1..N]"
+IA -- AC : "consumed by [0..N:0..N]"
+KA .. AC : "captured from [0..N:0..N]"
+KA .. TNT : "informs [0..N:0..N]"
 
-' Generated 63 relationship edges, 3 specialization edges
+' Generated 70 relationship edges, 6 specialization edges
 
 @enduml

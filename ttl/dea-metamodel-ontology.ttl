@@ -234,6 +234,42 @@ dea:ModelFeedbackSignal a owl:Class ;
     skos:definition "Drift/performance feedback from Events driving retraining (L4, ADR-0003)." ;
     dea:specification <schemas/entities/model-feedback-signal.json> .
 
+dea:Resource a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Resource" ;
+    skos:definition "Economic/physical substrate a bounded entity maintains to persist. Abstract category root carrying a completeness_contract (L3, ADR-0005)." ;
+    dea:specification <schemas/entities/resource.json> .
+
+dea:FinancialResource a owl:Class ;
+    rdfs:subClassOf dea:Resource ;
+    rdfs:label "FinancialResource" ;
+    skos:definition "Liquid or near-liquid economic value the enterprise holds (L3, ADR-0005)." ;
+    dea:specification <schemas/entities/financial-resource.json> .
+
+dea:PhysicalResource a owl:Class ;
+    rdfs:subClassOf dea:Resource ;
+    rdfs:label "PhysicalResource" ;
+    skos:definition "Tangible assets requiring an ongoing maintenance regime (L3, ADR-0005)." ;
+    dea:specification <schemas/entities/physical-resource.json> .
+
+dea:IntangibleResource a owl:Class ;
+    rdfs:subClassOf dea:Resource ;
+    rdfs:label "IntangibleResource" ;
+    skos:definition "Legally protected non-physical economic value (L3, ADR-0005)." ;
+    dea:specification <schemas/entities/intangible-resource.json> .
+
+dea:InformationAsset a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "InformationAsset" ;
+    skos:definition "Data given context and form for a specific consuming purpose (L4, ADR-0005)." ;
+    dea:specification <schemas/entities/information-asset.json> .
+
+dea:KnowledgeAsset a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "KnowledgeAsset" ;
+    skos:definition "Applied know-how made explicit and durable, independent of any one Actor (L4, ADR-0005)." ;
+    dea:specification <schemas/entities/knowledge-asset.json> .
+
 dea:mapsTo a owl:ObjectProperty ;
     rdfs:domain dea:Entity ;
     rdfs:range dea:Entity ;

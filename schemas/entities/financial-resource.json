@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/financial-resource.json",
+  "title": "FinancialResource",
+  "description": "Liquid or near-liquid economic value the enterprise holds (accounts, instruments, funding lines). Specializes Resource (OpenDEAM v0.5.0, ADR-0005 D3, L3/Enterprise Resources). Catalog: technehub-labs/dea-catalog-financial-resources.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:financial-resource-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "FinancialResource"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "liquidity": {
+      "type": "string",
+      "enum": [
+        "cash",
+        "near-liquid",
+        "credit-facility",
+        "instrument",
+        "other"
+      ],
+      "description": "Liquidity classification — the governance dimension for this specialization (ADR-0005 D3)."
+    },
+    "currency": {
+      "type": "string",
+      "description": "ISO 4217 currency code, where applicable."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

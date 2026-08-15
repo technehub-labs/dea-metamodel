@@ -276,12 +276,51 @@ entities:
     pydantic_model: pydantic/role.py
 
   - name: ChangeInitiative
-    description: Deliberate effort to shift Skills, Roles, or culture (L3, ADR-0003).
+    description: Deliberate effort to shift Skills, Roles, or culture within an Organizational Unit (L3, ADR-0003).
     schema: schemas/entities/change-initiative.json
     ttl: ttl/entities/change-initiative.ttl
     sqlite_table: change_initiatives
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/change_initiative.py
+
+  - name: Resource
+    description: Economic/physical substrate a bounded entity maintains to persist. ABSTRACT category root carrying a completeness_contract (L3 Enterprise Resources, ADR-0005 D3).
+    schema: schemas/entities/resource.json
+    ttl: ttl/entities/resource.ttl
+    sqlite_table: resources
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/resource.py
+    subtypes:
+      - FinancialResource
+      - PhysicalResource
+      - IntangibleResource
+
+  - name: FinancialResource
+    inherits: Resource
+    description: Liquid or near-liquid economic value the enterprise holds (L3, ADR-0005).
+    schema: schemas/entities/financial-resource.json
+    ttl: ttl/entities/financial-resource.ttl
+    sqlite_table: financial_resources
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/financial_resource.py
+
+  - name: PhysicalResource
+    inherits: Resource
+    description: Tangible assets requiring an ongoing maintenance regime (L3, ADR-0005).
+    schema: schemas/entities/physical-resource.json
+    ttl: ttl/entities/physical-resource.ttl
+    sqlite_table: physical_resources
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/physical_resource.py
+
+  - name: IntangibleResource
+    inherits: Resource
+    description: Legally protected non-physical economic value (L3, ADR-0005).
+    schema: schemas/entities/intangible-resource.json
+    ttl: ttl/entities/intangible-resource.ttl
+    sqlite_table: intangible_resources
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/intangible_resource.py
 
   - name: ModelDeployment
     description: Running instance of an AI/ML Model with operational lifecycle (L4, ADR-0003).
@@ -292,12 +331,28 @@ entities:
     pydantic_model: pydantic/model_deployment.py
 
   - name: ModelFeedbackSignal
-    description: Drift/performance feedback from Events driving retraining (L4, ADR-0003).
+    description: Drift/performance/outcome feedback from Events, triggering retraining (L4, ADR-0003).
     schema: schemas/entities/model-feedback-signal.json
     ttl: ttl/entities/model-feedback-signal.ttl
-    sqlite_table: model_feedback_signals
+    sqlite_table: model_deployments
     ts_interface: src/interfaces.ts
     pydantic_model: pydantic/model_feedback_signal.py
+
+  - name: InformationAsset
+    description: Data given context and form for a specific consuming purpose — distinct from the raw Data Entity (L4 Information & Knowledge, ADR-0005 D4).
+    schema: schemas/entities/information-asset.json
+    ttl: ttl/entities/information-asset.ttl
+    sqlite_table: information_assets
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/information_asset.py
+
+  - name: KnowledgeAsset
+    description: Applied know-how made explicit and durable, independent of any one Actor — distinct from Skill (L4 Information & Knowledge, ADR-0005 D4).
+    schema: schemas/entities/knowledge-asset.json
+    ttl: ttl/entities/knowledge-asset.ttl
+    sqlite_table: knowledge_assets
+    ts_interface: src/interfaces.ts
+    pydantic_model: pydantic/knowledge_asset.py
 
 relationships:
   - name: mapsTo

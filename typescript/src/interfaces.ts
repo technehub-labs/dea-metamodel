@@ -582,6 +582,31 @@ export interface ChangeInitiative extends BaseEntity {
   funded_by?: string;
 }
 
+// Resource (RES) — L3 Enterprise Resources (v0.5.0, ADR-0005 D3). ABSTRACT
+// category root carrying a completeness_contract: specializing catalogs must
+// classify instances along exactly one dimension (liquidity / maintenance
+// regime / legal protection type). Repo-per-specialization — no shared
+// catalog, no discriminator (unlike SolutionComponent).
+export interface Resource extends BaseEntity {
+  type: 'Resource';
+  resource_kind: 'financial' | 'physical' | 'intangible';
+}
+export interface FinancialResource extends BaseEntity {
+  type: 'FinancialResource';
+  liquidity?: 'cash' | 'near-liquid' | 'credit-facility' | 'instrument' | 'other';
+  currency?: string;
+}
+export interface PhysicalResource extends BaseEntity {
+  type: 'PhysicalResource';
+  maintenance_regime?: string;
+  location?: string;
+}
+export interface IntangibleResource extends BaseEntity {
+  type: 'IntangibleResource';
+  protection_type?: 'patent' | 'trademark' | 'copyright' | 'trade-secret' | 'license' | 'brand' | 'other';
+  protection_expiry?: string;
+}
+
 // ModelDeployment (MDP) / ModelFeedbackSignal (MFS) — L4 Model Operations.
 // Share dea-catalog-model-deployments, discriminated by deployment_kind /
 // signal_kind respectively (ADR-0002 D6).
@@ -595,6 +620,22 @@ export interface ModelFeedbackSignal extends BaseEntity {
   type: 'ModelFeedbackSignal';
   signal_kind: 'drift' | 'performance-degradation' | 'outcome-quality';
   derived_from?: string[];
+}
+
+// InformationAsset (IA) / KnowledgeAsset (KA) — L4 Information & Knowledge
+// (v0.5.0, ADR-0005 D4). Completes Data->Information->Knowledge on the
+// digital plane. KA is distinct from Skill (L3): a Skill is possessed by a
+// person; a KnowledgeAsset survives the person leaving.
+export interface InformationAsset extends BaseEntity {
+  type: 'InformationAsset';
+  consumption_form?: 'report' | 'dashboard' | 'document' | 'feed' | 'other';
+  source_data_entities?: string[];
+}
+export interface KnowledgeAsset extends BaseEntity {
+  type: 'KnowledgeAsset';
+  knowledge_form?: 'playbook' | 'runbook' | 'guideline' | 'case-study' | 'lesson-learned' | 'other';
+  captured_from?: string[];
+  review_cycle?: string;
 }
 
 // ─── Union type for all concrete entities ─────────────────
@@ -624,8 +665,14 @@ export type AnyEntity =
   | Skill
   | Role
   | ChangeInitiative
+  | Resource
+  | FinancialResource
+  | PhysicalResource
+  | IntangibleResource
   | ModelDeployment
-  | ModelFeedbackSignal;
+  | ModelFeedbackSignal
+  | InformationAsset
+  | KnowledgeAsset;
 
 // ─── Metamodel index ──────────────────────────────────────
 
@@ -658,8 +705,14 @@ export const ENTITY_TYPES = [
   'Skill',
   'Role',
   'ChangeInitiative',
+  'Resource',
+  'FinancialResource',
+  'PhysicalResource',
+  'IntangibleResource',
   'ModelDeployment',
   'ModelFeedbackSignal',
+  'InformationAsset',
+  'KnowledgeAsset',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [

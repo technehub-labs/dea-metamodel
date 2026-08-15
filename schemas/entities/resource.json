@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/resource.json",
+  "title": "Resource",
+  "description": "The economic/physical substrate a bounded entity maintains to persist, distinct from what it exchanges (L1) or builds digitally (L4/L5). ABSTRACT category root (OpenDEAM v0.5.0, ADR-0005 D3, L3/Enterprise Resources) — instantiate via a specialization (Financial/Physical/Intangible Resource), each with its own catalog. Completeness contract: a specializing catalog must classify instances along exactly one dimension — liquidity, maintenance regime, or legal protection type.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:resource-example"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "Resource"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "resource_kind": {
+      "type": "string",
+      "enum": [
+        "financial",
+        "physical",
+        "intangible"
+      ],
+      "description": "Which specialization dimension this instance belongs to — set by the specializing catalog (ADR-0005 D3 completeness contract)."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

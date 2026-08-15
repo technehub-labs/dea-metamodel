@@ -17,10 +17,15 @@ by class_alias within each layer.
 Run: python3 .github/scripts/generate_puml.py > metamodel-puml/metamodel-v2.puml
 """
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from diagram_tokens import load_tokens
 
 BASE = Path(__file__).parent.parent.parent
 GRAPH = BASE / "viewer" / "entity-graph.json"
+TOKENS = load_tokens()
 
 
 def main():
@@ -30,6 +35,7 @@ def main():
     entities = g["entities"]
     layers = g["layers"]
     relationships = g.get("relationships", [])
+    rel_tok = TOKENS["relationship_label"]
 
     by_layer = {}
     dimension_entities = []
@@ -50,19 +56,24 @@ def main():
     print("skinparam dpi 96")
     print("skinparam maxMessageSize 200")
     print("skinparam defaultFontName Arial")
+    # Canvas: transparent — the diagram inherits the page background (C2
+    # design token canvas.background). inject_svg_attributes.py re-enforces
+    # this on the rendered SVG in case a PlantUML version ignores it.
+    print(f'skinparam backgroundColor {TOKENS["canvas"]["background"]}')
     # ELK layout engine produces more balanced (closer to square) layouts
     # than the default GraphViz dot, especially for many-cluster diagrams.
     print("!pragma layout elk")
     print("skinparam class {")
-    print("    BackgroundColor #0d1117")
-    print("    FontColor       #e6edf3")
+    print(f'    BackgroundColor {TOKENS["entity"]["fill"]}')
+    print(f'    FontColor       {TOKENS["entity"]["name_text"]}')
     print("    BorderColor     #2dd4bf")
     print("    ArrowColor      #2dd4bf")
     print("}")
     print("skinparam arrow {")
     print("    Color     #2dd4bf")
-    print("    FontColor #8b949e")
-    print("    FontStyle italic")
+    print(f'    FontColor {rel_tok["text"]}')
+    print(f'    FontStyle {rel_tok["font_style"]}')
+    print(f'    FontSize  {rel_tok["font_size"]}')
     print("}")
     print()
     print("' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM " +
@@ -100,9 +111,10 @@ def main():
     # ─── Dimension entities (ADR-0002 D1: cross-cutting, no home layer) ───
     if dimension_entities:
         dim_names = {d["id"]: d["name"] for d in g.get("dimensions", [])}
+        dim_fill = TOKENS["dimension"]["fill"]
         for e in dimension_entities:
             dim_label = dim_names.get(e.get("dimension", ""), "Dimension")
-            print(f'package "{dim_label} (cross-cutting)" <<dimension>> #374151 {{')
+            print(f'package "{dim_label} (cross-cutting)" <<dimension>> {dim_fill} {{')
             emit_entity(e)
             print("}")
             print()

@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.8.0
+# Version: 0.9.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.8.0" ;
+    owl:versionInfo "0.9.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;
@@ -276,6 +276,63 @@ dea:KnowledgeAsset a owl:Class ;
 # Object properties (CR-002: generated from the canonical relationship registry)
 
 # Object properties (CR-002: generated from the canonical relationship registry)
+
+# Core ontology classes (CR-4)
+
+dea:ArchitectureElement a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    dea:abstract true ;
+    rdfs:label "ArchitectureElement" ;
+    skos:definition "An identifiable element that participates in an architectural description of an enterprise (CR-4 §5). Not merely anything that appears in the repository." .
+
+dea:Behavior a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    dea:abstract true ;
+    rdfs:label "Behavior" ;
+    skos:definition "Abstract concept for enterprise activity (CR-4 §9). Profiles specialize: Process, Activity, Workflow, BusinessFunction, AgentTask, Automation." .
+
+dea:Service a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    dea:abstract true ;
+    rdfs:label "Service" ;
+    skos:definition "A means through which a provider exposes value or capability to a consumer without requiring the consumer to manage the underlying implementation (CR-4 §10)." .
+
+dea:Information a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    dea:abstract true ;
+    rdfs:label "Information" ;
+    skos:definition "Abstract foundation for all information specializations (CR-4 §12). Profiles define DataEntity, BusinessObject, InformationAsset, KnowledgeAsset, DataProduct, Dataset." .
+
+dea:Organization a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    dea:abstract true ;
+    rdfs:label "Organization" ;
+    skos:definition "Organizational structure, distinct from Actor agency (CR-4 §7). An organization can act as an Actor; structure and agency are different semantic concerns." .
+
+dea:Decision a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Decision" ;
+    skos:definition "A determination made by an Actor, system or Agent that selects or authorizes a course of action based on information, rules, objectives and constraints (CR-4 §13). Foundation for agentic architecture (CR-7)." .
+
+dea:Outcome a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Outcome" ;
+    skos:definition "A resulting state or value (CR-4 §14). Capability is an ability; Outcome is a result. Anchor for strategy, value, DMM, transformation and measurement." .
+
+dea:Requirement a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Requirement" ;
+    skos:definition "A stated need, obligation or condition that an architecture, solution, service or behavior must satisfy (CR-4 §15). Profiles specialize: business, regulatory, security, data, technology, AI." .
+
+dea:Constraint a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Constraint" ;
+    skos:definition "Something that limits the possible solution space (CR-4 §16). Distinct from Requirement: a Requirement must be satisfied; a Constraint limits options." .
+
+dea:Change a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Change" ;
+    skos:definition "A deliberate modification to enterprise capabilities, behavior, services, information, technology, organization or operating model (CR-4 §17). Foundation for transformation, roadmap, transition architecture and migration." .
 
 dea:composes a owl:ObjectProperty ;
     rdfs:label "Composes" ;
@@ -570,3 +627,33 @@ dea:supports a owl:ObjectProperty ;
     skos:definition "The source contributes to the target's function, funding, or effectiveness without realizing, enabling, or being required by it." ;
     dea:category "dependency" ;
     dea:inverseOf "dea:supported-by" .
+
+dea:makes a owl:ObjectProperty ;
+    rdfs:label "Makes" ;
+    skos:definition "An Actor or Organization makes (authors/commits to) a Decision (CR-4 §13/§20)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:made-by" .
+
+dea:resultsIn a owl:ObjectProperty ;
+    rdfs:label "Results In" ;
+    skos:definition "A Decision or Change produces an Outcome (CR-4 §13/§17)." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:resulting-from" .
+
+dea:targets a owl:ObjectProperty ;
+    rdfs:label "Targets" ;
+    skos:definition "A Decision or Change intends an Outcome (CR-4 §14). Resolves the parked CR-2 targets label: ChangeInitiative change-scope uses dea:affects." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:targeted-by" .
+
+dea:affects a owl:ObjectProperty ;
+    rdfs:label "Affects" ;
+    skos:definition "A Change modifies the state of an architectural element (CR-4 §17). Broad endpoint by design; profiles constrain further." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:affected-by" .
+
+dea:contributesTo a owl:ObjectProperty ;
+    rdfs:label "Contributes To" ;
+    skos:definition "Partial causal contribution: a BusinessFunction contributes to a Capability; a Capability contributes to an Outcome (CR-4 §8/§14)." ;
+    dea:category "realization" ;
+    dea:inverseOf "dea:contributed-to-by" .

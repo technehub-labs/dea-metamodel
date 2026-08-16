@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/metric.json",
-  "metamodel_version": "0.8.0",
+  "metamodel_version": "0.9.0",
   "title": "Metric",
   "description": "A measured quantity used to evaluate outcomes against targets. OpenDEAM v0.2.0 (ADR-0002 D1): Metrics belong to the cross-cutting Measurement Dimension, not an architecture layer. scope_layers declares which layers the metric is permitted to evaluate; measurable entities reference metrics via measured_by.",
   "type": "object",

@@ -1,0 +1,22 @@
+# OpenDEA Digital Profile (CR-4 §28)
+profile:
+  id: dea:digital
+  name: OpenDEA Digital Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  scope: Solution/application/integration components, platform services, APIs, system functions, events, patterns, blueprints.
+  entities:
+  - dea:API
+  - dea:ApplicationComponent
+  - dea:ArchitecturePattern
+  - dea:Blueprint
+  - dea:Event
+  - dea:IntegrationComponent
+  - dea:PlatformService
+  - dea:SolutionComponent
+  - dea:SystemFunction
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

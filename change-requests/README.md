@@ -11,7 +11,7 @@ current one ships.
 | [CR-001](CR-001.md) | Canonical Model & Semantic Governance | One authoritative metamodel and controlled versioning | Implemented (v0.6.0) |
 | [CR-002](CR-002.md) | Relationship Semantics | Authoritative, typed relationship model | Implemented (v0.7.0) |
 | [CR-003](CR-003.md) | Entity/Relationship Normalization | Removed duplicated relationship state; clean entity boundaries | Implemented (v0.8.0) |
-| CR-004 | Core DEA Ontology | Small, stable normative core | Proposed |
+| [CR-004](CR-004.md) | Core DEA Ontology | Small, stable normative core + profile architecture | Implemented (v0.9.0) |
 | CR-005 | Assessment & Measurement | Separate DMM/measurement from architectural entities | Proposed |
 | CR-006 | Temporal & Lifecycle Semantics | Current/target/transition/time-aware architecture | Proposed |
 | CR-007 | Decision & Agentic Architecture | Decisions and agents first-class | Proposed — must not start before CR-2/3/4 |

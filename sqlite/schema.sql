@@ -1,5 +1,5 @@
 -- DEA Metamodel SQLite Schema
--- Version: 0.8.0
+-- Version: 0.9.0
 -- Derived from normative source: metamodel/dea-metamodel.yaml (CR-001). Do not edit semantics here.
 -- All tables include source tracking and soft-delete for auditability.
 
@@ -292,6 +292,33 @@ CREATE TABLE schema_version (
 
 INSERT INTO schema_version (version, notes) VALUES ('0.1.0-alpha', 'Initial DEA metamodel schema');
 
+
+-- Core ontology concretes (CR-4 §27)
+CREATE TABLE IF NOT EXISTS decisions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS outcomes (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS requirements (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS constraints (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS changes (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT
+);
+
 -- ═══════════════════════════════════════════════════════════
 -- Metamodel provenance (CR-001): source version this projection derives from
 -- ═══════════════════════════════════════════════════════════
@@ -302,7 +329,7 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.8.0'),
+    ('metamodel_version', '0.9.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
 
 -- ═══════════════════════════════════════════════════════════

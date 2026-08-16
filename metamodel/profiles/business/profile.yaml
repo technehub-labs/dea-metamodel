@@ -1,0 +1,25 @@
+# OpenDEA Business Profile (CR-4 §28)
+profile:
+  depends_on:
+  - dea:core
+  entities:
+  - dea:BusinessFunction
+  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:ChangeInitiative
+  - dea:Experiment
+  - dea:InvestmentInitiative
+  - dea:Role
+  - dea:Signal
+  - dea:Skill
+  - dea:StrategicObjective
+  - dea:ValueStream
+  id: dea:business
+  name: OpenDEA Business Profile
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  scope: Business behaviour, services, objects, strategy and change initiatives.
+  status: draft
+  version: 0.9.0

@@ -1,0 +1,14 @@
+# OpenDEA Assessment Profile (CR-4 §28)
+profile:
+  id: dea:assessment
+  name: OpenDEA Assessment Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  scope: Metrics and measurement constructs. Full assessment model in CR-5.
+  entities:
+  - dea:PerformanceMetric
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

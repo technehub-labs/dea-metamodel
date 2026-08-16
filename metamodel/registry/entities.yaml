@@ -1,5 +1,5 @@
-# Entitie Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.8.0
+# Entity Registry (CR-1.5/CR-4) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
+registry_version: 0.9.0
 entities:
 - id: dea:Entity
   name: Entity
@@ -9,6 +9,9 @@ entities:
   status: normative
   lifecycle: existing
   catalog_repo: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:CollaborationAgreement
   name: Collaboration Agreement
   layer: L1
@@ -17,6 +20,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:EcosystemActor
   name: Ecosystem Actor
   layer: L1
@@ -25,6 +31,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:EcosystemPlatform
   name: Ecosystem Platform
   layer: L1
@@ -33,6 +42,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-ecosystem-platforms
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:JourneyTouchpoint
   name: Journey Touchpoint
   layer: L1
@@ -41,6 +53,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-journey-touchpoints
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:Stakeholder
   name: Stakeholder
   layer: L1
@@ -49,6 +64,9 @@ entities:
   status: normative
   lifecycle: scaffold
   catalog_repo: dea-catalog-stakeholders
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:ValueExchange
   name: Value Exchange
   layer: L1
@@ -57,6 +75,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:ArchitecturePattern
   name: Architecture Pattern
   layer: L2
@@ -65,6 +86,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-patterns
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Blueprint
   name: Blueprint
   layer: L2
@@ -73,6 +97,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-blueprints
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Control
   name: Control
   layer: L2
@@ -81,6 +108,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-controls
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Experiment
   name: Experiment
   layer: L2
@@ -89,6 +119,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-experiments
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Guardrail
   name: Guardrail
   layer: L2
@@ -97,6 +130,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-guardrails
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:InvestmentInitiative
   name: Investment Initiative
   layer: L2
@@ -105,6 +141,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-investment-initiatives
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Regulation
   name: Regulation
   layer: L2
@@ -113,6 +152,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-regulations
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Risk
   name: Risk
   layer: L2
@@ -121,6 +163,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-risk-register
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Signal
   name: Signal
   layer: L2
@@ -129,6 +174,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-signals
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:StrategicObjective
   name: Strategic Objective
   layer: L2
@@ -137,6 +185,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-strategic-objectives
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Tenet
   name: Tenet
   layer: L2
@@ -145,6 +196,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-tenets
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:TechnologyRadarEntry
   name: Technology Radar Entry
   layer: L2
@@ -153,6 +207,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-technology-radar
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:Actor
   name: Actor
   layer: L3
@@ -161,6 +218,9 @@ entities:
   status: normative
   lifecycle: scaffold
   catalog_repo: dea-catalog-actors
+  membership:
+    kind: core
+    profile: null
 - id: dea:BusinessFunction
   name: Business Function
   layer: L3
@@ -169,6 +229,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessObject
   name: Business Object
   layer: L3
@@ -177,6 +240,9 @@ entities:
   status: normative
   lifecycle: scaffold
   catalog_repo: dea-catalog-business-objects
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessProcess
   name: Business Process
   layer: L3
@@ -185,6 +251,9 @@ entities:
   status: normative
   lifecycle: scaffold
   catalog_repo: dea-catalog-processes
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessService
   name: Business Service
   layer: L3
@@ -193,6 +262,9 @@ entities:
   status: normative
   lifecycle: existing
   catalog_repo: dea-catalog-digital-business-service-factory
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessCapability
   name: Business Capability
   layer: L3
@@ -201,6 +273,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-business-capabilities
+  membership:
+    kind: core
+    profile: null
 - id: dea:ChangeInitiative
   name: Change Initiative
   layer: L3
@@ -209,6 +284,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-change-initiatives
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:FinancialResource
   name: Financial Resource
   layer: L3
@@ -217,6 +295,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-financial-resources
+  membership:
+    kind: core
+    profile: null
 - id: dea:IntangibleResource
   name: Intangible Resource
   layer: L3
@@ -225,6 +306,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-intangible-resources
+  membership:
+    kind: core
+    profile: null
 - id: dea:OrganizationalUnit
   name: Organizational Unit
   layer: L3
@@ -233,6 +317,9 @@ entities:
   status: normative
   lifecycle: scaffold
   catalog_repo: dea-catalog-organizational-units
+  membership:
+    kind: core
+    profile: null
 - id: dea:PhysicalResource
   name: Physical Resource
   layer: L3
@@ -241,6 +328,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-physical-resources
+  membership:
+    kind: core
+    profile: null
 - id: dea:Resource
   name: Resource
   layer: L3
@@ -249,6 +339,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:Role
   name: Role
   layer: L3
@@ -257,6 +350,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-roles
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:SolutionComponent
   name: Solution Component
   layer: L3
@@ -265,6 +361,9 @@ entities:
   status: normative
   lifecycle: existing
   catalog_repo: dea-catalog-digital-business-service-factory
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Skill
   name: Skill
   layer: L3
@@ -273,6 +372,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-skills
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:ValueStream
   name: Value Stream
   layer: L3
@@ -281,6 +383,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-value-streams
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:AIMLModel
   name: AI/ML Model
   layer: L4
@@ -289,6 +394,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-ai-ml-models
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:DataEntity
   name: Data Entity
   layer: L4
@@ -297,6 +405,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-data-entities
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:DigitalIdentity
   name: Digital Identity
   layer: L4
@@ -305,6 +416,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-digital-identities
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:DataProduct
   name: Data Product
   layer: L4
@@ -313,6 +427,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-data-products
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:Event
   name: Event
   layer: L4
@@ -321,6 +438,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-event-streams
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:InformationAsset
   name: Information Asset
   layer: L4
@@ -329,6 +449,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-information-assets
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:InformationClass
   name: Information Class
   layer: L4
@@ -337,6 +460,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-information-classes
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:KnowledgeAsset
   name: Knowledge Asset
   layer: L4
@@ -345,6 +471,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-knowledge-assets
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:ModelDeployment
   name: Model Deployment
   layer: L4
@@ -353,6 +482,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-model-deployments
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ModelFeedbackSignal
   name: Model Feedback Signal
   layer: L4
@@ -361,6 +493,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-model-deployments
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ApplicationComponent
   name: Application Component
   layer: L5
@@ -369,6 +504,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-application-components
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:API
   name: API
   layer: L5
@@ -377,6 +515,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-api-contracts
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:InfrastructureComponent
   name: Infrastructure Component
   layer: L5
@@ -385,6 +526,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-application-components
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:IntegrationComponent
   name: Integration Component
   layer: L5
@@ -393,6 +537,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-application-components
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:PlatformService
   name: Platform Service
   layer: L5
@@ -401,6 +548,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-platform-services
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:SystemFunction
   name: System Function
   layer: L5
@@ -409,6 +559,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-system-functions
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Technology
   name: Technology
   layer: L5
@@ -417,6 +570,9 @@ entities:
   status: normative
   lifecycle: planned
   catalog_repo: dea-catalog-patterns
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:Concept
   name: Concept
   layer: null
@@ -425,6 +581,9 @@ entities:
   status: normative
   lifecycle: proposed
   catalog_repo: dea-catalog-concepts
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:PerformanceMetric
   name: Performance Metric
   layer: null
@@ -433,3 +592,116 @@ entities:
   status: normative
   lifecycle: existing
   catalog_repo: dea-catalog-metrics
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:ArchitectureElement
+  name: ArchitectureElement
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Behavior
+  name: Behavior
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Service
+  name: Service
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Information
+  name: Information
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Organization
+  name: Organization
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Decision
+  name: Decision
+  layer: null
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Outcome
+  name: Outcome
+  layer: null
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Requirement
+  name: Requirement
+  layer: null
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Constraint
+  name: Constraint
+  layer: null
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Change
+  name: Change
+  layer: null
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null

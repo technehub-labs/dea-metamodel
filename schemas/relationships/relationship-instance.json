@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/relationships/relationship-instance.json",
-  "metamodel_version": "0.8.0",
+  "metamodel_version": "0.9.0",
   "title": "RelationshipInstance",
   "description": "An instantiated typed relationship between two entities (CR-002: typed, directed, versioned, provenance-aware).",
   "type": "object",
@@ -75,7 +75,12 @@
         "migrates-to",
         "maps-to",
         "traces-to",
-        "supports"
+        "supports",
+        "makes",
+        "results-in",
+        "targets",
+        "affects",
+        "contributes-to"
       ],
       "description": "Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
     },

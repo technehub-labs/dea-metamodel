@@ -1,0 +1,18 @@
+# OpenDEA Governance Profile (CR-4 §28)
+profile:
+  id: dea:governance
+  name: OpenDEA Governance Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  scope: Tenets, guardrails, regulations, controls, risks. Full governance semantics in CR-8.
+  entities:
+  - dea:Control
+  - dea:Guardrail
+  - dea:Regulation
+  - dea:Risk
+  - dea:Tenet
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

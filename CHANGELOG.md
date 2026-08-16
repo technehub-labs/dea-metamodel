@@ -4,6 +4,34 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [0.9.0] — 2026-08-16 — CR-004: OpenDEA Core Ontology
+
+### Added
+- **Core ontology** `metamodel/core/` — 18 anchors: 8 existing (Entity, Actor,
+  OrganizationalUnit, BusinessCapability, Resource ×3 kinds) + 5 new abstracts
+  (ArchitectureElement, Behavior, Service, Information, Organization) + 5 new concretes
+  (Decision, Outcome, Requirement, Constraint, Change — each with schema, SQLite table,
+  pydantic model, TTL class).
+- **10 profiles** under `metamodel/profiles/` (business, ecosystem, digital, data,
+  technology, ai, governance, assessment, dmm placeholder, ecf viewpoint) with explicit
+  `depends_on` declarations; no circular dependencies (O004).
+- **Core relationship grammar** (25 types) + 5 new registry relationships:
+  `makes`, `results-in`, `targets`, `affects`, `contributes-to`.
+- **Membership classification**: every entity carries `membership: core|profile`;
+  viewer graph entities carry it too (viewer can render Core/Profile independently).
+- **Ontology conformance** O001–O009 automated — suite now 59 tests.
+
+### Changed
+- Semantic backbone wired per CR-4 §20 (14 relationships gained core-anchor endpoints).
+- CR-2 parked `targets` label RESOLVED → `dea:affects` (crosswalk updated).
+
+### Deferred
+- 10 new core anchors are not yet allocated in the upstream root model
+  (dea-architecture-framework) — root model v0.6.0 candidate; viewer graph picks them
+  up on the next sync.
+- DMM profile content (CR-5), Agent ontology (CR-7), viewer Core/Profile rendering
+  (dea-web-viewer PR).
+
 ## [0.8.0] — 2026-08-16 — CR-003: Entity & Relationship Normalization
 
 ### Removed (CR-3A — breaking for schemas, reversible via migration matrix)

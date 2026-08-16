@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Generate pydantic/ models from schemas/entities/*.json + metamodel.yaml.
+"""Generate pydantic/ models from schemas/entities/*.json + the normative metamodel.
 
 Closes the v0.1.0-alpha drift where metamodel.yaml referenced pydantic/
 modules that did not exist (ADR-0002 execution, decision 4b). Each entity
-listed in metamodel.yaml with a `pydantic_model` path gets a generated
-module; `pydantic/entity.py` holds the shared BaseEntity.
+listed in the normative source (metamodel/dea-metamodel.yaml, CR-001) with an
+`artifacts.pydantic_model` path gets a generated module; `pydantic/entity.py`
+holds the shared BaseEntity. Class names derive from the JSON Schema filename
+(kebab-case -> PascalCase), keeping generated code stable across display-name
+changes. The emitted __init__.py stamps __metamodel_version__ from
+metamodel/manifest.yaml.
 
 Generation is deterministic — same schemas always produce byte-identical
 output. CI verifies this (ci.yml regenerates and diffs).
@@ -21,7 +25,8 @@ import yaml
 BASE = Path(__file__).parent.parent.parent
 SCHEMA_DIR = BASE / "schemas" / "entities"
 OUT_DIR = BASE / "pydantic"
-INDEX = BASE / "metamodel.yaml"
+INDEX = BASE / "metamodel" / "dea-metamodel.yaml"
+MANIFEST = BASE / "metamodel" / "manifest.yaml"
 
 HEADER = '''"""{title} — generated from schemas/entities/{schema_file}.
 
@@ -76,6 +81,11 @@ class Entity(BaseModel):
 
 def snake(name: str) -> str:
     return re.sub(r"(?<!^)(?=[A-Z])", "_", name).lower()
+
+
+def class_name_from_schema(schema_path: Path) -> str:
+    """capability.json -> Capability, business-function.json -> BusinessFunction."""
+    return "".join(part.capitalize() for part in schema_path.stem.split("-"))
 
 
 def py_type(prop: dict, required: bool) -> str:
@@ -149,16 +159,20 @@ def main() -> int:
     (OUT_DIR / "entity.py").write_text(BASE_PY)
 
     index = yaml.safe_load(INDEX.read_text())
+    manifest = yaml.safe_load(MANIFEST.read_text())
+    metamodel_version = manifest["metamodel"]["version"]
     written = []
     for entry in index.get("entities", []):
-        name = entry["name"]
-        schema_rel = entry.get("schema")
-        model_rel = entry.get("pydantic_model")
+        artifacts = entry.get("artifacts") or {}
+        schema_rel = artifacts.get("json_schema")
+        model_rel = artifacts.get("pydantic_model")
         if not model_rel:
             continue
-        if name == "Entity":
+        if model_rel.endswith("entity.py"):
             continue  # handled by BASE_PY
         schema_path = BASE / schema_rel if schema_rel else None
+        name = class_name_from_schema(schema_path) if schema_path else \
+            class_name_from_schema(Path(model_rel))
         if not schema_path or not schema_path.exists():
             print(f"WARNING: {name}: schema {schema_rel} missing — generating stub", file=sys.stderr)
             content = HEADER.format(title=name, schema_file="(missing)") + \
@@ -170,7 +184,8 @@ def main() -> int:
         out.write_text(content)
         written.append(model_rel)
 
-    init = '"""DEA metamodel pydantic models (generated)."""\n'
+    init = '"""DEA metamodel pydantic models (generated)."""\n\n'
+    init += f'__metamodel_version__ = "{metamodel_version}"\n'
     (OUT_DIR / "__init__.py").write_text(init)
     print(f"Wrote {len(written)} pydantic modules + entity.py to pydantic/")
     return 0

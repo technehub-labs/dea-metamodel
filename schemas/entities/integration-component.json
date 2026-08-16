@@ -1,27 +1,68 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/integration-component.json",
+  "metamodel_version": "0.6.0",
   "title": "IntegrationComponent",
   "description": "A component that bridges systems via APIs, message queues, file transfers, or event streams. A subClass of SolutionComponent with component_type='integration'. Catalog: technehub-labs/dea-catalog-application-components (shared with ApplicationComponent).",
   "type": "object",
-  "required": ["id", "name", "type", "version"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$" },
-    "type": { "type": "string", "const": "IntegrationComponent" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "IntegrationComponent"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "integration_pattern": {
       "type": "string",
-      "enum": ["api-gateway", "message-queue", "file-transfer", "event-stream", "etl", "rpc", "graphql-federation"],
+      "enum": [
+        "api-gateway",
+        "message-queue",
+        "file-transfer",
+        "event-stream",
+        "etl",
+        "rpc",
+        "graphql-federation"
+      ],
       "description": "Integration pattern this component implements."
     },
     "direction": {
       "type": "string",
-      "enum": ["inbound", "outbound", "bidirectional"],
+      "enum": [
+        "inbound",
+        "outbound",
+        "bidirectional"
+      ],
       "description": "Direction of data flow."
     },
-    "tags": { "type": "array", "items": { "type": "string" } },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/process.json",
+  "metamodel_version": "0.6.0",
   "title": "Process",
   "description": "A business or operational process that delivers value. Classified by intent (operational/support/management) and audience (ECF domain whose work this most advances); stakeholders and actors are referenced from typed catalogs.",
   "type": "object",
@@ -16,15 +17,34 @@
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:process-order-management"]
+      "examples": [
+        "dea:process-order-management"
+      ]
     },
-    "type": { "type": "string", "const": "Process" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "type": {
+      "type": "string",
+      "const": "Process"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "process_intent": {
       "type": "string",
-      "enum": ["operational", "support", "management"],
+      "enum": [
+        "operational",
+        "support",
+        "management"
+      ],
       "description": "The process's role in the enterprise. 'operational' executes defined recurring work; 'support' enables other processes without producing the primary output; 'management' decides, plans, allocates, or governs. See docs/process-type-taxonomy.md for boundary rules."
     },
     "process_audience": {
@@ -40,7 +60,9 @@
       ],
       "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."
     },
-    "owner": { "type": "string" },
+    "owner": {
+      "type": "string"
+    },
     "trigger": {
       "type": "string",
       "maxLength": 500,
@@ -51,41 +73,61 @@
       "maxLength": 500,
       "description": "Expected result of process completion."
     },
-    "parent_process": { "type": "string" },
+    "parent_process": {
+      "type": "string"
+    },
     "child_processes": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "capabilities_delivered": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "services_provided": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "components_involved": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "kpis": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "stakeholders": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to entries in technehub-labs/dea-catalog-stakeholders. Multi-valued — a process can serve multiple stakeholders; process_audience identifies the primary one. Stakeholders are external or affected parties, NOT internal performers."
     },
     "actors": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to entries in technehub-labs/dea-catalog-actors. Multi-valued — actors perform the process (humans, teams, systems, AI agents)."
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

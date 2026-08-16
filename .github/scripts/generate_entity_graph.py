@@ -84,6 +84,11 @@ def main() -> int:
         pin = args.model_tag
 
     version = model["model"]["version"]
+    # CR-001: metamodel_version is THIS repo's normative metamodel version
+    # (metamodel/manifest.yaml); the upstream root-model version is tracked
+    # separately via opendeam_model_pin.
+    manifest_path = Path(__file__).parent.parent.parent / "metamodel" / "manifest.yaml"
+    metamodel_version = yaml.safe_load(manifest_path.read_text())["metamodel"]["version"]
     layers = model["architecture"]["layers"]
     allocators = model["architecture"].get("orthogonal_allocators", [])
     entities = model["allocation"]["entities"]
@@ -171,7 +176,7 @@ def main() -> int:
 
     graph = {
         "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-        "metamodel_version": version,
+        "metamodel_version": metamodel_version,
         "opendeam_model_repo": MODEL_REPO,
         "opendeam_model_pin": pin or f"v{version}",
         "description": (

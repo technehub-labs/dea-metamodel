@@ -21,7 +21,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade jsonschema rdflib pyyaml
+          python -m pip install --upgrade jsonschema rdflib pyyaml pytest
+
+      - name: Run conformance suite (CR-1.9 tests 001-006 + CR-1.11 drift enforcement)
+        run: python3 -m pytest tests/conformance/ -v
 
       - name: Validate metamodel.yaml
         run: python3 .github/scripts/validate_metamodel_yaml.py

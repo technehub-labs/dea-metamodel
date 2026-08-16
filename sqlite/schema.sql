@@ -1,5 +1,6 @@
 -- DEA Metamodel SQLite Schema
--- Version: 0.1.0-alpha
+-- Version: 0.6.0
+-- Derived from normative source: metamodel/dea-metamodel.yaml (CR-001). Do not edit semantics here.
 -- All tables include source tracking and soft-delete for auditability.
 
 PRAGMA journal_mode = WAL;
@@ -242,3 +243,16 @@ CREATE TABLE schema_version (
 );
 
 INSERT INTO schema_version (version, notes) VALUES ('0.1.0-alpha', 'Initial DEA metamodel schema');
+
+-- ═══════════════════════════════════════════════════════════
+-- Metamodel provenance (CR-001): source version this projection derives from
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS metamodel_meta (
+    key             TEXT PRIMARY KEY,
+    value           TEXT NOT NULL
+);
+
+INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
+    ('metamodel_version', '0.6.0'),
+    ('normative_source', 'metamodel/dea-metamodel.yaml');

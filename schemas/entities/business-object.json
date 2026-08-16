@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/business-object.json",
+  "metamodel_version": "0.6.0",
   "title": "BusinessObject",
   "description": "A real-world entity of interest to the business (e.g. Customer, Order, Product, Invoice, Feature Flag). Business Objects are the atoms that populate the ECF (Enterprise Concept Framework) matrix cells — every (domain, stage) cell contains the business objects currently in that lifecycle state. Ownership and stakeholders are referenced from typed catalogs. Catalog: technehub-labs/dea-catalog-business-objects.",
   "type": "object",
@@ -17,19 +18,40 @@
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:object-customer-12345"]
+      "examples": [
+        "dea:object-customer-12345"
+      ]
     },
-    "type": { "type": "string", "const": "BusinessObject" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
-
+    "type": {
+      "type": "string",
+      "const": "BusinessObject"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "object_class": {
       "type": "string",
       "minLength": 1,
       "maxLength": 100,
       "description": "Free-form class label for the kind of object (customer | order | product | invoice | feature-flag | grant | …). Together with object_subclass it forms a 2-axis classifier; the metamodel does not constrain the outer taxonomy because new object kinds emerge continuously.",
-      "examples": ["customer", "order", "product", "invoice", "feature-flag", "grant"]
+      "examples": [
+        "customer",
+        "order",
+        "product",
+        "invoice",
+        "feature-flag",
+        "grant"
+      ]
     },
     "object_subclass": {
       "type": "string",
@@ -37,7 +59,6 @@
       "maxLength": 100,
       "description": "Optional refinement under object_class (retail-customer | enterprise-order | …). Free-form."
     },
-
     "ecf_domain": {
       "type": "string",
       "enum": [
@@ -64,7 +85,6 @@
       ],
       "description": "The current lifecycle stage of this object. Per the ECF matrix, each (domain, stage) cell contains the business objects in that state."
     },
-
     "current_state": {
       "type": "string",
       "maxLength": 100,
@@ -74,71 +94,107 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["state", "entered"],
+        "required": [
+          "state",
+          "entered"
+        ],
         "properties": {
-          "state": { "type": "string" },
-          "ecf_stage": { "type": "string" },
-          "entered": { "type": "string", "format": "date" },
-          "exited": { "type": "string", "format": "date" },
-          "note": { "type": "string" }
+          "state": {
+            "type": "string"
+          },
+          "ecf_stage": {
+            "type": "string"
+          },
+          "entered": {
+            "type": "string",
+            "format": "date"
+          },
+          "exited": {
+            "type": "string",
+            "format": "date"
+          },
+          "note": {
+            "type": "string"
+          }
         }
       },
       "description": "Ordered list of state transitions with timestamps. Each entry may also record which ecf_stage the transition moved through."
     },
-
     "identity": {
       "type": "object",
       "description": "Identity attributes. primary_id is the canonical handle; external_ids map to source-system identifiers.",
       "properties": {
-        "primary_id": { "type": "string" },
+        "primary_id": {
+          "type": "string"
+        },
         "external_ids": {
           "type": "object",
-          "additionalProperties": { "type": "string" }
+          "additionalProperties": {
+            "type": "string"
+          }
         }
       }
     },
-
-    "owner": { "type": "string", "description": "Reference to an Actor entry in technehub-labs/dea-catalog-actors that owns this object." },
+    "owner": {
+      "type": "string",
+      "description": "Reference to an Actor entry in technehub-labs/dea-catalog-actors that owns this object."
+    },
     "stakeholders": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to entries in technehub-labs/dea-catalog-stakeholders. Multi-valued — an object may have several stakeholders (e.g. a customer is also a data subject)."
     },
-
     "capabilities_consumed": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to Business Capabilities in technehub-labs/dea-catalog-business-capabilities that act on this object."
     },
     "processes_involved": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to Processes in technehub-labs/dea-catalog-processes that create, read, update, or delete this object."
     },
     "events": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to business events in which this object participates (dea:event-customer-signed-up, etc.)."
     },
     "data_entities": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to data entities (dea:data-entity-customer-record) that persist this object."
     },
     "components_realizing": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to Solution Components in technehub-labs/dea-catalog-digital-business-service-factory that realize this object."
     },
-
     "tags": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

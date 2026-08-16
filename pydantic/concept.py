@@ -25,9 +25,9 @@ class Concept(Entity):
     synonyms: Optional[list[str]] = None
     """Alternative names for this concept."""
     parent_concept: Optional[Any] = None
-    """ID of the parent Concept in the concept graph (null/omitted = root). Replaces TaxonomyNode's tree structure (ADR-0004 D2)."""
+    """ID of the parent Concept in the concept graph (null/omitted = root). Replaces TaxonomyNode's tree structure (ADR-0004 D2). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     related_concepts: Optional[list[str]] = None
-    """IDs of related Concepts (non-hierarchical links)."""
+    """IDs of related Concepts (non-hierarchical links). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     defines_entities: Optional[list[str]] = None
     """Entity IDs across L1-L5 that carry defined_by pointing at this Concept."""
     usage_context: Optional[str] = None

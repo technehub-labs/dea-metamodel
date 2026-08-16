@@ -21,4 +21,4 @@ class Role(Entity):
     required_skills: Optional[list[str]] = None
     """Skill ids required by this role."""
     fulfilled_by: Optional[list[str]] = None
-    """Actor ids currently fulfilling this role."""
+    """Actor ids currently fulfilling this role. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

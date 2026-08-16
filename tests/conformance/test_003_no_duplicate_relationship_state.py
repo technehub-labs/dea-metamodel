@@ -14,10 +14,12 @@ def test_no_undeclared_relationship_state(relationships):
     violations = []
     for path in sorted((BASE / "schemas" / "entities").glob("*.json")):
         schema = json.loads(path.read_text())
-        for prop in schema.get("properties", {}):
+        for prop, spec in schema.get("properties", {}).items():
             norm = prop.replace("-", "").replace("_", "").lower()
             if prop in ALLOWED_CONVENIENCE:
                 continue
+            if isinstance(spec, dict) and spec.get("deprecated"):
+                continue  # CR-2F: marked for removal in CR-003; no longer authoritative
             if any(norm == rn.replace("-", "").lower() for rn in rel_names):
                 violations.append(f"{path.name}: property {prop!r} duplicates relationship vocabulary")
     assert not violations, "Undeclared relationship state on entities:\n" + "\n".join(violations)

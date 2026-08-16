@@ -4,6 +4,43 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [0.7.0] — 2026-08-16 — CR-002: Authoritative Relationship Semantics
+
+### Added
+- **Canonical relationship ontology**: 49 normative relationships (48 stored + 1 virtual
+  inverse view) with full §3 structure — category (A–K taxonomy), canonical direction,
+  typed source/target endpoints, cardinality at both ends, inverse declarations,
+  transitive/symmetric flags, temporality, provenance requirement, lifecycle
+  (`proposed | active | deprecated | retired`).
+- **Relationship crosswalk** `metamodel/migration/relationship-crosswalk.yaml` — all 59
+  viewer labels + 10 legacy instance-enum values explicitly dispositioned; nothing
+  silently reinterpreted.
+- **Instance metadata** (§6/§21/§22): `relationship-instance.json` v2 supports
+  `effective_from/to`, `status`, `confidence`, `asserted_by`, `rationale`, `evidence`,
+  structured `provenance` incl. `agent_id` + `verification_status` for AI-asserted
+  relationships, and `mapping.kind` for narrowed `maps-to`.
+- **Viewer graph-side migration** (2I): every edge carries canonical `rel_ids`;
+  `relationship_definitions` embedded for viewer definition display; generator
+  hard-fails on unmapped labels (R012).
+- **Conformance rules R001–R012** as automated tests (suite now 37 tests).
+
+### Changed
+- `maps-to` narrowed to crosswalk/classification/traceability/equivalence semantics (§9).
+- Overloaded relationships decomposed (§17): `governance`→governs/mandates/controls/owns/
+  responsible-for; `implements` disambiguated from `realizes`/`operationalizes`/`supports`;
+  `influences`→`informs`; split labels (`produces / consumes`, `publishes / subscribes`)
+  decomposed.
+- SQLite `relationships` table rebuilt from the registry: 48-type CHECK constraint,
+  metadata columns; pre-0.7.0 columns retained but deprecated.
+- TTL ObjectProperties regenerated from the canonical registry (48).
+- Legacy viewer rel_types (7) demoted to rendering styles; categories are the semantics.
+
+### Deprecated
+- 35 duplicated relationship-state properties across 20 entity schemas (CR-2F) —
+  physical removal in CR-003.
+- Instance types `influenced-by`, `decomposes` (superseded — see crosswalk);
+  instance fields `weight`, `bidirectional`.
+
 ## [0.6.0] — 2026-08-16 — CR-001: Canonical Metamodel
 
 ### Added

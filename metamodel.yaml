@@ -7,7 +7,7 @@
 # For machine validation, use schemas/entities/<entity>.json and schemas/relationships/<rel>.json
 
 metamodel:
-  version: "0.6.0"
+  version: "0.7.0"
   superseded_by: metamodel/dea-metamodel.yaml
   deprecated: true
   opendeam_model: technehub-labs/dea-architecture-framework@v0.5.0

@@ -1,0 +1,377 @@
+# Relationship Crosswalk (CR-2 §16) — every legacy relationship explicitly dispositioned
+crosswalk:
+  version: 0.7.0
+  description: 'CR-2C/CR-2G: disposition of every pre-0.7.0 relationship representation. No silent reinterpretation.'
+  viewer_label_mappings:
+  - current: authenticates
+    rel_type: dependency
+    proposed: dea:uses
+    reverse: false
+    status: review-required
+    notes: 'JourneyTouchpoint authenticates via DigitalIdentity -> uses. Alternatives: dea:depends-on.'
+  - current: automated by
+    rel_type: realization
+    proposed: dea:executes
+    reverse: true
+    status: accepted
+  - current: captured from
+    rel_type: dependency
+    proposed: dea:derived-from
+    reverse: false
+    status: accepted
+  - current: carries payload of
+    rel_type: dependency
+    proposed: dea:represents
+    reverse: false
+    status: review-required
+    notes: 'Event payload corresponds to DataEntity. Alternatives: dea:exchanges.'
+  - current: classified by
+    rel_type: governance
+    proposed: dea:maps-to
+    reverse: false
+    status: accepted
+    notes: 'Mapping kind: classification (section 9).'
+  - current: composed of
+    rel_type: composition
+    proposed: dea:composes
+    reverse: true
+    status: accepted
+  - current: consumed by
+    rel_type: flow
+    proposed: dea:consumes
+    reverse: true
+    status: accepted
+  - current: contextualized from
+    rel_type: dependency
+    proposed: dea:derived-from
+    reverse: false
+    status: accepted
+  - current: crosses boundary at
+    rel_type: flow
+    proposed: dea:flows-to
+    reverse: false
+    status: review-required
+  - current: curated into
+    rel_type: composition
+    proposed: dea:curates
+    reverse: true
+    status: accepted
+  - current: custodian of
+    rel_type: governance
+    proposed: dea:responsible-for
+    reverse: false
+    status: accepted
+  - current: defines
+    rel_type: governance
+    proposed: dea:informs
+    reverse: false
+    status: review-required
+    notes: Concept defines BusinessCapability — semantic definition as information relation.
+  - current: deployed on
+    rel_type: dependency
+    proposed: dea:depends-on
+    reverse: false
+    status: accepted
+  - current: derived from
+    rel_type: dependency
+    proposed: dea:derived-from
+    reverse: false
+    status: accepted
+  - current: digitized as
+    rel_type: realization
+    proposed: dea:represents
+    reverse: true
+    status: accepted
+  - current: drives
+    rel_type: governance
+    proposed: dea:governs
+    reverse: false
+    status: review-required
+    notes: 'StrategicObjective drives InvestmentInitiative. Alternatives: dea:enables.'
+  - current: enables
+    rel_type: dependency
+    proposed: dea:enables
+    reverse: false
+    status: accepted
+  - current: engages in
+    rel_type: association
+    proposed: dea:governs
+    reverse: true
+    status: review-required
+    notes: 'EcosystemActor engages in CollaborationAgreement -> Agreement governs Actor participation. Party-to semantics
+      candidate for CR-8. Alternatives: new party-to type.'
+  - current: enhances / automates
+    rel_type: dependency
+    proposed: dea:supports
+    reverse: false
+    status: accepted
+  - current: evaluated by
+    rel_type: governance
+    proposed: dea:measured-by
+    reverse: false
+    status: accepted
+  - current: evaluated via
+    rel_type: dependency
+    proposed: dea:assessed-by
+    reverse: false
+    status: accepted
+  - current: experienced via
+    rel_type: flow
+    proposed: dea:serves
+    reverse: true
+    status: review-required
+  - current: exposed via
+    rel_type: realization
+    proposed: dea:exposes
+    reverse: true
+    status: accepted
+  - current: exposes
+    rel_type: dependency
+    proposed: dea:exposes
+    reverse: false
+    status: accepted
+  - current: fulfilled by
+    rel_type: realization
+    proposed: dea:responsible-for
+    reverse: true
+    status: review-required
+    notes: 'Role fulfilled by Actor. Alternatives: dedicated dea:fulfilled-by assignment type.'
+  - current: funded by
+    rel_type: governance
+    proposed: dea:supports
+    reverse: true
+    status: review-required
+    notes: 'Funding semantics candidate for CR-8. Alternatives: dedicated dea:funds type.'
+  - current: funds
+    rel_type: dependency
+    proposed: dea:supports
+    reverse: false
+    status: review-required
+    notes: FinancialResource funds InvestmentInitiative. Same disposition as 'funded by'.
+  - current: funds
+    rel_type: governance
+    proposed: dea:supports
+    reverse: false
+    status: review-required
+    notes: 'InvestmentInitiative funds BusinessCapability. Overload resolved: single disposition.'
+  - current: governs
+    rel_type: governance
+    proposed: dea:governs
+    reverse: false
+    status: accepted
+  - current: graduates to
+    rel_type: realization
+    proposed: dea:transitions-to
+    reverse: false
+    status: accepted
+  - current: grouped by
+    rel_type: aggregation
+    proposed: dea:aggregates
+    reverse: true
+    status: accepted
+  - current: hosted by
+    rel_type: composition
+    proposed: dea:composes
+    reverse: true
+    status: review-required
+    notes: SystemFunction hosted by ApplicationComponent — runtime containment (section 14).
+  - current: hosts
+    rel_type: aggregation
+    proposed: dea:aggregates
+    reverse: false
+    status: accepted
+  - current: implemented by
+    rel_type: realization
+    proposed: dea:realizes
+    reverse: true
+    status: accepted
+  - current: implements
+    rel_type: dependency
+    proposed: dea:supports
+    reverse: false
+    status: accepted
+    notes: Technology->ApplicationComponent is enablement, not specification-satisfaction (section 5).
+  - current: implements
+    rel_type: realization
+    proposed: dea:operationalizes
+    reverse: true
+    status: accepted
+    notes: Guardrail implemented by Control -> Control operationalizes Guardrail.
+  - current: influences
+    rel_type: association
+    proposed: dea:informs
+    reverse: false
+    status: accepted
+    notes: 'Section 17: keep only real influence; weak influence -> informs.'
+  - current: informs
+    rel_type: dependency
+    proposed: dea:informs
+    reverse: false
+    status: accepted
+  - current: instance of
+    rel_type: realization
+    proposed: dea:instantiates
+    reverse: false
+    status: accepted
+  - current: mandates
+    rel_type: governance
+    proposed: dea:mandates
+    reverse: false
+    status: accepted
+  - current: measured by
+    rel_type: governance
+    proposed: dea:measured-by
+    reverse: false
+    status: accepted
+  - current: mitigates
+    rel_type: governance
+    proposed: dea:controls
+    reverse: false
+    status: accepted
+  - current: owned by
+    rel_type: governance
+    proposed: dea:owns
+    reverse: true
+    status: accepted
+  - current: performs
+    rel_type: association
+    proposed: dea:performs
+    reverse: false
+    status: accepted
+  - current: produces / consumes
+    rel_type: dependency
+    proposed: null
+    reverse: false
+    status: split
+    alternatives:
+    - dea:produces
+    - dea:consumes
+    notes: 'Split: BusinessCapability produces AND consumes BusinessObject.'
+  - current: protects
+    rel_type: governance
+    proposed: dea:controls
+    reverse: false
+    status: review-required
+    notes: IntangibleResource protects BusinessCapability.
+  - current: publishes / subscribes
+    rel_type: flow
+    proposed: null
+    reverse: false
+    status: split
+    alternatives:
+    - dea:publishes
+    - dea:subscribes-to
+    notes: 'Split: SystemFunction publishes AND subscribes-to Event.'
+  - current: represented by
+    rel_type: realization
+    proposed: dea:represents
+    reverse: true
+    status: accepted
+  - current: required by
+    rel_type: dependency
+    proposed: dea:requires
+    reverse: true
+    status: accepted
+  - current: served by
+    rel_type: association
+    proposed: dea:serves
+    reverse: true
+    status: accepted
+  - current: serves / exchanges
+    rel_type: flow
+    proposed: dea:exchanges
+    reverse: false
+    status: accepted
+    notes: 'Primary semantics: exchange of data via API.'
+  - current: subject to (governed_by)
+    rel_type: governance
+    proposed: dea:threatens
+    reverse: true
+    status: review-required
+    notes: 'AIMLModel subject to Risk -> Risk threatens AIMLModel. Alternatives: dea:governs.'
+  - current: targets
+    rel_type: dependency
+    proposed: null
+    reverse: false
+    status: review-required
+    alternatives:
+    - dea:informs
+    - dea:governs
+    - dea:transitions-to
+    notes: ChangeInitiative targets OrganizationalUnit — change-scope semantics unresolved; candidate for CR-6/CR-8. NEEDS
+      OWNER DECISION.
+  - current: threatens
+    rel_type: dependency
+    proposed: dea:threatens
+    reverse: false
+    status: accepted
+  - current: trained on
+    rel_type: dependency
+    proposed: dea:trained-on
+    reverse: false
+    status: accepted
+  - current: transports (payload)
+    rel_type: dependency
+    proposed: dea:exchanges
+    reverse: false
+    status: accepted
+  - current: traverses
+    rel_type: aggregation
+    proposed: dea:flows-to
+    reverse: false
+    status: review-required
+    notes: ValueStream traverses BusinessCapability.
+  - current: triggers
+    rel_type: dependency
+    proposed: dea:triggers
+    reverse: false
+    status: accepted
+  - current: triggers retraining of
+    rel_type: dependency
+    proposed: dea:triggers
+    reverse: false
+    status: accepted
+  instance_vocabulary_mappings:
+  - current: maps-to
+    proposed: dea:maps-to
+    status: narrowed
+    notes: Restricted to crosswalk/classification/traceability/equivalence per section 9.
+  - current: realizes
+    proposed: dea:realizes
+    status: kept
+    notes: Definition tightened per section 5.
+  - current: implements
+    proposed: dea:implements
+    status: narrowed
+    notes: Specification-satisfaction only; capability realization uses realizes; technology enablement uses supports.
+  - current: influenced-by
+    proposed: null
+    status: split
+    alternatives:
+    - dea:informs
+    - dea:governs
+    notes: Tenet influence -> informs; binding Guardrail influence -> governs/operationalizes.
+  - current: decomposes
+    proposed: dea:composes
+    status: superseded
+    notes: Parent->child decomposition is composition; use composes (inverse part-of).
+  - current: orchestrates
+    proposed: dea:orchestrates
+    status: kept
+    notes: ''
+  - current: consumes
+    proposed: dea:consumes
+    status: narrowed
+    notes: Input consumption only; service usage uses dea:uses.
+  - current: provides
+    proposed: dea:provides
+    status: kept
+    notes: ''
+  - current: governs
+    proposed: dea:governs
+    status: kept
+    notes: 'Overload split: mandates/controls/owns/responsible-for carry their own semantics.'
+  - current: measured-by
+    proposed: dea:measured-by
+    status: kept
+    notes: ''

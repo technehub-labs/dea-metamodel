@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/resource.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "Resource",
   "description": "The economic/physical substrate a bounded entity maintains to persist, distinct from what it exchanges (L1) or builds digitally (L4/L5). ABSTRACT category root (OpenDEAM v0.5.0, ADR-0005 D3, L3/Enterprise Resources) — instantiate via a specialization (Financial/Physical/Intangible Resource), each with its own catalog. Completeness contract: a specializing catalog must classify instances along exactly one dimension — liquidity, maintenance regime, or legal protection type.",
   "type": "object",

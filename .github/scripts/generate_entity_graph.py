@@ -32,6 +32,8 @@ import yaml
 
 BASE = Path(__file__).parent.parent.parent
 OUT = BASE / "viewer" / "entity-graph.json"
+CROSSWALK = BASE / "metamodel" / "migration" / "relationship-crosswalk.yaml"
+REGISTRY = BASE / "metamodel" / "registry" / "relationships.yaml"
 MODEL_REPO = "technehub-labs/dea-architecture-framework"
 
 # style is DEPRECATED (ADR-0002 D4) — derived from rel_type for T3
@@ -161,18 +163,46 @@ def main() -> int:
 
     valid = {e["class_alias"] for e in entities}
     graph_rels = []
+    # CR-002 (2I): resolve every edge to canonical relationship IDs via the
+    # crosswalk. Unknown labels are a hard failure (R012).
+    cw = yaml.safe_load(CROSSWALK.read_text())["crosswalk"]["viewer_label_mappings"]
+    cw_by_key = {(c["current"], c["rel_type"]): c for c in cw}
+    registry = yaml.safe_load(REGISTRY.read_text())["relationships"]
+    reg_by_id = {r["id"]: r for r in registry}
     for r in rels:
         if r["from"] not in valid or r["to"] not in valid:
             print(f"WARNING: skipping relationship with unknown alias: {r}", file=sys.stderr)
             continue
-        graph_rels.append({
+        mapping = cw_by_key.get((r["label"], r["rel_type"]))
+        if mapping is None:
+            print(f"ERROR: no crosswalk disposition for ({r['label']!r}, {r['rel_type']!r}) — R012",
+                  file=sys.stderr)
+            return 1
+        if mapping["status"] == "split":
+            rel_ids = mapping["alternatives"]
+        elif mapping["proposed"] is None:
+            # review-required with no canonical target yet: carry the label, no rel_id
+            rel_ids = []
+        else:
+            rel_ids = [mapping["proposed"]]
+        for rid in rel_ids:
+            if rid not in reg_by_id:
+                print(f"ERROR: crosswalk target {rid} not in relationship registry", file=sys.stderr)
+                return 1
+        edge = {
             "from": r["from"],
             "to": r["to"],
             "label": r["label"],
             "rel_type": r["rel_type"],
             "cardinality": r["cardinality"],
             "style": STYLE_BY_REL_TYPE[r["rel_type"]],
-        })
+            "rel_ids": rel_ids,
+        }
+        if mapping.get("reverse"):
+            edge["canonical_inverse"] = True
+        if mapping["status"] != "accepted":
+            edge["disposition"] = mapping["status"]
+        graph_rels.append(edge)
 
     graph = {
         "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
@@ -192,6 +222,24 @@ def main() -> int:
         "dimensions": graph_dims,
         "entities": graph_entities,
         "relationships": graph_rels,
+        # CR-002 §18: viewer consumes canonical relationship definitions,
+        # never its own semantics. Full definitions from the normative source.
+        "relationship_definitions": [
+            {
+                "id": r["id"],
+                "name": r["name"],
+                "definition": r["definition"],
+                "category": r["category"],
+                "direction": r["direction"],
+                "cardinality": r["cardinality"],
+                "inverse": r["inverse"],
+                "lifecycle": r["lifecycle"],
+            }
+            for r in yaml.safe_load(
+                (BASE / "metamodel" / "dea-metamodel.yaml").read_text()
+            )["relationships"]
+            if not r.get("virtual")
+        ],
     }
 
     OUT.write_text(json.dumps(graph, indent=2, ensure_ascii=False) + "\n")

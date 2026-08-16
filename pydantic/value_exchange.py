@@ -25,6 +25,6 @@ class ValueExchange(Entity):
     counterparty_ref: Optional[str] = None
     """Reference to the Ecosystem Actor on the other side of the exchange."""
     governed_by_ref: Optional[str] = None
-    """Reference to the Collaboration Agreement governing this exchange."""
+    """Reference to the Collaboration Agreement governing this exchange. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     payload_refs: Optional[list[str]] = None
     """Business Objects transported by this exchange."""

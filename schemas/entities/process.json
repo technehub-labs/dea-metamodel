@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/process.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "Process",
   "description": "A business or operational process that delivers value. Classified by intent (operational/support/management) and audience (ECF domain whose work this most advances); stakeholders and actors are referenced from typed catalogs.",
   "type": "object",
@@ -61,7 +61,9 @@
       "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."
     },
     "owner": {
-      "type": "string"
+      "type": "string",
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "trigger": {
       "type": "string",
@@ -74,13 +76,17 @@
       "description": "Expected result of process completion."
     },
     "parent_process": {
-      "type": "string"
+      "type": "string",
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "child_processes": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "capabilities_delivered": {
       "type": "array",

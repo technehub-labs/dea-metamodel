@@ -23,6 +23,6 @@ class CollaborationAgreement(Entity):
     parties: Optional[list[str]] = None
     """References to the Ecosystem Actors engaged by this agreement (EA → CA)."""
     governs_exchanges: Optional[list[str]] = None
-    """References to the Value Exchanges governed by this agreement (CA → VE)."""
+    """References to the Value Exchanges governed by this agreement (CA → VE). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     effective_from: Optional[str] = None
     effective_to: Optional[str] = None

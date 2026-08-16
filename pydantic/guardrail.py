@@ -29,7 +29,8 @@ class Guardrail(Entity):
     implements_controls: Optional[list[str]] = None
     """Control IDs (L2-risk-compliance) this guardrail enforces in the digital estate."""
     informed_by_tenets: Optional[list[str]] = None
-    """Tenet IDs that motivate this guardrail."""
+    """Tenet IDs that motivate this guardrail. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     coverage: Optional[list[str]] = None
     """Aspects covered: framework, methodology, ontology, notation, etc."""
     related_guardrails: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

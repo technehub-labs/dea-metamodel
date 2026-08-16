@@ -23,4 +23,4 @@ class ChangeInitiative(Entity):
     targets: Optional[list[str]] = None
     """Organizational Unit ids targeted."""
     funded_by: Optional[str] = None
-    """Investment Initiative id funding this change."""
+    """Investment Initiative id funding this change. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

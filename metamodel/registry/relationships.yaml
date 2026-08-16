@@ -1,243 +1,781 @@
-# Relationship Registry (CR-1.5) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.6.0
+# Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
+# CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
+registry_version: 0.7.0
 relationships:
-- id: dea:aggregation
-  name: aggregation
-  vocabulary: structural
+- id: dea:composes
+  name: Composes
+  category: structural
   source:
-  - dea:BusinessCapability
-  - dea:EcosystemPlatform
-  - dea:ValueStream
-  target:
-  - dea:BusinessCapability
-  - dea:BusinessFunction
-  - dea:EcosystemActor
-  status: normative
-- id: dea:association
-  name: association
-  vocabulary: structural
-  source:
-  - dea:Actor
-  - dea:EcosystemActor
-  - dea:Stakeholder
-  target:
-  - dea:BusinessProcess
-  - dea:CollaborationAgreement
-  - dea:StrategicObjective
-  status: normative
-- id: dea:composition
-  name: composition
-  vocabulary: structural
-  source:
+  - dea:ApplicationComponent
   - dea:Blueprint
-  - dea:DataEntity
-  - dea:ModelDeployment
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Concept
+  - dea:DataProduct
+  - dea:OrganizationalUnit
+  - dea:SolutionComponent
   - dea:SystemFunction
   target:
   - dea:ApplicationComponent
   - dea:ArchitecturePattern
-  - dea:DataProduct
-  status: normative
-- id: dea:dependency
-  name: dependency
-  vocabulary: structural
-  source:
-  - dea:AIMLModel
-  - dea:ApplicationComponent
   - dea:BusinessCapability
-  - dea:BusinessService
-  - dea:ChangeInitiative
-  - dea:Event
-  - dea:Experiment
-  - dea:FinancialResource
-  - dea:InformationAsset
-  - dea:JourneyTouchpoint
-  - dea:KnowledgeAsset
-  - dea:ModelFeedbackSignal
-  - dea:PhysicalResource
-  - dea:Risk
-  - dea:Signal
-  - dea:Skill
-  - dea:Technology
-  - dea:TechnologyRadarEntry
-  - dea:Tenet
-  - dea:ValueExchange
+  - dea:BusinessProcess
+  - dea:Concept
+  - dea:DataEntity
+  - dea:OrganizationalUnit
+  - dea:SolutionComponent
+  - dea:SystemFunction
+  inverse: dea:part-of
+  status: normative
+  lifecycle: active
+- id: dea:aggregates
+  name: Aggregates
+  category: structural
+  source:
+  - dea:BusinessFunction
+  - dea:DataProduct
+  - dea:EcosystemPlatform
+  - dea:ValueStream
   target:
-  - dea:AIMLModel
-  - dea:Actor
-  - dea:ApplicationComponent
   - dea:BusinessCapability
   - dea:BusinessObject
-  - dea:BusinessProcess
   - dea:DataEntity
-  - dea:DataProduct
-  - dea:DigitalIdentity
-  - dea:Event
-  - dea:Experiment
-  - dea:Guardrail
-  - dea:InvestmentInitiative
-  - dea:OrganizationalUnit
-  - dea:PlatformService
-  - dea:Role
-  - dea:SystemFunction
-  - dea:Tenet
+  - dea:EcosystemActor
+  inverse: dea:aggregated-in
   status: normative
-- id: dea:flow
-  name: flow
-  vocabulary: structural
+  lifecycle: active
+- id: dea:specializes
+  name: Specializes
+  category: structural
   source:
+  - dea:ArchitecturePattern
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Concept
+  target:
+  - dea:ArchitecturePattern
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Concept
+  inverse: dea:generalizes
+  status: normative
+  lifecycle: proposed
+- id: dea:instantiates
+  name: Instantiates
+  category: structural
+  source:
+  - dea:ModelDeployment
+  target:
+  - dea:AIMLModel
+  inverse: dea:instantiated-by
+  status: normative
+  lifecycle: active
+- id: dea:part-of
+  name: Part Of
+  category: structural
+  source:
+  - dea:Entity
+  target:
+  - dea:Entity
+  inverse: dea:composes
+  status: normative
+  lifecycle: active
+- id: dea:realizes
+  name: Realizes
+  category: realization
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:InfrastructureComponent
+  - dea:IntegrationComponent
+  - dea:SolutionComponent
+  - dea:SystemFunction
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessService
+  inverse: dea:realized-by
+  status: normative
+  lifecycle: active
+- id: dea:implements
+  name: Implements
+  category: realization
+  source:
+  - dea:ApplicationComponent
+  - dea:ArchitecturePattern
+  - dea:SolutionComponent
+  target:
+  - dea:ArchitecturePattern
+  - dea:Blueprint
+  - dea:Guardrail
+  inverse: dea:implemented-by
+  status: normative
+  lifecycle: active
+- id: dea:operationalizes
+  name: Operationalizes
+  category: realization
+  source:
+  - dea:BusinessProcess
+  - dea:Control
+  - dea:Guardrail
+  target:
+  - dea:Guardrail
+  - dea:StrategicObjective
+  - dea:Tenet
+  inverse: dea:operationalized-by
+  status: normative
+  lifecycle: active
+- id: dea:depends-on
+  name: Depends On
+  category: dependency
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:IntegrationComponent
+  - dea:PlatformService
+  - dea:SolutionComponent
+  - dea:SystemFunction
+  target:
   - dea:API
+  - dea:ApplicationComponent
+  - dea:BusinessService
+  - dea:InfrastructureComponent
+  - dea:PlatformService
+  - dea:SolutionComponent
+  - dea:Technology
+  inverse: dea:depended-on-by
+  status: normative
+  lifecycle: active
+- id: dea:requires
+  name: Requires
+  category: dependency
+  source:
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Control
+  - dea:Role
+  - dea:SolutionComponent
+  target:
+  - dea:DataEntity
+  - dea:FinancialResource
+  - dea:InformationAsset
+  - dea:Resource
+  - dea:Skill
+  inverse: dea:required-by
+  status: normative
+  lifecycle: active
+- id: dea:enables
+  name: Enables
+  category: dependency
+  source:
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:PhysicalResource
+  - dea:SystemFunction
+  - dea:Technology
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:StrategicObjective
+  inverse: dea:enabled-by
+  status: normative
+  lifecycle: active
+- id: dea:constrains
+  name: Constrains
+  category: dependency
+  source:
+  - dea:CollaborationAgreement
+  - dea:Guardrail
+  - dea:Regulation
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:SolutionComponent
+  - dea:Technology
+  inverse: dea:constrained-by
+  status: normative
+  lifecycle: proposed
+- id: dea:flows-to
+  name: Flows To
+  category: flow
+  source:
+  - dea:Event
   - dea:InformationAsset
   - dea:SystemFunction
   - dea:ValueExchange
   - dea:ValueStream
   target:
   - dea:Actor
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:JourneyTouchpoint
+  - dea:SystemFunction
+  inverse: dea:flows-from
+  status: normative
+  lifecycle: active
+- id: dea:produces
+  name: Produces
+  category: flow
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Experiment
+  - dea:SystemFunction
+  target:
+  - dea:BusinessObject
   - dea:DataEntity
   - dea:Event
-  - dea:JourneyTouchpoint
+  - dea:InformationAsset
+  - dea:Signal
+  inverse: dea:produced-by
   status: normative
-- id: dea:governance
-  name: governance
-  vocabulary: structural
+  lifecycle: active
+- id: dea:consumes
+  name: Consumes
+  category: flow
+  source:
+  - dea:Actor
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:SystemFunction
+  target:
+  - dea:BusinessObject
+  - dea:BusinessService
+  - dea:DataEntity
+  - dea:Event
+  - dea:InformationAsset
+  inverse: dea:consumed-by
+  status: normative
+  lifecycle: active
+- id: dea:exchanges
+  name: Exchanges
+  category: flow
+  source:
+  - dea:API
+  - dea:EcosystemActor
+  - dea:EcosystemPlatform
+  - dea:ValueExchange
+  target:
+  - dea:BusinessObject
+  - dea:DataEntity
+  - dea:EcosystemActor
+  - dea:ValueExchange
+  inverse: dea:exchanges
+  status: normative
+  lifecycle: active
+- id: dea:serves
+  name: Serves
+  category: serving
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:EcosystemPlatform
+  - dea:JourneyTouchpoint
+  target:
+  - dea:Actor
+  - dea:EcosystemActor
+  - dea:OrganizationalUnit
+  - dea:Stakeholder
+  - dea:ValueStream
+  inverse: dea:served-by
+  status: normative
+  lifecycle: active
+- id: dea:provides
+  name: Provides
+  category: serving
+  source:
+  - dea:Actor
+  - dea:ApplicationComponent
+  - dea:EcosystemPlatform
+  - dea:PlatformService
+  - dea:SolutionComponent
+  target:
+  - dea:API
+  - dea:BusinessCapability
+  - dea:BusinessService
+  inverse: dea:provided-by
+  status: normative
+  lifecycle: active
+- id: dea:uses
+  name: Uses
+  category: serving
+  source:
+  - dea:Actor
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:JourneyTouchpoint
+  - dea:SolutionComponent
+  target:
+  - dea:API
+  - dea:BusinessService
+  - dea:DigitalIdentity
+  - dea:PlatformService
+  inverse: dea:used-by
+  status: normative
+  lifecycle: active
+- id: dea:exposes
+  name: Exposes
+  category: serving
+  source:
+  - dea:API
+  - dea:ApplicationComponent
+  - dea:BusinessService
+  - dea:DataProduct
+  target:
+  - dea:BusinessObject
+  - dea:BusinessService
+  - dea:DataEntity
+  - dea:DataProduct
+  inverse: dea:exposed-via
+  status: normative
+  lifecycle: active
+- id: dea:performs
+  name: Performs
+  category: execution
+  source:
+  - dea:Actor
+  - dea:OrganizationalUnit
+  - dea:Role
+  target:
+  - dea:BusinessFunction
+  - dea:BusinessProcess
+  inverse: dea:performed-by
+  status: normative
+  lifecycle: active
+- id: dea:executes
+  name: Executes
+  category: execution
   source:
   - dea:AIMLModel
-  - dea:BusinessCapability
+  - dea:ApplicationComponent
+  - dea:SystemFunction
+  target:
   - dea:BusinessFunction
-  - dea:ChangeInitiative
+  - dea:BusinessProcess
+  inverse: dea:executed-by
+  status: normative
+  lifecycle: active
+- id: dea:orchestrates
+  name: Orchestrates
+  category: execution
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:SystemFunction
+  target:
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:SystemFunction
+  inverse: dea:orchestrated-by
+  status: normative
+  lifecycle: active
+- id: dea:triggers
+  name: Triggers
+  category: execution
+  source:
+  - dea:Event
+  - dea:ModelFeedbackSignal
+  - dea:Signal
+  target:
+  - dea:AIMLModel
+  - dea:BusinessProcess
+  - dea:Experiment
+  - dea:ModelDeployment
+  inverse: dea:triggered-by
+  status: normative
+  lifecycle: active
+- id: dea:governs
+  name: Governs
+  category: governance
+  source:
   - dea:CollaborationAgreement
-  - dea:Concept
-  - dea:Control
-  - dea:DataEntity
   - dea:Guardrail
-  - dea:IntangibleResource
-  - dea:InvestmentInitiative
   - dea:OrganizationalUnit
   - dea:Regulation
   - dea:StrategicObjective
-  - dea:SystemFunction
+  - dea:Tenet
+  target:
+  - dea:AIMLModel
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:EcosystemActor
+  - dea:InvestmentInitiative
+  - dea:SolutionComponent
+  - dea:ValueExchange
+  inverse: dea:governed-by
+  status: normative
+  lifecycle: active
+- id: dea:mandates
+  name: Mandates
+  category: governance
+  source:
+  - dea:Guardrail
+  - dea:Regulation
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:Control
+  - dea:Guardrail
+  inverse: dea:mandated-by
+  status: normative
+  lifecycle: active
+- id: dea:controls
+  name: Controls
+  category: governance
+  source:
+  - dea:Control
+  - dea:Guardrail
+  - dea:IntangibleResource
+  target:
+  - dea:AIMLModel
+  - dea:BusinessCapability
+  - dea:DataEntity
+  - dea:Risk
+  inverse: dea:controlled-by
+  status: normative
+  lifecycle: active
+- id: dea:owns
+  name: Owns
+  category: governance
+  source:
+  - dea:Actor
+  - dea:OrganizationalUnit
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessFunction
+  - dea:BusinessObject
+  - dea:BusinessService
+  - dea:DataProduct
+  - dea:InformationAsset
+  inverse: dea:owned-by
+  status: normative
+  lifecycle: active
+- id: dea:accountable-for
+  name: Accountable For
+  category: governance
+  source:
+  - dea:Actor
+  - dea:OrganizationalUnit
+  - dea:Role
   target:
   - dea:BusinessCapability
-  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:ChangeInitiative
   - dea:Control
-  - dea:InformationClass
-  - dea:InvestmentInitiative
-  - dea:OrganizationalUnit
-  - dea:PerformanceMetric
-  - dea:Risk
-  - dea:SolutionComponent
-  - dea:Technology
-  - dea:ValueExchange
+  inverse: dea:accountable-to
   status: normative
-- id: dea:realization
-  name: realization
-  vocabulary: structural
+  lifecycle: proposed
+- id: dea:responsible-for
+  name: Responsible For
+  category: governance
   source:
-  - dea:BusinessCapability
+  - dea:Actor
+  - dea:OrganizationalUnit
+  - dea:Role
+  target:
   - dea:BusinessObject
   - dea:BusinessProcess
   - dea:DataProduct
-  - dea:DigitalIdentity
-  - dea:EcosystemActor
-  - dea:EcosystemPlatform
-  - dea:Guardrail
-  - dea:ModelDeployment
+  - dea:InformationAsset
   - dea:Role
-  - dea:SystemFunction
-  - dea:TechnologyRadarEntry
+  inverse: dea:responsible-to
+  status: normative
+  lifecycle: active
+- id: dea:threatens
+  name: Threatens
+  category: governance
+  source:
+  - dea:Risk
   target:
   - dea:AIMLModel
-  - dea:API
-  - dea:Actor
+  - dea:BusinessCapability
+  - dea:BusinessObject
   - dea:BusinessProcess
-  - dea:Control
+  - dea:BusinessService
+  - dea:ValueExchange
+  inverse: dea:threatened-by
+  status: normative
+  lifecycle: active
+- id: dea:represents
+  name: Represents
+  category: information
+  source:
+  - dea:DataEntity
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:Event
+  - dea:InformationAsset
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:BusinessProcess
   - dea:DataEntity
   - dea:DigitalIdentity
+  inverse: dea:represented-by
+  status: normative
+  lifecycle: active
+- id: dea:informs
+  name: Informs
+  category: information
+  source:
+  - dea:Concept
+  - dea:EcosystemActor
+  - dea:Experiment
+  - dea:KnowledgeAsset
+  - dea:ModelFeedbackSignal
+  - dea:TechnologyRadarEntry
+  - dea:Tenet
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Guardrail
+  - dea:InvestmentInitiative
+  - dea:StrategicObjective
+  inverse: dea:informed-by
+  status: normative
+  lifecycle: active
+- id: dea:curates
+  name: Curates
+  category: information
+  source:
+  - dea:DataProduct
+  - dea:InformationAsset
+  - dea:KnowledgeAsset
+  target:
+  - dea:DataEntity
+  - dea:InformationAsset
+  - dea:KnowledgeAsset
+  inverse: dea:curated-into
+  status: normative
+  lifecycle: active
+- id: dea:publishes
+  name: Publishes
+  category: information
+  source:
+  - dea:ApplicationComponent
+  - dea:DataProduct
+  - dea:Experiment
   - dea:SystemFunction
-  - dea:Technology
-  status: normative
-- id: dea:maps-to
-  name: mapsTo
-  vocabulary: instance
-  source:
-  - dea:Entity
   target:
-  - dea:Entity
+  - dea:Event
+  - dea:InformationAsset
+  - dea:Signal
+  inverse: dea:published-by
   status: normative
-- id: dea:realizes
-  name: realizes
-  vocabulary: instance
+  lifecycle: active
+- id: dea:subscribes-to
+  name: Subscribes To
+  category: information
   source:
-  - dea:SolutionComponent
-  - dea:BusinessProcess
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:Experiment
+  - dea:SystemFunction
   target:
-  - dea:BusinessCapability
+  - dea:DataProduct
+  - dea:Event
+  - dea:Signal
+  inverse: dea:subscribed-by
   status: normative
-- id: dea:implements
-  name: implements
-  vocabulary: instance
+  lifecycle: active
+- id: dea:trained-on
+  name: Trained On
+  category: information
   source:
-  - dea:ArchitecturePattern
-  - dea:SolutionComponent
+  - dea:AIMLModel
   target:
-  - dea:Guardrail
+  - dea:DataEntity
+  - dea:DataProduct
+  inverse: dea:training-of
   status: normative
-- id: dea:influenced-by
-  name: influencedBy
-  vocabulary: instance
+  lifecycle: active
+- id: dea:derived-from
+  name: Derived From
+  category: information
   source:
-  - dea:Entity
+  - dea:DataEntity
+  - dea:DataProduct
+  - dea:InformationAsset
+  - dea:KnowledgeAsset
+  - dea:ModelFeedbackSignal
   target:
-  - dea:Tenet
-  status: normative
-- id: dea:decomposes
-  name: decomposes
-  vocabulary: instance
-  source:
-  - dea:BusinessCapability
-  target:
-  - dea:BusinessCapability
-  status: normative
-- id: dea:orchestrates
-  name: orchestrates
-  vocabulary: instance
-  source:
-  - dea:BusinessProcess
-  target:
-  - dea:BusinessProcess
-  status: normative
-- id: dea:consumes
-  name: consumes
-  vocabulary: instance
-  source:
-  - dea:SolutionComponent
-  target:
-  - dea:BusinessService
-  status: normative
-- id: dea:provides
-  name: provides
-  vocabulary: instance
-  source:
-  - dea:SolutionComponent
   - dea:Actor
-  target:
-  - dea:BusinessService
+  - dea:DataEntity
+  - dea:Event
+  - dea:InformationAsset
+  inverse: dea:derived-into
+  status: normative
+  lifecycle: active
+- id: dea:assessed-by
+  name: Assessed By
+  category: assessment
+  source:
+  - dea:AIMLModel
   - dea:BusinessCapability
-  status: normative
-- id: dea:governs
-  name: governs
-  vocabulary: instance
-  source:
-  - dea:Tenet
-  - dea:Guardrail
+  - dea:BusinessProcess
+  - dea:SolutionComponent
+  - dea:TechnologyRadarEntry
   target:
-  - dea:Entity
+  - dea:Experiment
+  - dea:PerformanceMetric
+  inverse: dea:assesses
   status: normative
+  lifecycle: active
 - id: dea:measured-by
-  name: measuredBy
-  vocabulary: instance
+  name: Measured By
+  category: assessment
   source:
-  - dea:Entity
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:StrategicObjective
   target:
   - dea:PerformanceMetric
+  inverse: dea:measures
   status: normative
+  lifecycle: active
+- id: dea:evidenced-by
+  name: Evidenced By
+  category: assessment
+  source:
+  - dea:Entity
+  target:
+  - dea:DataEntity
+  - dea:InformationAsset
+  - dea:KnowledgeAsset
+  inverse: dea:evidences
+  status: normative
+  lifecycle: proposed
+- id: dea:benchmarked-against
+  name: Benchmarked Against
+  category: assessment
+  source:
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Technology
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Guardrail
+  - dea:Technology
+  inverse: dea:benchmark-of
+  status: normative
+  lifecycle: proposed
+- id: dea:transitions-to
+  name: Transitions To
+  category: transformation
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Technology
+  - dea:TechnologyRadarEntry
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:Technology
+  inverse: dea:transitions-from
+  status: normative
+  lifecycle: active
+- id: dea:replaces
+  name: Replaces
+  category: transformation
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessService
+  - dea:ChangeInitiative
+  - dea:Technology
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Technology
+  inverse: dea:replaced-by
+  status: normative
+  lifecycle: proposed
+- id: dea:supersedes
+  name: Supersedes
+  category: transformation
+  source:
+  - dea:ArchitecturePattern
+  - dea:Blueprint
+  - dea:Concept
+  - dea:Guardrail
+  - dea:Tenet
+  target:
+  - dea:ArchitecturePattern
+  - dea:Blueprint
+  - dea:Concept
+  - dea:Guardrail
+  - dea:Tenet
+  inverse: dea:superseded-by
+  status: normative
+  lifecycle: proposed
+- id: dea:migrates-to
+  name: Migrates To
+  category: transformation
+  source:
+  - dea:ApplicationComponent
+  - dea:BusinessService
+  - dea:DataEntity
+  target:
+  - dea:ApplicationComponent
+  - dea:DataProduct
+  - dea:InfrastructureComponent
+  - dea:PlatformService
+  inverse: dea:migrated-from
+  status: normative
+  lifecycle: proposed
+- id: dea:maps-to
+  name: Maps To
+  category: traceability
+  source:
+  - dea:Entity
+  target:
+  - dea:Entity
+  inverse: dea:mapped-from
+  status: normative
+  lifecycle: active
+- id: dea:traces-to
+  name: Traces To
+  category: traceability
+  source:
+  - dea:Entity
+  target:
+  - dea:Entity
+  inverse: dea:traced-from
+  status: normative
+  lifecycle: proposed
+- id: dea:supports
+  name: Supports
+  category: dependency
+  source:
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:FinancialResource
+  - dea:InvestmentInitiative
+  - dea:Technology
+  target:
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:ChangeInitiative
+  - dea:StrategicObjective
+  - dea:SystemFunction
+  inverse: dea:supported-by
+  status: normative
+  lifecycle: active

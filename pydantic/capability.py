@@ -25,13 +25,13 @@ class Capability(Entity):
     maturity_level: Literal['nascent', 'emerging', 'defined', 'managed', 'optimizing']
     """CMMI-style maturity assessment."""
     owner: Optional[str] = None
-    """Role or team responsible for this capability."""
+    """Role or team responsible for this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     parent_capability: Optional[str] = None
-    """ID of parent Capability in the capability hierarchy."""
+    """ID of parent Capability in the capability hierarchy. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     child_capabilities: Optional[list[str]] = None
-    """IDs of child Capabilities."""
+    """IDs of child Capabilities. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     realized_by: Optional[list[str]] = None
-    """SolutionComponent IDs that realize this capability."""
+    """SolutionComponent IDs that realize this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     processes: Optional[list[str]] = None
     """Process IDs that deliver this capability."""
     metrics: Optional[list[str]] = None

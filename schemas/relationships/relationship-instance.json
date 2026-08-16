@@ -1,9 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/relationships/relationship-instance.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "RelationshipInstance",
-  "description": "An instantiated typed relationship between two entities.",
+  "description": "An instantiated typed relationship between two entities (CR-002: typed, directed, versioned, provenance-aware).",
   "type": "object",
   "required": [
     "source_id",
@@ -11,6 +11,10 @@
     "relationship_type"
   ],
   "properties": {
+    "id": {
+      "type": "string",
+      "description": "Instance identifier."
+    },
     "source_id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
@@ -24,17 +28,166 @@
     "relationship_type": {
       "type": "string",
       "enum": [
-        "maps-to",
+        "composes",
+        "aggregates",
+        "specializes",
+        "instantiates",
         "realizes",
         "implements",
-        "influenced-by",
-        "decomposes",
-        "orchestrates",
+        "operationalizes",
+        "depends-on",
+        "requires",
+        "enables",
+        "constrains",
+        "flows-to",
+        "produces",
         "consumes",
+        "exchanges",
+        "serves",
         "provides",
+        "uses",
+        "exposes",
+        "performs",
+        "executes",
+        "orchestrates",
+        "triggers",
         "governs",
-        "measured-by"
-      ]
+        "mandates",
+        "controls",
+        "owns",
+        "accountable-for",
+        "responsible-for",
+        "threatens",
+        "represents",
+        "informs",
+        "curates",
+        "publishes",
+        "subscribes-to",
+        "trained-on",
+        "derived-from",
+        "assessed-by",
+        "measured-by",
+        "evidenced-by",
+        "benchmarked-against",
+        "transitions-to",
+        "replaces",
+        "supersedes",
+        "migrates-to",
+        "maps-to",
+        "traces-to",
+        "supports"
+      ],
+      "description": "Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "source-to-target"
+      ],
+      "default": "source-to-target",
+      "description": "Canonical direction is always source-to-target (CR-2 §7). Inverse views are generated, never stored (§8)."
+    },
+    "mapping": {
+      "type": "object",
+      "description": "Required when relationship_type is 'maps-to' (CR-2 §9).",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "equivalent",
+            "broader",
+            "narrower",
+            "related",
+            "traceability",
+            "external-crosswalk"
+          ]
+        }
+      }
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Start of temporal validity (§6)."
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date",
+      "description": "End of temporal validity."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "default": "active",
+      "description": "Instance lifecycle (§20)."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence or strength (§6)."
+    },
+    "asserted_by": {
+      "type": "string",
+      "description": "Person, team, or agent asserting this relationship (§21/§22)."
+    },
+    "rationale": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "evidence": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Reference to supporting evidence."
+    },
+    "provenance": {
+      "type": "object",
+      "description": "Structured provenance (§21). AI-asserted relationships must set provenance.agent_id and verification_status (§22).",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "architecture-review",
+            "discovery",
+            "assessment",
+            "inference",
+            "migration",
+            "manual"
+          ]
+        },
+        "reference": {
+          "type": "string"
+        },
+        "asserted_by": {
+          "type": "string"
+        },
+        "asserted_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "system": {
+          "type": "string"
+        },
+        "framework": {
+          "type": "string"
+        },
+        "agent_id": {
+          "type": "string",
+          "description": "AI agent identifier (§22)."
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "unverified",
+            "verified",
+            "rejected"
+          ]
+        }
+      }
     },
     "description": {
       "type": "string",
@@ -44,16 +197,13 @@
       "type": "number",
       "minimum": 0,
       "maximum": 1,
-      "description": "Optional confidence or strength of the relationship."
-    },
-    "provenance": {
-      "type": "string",
-      "maxLength": 500,
-      "description": "Source or authority for this relationship."
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002): use confidence."
     },
     "bidirectional": {
       "type": "boolean",
-      "default": false
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002 §7/§8): direction is canonical; inverses are generated views."
     }
   }
 }

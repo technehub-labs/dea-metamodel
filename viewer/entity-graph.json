@@ -1,6 +1,6 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
   "opendeam_model_pin": "v0.5.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
@@ -875,7 +875,11 @@
       "label": "drives",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:governs"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "II",
@@ -883,7 +887,11 @@
       "label": "funds",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:supports"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "VS",
@@ -891,7 +899,11 @@
       "label": "traverses",
       "rel_type": "aggregation",
       "cardinality": "1..N:1..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:flows-to"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "VS",
@@ -899,7 +911,12 @@
       "label": "experienced via",
       "rel_type": "flow",
       "cardinality": "1:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:serves"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "CAP",
@@ -907,7 +924,11 @@
       "label": "implemented by",
       "rel_type": "realization",
       "cardinality": "1:1..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:realizes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "CAP",
@@ -915,7 +936,12 @@
       "label": "produces / consumes",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:produces",
+        "dea:consumes"
+      ],
+      "disposition": "split"
     },
     {
       "from": "SH",
@@ -923,7 +949,11 @@
       "label": "served by",
       "rel_type": "association",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:serves"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "AC",
@@ -931,7 +961,10 @@
       "label": "performs",
       "rel_type": "association",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:performs"
+      ]
     },
     {
       "from": "JT",
@@ -939,7 +972,11 @@
       "label": "authenticates",
       "rel_type": "dependency",
       "cardinality": "0..N:1",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:uses"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "DI",
@@ -947,7 +984,11 @@
       "label": "represented by",
       "rel_type": "realization",
       "cardinality": "1:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:represents"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "BP",
@@ -955,7 +996,11 @@
       "label": "automated by",
       "rel_type": "realization",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:executes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "BO",
@@ -963,7 +1008,11 @@
       "label": "digitized as",
       "rel_type": "realization",
       "cardinality": "1:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:represents"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "OU",
@@ -971,7 +1020,10 @@
       "label": "custodian of",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:responsible-for"
+      ]
     },
     {
       "from": "BS",
@@ -979,7 +1031,10 @@
       "label": "exposes",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:exposes"
+      ]
     },
     {
       "from": "DE",
@@ -987,7 +1042,10 @@
       "label": "classified by",
       "rel_type": "governance",
       "cardinality": "0..N:1..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:maps-to"
+      ]
     },
     {
       "from": "DE",
@@ -995,7 +1053,11 @@
       "label": "curated into",
       "rel_type": "composition",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:curates"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "SF",
@@ -1003,7 +1065,12 @@
       "label": "publishes / subscribes",
       "rel_type": "flow",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:publishes",
+        "dea:subscribes-to"
+      ],
+      "disposition": "split"
     },
     {
       "from": "EVT",
@@ -1011,7 +1078,11 @@
       "label": "carries payload of",
       "rel_type": "dependency",
       "cardinality": "0..N:0..1",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:represents"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "DP",
@@ -1019,7 +1090,11 @@
       "label": "exposed via",
       "rel_type": "realization",
       "cardinality": "1:1..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:exposes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "AIM",
@@ -1027,7 +1102,10 @@
       "label": "trained on",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:trained-on"
+      ]
     },
     {
       "from": "AIM",
@@ -1035,7 +1113,10 @@
       "label": "enhances / automates",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:supports"
+      ]
     },
     {
       "from": "SF",
@@ -1043,7 +1124,12 @@
       "label": "hosted by",
       "rel_type": "composition",
       "cardinality": "0..N:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:composes"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "APC",
@@ -1051,7 +1137,10 @@
       "label": "deployed on",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:depends-on"
+      ]
     },
     {
       "from": "SF",
@@ -1059,7 +1148,11 @@
       "label": "exposed via",
       "rel_type": "realization",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:exposes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "API",
@@ -1067,7 +1160,10 @@
       "label": "serves / exchanges",
       "rel_type": "flow",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:exchanges"
+      ]
     },
     {
       "from": "TEC",
@@ -1075,7 +1171,10 @@
       "label": "implements",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:supports"
+      ]
     },
     {
       "from": "SO",
@@ -1083,7 +1182,10 @@
       "label": "measured by",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:measured-by"
+      ]
     },
     {
       "from": "CAP",
@@ -1091,7 +1193,10 @@
       "label": "evaluated by",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:measured-by"
+      ]
     },
     {
       "from": "SF",
@@ -1099,7 +1204,10 @@
       "label": "evaluated by",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:measured-by"
+      ]
     },
     {
       "from": "EA",
@@ -1107,7 +1215,12 @@
       "label": "engages in",
       "rel_type": "association",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:governs"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "CA",
@@ -1115,7 +1228,10 @@
       "label": "governs",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:governs"
+      ]
     },
     {
       "from": "EA",
@@ -1123,7 +1239,10 @@
       "label": "influences",
       "rel_type": "association",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ]
     },
     {
       "from": "VE",
@@ -1131,7 +1250,11 @@
       "label": "crosses boundary at",
       "rel_type": "flow",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:flows-to"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "VE",
@@ -1139,7 +1262,10 @@
       "label": "transports (payload)",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:exchanges"
+      ]
     },
     {
       "from": "EA",
@@ -1147,7 +1273,11 @@
       "label": "represented by",
       "rel_type": "realization",
       "cardinality": "1:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:represents"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "CAP",
@@ -1155,7 +1285,11 @@
       "label": "grouped by",
       "rel_type": "aggregation",
       "cardinality": "0..N:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:aggregates"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "BF",
@@ -1163,7 +1297,11 @@
       "label": "owned by",
       "rel_type": "governance",
       "cardinality": "1:1",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:owns"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "EP",
@@ -1171,7 +1309,10 @@
       "label": "hosts",
       "rel_type": "aggregation",
       "cardinality": "1:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:aggregates"
+      ]
     },
     {
       "from": "EP",
@@ -1179,7 +1320,11 @@
       "label": "exposed via",
       "rel_type": "realization",
       "cardinality": "1:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:exposes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "RSK",
@@ -1187,7 +1332,10 @@
       "label": "threatens",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:threatens"
+      ]
     },
     {
       "from": "RSK",
@@ -1195,7 +1343,10 @@
       "label": "threatens",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:threatens"
+      ]
     },
     {
       "from": "CTL",
@@ -1203,7 +1354,10 @@
       "label": "mitigates",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:controls"
+      ]
     },
     {
       "from": "REG",
@@ -1211,7 +1365,10 @@
       "label": "mandates",
       "rel_type": "governance",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:mandates"
+      ]
     },
     {
       "from": "AIM",
@@ -1219,7 +1376,12 @@
       "label": "subject to (governed_by)",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:threatens"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "SIG",
@@ -1227,7 +1389,10 @@
       "label": "triggers",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:triggers"
+      ]
     },
     {
       "from": "EXP",
@@ -1235,7 +1400,10 @@
       "label": "informs",
       "rel_type": "dependency",
       "cardinality": "0..N:0..1",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ]
     },
     {
       "from": "TRE",
@@ -1243,7 +1411,10 @@
       "label": "evaluated via",
       "rel_type": "dependency",
       "cardinality": "1:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:assessed-by"
+      ]
     },
     {
       "from": "TRE",
@@ -1251,7 +1422,10 @@
       "label": "graduates to",
       "rel_type": "realization",
       "cardinality": "0..1:0..1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:transitions-to"
+      ]
     },
     {
       "from": "SKL",
@@ -1259,7 +1433,11 @@
       "label": "required by",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:requires"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "ROL",
@@ -1267,7 +1445,12 @@
       "label": "fulfilled by",
       "rel_type": "realization",
       "cardinality": "1:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:responsible-for"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "CHI",
@@ -1275,7 +1458,9 @@
       "label": "targets",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [],
+      "disposition": "review-required"
     },
     {
       "from": "CHI",
@@ -1283,7 +1468,12 @@
       "label": "funded by",
       "rel_type": "governance",
       "cardinality": "0..N:0..1",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:supports"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "MDP",
@@ -1291,7 +1481,10 @@
       "label": "instance of",
       "rel_type": "realization",
       "cardinality": "0..N:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:instantiates"
+      ]
     },
     {
       "from": "MDP",
@@ -1299,7 +1492,12 @@
       "label": "hosted by",
       "rel_type": "composition",
       "cardinality": "0..N:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:composes"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     },
     {
       "from": "MFS",
@@ -1307,7 +1505,10 @@
       "label": "derived from",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:derived-from"
+      ]
     },
     {
       "from": "MFS",
@@ -1315,7 +1516,10 @@
       "label": "triggers retraining of",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:triggers"
+      ]
     },
     {
       "from": "TNT",
@@ -1323,7 +1527,10 @@
       "label": "informs",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ]
     },
     {
       "from": "GRD",
@@ -1331,7 +1538,11 @@
       "label": "implements",
       "rel_type": "realization",
       "cardinality": "0..N:1",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:operationalizes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "GRD",
@@ -1339,7 +1550,10 @@
       "label": "governs",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:governs"
+      ]
     },
     {
       "from": "GRD",
@@ -1347,7 +1561,10 @@
       "label": "governs",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:governs"
+      ]
     },
     {
       "from": "BLU",
@@ -1355,7 +1572,11 @@
       "label": "composed of",
       "rel_type": "composition",
       "cardinality": "1:1..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:composes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "CON",
@@ -1363,7 +1584,11 @@
       "label": "defines",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "CON",
@@ -1371,7 +1596,11 @@
       "label": "defines",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "FR",
@@ -1379,7 +1608,11 @@
       "label": "funds",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:supports"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "PHR",
@@ -1387,7 +1620,10 @@
       "label": "enables",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:enables"
+      ]
     },
     {
       "from": "INR",
@@ -1395,7 +1631,11 @@
       "label": "protects",
       "rel_type": "governance",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:controls"
+      ],
+      "disposition": "review-required"
     },
     {
       "from": "IA",
@@ -1403,7 +1643,10 @@
       "label": "contextualized from",
       "rel_type": "dependency",
       "cardinality": "0..N:1..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:derived-from"
+      ]
     },
     {
       "from": "IA",
@@ -1411,7 +1654,11 @@
       "label": "consumed by",
       "rel_type": "flow",
       "cardinality": "0..N:0..N",
-      "style": "solid"
+      "style": "solid",
+      "rel_ids": [
+        "dea:consumes"
+      ],
+      "canonical_inverse": true
     },
     {
       "from": "KA",
@@ -1419,7 +1666,10 @@
       "label": "captured from",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:derived-from"
+      ]
     },
     {
       "from": "KA",
@@ -1427,7 +1677,636 @@
       "label": "informs",
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
-      "style": "dashed"
+      "style": "dashed",
+      "rel_ids": [
+        "dea:informs"
+      ]
+    }
+  ],
+  "relationship_definitions": [
+    {
+      "id": "dea:composes",
+      "name": "Composes",
+      "definition": "The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1..*"
+      },
+      "inverse": "dea:part-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:aggregates",
+      "name": "Aggregates",
+      "definition": "The target participates in the source but retains an independent lifecycle (aggregation, section 14).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:aggregated-in",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:specializes",
+      "name": "Specializes",
+      "definition": "The source is a more specific form of the target (generalization/specialization hierarchy).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..1"
+      },
+      "inverse": "dea:generalizes",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:instantiates",
+      "name": "Instantiates",
+      "definition": "A concrete instance is created from a type or model (section 5).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1"
+      },
+      "inverse": "dea:instantiated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:realizes",
+      "name": "Realizes",
+      "definition": "The source architectural element provides the realization of an abstract capability, service, or outcome (section 5).",
+      "category": "realization",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:realized-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:implements",
+      "name": "Implements",
+      "definition": "An implementation satisfies a specification, requirement, or design (section 5). Narrowed: not used for capability realization (use realizes) or technology enablement (use supports).",
+      "category": "realization",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:implemented-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:operationalizes",
+      "name": "Operationalizes",
+      "definition": "A policy, tenet, or strategy is translated into operational practice (section 5).",
+      "category": "realization",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:operationalized-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:depends-on",
+      "name": "Depends On",
+      "definition": "The source requires the target for some purpose, without containment or realization semantics (section 14).",
+      "category": "dependency",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:depended-on-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:requires",
+      "name": "Requires",
+      "definition": "The source cannot fulfil its definition without the target (mandatory dependency).",
+      "category": "dependency",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:required-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:enables",
+      "name": "Enables",
+      "definition": "The source makes the target possible or materially more effective, without being required by it.",
+      "category": "dependency",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:enabled-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:constrains",
+      "name": "Constrains",
+      "definition": "The source limits the permissible design or behaviour space of the target.",
+      "category": "dependency",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:constrained-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:flows-to",
+      "name": "Flows To",
+      "definition": "Information, material, control, or value moves from the source to the target.",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:flows-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:produces",
+      "name": "Produces",
+      "definition": "The source creates or emits the target as an output.",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:produced-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:consumes",
+      "name": "Consumes",
+      "definition": "The source takes the target as an input it uses up or processes.",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:consumed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:exchanges",
+      "name": "Exchanges",
+      "definition": "The source and target participate in a bidirectional exchange of value, data, or signals.",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:exchanges",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:serves",
+      "name": "Serves",
+      "definition": "The source delivers value or service to the target party or channel.",
+      "category": "serving",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:served-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:provides",
+      "name": "Provides",
+      "definition": "The source makes the target service or capability available to consumers.",
+      "category": "serving",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:provided-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:uses",
+      "name": "Uses",
+      "definition": "The source consumes the target service or resource as offered (usage, not depletion — contrast consumes).",
+      "category": "serving",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:used-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:exposes",
+      "name": "Exposes",
+      "definition": "The source presents the target as an accessible interface, product, or representation to consumers.",
+      "category": "serving",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:exposed-via",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:performs",
+      "name": "Performs",
+      "definition": "The source actor or organizational unit carries out the target process or function (section 12).",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:performed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:executes",
+      "name": "Executes",
+      "definition": "The source system function or component carries out the target process or activity automatically.",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:executed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:orchestrates",
+      "name": "Orchestrates",
+      "definition": "The source coordinates the execution ordering and interaction of the targets.",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:orchestrated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:triggers",
+      "name": "Triggers",
+      "definition": "The source event or signal initiates the target process, experiment, or retraining.",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:triggered-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:governs",
+      "name": "Governs",
+      "definition": "The source directs, constrains, or oversees the target through policy, agreement, or strategy.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:governed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:mandates",
+      "name": "Mandates",
+      "definition": "The source imposes a binding obligation on the target (regulatory or policy force).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:mandated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:controls",
+      "name": "Controls",
+      "definition": "The source mitigates, protects against, or otherwise controls the target risk or exposure.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:controlled-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:owns",
+      "name": "Owns",
+      "definition": "The source holds ownership of the target — accountability for its lifecycle and value.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:owned-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:accountable-for",
+      "name": "Accountable For",
+      "definition": "The source holds single-point accountability for the target (RACI 'A').",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:accountable-to",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:responsible-for",
+      "name": "Responsible For",
+      "definition": "The source performs or manages the target day-to-day (RACI 'R'), including custodianship and role fulfilment.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:responsible-to",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:threatens",
+      "name": "Threatens",
+      "definition": "The source risk exposes the target to potential harm or failure (risk relation, section 17 placement per D5).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:threatened-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:represents",
+      "name": "Represents",
+      "definition": "One information representation corresponds to another conceptual entity (section 5).",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:represented-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:informs",
+      "name": "Informs",
+      "definition": "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence — section 17).",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:informed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:curates",
+      "name": "Curates",
+      "definition": "The source selects, organizes, and maintains the target as governed content or product.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:curated-into",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:publishes",
+      "name": "Publishes",
+      "definition": "The source makes the target event or information available to subscribers.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:published-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:subscribes-to",
+      "name": "Subscribes To",
+      "definition": "The source consumes publications of the target event or information feed.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:subscribed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:trained-on",
+      "name": "Trained On",
+      "definition": "The source AI/ML model is trained on the target data product or dataset.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1..*"
+      },
+      "inverse": "dea:training-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:derived-from",
+      "name": "Derived From",
+      "definition": "The source is derived from the target information, event, or actor knowledge (lineage).",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:derived-into",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:assessed-by",
+      "name": "Assessed By",
+      "definition": "The source is evaluated by the target assessment instrument, experiment, or framework.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:assesses",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:measured-by",
+      "name": "Measured By",
+      "definition": "The source's performance, health, or maturity is quantified by the target metric.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:measures",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:evidenced-by",
+      "name": "Evidenced By",
+      "definition": "The source relationship or claim is supported by the target evidence artefact (section 6).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:evidences",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:benchmarked-against",
+      "name": "Benchmarked Against",
+      "definition": "The source is compared against the target reference, standard, or peer.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:benchmark-of",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:transitions-to",
+      "name": "Transitions To",
+      "definition": "The source evolves into the target state, maturity, or technology over time (CR-6 will add temporal semantics).",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..1"
+      },
+      "inverse": "dea:transitions-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:replaces",
+      "name": "Replaces",
+      "definition": "The source takes over the function of the target, which is retired.",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:replaced-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:supersedes",
+      "name": "Supersedes",
+      "definition": "The source version or concept supersedes the target in definition or governance.",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..1"
+      },
+      "inverse": "dea:superseded-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:migrates-to",
+      "name": "Migrates To",
+      "definition": "The source is moved to the target platform, component, or state during a change initiative.",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..1"
+      },
+      "inverse": "dea:migrated-from",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:maps-to",
+      "name": "Maps To",
+      "definition": "An explicit crosswalk or correspondence between two modelling systems or classification schemes (section 9). NOT a generic 'somehow related'.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:mapped-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:traces-to",
+      "name": "Traces To",
+      "definition": "Audit lineage from the source to the target artefact that justifies or originates it.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:traced-from",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:supports",
+      "name": "Supports",
+      "definition": "The source contributes to the target's function, funding, or effectiveness without realizing, enabling, or being required by it.",
+      "category": "dependency",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:supported-by",
+      "lifecycle": "active"
     }
   ]
 }

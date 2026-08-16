@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/architecture-pattern.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "ArchitecturePattern",
   "description": "A reusable architectural pattern that solves a recurring design problem.",
   "type": "object",
@@ -112,19 +112,24 @@
       "items": {
         "type": "string"
       },
-      "description": "Complementary or successor patterns."
+      "description": "Complementary or successor patterns. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
+      "deprecated": true
     },
     "related_tenets": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "related_guardrails": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "maturity": {
       "type": "string",

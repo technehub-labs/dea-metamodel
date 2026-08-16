@@ -30,8 +30,10 @@ class ArchitecturePattern(Entity):
     anti_patterns: Optional[list[str]] = None
     """Patterns that conflict or should not be used alongside this one."""
     related_patterns: Optional[list[str]] = None
-    """Complementary or successor patterns."""
+    """Complementary or successor patterns. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     related_tenets: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     related_guardrails: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     maturity: Optional[Literal['emerging', 'established', 'canonical', 'deprecated']] = None
     implementation_hints: Optional[list[str]] = None

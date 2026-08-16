@@ -8,8 +8,8 @@ current one ships.
 
 | CR | Focus | Primary outcome | Status |
 |---|---|---|---|
-| [CR-001](CR-001.md) | Canonical Model & Semantic Governance | One authoritative metamodel and controlled versioning | Implemented |
-| CR-002 | Relationship Semantics | Authoritative, typed relationship model | Proposed — parked until CR-001 closes |
+| [CR-001](CR-001.md) | Canonical Model & Semantic Governance | One authoritative metamodel and controlled versioning | Implemented (v0.6.0) |
+| [CR-002](CR-002.md) | Relationship Semantics | Authoritative, typed relationship model | Implemented (v0.7.0) |
 | CR-003 | Entity/Relationship Normalization | Remove duplicated relationship state; clean entity boundaries | Proposed |
 | CR-004 | Core DEA Ontology | Small, stable normative core | Proposed |
 | CR-005 | Assessment & Measurement | Separate DMM/measurement from architectural entities | Proposed |

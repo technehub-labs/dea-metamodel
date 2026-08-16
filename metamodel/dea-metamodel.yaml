@@ -1,0 +1,1500 @@
+# DEA Metamodel — NORMATIVE SOURCE (CR-1)
+# This file is the single authoritative semantic definition of the OpenDEA metamodel.
+# All schemas, database structures, viewer graphs, documentation diagrams and other
+# representations MUST be generated from or validated against this specification.
+# Change control: every modification requires a CR under change-requests/ and must
+# follow docs/versioning.md. Semantic expansion frozen until CR-3 closes (CR-1.6).
+metamodel:
+  id: opendea
+  name: OpenDEA Metamodel
+  version: 0.6.0
+  status: draft
+  normative: true
+  namespace:
+    uri: https://technehub-labs.github.io/dea-metamodel/
+    prefix: dea
+  upstream_root:
+    repo: technehub-labs/dea-architecture-framework
+    model: model/opendeam-model.yaml
+    pin: v0.5.0
+    relationship: The upstream root model governs enterprise-model allocation (layers, building blocks, dimensions). This
+      file is the normative semantic definition of the metamodel itself; the enterprise model consumes and does not redefine
+      it.
+  component_versions:
+    metamodel: 0.6.0
+    json_schema: 0.6.0
+    sqlite_projection: 0.6.0
+    viewer_minimum: 0.1.0
+  versioning_policy: docs/versioning.md
+  change_control: change-requests/
+layers:
+- id: L1
+  name: Ecosystem & Value Network
+  qualifier: External
+  color: '#2DD4BF'
+  dark_color: '#1B6963'
+- id: L2
+  name: Strategic & Governance
+  qualifier: Intent & Rules
+  color: '#FBBF24'
+  dark_color: '#785F1D'
+- id: L3
+  name: Business Operating Model
+  qualifier: Internal
+  color: '#38BDF8'
+  dark_color: '#205E7C'
+- id: L4
+  name: Digital & Intelligence
+  qualifier: Data & Brain
+  color: '#A78BFA'
+  dark_color: '#52487D'
+- id: L5
+  name: Technology & Execution
+  qualifier: Systems & Infra
+  color: '#FB7185'
+  dark_color: '#783C48'
+dimensions:
+- id: ecf-matrix
+  name: Enterprise Concept Framework matrix (7×7)
+  kind: city-block grid (domain × stage)
+- id: measurement-dimension
+  name: Measurement Dimension
+  kind: cross-cutting evaluative overlay (not a layer as of v0.2.0)
+- id: ai-automation-governance
+  name: AI & Automation Governance
+  kind: cross-cutting policy overlay (not a layer, not "Responsible AI" as a separate structure)
+- id: semantic-dimension
+  name: Semantic Dimension
+  kind: cross-cutting concept graph (not a layer, not a static glossary)
+entities:
+- id: dea:Entity
+  name: Entity
+  legacy_ids:
+  - dea:entity-entity
+  - Entity
+  definition: Abstract root type for all metamodel entities.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/entity.json
+    sqlite_table: entities
+    pydantic_model: pydantic/entity.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:CollaborationAgreement
+  name: Collaboration Agreement
+  legacy_ids:
+  - dea:entity-collaboration-agreement
+  - CollaborationAgreement
+  definition: Terms governing cooperation with an ecosystem actor — cooperative or mandated.
+  layer: L1
+  dimension: null
+  building_block: L1-agreements
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: CA
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/collaboration-agreement.json
+    sqlite_table: collaboration_agreements
+    pydantic_model: pydantic/collaboration_agreement.py
+    ts_interface: typescript/src/interfaces.ts
+  migration_note: Reallocated from L2-agreements to L1-agreements in v0.2.0 (ADR-0002 D2).
+- id: dea:EcosystemActor
+  name: Ecosystem Actor
+  legacy_ids:
+  - dea:entity-ecosystem-actor
+  - EcosystemActor
+  definition: External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner.
+  layer: L1
+  dimension: null
+  building_block: L1-external-parties
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: EA
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/ecosystem-actor.json
+    sqlite_table: ecosystem_actors
+    pydantic_model: pydantic/ecosystem_actor.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:EcosystemPlatform
+  name: Ecosystem Platform
+  legacy_ids:
+  - dea:entity-ecosystem-platform
+  - EcosystemPlatform
+  definition: A standing multi-sided structure the enterprise hosts for repeated exchange among many ecosystem actors (marketplace,
+    partner API program, developer portal).
+  layer: L1
+  dimension: null
+  building_block: L1-ecosystem-platforms
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: EP
+  catalog_repo: dea-catalog-ecosystem-platforms
+  artifacts:
+    json_schema: schemas/entities/ecosystem-platform.json
+    sqlite_table: ecosystem_platforms
+    pydantic_model: pydantic/ecosystem_platform.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:JourneyTouchpoint
+  name: Journey Touchpoint
+  legacy_ids:
+  - dea:entity-journey-touchpoint
+  definition: A point of interaction on a customer or user journey, across a specific channel.
+  layer: L1
+  dimension: null
+  building_block: L1-experience-points
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: JT
+  catalog_repo: dea-catalog-journey-touchpoints
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:Stakeholder
+  name: Stakeholder
+  legacy_ids:
+  - dea:entity-stakeholder
+  definition: An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise
+    processes.
+  layer: L1
+  dimension: null
+  building_block: L1-external-parties
+  abstract: false
+  status: normative
+  lifecycle: scaffold
+  class_alias: SH
+  catalog_repo: dea-catalog-stakeholders
+  artifacts:
+    json_schema: schemas/entities/stakeholder.json
+    sqlite_table: stakeholders
+    pydantic_model: pydantic/stakeholder.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ValueExchange
+  name: Value Exchange
+  legacy_ids:
+  - dea:entity-value-exchange
+  - ValueExchange
+  definition: A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound.
+  layer: L1
+  dimension: null
+  building_block: L1-value-flows
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: VE
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/value-exchange.json
+    sqlite_table: value_exchanges
+    pydantic_model: pydantic/value_exchange.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ArchitecturePattern
+  name: Architecture Pattern
+  legacy_ids:
+  - dea:entity-architecture-pattern
+  - ArchitecturePattern
+  definition: A reusable architecture pattern (e.g. API Gateway, Event Sourcing, CQRS) that resolves a recurring design problem.
+  layer: L2
+  dimension: null
+  building_block: L2-reusable-knowledge
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: AP
+  catalog_repo: dea-catalog-patterns
+  artifacts:
+    json_schema: schemas/entities/architecture-pattern.json
+    sqlite_table: architecture_patterns
+    pydantic_model: pydantic/architecture_pattern.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Blueprint
+  name: Blueprint
+  legacy_ids:
+  - dea:entity-blueprint
+  definition: A composed, reusable target-state design assembled from Architecture Patterns, providing a template for solution
+    design.
+  layer: L2
+  dimension: null
+  building_block: L2-reusable-knowledge
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: BLU
+  catalog_repo: dea-catalog-blueprints
+  artifacts:
+    json_schema: schemas/entities/blueprint.json
+    sqlite_table: blueprints
+    pydantic_model: pydantic/blueprint.py
+    ts_interface: typescript/src/interfaces.ts
+  migration_note: Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns
+    rather than standing alone.
+- id: dea:Control
+  name: Control
+  legacy_ids:
+  - dea:entity-control
+  definition: A mechanism (process, technical, or organizational) that mitigates a Risk or enforces a Regulation.
+  layer: L2
+  dimension: null
+  building_block: L2-risk-compliance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: CTL
+  catalog_repo: dea-catalog-controls
+  artifacts:
+    json_schema: schemas/entities/control.json
+    sqlite_table: controls
+    pydantic_model: pydantic/control.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Experiment
+  name: Experiment
+  legacy_ids:
+  - dea:entity-experiment
+  definition: A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment.
+  layer: L2
+  dimension: null
+  building_block: L2-innovation-foresight
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: EXP
+  catalog_repo: dea-catalog-experiments
+  artifacts:
+    json_schema: schemas/entities/experiment.json
+    sqlite_table: experiments
+    pydantic_model: pydantic/experiment.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Guardrail
+  name: Guardrail
+  legacy_ids:
+  - dea:entity-guardrail
+  definition: 'An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory
+    | automated-warn | automated-block | platform-enforced) — modeling policy-as-code / platform-guardrail practice rather
+    than a static compliance document someone checks against manually.
+
+    '
+  layer: L2
+  dimension: null
+  building_block: L2-rules-guidance
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: GRD
+  catalog_repo: dea-catalog-guardrails
+  artifacts:
+    json_schema: schemas/entities/guardrail.json
+    sqlite_table: guardrails
+    pydantic_model: pydantic/guardrail.py
+    ts_interface: typescript/src/interfaces.ts
+  migration_note: Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements
+    Control, closing the gap where Technology claimed to be "governed via Standards" with no such relationship existing.
+- id: dea:InvestmentInitiative
+  name: Investment Initiative
+  legacy_ids:
+  - dea:entity-investment-initiative
+  definition: A funded programme of work that realises one or more strategic objectives.
+  layer: L2
+  dimension: null
+  building_block: L2-intent
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: II
+  catalog_repo: dea-catalog-investment-initiatives
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:Regulation
+  name: Regulation
+  legacy_ids:
+  - dea:entity-regulation
+  definition: An externally imposed obligation (law, industry standard with force, contractual mandate) the enterprise must
+    comply with.
+  layer: L2
+  dimension: null
+  building_block: L2-risk-compliance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: REG
+  catalog_repo: dea-catalog-regulations
+  artifacts:
+    json_schema: schemas/entities/regulation.json
+    sqlite_table: regulations
+    pydantic_model: pydantic/regulation.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Risk
+  name: Risk
+  legacy_ids:
+  - dea:entity-risk
+  definition: A condition or event that threatens the enterprise's ability to persist or to realize a capability/objective.
+  layer: L2
+  dimension: null
+  building_block: L2-risk-compliance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: RSK
+  catalog_repo: dea-catalog-risk-register
+  artifacts:
+    json_schema: schemas/entities/risk.json
+    sqlite_table: risks
+    pydantic_model: pydantic/risk.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Signal
+  name: Signal
+  legacy_ids:
+  - dea:entity-signal
+  definition: A weak or early indicator of environmental change (market, technology, regulatory, competitive) worth tracking
+    before it forces adaptation.
+  layer: L2
+  dimension: null
+  building_block: L2-innovation-foresight
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: SIG
+  catalog_repo: dea-catalog-signals
+  artifacts:
+    json_schema: schemas/entities/signal.json
+    sqlite_table: signals
+    pydantic_model: pydantic/signal.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:StrategicObjective
+  name: Strategic Objective
+  legacy_ids:
+  - dea:entity-strategic-objective
+  definition: A high-level enterprise outcome the organisation seeks to achieve.
+  layer: L2
+  dimension: null
+  building_block: L2-intent
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: SO
+  catalog_repo: dea-catalog-strategic-objectives
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:Tenet
+  name: Tenet
+  legacy_ids:
+  - dea:entity-tenet
+  definition: A non-binding, human-authored belief that guides decisions (e.g. API-first, prefer managed services). Informs
+    one or more Guardrails; enforces nothing on its own.
+  layer: L2
+  dimension: null
+  building_block: L2-rules-guidance
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: TNT
+  catalog_repo: dea-catalog-tenets
+  artifacts:
+    json_schema: schemas/entities/tenet.json
+    sqlite_table: tenets
+    pydantic_model: pydantic/tenet.py
+    ts_interface: typescript/src/interfaces.ts
+  migration_note: Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather
+    than a standalone documentation-catalog entry.
+- id: dea:TechnologyRadarEntry
+  name: Technology Radar Entry
+  legacy_ids:
+  - dea:entity-technology-radar-entry
+  - TechnologyRadarEntry
+  definition: An emerging technology or technique being tracked (assess/trial/adopt/hold) prior to becoming a governed L5
+    Technology.
+  layer: L2
+  dimension: null
+  building_block: L2-innovation-foresight
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: TRE
+  catalog_repo: dea-catalog-technology-radar
+  artifacts:
+    json_schema: schemas/entities/technology-radar-entry.json
+    sqlite_table: technology_radar_entries
+    pydantic_model: pydantic/technology_radar_entry.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Actor
+  name: Actor
+  legacy_ids:
+  - dea:entity-actor
+  definition: A performer of enterprise processes — human, team, system, or AI agent.
+  layer: L3
+  dimension: null
+  building_block: L3-work-organization
+  abstract: false
+  status: normative
+  lifecycle: scaffold
+  class_alias: AC
+  catalog_repo: dea-catalog-actors
+  artifacts:
+    json_schema: schemas/entities/actor.json
+    sqlite_table: actors
+    pydantic_model: pydantic/actor.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:BusinessFunction
+  name: Business Function
+  legacy_ids:
+  - dea:entity-business-function
+  - BusinessFunction
+  definition: A grouping of business capabilities by organisational function; owned by an organizational unit.
+  layer: L3
+  dimension: null
+  building_block: L3-work-organization
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: BF
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/business-function.json
+    sqlite_table: business_functions
+    pydantic_model: pydantic/business_function.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:BusinessObject
+  name: Business Object
+  legacy_ids:
+  - dea:entity-business-object
+  - BusinessObject
+  definition: A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix.
+  layer: L3
+  dimension: null
+  building_block: L3-business-information
+  abstract: false
+  status: normative
+  lifecycle: scaffold
+  class_alias: BO
+  catalog_repo: dea-catalog-business-objects
+  artifacts:
+    json_schema: schemas/entities/business-object.json
+    sqlite_table: business_objects
+    pydantic_model: null
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:BusinessProcess
+  name: Business Process
+  legacy_ids:
+  - dea:entity-process
+  - Process
+  definition: A structured set of activities that produces a defined outcome.
+  layer: L3
+  dimension: null
+  building_block: L3-value-delivery
+  abstract: false
+  status: normative
+  lifecycle: scaffold
+  class_alias: BP
+  catalog_repo: dea-catalog-processes
+  artifacts:
+    json_schema: schemas/entities/process.json
+    sqlite_table: processes
+    pydantic_model: pydantic/process.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:BusinessService
+  name: Business Service
+  legacy_ids:
+  - dea:entity-business-service
+  - BusinessService
+  definition: A service exposed to the business or to external consumers. Composite of capabilities, realised by solution
+    components.
+  layer: L3
+  dimension: null
+  building_block: L3-service-offerings
+  abstract: false
+  status: normative
+  lifecycle: existing
+  class_alias: BS
+  catalog_repo: dea-catalog-digital-business-service-factory
+  artifacts:
+    json_schema: schemas/entities/business-service.json
+    sqlite_table: business_services
+    pydantic_model: pydantic/business_service.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:BusinessCapability
+  name: Business Capability
+  legacy_ids:
+  - dea:entity-capability
+  - Capability
+  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates.
+  layer: L3
+  dimension: null
+  building_block: L3-value-delivery
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: CAP
+  catalog_repo: dea-catalog-business-capabilities
+  artifacts:
+    json_schema: schemas/entities/capability.json
+    sqlite_table: capabilities
+    pydantic_model: pydantic/capability.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ChangeInitiative
+  name: Change Initiative
+  legacy_ids:
+  - dea:entity-change-initiative
+  - ChangeInitiative
+  definition: A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an
+    Investment Initiative.
+  layer: L3
+  dimension: null
+  building_block: L3-people-skills-culture
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: CHI
+  catalog_repo: dea-catalog-change-initiatives
+  artifacts:
+    json_schema: schemas/entities/change-initiative.json
+    sqlite_table: change_initiatives
+    pydantic_model: pydantic/change_initiative.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:FinancialResource
+  name: Financial Resource
+  legacy_ids:
+  - dea:entity-financial-resource
+  - FinancialResource
+  definition: Liquid or near-liquid economic value the enterprise holds (accounts, instruments, funding lines). Catalog instances
+    include cash, credit facilities, and similar.
+  layer: L3
+  dimension: null
+  building_block: L3-resources
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: FR
+  catalog_repo: dea-catalog-financial-resources
+  artifacts:
+    json_schema: schemas/entities/financial-resource.json
+    sqlite_table: financial_resources
+    pydantic_model: pydantic/financial_resource.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:IntangibleResource
+  name: Intangible Resource
+  legacy_ids:
+  - dea:entity-intangible-resource
+  - IntangibleResource
+  definition: Legally protected non-physical economic value (patents, trademarks, brand equity, licenses). Catalog instances
+    include a specific trademark registration or license.
+  layer: L3
+  dimension: null
+  building_block: L3-resources
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: INR
+  catalog_repo: dea-catalog-intangible-resources
+  artifacts:
+    json_schema: schemas/entities/intangible-resource.json
+    sqlite_table: intangible_resources
+    pydantic_model: pydantic/intangible_resource.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:OrganizationalUnit
+  name: Organizational Unit
+  legacy_ids:
+  - dea:entity-organizational-unit
+  - OrganizationalUnit
+  definition: A unit of organisation that owns capabilities, runs processes, and is custodian for business objects.
+  layer: L3
+  dimension: null
+  building_block: L3-work-organization
+  abstract: false
+  status: normative
+  lifecycle: scaffold
+  class_alias: OU
+  catalog_repo: dea-catalog-organizational-units
+  artifacts:
+    json_schema: schemas/entities/organizational-unit.json
+    sqlite_table: organizational_units
+    pydantic_model: null
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:PhysicalResource
+  name: Physical Resource
+  legacy_ids:
+  - dea:entity-physical-resource
+  - PhysicalResource
+  definition: Tangible assets requiring an ongoing maintenance regime (equipment, vehicles, premises, inventory stock). Catalog
+    instances include an oven, a van, a warehouse shelf.
+  layer: L3
+  dimension: null
+  building_block: L3-resources
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: PHR
+  catalog_repo: dea-catalog-physical-resources
+  artifacts:
+    json_schema: schemas/entities/physical-resource.json
+    sqlite_table: physical_resources
+    pydantic_model: pydantic/physical_resource.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Resource
+  name: Resource
+  legacy_ids:
+  - dea:entity-resource
+  definition: The economic/physical substrate a bounded entity maintains to persist, distinct from what it exchanges (L1)
+    or builds digitally (L4/L5).
+  layer: L3
+  dimension: null
+  building_block: L3-resources
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: RES
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/resource.json
+    sqlite_table: resources
+    pydantic_model: pydantic/resource.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Role
+  name: Role
+  legacy_ids:
+  - dea:entity-role
+  definition: A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit.
+  layer: L3
+  dimension: null
+  building_block: L3-people-skills-culture
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: ROL
+  catalog_repo: dea-catalog-roles
+  artifacts:
+    json_schema: schemas/entities/role.json
+    sqlite_table: roles
+    pydantic_model: pydantic/role.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:SolutionComponent
+  name: Solution Component
+  legacy_ids:
+  - dea:entity-solution-component
+  - SolutionComponent
+  definition: 'Abstract parent of ApplicationComponent, InfrastructureComponent, IntegrationComponent (discriminated union
+    by component_type). Concrete subclasses are allocated to L5; see specializes on APC/IFC/IGC below. (ADR-0002 D3)
+
+    '
+  layer: L3
+  dimension: null
+  building_block: L3-service-offerings
+  abstract: false
+  status: normative
+  lifecycle: existing
+  class_alias: SC
+  catalog_repo: dea-catalog-digital-business-service-factory
+  artifacts:
+    json_schema: schemas/entities/solution-component.json
+    sqlite_table: solution_components
+    pydantic_model: pydantic/solution_component.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Skill
+  name: Skill
+  legacy_ids:
+  - dea:entity-skill
+  definition: A capability an individual Actor possesses or must develop. Distinct from Business Capability, which belongs
+    to the enterprise, not a person.
+  layer: L3
+  dimension: null
+  building_block: L3-people-skills-culture
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: SKL
+  catalog_repo: dea-catalog-skills
+  artifacts:
+    json_schema: schemas/entities/skill.json
+    sqlite_table: skills
+    pydantic_model: pydantic/skill.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ValueStream
+  name: Value Stream
+  legacy_ids:
+  - dea:entity-value-stream
+  definition: An end-to-end collection of value-creating activities spanning multiple capabilities and processes.
+  layer: L3
+  dimension: null
+  building_block: L3-value-delivery
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: VS
+  catalog_repo: dea-catalog-value-streams
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:AIMLModel
+  name: AI/ML Model
+  legacy_ids:
+  - dea:entity-ai-ml-model
+  definition: A machine-learning or AI model that augments or replaces human decision-making within a capability. May declare
+    governed_by (RSK/CTL/REG ids) per the ai-automation-governance dimension.
+  layer: L4
+  dimension: null
+  building_block: L4-intelligence
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: AIM
+  catalog_repo: dea-catalog-ai-ml-models
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:DataEntity
+  name: Data Entity
+  legacy_ids:
+  - dea:entity-data-entity
+  definition: A persistent data structure (table, document, graph node) that realises one or more business objects.
+  layer: L4
+  dimension: null
+  building_block: L4-data-foundation
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: DE
+  catalog_repo: dea-catalog-data-entities
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:DigitalIdentity
+  name: Digital Identity
+  legacy_ids:
+  - dea:entity-digital-identity
+  definition: A digital representation (twin) of a stakeholder or actor for authentication, authorisation, and traceability.
+  layer: L4
+  dimension: null
+  building_block: L4-digital-trust
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: DI
+  catalog_repo: dea-catalog-digital-identities
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:DataProduct
+  name: Data Product
+  legacy_ids:
+  - dea:entity-data-product
+  definition: A curated, discoverable, governed dataset or data service with clear ownership and SLAs (data-mesh pattern).
+  layer: L4
+  dimension: null
+  building_block: L4-data-products
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: DP
+  catalog_repo: dea-catalog-data-products
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:Event
+  name: Event
+  legacy_ids:
+  - dea:entity-event
+  definition: A significant state change or business occurrence that business objects participate in.
+  layer: L4
+  dimension: null
+  building_block: L4-events
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: EVT
+  catalog_repo: dea-catalog-event-streams
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:InformationAsset
+  name: Information Asset
+  legacy_ids:
+  - dea:entity-information-asset
+  - InformationAsset
+  definition: Data given context and form for a specific consuming purpose (a report, dashboard, invoice) — distinct from
+    the raw Data Entity it's contextualized from.
+  layer: L4
+  dimension: null
+  building_block: L4-information-knowledge
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: IA
+  catalog_repo: dea-catalog-information-assets
+  artifacts:
+    json_schema: schemas/entities/information-asset.json
+    sqlite_table: information_assets
+    pydantic_model: pydantic/information_asset.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:InformationClass
+  name: Information Class
+  legacy_ids:
+  - dea:entity-information-class
+  definition: A classification of information by sensitivity and regulatory regime (PII, PHI, PCI).
+  layer: L4
+  dimension: null
+  building_block: L4-data-foundation
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: IC
+  catalog_repo: dea-catalog-information-classes
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:KnowledgeAsset
+  name: Knowledge Asset
+  legacy_ids:
+  - dea:entity-knowledge-asset
+  - KnowledgeAsset
+  definition: Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3),
+    which an Actor personally possesses.
+  layer: L4
+  dimension: null
+  building_block: L4-information-knowledge
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: KA
+  catalog_repo: dea-catalog-knowledge-assets
+  artifacts:
+    json_schema: schemas/entities/knowledge-asset.json
+    sqlite_table: knowledge_assets
+    pydantic_model: pydantic/knowledge_asset.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ModelDeployment
+  name: Model Deployment
+  legacy_ids:
+  - dea:entity-model-deployment
+  - ModelDeployment
+  definition: A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state,
+    and health.
+  layer: L4
+  dimension: null
+  building_block: L4-model-operations
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: MDP
+  catalog_repo: dea-catalog-model-deployments
+  artifacts:
+    json_schema: schemas/entities/model-deployment.json
+    sqlite_table: model_deployments
+    pydantic_model: pydantic/model_deployment.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ModelFeedbackSignal
+  name: Model Feedback Signal
+  legacy_ids:
+  - dea:entity-model-feedback-signal
+  - ModelFeedbackSignal
+  definition: Drift, performance-degradation, or outcome-quality feedback captured from Events, used to trigger retraining
+    of an AI/ML Model.
+  layer: L4
+  dimension: null
+  building_block: L4-model-operations
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: MFS
+  catalog_repo: dea-catalog-model-deployments
+  artifacts:
+    json_schema: schemas/entities/model-feedback-signal.json
+    sqlite_table: model_deployments
+    pydantic_model: pydantic/model_feedback_signal.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:ApplicationComponent
+  name: Application Component
+  legacy_ids:
+  - dea:entity-application-component
+  - ApplicationComponent
+  definition: A deployable unit of an application system. SubClass of SolutionComponent with component_type='application'.
+  layer: L5
+  dimension: null
+  building_block: L5-systems
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: APC
+  catalog_repo: dea-catalog-application-components
+  artifacts:
+    json_schema: schemas/entities/application-component.json
+    sqlite_table: application_components
+    pydantic_model: pydantic/application_component.py
+    ts_interface: null
+- id: dea:API
+  name: API
+  legacy_ids:
+  - dea:entity-api
+  definition: A contract defining the request/response shape of a service interface.
+  layer: L5
+  dimension: null
+  building_block: L5-integration
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: API
+  catalog_repo: dea-catalog-api-contracts
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:InfrastructureComponent
+  name: Infrastructure Component
+  legacy_ids:
+  - dea:entity-infrastructure-component
+  - InfrastructureComponent
+  definition: An IaC-managed resource that hosts solution components. SubClass of SolutionComponent with component_type='infrastructure'.
+  layer: L5
+  dimension: null
+  building_block: L5-infrastructure
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: IFC
+  catalog_repo: dea-catalog-application-components
+  artifacts:
+    json_schema: schemas/entities/infrastructure-component.json
+    sqlite_table: infrastructure_components
+    pydantic_model: pydantic/infrastructure_component.py
+    ts_interface: null
+- id: dea:IntegrationComponent
+  name: Integration Component
+  legacy_ids:
+  - dea:entity-integration-component
+  - IntegrationComponent
+  definition: A component that bridges systems via APIs, queues, file transfers. SubClass of SolutionComponent with component_type='integration'.
+  layer: L5
+  dimension: null
+  building_block: L5-integration
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: IGC
+  catalog_repo: dea-catalog-application-components
+  artifacts:
+    json_schema: schemas/entities/integration-component.json
+    sqlite_table: integration_components
+    pydantic_model: pydantic/integration_component.py
+    ts_interface: null
+- id: dea:PlatformService
+  name: Platform Service
+  legacy_ids:
+  - dea:entity-platform-service
+  definition: A shared infrastructure or runtime service consumed by multiple application components.
+  layer: L5
+  dimension: null
+  building_block: L5-infrastructure
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: PS
+  catalog_repo: dea-catalog-platform-services
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:SystemFunction
+  name: System Function
+  legacy_ids:
+  - dea:entity-system-function
+  definition: A functional capability exposed by a single application or system.
+  layer: L5
+  dimension: null
+  building_block: L5-systems
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: SF
+  catalog_repo: dea-catalog-system-functions
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+- id: dea:Technology
+  name: Technology
+  legacy_ids:
+  - dea:entity-technology
+  definition: A technology choice (language, framework, runtime, database) governed via Guardrails, motivated by Tenets.
+  layer: L5
+  dimension: null
+  building_block: L5-technology
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: TEC
+  catalog_repo: dea-catalog-patterns
+  artifacts:
+    json_schema: schemas/entities/technology.json
+    sqlite_table: technologies
+    pydantic_model: pydantic/technology.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:Concept
+  name: Concept
+  legacy_ids:
+  - dea:entity-concept
+  definition: 'A canonical, definable unit of meaning (business term or classification node) that other entities link to via
+    defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not
+    a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.
+
+    '
+  layer: null
+  dimension: semantic-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: CON
+  catalog_repo: dea-catalog-concepts
+  artifacts:
+    json_schema: schemas/entities/concept.json
+    sqlite_table: concepts
+    pydantic_model: pydantic/concept.py
+    ts_interface: typescript/src/interfaces.ts
+- id: dea:PerformanceMetric
+  name: Performance Metric
+  legacy_ids:
+  - dea:entity-metric
+  - Metric
+  definition: 'A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance
+    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0 — belongs to orthogonal_allocators.measurement-dimension
+    instead (ADR-0002 D1).
+
+    '
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: existing
+  class_alias: MTR
+  catalog_repo: dea-catalog-metrics
+  artifacts:
+    json_schema: schemas/entities/metric.json
+    sqlite_table: metrics
+    pydantic_model: pydantic/metric.py
+    ts_interface: typescript/src/interfaces.ts
+relationships:
+- id: dea:aggregation
+  name: aggregation
+  vocabulary: structural
+  definition: Whole-part grouping where parts can exist independently of the whole.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:BusinessCapability
+  - dea:EcosystemPlatform
+  - dea:ValueStream
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessFunction
+  - dea:EcosystemActor
+  observed_labels:
+  - grouped by
+  - hosts
+  - traverses
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:association
+  name: association
+  vocabulary: structural
+  definition: Loose semantic link between two entities with no ownership or direction semantics.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:Actor
+  - dea:EcosystemActor
+  - dea:Stakeholder
+  target:
+  - dea:BusinessProcess
+  - dea:CollaborationAgreement
+  - dea:StrategicObjective
+  observed_labels:
+  - engages in
+  - influences
+  - performs
+  - served by
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:composition
+  name: composition
+  vocabulary: structural
+  definition: Strong whole-part containment; parts are owned by and exist within the whole.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:Blueprint
+  - dea:DataEntity
+  - dea:ModelDeployment
+  - dea:SystemFunction
+  target:
+  - dea:ApplicationComponent
+  - dea:ArchitecturePattern
+  - dea:DataProduct
+  observed_labels:
+  - composed of
+  - curated into
+  - hosted by
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:dependency
+  name: dependency
+  vocabulary: structural
+  definition: One entity requires or relies on another for its function or definition.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessService
+  - dea:ChangeInitiative
+  - dea:Event
+  - dea:Experiment
+  - dea:FinancialResource
+  - dea:InformationAsset
+  - dea:JourneyTouchpoint
+  - dea:KnowledgeAsset
+  - dea:ModelFeedbackSignal
+  - dea:PhysicalResource
+  - dea:Risk
+  - dea:Signal
+  - dea:Skill
+  - dea:Technology
+  - dea:TechnologyRadarEntry
+  - dea:Tenet
+  - dea:ValueExchange
+  target:
+  - dea:AIMLModel
+  - dea:Actor
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:DataEntity
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:Event
+  - dea:Experiment
+  - dea:Guardrail
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:PlatformService
+  - dea:Role
+  - dea:SystemFunction
+  - dea:Tenet
+  observed_labels:
+  - authenticates
+  - captured from
+  - carries payload of
+  - contextualized from
+  - deployed on
+  - derived from
+  - enables
+  - enhances / automates
+  - evaluated via
+  - exposes
+  - funds
+  - implements
+  - informs
+  - produces / consumes
+  - required by
+  - targets
+  - threatens
+  - trained on
+  - transports (payload)
+  - triggers
+  - triggers retraining of
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:flow
+  name: flow
+  vocabulary: structural
+  definition: Movement of information, material, control, or value from one entity to another.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:API
+  - dea:InformationAsset
+  - dea:SystemFunction
+  - dea:ValueExchange
+  - dea:ValueStream
+  target:
+  - dea:Actor
+  - dea:DataEntity
+  - dea:Event
+  - dea:JourneyTouchpoint
+  observed_labels:
+  - consumed by
+  - crosses boundary at
+  - experienced via
+  - publishes / subscribes
+  - serves / exchanges
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:governance
+  name: governance
+  vocabulary: structural
+  definition: One entity directs, constrains, or oversees another.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:AIMLModel
+  - dea:BusinessCapability
+  - dea:BusinessFunction
+  - dea:ChangeInitiative
+  - dea:CollaborationAgreement
+  - dea:Concept
+  - dea:Control
+  - dea:DataEntity
+  - dea:Guardrail
+  - dea:IntangibleResource
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:Regulation
+  - dea:StrategicObjective
+  - dea:SystemFunction
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:Control
+  - dea:InformationClass
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:PerformanceMetric
+  - dea:Risk
+  - dea:SolutionComponent
+  - dea:Technology
+  - dea:ValueExchange
+  observed_labels:
+  - classified by
+  - custodian of
+  - defines
+  - drives
+  - evaluated by
+  - funded by
+  - funds
+  - governs
+  - mandates
+  - measured by
+  - mitigates
+  - owned by
+  - protects
+  - subject to (governed_by)
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:realization
+  name: realization
+  vocabulary: structural
+  definition: One entity delivers, implements, or makes concrete another (typically more abstract) entity.
+  direction: directed
+  cardinality: 1:0..N
+  source:
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:EcosystemActor
+  - dea:EcosystemPlatform
+  - dea:Guardrail
+  - dea:ModelDeployment
+  - dea:Role
+  - dea:SystemFunction
+  - dea:TechnologyRadarEntry
+  target:
+  - dea:AIMLModel
+  - dea:API
+  - dea:Actor
+  - dea:BusinessProcess
+  - dea:Control
+  - dea:DataEntity
+  - dea:DigitalIdentity
+  - dea:SystemFunction
+  - dea:Technology
+  observed_labels:
+  - automated by
+  - digitized as
+  - exposed via
+  - fulfilled by
+  - graduates to
+  - implemented by
+  - implements
+  - instance of
+  - represented by
+  status: normative
+  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
+    be formalized under CR-2.
+- id: dea:maps-to
+  name: mapsTo
+  vocabulary: instance
+  definition: General-purpose cross-catalog mapping between any two entities.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:Entity
+  target:
+  - dea:Entity
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:realizes
+  name: realizes
+  vocabulary: instance
+  definition: A SolutionComponent or BusinessProcess delivers a BusinessCapability.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:SolutionComponent
+  - dea:BusinessProcess
+  target:
+  - dea:BusinessCapability
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:implements
+  name: implements
+  vocabulary: instance
+  definition: An ArchitecturePattern or SolutionComponent implements a Guardrail.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:ArchitecturePattern
+  - dea:SolutionComponent
+  target:
+  - dea:Guardrail
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:influenced-by
+  name: influencedBy
+  vocabulary: instance
+  definition: An entity is governed or shaped by a Tenet.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:Entity
+  target:
+  - dea:Tenet
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:decomposes
+  name: decomposes
+  vocabulary: instance
+  definition: A parent BusinessCapability breaks down into child BusinessCapabilities.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:BusinessCapability
+  target:
+  - dea:BusinessCapability
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:orchestrates
+  name: orchestrates
+  vocabulary: instance
+  definition: A parent BusinessProcess coordinates child BusinessProcesses.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:BusinessProcess
+  target:
+  - dea:BusinessProcess
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:consumes
+  name: consumes
+  vocabulary: instance
+  definition: A SolutionComponent uses an external BusinessService.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:SolutionComponent
+  target:
+  - dea:BusinessService
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:provides
+  name: provides
+  vocabulary: instance
+  definition: A SolutionComponent or Actor provides a BusinessService or BusinessCapability.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:SolutionComponent
+  - dea:Actor
+  target:
+  - dea:BusinessService
+  - dea:BusinessCapability
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:governs
+  name: governs
+  vocabulary: instance
+  definition: A Tenet or Guardrail governs an entity.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:Tenet
+  - dea:Guardrail
+  target:
+  - dea:Entity
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.
+- id: dea:measured-by
+  name: measuredBy
+  vocabulary: instance
+  definition: A PerformanceMetric measures an entity's performance, health, or maturity.
+  direction: directed
+  cardinality: 0..N:0..N
+  source:
+  - dea:Entity
+  target:
+  - dea:PerformanceMetric
+  status: normative
+  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
+    unification under CR-2.

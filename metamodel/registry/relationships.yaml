@@ -1,0 +1,243 @@
+# Relationship Registry (CR-1.5) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
+registry_version: 0.6.0
+relationships:
+- id: dea:aggregation
+  name: aggregation
+  vocabulary: structural
+  source:
+  - dea:BusinessCapability
+  - dea:EcosystemPlatform
+  - dea:ValueStream
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessFunction
+  - dea:EcosystemActor
+  status: normative
+- id: dea:association
+  name: association
+  vocabulary: structural
+  source:
+  - dea:Actor
+  - dea:EcosystemActor
+  - dea:Stakeholder
+  target:
+  - dea:BusinessProcess
+  - dea:CollaborationAgreement
+  - dea:StrategicObjective
+  status: normative
+- id: dea:composition
+  name: composition
+  vocabulary: structural
+  source:
+  - dea:Blueprint
+  - dea:DataEntity
+  - dea:ModelDeployment
+  - dea:SystemFunction
+  target:
+  - dea:ApplicationComponent
+  - dea:ArchitecturePattern
+  - dea:DataProduct
+  status: normative
+- id: dea:dependency
+  name: dependency
+  vocabulary: structural
+  source:
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessService
+  - dea:ChangeInitiative
+  - dea:Event
+  - dea:Experiment
+  - dea:FinancialResource
+  - dea:InformationAsset
+  - dea:JourneyTouchpoint
+  - dea:KnowledgeAsset
+  - dea:ModelFeedbackSignal
+  - dea:PhysicalResource
+  - dea:Risk
+  - dea:Signal
+  - dea:Skill
+  - dea:Technology
+  - dea:TechnologyRadarEntry
+  - dea:Tenet
+  - dea:ValueExchange
+  target:
+  - dea:AIMLModel
+  - dea:Actor
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:DataEntity
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:Event
+  - dea:Experiment
+  - dea:Guardrail
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:PlatformService
+  - dea:Role
+  - dea:SystemFunction
+  - dea:Tenet
+  status: normative
+- id: dea:flow
+  name: flow
+  vocabulary: structural
+  source:
+  - dea:API
+  - dea:InformationAsset
+  - dea:SystemFunction
+  - dea:ValueExchange
+  - dea:ValueStream
+  target:
+  - dea:Actor
+  - dea:DataEntity
+  - dea:Event
+  - dea:JourneyTouchpoint
+  status: normative
+- id: dea:governance
+  name: governance
+  vocabulary: structural
+  source:
+  - dea:AIMLModel
+  - dea:BusinessCapability
+  - dea:BusinessFunction
+  - dea:ChangeInitiative
+  - dea:CollaborationAgreement
+  - dea:Concept
+  - dea:Control
+  - dea:DataEntity
+  - dea:Guardrail
+  - dea:IntangibleResource
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:Regulation
+  - dea:StrategicObjective
+  - dea:SystemFunction
+  target:
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:Control
+  - dea:InformationClass
+  - dea:InvestmentInitiative
+  - dea:OrganizationalUnit
+  - dea:PerformanceMetric
+  - dea:Risk
+  - dea:SolutionComponent
+  - dea:Technology
+  - dea:ValueExchange
+  status: normative
+- id: dea:realization
+  name: realization
+  vocabulary: structural
+  source:
+  - dea:BusinessCapability
+  - dea:BusinessObject
+  - dea:BusinessProcess
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:EcosystemActor
+  - dea:EcosystemPlatform
+  - dea:Guardrail
+  - dea:ModelDeployment
+  - dea:Role
+  - dea:SystemFunction
+  - dea:TechnologyRadarEntry
+  target:
+  - dea:AIMLModel
+  - dea:API
+  - dea:Actor
+  - dea:BusinessProcess
+  - dea:Control
+  - dea:DataEntity
+  - dea:DigitalIdentity
+  - dea:SystemFunction
+  - dea:Technology
+  status: normative
+- id: dea:maps-to
+  name: mapsTo
+  vocabulary: instance
+  source:
+  - dea:Entity
+  target:
+  - dea:Entity
+  status: normative
+- id: dea:realizes
+  name: realizes
+  vocabulary: instance
+  source:
+  - dea:SolutionComponent
+  - dea:BusinessProcess
+  target:
+  - dea:BusinessCapability
+  status: normative
+- id: dea:implements
+  name: implements
+  vocabulary: instance
+  source:
+  - dea:ArchitecturePattern
+  - dea:SolutionComponent
+  target:
+  - dea:Guardrail
+  status: normative
+- id: dea:influenced-by
+  name: influencedBy
+  vocabulary: instance
+  source:
+  - dea:Entity
+  target:
+  - dea:Tenet
+  status: normative
+- id: dea:decomposes
+  name: decomposes
+  vocabulary: instance
+  source:
+  - dea:BusinessCapability
+  target:
+  - dea:BusinessCapability
+  status: normative
+- id: dea:orchestrates
+  name: orchestrates
+  vocabulary: instance
+  source:
+  - dea:BusinessProcess
+  target:
+  - dea:BusinessProcess
+  status: normative
+- id: dea:consumes
+  name: consumes
+  vocabulary: instance
+  source:
+  - dea:SolutionComponent
+  target:
+  - dea:BusinessService
+  status: normative
+- id: dea:provides
+  name: provides
+  vocabulary: instance
+  source:
+  - dea:SolutionComponent
+  - dea:Actor
+  target:
+  - dea:BusinessService
+  - dea:BusinessCapability
+  status: normative
+- id: dea:governs
+  name: governs
+  vocabulary: instance
+  source:
+  - dea:Tenet
+  - dea:Guardrail
+  target:
+  - dea:Entity
+  status: normative
+- id: dea:measured-by
+  name: measuredBy
+  vocabulary: instance
+  source:
+  - dea:Entity
+  target:
+  - dea:PerformanceMetric
+  status: normative

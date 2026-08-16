@@ -1,0 +1,28 @@
+# Metamodel Manifest (CR-1.2) — machine-readable declaration of the canonical model
+metamodel:
+  id: opendea
+  name: OpenDEA Metamodel
+  version: 0.6.0
+  status: draft
+  normative_source:
+    path: metamodel/dea-metamodel.yaml
+  namespace:
+    uri: https://technehub-labs.github.io/dea-metamodel/
+  compatibility:
+    minimum_viewer_version: 0.1.0
+    minimum_schema_version: 0.6.0
+  registries:
+    entities: metamodel/registry/entities.yaml
+    relationships: metamodel/registry/relationships.yaml
+  generated_artifacts:
+  - viewer/entity-graph.json
+  - viewer/metamodel.svg
+  - schemas/entities/*.json
+  - schemas/relationships/relationship-instance.json
+  - sqlite/schema.sql
+  - typescript/src/interfaces.ts
+  - pydantic/*.py
+  - ttl/dea-metamodel-ontology.ttl
+  change_control:
+    policy: Every metamodel modification requires a CR record in change-requests/ following docs/versioning.md.
+    active_freeze: No new entity types until CR-3 closes (CR-1.6 semantic expansion freeze).

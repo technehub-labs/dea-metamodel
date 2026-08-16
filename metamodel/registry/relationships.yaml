@@ -1,6 +1,5 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-# CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
-registry_version: 0.7.0
+registry_version: 0.8.0
 relationships:
 - id: dea:composes
   name: Composes
@@ -16,6 +15,7 @@ relationships:
   - dea:SolutionComponent
   - dea:SystemFunction
   target:
+  - dea:Actor
   - dea:ApplicationComponent
   - dea:ArchitecturePattern
   - dea:BusinessCapability
@@ -94,6 +94,7 @@ relationships:
   - dea:SystemFunction
   target:
   - dea:BusinessCapability
+  - dea:BusinessObject
   - dea:BusinessService
   inverse: dea:realized-by
   status: normative
@@ -453,6 +454,7 @@ relationships:
   - dea:BusinessCapability
   - dea:BusinessFunction
   - dea:BusinessObject
+  - dea:BusinessProcess
   - dea:BusinessService
   - dea:DataProduct
   - dea:InformationAsset
@@ -521,6 +523,7 @@ relationships:
   - dea:BusinessProcess
   - dea:DataEntity
   - dea:DigitalIdentity
+  - dea:EcosystemActor
   inverse: dea:represented-by
   status: normative
   lifecycle: active
@@ -538,6 +541,7 @@ relationships:
   target:
   - dea:BusinessCapability
   - dea:BusinessProcess
+  - dea:Entity
   - dea:Guardrail
   - dea:InvestmentInitiative
   - dea:StrategicObjective
@@ -766,6 +770,7 @@ relationships:
   category: dependency
   source:
   - dea:AIMLModel
+  - dea:Actor
   - dea:ApplicationComponent
   - dea:FinancialResource
   - dea:InvestmentInitiative

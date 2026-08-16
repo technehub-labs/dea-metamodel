@@ -18,6 +18,10 @@ class ApplicationComponent(Entity):
     """A deployable unit of an application system (a service, batch job, scheduled task). A subClass of SolutionComponent with component_type='application'. Catalog: technehub-labs/dea-catalog-application-components."""
 
     type: Literal['ApplicationComponent']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     deployment_unit: Optional[Literal['service', 'batch-job', 'scheduled-task', 'event-handler', 'lambda', 'daemon']] = None
     """How this application component is deployed and executed."""
     runtime: Optional[str] = None

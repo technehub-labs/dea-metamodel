@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/process.json",
-  "metamodel_version": "0.7.0",
+  "metamodel_version": "0.8.0",
   "title": "Process",
   "description": "A business or operational process that delivers value. Classified by intent (operational/support/management) and audience (ECF domain whose work this most advances); stakeholders and actors are referenced from typed catalogs.",
   "type": "object",
@@ -38,6 +38,36 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "process_intent": {
       "type": "string",
       "enum": [
@@ -60,11 +90,6 @@
       ],
       "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."
     },
-    "owner": {
-      "type": "string",
-      "deprecated": true,
-      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
-    },
     "trigger": {
       "type": "string",
       "maxLength": 500,
@@ -74,19 +99,6 @@
       "type": "string",
       "maxLength": 500,
       "description": "Expected result of process completion."
-    },
-    "parent_process": {
-      "type": "string",
-      "deprecated": true,
-      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
-    },
-    "child_processes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "deprecated": true,
-      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "capabilities_delivered": {
       "type": "array",
@@ -111,20 +123,6 @@
       "items": {
         "type": "string"
       }
-    },
-    "stakeholders": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to entries in technehub-labs/dea-catalog-stakeholders. Multi-valued — a process can serve multiple stakeholders; process_audience identifies the primary one. Stakeholders are external or affected parties, NOT internal performers."
-    },
-    "actors": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to entries in technehub-labs/dea-catalog-actors. Multi-valued — actors perform the process (humans, teams, systems, AI agents)."
     },
     "relationships": {
       "type": "array",

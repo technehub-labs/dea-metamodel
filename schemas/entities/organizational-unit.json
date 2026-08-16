@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/organizational-unit.json",
-  "metamodel_version": "0.7.0",
+  "metamodel_version": "0.8.0",
   "title": "OrganizationalUnit",
   "description": "A unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects. Classified by structural type, vertical scope, and ECF coordinates. Members (actors) and served stakeholders are referenced from typed catalogs. Catalog: technehub-labs/dea-catalog-organizational-units.",
   "type": "object",
@@ -39,6 +39,36 @@
     "version": {
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
     },
     "ou_type": {
       "type": "string",
@@ -101,54 +131,6 @@
         "retire"
       ],
       "description": "The lifecycle stage this unit primarily operates in. Optional."
-    },
-    "parent_ou": {
-      "type": "string",
-      "description": "Reference to the parent OrganizationalUnit (one level up in the hierarchy). Forms a forest of trees under the enterprise root. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "child_ous": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to child OrganizationalUnits. Inverse of parent_ou — both are maintained for query convenience. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "owned_capabilities": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to Business Capabilities in technehub-labs/dea-catalog-business-capabilities that this OrganizationalUnit owns (is accountable for delivering)."
-    },
-    "owned_processes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to Processes in technehub-labs/dea-catalog-processes that this OrganizationalUnit runs (is accountable for executing)."
-    },
-    "owned_objects": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to Business Objects in technehub-labs/dea-catalog-business-objects for which this OrganizationalUnit is custodian (the data/system-of-record owner)."
-    },
-    "actors": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to entries in technehub-labs/dea-catalog-actors that belong to this OrganizationalUnit. May overlap with parent_ou's actors — membership is the canonical source of truth."
-    },
-    "stakeholders": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "References to entries in technehub-labs/dea-catalog-stakeholders that this OrganizationalUnit primarily serves."
     },
     "cost_center": {
       "type": "string",

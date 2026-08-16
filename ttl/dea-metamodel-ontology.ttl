@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.7.0
+# Version: 0.8.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.7.0" ;
+    owl:versionInfo "0.8.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;

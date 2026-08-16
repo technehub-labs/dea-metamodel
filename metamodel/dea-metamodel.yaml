@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.7.0
+  version: 0.8.0
   status: draft
   normative: true
   namespace:
@@ -1125,6 +1125,7 @@ relationships:
     - dea:SystemFunction
   target:
     types:
+    - dea:Actor
     - dea:ApplicationComponent
     - dea:ArchitecturePattern
     - dea:BusinessCapability
@@ -1270,6 +1271,7 @@ relationships:
   target:
     types:
     - dea:BusinessCapability
+    - dea:BusinessObject
     - dea:BusinessService
   cardinality:
     source: 0..*
@@ -1928,6 +1930,7 @@ relationships:
     - dea:BusinessCapability
     - dea:BusinessFunction
     - dea:BusinessObject
+    - dea:BusinessProcess
     - dea:BusinessService
     - dea:DataProduct
     - dea:InformationAsset
@@ -2048,6 +2051,7 @@ relationships:
     - dea:BusinessProcess
     - dea:DataEntity
     - dea:DigitalIdentity
+    - dea:EcosystemActor
   cardinality:
     source: 0..*
     target: 0..*
@@ -2081,6 +2085,7 @@ relationships:
     types:
     - dea:BusinessCapability
     - dea:BusinessProcess
+    - dea:Entity
     - dea:Guardrail
     - dea:InvestmentInitiative
     - dea:StrategicObjective
@@ -2522,6 +2527,7 @@ relationships:
   source:
     types:
     - dea:AIMLModel
+    - dea:Actor
     - dea:ApplicationComponent
     - dea:FinancialResource
     - dea:InvestmentInitiative

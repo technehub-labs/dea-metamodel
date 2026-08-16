@@ -1,5 +1,5 @@
 -- DEA Metamodel SQLite Schema
--- Version: 0.7.0
+-- Version: 0.8.0
 -- Derived from normative source: metamodel/dea-metamodel.yaml (CR-001). Do not edit semantics here.
 -- All tables include source tracking and soft-delete for auditability.
 
@@ -78,12 +78,12 @@ CREATE TABLE blueprints (
 );
 
 -- Capabilities
+-- CR-003 (CR-3B): maturity_level removed — intrinsic maturity on architectural
+-- entities is an anti-pattern; maturity moves to the Assessment model (CR-5).
 CREATE TABLE capabilities (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     capability_type TEXT CHECK(capability_type IN ('business','technical','hybrid')),
-    domain          TEXT,
-    maturity_level  TEXT CHECK(maturity_level IN ('nascent','emerging','defined','managed','optimizing')),
-    owner           TEXT
+    domain          TEXT
 );
 
 -- Processes
@@ -96,7 +96,6 @@ CREATE TABLE processes (
     process_audience    TEXT NOT NULL CHECK(process_audience IN (
                             'governance-existence','supply-resources','people-organization',
                             'customer-demand','product-offering','operations-delivery','finance-value')),
-    owner               TEXT,
     trigger             TEXT,
     outcome             TEXT
 );
@@ -118,8 +117,7 @@ CREATE TABLE business_objects (
                             'conceive','design','build','activate','operate','improve','retire')),
     current_state       TEXT,
     state_history_json  TEXT,    -- JSON array of BusinessObjectStateTransition
-    identity_json       TEXT,    -- JSON BusinessObjectIdentity { primary_id, external_ids }
-    owner               TEXT
+    identity_json       TEXT     -- JSON BusinessObjectIdentity { primary_id, external_ids }
 );
 CREATE INDEX ix_business_objects_ecf ON business_objects(ecf_domain, ecf_stage);
 CREATE INDEX ix_business_objects_class ON business_objects(object_class);
@@ -128,8 +126,8 @@ CREATE INDEX ix_business_objects_class ON business_objects(object_class);
 -- Owner of capabilities, runner of processes, custodian of business objects.
 -- (ou_type, ou_scope, ou_lifecycle) classify the structural / temporal shape;
 -- ecf_domain + ecf_stage are the optional primary coordinates when the unit
--- primarily serves one cell of the ECF matrix. Hierarchical structure via
--- parent_ou / child_ous forms a forest under the enterprise root.
+-- primarily serves one cell of the ECF matrix. CR-003: hierarchy moved to
+-- composes relationship instances (parent_ou/child_ous removed).
 CREATE TABLE organizational_units (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     ou_type             TEXT NOT NULL CHECK(ou_type IN (
@@ -146,18 +144,15 @@ CREATE TABLE organizational_units (
                             'customer-demand','product-offering','operations-delivery','finance-value')),
     ecf_stage           TEXT CHECK(ecf_stage IN (
                             'conceive','design','build','activate','operate','improve','retire')),
-    parent_ou           TEXT,    -- self-reference; forest under enterprise root
     cost_center         TEXT,
     head_count          INTEGER
 );
 CREATE INDEX ix_organizational_units_type ON organizational_units(ou_type);
-CREATE INDEX ix_organizational_units_parent ON organizational_units(parent_ou);
 
 -- Business Services
 CREATE TABLE business_services (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     service_type    TEXT CHECK(service_type IN ('internal','external','partner','public')),
-    owner           TEXT,
     sla_json        TEXT
 );
 
@@ -166,7 +161,6 @@ CREATE TABLE solution_components (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     component_type      TEXT CHECK(component_type IN ('application','infrastructure','integration')),
     deployment_model    TEXT CHECK(deployment_model IN ('on-premise','iaas','paas','saas','faas','hybrid','multi-cloud')),
-    owner               TEXT,
     technology_stack    TEXT,                      -- JSON array of Technology IDs
     security_classification TEXT CHECK(security_classification IN ('public','internal','confidential','restricted'))
 );
@@ -180,8 +174,7 @@ CREATE TABLE metrics (
     baseline_value      TEXT,
     target_value        TEXT,
     thresholds_json     TEXT,
-    frequency           TEXT CHECK(frequency IN ('realtime','hourly','daily','weekly','monthly','quarterly')),
-    owner               TEXT
+    frequency           TEXT CHECK(frequency IN ('realtime','hourly','daily','weekly','monthly','quarterly'))
 );
 
 -- Concepts (v0.4.0 — merged from glossary_terms + taxonomy_nodes, ADR-0004 D2)
@@ -190,7 +183,6 @@ CREATE TABLE concepts (
     definition      TEXT NOT NULL,
     abbreviation    TEXT,
     synonyms        TEXT,                          -- JSON array
-    parent_concept  TEXT,                          -- ID of parent Concept (NULL = root)
     usage_context   TEXT
 );
 
@@ -310,5 +302,18 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.7.0'),
+    ('metamodel_version', '0.8.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
+
+-- ═══════════════════════════════════════════════════════════
+-- External references (CR-3P): external identifiers are separate from OpenDEA identity
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS entity_external_references (
+    entity_id       TEXT NOT NULL REFERENCES entities(id) ON DELETE CASCADE,
+    system          TEXT NOT NULL,
+    identifier      TEXT NOT NULL,
+    UNIQUE(entity_id, system, identifier)
+);
+
+CREATE INDEX IF NOT EXISTS ix_ext_ref ON entity_external_references(system, identifier);

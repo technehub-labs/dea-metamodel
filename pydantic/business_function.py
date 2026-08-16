@@ -18,7 +18,9 @@ class BusinessFunction(Entity):
     """A grouping of business capabilities by organisational function; owned by an organizational unit. OpenDEAM v0.2.0, L3 Business Operating Model / Work Organization. Replaces the v2 CAP→OU direct edge: CAP → BF → OU (capabilities grouped by function, function owned by an organizational unit)."""
 
     type: Literal['BusinessFunction']
-    grouped_capabilities: Optional[list[str]] = None
-    """References to the Business Capabilities grouped by this function (CAP → BF)."""
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     owning_unit_ref: Optional[str] = None
     """Reference to the Organizational Unit that owns this function (BF → OU, cardinality 1:1)."""

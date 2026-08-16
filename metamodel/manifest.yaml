@@ -2,7 +2,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.7.0
+  version: 0.8.0
   status: draft
   normative_source:
     path: metamodel/dea-metamodel.yaml
@@ -10,10 +10,16 @@ metamodel:
     uri: https://technehub-labs.github.io/dea-metamodel/
   compatibility:
     minimum_viewer_version: 0.1.0
-    minimum_schema_version: 0.7.0
+    minimum_schema_version: 0.8.0
   registries:
     entities: metamodel/registry/entities.yaml
     relationships: metamodel/registry/relationships.yaml
+  vocabularies:
+    lifecycle: metamodel/vocabularies/lifecycle.yaml
+    classifications: metamodel/vocabularies/classifications.yaml
+  migration:
+    relationship_crosswalk: metamodel/migration/relationship-crosswalk.yaml
+    entity_normalization: metamodel/migration/entity-normalization.yaml
   generated_artifacts:
   - viewer/entity-graph.json
   - viewer/metamodel.svg

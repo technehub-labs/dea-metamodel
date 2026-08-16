@@ -18,6 +18,10 @@ class EcosystemPlatform(Entity):
     """A standing multi-sided structure the enterprise hosts for repeated exchange among many ecosystem actors (marketplace, partner API program, developer portal). OpenDEAM v0.3.0 (ADR-0003), L1/Ecosystem Platforms."""
 
     type: Literal['EcosystemPlatform']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     platform_kind: Optional[Literal['marketplace', 'developer-portal', 'partner-api-program', 'data-exchange']] = None
     """The form of multi-sided exchange the platform hosts."""
     participant_count: Optional[int] = None

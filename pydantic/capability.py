@@ -18,21 +18,11 @@ class Capability(Entity):
     """A business or technical capability that the enterprise possesses or requires."""
 
     type: Literal['Capability']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     capability_type: Literal['business', 'technical', 'hybrid']
     """Nature of the capability."""
     domain: Optional[str] = None
     """Business domain this capability belongs to."""
-    maturity_level: Literal['nascent', 'emerging', 'defined', 'managed', 'optimizing']
-    """CMMI-style maturity assessment."""
-    owner: Optional[str] = None
-    """Role or team responsible for this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    parent_capability: Optional[str] = None
-    """ID of parent Capability in the capability hierarchy. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    child_capabilities: Optional[list[str]] = None
-    """IDs of child Capabilities. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    realized_by: Optional[list[str]] = None
-    """SolutionComponent IDs that realize this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    processes: Optional[list[str]] = None
-    """Process IDs that deliver this capability."""
-    metrics: Optional[list[str]] = None
-    """Metric IDs that measure this capability."""

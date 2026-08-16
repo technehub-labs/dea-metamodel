@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/capability.json",
-  "metamodel_version": "0.7.0",
+  "metamodel_version": "0.8.0",
   "title": "Capability",
   "description": "A business or technical capability that the enterprise possesses or requires.",
   "type": "object",
@@ -38,6 +38,36 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "capability_type": {
       "type": "string",
       "enum": [
@@ -58,57 +88,6 @@
           "HR"
         ]
       ]
-    },
-    "maturity_level": {
-      "type": "string",
-      "enum": [
-        "nascent",
-        "emerging",
-        "defined",
-        "managed",
-        "optimizing"
-      ],
-      "description": "CMMI-style maturity assessment."
-    },
-    "owner": {
-      "type": "string",
-      "description": "Role or team responsible for this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "parent_capability": {
-      "type": "string",
-      "description": "ID of parent Capability in the capability hierarchy. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "child_capabilities": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "IDs of child Capabilities. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "realized_by": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "SolutionComponent IDs that realize this capability. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003.",
-      "deprecated": true
-    },
-    "processes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Process IDs that deliver this capability."
-    },
-    "metrics": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Metric IDs that measure this capability."
     },
     "relationships": {
       "type": "array",

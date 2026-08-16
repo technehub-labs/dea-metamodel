@@ -18,7 +18,9 @@ class ModelFeedbackSignal(Entity):
     """Drift, performance-degradation, or outcome-quality feedback captured from Events, used to trigger retraining of an AI/ML Model. OpenDEAM v0.3.0 (ADR-0003), L4/Model Operations."""
 
     type: Literal['ModelFeedbackSignal']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     signal_kind: Optional[Literal['drift', 'performance-degradation', 'outcome-quality']] = None
     """Discriminator within dea-catalog-model-deployments (ADR-0002 D6)."""
-    derived_from: Optional[list[str]] = None
-    """Event/streams the feedback is captured from. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

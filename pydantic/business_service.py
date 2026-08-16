@@ -18,12 +18,10 @@ class BusinessService(Entity):
     """A service exposed to the business or to external consumers."""
 
     type: Literal['BusinessService']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     service_type: Literal['internal', 'external', 'partner', 'public']
     """Service exposure scope."""
-    owner: Optional[str] = None
-    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    provided_by: Optional[list[str]] = None
-    """SolutionComponent IDs that provide this service. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    consumed_by: Optional[list[str]] = None
-    """SolutionComponent or Process IDs that consume this service. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     sla: Optional[dict[str, Any]] = None

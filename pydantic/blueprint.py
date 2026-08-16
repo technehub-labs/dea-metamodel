@@ -18,6 +18,10 @@ class Blueprint(Entity):
     """A composed, reusable target-state design assembled from Architecture Patterns, providing a template for solution design. Renamed from Reference Model in v0.4.0 (ADR-0004 D5). Catalog: technehub-labs/dea-catalog-blueprints."""
 
     type: Literal['Blueprint']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     domain: Literal['integration', 'data', 'application', 'infrastructure', 'security', 'business', 'technology']
     """Primary domain."""
     abstraction_level: Literal['conceptual', 'logical', 'physical']
@@ -25,13 +29,3 @@ class Blueprint(Entity):
     scope: Optional[str] = None
     """What the blueprint covers and boundaries."""
     layers: Optional[list[str]] = None
-    key_components: Optional[list[str]] = None
-    """SolutionComponent IDs that define this blueprint."""
-    patterns: Optional[list[str]] = None
-    """ArchitecturePattern IDs this blueprint is composed of (ADR-0004 D5)."""
-    related_blueprints: Optional[list[str]] = None
-    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    related_guardrails: Optional[list[str]] = None
-    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    related_tenets: Optional[list[str]] = None
-    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

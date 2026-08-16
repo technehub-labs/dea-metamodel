@@ -18,6 +18,10 @@ class Tenet(Entity):
     """A non-binding, human-authored belief that guides decisions (e.g. API-first, prefer managed services). Informs one or more Guardrails; enforces nothing on its own. Renamed from Principle in v0.4.0 (ADR-0004 D3). Catalog: technehub-labs/dea-catalog-tenets."""
 
     type: Literal['Tenet']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     statement: str
     """The canonical tenet statement (imperative or declarative)."""
     rationale: str
@@ -26,7 +30,3 @@ class Tenet(Entity):
     """Scope: which layers, domains, or entity types this tenet guides."""
     tier: Optional[Literal['mandatory', 'recommended', 'aspirational']] = None
     """Emphasis level of the belief. Tenets are always non-binding — enforcement lives on the Guardrails they inform (ADR-0004 D3)."""
-    informs_guardrails: Optional[list[str]] = None
-    """Guardrail IDs this tenet motivates or justifies."""
-    related_tenets: Optional[list[str]] = None
-    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

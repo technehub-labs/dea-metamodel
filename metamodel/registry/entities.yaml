@@ -1,5 +1,5 @@
-# Entity Registry (CR-1.5) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.7.0
+# Entitie Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
+registry_version: 0.8.0
 entities:
 - id: dea:Entity
   name: Entity

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/ecosystem-actor.json",
-  "metamodel_version": "0.7.0",
+  "metamodel_version": "0.8.0",
   "title": "Ecosystem Actor",
   "description": "External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner. OpenDEAM v0.2.0, L1 Ecosystem & Value Network / External Parties. Distinct from Stakeholder (affected/engaged, may be passive): an Ecosystem Actor is defined by an active value-exchange relationship.",
   "type": "object",
@@ -37,6 +37,36 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "actor_kind": {
       "type": "string",
       "enum": [
@@ -59,10 +89,6 @@
         ]
       },
       "description": "Directions of value flow between this actor and the enterprise."
-    },
-    "digital_identity_ref": {
-      "type": "string",
-      "description": "Reference to the Digital Identity representing this actor (EA → DI realization)."
     },
     "tags": {
       "type": "array",

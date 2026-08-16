@@ -18,7 +18,7 @@ class Role(Entity):
     """A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit. OpenDEAM v0.3.0 (ADR-0003), L3/People, Skills & Culture."""
 
     type: Literal['Role']
-    required_skills: Optional[list[str]] = None
-    """Skill ids required by this role."""
-    fulfilled_by: Optional[list[str]] = None
-    """Actor ids currently fulfilling this role. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""

@@ -4,6 +4,40 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [0.8.0] — 2026-08-16 — CR-003: Entity & Relationship Normalization
+
+### Removed (CR-3A — breaking for schemas, reversible via migration matrix)
+- **70 relationship-state properties removed from 25 entity schemas** — the 37
+  CR-2F-deprecated properties plus 32 ID-reference arrays (`processes`, `metrics`,
+  `owned_*`, `parties`, `mitigates`, `technology_stack`, …) and `Capability.maturity_level`.
+  Every removal has a disposition (target relationship or explicit re-assertion
+  requirement) in `metamodel/migration/entity-normalization.yaml`.
+- SQLite projection: `owner` columns (6), `parent_ou` (+index), `parent_concept`,
+  `capabilities.maturity_level` dropped.
+
+### Added
+- `lifecycle_status` on every entity schema, driven by the new centralized vocabulary
+  `metamodel/vocabularies/lifecycle.yaml` (CR-3R).
+- `external_references {system, identifier}` on every entity schema + SQLite
+  `entity_external_references` table (CR-3P) — external IDs never replace OpenDEA identity.
+- `metamodel/vocabularies/classifications.yaml` — 55 controlled classification
+  vocabularies, CI-synced against schema enums (E005).
+- Entity conformance rules E001–E010 as automated tests (suite now 48 tests).
+- `metamodel/migration/entity-normalization.yaml` (CR-3U/3V): 54 entity actions,
+  58 property dispositions, migration metadata 0.7.0 → 0.8.0 (reversible).
+
+### Changed
+- `Technology.lifecycle_status` renamed to `adoption_status` (adoption posture is a
+  classification, not the universal entity lifecycle).
+- Relationship endpoints extended (normative, MINOR): supports+Actor source,
+  realizes+BusinessObject, represents+EcosystemActor, composes+Actor,
+  owns+BusinessProcess, informs+Entity targets.
+
+### Deferred
+- Abstract entity categories (CR-3L) → CR-4 consolidation.
+- Agent as specialized entity (CR-3D) → CR-7.
+- Assessment/maturity model (CR-3B target) → CR-5.
+
 ## [0.7.0] — 2026-08-16 — CR-002: Authoritative Relationship Semantics
 
 ### Added

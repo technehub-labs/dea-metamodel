@@ -18,17 +18,15 @@ class Concept(Entity):
     """A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2) — a queryable concept graph, not a static glossary document. Dimension entity of orthogonal_allocators.semantic-dimension. Catalog: technehub-labs/dea-catalog-concepts."""
 
     type: Literal['Concept']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     definition: str
     """Canonical definition of this concept."""
     abbreviation: Optional[str] = None
     """Common abbreviation."""
     synonyms: Optional[list[str]] = None
     """Alternative names for this concept."""
-    parent_concept: Optional[Any] = None
-    """ID of the parent Concept in the concept graph (null/omitted = root). Replaces TaxonomyNode's tree structure (ADR-0004 D2). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    related_concepts: Optional[list[str]] = None
-    """IDs of related Concepts (non-hierarchical links). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
-    defines_entities: Optional[list[str]] = None
-    """Entity IDs across L1-L5 that carry defined_by pointing at this Concept."""
     usage_context: Optional[str] = None
     """When and how to use this concept."""

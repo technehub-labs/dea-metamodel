@@ -2,7 +2,7 @@
 
 > **Canonical entity definitions, relationships, and schemas for all DEA catalog repositories.**
 
-[![Metamodel Version](https://img.shields.io/badge/version-0.7.0-blue)](./VERSION)
+[![Metamodel Version](https://img.shields.io/badge/version-0.8.0-blue)](./VERSION)
 [![OpenDEAM Pin](https://img.shields.io/badge/OpenDEAM-v0.5.0-2DD4BF)](https://github.com/technehub-labs/dea-architecture-framework/tree/v0.5.0)
 [![Metamodel Schema](https://img.shields.io/badge/schema-JSON%20Schema-blue)](./schemas/)
 [![RDF Format](https://img.shields.io/badge/rdf-TTL-orange)](./ttl/)
@@ -46,8 +46,9 @@ projection, serialization, implementation, or visualization of that model.**
 | **Informative** | `docs/` narratives, `examples/`, diagrams, tutorials | Illustration only — no semantic authority |
 
 Change control: every metamodel modification requires a CR in [`change-requests/`](./change-requests/)
-following [`docs/versioning.md`](./docs/versioning.md). **Semantic expansion freeze in
-effect: no new entity types until CR-003 closes.**
+following [`docs/versioning.md`](./docs/versioning.md). The CR-1.6 semantic expansion
+freeze held through CR-003 and is now lifted — new entity types enter via the CR
+process and CR-4's core-ontology consolidation.
 
 ## Structure
 

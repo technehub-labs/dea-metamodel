@@ -18,11 +18,15 @@ class Technology(Entity):
     """A technology choice (language, framework, runtime, database, library) used by one or more solution components. Technologies are governed and standardised via the Standards + Principles catalogs. Catalog: technehub-labs/dea-catalog-patterns (shared with ArchitecturePattern)."""
 
     type: Literal['Technology']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     technology_category: Literal['language', 'framework', 'runtime', 'database', 'library', 'build-tool', 'ci-cd', 'monitoring', 'orchestration', 'platform']
     """Category of technology."""
     vendor: Optional[str] = None
     """Vendor or open-source project."""
     version_requirement: Optional[str] = None
     """Required version range."""
-    lifecycle_status: Optional[Literal['approved', 'deprecated', 'banned', 'experimental']] = None
-    """Enterprise lifecycle status."""
+    adoption_status: Optional[Literal['approved', 'deprecated', 'banned', 'experimental']] = None
+    """CR-003: renamed from lifecycle_status — this is technology ADOPTION posture, distinct from the universal entity lifecycle (CR-3R). Enterprise lifecycle status."""

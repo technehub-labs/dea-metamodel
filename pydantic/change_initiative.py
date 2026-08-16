@@ -18,9 +18,9 @@ class ChangeInitiative(Entity):
     """A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an Investment Initiative. OpenDEAM v0.3.0 (ADR-0003), L3/People, Skills & Culture."""
 
     type: Literal['ChangeInitiative']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     change_scope: Optional[Literal['skills', 'roles', 'culture', 'structure']] = None
     """Primary target of the change."""
-    targets: Optional[list[str]] = None
-    """Organizational Unit ids targeted."""
-    funded_by: Optional[str] = None
-    """Investment Initiative id funding this change. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

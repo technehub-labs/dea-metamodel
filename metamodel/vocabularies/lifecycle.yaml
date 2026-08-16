@@ -1,0 +1,17 @@
+# Lifecycle vocabulary (CR-3R) — controlled values for lifecycle_status
+vocabulary: lifecycle-status
+version: 0.8.0
+description: 'CR-3R: centralized lifecycle vocabulary for architectural entities.'
+values:
+- id: proposed
+  definition: Suggested but not yet approved.
+- id: planned
+  definition: Approved for introduction; not yet realized.
+- id: active
+  definition: In current operational use.
+- id: deprecated
+  definition: Still readable; must not be used in new models.
+- id: retired
+  definition: No longer in use; historical record only.
+notes: 'Entity-specific lifecycles may specialize (e.g. ArchitectureDecision: proposed -> approved -> superseded); specializations
+  declare their mapping here in future CRs.'

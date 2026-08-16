@@ -1,0 +1,519 @@
+# Entity Normalization Matrix (CR-3U) — produced from repository inventory, not assumed
+normalization:
+  version: 0.8.0
+  migration:
+    source_version: 0.7.0
+    target_version: 0.8.0
+    reversible: true
+    note: 'Property removals are reversible: every removed property has an explicit relationship target or a documented re-assertion
+      requirement. Instance data migrates via CR-10 tooling.'
+  entity_actions:
+  - entity: dea:Entity
+    name: Entity
+    action: retain
+    rationale: Abstract root; identity/lifecycle/external-reference base contract normalized.
+  - entity: dea:CollaborationAgreement
+    name: Collaboration Agreement
+    action: refactor
+    rationale: 'Relationship-state properties removed: parties, governs_exchanges'
+  - entity: dea:EcosystemActor
+    name: Ecosystem Actor
+    action: refactor
+    rationale: 'Relationship-state properties removed: digital_identity_ref'
+  - entity: dea:EcosystemPlatform
+    name: Ecosystem Platform
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:JourneyTouchpoint
+    name: Journey Touchpoint
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Stakeholder
+    name: Stakeholder
+    action: refactor
+    rationale: external_identifiers normalized to base external_references (CR-3P); relationship_direction removed.
+  - entity: dea:ValueExchange
+    name: Value Exchange
+    action: refactor
+    rationale: 'Relationship-state properties removed: governed_by_ref'
+  - entity: dea:ArchitecturePattern
+    name: Architecture Pattern
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Blueprint
+    name: Blueprint
+    action: refactor
+    rationale: 'Relationship-state properties removed: key_components, patterns, related_blueprints, related_guardrails, related_tenets'
+  - entity: dea:Control
+    name: Control
+    action: refactor
+    rationale: 'Relationship-state properties removed: mitigates'
+  - entity: dea:Experiment
+    name: Experiment
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Guardrail
+    name: Guardrail
+    action: refactor
+    rationale: 'Relationship-state properties removed: implements_controls, informed_by_tenets, related_guardrails'
+  - entity: dea:InvestmentInitiative
+    name: Investment Initiative
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Regulation
+    name: Regulation
+    action: refactor
+    rationale: 'Relationship-state properties removed: mandates'
+  - entity: dea:Risk
+    name: Risk
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Signal
+    name: Signal
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:StrategicObjective
+    name: Strategic Objective
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Tenet
+    name: Tenet
+    action: refactor
+    rationale: 'Relationship-state properties removed: informs_guardrails, related_tenets'
+  - entity: dea:TechnologyRadarEntry
+    name: Technology Radar Entry
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Actor
+    name: Actor
+    action: refactor
+    rationale: actor_type retained as CLASSIFICATION (CR-3D/§18); Agent specialization is CR-7 business. Role is NOT an Actor
+      subtype; Actor-fulfills-Role, Role-requires-Skill.
+  - entity: dea:BusinessFunction
+    name: Business Function
+    action: refactor
+    rationale: 'Relationship-state properties removed: grouped_capabilities'
+  - entity: dea:BusinessObject
+    name: Business Object
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:BusinessProcess
+    name: Business Process
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:BusinessService
+    name: Business Service
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:BusinessCapability
+    name: Business Capability
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:ChangeInitiative
+    name: Change Initiative
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:FinancialResource
+    name: Financial Resource
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:IntangibleResource
+    name: Intangible Resource
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:OrganizationalUnit
+    name: Organizational Unit
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:PhysicalResource
+    name: Physical Resource
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Resource
+    name: Resource
+    action: constrain
+    rationale: 'CR-3J: Resource is not a universal superclass; subtypes limited to Financial/Physical/Intangible; connections
+      via relationships (requires/consumes/controls).'
+  - entity: dea:Role
+    name: Role
+    action: refactor
+    rationale: 'Relationship-state properties removed: required_skills, fulfilled_by'
+  - entity: dea:SolutionComponent
+    name: Solution Component
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Skill
+    name: Skill
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:ValueStream
+    name: Value Stream
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:AIMLModel
+    name: AI/ML Model
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:DataEntity
+    name: Data Entity
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:DigitalIdentity
+    name: Digital Identity
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:DataProduct
+    name: Data Product
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Event
+    name: Event
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:InformationAsset
+    name: Information Asset
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:InformationClass
+    name: Information Class
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:KnowledgeAsset
+    name: Knowledge Asset
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:ModelDeployment
+    name: Model Deployment
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:ModelFeedbackSignal
+    name: Model Feedback Signal
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:ApplicationComponent
+    name: Application Component
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:API
+    name: API
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:InfrastructureComponent
+    name: Infrastructure Component
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:IntegrationComponent
+    name: Integration Component
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:PlatformService
+    name: Platform Service
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:SystemFunction
+    name: System Function
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Technology
+    name: Technology
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  - entity: dea:Concept
+    name: Concept
+    action: refactor
+    rationale: 'Relationship-state properties removed: parent_concept, related_concepts, defines_entities'
+  - entity: dea:PerformanceMetric
+    name: Performance Metric
+    action: retain
+    rationale: No duplicated relationship state; intrinsic/classification properties only.
+  property_dispositions:
+  - property: actors
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: OU membership as composition.
+  - property: actors_on_process
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: anti_patterns
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related; dedicated conflicts-with type is a CR-8 candidate.
+  - property: capabilities
+    action: remove
+    target_relationship: dea:supports
+    reverse: false
+    rationale: Actor capability contribution.
+  - property: capabilities_consumed
+    action: remove
+    target_relationship: dea:consumes
+    reverse: true
+    rationale: Capability consumes BusinessObject.
+  - property: capabilities_realized
+    action: remove
+    target_relationship: dea:realizes
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: captured_from
+    action: remove
+    target_relationship: dea:derived-from
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: child_capabilities
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: Capability hierarchy is composition.
+  - property: child_ous
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: child_processes
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: components_realizing
+    action: remove
+    target_relationship: dea:realizes
+    reverse: true
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: consumed_by
+    action: remove
+    target_relationship: dea:uses
+    reverse: true
+    rationale: Service usage, not input consumption.
+  - property: data_entities
+    action: remove
+    target_relationship: dea:represents
+    reverse: true
+    rationale: DataEntity represents BusinessObject (CR-3F).
+  - property: defines_entities
+    action: remove
+    target_relationship: dea:informs
+    reverse: false
+    rationale: Semantic-dimension grounding; Concept informs any entity.
+  - property: derived_from
+    action: remove
+    target_relationship: dea:derived-from
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: digital_identity_ref
+    action: remove
+    target_relationship: dea:represents
+    reverse: false
+    rationale: DigitalIdentity represents EcosystemActor.
+  - property: entities_measured
+    action: remove
+    target_relationship: dea:measured-by
+    reverse: true
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: events
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: Event participation semantics unresolved; re-assert explicitly.
+  - property: external_identifiers
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: 'CR-3P: normalized into base external_references {system, identifier}.'
+  - property: fulfilled_by
+    action: remove
+    target_relationship: dea:responsible-for
+    reverse: true
+    rationale: 'Role fulfilment (CR-3D: Actor-Role-Skill separation).'
+  - property: funded_by
+    action: remove
+    target_relationship: dea:supports
+    reverse: true
+    rationale: Funding semantics pending CR-8 (CR-2 crosswalk).
+  - property: governed_by_ref
+    action: remove
+    target_relationship: dea:governs
+    reverse: true
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: governs_exchanges
+    action: remove
+    target_relationship: dea:governs
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: grouped_capabilities
+    action: remove
+    target_relationship: dea:aggregates
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: implements_controls
+    action: remove
+    target_relationship: dea:operationalizes
+    reverse: true
+    rationale: Control operationalizes Guardrail.
+  - property: informed_by_tenets
+    action: remove
+    target_relationship: dea:informs
+    reverse: true
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: informs_guardrails
+    action: remove
+    target_relationship: dea:informs
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: key_components
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: mandates
+    action: remove
+    target_relationship: dea:mandates
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: maturity_level
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: 'CR-3B: intrinsic maturity on architectural entities is an anti-pattern; moves to the Assessment model in CR-5.'
+  - property: metrics
+    action: remove
+    target_relationship: dea:measured-by
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: mitigates
+    action: remove
+    target_relationship: dea:controls
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: owned_capabilities
+    action: remove
+    target_relationship: dea:owns
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: owned_objects
+    action: remove
+    target_relationship: dea:owns
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: owned_processes
+    action: remove
+    target_relationship: dea:owns
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: owner
+    action: remove
+    target_relationship: dea:owns
+    reverse: false
+    rationale: Ownership is a typed relationship (CR-3O).
+  - property: parent_capability
+    action: remove
+    target_relationship: dea:composes
+    reverse: true
+    rationale: Capability hierarchy is composition.
+  - property: parent_concept
+    action: remove
+    target_relationship: dea:specializes
+    reverse: false
+    rationale: Concept hierarchy is specialization.
+  - property: parent_ou
+    action: remove
+    target_relationship: dea:composes
+    reverse: true
+    rationale: OU hierarchy is composition.
+  - property: parent_process
+    action: remove
+    target_relationship: dea:composes
+    reverse: true
+    rationale: Process hierarchy is composition.
+  - property: parties
+    action: remove
+    target_relationship: dea:governs
+    reverse: false
+    rationale: Agreement governs actor participation; party-to semantics candidate for CR-8.
+  - property: patterns
+    action: remove
+    target_relationship: dea:composes
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: processes
+    action: remove
+    target_relationship: dea:realizes
+    reverse: true
+    rationale: Process realizes Capability.
+  - property: processes_involved
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: Ambiguous produce/consume direction; re-assert explicitly at instance migration.
+  - property: processes_performed
+    action: remove
+    target_relationship: dea:performs
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: provided_by
+    action: remove
+    target_relationship: dea:provides
+    reverse: true
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: realized_by
+    action: remove
+    target_relationship: dea:realizes
+    reverse: true
+    rationale: Realization via canonical relationship.
+  - property: related_blueprints
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related.
+  - property: related_concepts
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related.
+  - property: related_guardrails
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related.
+  - property: related_patterns
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related.
+  - property: related_tenets
+    action: remove
+    target_relationship: dea:maps-to
+    reverse: false
+    rationale: mapping.kind=related.
+  - property: relationship_direction
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: Free-form direction flag; direction is canonical on relationships (CR-2 §7). No target.
+  - property: required_skills
+    action: remove
+    target_relationship: dea:requires
+    reverse: false
+    rationale: 'CR-3D: Role requires Skill.'
+  - property: source_data_entities
+    action: remove
+    target_relationship: dea:derived-from
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).
+  - property: stakeholders
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: Stakeholder-interest semantics unresolved; candidate for CR-8. Re-assert explicitly at instance migration (CR-10).
+  - property: targets
+    action: remove
+    target_relationship: null
+    reverse: false
+    rationale: 'PARKED in CR-2 crosswalk (NEEDS OWNER DECISION): informs / governs / transitions-to. Re-assert after ruling.'
+  - property: technology_stack
+    action: remove
+    target_relationship: dea:depends-on
+    reverse: false
+    rationale: Relationship state moves to canonical relationship instances (CR-3A).

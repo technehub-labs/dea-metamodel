@@ -1,0 +1,500 @@
+# Classification vocabularies (CR-3B/N, E005) — controlled values for
+# classification properties. Schemas must match these values exactly.
+version: 0.8.0
+classifications:
+  Actor.actor_type:
+    entity: Actor
+    property: actor_type
+    values:
+    - human
+    - team
+    - system
+    - ai-agent
+    - hybrid
+  Actor.scope:
+    entity: Actor
+    property: scope
+    values:
+    - individual
+    - team
+    - departmental
+    - enterprise
+    - ecosystem
+  ApplicationComponent.deployment_unit:
+    entity: ApplicationComponent
+    property: deployment_unit
+    values:
+    - service
+    - batch-job
+    - scheduled-task
+    - event-handler
+    - lambda
+    - daemon
+  ArchitecturePattern.maturity:
+    entity: ArchitecturePattern
+    property: maturity
+    values:
+    - emerging
+    - established
+    - canonical
+    - deprecated
+  Blueprint.domain:
+    entity: Blueprint
+    property: domain
+    values:
+    - integration
+    - data
+    - application
+    - infrastructure
+    - security
+    - business
+    - technology
+  Blueprint.abstraction_level:
+    entity: Blueprint
+    property: abstraction_level
+    values:
+    - conceptual
+    - logical
+    - physical
+  BusinessObject.ecf_domain:
+    entity: BusinessObject
+    property: ecf_domain
+    values:
+    - governance-existence
+    - supply-resources
+    - people-organization
+    - customer-demand
+    - product-offering
+    - operations-delivery
+    - finance-value
+  BusinessObject.ecf_stage:
+    entity: BusinessObject
+    property: ecf_stage
+    values:
+    - conceive
+    - design
+    - build
+    - activate
+    - operate
+    - improve
+    - retire
+  BusinessService.service_type:
+    entity: BusinessService
+    property: service_type
+    values:
+    - internal
+    - external
+    - partner
+    - public
+  Capability.capability_type:
+    entity: Capability
+    property: capability_type
+    values:
+    - business
+    - technical
+    - hybrid
+  Capability.maturity_level:
+    entity: Capability
+    property: maturity_level
+    values:
+    - nascent
+    - emerging
+    - defined
+    - managed
+    - optimizing
+  ChangeInitiative.change_scope:
+    entity: ChangeInitiative
+    property: change_scope
+    values:
+    - skills
+    - roles
+    - culture
+    - structure
+  Collaboration Agreement.agreement_kind:
+    entity: Collaboration Agreement
+    property: agreement_kind
+    values:
+    - cooperative
+    - mandated
+  Control.control_type:
+    entity: Control
+    property: control_type
+    values:
+    - preventive
+    - detective
+    - corrective
+  Ecosystem Actor.actor_kind:
+    entity: Ecosystem Actor
+    property: actor_kind
+    values:
+    - customer
+    - supplier
+    - partner
+    - regulator
+    - platform
+    - competitor
+  EcosystemPlatform.platform_kind:
+    entity: EcosystemPlatform
+    property: platform_kind
+    values:
+    - marketplace
+    - developer-portal
+    - partner-api-program
+    - data-exchange
+  Experiment.outcome:
+    entity: Experiment
+    property: outcome
+    values:
+    - pending
+    - validated
+    - invalidated
+    - inconclusive
+  FinancialResource.liquidity:
+    entity: FinancialResource
+    property: liquidity
+    values:
+    - cash
+    - near-liquid
+    - credit-facility
+    - instrument
+    - other
+  Guardrail.enforcement:
+    entity: Guardrail
+    property: enforcement
+    values:
+    - advisory
+    - automated-warn
+    - automated-block
+    - platform-enforced
+  Guardrail.domain:
+    entity: Guardrail
+    property: domain
+    values:
+    - enterprise-architecture
+    - data-architecture
+    - software-architecture
+    - security-architecture
+    - cloud-architecture
+    - integration-architecture
+    - process-architecture
+    - governance
+  InformationAsset.consumption_form:
+    entity: InformationAsset
+    property: consumption_form
+    values:
+    - report
+    - dashboard
+    - document
+    - feed
+    - other
+  InfrastructureComponent.infrastructure_type:
+    entity: InfrastructureComponent
+    property: infrastructure_type
+    values:
+    - compute
+    - network
+    - storage
+    - security
+    - container
+    - serverless
+    - database-host
+  IntangibleResource.protection_type:
+    entity: IntangibleResource
+    property: protection_type
+    values:
+    - patent
+    - trademark
+    - copyright
+    - trade-secret
+    - license
+    - brand
+    - other
+  IntegrationComponent.integration_pattern:
+    entity: IntegrationComponent
+    property: integration_pattern
+    values:
+    - api-gateway
+    - message-queue
+    - file-transfer
+    - event-stream
+    - etl
+    - rpc
+    - graphql-federation
+  IntegrationComponent.direction:
+    entity: IntegrationComponent
+    property: direction
+    values:
+    - inbound
+    - outbound
+    - bidirectional
+  KnowledgeAsset.knowledge_form:
+    entity: KnowledgeAsset
+    property: knowledge_form
+    values:
+    - playbook
+    - runbook
+    - guideline
+    - case-study
+    - lesson-learned
+    - other
+  Metric.metric_type:
+    entity: Metric
+    property: metric_type
+    values:
+    - kpi
+    - health
+    - maturity
+    - performance
+    - adoption
+    - compliance
+    - risk
+  Metric.frequency:
+    entity: Metric
+    property: frequency
+    values:
+    - realtime
+    - hourly
+    - daily
+    - weekly
+    - monthly
+    - quarterly
+  ModelDeployment.environment:
+    entity: ModelDeployment
+    property: environment
+    values:
+    - dev
+    - staging
+    - production
+  ModelDeployment.deployment_kind:
+    entity: ModelDeployment
+    property: deployment_kind
+    values:
+    - api-endpoint
+    - batch
+    - embedded
+    - streaming
+  ModelFeedbackSignal.signal_kind:
+    entity: ModelFeedbackSignal
+    property: signal_kind
+    values:
+    - drift
+    - performance-degradation
+    - outcome-quality
+  OrganizationalUnit.ou_type:
+    entity: OrganizationalUnit
+    property: ou_type
+    values:
+    - business-unit
+    - division
+    - department
+    - team
+    - role-cluster
+    - virtual-team
+    - governance-body
+    - external-partner-role
+  OrganizationalUnit.ou_scope:
+    entity: OrganizationalUnit
+    property: ou_scope
+    values:
+    - individual
+    - team
+    - departmental
+    - division
+    - enterprise
+    - ecosystem
+  OrganizationalUnit.ou_lifecycle:
+    entity: OrganizationalUnit
+    property: ou_lifecycle
+    values:
+    - permanent
+    - temporary
+    - ad-hoc
+    - sunsetting
+  OrganizationalUnit.ecf_domain:
+    entity: OrganizationalUnit
+    property: ecf_domain
+    values:
+    - governance-existence
+    - supply-resources
+    - people-organization
+    - customer-demand
+    - product-offering
+    - operations-delivery
+    - finance-value
+  OrganizationalUnit.ecf_stage:
+    entity: OrganizationalUnit
+    property: ecf_stage
+    values:
+    - conceive
+    - design
+    - build
+    - activate
+    - operate
+    - improve
+    - retire
+  Process.process_intent:
+    entity: Process
+    property: process_intent
+    values:
+    - operational
+    - support
+    - management
+  Process.process_audience:
+    entity: Process
+    property: process_audience
+    values:
+    - governance-existence
+    - supply-resources
+    - people-organization
+    - customer-demand
+    - product-offering
+    - operations-delivery
+    - finance-value
+  Resource.resource_kind:
+    entity: Resource
+    property: resource_kind
+    values:
+    - financial
+    - physical
+    - intangible
+  Risk.risk_category:
+    entity: Risk
+    property: risk_category
+    values:
+    - strategic
+    - operational
+    - regulatory
+    - technology
+    - financial
+    - reputational
+  Risk.likelihood:
+    entity: Risk
+    property: likelihood
+    values:
+    - rare
+    - unlikely
+    - possible
+    - likely
+    - almost-certain
+  Risk.impact:
+    entity: Risk
+    property: impact
+    values:
+    - negligible
+    - minor
+    - moderate
+    - major
+    - severe
+  Signal.signal_source:
+    entity: Signal
+    property: signal_source
+    values:
+    - market
+    - technology
+    - regulatory
+    - competitor
+    - customer
+  Signal.strength:
+    entity: Signal
+    property: strength
+    values:
+    - weak
+    - emerging
+    - strong
+  SolutionComponent.component_type:
+    entity: SolutionComponent
+    property: component_type
+    values:
+    - application
+    - infrastructure
+    - integration
+  SolutionComponent.deployment_model:
+    entity: SolutionComponent
+    property: deployment_model
+    values:
+    - on-premise
+    - iaas
+    - paas
+    - saas
+    - faas
+    - hybrid
+    - multi-cloud
+  SolutionComponent.security_classification:
+    entity: SolutionComponent
+    property: security_classification
+    values:
+    - public
+    - internal
+    - confidential
+    - restricted
+  Stakeholder.stakeholder_type:
+    entity: Stakeholder
+    property: stakeholder_type
+    values:
+    - customer
+    - partner
+    - supplier
+    - regulator
+    - investor
+    - community
+    - board
+  Stakeholder.relationship_direction:
+    entity: Stakeholder
+    property: relationship_direction
+    values:
+    - inbound
+    - outbound
+    - bidirectional
+    - governance
+  TechnologyRadarEntry.radar_ring:
+    entity: TechnologyRadarEntry
+    property: radar_ring
+    values:
+    - assess
+    - trial
+    - adopt
+    - hold
+  Technology.technology_category:
+    entity: Technology
+    property: technology_category
+    values:
+    - language
+    - framework
+    - runtime
+    - database
+    - library
+    - build-tool
+    - ci-cd
+    - monitoring
+    - orchestration
+    - platform
+  Tenet.tier:
+    entity: Tenet
+    property: tier
+    values:
+    - mandatory
+    - recommended
+    - aspirational
+  Value Exchange.flow_type:
+    entity: Value Exchange
+    property: flow_type
+    values:
+    - information
+    - goods
+    - funds
+    - service
+  Value Exchange.direction:
+    entity: Value Exchange
+    property: direction
+    values:
+    - inbound
+    - outbound
+    - bidirectional
+  Technology.adoption_status:
+    entity: Technology
+    property: adoption_status
+    values:
+    - approved
+    - deprecated
+    - banned
+    - experimental

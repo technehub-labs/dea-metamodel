@@ -18,6 +18,10 @@ class Skill(Entity):
     """A capability an individual Actor possesses or must develop. Distinct from Business Capability, which belongs to the enterprise, not a person. OpenDEAM v0.3.0 (ADR-0003), L3/People, Skills & Culture."""
 
     type: Literal['Skill']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     skill_domain: Optional[str] = None
     """Domain of the skill (e.g. data-engineering, facilitation)."""
     proficiency_levels: Optional[str] = None

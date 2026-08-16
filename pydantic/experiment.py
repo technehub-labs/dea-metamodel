@@ -18,6 +18,10 @@ class Experiment(Entity):
     """A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment. OpenDEAM v0.3.0 (ADR-0003), L2/Innovation & Foresight."""
 
     type: Literal['Experiment']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     hypothesis: Optional[str] = None
     """What the experiment tests."""
     signal_ref: Optional[str] = None

@@ -18,6 +18,10 @@ class InfrastructureComponent(Entity):
     """An infrastructure-as-code managed resource (compute, network, storage, security group) that hosts or supports solution components. A subClass of SolutionComponent with component_type='infrastructure'. Catalog: technehub-labs/dea-catalog-application-components (shared with ApplicationComponent)."""
 
     type: Literal['InfrastructureComponent']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     infrastructure_type: Optional[Literal['compute', 'network', 'storage', 'security', 'container', 'serverless', 'database-host']] = None
     """Category of infrastructure resource."""
     iac_tool: Optional[str] = None

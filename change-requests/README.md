@@ -10,7 +10,7 @@ current one ships.
 |---|---|---|---|
 | [CR-001](CR-001.md) | Canonical Model & Semantic Governance | One authoritative metamodel and controlled versioning | Implemented (v0.6.0) |
 | [CR-002](CR-002.md) | Relationship Semantics | Authoritative, typed relationship model | Implemented (v0.7.0) |
-| CR-003 | Entity/Relationship Normalization | Remove duplicated relationship state; clean entity boundaries | Proposed |
+| [CR-003](CR-003.md) | Entity/Relationship Normalization | Removed duplicated relationship state; clean entity boundaries | Implemented (v0.8.0) |
 | CR-004 | Core DEA Ontology | Small, stable normative core | Proposed |
 | CR-005 | Assessment & Measurement | Separate DMM/measurement from architectural entities | Proposed |
 | CR-006 | Temporal & Lifecycle Semantics | Current/target/transition/time-aware architecture | Proposed |
@@ -29,6 +29,7 @@ Version: <target metamodel version>
 Depends on: <prior CRs>
 ```
 
-## Freeze in effect (CR-1.6)
+## Freeze lifted (CR-1.6)
 
-No new entity types until CR-003 closes. See `docs/versioning.md`.
+The semantic expansion freeze held through CR-003 (closed v0.8.0). New entity types now
+enter via the CR process; CR-004 consolidates the core ontology.

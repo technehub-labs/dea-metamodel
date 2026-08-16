@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/solution-component.json",
-  "metamodel_version": "0.7.0",
+  "metamodel_version": "0.8.0",
   "title": "SolutionComponent",
   "description": "A physical or logical software or hardware component that implements capabilities. OpenDEAM v0.2.0 (ADR-0002 D3): this is an ABSTRACT parent — concrete subclasses (ApplicationComponent, InfrastructureComponent, IntegrationComponent) are realized in L5 and discriminated by component_type.",
   "type": "object",
@@ -38,6 +38,36 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "component_type": {
       "type": "string",
       "enum": [
@@ -60,21 +90,6 @@
       ],
       "description": "Deployment context."
     },
-    "technology_stack": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Technology IDs used in this component."
-    },
-    "capabilities_realized": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "deprecated": true,
-      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
-    },
     "services_provided": {
       "type": "array",
       "items": {
@@ -92,11 +107,6 @@
       "items": {
         "type": "string"
       }
-    },
-    "owner": {
-      "type": "string",
-      "deprecated": true,
-      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "dependencies": {
       "type": "array",

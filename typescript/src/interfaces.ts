@@ -3,7 +3,7 @@
 // Do not edit manually — regenerate with: npm run generate
 
 // Canonical metamodel version this artifact derives from (CR-001).
-export const METAMODEL_VERSION = '0.7.0';
+export const METAMODEL_VERSION = '0.8.0';
 
 // v0.2.0 (ADR-0002): architecture layers L1–L5. Measurement is a
 // cross-cutting dimension, not a layer — Metrics carry scope_layers.

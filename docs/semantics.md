@@ -60,6 +60,25 @@ Key semantics:
 
 The pre-0.7.0 vocabularies are preserved as migration history in the crosswalk.
 
+## Entity property model (CR-003)
+
+Every property in the model is unambiguously one of (CR-3 §30, enforced by E001–E010):
+
+| Class | Meaning | Where it lives |
+|---|---|---|
+| Identity | `id`, `type`, `version` — stable, rename-independent (CR-3Q) | every entity schema |
+| Intrinsic Attribute | what the entity intrinsically has | entity schema |
+| Classification | controlled-vocabulary value (`capability_type`, `actor_type`, …) | `metamodel/vocabularies/classifications.yaml` |
+| Relationship | how it relates to something else | canonical relationship instances ONLY — never entity properties |
+| Reference | external-system identifier | `external_references {system, identifier}` (CR-3P) |
+| Lifecycle | `lifecycle_status` | `metamodel/vocabularies/lifecycle.yaml` (CR-3R) |
+| Derived Property | generated convenience views (`relationships`) | declared, never authoritative |
+
+Layer membership is a classification/viewpoint (CR-3M), never inheritance. Intrinsic
+maturity on architectural entities is prohibited (CR-3B) — assessments are their own
+model (CR-5). Type/instance distinctions exist only where lifecycle or deployment makes
+them materially useful (CR-3C): currently `AIMLModel → ModelDeployment`.
+
 ## Entity status vs lifecycle
 
 - `status: normative` — the entity is part of the governed normative inventory.

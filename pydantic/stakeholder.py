@@ -18,10 +18,10 @@ class Stakeholder(Entity):
     """An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes. Stakeholders are NOT internal performers — internal performers (employees, teams, systems, AI agents) are Actors, not Stakeholders. Catalog: technehub-labs/dea-catalog-stakeholders."""
 
     type: Literal['Stakeholder']
+    lifecycle_status: Optional[Literal['proposed', 'planned', 'active', 'deprecated', 'retired']] = None
+    """CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."""
+    external_references: Optional[list[str]] = None
+    """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     stakeholder_type: Literal['customer', 'partner', 'supplier', 'regulator', 'investor', 'community', 'board']
     """The relationship class the stakeholder holds with the enterprise. Open set — new stakeholder types (e.g. AI agents, DAO treasuries) can be added without schema changes when enterprise relationships genuinely require them."""
-    relationship_direction: Optional[Literal['inbound', 'outbound', 'bidirectional', 'governance']] = None
-    """How value flows between the stakeholder and the enterprise: inbound (enterprise receives value), outbound (enterprise delivers value), bidirectional (co-created/shared), governance (accountability/compliance). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     primary_contact: Optional[str] = None
-    external_identifiers: Optional[dict[str, Any]] = None
-    """External IDs — registration numbers, LEI, DUNS, ticker, etc. Free-form key/value."""

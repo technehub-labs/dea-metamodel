@@ -204,6 +204,19 @@ def main() -> int:
             edge["disposition"] = mapping["status"]
         graph_rels.append(edge)
 
+    # CR-4 Phase 7: stamp core/profile membership onto graph entities so the
+    # viewer can render Core and Profile elements independently.
+    norm_entities = yaml.safe_load(
+        (BASE / "metamodel" / "dea-metamodel.yaml").read_text())["entities"]
+    membership_by_legacy = {}
+    for e in norm_entities:
+        for lid in e.get("legacy_ids", []):
+            membership_by_legacy[lid] = e["membership"]
+    for ge in graph_entities:
+        m = membership_by_legacy.get(ge["entity_id"])
+        if m:
+            ge["membership"] = m
+
     graph = {
         "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
         "metamodel_version": metamodel_version,

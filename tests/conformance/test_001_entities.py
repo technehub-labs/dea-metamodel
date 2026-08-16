@@ -20,8 +20,13 @@ def test_entities_have_name_definition_layer_lifecycle(entities):
         assert e.get("name"), f"{e['id']}: missing name"
         assert e.get("definition"), f"{e['id']}: missing definition"
         if e.get("abstract"):
-            continue  # abstract root spans all layers
-        assert e.get("layer") in layers or e.get("dimension"), \
-            f"{e['id']}: no semantic layer or dimension"
+            continue  # abstract anchors span all layers
+        # CR-4: Core entities are layer-agnostic (CR-3M — layer is a viewpoint,
+        # not identity). Profile entities keep their root-model layer/dimension.
+        if (e.get("membership") or {}).get("kind") == "core":
+            pass
+        else:
+            assert e.get("layer") in layers or e.get("dimension"), \
+                f"{e['id']}: no semantic layer or dimension"
         assert e.get("lifecycle") in {"existing", "scaffold", "proposed", "planned"}, \
             f"{e['id']}: missing/invalid lifecycle status"

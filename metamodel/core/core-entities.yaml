@@ -1,0 +1,107 @@
+# Core entity anchors (CR-4 §27) — definitions authoritative in dea-metamodel.yaml
+version: 0.9.0
+entities:
+- id: dea:Entity
+  name: Entity
+  abstract: true
+  definition: Abstract root type for all metamodel entities.
+  lifecycle: existing
+- id: dea:Actor
+  name: Actor
+  abstract: false
+  definition: A performer of enterprise processes — human, team, system, or AI agent.
+  lifecycle: scaffold
+- id: dea:BusinessCapability
+  name: Business Capability
+  abstract: false
+  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates.
+  lifecycle: planned
+- id: dea:FinancialResource
+  name: Financial Resource
+  abstract: false
+  definition: Liquid or near-liquid economic value the enterprise holds (accounts, instruments, funding lines). Catalog instances
+    include cash, credit facilities, and similar.
+  lifecycle: proposed
+- id: dea:IntangibleResource
+  name: Intangible Resource
+  abstract: false
+  definition: Legally protected non-physical economic value (patents, trademarks, brand equity, licenses). Catalog instances
+    include a specific trademark registration or license.
+  lifecycle: proposed
+- id: dea:OrganizationalUnit
+  name: Organizational Unit
+  abstract: false
+  definition: A unit of organisation that owns capabilities, runs processes, and is custodian for business objects.
+  lifecycle: scaffold
+- id: dea:PhysicalResource
+  name: Physical Resource
+  abstract: false
+  definition: Tangible assets requiring an ongoing maintenance regime (equipment, vehicles, premises, inventory stock). Catalog
+    instances include an oven, a van, a warehouse shelf.
+  lifecycle: proposed
+- id: dea:Resource
+  name: Resource
+  abstract: false
+  definition: The economic/physical substrate a bounded entity maintains to persist, distinct from what it exchanges (L1)
+    or builds digitally (L4/L5).
+  lifecycle: proposed
+- id: dea:ArchitectureElement
+  name: ArchitectureElement
+  abstract: true
+  definition: An identifiable element that participates in an architectural description of an enterprise (CR-4 §5). Not merely
+    anything that appears in the repository.
+  lifecycle: existing
+- id: dea:Behavior
+  name: Behavior
+  abstract: true
+  definition: 'Abstract concept for enterprise activity (CR-4 §9). Profiles specialize: Process, Activity, Workflow, BusinessFunction,
+    AgentTask, Automation.'
+  lifecycle: existing
+- id: dea:Service
+  name: Service
+  abstract: true
+  definition: A means through which a provider exposes value or capability to a consumer without requiring the consumer to
+    manage the underlying implementation (CR-4 §10).
+  lifecycle: existing
+- id: dea:Information
+  name: Information
+  abstract: true
+  definition: Abstract foundation for all information specializations (CR-4 §12). Profiles define DataEntity, BusinessObject,
+    InformationAsset, KnowledgeAsset, DataProduct, Dataset.
+  lifecycle: existing
+- id: dea:Organization
+  name: Organization
+  abstract: true
+  definition: Organizational structure, distinct from Actor agency (CR-4 §7). An organization can act as an Actor; structure
+    and agency are different semantic concerns.
+  lifecycle: existing
+- id: dea:Decision
+  name: Decision
+  abstract: false
+  definition: A determination made by an Actor, system or Agent that selects or authorizes a course of action based on information,
+    rules, objectives and constraints (CR-4 §13). Foundation for agentic architecture (CR-7).
+  lifecycle: proposed
+- id: dea:Outcome
+  name: Outcome
+  abstract: false
+  definition: A resulting state or value (CR-4 §14). Capability is an ability; Outcome is a result. Anchor for strategy, value,
+    DMM, transformation and measurement.
+  lifecycle: proposed
+- id: dea:Requirement
+  name: Requirement
+  abstract: false
+  definition: 'A stated need, obligation or condition that an architecture, solution, service or behavior must satisfy (CR-4
+    §15). Profiles specialize: business, regulatory, security, data, technology, AI.'
+  lifecycle: proposed
+- id: dea:Constraint
+  name: Constraint
+  abstract: false
+  definition: 'Something that limits the possible solution space (CR-4 §16). Distinct from Requirement: a Requirement must
+    be satisfied; a Constraint limits options.'
+  lifecycle: proposed
+- id: dea:Change
+  name: Change
+  abstract: false
+  definition: A deliberate modification to enterprise capabilities, behavior, services, information, technology, organization
+    or operating model (CR-4 §17). Foundation for transformation, roadmap, transition architecture and migration.
+  lifecycle: proposed

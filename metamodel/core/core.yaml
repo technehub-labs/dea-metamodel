@@ -1,0 +1,53 @@
+# OpenDEA Core Ontology (CR-4) — the stable semantic center of gravity
+ontology:
+  id: dea:core
+  name: OpenDEA Core Ontology
+  version: 0.9.0
+  status: draft
+  principle: OpenDEA Core defines stable semantic concepts; OpenDEA Profiles define specialized architectural viewpoints and
+    frameworks (CR-4 §2). Core can be explained without mentioning DMM, ECF, ArchiMate, AI, cloud, any industry, or any vendor
+    (CR-4 §33).
+  entities:
+  - dea:Entity
+  - dea:Actor
+  - dea:BusinessCapability
+  - dea:FinancialResource
+  - dea:IntangibleResource
+  - dea:OrganizationalUnit
+  - dea:PhysicalResource
+  - dea:Resource
+  - dea:ArchitectureElement
+  - dea:Behavior
+  - dea:Service
+  - dea:Information
+  - dea:Organization
+  - dea:Decision
+  - dea:Outcome
+  - dea:Requirement
+  - dea:Constraint
+  - dea:Change
+  relationship_grammar:
+  - dea:specializes
+  - dea:composes
+  - dea:instantiates
+  - dea:realizes
+  - dea:provides
+  - dea:supports
+  - dea:enables
+  - dea:depends-on
+  - dea:requires
+  - dea:performs
+  - dea:uses
+  - dea:produces
+  - dea:consumes
+  - dea:owns
+  - dea:governs
+  - dea:controls
+  - dea:accountable-for
+  - dea:informs
+  - dea:constrains
+  - dea:targets
+  - dea:results-in
+  - dea:affects
+  - dea:transitions-to
+  - dea:replaces

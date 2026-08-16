@@ -291,15 +291,11 @@ crosswalk:
     notes: 'AIMLModel subject to Risk -> Risk threatens AIMLModel. Alternatives: dea:governs.'
   - current: targets
     rel_type: dependency
-    proposed: null
+    proposed: dea:affects
     reverse: false
-    status: review-required
-    alternatives:
-    - dea:informs
-    - dea:governs
-    - dea:transitions-to
-    notes: ChangeInitiative targets OrganizationalUnit — change-scope semantics unresolved; candidate for CR-6/CR-8. NEEDS
-      OWNER DECISION.
+    status: accepted
+    notes: 'RESOLVED in CR-4: ChangeInitiative change-scope uses dea:affects (Change affects architectural element, CR-4 §17).
+      dea:targets is reserved for Decision/Change intent toward Outcome.'
   - current: threatens
     rel_type: dependency
     proposed: dea:threatens

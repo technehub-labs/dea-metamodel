@@ -1,0 +1,13 @@
+# OpenDEA ECF Viewpoint (CR-4 §28)
+profile:
+  id: dea:ecf
+  name: OpenDEA ECF Viewpoint
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  scope: ECF 7x7 classification/viewpoint framework. Classification only — never entity identity (CR-3S).
+  entities: []
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

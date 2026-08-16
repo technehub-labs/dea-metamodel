@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.8.0
+  version: 0.9.0
   status: draft
   normative: true
   namespace:
@@ -86,6 +86,9 @@ entities:
     sqlite_table: entities
     pydantic_model: pydantic/entity.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:CollaborationAgreement
   name: Collaboration Agreement
   legacy_ids:
@@ -106,6 +109,9 @@ entities:
     pydantic_model: pydantic/collaboration_agreement.py
     ts_interface: typescript/src/interfaces.ts
   migration_note: Reallocated from L2-agreements to L1-agreements in v0.2.0 (ADR-0002 D2).
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:EcosystemActor
   name: Ecosystem Actor
   legacy_ids:
@@ -125,6 +131,9 @@ entities:
     sqlite_table: ecosystem_actors
     pydantic_model: pydantic/ecosystem_actor.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:EcosystemPlatform
   name: Ecosystem Platform
   legacy_ids:
@@ -145,6 +154,9 @@ entities:
     sqlite_table: ecosystem_platforms
     pydantic_model: pydantic/ecosystem_platform.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:JourneyTouchpoint
   name: Journey Touchpoint
   legacy_ids:
@@ -163,6 +175,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:Stakeholder
   name: Stakeholder
   legacy_ids:
@@ -182,6 +197,9 @@ entities:
     sqlite_table: stakeholders
     pydantic_model: pydantic/stakeholder.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:ValueExchange
   name: Value Exchange
   legacy_ids:
@@ -201,6 +219,9 @@ entities:
     sqlite_table: value_exchanges
     pydantic_model: pydantic/value_exchange.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ecosystem
 - id: dea:ArchitecturePattern
   name: Architecture Pattern
   legacy_ids:
@@ -220,6 +241,9 @@ entities:
     sqlite_table: architecture_patterns
     pydantic_model: pydantic/architecture_pattern.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Blueprint
   name: Blueprint
   legacy_ids:
@@ -241,6 +265,9 @@ entities:
     ts_interface: typescript/src/interfaces.ts
   migration_note: Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns
     rather than standing alone.
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Control
   name: Control
   legacy_ids:
@@ -259,6 +286,9 @@ entities:
     sqlite_table: controls
     pydantic_model: pydantic/control.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Experiment
   name: Experiment
   legacy_ids:
@@ -277,6 +307,9 @@ entities:
     sqlite_table: experiments
     pydantic_model: pydantic/experiment.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Guardrail
   name: Guardrail
   legacy_ids:
@@ -301,6 +334,9 @@ entities:
     ts_interface: typescript/src/interfaces.ts
   migration_note: Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements
     Control, closing the gap where Technology claimed to be "governed via Standards" with no such relationship existing.
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:InvestmentInitiative
   name: Investment Initiative
   legacy_ids:
@@ -319,6 +355,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Regulation
   name: Regulation
   legacy_ids:
@@ -338,6 +377,9 @@ entities:
     sqlite_table: regulations
     pydantic_model: pydantic/regulation.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Risk
   name: Risk
   legacy_ids:
@@ -356,6 +398,9 @@ entities:
     sqlite_table: risks
     pydantic_model: pydantic/risk.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:Signal
   name: Signal
   legacy_ids:
@@ -375,6 +420,9 @@ entities:
     sqlite_table: signals
     pydantic_model: pydantic/signal.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:StrategicObjective
   name: Strategic Objective
   legacy_ids:
@@ -393,6 +441,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:Tenet
   name: Tenet
   legacy_ids:
@@ -414,6 +465,9 @@ entities:
     ts_interface: typescript/src/interfaces.ts
   migration_note: Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather
     than a standalone documentation-catalog entry.
+  membership:
+    kind: profile
+    profile: dea:governance
 - id: dea:TechnologyRadarEntry
   name: Technology Radar Entry
   legacy_ids:
@@ -434,6 +488,9 @@ entities:
     sqlite_table: technology_radar_entries
     pydantic_model: pydantic/technology_radar_entry.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:Actor
   name: Actor
   legacy_ids:
@@ -452,6 +509,9 @@ entities:
     sqlite_table: actors
     pydantic_model: pydantic/actor.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:BusinessFunction
   name: Business Function
   legacy_ids:
@@ -471,6 +531,9 @@ entities:
     sqlite_table: business_functions
     pydantic_model: pydantic/business_function.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessObject
   name: Business Object
   legacy_ids:
@@ -490,6 +553,9 @@ entities:
     sqlite_table: business_objects
     pydantic_model: null
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessProcess
   name: Business Process
   legacy_ids:
@@ -509,6 +575,9 @@ entities:
     sqlite_table: processes
     pydantic_model: pydantic/process.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessService
   name: Business Service
   legacy_ids:
@@ -529,6 +598,9 @@ entities:
     sqlite_table: business_services
     pydantic_model: pydantic/business_service.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:BusinessCapability
   name: Business Capability
   legacy_ids:
@@ -548,6 +620,9 @@ entities:
     sqlite_table: capabilities
     pydantic_model: pydantic/capability.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:ChangeInitiative
   name: Change Initiative
   legacy_ids:
@@ -568,6 +643,9 @@ entities:
     sqlite_table: change_initiatives
     pydantic_model: pydantic/change_initiative.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:FinancialResource
   name: Financial Resource
   legacy_ids:
@@ -588,6 +666,9 @@ entities:
     sqlite_table: financial_resources
     pydantic_model: pydantic/financial_resource.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:IntangibleResource
   name: Intangible Resource
   legacy_ids:
@@ -608,6 +689,9 @@ entities:
     sqlite_table: intangible_resources
     pydantic_model: pydantic/intangible_resource.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:OrganizationalUnit
   name: Organizational Unit
   legacy_ids:
@@ -627,6 +711,9 @@ entities:
     sqlite_table: organizational_units
     pydantic_model: null
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:PhysicalResource
   name: Physical Resource
   legacy_ids:
@@ -647,6 +734,9 @@ entities:
     sqlite_table: physical_resources
     pydantic_model: pydantic/physical_resource.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:Resource
   name: Resource
   legacy_ids:
@@ -666,6 +756,9 @@ entities:
     sqlite_table: resources
     pydantic_model: pydantic/resource.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:Role
   name: Role
   legacy_ids:
@@ -684,6 +777,9 @@ entities:
     sqlite_table: roles
     pydantic_model: pydantic/role.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:SolutionComponent
   name: Solution Component
   legacy_ids:
@@ -706,6 +802,9 @@ entities:
     sqlite_table: solution_components
     pydantic_model: pydantic/solution_component.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Skill
   name: Skill
   legacy_ids:
@@ -725,6 +824,9 @@ entities:
     sqlite_table: skills
     pydantic_model: pydantic/skill.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:ValueStream
   name: Value Stream
   legacy_ids:
@@ -743,6 +845,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:business
 - id: dea:AIMLModel
   name: AI/ML Model
   legacy_ids:
@@ -762,6 +867,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:DataEntity
   name: Data Entity
   legacy_ids:
@@ -780,6 +888,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:DigitalIdentity
   name: Digital Identity
   legacy_ids:
@@ -798,6 +909,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:DataProduct
   name: Data Product
   legacy_ids:
@@ -816,6 +930,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:Event
   name: Event
   legacy_ids:
@@ -834,6 +951,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:InformationAsset
   name: Information Asset
   legacy_ids:
@@ -854,6 +974,9 @@ entities:
     sqlite_table: information_assets
     pydantic_model: pydantic/information_asset.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:InformationClass
   name: Information Class
   legacy_ids:
@@ -872,6 +995,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:KnowledgeAsset
   name: Knowledge Asset
   legacy_ids:
@@ -892,6 +1018,9 @@ entities:
     sqlite_table: knowledge_assets
     pydantic_model: pydantic/knowledge_asset.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:ModelDeployment
   name: Model Deployment
   legacy_ids:
@@ -912,6 +1041,9 @@ entities:
     sqlite_table: model_deployments
     pydantic_model: pydantic/model_deployment.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ModelFeedbackSignal
   name: Model Feedback Signal
   legacy_ids:
@@ -932,6 +1064,9 @@ entities:
     sqlite_table: model_deployments
     pydantic_model: pydantic/model_feedback_signal.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ApplicationComponent
   name: Application Component
   legacy_ids:
@@ -951,6 +1086,9 @@ entities:
     sqlite_table: application_components
     pydantic_model: pydantic/application_component.py
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:API
   name: API
   legacy_ids:
@@ -969,6 +1107,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:InfrastructureComponent
   name: Infrastructure Component
   legacy_ids:
@@ -988,6 +1129,9 @@ entities:
     sqlite_table: infrastructure_components
     pydantic_model: pydantic/infrastructure_component.py
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:IntegrationComponent
   name: Integration Component
   legacy_ids:
@@ -1007,6 +1151,9 @@ entities:
     sqlite_table: integration_components
     pydantic_model: pydantic/integration_component.py
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:PlatformService
   name: Platform Service
   legacy_ids:
@@ -1025,6 +1172,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:SystemFunction
   name: System Function
   legacy_ids:
@@ -1043,6 +1193,9 @@ entities:
     sqlite_table: null
     pydantic_model: null
     ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:Technology
   name: Technology
   legacy_ids:
@@ -1061,6 +1214,9 @@ entities:
     sqlite_table: technologies
     pydantic_model: pydantic/technology.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:technology
 - id: dea:Concept
   name: Concept
   legacy_ids:
@@ -1083,6 +1239,9 @@ entities:
     sqlite_table: concepts
     pydantic_model: pydantic/concept.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:PerformanceMetric
   name: Performance Metric
   legacy_ids:
@@ -1106,6 +1265,219 @@ entities:
     sqlite_table: metrics
     pydantic_model: pydantic/metric.py
     ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:ArchitectureElement
+  name: ArchitectureElement
+  legacy_ids: []
+  definition: An identifiable element that participates in an architectural description of an enterprise (CR-4 §5). Not merely
+    anything that appears in the repository.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Behavior
+  name: Behavior
+  legacy_ids: []
+  definition: 'Abstract concept for enterprise activity (CR-4 §9). Profiles specialize: Process, Activity, Workflow, BusinessFunction,
+    AgentTask, Automation.'
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Service
+  name: Service
+  legacy_ids: []
+  definition: A means through which a provider exposes value or capability to a consumer without requiring the consumer to
+    manage the underlying implementation (CR-4 §10).
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Information
+  name: Information
+  legacy_ids: []
+  definition: Abstract foundation for all information specializations (CR-4 §12). Profiles define DataEntity, BusinessObject,
+    InformationAsset, KnowledgeAsset, DataProduct, Dataset.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Organization
+  name: Organization
+  legacy_ids: []
+  definition: Organizational structure, distinct from Actor agency (CR-4 §7). An organization can act as an Actor; structure
+    and agency are different semantic concerns.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: existing
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Decision
+  name: Decision
+  legacy_ids: []
+  definition: A determination made by an Actor, system or Agent that selects or authorizes a course of action based on information,
+    rules, objectives and constraints (CR-4 §13). Foundation for agentic architecture (CR-7).
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/decision.json
+    sqlite_table: decisions
+    pydantic_model: pydantic/decision.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Outcome
+  name: Outcome
+  legacy_ids: []
+  definition: A resulting state or value (CR-4 §14). Capability is an ability; Outcome is a result. Anchor for strategy, value,
+    DMM, transformation and measurement.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/outcome.json
+    sqlite_table: outcomes
+    pydantic_model: pydantic/outcome.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Requirement
+  name: Requirement
+  legacy_ids: []
+  definition: 'A stated need, obligation or condition that an architecture, solution, service or behavior must satisfy (CR-4
+    §15). Profiles specialize: business, regulatory, security, data, technology, AI.'
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/requirement.json
+    sqlite_table: requirements
+    pydantic_model: pydantic/requirement.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Constraint
+  name: Constraint
+  legacy_ids: []
+  definition: 'Something that limits the possible solution space (CR-4 §16). Distinct from Requirement: a Requirement must
+    be satisfied; a Constraint limits options.'
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/constraint.json
+    sqlite_table: constraints
+    pydantic_model: pydantic/constraint.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Change
+  name: Change
+  legacy_ids: []
+  definition: A deliberate modification to enterprise capabilities, behavior, services, information, technology, organization
+    or operating model (CR-4 §17). Foundation for transformation, roadmap, transition architecture and migration.
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/change.json
+    sqlite_table: changes
+    pydantic_model: pydantic/change.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 relationships:
 - id: dea:composes
   name: Composes
@@ -1120,6 +1492,7 @@ relationships:
     - dea:BusinessProcess
     - dea:Concept
     - dea:DataProduct
+    - dea:Organization
     - dea:OrganizationalUnit
     - dea:SolutionComponent
     - dea:SystemFunction
@@ -1263,6 +1636,7 @@ relationships:
   source:
     types:
     - dea:ApplicationComponent
+    - dea:Behavior
     - dea:BusinessProcess
     - dea:InfrastructureComponent
     - dea:IntegrationComponent
@@ -1273,6 +1647,7 @@ relationships:
     - dea:BusinessCapability
     - dea:BusinessObject
     - dea:BusinessService
+    - dea:Service
   cardinality:
     source: 0..*
     target: 0..*
@@ -1354,6 +1729,7 @@ relationships:
     - dea:BusinessService
     - dea:IntegrationComponent
     - dea:PlatformService
+    - dea:Service
     - dea:SolutionComponent
     - dea:SystemFunction
   target:
@@ -1363,6 +1739,7 @@ relationships:
     - dea:BusinessService
     - dea:InfrastructureComponent
     - dea:PlatformService
+    - dea:Service
     - dea:SolutionComponent
     - dea:Technology
   cardinality:
@@ -1420,6 +1797,7 @@ relationships:
     - dea:ApplicationComponent
     - dea:BusinessCapability
     - dea:PhysicalResource
+    - dea:Resource
     - dea:SystemFunction
     - dea:Technology
   target:
@@ -1448,11 +1826,14 @@ relationships:
   source:
     types:
     - dea:CollaborationAgreement
+    - dea:Constraint
     - dea:Guardrail
     - dea:Regulation
+    - dea:Requirement
   target:
     types:
     - dea:ApplicationComponent
+    - dea:ArchitectureElement
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:SolutionComponent
@@ -1636,6 +2017,7 @@ relationships:
     - dea:ApplicationComponent
     - dea:EcosystemPlatform
     - dea:PlatformService
+    - dea:Service
     - dea:SolutionComponent
   target:
     types:
@@ -1672,6 +2054,7 @@ relationships:
     - dea:BusinessService
     - dea:DigitalIdentity
     - dea:PlatformService
+    - dea:Service
   cardinality:
     source: 0..*
     target: 0..*
@@ -1727,6 +2110,7 @@ relationships:
     - dea:Role
   target:
     types:
+    - dea:Behavior
     - dea:BusinessFunction
     - dea:BusinessProcess
   cardinality:
@@ -1801,12 +2185,14 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:Decision
     - dea:Event
     - dea:ModelFeedbackSignal
     - dea:Signal
   target:
     types:
     - dea:AIMLModel
+    - dea:Behavior
     - dea:BusinessProcess
     - dea:Experiment
     - dea:ModelDeployment
@@ -1923,6 +2309,7 @@ relationships:
   source:
     types:
     - dea:Actor
+    - dea:Organization
     - dea:OrganizationalUnit
   target:
     types:
@@ -1959,6 +2346,7 @@ relationships:
     - dea:Role
   target:
     types:
+    - dea:ArchitectureElement
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
@@ -2077,6 +2465,7 @@ relationships:
     - dea:Concept
     - dea:EcosystemActor
     - dea:Experiment
+    - dea:Information
     - dea:KnowledgeAsset
     - dea:ModelFeedbackSignal
     - dea:TechnologyRadarEntry
@@ -2085,6 +2474,7 @@ relationships:
     types:
     - dea:BusinessCapability
     - dea:BusinessProcess
+    - dea:Decision
     - dea:Entity
     - dea:Guardrail
     - dea:InvestmentInitiative
@@ -2283,6 +2673,7 @@ relationships:
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
+    - dea:Outcome
     - dea:StrategicObjective
   target:
     types:
@@ -2476,6 +2867,7 @@ relationships:
   target:
     types:
     - dea:Entity
+    - dea:InformationClass
   cardinality:
     source: 0..*
     target: 0..*
@@ -2554,3 +2946,118 @@ relationships:
   - funds
   - funded by
   - enhances / automates
+- id: dea:makes
+  name: Makes
+  definition: An Actor or Organization makes (authors/commits to) a Decision (CR-4 §13/§20).
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:OrganizationalUnit
+  target:
+    types:
+    - dea:Decision
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:made-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+- id: dea:results-in
+  name: Results In
+  definition: A Decision or Change produces an Outcome (CR-4 §13/§17).
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:Change
+  target:
+    types:
+    - dea:Outcome
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:resulting-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:targets
+  name: Targets
+  definition: 'A Decision or Change intends an Outcome (CR-4 §14). Resolves the parked CR-2 targets label: ChangeInitiative
+    change-scope uses dea:affects.'
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:Change
+  target:
+    types:
+    - dea:Outcome
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:targeted-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:affects
+  name: Affects
+  definition: A Change modifies the state of an architectural element (CR-4 §17). Broad endpoint by design; profiles constrain
+    further.
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:affected-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:contributes-to
+  name: Contributes To
+  definition: 'Partial causal contribution: a BusinessFunction contributes to a Capability; a Capability contributes to an
+    Outcome (CR-4 §8/§14).'
+  category: realization
+  direction: source-to-target
+  source:
+    types:
+    - dea:BusinessFunction
+    - dea:BusinessCapability
+    - dea:BusinessService
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:Outcome
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:contributed-to-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active

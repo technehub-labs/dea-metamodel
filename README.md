@@ -2,7 +2,7 @@
 
 > **Canonical entity definitions, relationships, and schemas for all DEA catalog repositories.**
 
-[![Metamodel Version](https://img.shields.io/badge/version-0.8.0-blue)](./VERSION)
+[![Metamodel Version](https://img.shields.io/badge/version-0.9.0-blue)](./VERSION)
 [![OpenDEAM Pin](https://img.shields.io/badge/OpenDEAM-v0.5.0-2DD4BF)](https://github.com/technehub-labs/dea-architecture-framework/tree/v0.5.0)
 [![Metamodel Schema](https://img.shields.io/badge/schema-JSON%20Schema-blue)](./schemas/)
 [![RDF Format](https://img.shields.io/badge/rdf-TTL-orange)](./ttl/)
@@ -74,8 +74,23 @@ dea-metamodel/
 Every normative entity and relationship carries a stable identifier
 (`dea:BusinessCapability`, `dea:realizes`) — display names are labels, never identifiers.
 The authoritative inventory is [`metamodel/registry/`](./metamodel/registry/). See
-[`docs/semantics.md`](./docs/semantics.md) for ID conventions, the two relationship
-vocabularies (structural vs instance — unification is CR-002), and lifecycle states.
+[`docs/semantics.md`](./docs/semantics.md) for ID conventions, the canonical relationship
+ontology (CR-2), and lifecycle states.
+
+## Core Ontology & Profiles (CR-4)
+
+**OpenDEA Core defines stable semantic concepts; OpenDEA Profiles define specialized
+architectural viewpoints and frameworks.**
+
+- [`metamodel/core/`](./metamodel/core/) — 18 anchors (Entity, Actor, Organization,
+  Capability, Behavior, Service, Resource, Information, Decision, Outcome, Requirement,
+  Constraint, Change, …) + the 25-type core relationship grammar + O001–O009 constraints
+- [`metamodel/profiles/`](./metamodel/profiles/) — 10 profiles (business, ecosystem,
+  digital, data, technology, ai, governance, assessment, dmm, ecf) with explicit
+  `depends_on` declarations; profiles extend Core, never redefine it
+
+Core can be explained without mentioning DMM, ECF, ArchiMate, AI, cloud, any industry,
+or any vendor. DMM is an assessment lens over the semantic graph, not part of the Core.
 
 ## Diagram Design Tokens
 

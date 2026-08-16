@@ -1,6 +1,6 @@
 {
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
-  "metamodel_version": "0.8.0",
+  "metamodel_version": "0.9.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
   "opendeam_model_pin": "v0.5.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
@@ -79,7 +79,11 @@
       "building_block": "L1-agreements",
       "building_block_name": "Collaboration Agreements",
       "color": "#2DD4BF",
-      "migration_note": "Reallocated from L2-agreements to L1-agreements in v0.2.0 (ADR-0002 D2)."
+      "migration_note": "Reallocated from L2-agreements to L1-agreements in v0.2.0 (ADR-0002 D2).",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-ecosystem-actor",
@@ -93,7 +97,11 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-external-parties",
       "building_block_name": "External Parties",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-ecosystem-platform",
@@ -107,7 +115,11 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-ecosystem-platforms",
       "building_block_name": "Ecosystem Platforms",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-journey-touchpoint",
@@ -121,7 +133,11 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-experience-points",
       "building_block_name": "Experience Points",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-stakeholder",
@@ -135,7 +151,11 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-external-parties",
       "building_block_name": "External Parties",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-value-exchange",
@@ -149,7 +169,11 @@
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-value-flows",
       "building_block_name": "Value Flows",
-      "color": "#2DD4BF"
+      "color": "#2DD4BF",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ecosystem"
+      }
     },
     {
       "entity_id": "dea:entity-architecture-pattern",
@@ -164,7 +188,11 @@
       "building_block": "L2-reusable-knowledge",
       "building_block_name": "Patterns & Blueprints",
       "color": "#FBBF24",
-      "discriminator": "pattern_kind"
+      "discriminator": "pattern_kind",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-blueprint",
@@ -179,7 +207,11 @@
       "building_block": "L2-reusable-knowledge",
       "building_block_name": "Patterns & Blueprints",
       "color": "#FBBF24",
-      "migration_note": "Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns rather than standing alone."
+      "migration_note": "Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns rather than standing alone.",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-control",
@@ -193,7 +225,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-risk-compliance",
       "building_block_name": "Risk & Compliance",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:governance"
+      }
     },
     {
       "entity_id": "dea:entity-experiment",
@@ -207,7 +243,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-innovation-foresight",
       "building_block_name": "Innovation & Foresight",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-guardrail",
@@ -223,7 +263,11 @@
       "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24",
       "enforcement": "automated-block",
-      "migration_note": "Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements Control, closing the gap where Technology claimed to be \"governed via Standards\" with no such relationship existing."
+      "migration_note": "Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements Control, closing the gap where Technology claimed to be \"governed via Standards\" with no such relationship existing.",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:governance"
+      }
     },
     {
       "entity_id": "dea:entity-investment-initiative",
@@ -237,7 +281,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-intent",
       "building_block_name": "Strategic Intent",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-regulation",
@@ -251,7 +299,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-risk-compliance",
       "building_block_name": "Risk & Compliance",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:governance"
+      }
     },
     {
       "entity_id": "dea:entity-risk",
@@ -265,7 +317,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-risk-compliance",
       "building_block_name": "Risk & Compliance",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:governance"
+      }
     },
     {
       "entity_id": "dea:entity-signal",
@@ -279,7 +335,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-innovation-foresight",
       "building_block_name": "Innovation & Foresight",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-strategic-objective",
@@ -293,7 +353,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-intent",
       "building_block_name": "Strategic Intent",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-tenet",
@@ -308,7 +372,11 @@
       "building_block": "L2-rules-guidance",
       "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24",
-      "migration_note": "Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather than a standalone documentation-catalog entry."
+      "migration_note": "Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather than a standalone documentation-catalog entry.",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:governance"
+      }
     },
     {
       "entity_id": "dea:entity-technology-radar-entry",
@@ -322,7 +390,11 @@
       "layer_name": "Strategic & Governance",
       "building_block": "L2-innovation-foresight",
       "building_block_name": "Innovation & Foresight",
-      "color": "#FBBF24"
+      "color": "#FBBF24",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:technology"
+      }
     },
     {
       "entity_id": "dea:entity-actor",
@@ -336,7 +408,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-work-organization",
       "building_block_name": "Work Organization",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-business-function",
@@ -350,7 +426,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-work-organization",
       "building_block_name": "Work Organization",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-business-object",
@@ -368,6 +448,10 @@
       "ecf_coordinates": {
         "domain": null,
         "stage": null
+      },
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
       }
     },
     {
@@ -385,7 +469,11 @@
       "color": "#38BDF8",
       "measured_by": [
         "MTR"
-      ]
+      ],
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-business-service",
@@ -399,7 +487,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-service-offerings",
       "building_block_name": "Service Offerings",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-capability",
@@ -420,7 +512,11 @@
       },
       "measured_by": [
         "MTR"
-      ]
+      ],
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-change-initiative",
@@ -434,7 +530,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-people-skills-culture",
       "building_block_name": "People, Skills & Culture",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-financial-resource",
@@ -450,7 +550,11 @@
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
       "specializes": "RES",
-      "entity_role": "content"
+      "entity_role": "content",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-intangible-resource",
@@ -466,7 +570,11 @@
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
       "specializes": "RES",
-      "entity_role": "content"
+      "entity_role": "content",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-organizational-unit",
@@ -480,7 +588,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-work-organization",
       "building_block_name": "Work Organization",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-physical-resource",
@@ -496,7 +608,11 @@
       "building_block_name": "Enterprise Resources",
       "color": "#38BDF8",
       "specializes": "RES",
-      "entity_role": "content"
+      "entity_role": "content",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-resource",
@@ -516,7 +632,11 @@
         "L3"
       ],
       "entity_role": "content",
-      "completeness_contract": "Any T2 catalog specializing Resource must classify instances along exactly one of three dimensions: liquidity (-> Financial Resource), maintenance regime (-> Physical Resource), or legal protection type (-> Intangible Resource). Each dimension implies a distinct governance/relationship pattern, not merely a different label. (ADR-0005 D3)\n"
+      "completeness_contract": "Any T2 catalog specializing Resource must classify instances along exactly one of three dimensions: liquidity (-> Financial Resource), maintenance regime (-> Physical Resource), or legal protection type (-> Intangible Resource). Each dimension implies a distinct governance/relationship pattern, not merely a different label. (ADR-0005 D3)\n",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
     },
     {
       "entity_id": "dea:entity-role",
@@ -530,7 +650,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-people-skills-culture",
       "building_block_name": "People, Skills & Culture",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-solution-component",
@@ -548,7 +672,11 @@
       "abstract": true,
       "realized_in_layers": [
         "L5"
-      ]
+      ],
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-skill",
@@ -562,7 +690,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-people-skills-culture",
       "building_block_name": "People, Skills & Culture",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-value-stream",
@@ -576,7 +708,11 @@
       "layer_name": "Business Operating Model",
       "building_block": "L3-value-delivery",
       "building_block_name": "Value Delivery",
-      "color": "#38BDF8"
+      "color": "#38BDF8",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:business"
+      }
     },
     {
       "entity_id": "dea:entity-ai-ml-model",
@@ -591,7 +727,11 @@
       "building_block": "L4-intelligence",
       "building_block_name": "Intelligence",
       "color": "#A78BFA",
-      "governed_by": []
+      "governed_by": [],
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ai"
+      }
     },
     {
       "entity_id": "dea:entity-data-entity",
@@ -605,7 +745,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-data-foundation",
       "building_block_name": "Data Foundation",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-digital-identity",
@@ -619,7 +763,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-digital-trust",
       "building_block_name": "Digital Trust",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-data-product",
@@ -633,7 +781,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-data-products",
       "building_block_name": "Data Products",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-event",
@@ -647,7 +799,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-events",
       "building_block_name": "Events & Streams",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-information-asset",
@@ -662,7 +818,11 @@
       "building_block": "L4-information-knowledge",
       "building_block_name": "Information & Knowledge",
       "color": "#A78BFA",
-      "entity_role": "content"
+      "entity_role": "content",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-information-class",
@@ -676,7 +836,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-data-foundation",
       "building_block_name": "Data Foundation",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-knowledge-asset",
@@ -691,7 +855,11 @@
       "building_block": "L4-information-knowledge",
       "building_block_name": "Information & Knowledge",
       "color": "#A78BFA",
-      "entity_role": "content"
+      "entity_role": "content",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-model-deployment",
@@ -705,7 +873,11 @@
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-model-operations",
       "building_block_name": "Model Operations",
-      "color": "#A78BFA"
+      "color": "#A78BFA",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ai"
+      }
     },
     {
       "entity_id": "dea:entity-model-feedback-signal",
@@ -720,7 +892,11 @@
       "building_block": "L4-model-operations",
       "building_block_name": "Model Operations",
       "color": "#A78BFA",
-      "discriminator": "signal_kind"
+      "discriminator": "signal_kind",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:ai"
+      }
     },
     {
       "entity_id": "dea:entity-application-component",
@@ -736,7 +912,11 @@
       "building_block_name": "Systems & Applications",
       "color": "#FB7185",
       "specializes": "SC",
-      "discriminator": "component_type"
+      "discriminator": "component_type",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-api",
@@ -750,7 +930,11 @@
       "layer_name": "Technology & Execution",
       "building_block": "L5-integration",
       "building_block_name": "Integration",
-      "color": "#FB7185"
+      "color": "#FB7185",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-infrastructure-component",
@@ -766,7 +950,11 @@
       "building_block_name": "Infrastructure & Platforms",
       "color": "#FB7185",
       "specializes": "SC",
-      "discriminator": "component_type"
+      "discriminator": "component_type",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:technology"
+      }
     },
     {
       "entity_id": "dea:entity-integration-component",
@@ -782,7 +970,11 @@
       "building_block_name": "Integration",
       "color": "#FB7185",
       "specializes": "SC",
-      "discriminator": "component_type"
+      "discriminator": "component_type",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-platform-service",
@@ -796,7 +988,11 @@
       "layer_name": "Technology & Execution",
       "building_block": "L5-infrastructure",
       "building_block_name": "Infrastructure & Platforms",
-      "color": "#FB7185"
+      "color": "#FB7185",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-system-function",
@@ -813,7 +1009,11 @@
       "color": "#FB7185",
       "measured_by": [
         "MTR"
-      ]
+      ],
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
     },
     {
       "entity_id": "dea:entity-technology",
@@ -828,7 +1028,11 @@
       "building_block": "L5-technology",
       "building_block_name": "Technology Portfolio",
       "color": "#FB7185",
-      "discriminator": "technology_kind"
+      "discriminator": "technology_kind",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:technology"
+      }
     },
     {
       "entity_id": "dea:entity-concept",
@@ -847,7 +1051,11 @@
         "L4",
         "L5"
       ],
-      "parent_concept": null
+      "parent_concept": null,
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:data"
+      }
     },
     {
       "entity_id": "dea:entity-metric",
@@ -865,7 +1073,11 @@
         "L3",
         "L4",
         "L5"
-      ]
+      ],
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:assessment"
+      }
     }
   ],
   "relationships": [
@@ -1459,8 +1671,9 @@
       "rel_type": "dependency",
       "cardinality": "0..N:0..N",
       "style": "dashed",
-      "rel_ids": [],
-      "disposition": "review-required"
+      "rel_ids": [
+        "dea:affects"
+      ]
     },
     {
       "from": "CHI",
@@ -2306,6 +2519,71 @@
         "target": "0..*"
       },
       "inverse": "dea:supported-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:makes",
+      "name": "Makes",
+      "definition": "An Actor or Organization makes (authors/commits to) a Decision (CR-4 §13/§20).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:made-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:results-in",
+      "name": "Results In",
+      "definition": "A Decision or Change produces an Outcome (CR-4 §13/§17).",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:resulting-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:targets",
+      "name": "Targets",
+      "definition": "A Decision or Change intends an Outcome (CR-4 §14). Resolves the parked CR-2 targets label: ChangeInitiative change-scope uses dea:affects.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:targeted-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:affects",
+      "name": "Affects",
+      "definition": "A Change modifies the state of an architectural element (CR-4 §17). Broad endpoint by design; profiles constrain further.",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:affected-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:contributes-to",
+      "name": "Contributes To",
+      "definition": "Partial causal contribution: a BusinessFunction contributes to a Capability; a Capability contributes to an Outcome (CR-4 §8/§14).",
+      "category": "realization",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:contributed-to-by",
       "lifecycle": "active"
     }
   ]

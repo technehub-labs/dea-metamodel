@@ -1,0 +1,20 @@
+# OpenDEA Data Profile (CR-4 §28)
+profile:
+  id: dea:data
+  name: OpenDEA Data Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  scope: 'Information specializations: data entities, products, assets, knowledge, classification, identity, semantic concepts.'
+  entities:
+  - dea:Concept
+  - dea:DataEntity
+  - dea:DataProduct
+  - dea:DigitalIdentity
+  - dea:InformationAsset
+  - dea:InformationClass
+  - dea:KnowledgeAsset
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

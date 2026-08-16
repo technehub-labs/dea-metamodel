@@ -1,0 +1,104 @@
+# Core relationship grammar (CR-4 §19) — subset of the canonical registry
+version: 0.9.0
+relationships:
+- id: dea:specializes
+  name: Specializes
+  category: structural
+  definition: The source is a more specific form of the target (generalization/specialization hierarchy).
+- id: dea:composes
+  name: Composes
+  category: structural
+  definition: The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14).
+- id: dea:instantiates
+  name: Instantiates
+  category: structural
+  definition: A concrete instance is created from a type or model (section 5).
+- id: dea:realizes
+  name: Realizes
+  category: realization
+  definition: The source architectural element provides the realization of an abstract capability, service, or outcome (section
+    5).
+- id: dea:provides
+  name: Provides
+  category: serving
+  definition: The source makes the target service or capability available to consumers.
+- id: dea:supports
+  name: Supports
+  category: dependency
+  definition: The source contributes to the target's function, funding, or effectiveness without realizing, enabling, or being
+    required by it.
+- id: dea:enables
+  name: Enables
+  category: dependency
+  definition: The source makes the target possible or materially more effective, without being required by it.
+- id: dea:depends-on
+  name: Depends On
+  category: dependency
+  definition: The source requires the target for some purpose, without containment or realization semantics (section 14).
+- id: dea:requires
+  name: Requires
+  category: dependency
+  definition: The source cannot fulfil its definition without the target (mandatory dependency).
+- id: dea:performs
+  name: Performs
+  category: execution
+  definition: The source actor or organizational unit carries out the target process or function (section 12).
+- id: dea:uses
+  name: Uses
+  category: serving
+  definition: The source consumes the target service or resource as offered (usage, not depletion — contrast consumes).
+- id: dea:produces
+  name: Produces
+  category: flow
+  definition: The source creates or emits the target as an output.
+- id: dea:consumes
+  name: Consumes
+  category: flow
+  definition: The source takes the target as an input it uses up or processes.
+- id: dea:owns
+  name: Owns
+  category: governance
+  definition: The source holds ownership of the target — accountability for its lifecycle and value.
+- id: dea:governs
+  name: Governs
+  category: governance
+  definition: The source directs, constrains, or oversees the target through policy, agreement, or strategy.
+- id: dea:controls
+  name: Controls
+  category: governance
+  definition: The source mitigates, protects against, or otherwise controls the target risk or exposure.
+- id: dea:accountable-for
+  name: Accountable For
+  category: governance
+  definition: The source holds single-point accountability for the target (RACI 'A').
+- id: dea:informs
+  name: Informs
+  category: information
+  definition: The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak
+    influence — section 17).
+- id: dea:constrains
+  name: Constrains
+  category: dependency
+  definition: The source limits the permissible design or behaviour space of the target.
+- id: dea:targets
+  name: Targets
+  category: governance
+  definition: 'A Decision or Change intends an Outcome (CR-4 §14). Resolves the parked CR-2 targets label: ChangeInitiative
+    change-scope uses dea:affects.'
+- id: dea:results-in
+  name: Results In
+  category: transformation
+  definition: A Decision or Change produces an Outcome (CR-4 §13/§17).
+- id: dea:affects
+  name: Affects
+  category: transformation
+  definition: A Change modifies the state of an architectural element (CR-4 §17). Broad endpoint by design; profiles constrain
+    further.
+- id: dea:transitions-to
+  name: Transitions To
+  category: transformation
+  definition: The source evolves into the target state, maturity, or technology over time (CR-6 will add temporal semantics).
+- id: dea:replaces
+  name: Replaces
+  category: transformation
+  definition: The source takes over the function of the target, which is retired.

@@ -1,0 +1,15 @@
+# OpenDEA DMM Profile (CR-4 §28)
+profile:
+  id: dea:dmm
+  name: OpenDEA DMM Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  - dea:assessment
+  scope: 'Placeholder for CR-5: DMMv5 as an assessment lens over the DEA semantic graph — dimensions, criteria, scores, evidence,
+    baselines, targets.'
+  entities: []
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

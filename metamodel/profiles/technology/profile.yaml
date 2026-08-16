@@ -1,0 +1,17 @@
+# OpenDEA Technology Profile (CR-4 §28)
+profile:
+  id: dea:technology
+  name: OpenDEA Technology Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  - dea:digital
+  scope: Conceptual and infrastructure technology, technology radar viewpoint.
+  entities:
+  - dea:InfrastructureComponent
+  - dea:Technology
+  - dea:TechnologyRadarEntry
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

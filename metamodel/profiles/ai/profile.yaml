@@ -1,0 +1,18 @@
+# OpenDEA AI Profile (CR-4 §28)
+profile:
+  id: dea:ai
+  name: OpenDEA AI Profile
+  version: 0.9.0
+  status: draft
+  depends_on:
+  - dea:core
+  - dea:digital
+  - dea:data
+  scope: AI/ML models, deployments, feedback signals. Agent ontology arrives with CR-7.
+  entities:
+  - dea:AIMLModel
+  - dea:ModelDeployment
+  - dea:ModelFeedbackSignal
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).

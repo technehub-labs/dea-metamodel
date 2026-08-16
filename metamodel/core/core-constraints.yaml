@@ -1,0 +1,23 @@
+# Core ontology constraints (CR-4 §30) — enforced by tests/conformance/test_010_ontology_rules.py
+version: 0.9.0
+constraints:
+- id: O001
+  rule: Every Core entity has a normative definition.
+- id: O002
+  rule: Profiles cannot override Core definitions (CR-4 §29).
+- id: O003
+  rule: Every profile explicitly declares its Core/profile dependencies.
+- id: O004
+  rule: No circular profile dependencies.
+- id: O005
+  rule: No orphan Core entities — each participates in at least one registry relationship.
+- id: O006
+  rule: No orphan profile entities — each connects to Core or a declared profile via a registry relationship endpoint.
+- id: O007
+  rule: Every profile relationship endpoint must be a valid registered entity.
+- id: O008
+  rule: Classification separation — framework classifications cannot alter entity identity.
+- id: O009
+  rule: View separation — viewer constructs cannot appear in the normative ontology.
+core_membership_rule: Put in Core only if cross-domain applicable, stable in meaning, depended on by multiple profiles, and
+  necessary for the fundamental semantic graph (CR-4 §25).

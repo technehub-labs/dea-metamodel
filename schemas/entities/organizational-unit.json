@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/organizational-unit.json",
-  "metamodel_version": "0.8.0",
+  "metamodel_version": "0.9.0",
   "title": "OrganizationalUnit",
   "description": "A unit of organisation (team, division, business unit, governance body, virtual team) that owns capabilities, runs processes, and is custodian for business objects. Classified by structural type, vertical scope, and ECF coordinates. Members (actors) and served stakeholders are referenced from typed catalogs. Catalog: technehub-labs/dea-catalog-organizational-units.",
   "type": "object",

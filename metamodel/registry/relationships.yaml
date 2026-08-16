@@ -1,5 +1,6 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.8.0
+# CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
+registry_version: 0.9.0
 relationships:
 - id: dea:composes
   name: Composes
@@ -11,6 +12,7 @@ relationships:
   - dea:BusinessProcess
   - dea:Concept
   - dea:DataProduct
+  - dea:Organization
   - dea:OrganizationalUnit
   - dea:SolutionComponent
   - dea:SystemFunction
@@ -87,6 +89,7 @@ relationships:
   category: realization
   source:
   - dea:ApplicationComponent
+  - dea:Behavior
   - dea:BusinessProcess
   - dea:InfrastructureComponent
   - dea:IntegrationComponent
@@ -96,6 +99,7 @@ relationships:
   - dea:BusinessCapability
   - dea:BusinessObject
   - dea:BusinessService
+  - dea:Service
   inverse: dea:realized-by
   status: normative
   lifecycle: active
@@ -136,6 +140,7 @@ relationships:
   - dea:BusinessService
   - dea:IntegrationComponent
   - dea:PlatformService
+  - dea:Service
   - dea:SolutionComponent
   - dea:SystemFunction
   target:
@@ -144,6 +149,7 @@ relationships:
   - dea:BusinessService
   - dea:InfrastructureComponent
   - dea:PlatformService
+  - dea:Service
   - dea:SolutionComponent
   - dea:Technology
   inverse: dea:depended-on-by
@@ -175,6 +181,7 @@ relationships:
   - dea:ApplicationComponent
   - dea:BusinessCapability
   - dea:PhysicalResource
+  - dea:Resource
   - dea:SystemFunction
   - dea:Technology
   target:
@@ -190,10 +197,13 @@ relationships:
   category: dependency
   source:
   - dea:CollaborationAgreement
+  - dea:Constraint
   - dea:Guardrail
   - dea:Regulation
+  - dea:Requirement
   target:
   - dea:ApplicationComponent
+  - dea:ArchitectureElement
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:SolutionComponent
@@ -297,6 +307,7 @@ relationships:
   - dea:ApplicationComponent
   - dea:EcosystemPlatform
   - dea:PlatformService
+  - dea:Service
   - dea:SolutionComponent
   target:
   - dea:API
@@ -319,6 +330,7 @@ relationships:
   - dea:BusinessService
   - dea:DigitalIdentity
   - dea:PlatformService
+  - dea:Service
   inverse: dea:used-by
   status: normative
   lifecycle: active
@@ -346,6 +358,7 @@ relationships:
   - dea:OrganizationalUnit
   - dea:Role
   target:
+  - dea:Behavior
   - dea:BusinessFunction
   - dea:BusinessProcess
   inverse: dea:performed-by
@@ -382,11 +395,13 @@ relationships:
   name: Triggers
   category: execution
   source:
+  - dea:Decision
   - dea:Event
   - dea:ModelFeedbackSignal
   - dea:Signal
   target:
   - dea:AIMLModel
+  - dea:Behavior
   - dea:BusinessProcess
   - dea:Experiment
   - dea:ModelDeployment
@@ -448,6 +463,7 @@ relationships:
   category: governance
   source:
   - dea:Actor
+  - dea:Organization
   - dea:OrganizationalUnit
   target:
   - dea:ApplicationComponent
@@ -469,6 +485,7 @@ relationships:
   - dea:OrganizationalUnit
   - dea:Role
   target:
+  - dea:ArchitectureElement
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
@@ -534,6 +551,7 @@ relationships:
   - dea:Concept
   - dea:EcosystemActor
   - dea:Experiment
+  - dea:Information
   - dea:KnowledgeAsset
   - dea:ModelFeedbackSignal
   - dea:TechnologyRadarEntry
@@ -541,6 +559,7 @@ relationships:
   target:
   - dea:BusinessCapability
   - dea:BusinessProcess
+  - dea:Decision
   - dea:Entity
   - dea:Guardrail
   - dea:InvestmentInitiative
@@ -644,6 +663,7 @@ relationships:
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
+  - dea:Outcome
   - dea:StrategicObjective
   target:
   - dea:PerformanceMetric
@@ -752,6 +772,7 @@ relationships:
   - dea:Entity
   target:
   - dea:Entity
+  - dea:InformationClass
   inverse: dea:mapped-from
   status: normative
   lifecycle: active
@@ -782,5 +803,62 @@ relationships:
   - dea:StrategicObjective
   - dea:SystemFunction
   inverse: dea:supported-by
+  status: normative
+  lifecycle: active
+- id: dea:makes
+  name: Makes
+  category: governance
+  source:
+  - dea:Actor
+  - dea:OrganizationalUnit
+  target:
+  - dea:Decision
+  inverse: dea:made-by
+  status: normative
+  lifecycle: active
+- id: dea:results-in
+  name: Results In
+  category: transformation
+  source:
+  - dea:Decision
+  - dea:Change
+  target:
+  - dea:Outcome
+  inverse: dea:resulting-from
+  status: normative
+  lifecycle: active
+- id: dea:targets
+  name: Targets
+  category: governance
+  source:
+  - dea:Decision
+  - dea:Change
+  target:
+  - dea:Outcome
+  inverse: dea:targeted-by
+  status: normative
+  lifecycle: active
+- id: dea:affects
+  name: Affects
+  category: transformation
+  source:
+  - dea:Change
+  - dea:ChangeInitiative
+  target:
+  - dea:Entity
+  inverse: dea:affected-by
+  status: normative
+  lifecycle: active
+- id: dea:contributes-to
+  name: Contributes To
+  category: realization
+  source:
+  - dea:BusinessFunction
+  - dea:BusinessCapability
+  - dea:BusinessService
+  target:
+  - dea:BusinessCapability
+  - dea:Outcome
+  inverse: dea:contributed-to-by
   status: normative
   lifecycle: active

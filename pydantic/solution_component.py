@@ -25,9 +25,11 @@ class SolutionComponent(Entity):
     technology_stack: Optional[list[str]] = None
     """Technology IDs used in this component."""
     capabilities_realized: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     services_provided: Optional[list[str]] = None
     services_consumed: Optional[list[str]] = None
     patterns_applied: Optional[list[str]] = None
     owner: Optional[str] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     dependencies: Optional[list[str]] = None
     security_classification: Optional[Literal['public', 'internal', 'confidential', 'restricted']] = None

@@ -23,12 +23,15 @@ class Process(Entity):
     process_audience: Literal['governance-existence', 'supply-resources', 'people-organization', 'customer-demand', 'product-offering', 'operations-delivery', 'finance-value']
     """The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."""
     owner: Optional[str] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     trigger: Optional[str] = None
     """What initiates this process."""
     outcome: Optional[str] = None
     """Expected result of process completion."""
     parent_process: Optional[str] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     child_processes: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     capabilities_delivered: Optional[list[str]] = None
     services_provided: Optional[list[str]] = None
     components_involved: Optional[list[str]] = None

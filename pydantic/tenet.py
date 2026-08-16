@@ -29,3 +29,4 @@ class Tenet(Entity):
     informs_guardrails: Optional[list[str]] = None
     """Guardrail IDs this tenet motivates or justifies."""
     related_tenets: Optional[list[str]] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

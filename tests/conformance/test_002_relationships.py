@@ -1,6 +1,9 @@
-"""Test 002 (CR-1.9): every relationship has stable ID, name, definition,
-source type, target type, direction, cardinality."""
+"""Test 002 (CR-1.9, extended CR-2): every relationship has stable ID, name,
+definition, source type, target type, direction, cardinality — in the CR-2
+canonical structure (section 3)."""
 from conftest import REL_ID
+
+CARDINALITY = {"0..1", "1", "0..*", "1..*"}
 
 
 def test_relationships_have_stable_ids(relationships):
@@ -16,11 +19,16 @@ def test_relationship_ids_unique(relationships):
 
 def test_relationships_complete(relationships, entity_ids):
     for r in relationships:
-        for field in ("name", "definition", "direction", "cardinality"):
+        for field in ("name", "definition", "direction", "cardinality", "category"):
             assert r.get(field), f"{r['id']}: missing {field}"
-        assert r.get("source"), f"{r['id']}: missing source type(s)"
-        assert r.get("target"), f"{r['id']}: missing target type(s)"
-        for sid in r["source"]:
+        src = r.get("source", {}).get("types", [])
+        tgt = r.get("target", {}).get("types", [])
+        assert src, f"{r['id']}: missing source types"
+        assert tgt, f"{r['id']}: missing target types"
+        for sid in src:
             assert sid in entity_ids, f"{r['id']}: source {sid} not a registered entity"
-        for tid in r["target"]:
+        for tid in tgt:
             assert tid in entity_ids, f"{r['id']}: target {tid} not a registered entity"
+        assert r["cardinality"].get("source") in CARDINALITY, f"{r['id']}: bad source cardinality"
+        assert r["cardinality"].get("target") in CARDINALITY, f"{r['id']}: bad target cardinality"
+        assert r["direction"] == "source-to-target", f"{r['id']}: direction must be canonical"

@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.6.0
+# Version: 0.7.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.6.0" ;
+    owl:versionInfo "0.7.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;
@@ -271,63 +271,302 @@ dea:KnowledgeAsset a owl:Class ;
     skos:definition "Applied know-how made explicit and durable, independent of any one Actor (L4, ADR-0005)." ;
     dea:specification <schemas/entities/knowledge-asset.json> .
 
-dea:mapsTo a owl:ObjectProperty ;
-    rdfs:domain dea:Entity ;
-    rdfs:range dea:Entity ;
-    rdfs:label "maps-to" ;
-    skos:definition "General-purpose cross-catalog mapping between any two entities." ;
-    rdfs:subPropertyOf dea:Relationship .
+# Object properties (CR-002: generated from the canonical relationship registry)
+
+# Object properties (CR-002: generated from the canonical relationship registry)
+
+# Object properties (CR-002: generated from the canonical relationship registry)
+
+dea:composes a owl:ObjectProperty ;
+    rdfs:label "Composes" ;
+    skos:definition "The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:part-of" ;
+    a owl:TransitiveProperty .
+
+dea:aggregates a owl:ObjectProperty ;
+    rdfs:label "Aggregates" ;
+    skos:definition "The target participates in the source but retains an independent lifecycle (aggregation, section 14)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:aggregated-in" .
+
+dea:specializes a owl:ObjectProperty ;
+    rdfs:label "Specializes" ;
+    skos:definition "The source is a more specific form of the target (generalization/specialization hierarchy)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:generalizes" ;
+    a owl:TransitiveProperty .
+
+dea:instantiates a owl:ObjectProperty ;
+    rdfs:label "Instantiates" ;
+    skos:definition "A concrete instance is created from a type or model (section 5)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:instantiated-by" .
 
 dea:realizes a owl:ObjectProperty ;
-    rdfs:domain dea:SolutionComponent ;
-    rdfs:range dea:Capability ;
-    rdfs:label "realizes" ;
-    skos:definition "A SolutionComponent delivers a Capability." .
+    rdfs:label "Realizes" ;
+    skos:definition "The source architectural element provides the realization of an abstract capability, service, or outcome (section 5)." ;
+    dea:category "realization" ;
+    dea:inverseOf "dea:realized-by" .
 
 dea:implements a owl:ObjectProperty ;
-    rdfs:domain dea:ArchitecturePattern ;
-    rdfs:range dea:Guardrail ;
-    rdfs:label "implements" ;
-    skos:definition "An ArchitecturePattern implements a Guardrail." .
+    rdfs:label "Implements" ;
+    skos:definition "An implementation satisfies a specification, requirement, or design (section 5). Narrowed: not used for capability realization (use realizes) or technology enablement (use supports)." ;
+    dea:category "realization" ;
+    dea:inverseOf "dea:implemented-by" .
 
-dea:influencedBy a owl:ObjectProperty ;
-    rdfs:domain dea:Entity ;
-    rdfs:range dea:Tenet ;
-    rdfs:label "influenced-by" ;
-    skos:definition "An entity is guided or shaped by a Tenet." .
+dea:operationalizes a owl:ObjectProperty ;
+    rdfs:label "Operationalizes" ;
+    skos:definition "A policy, tenet, or strategy is translated into operational practice (section 5)." ;
+    dea:category "realization" ;
+    dea:inverseOf "dea:operationalized-by" .
 
-dea:decomposes a owl:ObjectProperty ;
-    rdfs:domain dea:Capability ;
-    rdfs:range dea:Capability ;
-    rdfs:label "decomposes" ;
-    skos:definition "Parent Capability breaks down into child Capabilities." .
+dea:dependsOn a owl:ObjectProperty ;
+    rdfs:label "Depends On" ;
+    skos:definition "The source requires the target for some purpose, without containment or realization semantics (section 14)." ;
+    dea:category "dependency" ;
+    dea:inverseOf "dea:depended-on-by" ;
+    a owl:TransitiveProperty .
 
-dea:orchestrates a owl:ObjectProperty ;
-    rdfs:domain dea:Process ;
-    rdfs:range dea:Process ;
-    rdfs:label "orchestrates" ;
-    skos:definition "Parent Process coordinates child Processes." .
+dea:requires a owl:ObjectProperty ;
+    rdfs:label "Requires" ;
+    skos:definition "The source cannot fulfil its definition without the target (mandatory dependency)." ;
+    dea:category "dependency" ;
+    dea:inverseOf "dea:required-by" .
+
+dea:enables a owl:ObjectProperty ;
+    rdfs:label "Enables" ;
+    skos:definition "The source makes the target possible or materially more effective, without being required by it." ;
+    dea:category "dependency" ;
+    dea:inverseOf "dea:enabled-by" .
+
+dea:constrains a owl:ObjectProperty ;
+    rdfs:label "Constrains" ;
+    skos:definition "The source limits the permissible design or behaviour space of the target." ;
+    dea:category "dependency" ;
+    dea:inverseOf "dea:constrained-by" .
+
+dea:flowsTo a owl:ObjectProperty ;
+    rdfs:label "Flows To" ;
+    skos:definition "Information, material, control, or value moves from the source to the target." ;
+    dea:category "flow" ;
+    dea:inverseOf "dea:flows-from" .
+
+dea:produces a owl:ObjectProperty ;
+    rdfs:label "Produces" ;
+    skos:definition "The source creates or emits the target as an output." ;
+    dea:category "flow" ;
+    dea:inverseOf "dea:produced-by" .
 
 dea:consumes a owl:ObjectProperty ;
-    rdfs:domain dea:SolutionComponent ;
-    rdfs:range dea:BusinessService ;
-    rdfs:label "consumes" ;
-    skos:definition "A SolutionComponent uses an external BusinessService." .
+    rdfs:label "Consumes" ;
+    skos:definition "The source takes the target as an input it uses up or processes." ;
+    dea:category "flow" ;
+    dea:inverseOf "dea:consumed-by" .
+
+dea:exchanges a owl:ObjectProperty ;
+    rdfs:label "Exchanges" ;
+    skos:definition "The source and target participate in a bidirectional exchange of value, data, or signals." ;
+    dea:category "flow" ;
+    dea:inverseOf "dea:exchanges" ;
+    a owl:SymmetricProperty .
+
+dea:serves a owl:ObjectProperty ;
+    rdfs:label "Serves" ;
+    skos:definition "The source delivers value or service to the target party or channel." ;
+    dea:category "serving" ;
+    dea:inverseOf "dea:served-by" .
 
 dea:provides a owl:ObjectProperty ;
-    rdfs:domain dea:SolutionComponent ;
-    rdfs:range dea:BusinessService ;
-    rdfs:label "provides" ;
-    skos:definition "A SolutionComponent exposes a BusinessService." .
+    rdfs:label "Provides" ;
+    skos:definition "The source makes the target service or capability available to consumers." ;
+    dea:category "serving" ;
+    dea:inverseOf "dea:provided-by" .
+
+dea:uses a owl:ObjectProperty ;
+    rdfs:label "Uses" ;
+    skos:definition "The source consumes the target service or resource as offered (usage, not depletion — contrast consumes)." ;
+    dea:category "serving" ;
+    dea:inverseOf "dea:used-by" .
+
+dea:exposes a owl:ObjectProperty ;
+    rdfs:label "Exposes" ;
+    skos:definition "The source presents the target as an accessible interface, product, or representation to consumers." ;
+    dea:category "serving" ;
+    dea:inverseOf "dea:exposed-via" .
+
+dea:performs a owl:ObjectProperty ;
+    rdfs:label "Performs" ;
+    skos:definition "The source actor or organizational unit carries out the target process or function (section 12)." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:performed-by" .
+
+dea:executes a owl:ObjectProperty ;
+    rdfs:label "Executes" ;
+    skos:definition "The source system function or component carries out the target process or activity automatically." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:executed-by" .
+
+dea:orchestrates a owl:ObjectProperty ;
+    rdfs:label "Orchestrates" ;
+    skos:definition "The source coordinates the execution ordering and interaction of the targets." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:orchestrated-by" .
+
+dea:triggers a owl:ObjectProperty ;
+    rdfs:label "Triggers" ;
+    skos:definition "The source event or signal initiates the target process, experiment, or retraining." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:triggered-by" .
 
 dea:governs a owl:ObjectProperty ;
-    rdfs:domain dea:Standard ;
-    rdfs:range dea:Entity ;
-    rdfs:label "governs" ;
-    skos:definition "A Standard governs entity behavior." .
+    rdfs:label "Governs" ;
+    skos:definition "The source directs, constrains, or oversees the target through policy, agreement, or strategy." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:governed-by" .
+
+dea:mandates a owl:ObjectProperty ;
+    rdfs:label "Mandates" ;
+    skos:definition "The source imposes a binding obligation on the target (regulatory or policy force)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:mandated-by" .
+
+dea:controls a owl:ObjectProperty ;
+    rdfs:label "Controls" ;
+    skos:definition "The source mitigates, protects against, or otherwise controls the target risk or exposure." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:controlled-by" .
+
+dea:owns a owl:ObjectProperty ;
+    rdfs:label "Owns" ;
+    skos:definition "The source holds ownership of the target — accountability for its lifecycle and value." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:owned-by" .
+
+dea:accountableFor a owl:ObjectProperty ;
+    rdfs:label "Accountable For" ;
+    skos:definition "The source holds single-point accountability for the target (RACI 'A')." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:accountable-to" .
+
+dea:responsibleFor a owl:ObjectProperty ;
+    rdfs:label "Responsible For" ;
+    skos:definition "The source performs or manages the target day-to-day (RACI 'R'), including custodianship and role fulfilment." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:responsible-to" .
+
+dea:threatens a owl:ObjectProperty ;
+    rdfs:label "Threatens" ;
+    skos:definition "The source risk exposes the target to potential harm or failure (risk relation, section 17 placement per D5)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:threatened-by" .
+
+dea:represents a owl:ObjectProperty ;
+    rdfs:label "Represents" ;
+    skos:definition "One information representation corresponds to another conceptual entity (section 5)." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:represented-by" .
+
+dea:informs a owl:ObjectProperty ;
+    rdfs:label "Informs" ;
+    skos:definition "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence — section 17)." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:informed-by" .
+
+dea:curates a owl:ObjectProperty ;
+    rdfs:label "Curates" ;
+    skos:definition "The source selects, organizes, and maintains the target as governed content or product." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:curated-into" .
+
+dea:publishes a owl:ObjectProperty ;
+    rdfs:label "Publishes" ;
+    skos:definition "The source makes the target event or information available to subscribers." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:published-by" .
+
+dea:subscribesTo a owl:ObjectProperty ;
+    rdfs:label "Subscribes To" ;
+    skos:definition "The source consumes publications of the target event or information feed." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:subscribed-by" .
+
+dea:trainedOn a owl:ObjectProperty ;
+    rdfs:label "Trained On" ;
+    skos:definition "The source AI/ML model is trained on the target data product or dataset." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:training-of" .
+
+dea:derivedFrom a owl:ObjectProperty ;
+    rdfs:label "Derived From" ;
+    skos:definition "The source is derived from the target information, event, or actor knowledge (lineage)." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:derived-into" ;
+    a owl:TransitiveProperty .
+
+dea:assessedBy a owl:ObjectProperty ;
+    rdfs:label "Assessed By" ;
+    skos:definition "The source is evaluated by the target assessment instrument, experiment, or framework." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:assesses" .
 
 dea:measuredBy a owl:ObjectProperty ;
-    rdfs:domain dea:Entity ;
-    rdfs:range dea:Metric ;
-    rdfs:label "measured-by" ;
-    skos:definition "An entity is tracked or assessed via a Metric." .
+    rdfs:label "Measured By" ;
+    skos:definition "The source's performance, health, or maturity is quantified by the target metric." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:measures" .
+
+dea:evidencedBy a owl:ObjectProperty ;
+    rdfs:label "Evidenced By" ;
+    skos:definition "The source relationship or claim is supported by the target evidence artefact (section 6)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:evidences" .
+
+dea:benchmarkedAgainst a owl:ObjectProperty ;
+    rdfs:label "Benchmarked Against" ;
+    skos:definition "The source is compared against the target reference, standard, or peer." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:benchmark-of" .
+
+dea:transitionsTo a owl:ObjectProperty ;
+    rdfs:label "Transitions To" ;
+    skos:definition "The source evolves into the target state, maturity, or technology over time (CR-6 will add temporal semantics)." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:transitions-from" .
+
+dea:replaces a owl:ObjectProperty ;
+    rdfs:label "Replaces" ;
+    skos:definition "The source takes over the function of the target, which is retired." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:replaced-by" .
+
+dea:supersedes a owl:ObjectProperty ;
+    rdfs:label "Supersedes" ;
+    skos:definition "The source version or concept supersedes the target in definition or governance." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:superseded-by" .
+
+dea:migratesTo a owl:ObjectProperty ;
+    rdfs:label "Migrates To" ;
+    skos:definition "The source is moved to the target platform, component, or state during a change initiative." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:migrated-from" .
+
+dea:mapsTo a owl:ObjectProperty ;
+    rdfs:label "Maps To" ;
+    skos:definition "An explicit crosswalk or correspondence between two modelling systems or classification schemes (section 9). NOT a generic 'somehow related'." ;
+    dea:category "traceability" ;
+    dea:inverseOf "dea:mapped-from" .
+
+dea:tracesTo a owl:ObjectProperty ;
+    rdfs:label "Traces To" ;
+    skos:definition "Audit lineage from the source to the target artefact that justifies or originates it." ;
+    dea:category "traceability" ;
+    dea:inverseOf "dea:traced-from" ;
+    a owl:TransitiveProperty .
+
+dea:supports a owl:ObjectProperty ;
+    rdfs:label "Supports" ;
+    skos:definition "The source contributes to the target's function, funding, or effectiveness without realizing, enabling, or being required by it." ;
+    dea:category "dependency" ;
+    dea:inverseOf "dea:supported-by" .

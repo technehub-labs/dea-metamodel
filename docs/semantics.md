@@ -30,21 +30,35 @@ authoritative machine-readable inventory, generated from the normative source.
 Consumers (viewer, CLI, catalog tooling) MUST read the registry rather than maintaining
 their own conceptual graph.
 
-## Two relationship vocabularies — known divergence
+## One canonical relationship ontology (CR-002)
 
-The repository currently carries **two** relationship vocabularies, both registered in
-the normative source with `cr2_note` markers:
+As of v0.7.0 the repository has a **single** relationship vocabulary: the canonical
+registry in `metamodel/dea-metamodel.yaml` (inventory projection:
+`metamodel/registry/relationships.yaml`). It replaces the pre-0.7.0 split between the
+viewer graph's 7 structural rel_types and the 10-type instance enum.
 
-| Vocabulary | Source | Types | Status |
-|---|---|---|---|
-| **Structural** | OpenDEAM root model rendering vocabulary (viewer graph `rel_type`) | 7: aggregation, association, composition, dependency, flow, governance, realization | normative |
-| **Instance** | `schemas/relationships/relationship-instance.json` enum | 10: maps-to, realizes, implements, influenced-by, decomposes, orchestrates, consumes, provides, governs, measured-by | normative |
+Key semantics:
 
-This duality is **acknowledged technical debt, not a resolved design**. CR-2
-(Relationship Semantics) replaces both with a single authoritative, typed relationship
-ontology expressing direction, semantics, cardinality, provenance and temporal validity.
-Until CR-2 closes, new model content should prefer the instance vocabulary for
-machine-readable instances and the structural vocabulary for rendering.
+- **Categories** (controlled, CR-2 §4): structural, realization, dependency, flow,
+  serving, execution, governance, information, assessment, transformation, traceability.
+- **Direction is canonical**: always source-to-target. Inverse views (e.g.
+  `dea:realized-by`) are declared via the `inverse` property and generated — never
+  stored as independent relationships (CR-2 §8).
+- **Endpoints are typed**: `source.types` / `target.types` constrain valid connections
+  (CR-2 §12); cardinality is explicit at both ends (§13).
+- **Lifecycle** (§20): `proposed | active | deprecated | retired`. Deprecated types
+  remain readable via the crosswalk but are rejected for new instances (R011).
+- **Provenance** (§21/§22): instances can carry structured provenance; AI-asserted
+  relationships are distinguishable via `agent_id` + `verification_status` + `confidence`.
+- **maps-to is narrowed** (§9) to crosswalk/classification/traceability/equivalence with
+  a mandatory `mapping.kind`.
+- **Viewer is a projection** (§10): `viewer/entity-graph.json` edges resolve to canonical
+  `rel_ids` via `metamodel/migration/relationship-crosswalk.yaml`; visual attributes
+  (`rel_type` style) are presentation-only.
+- **Entity schemas do not hold relationship state** (§11): duplicated convenience
+  properties are `deprecated: true` as of v0.7.0 and will be removed in CR-003.
+
+The pre-0.7.0 vocabularies are preserved as migration history in the crosswalk.
 
 ## Entity status vs lifecycle
 

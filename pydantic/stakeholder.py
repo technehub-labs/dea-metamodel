@@ -21,7 +21,7 @@ class Stakeholder(Entity):
     stakeholder_type: Literal['customer', 'partner', 'supplier', 'regulator', 'investor', 'community', 'board']
     """The relationship class the stakeholder holds with the enterprise. Open set — new stakeholder types (e.g. AI agents, DAO treasuries) can be added without schema changes when enterprise relationships genuinely require them."""
     relationship_direction: Optional[Literal['inbound', 'outbound', 'bidirectional', 'governance']] = None
-    """How value flows between the stakeholder and the enterprise: inbound (enterprise receives value), outbound (enterprise delivers value), bidirectional (co-created/shared), governance (accountability/compliance)."""
+    """How value flows between the stakeholder and the enterprise: inbound (enterprise receives value), outbound (enterprise delivers value), bidirectional (co-created/shared), governance (accountability/compliance). DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     primary_contact: Optional[str] = None
     external_identifiers: Optional[dict[str, Any]] = None
     """External IDs — registration numbers, LEI, DUNS, ticker, etc. Free-form key/value."""

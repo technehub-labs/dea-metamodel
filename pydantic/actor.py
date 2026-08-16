@@ -23,6 +23,7 @@ class Actor(Entity):
     scope: Optional[Literal['individual', 'team', 'departmental', 'enterprise', 'ecosystem']] = None
     """The scope at which the actor operates."""
     owner: Optional[str] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     capabilities: Optional[list[str]] = None
     """References to Capabilities in technehub-labs/dea-catalog-business-capabilities that this Actor performs."""
     processes_performed: Optional[list[str]] = None

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/ecosystem-actor.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "Ecosystem Actor",
   "description": "External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner. OpenDEAM v0.2.0, L1 Ecosystem & Value Network / External Parties. Distinct from Stakeholder (affected/engaged, may be passive): an Ecosystem Actor is defined by an active value-exchange relationship.",
   "type": "object",

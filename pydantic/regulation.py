@@ -21,4 +21,4 @@ class Regulation(Entity):
     jurisdiction: Optional[str] = None
     """Jurisdiction or authority imposing the obligation."""
     mandates: Optional[list[str]] = None
-    """Control ids required by this regulation."""
+    """Control ids required by this regulation. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

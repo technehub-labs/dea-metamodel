@@ -21,4 +21,4 @@ class ModelFeedbackSignal(Entity):
     signal_kind: Optional[Literal['drift', 'performance-degradation', 'outcome-quality']] = None
     """Discriminator within dea-catalog-model-deployments (ADR-0002 D6)."""
     derived_from: Optional[list[str]] = None
-    """Event/streams the feedback is captured from."""
+    """Event/streams the feedback is captured from. DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""

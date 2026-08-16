@@ -31,5 +31,6 @@ class Metric(Entity):
     entities_measured: Optional[list[str]] = None
     """Entity IDs this metric tracks."""
     owner: Optional[str] = None
+    """DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."""
     scope_layers: Optional[list[str]] = None
     """Architecture layers this metric may evaluate (OpenDEAM v0.2.0 measurement-dimension scope)."""

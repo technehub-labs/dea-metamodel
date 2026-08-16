@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.6.0
+  version: 0.7.0
   status: draft
   normative: true
   namespace:
@@ -1107,394 +1107,1444 @@ entities:
     pydantic_model: pydantic/metric.py
     ts_interface: typescript/src/interfaces.ts
 relationships:
-- id: dea:aggregation
-  name: aggregation
-  vocabulary: structural
-  definition: Whole-part grouping where parts can exist independently of the whole.
-  direction: directed
-  cardinality: 1:0..N
+- id: dea:composes
+  name: Composes
+  definition: The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14).
+  category: structural
+  direction: source-to-target
   source:
-  - dea:BusinessCapability
-  - dea:EcosystemPlatform
-  - dea:ValueStream
+    types:
+    - dea:ApplicationComponent
+    - dea:Blueprint
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Concept
+    - dea:DataProduct
+    - dea:OrganizationalUnit
+    - dea:SolutionComponent
+    - dea:SystemFunction
   target:
-  - dea:BusinessCapability
-  - dea:BusinessFunction
-  - dea:EcosystemActor
-  observed_labels:
+    types:
+    - dea:ApplicationComponent
+    - dea:ArchitecturePattern
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Concept
+    - dea:DataEntity
+    - dea:OrganizationalUnit
+    - dea:SolutionComponent
+    - dea:SystemFunction
+  cardinality:
+    source: 0..*
+    target: 1..*
+  inverse: dea:part-of
+  transitive: true
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - decomposes
+  - composed of
+  - hosted by
+- id: dea:aggregates
+  name: Aggregates
+  definition: The target participates in the source but retains an independent lifecycle (aggregation, section 14).
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+    - dea:BusinessFunction
+    - dea:DataProduct
+    - dea:EcosystemPlatform
+    - dea:ValueStream
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessObject
+    - dea:DataEntity
+    - dea:EcosystemActor
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:aggregated-in
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
   - grouped by
   - hosts
-  - traverses
-  status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:association
-  name: association
-  vocabulary: structural
-  definition: Loose semantic link between two entities with no ownership or direction semantics.
-  direction: directed
-  cardinality: 1:0..N
+- id: dea:specializes
+  name: Specializes
+  definition: The source is a more specific form of the target (generalization/specialization hierarchy).
+  category: structural
+  direction: source-to-target
   source:
-  - dea:Actor
-  - dea:EcosystemActor
-  - dea:Stakeholder
+    types:
+    - dea:ArchitecturePattern
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Concept
   target:
-  - dea:BusinessProcess
-  - dea:CollaborationAgreement
-  - dea:StrategicObjective
-  observed_labels:
-  - engages in
-  - influences
-  - performs
-  - served by
+    types:
+    - dea:ArchitecturePattern
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Concept
+  cardinality:
+    source: 0..*
+    target: 0..1
+  inverse: dea:generalizes
+  transitive: true
+  symmetric: false
+  temporal: false
+  provenance: optional
   status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:composition
-  name: composition
-  vocabulary: structural
-  definition: Strong whole-part containment; parts are owned by and exist within the whole.
-  direction: directed
-  cardinality: 1:0..N
+  lifecycle: proposed
+- id: dea:instantiates
+  name: Instantiates
+  definition: A concrete instance is created from a type or model (section 5).
+  category: structural
+  direction: source-to-target
   source:
-  - dea:Blueprint
-  - dea:DataEntity
-  - dea:ModelDeployment
-  - dea:SystemFunction
+    types:
+    - dea:ModelDeployment
   target:
-  - dea:ApplicationComponent
-  - dea:ArchitecturePattern
-  - dea:DataProduct
-  observed_labels:
-  - composed of
-  - curated into
-  - hosted by
+    types:
+    - dea:AIMLModel
+  cardinality:
+    source: 0..*
+    target: '1'
+  inverse: dea:instantiated-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
   status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:dependency
-  name: dependency
-  vocabulary: structural
-  definition: One entity requires or relies on another for its function or definition.
-  direction: directed
-  cardinality: 1:0..N
+  lifecycle: active
+  supersedes:
+  - instance of
+- id: dea:part-of
+  name: Part Of
+  definition: Inverse view of composes. Never stored as an independent relationship (section 8). [VIRTUAL inverse view — never
+    stored]
+  category: structural
+  direction: source-to-target
   source:
-  - dea:AIMLModel
-  - dea:ApplicationComponent
-  - dea:BusinessCapability
-  - dea:BusinessService
-  - dea:ChangeInitiative
-  - dea:Event
-  - dea:Experiment
-  - dea:FinancialResource
-  - dea:InformationAsset
-  - dea:JourneyTouchpoint
-  - dea:KnowledgeAsset
-  - dea:ModelFeedbackSignal
-  - dea:PhysicalResource
-  - dea:Risk
-  - dea:Signal
-  - dea:Skill
-  - dea:Technology
-  - dea:TechnologyRadarEntry
-  - dea:Tenet
-  - dea:ValueExchange
+    types:
+    - dea:Entity
   target:
-  - dea:AIMLModel
-  - dea:Actor
-  - dea:ApplicationComponent
-  - dea:BusinessCapability
-  - dea:BusinessObject
-  - dea:BusinessProcess
-  - dea:DataEntity
-  - dea:DataProduct
-  - dea:DigitalIdentity
-  - dea:Event
-  - dea:Experiment
-  - dea:Guardrail
-  - dea:InvestmentInitiative
-  - dea:OrganizationalUnit
-  - dea:PlatformService
-  - dea:Role
-  - dea:SystemFunction
-  - dea:Tenet
-  observed_labels:
-  - authenticates
-  - captured from
-  - carries payload of
-  - contextualized from
-  - deployed on
-  - derived from
-  - enables
-  - enhances / automates
-  - evaluated via
-  - exposes
-  - funds
+    types:
+    - dea:Entity
+  cardinality:
+    source: 1..*
+    target: 0..*
+  inverse: dea:composes
+  transitive: true
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  virtual: true
+- id: dea:realizes
+  name: Realizes
+  definition: The source architectural element provides the realization of an abstract capability, service, or outcome (section
+    5).
+  category: realization
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:InfrastructureComponent
+    - dea:IntegrationComponent
+    - dea:SolutionComponent
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessService
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:realized-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - realizes
+  - implemented by
+- id: dea:implements
+  name: Implements
+  definition: 'An implementation satisfies a specification, requirement, or design (section 5). Narrowed: not used for capability
+    realization (use realizes) or technology enablement (use supports).'
+  category: realization
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:ArchitecturePattern
+    - dea:SolutionComponent
+  target:
+    types:
+    - dea:ArchitecturePattern
+    - dea:Blueprint
+    - dea:Guardrail
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:implemented-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
   - implements
-  - informs
-  - produces / consumes
+- id: dea:operationalizes
+  name: Operationalizes
+  definition: A policy, tenet, or strategy is translated into operational practice (section 5).
+  category: realization
+  direction: source-to-target
+  source:
+    types:
+    - dea:BusinessProcess
+    - dea:Control
+    - dea:Guardrail
+  target:
+    types:
+    - dea:Guardrail
+    - dea:StrategicObjective
+    - dea:Tenet
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:operationalized-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - implements (Guardrail->Control)
+  - influenced-by
+- id: dea:depends-on
+  name: Depends On
+  definition: The source requires the target for some purpose, without containment or realization semantics (section 14).
+  category: dependency
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:IntegrationComponent
+    - dea:PlatformService
+    - dea:SolutionComponent
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:API
+    - dea:ApplicationComponent
+    - dea:BusinessService
+    - dea:InfrastructureComponent
+    - dea:PlatformService
+    - dea:SolutionComponent
+    - dea:Technology
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:depended-on-by
+  transitive: true
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - deployed on
+  - dependency
+- id: dea:requires
+  name: Requires
+  definition: The source cannot fulfil its definition without the target (mandatory dependency).
+  category: dependency
+  direction: source-to-target
+  source:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Control
+    - dea:Role
+    - dea:SolutionComponent
+  target:
+    types:
+    - dea:DataEntity
+    - dea:FinancialResource
+    - dea:InformationAsset
+    - dea:Resource
+    - dea:Skill
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:required-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
   - required by
-  - targets
-  - threatens
-  - trained on
+- id: dea:enables
+  name: Enables
+  definition: The source makes the target possible or materially more effective, without being required by it.
+  category: dependency
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:PhysicalResource
+    - dea:SystemFunction
+    - dea:Technology
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:StrategicObjective
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:enabled-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - enables
+- id: dea:constrains
+  name: Constrains
+  definition: The source limits the permissible design or behaviour space of the target.
+  category: dependency
+  direction: source-to-target
+  source:
+    types:
+    - dea:CollaborationAgreement
+    - dea:Guardrail
+    - dea:Regulation
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:SolutionComponent
+    - dea:Technology
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:constrained-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: proposed
+- id: dea:flows-to
+  name: Flows To
+  definition: Information, material, control, or value moves from the source to the target.
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:Event
+    - dea:InformationAsset
+    - dea:SystemFunction
+    - dea:ValueExchange
+    - dea:ValueStream
+  target:
+    types:
+    - dea:Actor
+    - dea:BusinessCapability
+    - dea:BusinessObject
+    - dea:JourneyTouchpoint
+    - dea:SystemFunction
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:flows-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - crosses boundary at
+  - traverses
+- id: dea:produces
+  name: Produces
+  definition: The source creates or emits the target as an output.
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Experiment
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:BusinessObject
+    - dea:DataEntity
+    - dea:Event
+    - dea:InformationAsset
+    - dea:Signal
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:produced-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - produces / consumes (split)
+- id: dea:consumes
+  name: Consumes
+  definition: The source takes the target as an input it uses up or processes.
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:BusinessObject
+    - dea:BusinessService
+    - dea:DataEntity
+    - dea:Event
+    - dea:InformationAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:consumed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - consumed by
+  - produces / consumes (split)
+  - consumes
+- id: dea:exchanges
+  name: Exchanges
+  definition: The source and target participate in a bidirectional exchange of value, data, or signals.
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:API
+    - dea:EcosystemActor
+    - dea:EcosystemPlatform
+    - dea:ValueExchange
+  target:
+    types:
+    - dea:BusinessObject
+    - dea:DataEntity
+    - dea:EcosystemActor
+    - dea:ValueExchange
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:exchanges
+  transitive: false
+  symmetric: true
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - serves / exchanges
   - transports (payload)
+- id: dea:serves
+  name: Serves
+  definition: The source delivers value or service to the target party or channel.
+  category: serving
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:EcosystemPlatform
+    - dea:JourneyTouchpoint
+  target:
+    types:
+    - dea:Actor
+    - dea:EcosystemActor
+    - dea:OrganizationalUnit
+    - dea:Stakeholder
+    - dea:ValueStream
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:served-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - served by
+  - experienced via
+- id: dea:provides
+  name: Provides
+  definition: The source makes the target service or capability available to consumers.
+  category: serving
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:ApplicationComponent
+    - dea:EcosystemPlatform
+    - dea:PlatformService
+    - dea:SolutionComponent
+  target:
+    types:
+    - dea:API
+    - dea:BusinessCapability
+    - dea:BusinessService
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:provided-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - provides
+- id: dea:uses
+  name: Uses
+  definition: The source consumes the target service or resource as offered (usage, not depletion — contrast consumes).
+  category: serving
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:JourneyTouchpoint
+    - dea:SolutionComponent
+  target:
+    types:
+    - dea:API
+    - dea:BusinessService
+    - dea:DigitalIdentity
+    - dea:PlatformService
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:used-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - consumes (service usage)
+  - authenticates
+- id: dea:exposes
+  name: Exposes
+  definition: The source presents the target as an accessible interface, product, or representation to consumers.
+  category: serving
+  direction: source-to-target
+  source:
+    types:
+    - dea:API
+    - dea:ApplicationComponent
+    - dea:BusinessService
+    - dea:DataProduct
+  target:
+    types:
+    - dea:BusinessObject
+    - dea:BusinessService
+    - dea:DataEntity
+    - dea:DataProduct
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:exposed-via
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - exposed via
+  - exposes
+- id: dea:performs
+  name: Performs
+  definition: The source actor or organizational unit carries out the target process or function (section 12).
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:OrganizationalUnit
+    - dea:Role
+  target:
+    types:
+    - dea:BusinessFunction
+    - dea:BusinessProcess
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:performed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - performs
+- id: dea:executes
+  name: Executes
+  definition: The source system function or component carries out the target process or activity automatically.
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:BusinessFunction
+    - dea:BusinessProcess
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:executed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - automated by
+- id: dea:orchestrates
+  name: Orchestrates
+  definition: The source coordinates the execution ordering and interaction of the targets.
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:SystemFunction
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:orchestrated-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - orchestrates
+- id: dea:triggers
+  name: Triggers
+  definition: The source event or signal initiates the target process, experiment, or retraining.
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:Event
+    - dea:ModelFeedbackSignal
+    - dea:Signal
+  target:
+    types:
+    - dea:AIMLModel
+    - dea:BusinessProcess
+    - dea:Experiment
+    - dea:ModelDeployment
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:triggered-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
   - triggers
   - triggers retraining of
-  status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:flow
-  name: flow
-  vocabulary: structural
-  definition: Movement of information, material, control, or value from one entity to another.
-  direction: directed
-  cardinality: 1:0..N
-  source:
-  - dea:API
-  - dea:InformationAsset
-  - dea:SystemFunction
-  - dea:ValueExchange
-  - dea:ValueStream
-  target:
-  - dea:Actor
-  - dea:DataEntity
-  - dea:Event
-  - dea:JourneyTouchpoint
-  observed_labels:
-  - consumed by
-  - crosses boundary at
-  - experienced via
-  - publishes / subscribes
-  - serves / exchanges
-  status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:governance
-  name: governance
-  vocabulary: structural
-  definition: One entity directs, constrains, or oversees another.
-  direction: directed
-  cardinality: 1:0..N
-  source:
-  - dea:AIMLModel
-  - dea:BusinessCapability
-  - dea:BusinessFunction
-  - dea:ChangeInitiative
-  - dea:CollaborationAgreement
-  - dea:Concept
-  - dea:Control
-  - dea:DataEntity
-  - dea:Guardrail
-  - dea:IntangibleResource
-  - dea:InvestmentInitiative
-  - dea:OrganizationalUnit
-  - dea:Regulation
-  - dea:StrategicObjective
-  - dea:SystemFunction
-  target:
-  - dea:BusinessCapability
-  - dea:BusinessObject
-  - dea:Control
-  - dea:InformationClass
-  - dea:InvestmentInitiative
-  - dea:OrganizationalUnit
-  - dea:PerformanceMetric
-  - dea:Risk
-  - dea:SolutionComponent
-  - dea:Technology
-  - dea:ValueExchange
-  observed_labels:
-  - classified by
-  - custodian of
-  - defines
-  - drives
-  - evaluated by
-  - funded by
-  - funds
-  - governs
-  - mandates
-  - measured by
-  - mitigates
-  - owned by
-  - protects
-  - subject to (governed_by)
-  status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:realization
-  name: realization
-  vocabulary: structural
-  definition: One entity delivers, implements, or makes concrete another (typically more abstract) entity.
-  direction: directed
-  cardinality: 1:0..N
-  source:
-  - dea:BusinessCapability
-  - dea:BusinessObject
-  - dea:BusinessProcess
-  - dea:DataProduct
-  - dea:DigitalIdentity
-  - dea:EcosystemActor
-  - dea:EcosystemPlatform
-  - dea:Guardrail
-  - dea:ModelDeployment
-  - dea:Role
-  - dea:SystemFunction
-  - dea:TechnologyRadarEntry
-  target:
-  - dea:AIMLModel
-  - dea:API
-  - dea:Actor
-  - dea:BusinessProcess
-  - dea:Control
-  - dea:DataEntity
-  - dea:DigitalIdentity
-  - dea:SystemFunction
-  - dea:Technology
-  observed_labels:
-  - automated by
-  - digitized as
-  - exposed via
-  - fulfilled by
-  - graduates to
-  - implemented by
-  - implements
-  - instance of
-  - represented by
-  status: normative
-  cr2_note: Structural type from the OpenDEAM root model rendering vocabulary. Endpoint typing and label-level semantics to
-    be formalized under CR-2.
-- id: dea:maps-to
-  name: mapsTo
-  vocabulary: instance
-  definition: General-purpose cross-catalog mapping between any two entities.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:Entity
-  target:
-  - dea:Entity
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:realizes
-  name: realizes
-  vocabulary: instance
-  definition: A SolutionComponent or BusinessProcess delivers a BusinessCapability.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:SolutionComponent
-  - dea:BusinessProcess
-  target:
-  - dea:BusinessCapability
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:implements
-  name: implements
-  vocabulary: instance
-  definition: An ArchitecturePattern or SolutionComponent implements a Guardrail.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:ArchitecturePattern
-  - dea:SolutionComponent
-  target:
-  - dea:Guardrail
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:influenced-by
-  name: influencedBy
-  vocabulary: instance
-  definition: An entity is governed or shaped by a Tenet.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:Entity
-  target:
-  - dea:Tenet
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:decomposes
-  name: decomposes
-  vocabulary: instance
-  definition: A parent BusinessCapability breaks down into child BusinessCapabilities.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:BusinessCapability
-  target:
-  - dea:BusinessCapability
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:orchestrates
-  name: orchestrates
-  vocabulary: instance
-  definition: A parent BusinessProcess coordinates child BusinessProcesses.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:BusinessProcess
-  target:
-  - dea:BusinessProcess
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:consumes
-  name: consumes
-  vocabulary: instance
-  definition: A SolutionComponent uses an external BusinessService.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:SolutionComponent
-  target:
-  - dea:BusinessService
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
-- id: dea:provides
-  name: provides
-  vocabulary: instance
-  definition: A SolutionComponent or Actor provides a BusinessService or BusinessCapability.
-  direction: directed
-  cardinality: 0..N:0..N
-  source:
-  - dea:SolutionComponent
-  - dea:Actor
-  target:
-  - dea:BusinessService
-  - dea:BusinessCapability
-  status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
 - id: dea:governs
-  name: governs
-  vocabulary: instance
-  definition: A Tenet or Guardrail governs an entity.
-  direction: directed
-  cardinality: 0..N:0..N
+  name: Governs
+  definition: The source directs, constrains, or oversees the target through policy, agreement, or strategy.
+  category: governance
+  direction: source-to-target
   source:
-  - dea:Tenet
-  - dea:Guardrail
+    types:
+    - dea:CollaborationAgreement
+    - dea:Guardrail
+    - dea:OrganizationalUnit
+    - dea:Regulation
+    - dea:StrategicObjective
+    - dea:Tenet
   target:
-  - dea:Entity
+    types:
+    - dea:AIMLModel
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:EcosystemActor
+    - dea:InvestmentInitiative
+    - dea:SolutionComponent
+    - dea:ValueExchange
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:governed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
   status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
+  lifecycle: active
+  supersedes:
+  - governs
+  - governance
+  - subject to (governed_by)
+- id: dea:mandates
+  name: Mandates
+  definition: The source imposes a binding obligation on the target (regulatory or policy force).
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Guardrail
+    - dea:Regulation
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:Control
+    - dea:Guardrail
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:mandated-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - mandates
+- id: dea:controls
+  name: Controls
+  definition: The source mitigates, protects against, or otherwise controls the target risk or exposure.
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Control
+    - dea:Guardrail
+    - dea:IntangibleResource
+  target:
+    types:
+    - dea:AIMLModel
+    - dea:BusinessCapability
+    - dea:DataEntity
+    - dea:Risk
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:controlled-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - mitigates
+  - protects
+- id: dea:owns
+  name: Owns
+  definition: The source holds ownership of the target — accountability for its lifecycle and value.
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:OrganizationalUnit
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessFunction
+    - dea:BusinessObject
+    - dea:BusinessService
+    - dea:DataProduct
+    - dea:InformationAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:owned-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - owned by
+  - owner (schema property)
+- id: dea:accountable-for
+  name: Accountable For
+  definition: The source holds single-point accountability for the target (RACI 'A').
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:OrganizationalUnit
+    - dea:Role
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:ChangeInitiative
+    - dea:Control
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:accountable-to
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:responsible-for
+  name: Responsible For
+  definition: The source performs or manages the target day-to-day (RACI 'R'), including custodianship and role fulfilment.
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:OrganizationalUnit
+    - dea:Role
+  target:
+    types:
+    - dea:BusinessObject
+    - dea:BusinessProcess
+    - dea:DataProduct
+    - dea:InformationAsset
+    - dea:Role
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:responsible-to
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - custodian of
+  - fulfilled by
+- id: dea:threatens
+  name: Threatens
+  definition: The source risk exposes the target to potential harm or failure (risk relation, section 17 placement per D5).
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Risk
+  target:
+    types:
+    - dea:AIMLModel
+    - dea:BusinessCapability
+    - dea:BusinessObject
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:ValueExchange
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:threatened-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - threatens
+- id: dea:represents
+  name: Represents
+  definition: One information representation corresponds to another conceptual entity (section 5).
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:DataEntity
+    - dea:DataProduct
+    - dea:DigitalIdentity
+    - dea:Event
+    - dea:InformationAsset
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessObject
+    - dea:BusinessProcess
+    - dea:DataEntity
+    - dea:DigitalIdentity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:represented-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - digitized as
+  - represented by
+  - carries payload of
+- id: dea:informs
+  name: Informs
+  definition: The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak
+    influence — section 17).
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:Concept
+    - dea:EcosystemActor
+    - dea:Experiment
+    - dea:KnowledgeAsset
+    - dea:ModelFeedbackSignal
+    - dea:TechnologyRadarEntry
+    - dea:Tenet
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Guardrail
+    - dea:InvestmentInitiative
+    - dea:StrategicObjective
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:informed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - informs
+  - defines
+  - influences
+  - influenced-by
+- id: dea:curates
+  name: Curates
+  definition: The source selects, organizes, and maintains the target as governed content or product.
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:DataProduct
+    - dea:InformationAsset
+    - dea:KnowledgeAsset
+  target:
+    types:
+    - dea:DataEntity
+    - dea:InformationAsset
+    - dea:KnowledgeAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:curated-into
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - curated into
+- id: dea:publishes
+  name: Publishes
+  definition: The source makes the target event or information available to subscribers.
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:DataProduct
+    - dea:Experiment
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:Event
+    - dea:InformationAsset
+    - dea:Signal
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:published-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - publishes / subscribes (split)
+- id: dea:subscribes-to
+  name: Subscribes To
+  definition: The source consumes publications of the target event or information feed.
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:Experiment
+    - dea:SystemFunction
+  target:
+    types:
+    - dea:DataProduct
+    - dea:Event
+    - dea:Signal
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:subscribed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - publishes / subscribes (split)
+- id: dea:trained-on
+  name: Trained On
+  definition: The source AI/ML model is trained on the target data product or dataset.
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+  target:
+    types:
+    - dea:DataEntity
+    - dea:DataProduct
+  cardinality:
+    source: 0..*
+    target: 1..*
+  inverse: dea:training-of
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - trained on
+- id: dea:derived-from
+  name: Derived From
+  definition: The source is derived from the target information, event, or actor knowledge (lineage).
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:DataEntity
+    - dea:DataProduct
+    - dea:InformationAsset
+    - dea:KnowledgeAsset
+    - dea:ModelFeedbackSignal
+  target:
+    types:
+    - dea:Actor
+    - dea:DataEntity
+    - dea:Event
+    - dea:InformationAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:derived-into
+  transitive: true
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - derived from
+  - contextualized from
+  - captured from
+- id: dea:assessed-by
+  name: Assessed By
+  definition: The source is evaluated by the target assessment instrument, experiment, or framework.
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:SolutionComponent
+    - dea:TechnologyRadarEntry
+  target:
+    types:
+    - dea:Experiment
+    - dea:PerformanceMetric
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:assesses
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - evaluated via
 - id: dea:measured-by
-  name: measuredBy
-  vocabulary: instance
-  definition: A PerformanceMetric measures an entity's performance, health, or maturity.
-  direction: directed
-  cardinality: 0..N:0..N
+  name: Measured By
+  definition: The source's performance, health, or maturity is quantified by the target metric.
+  category: assessment
+  direction: source-to-target
   source:
-  - dea:Entity
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:StrategicObjective
   target:
-  - dea:PerformanceMetric
+    types:
+    - dea:PerformanceMetric
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:measures
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
   status: normative
-  cr2_note: Instance-vocabulary type from schemas/relationships/relationship-instance.json. Diverges from the structural vocabulary;
-    unification under CR-2.
+  lifecycle: active
+  supersedes:
+  - measured by
+  - measured-by
+  - evaluated by
+- id: dea:evidenced-by
+  name: Evidenced By
+  definition: The source relationship or claim is supported by the target evidence artefact (section 6).
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Entity
+  target:
+    types:
+    - dea:DataEntity
+    - dea:InformationAsset
+    - dea:KnowledgeAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:evidences
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:benchmarked-against
+  name: Benchmarked Against
+  definition: The source is compared against the target reference, standard, or peer.
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Technology
+  target:
+    types:
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Guardrail
+    - dea:Technology
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:benchmark-of
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:transitions-to
+  name: Transitions To
+  definition: The source evolves into the target state, maturity, or technology over time (CR-6 will add temporal semantics).
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Technology
+    - dea:TechnologyRadarEntry
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:Technology
+  cardinality:
+    source: 0..*
+    target: 0..1
+  inverse: dea:transitions-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes:
+  - graduates to
+- id: dea:replaces
+  name: Replaces
+  definition: The source takes over the function of the target, which is retired.
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessService
+    - dea:ChangeInitiative
+    - dea:Technology
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Technology
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:replaced-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:supersedes
+  name: Supersedes
+  definition: The source version or concept supersedes the target in definition or governance.
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:ArchitecturePattern
+    - dea:Blueprint
+    - dea:Concept
+    - dea:Guardrail
+    - dea:Tenet
+  target:
+    types:
+    - dea:ArchitecturePattern
+    - dea:Blueprint
+    - dea:Concept
+    - dea:Guardrail
+    - dea:Tenet
+  cardinality:
+    source: 0..*
+    target: 0..1
+  inverse: dea:superseded-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:migrates-to
+  name: Migrates To
+  definition: The source is moved to the target platform, component, or state during a change initiative.
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessService
+    - dea:DataEntity
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:DataProduct
+    - dea:InfrastructureComponent
+    - dea:PlatformService
+  cardinality:
+    source: 0..*
+    target: 0..1
+  inverse: dea:migrated-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:maps-to
+  name: Maps To
+  definition: An explicit crosswalk or correspondence between two modelling systems or classification schemes (section 9).
+    NOT a generic 'somehow related'.
+  category: traceability
+  direction: source-to-target
+  source:
+    types:
+    - dea:Entity
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:mapped-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
+  mapping:
+    kind:
+    - equivalent
+    - broader
+    - narrower
+    - related
+    - traceability
+    - external-crosswalk
+  supersedes:
+  - maps-to (unrestricted)
+  - classified by
+- id: dea:traces-to
+  name: Traces To
+  definition: Audit lineage from the source to the target artefact that justifies or originates it.
+  category: traceability
+  direction: source-to-target
+  source:
+    types:
+    - dea:Entity
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:traced-from
+  transitive: true
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:supports
+  name: Supports
+  definition: The source contributes to the target's function, funding, or effectiveness without realizing, enabling, or being
+    required by it.
+  category: dependency
+  direction: source-to-target
+  source:
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:FinancialResource
+    - dea:InvestmentInitiative
+    - dea:Technology
+  target:
+    types:
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:ChangeInitiative
+    - dea:StrategicObjective
+    - dea:SystemFunction
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:supported-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+  supersedes:
+  - implements (Technology->ApplicationComponent)
+  - funds
+  - funded by
+  - enhances / automates

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/metric.json",
-  "metamodel_version": "0.6.0",
+  "metamodel_version": "0.7.0",
   "title": "Metric",
   "description": "A measured quantity used to evaluate outcomes against targets. OpenDEAM v0.2.0 (ADR-0002 D1): Metrics belong to the cross-cutting Measurement Dimension, not an architecture layer. scope_layers declares which layers the metric is permitted to evaluate; measurable entities reference metrics via measured_by.",
   "type": "object",
@@ -123,7 +123,9 @@
       "description": "Entity IDs this metric tracks."
     },
     "owner": {
-      "type": "string"
+      "type": "string",
+      "deprecated": true,
+      "description": "DEPRECATED (CR-002, CR-2F): relationship state is authoritative in the canonical relationship registry (metamodel/registry/relationships.yaml), not in entity schemas. This convenience property will be physically removed in CR-003."
     },
     "relationships": {
       "type": "array",

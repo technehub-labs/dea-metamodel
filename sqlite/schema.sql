@@ -1,5 +1,5 @@
 -- DEA Metamodel SQLite Schema
--- Version: 0.6.0
+-- Version: 0.7.0
 -- Derived from normative source: metamodel/dea-metamodel.yaml (CR-001). Do not edit semantics here.
 -- All tables include source tracking and soft-delete for auditability.
 
@@ -203,14 +203,70 @@ CREATE TABLE relationships (
     source_id       TEXT NOT NULL REFERENCES entities(id),
     target_id       TEXT NOT NULL REFERENCES entities(id),
     relationship_type TEXT NOT NULL CHECK(relationship_type IN (
-        'maps-to','realizes','implements','influenced-by',
-        'decomposes','orchestrates','consumes','provides',
-        'governs','measured-by'
+        'composes',
+        'aggregates',
+        'specializes',
+        'instantiates',
+        'realizes',
+        'implements',
+        'operationalizes',
+        'depends-on',
+        'requires',
+        'enables',
+        'constrains',
+        'flows-to',
+        'produces',
+        'consumes',
+        'exchanges',
+        'serves',
+        'provides',
+        'uses',
+        'exposes',
+        'performs',
+        'executes',
+        'orchestrates',
+        'triggers',
+        'governs',
+        'mandates',
+        'controls',
+        'owns',
+        'accountable-for',
+        'responsible-for',
+        'threatens',
+        'represents',
+        'informs',
+        'curates',
+        'publishes',
+        'subscribes-to',
+        'trained-on',
+        'derived-from',
+        'assessed-by',
+        'measured-by',
+        'evidenced-by',
+        'benchmarked-against',
+        'transitions-to',
+        'replaces',
+        'supersedes',
+        'migrates-to',
+        'maps-to',
+        'traces-to',
+        'supports'
     )),
-    description     TEXT,
+    -- CR-002 §6/§20: instance metadata
+    status          TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('proposed','active','deprecated','retired')),
+    effective_from  TEXT,
+    effective_to    TEXT,
+    confidence      REAL CHECK(confidence IS NULL OR (confidence >= 0 AND confidence <= 1)),
+    asserted_by     TEXT,
+    rationale       TEXT,
+    evidence        TEXT,
+    provenance_json TEXT CHECK(provenance_json IS NULL OR json_valid(provenance_json)),
+    mapping_kind    TEXT CHECK(mapping_kind IS NULL OR mapping_kind IN ('equivalent','broader','narrower','related','traceability','external-crosswalk')),
+    -- deprecated pre-0.7.0 columns retained for readability (CR-2G)
     weight          REAL,
-    provenance      TEXT,
     bidirectional   INTEGER NOT NULL DEFAULT 0,
+    description     TEXT,
+    provenance      TEXT,
     created_at      TEXT NOT NULL DEFAULT (datetime('now')),
     deleted         INTEGER NOT NULL DEFAULT 0,
     UNIQUE(source_id, target_id, relationship_type)
@@ -254,5 +310,5 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.6.0'),
+    ('metamodel_version', '0.7.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');

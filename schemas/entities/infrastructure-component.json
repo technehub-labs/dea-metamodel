@@ -1,26 +1,63 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/infrastructure-component.json",
+  "metamodel_version": "0.6.0",
   "title": "InfrastructureComponent",
   "description": "An infrastructure-as-code managed resource (compute, network, storage, security group) that hosts or supports solution components. A subClass of SolutionComponent with component_type='infrastructure'. Catalog: technehub-labs/dea-catalog-application-components (shared with ApplicationComponent).",
   "type": "object",
-  "required": ["id", "name", "type", "version"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$" },
-    "type": { "type": "string", "const": "InfrastructureComponent" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "InfrastructureComponent"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "infrastructure_type": {
       "type": "string",
-      "enum": ["compute", "network", "storage", "security", "container", "serverless", "database-host"],
+      "enum": [
+        "compute",
+        "network",
+        "storage",
+        "security",
+        "container",
+        "serverless",
+        "database-host"
+      ],
       "description": "Category of infrastructure resource."
     },
     "iac_tool": {
       "type": "string",
       "description": "Infrastructure-as-code tool that provisions this component (Terraform, CloudFormation, Pulumi)."
     },
-    "tags": { "type": "array", "items": { "type": "string" } },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

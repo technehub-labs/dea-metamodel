@@ -1,32 +1,81 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/technology.json",
+  "metamodel_version": "0.6.0",
   "title": "Technology",
   "description": "A technology choice (language, framework, runtime, database, library) used by one or more solution components. Technologies are governed and standardised via the Standards + Principles catalogs. Catalog: technehub-labs/dea-catalog-patterns (shared with ArchitecturePattern).",
   "type": "object",
-  "required": ["id", "name", "type", "version", "technology_category"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "technology_category"
+  ],
   "properties": {
-    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$" },
-    "type": { "type": "string", "const": "Technology" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "Technology"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "technology_category": {
       "type": "string",
       "enum": [
-        "language", "framework", "runtime", "database", "library",
-        "build-tool", "ci-cd", "monitoring", "orchestration", "platform"
+        "language",
+        "framework",
+        "runtime",
+        "database",
+        "library",
+        "build-tool",
+        "ci-cd",
+        "monitoring",
+        "orchestration",
+        "platform"
       ],
       "description": "Category of technology."
     },
-    "vendor": { "type": "string", "description": "Vendor or open-source project." },
-    "version_requirement": { "type": "string", "description": "Required version range." },
+    "vendor": {
+      "type": "string",
+      "description": "Vendor or open-source project."
+    },
+    "version_requirement": {
+      "type": "string",
+      "description": "Required version range."
+    },
     "lifecycle_status": {
       "type": "string",
-      "enum": ["approved", "deprecated", "banned", "experimental"],
+      "enum": [
+        "approved",
+        "deprecated",
+        "banned",
+        "experimental"
+      ],
       "description": "Enterprise lifecycle status."
     },
-    "tags": { "type": "array", "items": { "type": "string" } },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

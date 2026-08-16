@@ -2,6 +2,9 @@
 // Auto-generated from schemas/entities/*.json
 // Do not edit manually — regenerate with: npm run generate
 
+// Canonical metamodel version this artifact derives from (CR-001).
+export const METAMODEL_VERSION = '0.6.0';
+
 // v0.2.0 (ADR-0002): architecture layers L1–L5. Measurement is a
 // cross-cutting dimension, not a layer — Metrics carry scope_layers.
 export type ArchitectureLayerId = 'L1' | 'L2' | 'L3' | 'L4' | 'L5';

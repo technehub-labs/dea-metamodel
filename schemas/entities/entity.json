@@ -1,17 +1,25 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/entity.json",
+  "metamodel_version": "0.6.0",
   "title": "Entity",
   "description": "Abstract root type for all DEA metamodel entities.",
   "type": "object",
   "abstract": true,
-  "required": ["id", "name", "type", "version"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
       "description": "URN-style identifier, e.g. dea:tenet-api-first",
-      "examples": ["dea:tenet-api-first"]
+      "examples": [
+        "dea:tenet-api-first"
+      ]
     },
     "type": {
       "type": "string",
@@ -33,26 +41,46 @@
       "type": "string",
       "pattern": "^\\d+\\.\\d+\\.\\d+$",
       "description": "Semantic version of this entity's schema.",
-      "examples": ["1.0.0"]
+      "examples": [
+        "1.0.0"
+      ]
     },
     "tags": {
       "type": "array",
-      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
       "uniqueItems": true
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
     "metadata": {
       "type": "object",
       "properties": {
-        "created_at": { "type": "string", "format": "date-time" },
-        "updated_at": { "type": "string", "format": "date-time" },
-        "created_by": { "type": "string" },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_by": {
+          "type": "string"
+        },
         "status": {
           "type": "string",
-          "enum": ["draft", "candidate", "approved", "deprecated"]
+          "enum": [
+            "draft",
+            "candidate",
+            "approved",
+            "deprecated"
+          ]
         }
       }
     }

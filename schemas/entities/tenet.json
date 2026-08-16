@@ -1,33 +1,54 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/tenet.json",
+  "metamodel_version": "0.6.0",
   "title": "Tenet",
   "description": "A non-binding, human-authored belief that guides decisions (e.g. API-first, prefer managed services). Informs one or more Guardrails; enforces nothing on its own. Renamed from Principle in v0.4.0 (ADR-0004 D3). Catalog: technehub-labs/dea-catalog-tenets.",
   "type": "object",
-  "required": ["id", "name", "type", "version", "statement", "rationale", "applicability"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "statement",
+    "rationale",
+    "applicability"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:tenet-api-first"]
+      "examples": [
+        "dea:tenet-api-first"
+      ]
     },
-    "type": { "type": "string", "const": "Tenet" },
+    "type": {
+      "type": "string",
+      "const": "Tenet"
+    },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 200,
-      "examples": ["API-first Design"]
+      "examples": [
+        "API-first Design"
+      ]
     },
     "description": {
       "type": "string",
       "maxLength": 2000
     },
-    "version": { "type": "string", "pattern": "^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$" },
+    "version": {
+      "type": "string",
+      "pattern": "^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$"
+    },
     "statement": {
       "type": "string",
       "maxLength": 500,
       "description": "The canonical tenet statement (imperative or declarative).",
-      "examples": ["All services shall expose their capabilities via a well-defined API before any other integration mechanism."]
+      "examples": [
+        "All services shall expose their capabilities via a well-defined API before any other integration mechanism."
+      ]
     },
     "rationale": {
       "type": "string",
@@ -41,19 +62,34 @@
     },
     "tier": {
       "type": "string",
-      "enum": ["mandatory", "recommended", "aspirational"],
+      "enum": [
+        "mandatory",
+        "recommended",
+        "aspirational"
+      ],
       "description": "Emphasis level of the belief. Tenets are always non-binding — enforcement lives on the Guardrails they inform (ADR-0004 D3)."
     },
     "informs_guardrails": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Guardrail IDs this tenet motivates or justifies."
     },
-    "related_tenets": { "type": "array", "items": { "type": "string" } },
+    "related_tenets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

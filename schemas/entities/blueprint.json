@@ -1,34 +1,66 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/blueprint.json",
+  "metamodel_version": "0.6.0",
   "title": "Blueprint",
   "description": "A composed, reusable target-state design assembled from Architecture Patterns, providing a template for solution design. Renamed from Reference Model in v0.4.0 (ADR-0004 D5). Catalog: technehub-labs/dea-catalog-blueprints.",
   "type": "object",
-  "required": ["id", "name", "type", "version", "domain", "abstraction_level"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "domain",
+    "abstraction_level"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:blueprint-digital-platform"]
+      "examples": [
+        "dea:blueprint-digital-platform"
+      ]
     },
-    "type": { "type": "string", "const": "Blueprint" },
+    "type": {
+      "type": "string",
+      "const": "Blueprint"
+    },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 200,
-      "examples": ["Digital Platform Blueprint"]
+      "examples": [
+        "Digital Platform Blueprint"
+      ]
     },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$" },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$"
+    },
     "domain": {
       "type": "string",
-      "enum": ["integration", "data", "application", "infrastructure",
-               "security", "business", "technology"],
+      "enum": [
+        "integration",
+        "data",
+        "application",
+        "infrastructure",
+        "security",
+        "business",
+        "technology"
+      ],
       "description": "Primary domain."
     },
     "abstraction_level": {
       "type": "string",
-      "enum": ["conceptual", "logical", "physical"],
+      "enum": [
+        "conceptual",
+        "logical",
+        "physical"
+      ],
       "description": "Abstraction level of this blueprint."
     },
     "scope": {
@@ -40,34 +72,66 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "description"],
+        "required": [
+          "name",
+          "description"
+        ],
         "properties": {
-          "name": { "type": "string" },
-          "description": { "type": "string" },
-          "components": { "type": "array", "items": { "type": "string" } }
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "key_components": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "SolutionComponent IDs that define this blueprint."
     },
     "patterns": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "ArchitecturePattern IDs this blueprint is composed of (ADR-0004 D5)."
     },
     "related_blueprints": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
-    "related_guardrails": { "type": "array", "items": { "type": "string" } },
-    "related_tenets": { "type": "array", "items": { "type": "string" } },
+    "related_guardrails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "related_tenets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

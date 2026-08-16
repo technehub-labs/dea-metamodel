@@ -1,45 +1,86 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/collaboration-agreement.json",
+  "metamodel_version": "0.6.0",
   "title": "Collaboration Agreement",
   "description": "Terms governing cooperation with an ecosystem actor — cooperative or mandated. OpenDEAM v0.2.0: allocated to L1 Ecosystem & Value Network / Collaboration Agreements (moved from L2 by ADR-0002 D2 — an agreement is a feature of the exchange surface, not internal governance).",
   "type": "object",
-  "required": ["id", "name", "type", "version", "agreement_kind"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "agreement_kind"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:collaboration-agreement-visa-network-rules"]
+      "examples": [
+        "dea:collaboration-agreement-visa-network-rules"
+      ]
     },
-    "type": { "type": "string", "const": "CollaborationAgreement" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "type": {
+      "type": "string",
+      "const": "CollaborationAgreement"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "agreement_kind": {
       "type": "string",
-      "enum": ["cooperative", "mandated"],
+      "enum": [
+        "cooperative",
+        "mandated"
+      ],
       "description": "Cooperative agreements are entered voluntarily (partnerships, consortiums); mandated agreements are imposed (regulatory schemes, network rules)."
     },
     "parties": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to the Ecosystem Actors engaged by this agreement (EA → CA)."
     },
     "governs_exchanges": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "References to the Value Exchanges governed by this agreement (CA → VE)."
     },
-    "effective_from": { "type": "string", "format": "date" },
-    "effective_to": { "type": "string", "format": "date" },
+    "effective_from": {
+      "type": "string",
+      "format": "date"
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date"
+    },
     "tags": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

@@ -1,28 +1,60 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/value-exchange.json",
+  "metamodel_version": "0.6.0",
   "title": "Value Exchange",
   "description": "A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound. OpenDEAM v0.2.0, L1 Ecosystem & Value Network / Value Flows. Governed by Collaboration Agreements (CA → VE), crosses the boundary at Journey Touchpoints (VE → JT), transports Business Objects (VE → BO).",
   "type": "object",
-  "required": ["id", "name", "type", "version", "flow_type", "direction"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "flow_type",
+    "direction"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:value-exchange-card-settlement"]
+      "examples": [
+        "dea:value-exchange-card-settlement"
+      ]
     },
-    "type": { "type": "string", "const": "ValueExchange" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 200 },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "type": {
+      "type": "string",
+      "const": "ValueExchange"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
     "flow_type": {
       "type": "string",
-      "enum": ["information", "goods", "funds", "service"],
+      "enum": [
+        "information",
+        "goods",
+        "funds",
+        "service"
+      ],
       "description": "What flows in this exchange."
     },
     "direction": {
       "type": "string",
-      "enum": ["inbound", "outbound", "bidirectional"],
+      "enum": [
+        "inbound",
+        "outbound",
+        "bidirectional"
+      ],
       "description": "Direction of the flow relative to the bounded enterprise."
     },
     "counterparty_ref": {
@@ -35,17 +67,25 @@
     },
     "payload_refs": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Business Objects transported by this exchange."
     },
     "tags": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

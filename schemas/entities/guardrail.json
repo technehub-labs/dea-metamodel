@@ -1,41 +1,80 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/guardrail.json",
+  "metamodel_version": "0.6.0",
   "title": "Guardrail",
   "description": "An enforceable constraint on technology or solution choices, carrying an enforcement maturity level (advisory | automated-warn | automated-block | platform-enforced). Models policy-as-code / platform-guardrail practice rather than a static compliance document. Renamed from Standard in v0.4.0 (ADR-0004 D4). Catalog: technehub-labs/dea-catalog-guardrails.",
   "type": "object",
-  "required": ["id", "name", "type", "version", "enforcement", "domain"],
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "enforcement",
+    "domain"
+  ],
   "properties": {
     "id": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "examples": ["dea:guardrail-approved-cloud-regions"]
+      "examples": [
+        "dea:guardrail-approved-cloud-regions"
+      ]
     },
-    "type": { "type": "string", "const": "Guardrail" },
+    "type": {
+      "type": "string",
+      "const": "Guardrail"
+    },
     "name": {
       "type": "string",
       "minLength": 1,
       "maxLength": 200,
-      "examples": ["Approved Cloud Regions Only"]
+      "examples": [
+        "Approved Cloud Regions Only"
+      ]
     },
-    "description": { "type": "string", "maxLength": 2000 },
-    "version": { "type": "string" },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string"
+    },
     "enforcement": {
       "type": "string",
-      "enum": ["advisory", "automated-warn", "automated-block", "platform-enforced"],
+      "enum": [
+        "advisory",
+        "automated-warn",
+        "automated-block",
+        "platform-enforced"
+      ],
       "description": "Enforcement maturity (ADR-0004 D4): advisory = documented recommendation; automated-warn = CI/CD warns; automated-block = CI/CD blocks; platform-enforced = the platform offers no non-compliant path (golden path)."
     },
     "source": {
       "type": "string",
       "maxLength": 100,
       "description": "Originating body or authority for the constraint.",
-      "examples": [["The Open Group", "ISO", "NIST", "Internal platform team"]]
+      "examples": [
+        [
+          "The Open Group",
+          "ISO",
+          "NIST",
+          "Internal platform team"
+        ]
+      ]
     },
     "domain": {
       "type": "string",
-      "enum": ["enterprise-architecture", "data-architecture", "software-architecture",
-               "security-architecture", "cloud-architecture", "integration-architecture",
-               "process-architecture", "governance"],
+      "enum": [
+        "enterprise-architecture",
+        "data-architecture",
+        "software-architecture",
+        "security-architecture",
+        "cloud-architecture",
+        "integration-architecture",
+        "process-architecture",
+        "governance"
+      ],
       "description": "Primary domain this guardrail applies to."
     },
     "url": {
@@ -45,24 +84,39 @@
     },
     "implements_controls": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Control IDs (L2-risk-compliance) this guardrail enforces in the digital estate."
     },
     "informed_by_tenets": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Tenet IDs that motivate this guardrail."
     },
     "coverage": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "description": "Aspects covered: framework, methodology, ontology, notation, etc."
     },
-    "related_guardrails": { "type": "array", "items": { "type": "string" } },
+    "related_guardrails": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "relationships": {
       "type": "array",
-      "items": { "$ref": "../relationships/relationship-instance.json" }
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
     },
-    "metadata": { "$ref": "entity.json#/properties/metadata" }
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
   }
 }

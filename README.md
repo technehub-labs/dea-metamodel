@@ -56,7 +56,7 @@ process and CR-4's core-ontology consolidation.
 dea-metamodel/
 ├── metamodel/                 # NORMATIVE — dea-metamodel.yaml, manifest.yaml, registry/
 ├── change-requests/           # CR-based change control
-├── docs/                      # architecture.md · semantics.md · temporal-semantics.md · versioning.md (+ narratives)
+├── docs/                      # architecture.md · semantics.md · temporal-semantics.md · governance-agentic-semantics.md · versioning.md (+ narratives)
 ├── tests/conformance/         # Conformance suite (runs in CI)
 ├── VERSION                    # == metamodel version (CI-enforced)
 ├── CHANGELOG.md
@@ -106,6 +106,7 @@ readers should be able to see *why* the ontology is shaped the way it is.
 | [CR-004](./change-requests/CR-004.md) | Without a stable core, every framework (DMM, ECF, ArchiMate) leaked into the base vocabulary. | 18-anchor Core + 10 profiles with `depends_on`; profiles extend, never redefine (O001–O009). |
 | [CR-005](./change-requests/CR-005.md) | `capability.maturity = 3` conflates *what the enterprise is* with *how it is assessed* — one entity, one score, one framework, no evidence, no history. | A separate assessment layer: maturity belongs to frameworks, results carry evidence/confidence/provenance, and gaps connect to Change. |
 | [CR-006](./change-requests/CR-006.md) | "Application A exists" and "A existed in 2024 / is planned for 2027 / was retired" collapsed into one static catalogue entry. Architecture is a *time-dependent state*, not a catalogue. | Five clocks (transaction/valid/observation/planned/effective); lifecycle states and events; Baseline/Current/Target/Transition/Scenario states; snapshots, deltas, version chains; planned ≠ actual; history never overwritten (T001–T010). |
+| [CR-007](./change-requests/CR-007.md) | The graph knew *what/when/how mature* but not *why a change is desired, who may decide it, what constrains it, what evidence informs it* — "agentic EA" was degenerating into an agent inventory. | The causal/governance layer: Intent → Objective → Policy → Decision → Action → Change → Outcome → Evidence → reassessment. Authority ≠ capability; autonomy is not a boolean; agents are participants, not the center (G001–G016). |
 
 ### The ontology in one picture
 
@@ -131,6 +132,14 @@ graph TD
         TR[Transition] --> CH[Change]
         SS[Snapshot] --> DL[Delta]
     end
+    subgraph GOV["Governance & agentic layers (CR-7)"]
+        IN[Intent] --> OB[Objective]
+        PO[Policy] --> DE[Decision]
+        AU[Authority] --> DE
+        DE --> AC[Action] --> CHG[Change]
+        AG[Agent] -. performs .-> AC
+        AG -. authorized-by .-> AU
+    end
     DMM[DMMv5 profile] -. implements .-> AF
     PROFILES --> CORE
     ASSESS -. assesses .-> CORE
@@ -138,6 +147,7 @@ graph TD
     AS -. valid-during .-> TI
     GAP -- addressed-by --> C6
     TR -- realizes --> AS
+    OB -. seeks .-> C5
 ```
 
 ### The CR-5 closed loop

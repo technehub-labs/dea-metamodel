@@ -1,6 +1,6 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
 # CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
-registry_version: 0.9.0
+registry_version: 0.10.0
 relationships:
 - id: dea:composes
   name: Composes
@@ -234,14 +234,17 @@ relationships:
   category: flow
   source:
   - dea:ApplicationComponent
+  - dea:Assessment
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:Experiment
   - dea:SystemFunction
   target:
+  - dea:AssessmentResult
   - dea:BusinessObject
   - dea:DataEntity
   - dea:Event
+  - dea:Evidence
   - dea:InformationAsset
   - dea:Signal
   inverse: dea:produced-by
@@ -686,11 +689,13 @@ relationships:
   name: Benchmarked Against
   category: assessment
   source:
+  - dea:AssessmentResult
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Technology
   target:
+  - dea:BenchmarkReference
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
@@ -793,11 +798,14 @@ relationships:
   - dea:AIMLModel
   - dea:Actor
   - dea:ApplicationComponent
+  - dea:Evidence
+  - dea:EvidenceArtifact
   - dea:FinancialResource
   - dea:InvestmentInitiative
   - dea:Technology
   target:
   - dea:ApplicationComponent
+  - dea:AssessmentResult
   - dea:BusinessCapability
   - dea:ChangeInitiative
   - dea:StrategicObjective
@@ -860,5 +868,163 @@ relationships:
   - dea:BusinessCapability
   - dea:Outcome
   inverse: dea:contributed-to-by
+  status: normative
+  lifecycle: active
+- id: dea:assesses
+  name: Assesses
+  category: assessment
+  source:
+  - dea:Assessment
+  - dea:AssessmentFramework
+  - dea:AssessmentDimension
+  - dea:AssessmentResult
+  target:
+  - dea:Entity
+  - dea:AssessmentSubject
+  inverse: dea:assessed-by
+  status: normative
+  lifecycle: active
+- id: dea:conducted-under
+  name: Conducted Under
+  category: assessment
+  source:
+  - dea:Assessment
+  target:
+  - dea:AssessmentFramework
+  inverse: dea:governs-assessment
+  status: normative
+  lifecycle: active
+- id: dea:defines
+  name: Defines
+  category: assessment
+  source:
+  - dea:AssessmentFramework
+  - dea:MaturityModel
+  target:
+  - dea:AssessmentDimension
+  - dea:AssessmentCriterion
+  - dea:Indicator
+  - dea:MaturityLevel
+  - dea:MaturityScale
+  - dea:MaturityRule
+  - dea:ScoringRule
+  - dea:AggregationRule
+  - dea:MaturityMappingRule
+  - dea:Scale
+  - dea:Unit
+  inverse: dea:defined-by
+  status: normative
+  lifecycle: active
+- id: dea:quantifies
+  name: Quantifies
+  category: assessment
+  source:
+  - dea:Measure
+  target:
+  - dea:Indicator
+  - dea:Observation
+  inverse: dea:quantified-by
+  status: normative
+  lifecycle: active
+- id: dea:derives-from
+  name: Derives From
+  category: assessment
+  source:
+  - dea:AssessmentGap
+  - dea:Benchmark
+  - dea:BenchmarkReference
+  - dea:Score
+  target:
+  - dea:AssessmentResult
+  - dea:AssessmentTarget
+  - dea:Benchmark
+  - dea:BenchmarkPopulation
+  - dea:Measure
+  inverse: dea:feeds
+  status: normative
+  lifecycle: active
+- id: dea:evaluated-by
+  name: Evaluated By
+  category: assessment
+  source:
+  - dea:AssessmentResult
+  target:
+  - dea:AggregationRule
+  - dea:ScoringRule
+  inverse: dea:evaluates
+  status: normative
+  lifecycle: active
+- id: dea:maps-onto
+  name: Maps Onto
+  category: assessment
+  source:
+  - dea:ScoringRule
+  - dea:MaturityMappingRule
+  - dea:MaturityRule
+  target:
+  - dea:MaturityLevel
+  - dea:Scale
+  inverse: dea:mapped-from
+  status: normative
+  lifecycle: active
+- id: dea:attains
+  name: Attains
+  category: assessment
+  source:
+  - dea:AssessmentResult
+  - dea:AssessmentTarget
+  target:
+  - dea:MaturityLevel
+  inverse: dea:attained-by
+  status: normative
+  lifecycle: active
+- id: dea:addressed-by
+  name: Addressed By
+  category: assessment
+  source:
+  - dea:AssessmentGap
+  target:
+  - dea:Change
+  - dea:ChangeInitiative
+  inverse: dea:addresses
+  status: normative
+  lifecycle: active
+- id: dea:scoped-by
+  name: Scoped By
+  category: assessment
+  source:
+  - dea:Assessment
+  - dea:AssessmentSubject
+  target:
+  - dea:AssessmentScope
+  inverse: dea:scopes
+  status: normative
+  lifecycle: active
+- id: dea:refers-to
+  name: Refers To
+  category: assessment
+  source:
+  - dea:AssessmentSubject
+  - dea:AssessmentScope
+  - dea:AssessmentTarget
+  - dea:Evidence
+  - dea:EvidenceArtifact
+  - dea:BenchmarkReference
+  target:
+  - dea:Entity
+  inverse: dea:referenced-by
+  status: normative
+  lifecycle: active
+- id: dea:originates-from
+  name: Originates From
+  category: assessment
+  source:
+  - dea:Evidence
+  - dea:EvidenceArtifact
+  - dea:Measure
+  - dea:Observation
+  target:
+  - dea:EvidenceSource
+  inverse: dea:origin-of
   status: normative
   lifecycle: active

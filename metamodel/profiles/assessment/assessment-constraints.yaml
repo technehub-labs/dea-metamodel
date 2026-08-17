@@ -1,0 +1,42 @@
+# Assessment conformance rules (CR-5 §36) — enforced by tests/conformance/test_011_assessment_rules.py
+version: 0.10.0
+constraints:
+- id: A001
+  rule: Every Assessment references exactly one AssessmentFramework.
+  enforcement: "instance-level (schema framework_ref + dea:conducted-under cardinality 1 at validation)"
+- id: A002
+  rule: Every AssessmentResult references one valid subject.
+  enforcement: "instance-level (schema subject_ref required at validation)"
+- id: A003
+  rule: Every AssessmentResult references a valid criterion.
+  enforcement: "instance-level (schema criterion_ref required at validation)"
+- id: A004
+  rule: Scores use a declared scale.
+  enforcement: "metamodel-level — Score schema carries scale_ref; Scale entity exists (test_011)"
+- id: A005
+  rule: Maturity levels belong to the referenced maturity model.
+  enforcement: "metamodel-level — MaturityLevel carries model_ref; levels are only declared within a MaturityModel document (test_011)"
+- id: A006
+  rule: Evidence references resolve to valid evidence objects.
+  enforcement: "instance-level (evidence_refs validation)"
+- id: A007
+  rule: Assessment results cannot modify entity identity.
+  enforcement: "metamodel-level — assessment is a separate profile layer; no core identity fields (test_011)"
+- id: A008
+  rule: Maturity cannot be stored as an intrinsic architectural attribute.
+  enforcement: "metamodel-level — no non-assessment entity schema may declare maturity/score properties (test_011)"
+- id: A009
+  rule: Aggregation rules must be declared.
+  enforcement: "metamodel-level — AggregationRule entity exists; frameworks declare rule kinds (test_011)"
+- id: A010
+  rule: Target values must identify their target date where temporal.
+  enforcement: "instance-level (AssessmentTarget.target_date)"
+- id: A011
+  rule: Benchmark results cannot be treated as assessment results.
+  enforcement: "metamodel-level — Benchmark/BenchmarkReference are distinct types with no result semantics (test_011)"
+- id: A012
+  rule: Assessment framework versions are immutable once results reference them.
+  enforcement: "metamodel-level — frameworks carry their own independent version (test_011, dmm.yaml)"
+- id: A013
+  rule: A result cannot reference a deprecated criterion unless explicitly marked historical.
+  enforcement: "instance-level (criterion lifecycle validation)"

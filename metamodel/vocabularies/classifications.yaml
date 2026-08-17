@@ -93,15 +93,6 @@ classifications:
     - business
     - technical
     - hybrid
-  Capability.maturity_level:
-    entity: Capability
-    property: maturity_level
-    values:
-    - nascent
-    - emerging
-    - defined
-    - managed
-    - optimizing
   ChangeInitiative.change_scope:
     entity: ChangeInitiative
     property: change_scope
@@ -498,3 +489,39 @@ classifications:
     - deprecated
     - banned
     - experimental
+  Assessment.assessment_status:
+    entity: Assessment
+    property: assessment_status
+    values: [planned, in-progress, completed, superseded, withdrawn]
+  Indicator.signal_type:
+    entity: Indicator
+    property: signal_type
+    values: [quantitative, qualitative, binary]
+  Scale.scale_type:
+    entity: Scale
+    property: scale_type
+    values: [nominal, ordinal, interval, ratio]
+  AssessmentResult.state_role:
+    entity: AssessmentResult
+    property: state_role
+    values: [baseline, current, target, forecast]
+  AssessmentScope.scope_kind:
+    entity: AssessmentScope
+    property: scope_kind
+    values: [enterprise, domain, capability, business-unit, geography, product, program]
+  MaturityRule.rule_type:
+    entity: MaturityRule
+    property: rule_type
+    values: [mapping, gating, ceiling, threshold]
+  AggregationRule.rule_kind:
+    entity: AggregationRule
+    property: rule_kind
+    values: [weighted-average, minimum-threshold, gating, ceiling, qualitative-judgement, evidence-sufficiency, rule-based]
+  Evidence.evidence_type:
+    entity: Evidence
+    property: evidence_type
+    values: [document, inventory, interview, survey, metric, audit-report, process-observation, system-log, api-measurement, control-test]
+  EvidenceSource.source_kind:
+    entity: EvidenceSource
+    property: source_kind
+    values: [system, document-store, interview, survey, audit, log-pipeline, api, manual]

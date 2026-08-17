@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/score.json",
+  "metamodel_version": "0.10.0",
+  "title": "Score",
+  "description": "A numerical or ordinal evaluation derived from measures against a declared scale (CR-5 §11). A score is not intrinsically a maturity level; the framework defines the transformation. Derivation from measures is expressed via the dea:derives-from relationship (CR-3: no relationship state on entities).",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Stable OpenDEA identifier (CR-3Q). Type prefix: dea:score-"
+    },
+    "type": {
+      "type": "string",
+      "const": "Score"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "value": {
+      "type": "number"
+    },
+    "scale_ref": {
+      "type": "string",
+      "description": "Reference to the declared Scale (A004: scores use a declared scale)."
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

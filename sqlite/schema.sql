@@ -321,6 +321,400 @@ CREATE TABLE IF NOT EXISTS changes (
 
 -- ═══════════════════════════════════════════════════════════
 -- Metamodel provenance (CR-001): source version this projection derives from
+
+-- ═══════════════════════════════════════════════════════════
+-- CR-5: Assessment, Measurement & DMM integration (profile dea:assessment)
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS assessments (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    assessment_status TEXT,
+    started_at      TEXT,
+    completed_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_frameworks (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_version TEXT,
+    authority       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_dimensions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    dimension_order INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS assessment_criteria (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    dimension_ref   TEXT,
+    evaluation_guidance TEXT
+);
+
+CREATE TABLE IF NOT EXISTS indicators (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    criterion_ref   TEXT,
+    signal_type     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS observations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT,
+    observed_at     TEXT,
+    source_ref      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS measures (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    indicator_ref   TEXT,
+    value           REAL,
+    unit_ref        TEXT,
+    observed_at     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scores (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    value           REAL,
+    scale_ref       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scales (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scale_type      TEXT,
+    minimum         REAL,
+    maximum         REAL
+);
+
+CREATE TABLE IF NOT EXISTS units (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    symbol          TEXT,
+    quantity_kind   TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_results (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    assessment_ref  TEXT,
+    subject_ref     TEXT,
+    criterion_ref   TEXT,
+    score_value     REAL,
+    maturity_level_ref TEXT,
+    confidence_value REAL,
+    state_role      TEXT,
+    assessed_at     TEXT,
+    valid_from      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_subjects (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    entity_ref      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_scopes (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scope_kind      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_targets (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    subject_ref     TEXT,
+    target_value    REAL,
+    target_level_ref TEXT,
+    target_date     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_gaps (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    subject_ref     TEXT,
+    current_result_ref TEXT,
+    target_ref      TEXT,
+    gap_value       REAL
+);
+
+CREATE TABLE IF NOT EXISTS maturity_models (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    model_version   TEXT,
+    level_count     INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS maturity_levels (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref       TEXT,
+    level_order     INTEGER,
+    level_name      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS maturity_scales (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref       TEXT,
+    minimum         REAL,
+    maximum         REAL
+);
+
+CREATE TABLE IF NOT EXISTS maturity_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    rule_type       TEXT,
+    expression      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS aggregation_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    rule_kind       TEXT,
+    expression      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scoring_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    expression      TEXT,
+    output_scale_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS maturity_mapping_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    score_scale_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    evidence_type   TEXT,
+    source_ref      TEXT,
+    reference       TEXT,
+    collected_at    TEXT,
+    collected_by    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence_sources (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    source_kind     TEXT,
+    system_ref      TEXT,
+    locator         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence_artifacts (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    artifact_type   TEXT,
+    artifact_ref    TEXT,
+    collected_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS benchmarks (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    population_ref  TEXT,
+    authority       TEXT,
+    published_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS benchmark_populations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    segment         TEXT,
+    population_size INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS benchmark_references (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    benchmark_ref   TEXT,
+    value           REAL,
+    percentile      REAL
+);
+
+
+-- ═══════════════════════════════════════════════════════════
+-- CR-5: Assessment, Measurement & DMM integration (profile dea:assessment)
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS assessments (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    assessment_status TEXT,
+    started_at      TEXT,
+    completed_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_frameworks (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_version TEXT,
+    authority       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_dimensions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    dimension_order INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS assessment_criteria (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    dimension_ref   TEXT,
+    evaluation_guidance TEXT
+);
+
+CREATE TABLE IF NOT EXISTS indicators (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    criterion_ref   TEXT,
+    signal_type     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS observations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    statement       TEXT,
+    observed_at     TEXT,
+    source_ref      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS measures (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    indicator_ref   TEXT,
+    value           REAL,
+    unit_ref        TEXT,
+    observed_at     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scores (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    value           REAL,
+    scale_ref       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scales (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scale_type      TEXT,
+    minimum         REAL,
+    maximum         REAL
+);
+
+CREATE TABLE IF NOT EXISTS units (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    symbol          TEXT,
+    quantity_kind   TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_results (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    assessment_ref  TEXT,
+    subject_ref     TEXT,
+    criterion_ref   TEXT,
+    score_value     REAL,
+    maturity_level_ref TEXT,
+    confidence_value REAL,
+    state_role      TEXT,
+    assessed_at     TEXT,
+    valid_from      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_subjects (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    entity_ref      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_scopes (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scope_kind      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_targets (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    subject_ref     TEXT,
+    target_value    REAL,
+    target_level_ref TEXT,
+    target_date     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS assessment_gaps (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    subject_ref     TEXT,
+    current_result_ref TEXT,
+    target_ref      TEXT,
+    gap_value       REAL
+);
+
+CREATE TABLE IF NOT EXISTS maturity_models (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    model_version   TEXT,
+    level_count     INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS maturity_levels (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref       TEXT,
+    level_order     INTEGER,
+    level_name      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS maturity_scales (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref       TEXT,
+    minimum         REAL,
+    maximum         REAL
+);
+
+CREATE TABLE IF NOT EXISTS maturity_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    rule_type       TEXT,
+    expression      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS aggregation_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    rule_kind       TEXT,
+    expression      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scoring_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    expression      TEXT,
+    output_scale_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS maturity_mapping_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    score_scale_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    evidence_type   TEXT,
+    source_ref      TEXT,
+    reference       TEXT,
+    collected_at    TEXT,
+    collected_by    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence_sources (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    source_kind     TEXT,
+    system_ref      TEXT,
+    locator         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS evidence_artifacts (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    artifact_type   TEXT,
+    artifact_ref    TEXT,
+    collected_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS benchmarks (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    framework_ref   TEXT,
+    population_ref  TEXT,
+    authority       TEXT,
+    published_at    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS benchmark_populations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    segment         TEXT,
+    population_size INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS benchmark_references (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    benchmark_ref   TEXT,
+    value           REAL,
+    percentile      REAL
+);
+
 -- ═══════════════════════════════════════════════════════════
 
 CREATE TABLE IF NOT EXISTS metamodel_meta (
@@ -329,7 +723,7 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.9.0'),
+    ('metamodel_version', '0.10.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
 
 -- ═══════════════════════════════════════════════════════════

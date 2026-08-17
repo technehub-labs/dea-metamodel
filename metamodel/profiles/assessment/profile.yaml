@@ -1,14 +1,63 @@
-# OpenDEA Assessment Profile (CR-4 §28)
+# OpenDEA Assessment Profile (CR-5 §3)
 profile:
   id: dea:assessment
   name: OpenDEA Assessment Profile
-  version: 0.9.0
-  status: draft
+  version: 0.10.0
+  status: normative
   depends_on:
   - dea:core
-  scope: Metrics and measurement constructs. Full assessment model in CR-5.
+  scope: Generic assessment and measurement ontology (CR-5 §3-§31). Assessment is a separate semantic
+    layer over the architecture graph — maturity is never an intrinsic property of DEA entities (A008).
+    DMMv5 and other frameworks plug in as profiles (dea:dmm) over this vocabulary.
   entities:
   - dea:PerformanceMetric
+  - dea:Assessment
+  - dea:AssessmentFramework
+  - dea:AssessmentDimension
+  - dea:AssessmentCriterion
+  - dea:Indicator
+  - dea:Observation
+  - dea:Measure
+  - dea:Score
+  - dea:Scale
+  - dea:Unit
+  - dea:AssessmentResult
+  - dea:AssessmentSubject
+  - dea:AssessmentScope
+  - dea:AssessmentTarget
+  - dea:AssessmentGap
+  - dea:MaturityModel
+  - dea:MaturityLevel
+  - dea:MaturityScale
+  - dea:MaturityRule
+  - dea:AggregationRule
+  - dea:ScoringRule
+  - dea:MaturityMappingRule
+  - dea:Evidence
+  - dea:EvidenceSource
+  - dea:EvidenceArtifact
+  - dea:Benchmark
+  - dea:BenchmarkPopulation
+  - dea:BenchmarkReference
+  relationships:
+  - dea:assesses
+  - dea:conducted-under
+  - dea:defines
+  - dea:quantifies
+  - dea:derives-from
+  - dea:evaluated-by
+  - dea:maps-onto
+  - dea:attains
+  - dea:addressed-by
+  - dea:benchmarked-against
+  - dea:scoped-by
+  - dea:refers-to
+  - dea:originates-from
+  vocabulary_files:
+  - assessment-entities.yaml
+  - assessment-relationships.yaml
+  - assessment-constraints.yaml
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  - Assessment results never modify entity identity (A007); maturity is attributed through results, never stored on entities (A008).

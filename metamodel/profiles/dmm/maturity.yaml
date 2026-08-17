@@ -1,0 +1,19 @@
+# DMMv5 maturity model container (CR-5 §12).
+# Level names below are ILLUSTRATIVE placeholders from CR-5 §12; the authoritative
+# DMMv5 terminology must be confirmed against the DMMv5 definition before normative use.
+maturity_model:
+  id: dmmv5:maturity
+  kind: dea:MaturityModel
+  framework: dmm:dmmv5
+  model_version: 5.0.0
+  status: illustrative-pending-authoritative-source
+  scale:
+    kind: dea:MaturityScale
+    minimum: 1
+    maximum: 5
+  levels:
+  - {id: dmmv5:maturity/1, order: 1, name: Initial,    kind: dea:MaturityLevel}
+  - {id: dmmv5:maturity/2, order: 2, name: Developing, kind: dea:MaturityLevel}
+  - {id: dmmv5:maturity/3, order: 3, name: Defined,    kind: dea:MaturityLevel}
+  - {id: dmmv5:maturity/4, order: 4, name: Managed,    kind: dea:MaturityLevel}
+  - {id: dmmv5:maturity/5, order: 5, name: Optimized,  kind: dea:MaturityLevel}

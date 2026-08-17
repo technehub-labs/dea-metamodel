@@ -1,15 +1,26 @@
-# OpenDEA DMM Profile (CR-4 §28)
+# OpenDEA DMM Profile (CR-5 §32-§33)
 profile:
   id: dea:dmm
   name: OpenDEA DMM Profile
-  version: 0.9.0
-  status: draft
+  version: 0.10.0
+  status: normative
   depends_on:
   - dea:core
   - dea:assessment
-  scope: 'Placeholder for CR-5: DMMv5 as an assessment lens over the DEA semantic graph — dimensions, criteria, scores, evidence,
-    baselines, targets.'
+  scope: DMMv5 as an assessment lens over the DEA semantic graph (CR-5 §24). DMMv5 is an implementation
+    of the generic assessment metamodel — it defines its own dimensions, criteria, scoring, maturity and
+    evidence requirements using dea:assessment vocabulary, and is versioned independently of OpenDEA
+    Core (§33, A012). This profile provides the semantic container; substantive DMMv5 content is imported
+    from the authoritative DMMv5 definition, not restated here (§39 Phase 6).
   entities: []
+  vocabulary_files:
+  - dmm.yaml
+  - dimensions.yaml
+  - criteria.yaml
+  - maturity.yaml
+  - scoring.yaml
+  - mappings.yaml
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  - DMM dimensions are assessment perspectives; they assess DEA entities, they never replace them (§6, §23).

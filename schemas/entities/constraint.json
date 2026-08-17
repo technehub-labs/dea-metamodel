@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/constraint.json",
-  "metamodel_version": "0.9.0",
+  "metamodel_version": "0.10.0",
   "title": "Constraint",
   "description": "Something that limits the possible solution space (CR-4 §16). Distinct from Requirement: a Requirement must be satisfied; a Constraint limits options.",
   "type": "object",

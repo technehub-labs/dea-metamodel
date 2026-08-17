@@ -1,0 +1,15 @@
+# DMMv5 framework declaration (CR-5 §5, §32-§33) — an AssessmentFramework instance.
+framework:
+  id: dmm:dmmv5
+  kind: dea:AssessmentFramework
+  name: Digital Maturity Model v5
+  framework_version: 5.0.0
+  authority: external-dmmv5-authority
+  status: container
+  notes:
+  - Versioned independently of OpenDEA Core and of this metamodel (CR-5 §33, A012). A DMMv6 release
+    does not require an OpenDEA Core release unless DEA semantics change.
+  - Substantive DMMv5 terminology (dimension names, level names, criteria texts) MUST be taken from the
+    authoritative DMMv5 definition (CR-5 §12) — content here is the semantic container only.
+  opendea_compatibility:
+    assessment_profile: ">=0.10.0"

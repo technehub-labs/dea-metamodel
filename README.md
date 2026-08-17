@@ -92,6 +92,56 @@ architectural viewpoints and frameworks.**
 Core can be explained without mentioning DMM, ECF, ArchiMate, AI, cloud, any industry,
 or any vendor. DMM is an assessment lens over the semantic graph, not part of the Core.
 
+## Design rationale — the CR programme
+
+Every structural decision in this repository traces to a numbered Change Request in
+[`change-requests/`](./change-requests/). The rationale matters as much as the artefact:
+readers should be able to see *why* the ontology is shaped the way it is.
+
+| CR | Rationale (why) | Consequence (what you see here) |
+|---|---|---|
+| [CR-001](./change-requests/CR-001.md) | Scattered, divergent copies of the model made every consumer guess which was true. | One normative source (`metamodel/dea-metamodel.yaml`); everything else derived, version-pinned, drift-tested in CI. |
+| [CR-002](./change-requests/CR-002.md) | Untyped, directionless relationships made the graph semantically ambiguous. | A typed, directed, inverse-aware relationship ontology with cardinality, temporality and provenance. |
+| [CR-003](./change-requests/CR-003.md) | Relationship state duplicated on entities always drifted from the relationship store. | Entities carry no relationship state; canonical relationship instances are authoritative. |
+| [CR-004](./change-requests/CR-004.md) | Without a stable core, every framework (DMM, ECF, ArchiMate) leaked into the base vocabulary. | 18-anchor Core + 10 profiles with `depends_on`; profiles extend, never redefine (O001–O009). |
+| [CR-005](./change-requests/CR-005.md) | `capability.maturity = 3` conflates *what the enterprise is* with *how it is assessed* — one entity, one score, one framework, no evidence, no history. | A separate assessment layer: maturity belongs to frameworks, results carry evidence/confidence/provenance, and gaps connect to Change. |
+
+### The ontology in one picture
+
+```mermaid
+graph TD
+    subgraph CORE["OpenDEA Core (18 anchors)"]
+        C1[Capability] & C2[Service] & C3[Information]
+        C4[Actor / Organization] & C5[Decision / Outcome] & C6[Change]
+    end
+    subgraph PROFILES["Profiles (extend, never redefine)"]
+        P1[business · digital · data · technology · ai · ecosystem · governance · ecf]
+    end
+    subgraph ASSESS["Assessment layer (CR-5)"]
+        AF[AssessmentFramework] --> D[Dimension] --> CR[Criterion] --> I[Indicator] --> M[Measure]
+        A[Assessment] --> AR[AssessmentResult]
+        M --> AR
+        AR --> GAP[AssessmentGap]
+        E[Evidence] -.supports.-> AR
+    end
+    DMM[DMMv5 profile] -. implements .-> AF
+    PROFILES --> CORE
+    ASSESS -. assesses .-> CORE
+    GAP -- addressed-by --> C6
+```
+
+### The CR-5 closed loop
+
+What the enterprise **is** (Core) and how it is **assessed** (profiles) are different
+semantic layers. The same Capability can be assessed by DMMv5, an AI-readiness model and
+a cyber framework at different dates and scopes — without conflict, because maturity lives
+on the `AssessmentResult`, never on the entity (rule A008, enforced in CI):
+
+```
+Describe → Assess → Identify Gap → Decide → Transform → Measure → Reassess
+(Core)   (Result)  (derived Gap)  (Decision) (Change)   (Measure)  (new Baseline)
+```
+
 ## Diagram Design Tokens
 
 The rendered metamodel diagram (`viewer/metamodel.svg`) follows a locked

@@ -1,0 +1,16 @@
+# Orchestration semantics (CR-7 §46-§47, §50, Phase Z/AA/AB).
+version: 0.12.0
+roles:
+  # §46: three distinct roles — never collapse into a generic Agent.
+  agent: Performs a bounded cognitive/action role.
+  orchestrator: Coordinates multiple actors/actions toward a goal.
+  controller: Enforces execution/state/control conditions — evaluates state, enforces policy,
+    controls execution, triggers escalation.
+patterns:
+  orchestration: "Orchestrator invokes Agent A/B + Service, coordinates Workflow (§46)"
+  workflow: "Task A → Task B → Decision → Task C (§47)"
+  composition: "Orchestrator coordinates Agent A/B/C; each Agent has-skill × N (§50)"
+agentic_system:
+  # §58-§59: the architecture boundary — Agents + Models + Tools + Services + Policies +
+  # Orchestration + Memory + Human Oversight, composed via dea:composes.
+  example: [Orchestrator, Customer Agent, Pricing Agent, Knowledge Agent, CRM Tool, Policy Engine, Human Approval]

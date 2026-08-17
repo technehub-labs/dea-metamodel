@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.11.0
+  version: 0.12.0
   status: draft
   normative: true
   namespace:
@@ -2401,6 +2401,646 @@ entities:
   membership:
     kind: profile
     profile: dea:lifecycle
+- id: dea:Intent
+  name: Intent
+  legacy_ids: []
+  definition: "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) — e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/intent.json
+    sqlite_table: intents
+    pydantic_model: pydantic/intent.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Objective
+  name: Objective
+  legacy_ids: []
+  definition: "Makes an Intent operationally measurable (CR-7 §5): statement, target value, unit, target date. Objective ≠ Outcome (§6): an objective is what we intend to achieve; an outcome is what happened. Connects to CR-5 via AssessmentTarget."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/objective.json
+    sqlite_table: objectives
+    pydantic_model: pydantic/objective.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Policy
+  name: Policy
+  legacy_ids: []
+  definition: "A governing principle or rule that constrains or directs behavior (CR-7 §7), applicable to organizations, capabilities, processes, services, applications, data, technology, agents, decisions and changes (§8). Policy ≠ Constraint (§9): a policy directs; a constraint limits."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/policy.json
+    sqlite_table: policies
+    pydantic_model: pydantic/policy.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyRule
+  name: PolicyRule
+  legacy_ids: []
+  definition: "An atomic, evaluable rule within a Policy (CR-7 §7/§38) — the unit policy enforcement evaluates."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/policy-rule.json
+    sqlite_table: policy_rules
+    pydantic_model: pydantic/policy_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyEvaluation
+  name: PolicyEvaluation
+  legacy_ids: []
+  definition: "The evaluation of an action or subject against a policy (CR-7 §38): policy, subject, action, context, result, reason, timestamp. Produces a PolicyDecision (§39)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/policy-evaluation.json
+    sqlite_table: policy_evaluations
+    pydantic_model: pydantic/policy_evaluation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyDecision
+  name: PolicyDecision
+  legacy_ids: []
+  definition: "The outcome of a policy evaluation — e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/policy-decision.json
+    sqlite_table: policy_decisions
+    pydantic_model: pydantic/policy_decision.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionOption
+  name: DecisionOption
+  legacy_ids: []
+  definition: "An alternative considered in a Decision (CR-7 §14), with cost, benefit, risk, constraint violations, expected outcome, dependencies, time and confidence. Makes decision-making explicit rather than burying rationale in documents."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/decision-option.json
+    sqlite_table: decision_options
+    pydantic_model: pydantic/decision_option.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionCriterion
+  name: DecisionCriterion
+  legacy_ids: []
+  definition: "A criterion by which decision options are evaluated (CR-7 §15): strategic alignment, cost, risk, time-to-value, security, regulatory compliance, customer impact, complexity, resilience."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/decision-criterion.json
+    sqlite_table: decision_criteria
+    pydantic_model: pydantic/decision_criterion.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionRecord
+  name: DecisionRecord
+  legacy_ids: []
+  definition: "The audit record of a Decision (CR-7 §11): who/what decided, what, why, on what evidence, under what authority, among which alternatives, with what consequences."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/decision-record.json
+    sqlite_table: decision_records
+    pydantic_model: pydantic/decision_record.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Authority
+  name: Authority
+  legacy_ids: []
+  definition: "The right to decide or act within defined limits (CR-7 §18). Capability to perform an action is not authority to perform it: an agent may be capable of approving transactions yet authorized only up to $10,000. This distinction is structural, not documentary."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/authority.json
+    sqlite_table: authorities
+    pydantic_model: pydantic/authority.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Delegation
+  name: Delegation
+  legacy_ids: []
+  definition: "The act of granting authority from a delegator to a delegate (CR-7 §19) with explicit scope, constraints, duration, conditions and revocation (G005)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/delegation.json
+    sqlite_table: delegations
+    pydantic_model: pydantic/delegation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:GovernanceBody
+  name: GovernanceBody
+  legacy_ids: []
+  definition: "A body that sets policy, grants authority, reviews decisions, approves changes, monitors outcomes and enforces constraints (CR-7 §34): Architecture Review Board, AI Governance Board, Data Governance Council, Security Committee, Executive Steering Committee."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/governance-body.json
+    sqlite_table: governance_bodies
+    pydantic_model: pydantic/governance_body.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:GovernanceRule
+  name: GovernanceRule
+  legacy_ids: []
+  definition: "A rule established by a GovernanceBody (CR-7 §34) as part of the governance mechanism."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/governance-rule.json
+    sqlite_table: governance_rules
+    pydantic_model: pydantic/governance_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Action
+  name: Action
+  legacy_ids: []
+  definition: "A unit of execution that follows from a Decision (CR-7 §13). Decision ≠ Action: 'approve migration' vs 'execute migration'. Performed by an Actor or Agent (§65) within authority and policy boundaries; reversibility is explicit (§41) and drives control strictness."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/action.json
+    sqlite_table: actions
+    pydantic_model: pydantic/action.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Agent
+  name: Agent
+  legacy_ids: []
+  definition: "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system — not its center (§1)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/agent.json
+    sqlite_table: agents
+    pydantic_model: pydantic/agent.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentProfile
+  name: AgentProfile
+  legacy_ids: []
+  definition: "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle — placed inside the DEA semantic model rather than an isolated template."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/agent-profile.json
+    sqlite_table: agent_profiles
+    pydantic_model: pydantic/agent_profile.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentSkill
+  name: AgentSkill
+  legacy_ids: []
+  definition: "A reusable capability/competency available to an Agent (CR-7 §48/§49): purpose, inputs, outputs, preconditions, postconditions, tools, policies, decision/action scope, failure modes and escalation. AgentSkill ≠ BusinessCapability (§48): a skill may implement or contribute to one."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/agent-skill.json
+    sqlite_table: agent_skills
+    pydantic_model: pydantic/agent_skill.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Tool
+  name: Tool
+  legacy_ids: []
+  definition: "An executable mechanism available to an Agent (CR-7 §30): CRM/ERP APIs, search, databases, workflow engines, payment services, code execution, knowledge graphs. Tool ≠ Service (§31): a Service exposes enterprise capability for consumption; a Tool is an invocable mechanism. They may overlap operationally but are semantically distinct."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/tool.json
+    sqlite_table: tools
+    pydantic_model: pydantic/tool.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:ToolPermission
+  name: ToolPermission
+  legacy_ids: []
+  definition: "Explicit permission governing an Agent's access to a Tool (CR-7 §30; G009): scope, constraints and authority. Tool access is never implicit."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/tool-permission.json
+    sqlite_table: tool_permissions
+    pydantic_model: pydantic/tool_permission.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Orchestrator
+  name: Orchestrator
+  legacy_ids: []
+  definition: "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) — the three are never collapsed (§46)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/orchestrator.json
+    sqlite_table: orchestrators
+    pydantic_model: pydantic/orchestrator.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Controller
+  name: Controller
+  legacy_ids: []
+  definition: "Enforces execution, state and control conditions in an agentic system (CR-7 §46): evaluates state, enforces policy, controls execution, triggers escalation."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/controller.json
+    sqlite_table: controllers
+    pydantic_model: pydantic/controller.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Orchestration
+  name: Orchestration
+  legacy_ids: []
+  definition: "A coordinated execution of tasks, agents and services under an Orchestrator (CR-7 §47)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/orchestration.json
+    sqlite_table: orchestrations
+    pydantic_model: pydantic/orchestration.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Workflow
+  name: Workflow
+  legacy_ids: []
+  definition: "An ordered composition of tasks and decisions toward an outcome (CR-7 §47): Task A → Task B → Decision → Task C. Workflow ≠ Agent (§57), though a workflow may be part of an agentic system."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/workflow.json
+    sqlite_table: workflows
+    pydantic_model: pydantic/workflow.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Task
+  name: Task
+  legacy_ids: []
+  definition: "A unit of work within a Workflow or Orchestration (CR-7 §47)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/task.json
+    sqlite_table: tasks
+    pydantic_model: pydantic/task.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AutonomyPolicy
+  name: AutonomyPolicy
+  legacy_ids: []
+  definition: "The policy governing how much autonomy an Agent may exercise (CR-7 §23) — the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/autonomy-policy.json
+    sqlite_table: autonomy_policies
+    pydantic_model: pydantic/autonomy_policy.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AutonomyLevel
+  name: AutonomyLevel
+  legacy_ids: []
+  definition: "One level in a configurable autonomy model (CR-7 §23), e.g. 0 Inform · 1 Recommend · 2 Prepare · 3 Execute-with-approval · 4 Execute-within-delegated-authority · 5 Autonomous. The scale is a profile concern, never a boolean."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/autonomy-level.json
+    sqlite_table: autonomy_levels
+    pydantic_model: pydantic/autonomy_level.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:HumanOversight
+  name: HumanOversight
+  legacy_ids: []
+  definition: "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision — materially different governance patterns."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/human-oversight.json
+    sqlite_table: human_oversight
+    pydantic_model: pydantic/human_oversight.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Approval
+  name: Approval
+  legacy_ids: []
+  definition: "An approval act within a human-oversight pattern (CR-7 §25): approver, subject, decision, timestamp. The gate between recommendation and action in approve-before patterns."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/approval.json
+    sqlite_table: approvals
+    pydantic_model: pydantic/approval.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Escalation
+  name: Escalation
+  legacy_ids: []
+  definition: "An escalation raised when authority, confidence or policy boundaries are exceeded (CR-7 §25; G011): actions exceeding an Agent's authority must escalate or fail safely."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/escalation.json
+    sqlite_table: escalations
+    pydantic_model: pydantic/escalation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgenticSystem
+  name: AgenticSystem
+  legacy_ids: []
+  definition: "The architecture boundary of a multi-agent solution (CR-7 §58): a composition of agents, models, tools, services, policies, orchestration, memory and human oversight."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/agentic-system.json
+    sqlite_table: agentic_systems
+    pydantic_model: pydantic/agentic_system.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentOpportunity
+  name: AgentOpportunity
+  legacy_ids: []
+  definition: "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived — never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/agent-opportunity.json
+    sqlite_table: agent_opportunities
+    pydantic_model: pydantic/agent_opportunity.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Memory
+  name: Memory
+  legacy_ids: []
+  definition: "Information retained by or for an Agent (CR-7 §33). The DEA concern is governance, not AI implementation detail: what is retained, who controls it, how long, under what policy, who can access it."
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/memory.json
+    sqlite_table: memories
+    pydantic_model: pydantic/memory.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:agentic
 relationships:
 - id: dea:composes
   name: Composes
@@ -2409,6 +3049,11 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:AgenticSystem
+    - dea:AutonomyPolicy
+    - dea:Decision
+    - dea:Orchestration
+    - dea:Workflow
     - dea:ApplicationComponent
     - dea:Blueprint
     - dea:BusinessCapability
@@ -2422,6 +3067,16 @@ relationships:
   target:
     types:
     - dea:Actor
+    - dea:AutonomyLevel
+    - dea:DecisionOption
+    - dea:Task
+    - dea:Agent
+    - dea:Controller
+    - dea:HumanOversight
+    - dea:Memory
+    - dea:Orchestrator
+    - dea:Policy
+    - dea:Tool
     - dea:ApplicationComponent
     - dea:ArchitecturePattern
     - dea:BusinessCapability
@@ -2482,7 +3137,10 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:Agent
     - dea:ArchitecturePattern
+    - dea:Controller
+    - dea:Orchestrator
     - dea:ArchitectureState
     - dea:BaselineState
     - dea:CurrentState
@@ -2497,6 +3155,7 @@ relationships:
     - dea:Concept
   target:
     types:
+    - dea:Actor
     - dea:ArchitecturePattern
     - dea:ArchitectureState
     - dea:TemporalEvent
@@ -2987,6 +3646,8 @@ relationships:
   source:
     types:
     - dea:Actor
+    - dea:Agent
+    - dea:Orchestrator
     - dea:ApplicationComponent
     - dea:BusinessProcess
     - dea:JourneyTouchpoint
@@ -2994,6 +3655,7 @@ relationships:
   target:
     types:
     - dea:API
+    - dea:Tool
     - dea:BusinessService
     - dea:DigitalIdentity
     - dea:PlatformService
@@ -3049,11 +3711,13 @@ relationships:
   source:
     types:
     - dea:Actor
+    - dea:Orchestrator
     - dea:OrganizationalUnit
     - dea:Role
   target:
     types:
     - dea:Behavior
+    - dea:Orchestration
     - dea:BusinessFunction
     - dea:BusinessProcess
   cardinality:
@@ -3128,6 +3792,7 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:Controller
     - dea:Decision
     - dea:Event
     - dea:ModelFeedbackSignal
@@ -3135,6 +3800,7 @@ relationships:
   target:
     types:
     - dea:AIMLModel
+    - dea:Escalation
     - dea:Behavior
     - dea:BusinessProcess
     - dea:Experiment
@@ -3160,6 +3826,7 @@ relationships:
   source:
     types:
     - dea:CollaborationAgreement
+    - dea:GovernanceBody
     - dea:Guardrail
     - dea:OrganizationalUnit
     - dea:Regulation
@@ -3168,6 +3835,9 @@ relationships:
   target:
     types:
     - dea:AIMLModel
+    - dea:Agent
+    - dea:AgenticSystem
+    - dea:ArchitectureElement
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:EcosystemActor
@@ -3256,6 +3926,8 @@ relationships:
     - dea:OrganizationalUnit
   target:
     types:
+    - dea:Agent
+    - dea:AgenticSystem
     - dea:ApplicationComponent
     - dea:BusinessCapability
     - dea:BusinessFunction
@@ -3289,7 +3961,10 @@ relationships:
     - dea:Role
   target:
     types:
+    - dea:Action
+    - dea:Agent
     - dea:ArchitectureElement
+    - dea:Decision
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
@@ -3910,6 +4585,7 @@ relationships:
   source:
     types:
     - dea:Actor
+    - dea:Agent
     - dea:OrganizationalUnit
   target:
     types:
@@ -3931,6 +4607,8 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:Action
+    - dea:AgenticSystem
     - dea:Decision
     - dea:Change
   target:
@@ -4124,6 +4802,7 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:AgentOpportunity
     - dea:AssessmentGap
     - dea:Benchmark
     - dea:BenchmarkReference
@@ -4153,9 +4832,11 @@ relationships:
   source:
     types:
     - dea:AssessmentResult
+    - dea:Decision
   target:
     types:
     - dea:AggregationRule
+    - dea:DecisionCriterion
     - dea:ScoringRule
   cardinality:
     source: 0..*
@@ -4265,6 +4946,7 @@ relationships:
   source:
     types:
     - dea:AssessmentSubject
+    - dea:DecisionRecord
     - dea:AssessmentScope
     - dea:AssessmentTarget
     - dea:Evidence
@@ -4339,6 +5021,7 @@ relationships:
   source:
     types:
     - dea:ArchitectureState
+    - dea:Memory
     - dea:BaselineState
     - dea:CurrentState
     - dea:TargetState
@@ -4349,6 +5032,7 @@ relationships:
   target:
     types:
     - dea:ArchitectureElement
+    - dea:Information
     - dea:ScenarioAssumption
   cardinality:
     source: 0..*
@@ -4626,6 +5310,575 @@ relationships:
     source: 0..*
     target: 0..*
   inverse: dea:follows
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:motivates
+  name: Motivates
+  definition: "An Intent motivates an Objective (CR-7 §4); objectives may decompose further. Composition is supported without a forced universal hierarchy."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Intent
+    - dea:Objective
+  target:
+    types:
+    - dea:Objective
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:motivated-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:seeks
+  name: Seeks
+  definition: "An Intent or Objective seeks an Outcome (CR-7 §4/§6). Objective = intended; Outcome = actual."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Intent
+    - dea:Objective
+  target:
+    types:
+    - dea:Outcome
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:sought-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:constrained-by
+  name: Constrained By
+  definition: "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Intent
+    - dea:Objective
+    - dea:Decision
+    - dea:Action
+    - dea:Change
+    - dea:Agent
+    - dea:ArchitectureElement
+  target:
+    types:
+    - dea:Policy
+    - dea:PolicyRule
+    - dea:Constraint
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:constrains
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:authorizes
+  name: Authorizes
+  definition: "A Decision, Authority or GovernanceBody authorizes or directs a Change or Action (CR-7 §12/§35; G001). The decision authorizes the change; it does not constitute it (G003)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:Authority
+    - dea:GovernanceBody
+  target:
+    types:
+    - dea:Change
+    - dea:Action
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:authorized-by-decision
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:performed-by
+  name: Performed By
+  definition: "An Action is performed by an Actor or Agent (CR-7 §65): 'Agent Action' is Action + performed-by Agent, never a separate AgentAction type."
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:Action
+  target:
+    types:
+    - dea:Actor
+    - dea:Agent
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:performs
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:informed-by
+  name: Informed By
+  definition: "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type."
+  category: traceability
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:PolicyDecision
+  target:
+    types:
+    - dea:Evidence
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:informs-decision
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:delegates
+  name: Delegates
+  definition: "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Actor
+    - dea:GovernanceBody
+  target:
+    types:
+    - dea:Actor
+    - dea:Agent
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:delegated-to
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:grants
+  name: Grants
+  definition: "A Delegation or Authority grants rights to an Actor or Agent (CR-7 §18/§19)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Delegation
+    - dea:Authority
+  target:
+    types:
+    - dea:Actor
+    - dea:Agent
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:granted-to
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:authorized-by
+  name: Authorized By
+  definition: "The source acts or decides under the target Authority or Delegation (CR-7 §18; G006/G010). Autonomous action must stay within delegated authority."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Agent
+    - dea:Decision
+    - dea:Action
+    - dea:Change
+  target:
+    types:
+    - dea:Authority
+    - dea:Delegation
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:authorizes-party
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:approves
+  name: Approves
+  definition: "A GovernanceBody, Actor or Approval approves a Decision, Change or Action (CR-7 §25/§35)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:GovernanceBody
+    - dea:Actor
+    - dea:Approval
+  target:
+    types:
+    - dea:Decision
+    - dea:Change
+    - dea:Action
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:approved-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:establishes
+  name: Establishes
+  definition: "A GovernanceBody establishes a Policy or PolicyRule (CR-7 §35)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:GovernanceBody
+  target:
+    types:
+    - dea:GovernanceRule
+    - dea:Policy
+    - dea:PolicyRule
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:established-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:consults
+  name: Consults
+  definition: "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational."
+  category: traceability
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:Actor
+    - dea:Agent
+  target:
+    types:
+    - dea:Actor
+    - dea:GovernanceBody
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:consulted-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:mitigates
+  name: Mitigates
+  definition: "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Decision
+    - dea:Control
+    - dea:Change
+  target:
+    types:
+    - dea:Risk
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:mitigated-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:escalates-to
+  name: Escalates To
+  definition: "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Action
+    - dea:Agent
+    - dea:Escalation
+  target:
+    types:
+    - dea:Actor
+    - dea:GovernanceBody
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:escalated-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:evaluates
+  name: Evaluates
+  definition: "A PolicyEvaluation evaluates a Policy/PolicyRule against an Action or Agent (CR-7 §38), producing a PolicyDecision (permit/deny/escalate)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:PolicyEvaluation
+  target:
+    types:
+    - dea:Policy
+    - dea:PolicyRule
+    - dea:Action
+    - dea:Agent
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:evaluated-by-policy
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:has-skill
+  name: Has Skill
+  definition: "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014)."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+    - dea:Agent
+  target:
+    types:
+    - dea:AgentSkill
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:skill-of
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:invokes
+  name: Invokes
+  definition: "A Tool, Orchestrator or AgentSkill invokes a Service, API, Task or Agent (CR-7 §30/§46)."
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:Tool
+    - dea:Orchestrator
+    - dea:AgentSkill
+  target:
+    types:
+    - dea:Service
+    - dea:API
+    - dea:Task
+    - dea:Agent
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:invoked-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:coordinates
+  name: Coordinates
+  definition: "An Orchestrator coordinates Agents, Workflows, Tasks and Services toward a goal (CR-7 §46/§50)."
+  category: execution
+  direction: source-to-target
+  source:
+    types:
+    - dea:Orchestrator
+  target:
+    types:
+    - dea:Agent
+    - dea:Workflow
+    - dea:Task
+    - dea:Service
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:coordinated-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:enforces
+  name: Enforces
+  definition: "A Controller enforces Policies, PolicyRules or Constraints on execution (CR-7 §46)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Controller
+  target:
+    types:
+    - dea:Policy
+    - dea:PolicyRule
+    - dea:Constraint
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:enforced-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:permits
+  name: Permits
+  definition: "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:AgentProfile
+    - dea:AutonomyPolicy
+    - dea:ToolPermission
+  target:
+    types:
+    - dea:Action
+    - dea:Tool
+    - dea:AgentSkill
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:permitted-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:prohibits
+  name: Prohibits
+  definition: "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:AgentProfile
+    - dea:AutonomyPolicy
+    - dea:ToolPermission
+  target:
+    types:
+    - dea:Action
+    - dea:Tool
+    - dea:AgentSkill
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:prohibited-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:requires-approval
+  name: Requires Approval
+  definition: "An Action, Tool use or Skill invocation requires an Approval or HumanOversight gate before or after execution (CR-7 §24/§25)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Action
+    - dea:Tool
+    - dea:AgentSkill
+  target:
+    types:
+    - dea:Approval
+    - dea:HumanOversight
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:approval-for
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:has-oversight
+  name: Has Oversight
+  definition: "An Agent or AgenticSystem operates under a HumanOversight pattern (CR-7 §25; G011)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+    - dea:Agent
+    - dea:AgenticSystem
+  target:
+    types:
+    - dea:HumanOversight
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:oversees
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:accesses
+  name: Accesses
+  definition: "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates."
+  category: serving
+  direction: source-to-target
+  source:
+    types:
+    - dea:Agent
+  target:
+    types:
+    - dea:Information
+    - dea:InformationAsset
+    - dea:KnowledgeAsset
+    - dea:Memory
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:accessed-by
   transitive: false
   symmetric: false
   temporal: false

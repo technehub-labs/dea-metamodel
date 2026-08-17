@@ -1,0 +1,25 @@
+# AgentSkill semantics (CR-7 §48-§50, Phase AB).
+version: 0.12.0
+principle: "AgentSkill ≠ BusinessCapability (§48). A skill is a reusable agent competency; it may
+  implement or contribute to a business capability. Agent has-skill Skill; Skill performs Task."
+structure:
+  id: null
+  name: null
+  purpose: null
+  inputs: []
+  outputs: []
+  preconditions: []
+  postconditions: []
+  tools: []
+  policies: []
+  decision_scope: null
+  action_scope: null
+  required_capabilities: []
+  failure_modes: []
+  escalation: null
+validity: "An Agent cannot invoke a Skill outside its granted capability/authority (G014) —
+  dea:has-skill + dea:permits/dea:prohibits define the boundary."
+composition:
+  # §50: multi-skill agents + multi-agent orchestration without implementation-specific frameworks.
+  agent: "has-skill × N"
+  orchestrator: "coordinates Agent A/B/C"

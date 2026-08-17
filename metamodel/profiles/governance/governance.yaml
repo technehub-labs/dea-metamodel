@@ -1,0 +1,25 @@
+# Governance semantics (CR-7 §34-§35, §60, Phase T).
+version: 0.12.0
+principle: "Governance is a mechanism that sets policy, grants authority, reviews decisions, approves
+  changes, monitors outcomes and enforces constraints (§34) — represented directly in the graph."
+bodies:
+- Architecture Review Board
+- AI Governance Board
+- Data Governance Council
+- Security Committee
+- Executive Steering Committee
+relationships:
+  governs: "GovernanceBody governs Agent / Capability / Architecture (dea:governs extended)"
+  approves: "GovernanceBody approves Decision / Change / Action (dea:approves)"
+  authorizes: "GovernanceBody authorizes Change (dea:authorizes)"
+  establishes: "GovernanceBody establishes Policy (dea:establishes)"
+architecture:
+  # §60: the governance view of the agentic enterprise.
+  chain: "GOVERNANCE → Policy/Authority/Risk → Decision → Human|Agent → Action → Change"
+decision_lifecycle:
+  # §40: expressible, not mandatory in full. Reuses CR-6 lifecycle machinery.
+  states: [proposed, under-evaluation, approved, rejected, authorized, executed, validated, closed]
+risk:
+  # §42-§43: lightweight risk semantics — Risk/Control exist; Decision can create, mitigate,
+  # accept or transfer Risk (mitigates is the control-bearing disposition).
+  risk_aware_autonomy: "Agent wants to act → Policy evaluation → Risk evaluation → Permitted | Escalate"

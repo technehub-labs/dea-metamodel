@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/benchmark-population.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "BenchmarkPopulation",
   "description": "The peer or industry population over which a benchmark is computed (CR-5 §28).",
   "type": "object",

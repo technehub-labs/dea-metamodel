@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/concept.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "Concept",
   "description": "A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2) — a queryable concept graph, not a static glossary document. Dimension entity of orthogonal_allocators.semantic-dimension. Catalog: technehub-labs/dea-catalog-concepts.",
   "type": "object",

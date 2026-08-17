@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/current-state.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "CurrentState",
   "description": "The best authoritative representation of what exists at a specified time (CR-6 §11): actual elements, actual relationships, actual lifecycle states. Planned, proposed, target and hypothetical elements are excluded (T003).",
   "type": "object",

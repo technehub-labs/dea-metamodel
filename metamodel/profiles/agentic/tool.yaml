@@ -1,0 +1,10 @@
+# Tool semantics (CR-7 §30-§31, Phase Q).
+version: 0.12.0
+principle: "Tool ≠ Service (§31). A Service exposes enterprise capability for consumption; a Tool is
+  an executable mechanism an actor/agent invokes. Operational overlap does not merge the semantics."
+examples: [CRM API, ERP API, Search, Database, Workflow Engine, Payment Service, Email Service,
+  Code Execution, Enterprise Knowledge Graph]
+chain: "Agent uses Tool → invokes Service/API (§30)."
+permission:
+  # G009: tool access is governed by explicit ToolPermission with scope, constraints, authority.
+  rule: "Agent tool access is never implicit."

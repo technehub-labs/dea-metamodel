@@ -1,0 +1,51 @@
+# Governance & agentic conformance rules (CR-7 §62) — enforced by tests/conformance/test_013_governance_rules.py
+version: 0.12.0
+constraints:
+- id: G001
+  rule: Every governed Decision must reference an authorized decision maker.
+  enforcement: "metamodel-level — decision.json carries authority_ref; dea:makes/authorized-by exist (test_013)"
+- id: G002
+  rule: Material Decisions must identify their supporting evidence or rationale.
+  enforcement: "metamodel-level — dea:informed-by (Decision → Evidence) + decision.json rationale (test_013)"
+- id: G003
+  rule: A Decision cannot itself be interpreted as an implemented Change.
+  enforcement: "metamodel-level — Decision and Change are distinct types; dea:authorizes links them (test_013)"
+- id: G004
+  rule: A Policy must identify its scope/applicability.
+  enforcement: "metamodel-level — policy.json applicability property (test_013)"
+- id: G005
+  rule: Delegated authority must have explicit scope and validity.
+  enforcement: "metamodel-level — delegation.json scope + valid_from/valid_to (test_013)"
+- id: G006
+  rule: Every operational Agent must have defined authority.
+  enforcement: "metamodel-level — dea:authorized-by (Agent → Authority/Delegation) (test_013)"
+- id: G007
+  rule: Every production Agent must have an accountable owner.
+  enforcement: "metamodel-level — agent.json owner_ref + dea:owns target includes Agent (test_013)"
+- id: G008
+  rule: Every production Agent must reference applicable governance policies.
+  enforcement: "metamodel-level — dea:constrained-by includes Agent → Policy (test_013)"
+- id: G009
+  rule: Agent tool access must be governed by explicit permission/authority.
+  enforcement: "metamodel-level — ToolPermission entity + dea:permits (test_013)"
+- id: G010
+  rule: Autonomous actions must be within delegated authority.
+  enforcement: "metamodel-level — dea:authorized-by covers Action; Delegation validity (test_013)"
+- id: G011
+  rule: Actions exceeding an Agent's authority must escalate or fail safely.
+  enforcement: "metamodel-level — dea:escalates-to + Escalation entity (test_013)"
+- id: G012
+  rule: High-risk autonomous actions must reference appropriate controls.
+  enforcement: "metamodel-level — dea:mitigates (Decision/Control/Change → Risk); Action.materiality (test_013)"
+- id: G013
+  rule: Production Agents must have lifecycle state.
+  enforcement: "metamodel-level — agent lifecycle declared in agentic/agent.yaml, reusing CR-6 machinery (test_013)"
+- id: G014
+  rule: An Agent cannot invoke a Skill outside its granted capability/authority.
+  enforcement: "metamodel-level — dea:has-skill + dea:permits cover skill invocation (test_013)"
+- id: G015
+  rule: Hypothetical agents cannot appear as active production agents.
+  enforcement: "metamodel-level — CR-6 scenario isolation (T007) applies; scenario containment (test_013)"
+- id: G016
+  rule: Every material automated decision must have an accountable party.
+  enforcement: "metamodel-level — dea:accountable-for target includes Decision/Action (test_013)"

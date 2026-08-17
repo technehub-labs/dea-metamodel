@@ -2,7 +2,7 @@
 profile:
   id: dea:assessment
   name: OpenDEA Assessment Profile
-  version: 0.11.0
+  version: 0.12.0
   status: normative
   depends_on:
   - dea:core

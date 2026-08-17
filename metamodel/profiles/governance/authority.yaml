@@ -1,0 +1,25 @@
+# Authority & delegation semantics (CR-7 §18-§19, Phase H).
+version: 0.12.0
+principle: "Capability to perform an action is NOT authority to perform it (§18). The distinction is
+  structural: Agent.capable-of X vs Agent.authorized-for X-within-limits."
+example:
+  authority:
+    scope: approve-transaction
+    limits: amount <= 10000 USD
+    valid_from: 2026-08-01
+    valid_to: 2027-08-01
+delegation:
+  # §19: delegation carries scope, authority, constraints, duration, conditions, revocation (G005).
+  example:
+    delegator: CIO
+    delegate: architecture-agent
+    authority: recommend-architecture
+    scope: technology-domain
+    valid_from: 2026-08-01
+    valid_to: 2027-08-01
+relationships: [dea:delegates, dea:grants, dea:authorized-by]
+accountability:
+  # §36-§37: accountability / responsibility / ownership / authority are four distinct things.
+  # RACI is implementable as a profile (accountable-for, responsible-for, consults, informs) —
+  # never reduced to a single 'owner'.
+  rule: "Every material automated decision must have an accountable party (G016)."

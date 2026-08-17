@@ -1,0 +1,60 @@
+# OpenDEA Agentic Profile (CR-7 §61)
+profile:
+  id: dea:agentic
+  name: OpenDEA Agentic Profile
+  version: 0.12.0
+  status: normative
+  depends_on:
+  - dea:core
+  - dea:governance
+  - dea:assessment
+  - dea:lifecycle
+  scope: Agent, skill, tool, orchestration, autonomy and oversight semantics (CR-7 §20-§33, §46-§59).
+    The agent participates in the existing enterprise semantics — Agent as enterprise Actor (§27),
+    reusing Decision/Action/Evidence/Outcome/State/Policy rather than agent-specific duplicates (§26/§65).
+    CR-7 does NOT specify LLM architecture, prompts, RAG, training, vendor frameworks or MCP
+    implementation details (§66) — those belong in technology profiles.
+  entities:
+  - dea:Agent
+  - dea:AgentProfile
+  - dea:AgentSkill
+  - dea:Tool
+  - dea:ToolPermission
+  - dea:Orchestrator
+  - dea:Controller
+  - dea:Orchestration
+  - dea:Workflow
+  - dea:Task
+  - dea:AutonomyPolicy
+  - dea:AutonomyLevel
+  - dea:HumanOversight
+  - dea:Approval
+  - dea:Escalation
+  - dea:AgenticSystem
+  - dea:AgentOpportunity
+  - dea:Memory
+  relationships:
+  - dea:has-skill
+  - dea:invokes
+  - dea:coordinates
+  - dea:enforces
+  - dea:permits
+  - dea:prohibits
+  - dea:requires-approval
+  - dea:has-oversight
+  - dea:accesses
+  vocabulary_files:
+  - agent.yaml
+  - agent-profile.yaml
+  - skill.yaml
+  - tool.yaml
+  - orchestration.yaml
+  - autonomy.yaml
+  - oversight.yaml
+  - constraints.yaml
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  - "Agent ≠ AI Model (§21): an LLM may be a component an agent uses."
+  - "Tool ≠ Service (§31); Workflow ≠ Agent (§57); deterministic API wrapper ≠ Agent (§57 anti-AI-washing)."
+  - "No agent is operationally autonomous without a defined authority and governance context (§52/G006-G008)."

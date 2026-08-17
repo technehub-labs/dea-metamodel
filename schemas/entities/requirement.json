@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/requirement.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "Requirement",
   "description": "A stated need, obligation or condition that an architecture, solution, service or behavior must satisfy (CR-4 §15). Profiles specialize: business, regulatory, security, data, technology, AI.",
   "type": "object",

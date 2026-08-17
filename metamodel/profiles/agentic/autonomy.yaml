@@ -1,0 +1,21 @@
+# Autonomy semantics (CR-7 §23-§24, §41, §43, Phase K).
+version: 0.12.0
+principle: "Autonomy is never a boolean (§23). The metamodel models AutonomyPolicy, AutonomyLevel,
+  HumanOversight and approval requirements; the scale itself is configurable profile content."
+illustrative_scale:
+  # §23 example — configurable, not hard-coded.
+  - {level: 0, name: Inform}
+  - {level: 1, name: Recommend}
+  - {level: 2, name: Prepare}
+  - {level: 3, name: Execute with approval}
+  - {level: 4, name: Execute within delegated authority}
+  - {level: 5, name: Autonomous}
+action_boundary:
+  # §24: every agent has an explicit boundary — permits / prohibits / requires-approval.
+  example:
+    can: [retrieve customer information, summarize cases, create service tickets, recommend resolutions]
+    cannot: [change customer identity, approve refunds > 500 USD, modify pricing, delete customer records]
+risk_aware_autonomy:
+  # §41/§43: reversibility (reversible/irreversible/conditionally-reversible) and materiality
+  # (financial, external, safety, legal) drive control strictness — stronger than an autonomy number.
+  chain: "Agent wants to act → Policy evaluation → Risk evaluation → Permitted | Escalate to Human"

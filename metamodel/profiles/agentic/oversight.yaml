@@ -1,0 +1,14 @@
+# Human oversight semantics (CR-7 §25, §51, Phase L/AC).
+version: 0.12.0
+patterns:
+  # §25: materially different governance patterns — first-class, not commentary.
+  approve-before: "Agent → Recommendation → Human Approval → Action"
+  review-after: "Agent → Action → Human Review"
+  intervene-on-exception: "Agent acts; human intervenes on exception"
+  continuous-supervision: "Human supervises continuously"
+interaction_semantics:
+  # §51: human ↔ agent ↔ agent ↔ system collaboration is more expressive than 'Human uses Agent'.
+  relationships: [delegates, consults, approves, escalates-to, has-oversight, coordinates]
+escalation:
+  # G011: actions exceeding authority must escalate or fail safely.
+  triggers: [authority-exceeded, low-confidence, policy-violation, legal-materiality, irreversibility]

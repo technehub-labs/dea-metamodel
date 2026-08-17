@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/experiment.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "Experiment",
   "description": "A bounded, time-boxed test of a Signal's relevance to the enterprise before committing investment. OpenDEAM v0.3.0 (ADR-0003), L2/Innovation & Foresight.",
   "type": "object",

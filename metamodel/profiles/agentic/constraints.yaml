@@ -1,0 +1,31 @@
+# Agentic conformance — the agent-facing subset of the CR-7 §62 rules.
+# Canonical G-rule list lives in profiles/governance/constraints.yaml; this file records
+# agentic-specific enforcement notes.
+version: 0.12.0
+agent_rules:
+- id: G006
+  note: "dea:authorized-by (Agent → Authority/Delegation); see agent.yaml accountability_boundary."
+- id: G007
+  note: "agent.json owner_ref + dea:owns target includes Agent."
+- id: G008
+  note: "dea:constrained-by includes Agent → Policy/PolicyRule/Constraint."
+- id: G009
+  note: "ToolPermission + dea:permits govern every tool access."
+- id: G010
+  note: "dea:authorized-by covers Action; autonomy levels reference delegated authority."
+- id: G011
+  note: "dea:escalates-to + Escalation; oversight.yaml escalation triggers."
+- id: G012
+  note: "Action.materiality + AgentProfile.risk_profile + dea:mitigates → Risk via Control."
+- id: G013
+  note: "agent.yaml lifecycle (designed…retired) reuses CR-6 machinery."
+- id: G014
+  note: "dea:has-skill + dea:permits/dea:prohibits bound skill invocation."
+- id: G015
+  note: "CR-6 T007 scenario isolation applies to hypothetical agents."
+- id: G016
+  note: "dea:accountable-for target includes Decision/Action/Agent."
+anti_ai_washing:
+  # §57: an Agent must demonstrate perceives / evaluates / decides-or-selects / acts /
+  # operates-under-authority. A deterministic API wrapper or LLM endpoint is not automatically an Agent.
+  rule: "Renaming an existing application 'AI Agent' does not make it one."

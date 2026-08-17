@@ -1,0 +1,18 @@
+# Objective semantics (CR-7 §5-§6, Phase B).
+version: 0.12.0
+principle: "Objective ≠ Outcome (§6). Objective: what we intend to achieve. Outcome: what actually
+  happened. The gap between them is the measurable causal loop."
+example:
+  objective:
+    id: OBJ-001
+    intent: improve-customer-experience
+    statement: reduce customer resolution time
+    target_value: 120
+    unit: seconds
+    target_date: 2027-12-31
+  outcome:
+    statement: resolution time achieved
+    value: 103
+    unit: seconds
+cr5_integration: "Objective → AssessmentTarget → AssessmentResult (CR-5 §21). state_role=target vs
+  state_role=current exposes intention vs realization (CR-6 §27 forecast/target distinction)."

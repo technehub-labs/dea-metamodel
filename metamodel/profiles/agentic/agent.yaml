@@ -1,0 +1,32 @@
+# Agent semantics (CR-7 §20-§21, §27-§29, §52-§57).
+version: 0.12.0
+definition: "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or
+  evaluating conditions, and initiating or executing actions within a defined authority and policy
+  boundary (§20)."
+kinds: [human-agent, organizational-agent, software-agent, ai-agent, autonomous-system, composite-agent]
+agent_is_not:
+  # §21/§57 — the anti-AI-washing rules.
+  - "an AI model (an LLM may be a component the agent uses)"
+  - "a renamed existing application (§57)"
+  - "a workflow (though workflows may be part of an agentic system)"
+  - "a deterministic API wrapper"
+agent_has: [identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision-mechanism, actions, observability]
+as_enterprise_actor:
+  # §27: Actor specializes into Human / Organization / Role / Agent / System. An Agent can own
+  # capability, perform activity, make decisions, initiate change, provide service, consume
+  # information, produce evidence, trigger events — subject to authority and policy.
+  specializes: dea:Actor
+chains:
+  capability: "Agent → capable-of (via AgentSkill) → enterprise Capability — different abstraction levels (§28)"
+  service: "Agent provides Service → supports Capability → Outcome (§29) — preferred over direct agent-to-outcome links"
+accountability_boundary:
+  # §52: every production agent has Owner, AccountableParty, GovernanceBody, Authority, Policy,
+  # RiskProfile, Lifecycle (G006/G007/G008/G013).
+  rule: "No agent may be modeled as operationally autonomous without a defined authority and governance context."
+lifecycle:
+  # §53: reuses CR-6 — no independent agent temporal model.
+  states: [designed, approved, provisioned, testing, active, suspended, deprecated, retired]
+assessment:
+  # §54-§55: agents are assessed via CR-5 (e.g. AI Agent Maturity Framework as a profile);
+  # capability agent-readiness links back to DMM (AgentOpportunity, §56).
+  dimensions_example: [autonomy, reliability, governance, security, explainability, observability, human-oversight, business-value, risk, resilience]

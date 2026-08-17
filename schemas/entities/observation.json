@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/observation.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "Observation",
   "description": "A raw measured or observed fact collected as input to assessment (CR-5 \u00a727), e.g. '78% of applications have documented architecture'. Distinct from the derived result it may inform.",
   "type": "object",

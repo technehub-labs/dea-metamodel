@@ -1,5 +1,5 @@
 # Entity Registry (CR-1.5/CR-4) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.11.0
+registry_version: 0.12.0
 entities:
 - id: dea:Entity
   name: Entity
@@ -1211,3 +1211,355 @@ entities:
   membership:
     kind: profile
     profile: dea:lifecycle
+- id: dea:Intent
+  name: Intent
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Objective
+  name: Objective
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Policy
+  name: Policy
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyRule
+  name: PolicyRule
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyEvaluation
+  name: PolicyEvaluation
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:PolicyDecision
+  name: PolicyDecision
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionOption
+  name: DecisionOption
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionCriterion
+  name: DecisionCriterion
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:DecisionRecord
+  name: DecisionRecord
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Authority
+  name: Authority
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Delegation
+  name: Delegation
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:GovernanceBody
+  name: GovernanceBody
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:GovernanceRule
+  name: GovernanceRule
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Action
+  name: Action
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:governance
+- id: dea:Agent
+  name: Agent
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentProfile
+  name: AgentProfile
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentSkill
+  name: AgentSkill
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Tool
+  name: Tool
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:ToolPermission
+  name: ToolPermission
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Orchestrator
+  name: Orchestrator
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Controller
+  name: Controller
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Orchestration
+  name: Orchestration
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Workflow
+  name: Workflow
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Task
+  name: Task
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AutonomyPolicy
+  name: AutonomyPolicy
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AutonomyLevel
+  name: AutonomyLevel
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:HumanOversight
+  name: HumanOversight
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Approval
+  name: Approval
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Escalation
+  name: Escalation
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgenticSystem
+  name: AgenticSystem
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:AgentOpportunity
+  name: AgentOpportunity
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic
+- id: dea:Memory
+  name: Memory
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:agentic

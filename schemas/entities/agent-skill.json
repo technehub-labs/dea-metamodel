@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/agent-skill.json",
+  "metamodel_version": "0.12.0",
+  "title": "AgentSkill",
+  "description": "A reusable capability/competency available to an Agent (CR-7 §48/§49): purpose, inputs, outputs, preconditions, postconditions, tools, policies, decision/action scope, failure modes and escalation. AgentSkill ≠ BusinessCapability (§48): a skill may implement or contribute to one.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Stable OpenDEA identifier (CR-3Q). Type prefix: dea:agent-skill-"
+    },
+    "type": {
+      "type": "string",
+      "const": "AgentSkill"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "purpose": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "inputs": {
+      "type": "string"
+    },
+    "outputs": {
+      "type": "string"
+    },
+    "preconditions": {
+      "type": "string"
+    },
+    "postconditions": {
+      "type": "string"
+    },
+    "failure_modes": {
+      "type": "string"
+    },
+    "escalation": {
+      "type": "string"
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

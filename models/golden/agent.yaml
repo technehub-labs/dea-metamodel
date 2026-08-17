@@ -1,0 +1,25 @@
+# CR-8 §31 Scenario 4 — AI agent (agentic profile)
+opendea: {version: "1.0.0"}
+model: {id: example.agent, name: AI Customer Service Agent, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0, dea:agentic@1.0.0]
+context: {kind: agentic-system}
+metadata: {author: opendea-examples, assertion_status: validated}
+elements:
+- id: pol.agent-ops
+  type: Policy
+  name: Agent Operations Policy
+  properties: {policy_kind: agent, applicability: production agents}
+- id: agent.cs-agent
+  type: Agent
+  name: Customer Service Agent
+  properties: {agent_type: ai, owner_ref: role.head-of-service, authority_ref: auth.cs-limited}
+  relationships:
+  - {type: constrained-by, target: pol.agent-ops}
+  - {type: has-skill, target: skill.classify}
+  - {type: uses, target: tool.crm-api}
+- id: skill.classify
+  type: AgentSkill
+  name: Classify Request
+- id: tool.crm-api
+  type: Tool
+  name: CRM API

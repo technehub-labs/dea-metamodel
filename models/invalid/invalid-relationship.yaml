@@ -1,0 +1,14 @@
+# expected: FAIL — DEA-E002 (undeclared relationship type)
+opendea: {version: "1.0.0"}
+model: {id: example.bad3, name: Invalid Relationship, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+elements:
+- id: cap.a
+  type: BusinessCapability
+  name: A
+- id: cap.b
+  type: BusinessCapability
+  name: B
+  relationships:
+  - {type: loves, target: cap.a}

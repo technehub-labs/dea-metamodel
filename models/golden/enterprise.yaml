@@ -1,0 +1,50 @@
+# CR-8 §30 Reference Enterprise (compact) — strategy → capability → realization → change
+opendea: {version: "1.0.0"}
+model: {id: enterprise.example, name: Example Enterprise, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0]
+context: {kind: enterprise}
+metadata: {author: opendea-examples, organization: Example Corp, assertion_status: approved}
+elements:
+- id: ou.retail
+  type: OrganizationalUnit
+  name: Retail Division
+- id: cap.customer-service
+  type: BusinessCapability
+  name: Customer Service
+- id: proc.handle-case
+  type: BusinessProcess
+  name: Handle Customer Case
+- id: app.crm
+  type: ApplicationComponent
+  name: CRM Platform
+- id: out.faster-resolution
+  type: Outcome
+  name: Faster Resolution
+- id: dec.adopt-crm
+  type: Decision
+  name: Adopt CRM Platform
+  properties: {rationale: "consolidate three legacy tools", confidence: {value: 0.82}}
+  relationships:
+  - {type: authorizes, target: chg.crm-rollout}
+  - {type: results-in, target: out.faster-resolution}
+- id: chg.crm-rollout
+  type: Change
+  name: CRM Rollout
+  relationships:
+  - {type: affects, target: app.crm}
+- id: rel-placeholder
+  type: Requirement
+  name: 99.9 percent availability
+- id: rel-wiring
+  type: Actor
+  name: CIO
+  relationships:
+  - {type: owns, target: cap.customer-service}
+- id: wiring2
+  type: OrganizationalUnit
+  name: IT
+- id: proc-wire
+  type: BusinessProcess
+  name: Case Routing
+  relationships:
+  - {type: realizes, target: cap.customer-service}

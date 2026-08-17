@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/tool-permission.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "ToolPermission",
   "description": "Explicit permission governing an Agent's access to a Tool (CR-7 §30; G009): scope, constraints and authority. Tool access is never implicit.",
   "type": "object",

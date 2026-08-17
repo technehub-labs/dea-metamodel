@@ -1,0 +1,10 @@
+# expected: FAIL — DEA-E004 (lifecycle_status outside controlled vocabulary)
+opendea: {version: "1.0.0"}
+model: {id: example.bad8, name: Invalid Lifecycle, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+elements:
+- id: app.erp
+  type: ApplicationComponent
+  name: ERP
+  lifecycle_status: active-but-secret

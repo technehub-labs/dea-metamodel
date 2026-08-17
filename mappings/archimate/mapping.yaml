@@ -1,0 +1,25 @@
+# OpenDEA ↔ ArchiMate mapping (CR-8 §44-§45)
+#
+# OpenDEA semantic identity remains authoritative. Where semantics differ, the difference
+# is documented — never pretend equivalence (§45).
+version: 1.0.0
+standard: ArchiMate 3.2
+direction: informative-mapping
+mappings:
+- {opendea: dea:BusinessCapability, archimate: Capability, note: "close equivalence"}
+- {opendea: dea:BusinessProcess, archimate: Business Process, note: "close equivalence"}
+- {opendea: dea:BusinessService, archimate: Business Service, note: "close equivalence"}
+- {opendea: dea:ApplicationComponent, archimate: Application Component, note: "close equivalence"}
+- {opendea: dea:Technology, archimate: Technology Component, note: "OpenDEA Technology is broader than a single node/device"}
+- {opendea: dea:Outcome, archimate: Outcome, note: "close equivalence; OpenDEA binds outcomes to objectives and evidence"}
+- {opendea: dea:Requirement, archimate: Requirement, note: "close equivalence"}
+- {opendea: dea:Stakeholder, archimate: Stakeholder, note: "close equivalence"}
+- {opendea: dea:Actor, archimate: Business Actor, note: "OpenDEA Actor includes system and AI agents (CR-7 §27)"}
+- {opendea: dea:Decision, archimate: "(no direct equivalent)", note: "ArchiMate has no first-class decision with authority/governance; see DMN mapping"}
+- {opendea: dea:Change, archimate: "(no direct equivalent)", note: "ArchiMate models plateaux (states), not change semantics; OpenDEA Change + Transition is richer (CR-6)"}
+- {opendea: dea:ArchitectureState, archimate: Plateau, note: "nearest equivalent; OpenDEA states are first-class with validity intervals"}
+- {opendea: dea:AssessmentResult, archimate: "(no direct equivalent)", note: "assessment is an OpenDEA layer (CR-5), not an ArchiMate concern"}
+- {opendea: dea:Agent, archimate: "(no direct equivalent)", note: "agentic semantics are outside ArchiMate scope"}
+relationship_notes:
+- "OpenDEA relationships are typed, directed, inverse-aware and temporally boundable (CR-2/CR-6); ArchiMate relationships are typed but not temporal."
+- "OpenDEA dea:assesses / dea:informed-by / dea:authorized-by have no ArchiMate counterparts."

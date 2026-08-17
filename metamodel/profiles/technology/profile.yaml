@@ -2,7 +2,7 @@
 profile:
   id: dea:technology
   name: OpenDEA Technology Profile
-  version: 0.12.0
+  version: 1.0.0
   status: draft
   depends_on:
   - dea:core

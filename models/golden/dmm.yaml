@@ -1,0 +1,31 @@
+# CR-8 §31 Scenario 3 — DMM assessment (assessment + dmm profiles)
+opendea: {version: "1.0.0"}
+model: {id: example.dmm, name: DMM Assessment Model, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:assessment@1.0.0, dea:dmm@5.0.0]
+context: {kind: assessment}
+metadata: {author: opendea-examples, assertion_status: validated}
+elements:
+- id: fw.dmmv5
+  type: AssessmentFramework
+  name: DMMv5
+  properties: {framework_version: "5.0.0"}
+- id: cap.customer-service
+  type: BusinessCapability
+  name: Customer Service
+- id: asm.2026-001
+  type: Assessment
+  name: 2026 DMM Assessment
+  relationships:
+  - {type: conducted-under, target: fw.dmmv5}
+- id: ar.cs-001
+  type: AssessmentResult
+  name: Customer Service Result
+  properties: {score: {value: 3.1, scale_ref: dmmv5-scale}, state_role: current, assessed_at: "2026-08-15T00:00:00Z"}
+  relationships:
+  - {type: assesses, target: cap.customer-service}
+- id: ev.inventory
+  type: Evidence
+  name: Application Inventory
+  properties: {evidence_type: inventory, confidence: {value: 0.9}}
+  relationships:
+  - {type: supports, target: ar.cs-001}

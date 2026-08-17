@@ -4,6 +4,46 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [1.0.0] — 2026-08-17 — CR-008: OpenDEA Semantic Architecture & Conformance Specification
+
+**OpenDEA 1.0.** Consolidation of CR-1…CR-7 into a formal, machine-validatable,
+profile-driven semantic specification (CR-8 §63 phases 8.1–8.10).
+
+### Added
+- **`specification/`** — the formal specification corpus: 22-section
+  `OpenDEA-Semantic-Architecture-Specification.md` (§52), `core-freeze.yaml` (§3-§4,
+  18 anchors frozen + §3 candidate evaluation + anti-inflation rule), `naming-conventions.md`
+  (§6-§7 incl. reconciled divergences), `type-system.md` (§8-§9/§14-§15),
+  `relationship-semantics.md` (§10-§14), `profile-mechanism.md` (§16-§17/§53-§55),
+  `conformance-spec.md` (levels 0–5, invariants, error taxonomy, open/closed world,
+  assertion provenance), `serialization-versioning.md` (§18-§22).
+- **Generated artifacts** (`.github/scripts/generate_specification.py`): semantic inventory
+  + reconciliation (§63 8.1/8.2), canonical vocabulary (§5), concept/relationship
+  catalogues (§49) — documentation is a generated artifact, never a parallel truth (§50).
+- **Reference validator** `tools/opendea_validate.py` (§35): levels 0–3 + governance
+  checks, registry-driven, DEA-E/W error taxonomy (§29), structured report (§28),
+  `--normalize` canonicalizer (§36).
+- **Model envelope schema** `schemas/model-envelope.json` (§23-§24) with context,
+  assertion provenance (§40-§41) and source-of-record linkage (§42-§43).
+- **Golden + negative model suites** `models/` (§30-§33): 7 golden (incl. all six §31
+  scenarios) MUST pass; 8 negative MUST fail for the expected rule — the specification
+  as a testable contract.
+- **Visualization profile** `visualization/profile/` (§47-§48): the viewer consumes
+  presentation hints; dependency direction is specification → … → viewer, never reversed (§67).
+- **ArchiMate mapping** `mappings/archimate/` (§45) with documented divergences; DMN
+  evaluation (§46); RDF/OWL adopted as derived serialization.
+- **test_014** — 13 specification conformance tests (suite now 125).
+
+### Changed
+- Version **1.0.0** across all artifacts. Relationship `constrained-by` sources widened
+  to Orchestrator/Controller (found by the reference validator during golden-model
+  validation — the tool working as intended).
+
+### Deferred
+- SHACL-style graph validation (§26) and JSON-LD context (§21) — roadmap.
+- DMN/BPMN profiles (§46) — extension candidates.
+- Reference API (§62) — semantic contract defined; runtime services are CR-9 scope.
+
 ## [0.12.0] — 2026-08-17 — CR-007: Decision, Intent, Policy, Governance & Agentic Semantics
 
 ### Added

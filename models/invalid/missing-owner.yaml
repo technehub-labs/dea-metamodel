@@ -1,0 +1,21 @@
+# expected: FAIL — DEA-E008 / G007 (agent without accountable owner)
+opendea: {version: "1.0.0"}
+model: {id: example.bad7, name: Missing Owner, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0, dea:agentic@1.0.0]
+context: {kind: agentic-system}
+elements:
+- id: pol.agent-ops
+  type: Policy
+  name: Agent Operations Policy
+  properties: {policy_kind: agent, applicability: production agents}
+- id: auth.limited
+  type: Authority
+  name: Limited Authority
+  properties: {scope: read-only}
+- id: agent.orphan
+  type: Agent
+  name: Ownerless Agent
+  properties: {agent_type: ai}
+  relationships:
+  - {type: authorized-by, target: auth.limited}
+  - {type: constrained-by, target: pol.agent-ops}

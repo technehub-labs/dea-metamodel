@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/temporal-interval.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "TemporalInterval",
   "description": "A bounded or open interval on one or more of the OpenDEA clocks (CR-6 §5): valid time (valid_from/valid_to), transaction time (recorded_at), observation time (observed_at), planned time (planned_start/planned_end) and effective time (effective_from/effective_to). The clocks are not interchangeable (§6): knowing a retirement in Aug 2026 for Jan 2027 produces recorded_at, planned and valid_to as three different facts.",
   "type": "object",

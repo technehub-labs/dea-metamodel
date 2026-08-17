@@ -1,0 +1,36 @@
+# CR-8 §31 Scenario 5 — governed autonomous agent (authority, policy, oversight)
+opendea: {version: "1.0.0"}
+model: {id: example.governed-agent, name: Governed Agent Model, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0, dea:agentic@1.0.0]
+context: {kind: agentic-system}
+metadata: {author: opendea-examples, assertion_status: approved}
+elements:
+- id: board.ai-gov
+  type: GovernanceBody
+  name: AI Governance Board
+- id: pol.agent-ops
+  type: Policy
+  name: Agent Operations Policy
+  properties: {policy_kind: agent, applicability: production agents}
+- id: auth.cs-limited
+  type: Authority
+  name: Limited Resolution Authority
+  properties: {scope: resolve-case, limits: "amount <= 500 USD", valid_from: "2026-08-01T00:00:00Z", valid_to: "2027-08-01T00:00:00Z"}
+- id: agent.cs-agent
+  type: Agent
+  name: Customer Service Agent
+  properties: {agent_type: ai, owner_ref: role.head-of-service}
+  relationships:
+  - {type: authorized-by, target: auth.cs-limited}
+  - {type: constrained-by, target: pol.agent-ops}
+  - {type: has-oversight, target: ovr.approve-before}
+- id: ovr.approve-before
+  type: HumanOversight
+  name: Pre-action Approval
+  properties: {oversight_pattern: approve-before, overseer_ref: role.service-lead}
+- id: board-wiring
+  type: GovernanceBody
+  name: Architecture Board
+  relationships:
+  - {type: establishes, target: pol.agent-ops}
+  - {type: governs, target: agent.cs-agent}

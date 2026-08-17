@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/transition-state.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "TransitionState",
   "description": "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → … → Target, never in one jump.",
   "type": "object",

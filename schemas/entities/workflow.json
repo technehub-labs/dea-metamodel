@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/workflow.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "Workflow",
   "description": "An ordered composition of tasks and decisions toward an outcome (CR-7 §47): Task A → Task B → Decision → Task C. Workflow ≠ Agent (§57), though a workflow may be part of an agentic system.",
   "type": "object",

@@ -1,5 +1,5 @@
 # Core relationship grammar (CR-4 §19) — subset of the canonical registry
-version: 0.12.0
+version: 1.0.0
 relationships:
 - id: dea:specializes
   name: Specializes

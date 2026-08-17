@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/tool.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "Tool",
   "description": "An executable mechanism available to an Agent (CR-7 §30): CRM/ERP APIs, search, databases, workflow engines, payment services, code execution, knowledge graphs. Tool ≠ Service (§31): a Service exposes enterprise capability for consumption; a Tool is an invocable mechanism. They may overlap operationally but are semantically distinct.",
   "type": "object",

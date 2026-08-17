@@ -1,0 +1,48 @@
+# Visualization profile (CR-8 §47-§48) — the viewer consumes the model; it never defines it.
+#
+# Dependency direction (§67): SPECIFICATION → schema → validator → reference model → viewer.
+# This file carries presentation-only hints. Adding a consumer (CLI, IDE, graph DB, BI,
+# AI agent) must never require changing the semantic model.
+version: 1.0.0
+groups:
+  core:        {label: OpenDEA Core,        color: "#1f6feb", order: 1}
+  business:    {label: Business,            color: "#8250df", order: 2}
+  digital:     {label: Digital & Services,  color: "#0969da", order: 3}
+  data:        {label: Data & Information,  color: "#1a7f37", order: 4}
+  technology:  {label: Technology,          color: "#6e7781", order: 5}
+  ai:          {label: AI & Models,         color: "#bf3989", order: 6}
+  ecosystem:   {label: Ecosystem,           color: "#0a7ea4", order: 7}
+  assessment:  {label: Assessment (CR-5),   color: "#9a6700", order: 8}
+  dmm:         {label: DMM Lens,            color: "#d4a72c", order: 9}
+  lifecycle:   {label: Lifecycle (CR-6),    color: "#cf222e", order: 10}
+  governance:  {label: Governance (CR-7),   color: "#8250df", order: 11}
+  agentic:     {label: Agentic (CR-7),      color: "#bf3989", order: 12}
+icons:
+  BusinessCapability: capability
+  BusinessProcess: process
+  BusinessService: service
+  ApplicationComponent: application
+  DataEntity: data
+  Technology: technology
+  Decision: decision
+  Outcome: outcome
+  AssessmentResult: gauge
+  ArchitectureState: snapshot
+  Change: change
+  Agent: agent
+  AgentSkill: skill
+  Tool: tool
+  Orchestrator: orchestrator
+  Policy: policy
+  Authority: authority
+  Evidence: evidence
+edge_styles:
+  planned:   {stroke: dashed,  note: "CR-6 §22: a planned edge must never render as a current edge"}
+  proposed:  {stroke: dotted}
+  active:    {stroke: solid}
+  derived:   {stroke: dotted, label_prefix: "inferred:", note: "CR-8 §38: inferred edges are visually distinct and never authoritative"}
+layout_hints:
+  primary_grouping: membership          # core | profile/<id>
+  overlay_dimensions: [measurement-dimension, temporal-dimension, ai-automation-governance, semantic-dimension]
+  state_overlay: [baseline, current, target, transition, scenario]   # CR-6 §24 viewer contract
+consumers: [web-viewer, cli, ide, graph-database, api, bi-dashboard, architecture-repository, ai-agent]

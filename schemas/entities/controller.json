@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/controller.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "Controller",
   "description": "Enforces execution, state and control conditions in an agentic system (CR-7 §46): evaluates state, enforces policy, controls execution, triggers escalation.",
   "type": "object",

@@ -1,0 +1,50 @@
+# OpenDEA Core Freeze — v1.0.0 (CR-8.3, §3-§4)
+
+status: frozen-candidate
+version: 1.0.0
+membership_rule: "A concept belongs in Core only if removing it would make the general DEA
+  semantic system incomplete (CR-8 §4; CR-4 §25). Core inflation is explicitly forbidden (§4/§55):
+  prompts, embeddings, vector stores, token budgets and vendor frameworks NEVER enter Core."
+
+# The frozen Core — 18 anchors established by CR-4 and confirmed unchanged by CR-8.3.
+anchors:
+  abstracts: [Entity, ArchitectureElement, Behavior, Service, Information, Organization]
+  concretes: [Actor, OrganizationalUnit, BusinessCapability, Resource, PhysicalResource,
+    FinancialResource, IntangibleResource, Decision, Outcome, Requirement, Constraint, Change]
+
+# CR-8 §3 candidate evaluation — every §3 candidate not already in Core, with the
+# consolidation decision and rationale. Promotion to Core is a governance act; CR-8 freezes
+# the CR-4 Core for v1.0.0 rather than thrashing the boundary mid-consolidation.
+section3_candidates:
+- concept: Relationship
+  decision: core-mechanism
+  rationale: "Relationships are first-class in the registry, not entity-typed — the type system (§8) covers this."
+- concept: Property / Value
+  decision: core-mechanism
+  rationale: "Schema-level constructs (JSON Schema properties), not ontology entities."
+- concept: Context
+  decision: specification-level
+  rationale: "Realized as ModelContext in the model envelope (§24), not an ontology entity."
+- concept: Activity
+  decision: stays-profile
+  rationale: "Covered by core abstract Behavior; concrete specializations (Process, Task) live in profiles."
+- concept: Data / Technology
+  decision: stays-profile
+  rationale: "Information (abstract) is Core; DataEntity/Technology specializations are profile content."
+- concept: Architecture
+  decision: stays-profile
+  rationale: "Realized as ArchitectureState specializations in dea:lifecycle (CR-6 §9)."
+- concept: Intent / Objective / Policy / Action
+  decision: stays-profile (dea:governance)
+  rationale: "CR-7 §1: these anchor the governance layer; Core stays explainable without any framework (CR-4 DoD). Promotion candidate for a future minor release after adoption evidence."
+- concept: Evidence / Assessment / Measure
+  decision: stays-profile (dea:assessment)
+  rationale: "CR-5 §1: assessment is a separate semantic layer by design — the central CR-5 correction."
+- concept: State / Event / Lifecycle
+  decision: stays-profile (dea:lifecycle)
+  rationale: "CR-6 temporal overlay; Core remains time-agnostic at the type level."
+- concept: Agent
+  decision: stays-profile (dea:agentic)
+  rationale: "§4 test applied: the DEA semantic system is complete for non-agentic enterprises without Agent; Agent specializes Actor (CR-7 §27) in the agentic profile. Revisit at 1.1 if the autonomous-actor proposition becomes load-bearing across all profiles."
+
+governance: "Changing this freeze requires a CR and a MAJOR version bump (§18-§19)."

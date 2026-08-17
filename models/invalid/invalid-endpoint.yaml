@@ -1,0 +1,14 @@
+# expected: FAIL — DEA-E006 (invalid relationship source; owns direction reversed)
+opendea: {version: "1.0.0"}
+model: {id: example.bad4, name: Invalid Endpoint, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+elements:
+- id: cap.a
+  type: BusinessCapability
+  name: A
+  relationships:
+  - {type: owns, target: ou.retail}
+- id: ou.retail
+  type: OrganizationalUnit
+  name: Retail

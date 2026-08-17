@@ -1,0 +1,16 @@
+# expected: FAIL — DEA-E009 / G006 (agent without authority)
+opendea: {version: "1.0.0"}
+model: {id: example.bad6, name: Unauthorized Agent, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0, dea:agentic@1.0.0]
+context: {kind: agentic-system}
+elements:
+- id: pol.agent-ops
+  type: Policy
+  name: Agent Operations Policy
+  properties: {policy_kind: agent, applicability: production agents}
+- id: agent.rogue
+  type: Agent
+  name: Rogue Agent
+  properties: {agent_type: ai, owner_ref: role.cto}
+  relationships:
+  - {type: constrained-by, target: pol.agent-ops}

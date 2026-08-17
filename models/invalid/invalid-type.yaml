@@ -1,0 +1,9 @@
+# expected: FAIL — DEA-E001 (unknown type)
+opendea: {version: "1.0.0"}
+model: {id: example.bad2, name: Invalid Type, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+elements:
+- id: cap.wizard
+  type: Wizard
+  name: Not A Registered Type

@@ -1,6 +1,6 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
 # CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
-registry_version: 0.12.0
+registry_version: 1.0.0
 relationships:
 - id: dea:composes
   name: Composes
@@ -1294,13 +1294,15 @@ relationships:
   name: Constrained By
   category: governance
   source:
-  - dea:Intent
-  - dea:Objective
-  - dea:Decision
   - dea:Action
-  - dea:Change
   - dea:Agent
   - dea:ArchitectureElement
+  - dea:Change
+  - dea:Controller
+  - dea:Decision
+  - dea:Intent
+  - dea:Objective
+  - dea:Orchestrator
   target:
   - dea:Policy
   - dea:PolicyRule

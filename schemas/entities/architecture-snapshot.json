@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/architecture-snapshot.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "ArchitectureSnapshot",
   "description": "A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31).",
   "type": "object",

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/maturity-level.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "MaturityLevel",
   "description": "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008).",
   "type": "object",

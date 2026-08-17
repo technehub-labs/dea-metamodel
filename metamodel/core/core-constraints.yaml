@@ -1,5 +1,5 @@
 # Core ontology constraints (CR-4 §30) — enforced by tests/conformance/test_010_ontology_rules.py
-version: 0.12.0
+version: 1.0.0
 constraints:
 - id: O001
   rule: Every Core entity has a normative definition.

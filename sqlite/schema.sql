@@ -715,6 +715,126 @@ CREATE TABLE IF NOT EXISTS benchmark_references (
     percentile      REAL
 );
 
+
+-- ═══════════════════════════════════════════════════════════
+-- CR-6: Temporal, Lifecycle & Transition semantics (profile dea:lifecycle)
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS temporal_intervals (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    valid_from      TEXT,
+    valid_to        TEXT,
+    recorded_at     TEXT,
+    observed_at     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS lifecycle_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    state_name      TEXT,
+    sequence        INTEGER,
+    terminal        INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS lifecycle_events (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    event_type      TEXT,
+    subject_ref     TEXT,
+    occurred_at     TEXT,
+    actor           TEXT,
+    reason          TEXT
+);
+
+CREATE TABLE IF NOT EXISTS lifecycle_transitions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    from_state_ref  TEXT,
+    to_state_ref    TEXT,
+    entity_scope    TEXT,
+    reactivation    INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS transitions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    from_state_ref  TEXT,
+    to_state_ref    TEXT,
+    change_ref      TEXT,
+    planned_start   TEXT,
+    planned_end     TEXT,
+    transition_status TEXT
+);
+
+CREATE TABLE IF NOT EXISTS architecture_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    state_kind      TEXT,
+    captured_at     TEXT,
+    valid_at        TEXT,
+    scope           TEXT
+);
+
+CREATE TABLE IF NOT EXISTS baseline_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    captured_at     TEXT,
+    valid_at        TEXT,
+    adopted_by      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS current_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    as_of           TEXT,
+    scope           TEXT
+);
+
+CREATE TABLE IF NOT EXISTS target_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    target_date     TEXT,
+    approved_by     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS transition_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    sequence        INTEGER,
+    phase_ref       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scenarios (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scenario_status TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scenario_states (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scenario_ref    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS scenario_assumptions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scenario_ref    TEXT,
+    statement       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS architecture_snapshots (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scope           TEXT,
+    captured_at     TEXT,
+    valid_at        TEXT,
+    model_version   TEXT,
+    approved        INTEGER,
+    revision_of     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS architecture_deltas (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    from_state_ref  TEXT,
+    to_state_ref    TEXT
+);
+
+CREATE TABLE IF NOT EXISTS versions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    entity_ref      TEXT,
+    version_number  TEXT,
+    predecessor_ref TEXT,
+    released_at     TEXT
+);
+
 -- ═══════════════════════════════════════════════════════════
 
 CREATE TABLE IF NOT EXISTS metamodel_meta (
@@ -723,7 +843,7 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.10.0'),
+    ('metamodel_version', '0.11.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
 
 -- ═══════════════════════════════════════════════════════════

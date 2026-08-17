@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/evidence-artifact.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "EvidenceArtifact",
   "description": "A concrete artifact referenced as evidence (CR-5 §16): an architecture document, system inventory, audit report, log extract or control test record.",
   "type": "object",

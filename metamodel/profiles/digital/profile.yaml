@@ -2,7 +2,7 @@
 profile:
   id: dea:digital
   name: OpenDEA Digital Profile
-  version: 0.10.0
+  version: 0.11.0
   status: draft
   depends_on:
   - dea:core

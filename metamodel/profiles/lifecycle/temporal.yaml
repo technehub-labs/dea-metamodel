@@ -1,0 +1,47 @@
+# Temporal vocabulary (CR-6 Phase 1, §4-§6) — the OpenDEA clocks and temporal pattern.
+version: 0.11.0
+clocks:
+  transaction:
+    fields: [recorded_at, updated_at]
+    definition: When the model knows something (CR-6 §5).
+  valid:
+    fields: [valid_from, valid_to]
+    definition: When something is true in the enterprise (CR-6 §5).
+  observation:
+    fields: [observed_at]
+    definition: When something was observed (CR-6 §5; aligns with CR-5 §22).
+  planned:
+    fields: [planned_start, planned_end]
+    definition: When something is expected to happen (CR-6 §5). Planned ≠ actual (§16).
+  effective:
+    fields: [effective_from, effective_to]
+    definition: When a decision or change becomes effective (CR-6 §5).
+rule: These clocks are NOT interchangeable (§6). Example — retirement decided Aug 2026 for Jan 2027
+  yields recorded_at=2026-08-17, planned_end=2027-01-01, valid_to=2027-01-01 as three distinct facts.
+temporal_pattern:
+  # §4: one reusable pattern, declared once on the entity.json base schema — never
+  # duplicated as ad-hoc date fields across entities.
+  applied_at: schemas/entities/entity.json#/properties/temporal
+  fields: [valid_from, valid_to, observed_at, recorded_at, planned_start, planned_end, effective_from, effective_to]
+effective_architecture:
+  # §23: a derived view of the model at a point in time — entities valid at T + relationships
+  # valid at T + lifecycle states at T. Derived by query semantics, never materialized as entities.
+  definition: getArchitecture(asOf) returns all elements and relationships valid at asOf with their lifecycle states.
+query_semantics:
+  # §37: canonical model services (not ontology entities).
+  - getCurrentArchitecture(scope)
+  - getArchitectureAt(time, scope)
+  - getBaseline(id)
+  - getTarget(id)
+  - getTransitionState(id)
+  - getArchitectureDelta(from, to)
+  - getLifecycleHistory(entity)
+  - getChangesAffecting(entity)
+  - getPlannedChanges(period)
+  - getActualChanges(period)
+relationship_temporality:
+  # §21/§22: relationship instances carry optional temporal validity + lifecycle status,
+  # declared in schemas/relationships/relationship-instance.json. A planned-supports edge
+  # must never be rendered as a current supports edge.
+  fields: [valid_from, valid_to, status, recorded_at]
+  status_values: [proposed, planned, active, deprecated, retired]

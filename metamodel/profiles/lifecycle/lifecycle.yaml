@@ -1,0 +1,27 @@
+# Lifecycle semantics (CR-6 Phase 2, §7-§8, §28-§29) — per-type lifecycles and events.
+version: 0.11.0
+principle: "Lifecycle state is defined by the entity type or profile — never blindly uniform (§7).
+  Lifecycle ≠ maturity level (§8): an Application can be Active while its Capability is at DMM Level 3."
+lifecycles:
+  generic: [concept, proposed, approved, planned, active, deprecated, retired]
+  dea:ApplicationComponent: [proposed, approved, under-development, testing, active, deprecated, retired]
+  dea:BusinessCapability: [identified, established, evolving, retired]
+  dea:Change: [proposed, approved, in-progress, completed, cancelled]
+  dea:Transition: [planned, active, completed, cancelled]
+  dea:Assessment: [planned, in-progress, completed, superseded, withdrawn]  # CR-5 alignment (§8)
+transitions:
+  # T002: retired -> active is impossible unless an explicit reactivation transition is declared.
+  generic:
+  - {from: concept, to: proposed}
+  - {from: proposed, to: approved}
+  - {from: approved, to: planned}
+  - {from: planned, to: active}
+  - {from: active, to: deprecated}
+  - {from: deprecated, to: retired}
+  - {from: retired, to: active, kind: reactivation, requires: explicit-approval}
+events:
+  # §28: auditable lifecycle history. Event ≠ state (§29): events happen; states result.
+  types: [created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded]
+  captures: [event_type, subject_ref, occurred_at, actor, reason, source]
+history_rule: "History is never overwritten (§17). A state change produces a LifecycleEvent and a new
+  temporally-bounded in-state edge; the previous state keeps its validity interval."

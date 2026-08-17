@@ -1,5 +1,5 @@
 # Entity Registry (CR-1.5/CR-4) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.10.0
+registry_version: 0.11.0
 entities:
 - id: dea:Entity
   name: Entity
@@ -1013,3 +1013,201 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:TemporalInterval
+  name: TemporalInterval
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TemporalEvent
+  name: TemporalEvent
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TemporalState
+  name: TemporalState
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleState
+  name: LifecycleState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleEvent
+  name: LifecycleEvent
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleTransition
+  name: LifecycleTransition
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Transition
+  name: Transition
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureState
+  name: ArchitectureState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:BaselineState
+  name: BaselineState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:CurrentState
+  name: CurrentState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TargetState
+  name: TargetState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TransitionState
+  name: TransitionState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Scenario
+  name: Scenario
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ScenarioState
+  name: ScenarioState
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ScenarioAssumption
+  name: ScenarioAssumption
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureSnapshot
+  name: ArchitectureSnapshot
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureDelta
+  name: ArchitectureDelta
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Version
+  name: Version
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle

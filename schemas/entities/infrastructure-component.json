@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/infrastructure-component.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "InfrastructureComponent",
   "description": "An infrastructure-as-code managed resource (compute, network, storage, security group) that hosts or supports solution components. A subClass of SolutionComponent with component_type='infrastructure'. Catalog: technehub-labs/dea-catalog-application-components (shared with ApplicationComponent).",
   "type": "object",

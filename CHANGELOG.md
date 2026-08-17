@@ -4,6 +4,59 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [0.11.0] — 2026-08-17 — CR-006: Temporal, Lifecycle & Transition Semantics
+
+### Added
+- **Lifecycle profile** `metamodel/profiles/lifecycle/` — 18 entities: TemporalInterval
+  (the five clocks: transaction/valid/observation/planned/effective — §5), TemporalEvent +
+  TemporalState abstracts, LifecycleState/Event/Transition (§7/§28), Transition (§14),
+  ArchitectureState + Baseline/Current/Target/Transition/Scenario specializations (§9–§13),
+  Scenario + ScenarioAssumption (§25), ArchitectureSnapshot (§30), ArchitectureDelta (§32),
+  Version (§19).
+- **14 temporal relationships**: valid-during, contains, from-state, to-state, caused-by,
+  introduces, removes, modifies, in-state, records, captures, may-become, version-of,
+  precedes. New CR-2 category **L — temporal**.
+- **temporal-dimension** — fifth cross-cutting overlay dimension for lifecycle entities
+  (mirrors the measurement-dimension precedent).
+- **Temporal pattern** on the entity base schema (§4) + **temporal relationship instances**
+  (§21/§22): valid_from/valid_to/status/recorded_at on relationship-instance.json.
+- **Temporal integrity rules** T001–T010 automated (test_012) — suite now 88 tests.
+
+### Changed
+- Endpoint extensions: Change → replaces/introduces/removes/modifies elements and realizes
+  TargetState (§15); Change depends-on/enables Change (§34); supersedes widened to
+  applications/services/technology (§20); type hierarchy wired via specializes.
+- Change formalized with per-type lifecycles (§7): proposed→approved→in-progress→completed/
+  cancelled; planned vs actual mandatory (§16); history never overwritten (§17).
+
+### Deferred
+- 18 lifecycle entities await upstream OpenDEAM allocation before entering the viewer graph.
+- Timeline/state-selector/delta visualization → dea-web-viewer (CR-6 §42 Phase 9).
+- Instance-level temporal validation (T001 ordering, T005 contradictions, T008 cycles) →
+  validation services; metamodel-level guarantees automated here.
+
+## [0.10.0] — 2026-08-17 — CR-005: Assessment, Measurement & DMM Integration
+
+### Added
+- **Assessment profile** `metamodel/profiles/assessment/` — 28 entities: Assessment,
+  Framework, Dimension, Criterion, Indicator, Observation, Measure, Score, Scale, Unit,
+  Result, Subject, Scope, Target, Gap, MaturityModel/Level/Scale/Rule, Aggregation/Scoring/
+  MaturityMappingRule, Evidence/Source/Artifact, Benchmark/Population/Reference.
+- **13 assessment relationships** + supports/produces endpoint extensions (§17/§10).
+- **DMM profile** `metamodel/profiles/dmm/` — DMMv5 as AssessmentFramework instance:
+  6 dimensions, maturity shell, scoring container, §23 dimension→DEA mappings;
+  independently versioned (§33/A012).
+- **A001–A013 conformance** (test_011); `generate_registry.py` (registry regen scripted).
+
+### Changed
+- **A008 enforced**: removed `Capability.maturity_level` classification — the §2
+  anti-pattern found live in the vocabulary. Maturity now exists only via
+  AssessmentResult + framework-owned MaturityLevel.
+
+### Deferred
+- 28 assessment entities await upstream OpenDEAM allocation; DMMv5 substantive content
+  import; viewer assessment overlay (§39 Phase 9).
+
 ## [0.9.0] — 2026-08-16 — CR-004: OpenDEA Core Ontology
 
 ### Added

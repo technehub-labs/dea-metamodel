@@ -1,6 +1,6 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
 # CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
-registry_version: 0.10.0
+registry_version: 0.11.0
 relationships:
 - id: dea:composes
   name: Composes
@@ -51,12 +51,23 @@ relationships:
   category: structural
   source:
   - dea:ArchitecturePattern
+  - dea:ArchitectureState
+  - dea:BaselineState
+  - dea:CurrentState
+  - dea:LifecycleEvent
+  - dea:LifecycleState
+  - dea:ScenarioState
+  - dea:TargetState
+  - dea:TransitionState
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Concept
   target:
   - dea:ArchitecturePattern
+  - dea:ArchitectureState
+  - dea:TemporalEvent
+  - dea:TemporalState
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
@@ -89,6 +100,7 @@ relationships:
   category: realization
   source:
   - dea:ApplicationComponent
+  - dea:Change
   - dea:Behavior
   - dea:BusinessProcess
   - dea:InfrastructureComponent
@@ -96,6 +108,7 @@ relationships:
   - dea:SolutionComponent
   - dea:SystemFunction
   target:
+  - dea:ArchitectureState
   - dea:BusinessCapability
   - dea:BusinessObject
   - dea:BusinessService
@@ -136,6 +149,7 @@ relationships:
   category: dependency
   source:
   - dea:ApplicationComponent
+  - dea:Change
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:IntegrationComponent
@@ -145,6 +159,7 @@ relationships:
   - dea:SystemFunction
   target:
   - dea:API
+  - dea:Change
   - dea:ApplicationComponent
   - dea:BusinessService
   - dea:InfrastructureComponent
@@ -178,6 +193,7 @@ relationships:
   category: dependency
   source:
   - dea:AIMLModel
+  - dea:Change
   - dea:ApplicationComponent
   - dea:BusinessCapability
   - dea:PhysicalResource
@@ -186,6 +202,7 @@ relationships:
   - dea:Technology
   target:
   - dea:BusinessCapability
+  - dea:Change
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:StrategicObjective
@@ -726,11 +743,13 @@ relationships:
   category: transformation
   source:
   - dea:ApplicationComponent
+  - dea:Change
   - dea:BusinessService
   - dea:ChangeInitiative
   - dea:Technology
   target:
   - dea:ApplicationComponent
+  - dea:ArchitectureElement
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Technology
@@ -741,13 +760,19 @@ relationships:
   name: Supersedes
   category: transformation
   source:
+  - dea:ApplicationComponent
   - dea:ArchitecturePattern
+  - dea:BusinessService
+  - dea:Technology
   - dea:Blueprint
   - dea:Concept
   - dea:Guardrail
   - dea:Tenet
   target:
+  - dea:ApplicationComponent
   - dea:ArchitecturePattern
+  - dea:BusinessService
+  - dea:Technology
   - dea:Blueprint
   - dea:Concept
   - dea:Guardrail
@@ -1026,5 +1051,176 @@ relationships:
   target:
   - dea:EvidenceSource
   inverse: dea:origin-of
+  status: normative
+  lifecycle: active
+- id: dea:valid-during
+  name: Valid During
+  category: temporal
+  source:
+  - dea:ArchitectureState
+  - dea:ArchitectureSnapshot
+  - dea:Transition
+  - dea:Version
+  target:
+  - dea:TemporalInterval
+  inverse: dea:validity-of
+  status: normative
+  lifecycle: active
+- id: dea:contains
+  name: Contains
+  category: structural
+  source:
+  - dea:ArchitectureState
+  - dea:BaselineState
+  - dea:CurrentState
+  - dea:TargetState
+  - dea:TransitionState
+  - dea:ScenarioState
+  - dea:ArchitectureSnapshot
+  - dea:Scenario
+  target:
+  - dea:ArchitectureElement
+  - dea:ScenarioAssumption
+  inverse: dea:contained-in
+  status: normative
+  lifecycle: active
+- id: dea:from-state
+  name: From State
+  category: temporal
+  source:
+  - dea:Transition
+  - dea:LifecycleTransition
+  - dea:ArchitectureDelta
+  target:
+  - dea:ArchitectureState
+  - dea:BaselineState
+  - dea:CurrentState
+  - dea:TargetState
+  - dea:TransitionState
+  - dea:ScenarioState
+  - dea:LifecycleState
+  inverse: dea:origin-of-transition
+  status: normative
+  lifecycle: active
+- id: dea:to-state
+  name: To State
+  category: temporal
+  source:
+  - dea:Transition
+  - dea:LifecycleTransition
+  - dea:ArchitectureDelta
+  target:
+  - dea:ArchitectureState
+  - dea:BaselineState
+  - dea:CurrentState
+  - dea:TargetState
+  - dea:TransitionState
+  - dea:ScenarioState
+  - dea:LifecycleState
+  inverse: dea:destination-of-transition
+  status: normative
+  lifecycle: active
+- id: dea:caused-by
+  name: Caused By
+  category: temporal
+  source:
+  - dea:Transition
+  target:
+  - dea:Change
+  - dea:ChangeInitiative
+  inverse: dea:causes
+  status: normative
+  lifecycle: active
+- id: dea:introduces
+  name: Introduces
+  category: transformation
+  source:
+  - dea:Change
+  - dea:ChangeInitiative
+  target:
+  - dea:ArchitectureElement
+  inverse: dea:introduced-by
+  status: normative
+  lifecycle: active
+- id: dea:removes
+  name: Removes
+  category: transformation
+  source:
+  - dea:Change
+  - dea:ChangeInitiative
+  target:
+  - dea:ArchitectureElement
+  inverse: dea:removed-by
+  status: normative
+  lifecycle: active
+- id: dea:modifies
+  name: Modifies
+  category: transformation
+  source:
+  - dea:Change
+  - dea:ChangeInitiative
+  target:
+  - dea:ArchitectureElement
+  inverse: dea:modified-by
+  status: normative
+  lifecycle: active
+- id: dea:in-state
+  name: In State
+  category: temporal
+  source:
+  - dea:Entity
+  target:
+  - dea:LifecycleState
+  inverse: dea:state-of
+  status: normative
+  lifecycle: active
+- id: dea:records
+  name: Records
+  category: temporal
+  source:
+  - dea:LifecycleEvent
+  target:
+  - dea:Entity
+  inverse: dea:recorded-by
+  status: normative
+  lifecycle: active
+- id: dea:captures
+  name: Captures
+  category: temporal
+  source:
+  - dea:ArchitectureSnapshot
+  target:
+  - dea:ArchitectureState
+  inverse: dea:captured-by
+  status: normative
+  lifecycle: active
+- id: dea:may-become
+  name: May Become
+  category: temporal
+  source:
+  - dea:ArchitectureSnapshot
+  target:
+  - dea:BaselineState
+  inverse: dea:adopted-from
+  status: normative
+  lifecycle: active
+- id: dea:version-of
+  name: Version Of
+  category: structural
+  source:
+  - dea:Version
+  target:
+  - dea:Entity
+  inverse: dea:has-version
+  status: normative
+  lifecycle: active
+- id: dea:precedes
+  name: Precedes
+  category: temporal
+  source:
+  - dea:Version
+  target:
+  - dea:Version
+  inverse: dea:follows
   status: normative
   lifecycle: active

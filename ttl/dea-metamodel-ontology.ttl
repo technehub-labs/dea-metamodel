@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.10.0
+# Version: 0.11.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.10.0" ;
+    owl:versionInfo "0.11.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;
@@ -1106,3 +1106,181 @@ dea:mapsOnto a owl:ObjectProperty ;
     skos:definition "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score-to-maturity transformation." ;
     dea:category "assessment" ;
     dea:inverseOf "dea:mapped-from" .
+
+# ═══ CR-6: Lifecycle profile classes ═══
+
+dea:TemporalInterval a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "TemporalInterval" ;
+    skos:definition "A bounded or open interval on one or more of the OpenDEA clocks (CR-6 §5): valid time (valid_from/valid_to), transaction time (recorded_at), observation time (observed_at), planned time (planned_start/planned_end) and effective time (effective_from/effective_to). The clocks are not interchangeable (§6): knowing a retirement in Aug 2026 for Jan 2027 produces recorded_at, planned and valid_to as three different facts." .
+
+dea:TemporalEvent a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "TemporalEvent" ;
+    skos:definition "Abstract anchor for something that happened at a point in time (CR-6 §3/§29). An event is not a state: events occur; states are the conditions that result from events. Specialized by LifecycleEvent." .
+
+dea:TemporalState a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "TemporalState" ;
+    skos:definition "Abstract anchor for a condition that holds over a temporal extent (CR-6 §3/§29). Specialized by LifecycleState and ArchitectureState." .
+
+dea:LifecycleState a owl:Class ;
+    rdfs:subClassOf dea:TemporalState ;
+    rdfs:label "LifecycleState" ;
+    skos:definition "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile — never blindly uniform — and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3." .
+
+dea:LifecycleEvent a owl:Class ;
+    rdfs:subClassOf dea:TemporalEvent ;
+    rdfs:label "LifecycleEvent" ;
+    skos:definition "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source — the raw material of architectural history (§17)." .
+
+dea:LifecycleTransition a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "LifecycleTransition" ;
+    skos:definition "A declared, allowed movement between two LifecycleStates for an entity scope (CR-6 §7; T002). Retired → Active is impossible unless an explicit reactivation transition is declared." .
+
+dea:Transition a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Transition" ;
+    skos:definition "The movement between two architecture states, caused by a Change (CR-6 §14): from-state, to-state, causing change, planned/actual start and end, and status. A planned transition is never actual architecture (§2/§16)." .
+
+dea:ArchitectureState a owl:Class ;
+    rdfs:subClassOf dea:TemporalState ;
+    rdfs:label "ArchitectureState" ;
+    skos:definition "A coherent representation of the enterprise architecture at a defined temporal point or condition (CR-6 §9): contains elements, valid-during an interval. Architecture is a time-dependent state of the enterprise, not a static catalogue (§1). Specialized as Baseline/Current/Target/Transition/Scenario states." .
+
+dea:BaselineState a owl:Class ;
+    rdfs:subClassOf dea:ArchitectureState ;
+    rdfs:label "BaselineState" ;
+    skos:definition "A formally adopted reference state of the architecture (CR-6 §10) — a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing." .
+
+dea:CurrentState a owl:Class ;
+    rdfs:subClassOf dea:ArchitectureState ;
+    rdfs:label "CurrentState" ;
+    skos:definition "The best authoritative representation of what exists at a specified time (CR-6 §11): actual elements, actual relationships, actual lifecycle states. Planned, proposed, target and hypothetical elements are excluded (T003)." .
+
+dea:TargetState a owl:Class ;
+    rdfs:subClassOf dea:ArchitectureState ;
+    rdfs:label "TargetState" ;
+    skos:definition "An intended future condition of the architecture (CR-6 §12). Target ≠ Current, Target ≠ Planned Change, Target ≠ Forecast (§27). Target-state entities must never be read as current-state (T006)." .
+
+dea:TransitionState a owl:Class ;
+    rdfs:subClassOf dea:ArchitectureState ;
+    rdfs:label "TransitionState" ;
+    skos:definition "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → … → Target, never in one jump." .
+
+dea:Scenario a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Scenario" ;
+    skos:definition "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) — e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)." .
+
+dea:ScenarioState a owl:Class ;
+    rdfs:subClassOf dea:ArchitectureState ;
+    rdfs:label "ScenarioState" ;
+    skos:definition "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container — they are never inserted into CurrentState (T007)." .
+
+dea:ScenarioAssumption a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ScenarioAssumption" ;
+    skos:definition "A declared assumption under which a Scenario holds (CR-6 §25). Assumptions make the difference between a scenario and a target explicit and auditable." .
+
+dea:ArchitectureSnapshot a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ArchitectureSnapshot" ;
+    skos:definition "A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)." .
+
+dea:ArchitectureDelta a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ArchitectureDelta" ;
+    skos:definition "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?' — the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored." .
+
+dea:Version a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Version" ;
+    skos:definition "An identity-evolution marker of a versioned entity (CR-6 §18/§19): v1.0 → v1.1 → v2.0 says nothing about operational state. Version, lifecycle and temporal validity are three different concepts; version-of and superseded-by are different relationships (§20). Version chains are acyclic (T008)." .
+
+# ═══ CR-6: Lifecycle profile object properties ═══
+
+dea:validDuring a owl:ObjectProperty ;
+    rdfs:label "Valid During" ;
+    skos:definition "The source holds or is captured over the target TemporalInterval (CR-6 §9/§14/§19/§30). Valid time is distinct from transaction, observation, planned and effective time (§5)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:validity-of" .
+
+dea:contains a owl:ObjectProperty ;
+    rdfs:label "Contains" ;
+    skos:definition "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:contained-in" .
+
+dea:fromState a owl:ObjectProperty ;
+    rdfs:label "From State" ;
+    skos:definition "The source transition, lifecycle transition or delta starts from the target state (CR-6 §14/§32)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:origin-of-transition" .
+
+dea:toState a owl:ObjectProperty ;
+    rdfs:label "To State" ;
+    skos:definition "The source transition, lifecycle transition or delta arrives at the target state (CR-6 §14/§32)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:destination-of-transition" .
+
+dea:causedBy a owl:ObjectProperty ;
+    rdfs:label "Caused By" ;
+    skos:definition "A Transition between architecture states is caused by a Change (CR-6 §14). Planned transitions caused by planned changes are never actual architecture (§16)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:causes" .
+
+dea:introduces a owl:ObjectProperty ;
+    rdfs:label "Introduces" ;
+    skos:definition "A Change introduces a new architecture element into a state (CR-6 §15)." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:introduced-by" .
+
+dea:removes a owl:ObjectProperty ;
+    rdfs:label "Removes" ;
+    skos:definition "A Change removes an architecture element from a state (CR-6 §15). History is preserved: removal is an event with temporal bounds, never a silent delete (§17)." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:removed-by" .
+
+dea:modifies a owl:ObjectProperty ;
+    rdfs:label "Modifies" ;
+    skos:definition "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects." ;
+    dea:category "transformation" ;
+    dea:inverseOf "dea:modified-by" .
+
+dea:inState a owl:ObjectProperty ;
+    rdfs:label "In State" ;
+    skos:definition "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:state-of" .
+
+dea:records a owl:ObjectProperty ;
+    rdfs:label "Records" ;
+    skos:definition "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:recorded-by" .
+
+dea:captures a owl:ObjectProperty ;
+    rdfs:label "Captures" ;
+    skos:definition "An ArchitectureSnapshot captures an ArchitectureState at a point in time (CR-6 §30)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:captured-by" .
+
+dea:mayBecome a owl:ObjectProperty ;
+    rdfs:label "May Become" ;
+    skos:definition "An ArchitectureSnapshot may be formally adopted as a BaselineState (CR-6 §31). Snapshot ≠ Baseline until adopted." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:adopted-from" .
+
+dea:versionOf a owl:ObjectProperty ;
+    rdfs:label "Version Of" ;
+    skos:definition "A Version identifies one identity-evolution step of the target entity (CR-6 §19/§20). Distinct from lifecycle state and from supersession." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:has-version" .
+
+dea:precedes a owl:ObjectProperty ;
+    rdfs:label "Precedes" ;
+    skos:definition "A Version precedes the next Version in an entity's identity evolution (CR-6 §19). Version chains are acyclic (T008)." ;
+    dea:category "temporal" ;
+    dea:inverseOf "dea:follows" .

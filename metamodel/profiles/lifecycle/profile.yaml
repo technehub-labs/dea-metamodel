@@ -1,0 +1,59 @@
+# OpenDEA Lifecycle Profile (CR-6 §3)
+profile:
+  id: dea:lifecycle
+  name: OpenDEA Lifecycle Profile
+  version: 0.11.0
+  status: normative
+  depends_on:
+  - dea:core
+  - dea:assessment
+  scope: Temporal, lifecycle and transition semantics (CR-6). Architecture is a time-dependent state
+    of the enterprise, not a static catalogue of entities (§1). Separates existence, validity, version,
+    state, lifecycle, change, transition, intention and realization. Planned state is never treated as
+    actual architecture (§2/§16; T003/T006/T007).
+  entities:
+  - dea:TemporalInterval
+  - dea:TemporalEvent
+  - dea:TemporalState
+  - dea:LifecycleState
+  - dea:LifecycleEvent
+  - dea:LifecycleTransition
+  - dea:Transition
+  - dea:ArchitectureState
+  - dea:BaselineState
+  - dea:CurrentState
+  - dea:TargetState
+  - dea:TransitionState
+  - dea:Scenario
+  - dea:ScenarioState
+  - dea:ScenarioAssumption
+  - dea:ArchitectureSnapshot
+  - dea:ArchitectureDelta
+  - dea:Version
+  relationships:
+  - dea:valid-during
+  - dea:contains
+  - dea:from-state
+  - dea:to-state
+  - dea:caused-by
+  - dea:introduces
+  - dea:removes
+  - dea:modifies
+  - dea:in-state
+  - dea:records
+  - dea:captures
+  - dea:may-become
+  - dea:version-of
+  - dea:precedes
+  vocabulary_files:
+  - temporal.yaml
+  - lifecycle.yaml
+  - states.yaml
+  - transitions.yaml
+  - constraints.yaml
+  rules:
+  - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
+  - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  - "History is never overwritten (CR-6 §17): state changes are events with temporal bounds."
+  - "CR-6 §41: repository uses profiles/ + tests/conformance/ conventions; the semantic separation (states/, validation/ in the CR text) is realized here, not via new top-level directories."
+

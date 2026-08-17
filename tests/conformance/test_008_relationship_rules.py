@@ -8,6 +8,7 @@ from conftest import BASE
 CATEGORIES = {
     "structural", "realization", "dependency", "flow", "serving", "execution",
     "governance", "information", "assessment", "transformation", "traceability",
+    "temporal",  # CR-6 §3: category L — temporal semantics (valid-during, in-state, precedes, ...)
 }
 
 

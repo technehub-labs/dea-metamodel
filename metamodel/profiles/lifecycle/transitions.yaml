@@ -1,0 +1,30 @@
+# Transition & change semantics (CR-6 Phase 4, §13-§17, §34-§35).
+version: 0.11.0
+change:
+  # §15: what/why/when/who/what-state-created/what-state-replaced.
+  relationships:
+    affects: dea:affects        # broad (CR-4)
+    modifies: dea:modifies      # specific in-place modification
+    replaces: dea:replaces      # takes over function; target retired
+    introduces: dea:introduces  # new element enters a state
+    removes: dea:removes        # element leaves a state (history preserved, §17)
+    realizes: dea:realizes      # Change realizes TargetState
+    results-in: dea:results-in  # Change produces Outcome (CR-4)
+planned_vs_actual:
+  # §16: mandatory distinction. Planned change = intention; actual change = occurred.
+  # Example: planned retirement 2027-01-01 vs actual retirement 2027-03-15 — both representable.
+  rule: Transition carries planned_start/planned_end AND actual_start/actual_end; never collapse them.
+dependencies:
+  # §34: dependency-aware transition reuses CR-2 semantics.
+  relationships: [dea:depends-on, dea:enables]
+  example: data-platform change enables AI-agents change enables process-automation change.
+constraints:
+  # §35: transition constraints are declared as rules, never hard-coded application logic.
+  examples:
+  - Change B cannot start until Change A is complete.
+  - Application B cannot become active until Application A is retired.
+  - Capability X must reach maturity >= 3 before AI Agent Y is deployed.  # CR-5 measure as gate
+assessment_integration:
+  # §39/§40: CR-5 results anchor to states. dea:assesses already targets dea:Entity, which covers
+  # ArchitectureState — a DMM result can reference the exact state it assessed (e.g. baseline-2026).
+  trajectory: Current (2.7) → Transition (3.4) → Target (4.0) with reassessment closing the loop.

@@ -56,7 +56,7 @@ process and CR-4's core-ontology consolidation.
 dea-metamodel/
 ├── metamodel/                 # NORMATIVE — dea-metamodel.yaml, manifest.yaml, registry/
 ├── change-requests/           # CR-based change control
-├── docs/                      # architecture.md · semantics.md · versioning.md (+ narratives)
+├── docs/                      # architecture.md · semantics.md · temporal-semantics.md · versioning.md (+ narratives)
 ├── tests/conformance/         # Conformance suite (runs in CI)
 ├── VERSION                    # == metamodel version (CI-enforced)
 ├── CHANGELOG.md
@@ -105,6 +105,7 @@ readers should be able to see *why* the ontology is shaped the way it is.
 | [CR-003](./change-requests/CR-003.md) | Relationship state duplicated on entities always drifted from the relationship store. | Entities carry no relationship state; canonical relationship instances are authoritative. |
 | [CR-004](./change-requests/CR-004.md) | Without a stable core, every framework (DMM, ECF, ArchiMate) leaked into the base vocabulary. | 18-anchor Core + 10 profiles with `depends_on`; profiles extend, never redefine (O001–O009). |
 | [CR-005](./change-requests/CR-005.md) | `capability.maturity = 3` conflates *what the enterprise is* with *how it is assessed* — one entity, one score, one framework, no evidence, no history. | A separate assessment layer: maturity belongs to frameworks, results carry evidence/confidence/provenance, and gaps connect to Change. |
+| [CR-006](./change-requests/CR-006.md) | "Application A exists" and "A existed in 2024 / is planned for 2027 / was retired" collapsed into one static catalogue entry. Architecture is a *time-dependent state*, not a catalogue. | Five clocks (transaction/valid/observation/planned/effective); lifecycle states and events; Baseline/Current/Target/Transition/Scenario states; snapshots, deltas, version chains; planned ≠ actual; history never overwritten (T001–T010). |
 
 ### The ontology in one picture
 
@@ -124,10 +125,19 @@ graph TD
         AR --> GAP[AssessmentGap]
         E[Evidence] -.supports.-> AR
     end
+    subgraph LIFE["Lifecycle layer (CR-6)"]
+        TI[TemporalInterval<br/>five clocks]
+        AS[ArchitectureState<br/>baseline · current · target<br/>transition · scenario]
+        TR[Transition] --> CH[Change]
+        SS[Snapshot] --> DL[Delta]
+    end
     DMM[DMMv5 profile] -. implements .-> AF
     PROFILES --> CORE
     ASSESS -. assesses .-> CORE
+    LIFE -. temporal bounds .-> CORE
+    AS -. valid-during .-> TI
     GAP -- addressed-by --> C6
+    TR -- realizes --> AS
 ```
 
 ### The CR-5 closed loop

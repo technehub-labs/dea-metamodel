@@ -1,0 +1,18 @@
+# DMMv5 dimension → DEA concept mappings (CR-5 §23).
+# Dimensions assess DEA entities — a much stronger architectural relationship than
+# parallel "maturity pillars" inside the ontology.
+version: 5.0.0
+framework: dmm:dmmv5
+mappings:
+- dimension: dmm:dimension/strategy
+  assesses: [dea:BusinessCapability, dea:Outcome, dea:Decision]
+- dimension: dmm:dimension/customer
+  assesses: [dea:Service, dea:Outcome]
+- dimension: dmm:dimension/culture
+  assesses: [dea:Actor, dea:Organization, dea:Behavior]
+- dimension: dmm:dimension/operations
+  assesses: [dea:Behavior, dea:BusinessCapability, dea:Service]
+- dimension: dmm:dimension/technology
+  assesses: [dea:Technology, dea:ApplicationComponent, dea:Service]  # CR-5 §23 'Application/TechnologyComponent' -> registered dea:Technology/dea:ApplicationComponent
+- dimension: dmm:dimension/data
+  assesses: [dea:Information, dea:DataEntity]

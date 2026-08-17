@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.9.0
+# Version: 0.10.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.9.0" ;
+    owl:versionInfo "0.10.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;
@@ -657,3 +657,452 @@ dea:contributesTo a owl:ObjectProperty ;
     skos:definition "Partial causal contribution: a BusinessFunction contributes to a Capability; a Capability contributes to an Outcome (CR-4 §8/§14)." ;
     dea:category "realization" ;
     dea:inverseOf "dea:contributed-to-by" .
+
+# ═══ CR-5: Assessment profile classes ═══
+
+dea:Assessment a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Assessment" ;
+    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject." .
+
+dea:AssessmentFramework a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentFramework" ;
+    skos:definition "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
+
+dea:AssessmentDimension a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentDimension" ;
+    skos:definition "A structured perspective through which a subject is evaluated (CR-5 §6). An assessment perspective, not an architectural entity: a DMM dimension never becomes equivalent to the DEA entities it assesses." .
+
+dea:AssessmentCriterion a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentCriterion" ;
+    skos:definition "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
+
+dea:Indicator a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Indicator" ;
+    skos:definition "The observable signal used to evaluate a criterion (CR-5 §8). Criterion = what we evaluate; Indicator = what we observe; Measure = what we quantify; Result = what was assessed." .
+
+dea:Observation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Observation" ;
+    skos:definition "A raw measured or observed fact collected as input to assessment (CR-5 §27), e.g. '78% of applications have documented architecture'. Distinct from the derived result it may inform." .
+
+dea:Measure a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Measure" ;
+    skos:definition "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
+
+dea:Score a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Score" ;
+    skos:definition "A numerical or ordinal evaluation derived from measures against a declared scale (CR-5 §11). A score is not intrinsically a maturity level; the framework defines the transformation." .
+
+dea:Scale a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Scale" ;
+    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range." .
+
+dea:Unit a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Unit" ;
+    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
+
+dea:AssessmentResult a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentResult" ;
+    skos:definition "The central object connecting assessment to architecture (CR-5 §10): subject, criterion, score or maturity level, evidence, confidence, assessor, framework and temporal anchors. A result never modifies the identity of the assessed entity (A007)." .
+
+dea:AssessmentSubject a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentSubject" ;
+    skos:definition "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
+
+dea:AssessmentScope a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentScope" ;
+    skos:definition "The explicit boundary of an assessment (CR-5 §15), modeled as references to actual enterprise entities wherever possible rather than free-text labels." .
+
+dea:AssessmentTarget a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentTarget" ;
+    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity." .
+
+dea:AssessmentGap a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentGap" ;
+    skos:definition "The derived difference between a current result and a target (CR-5 §30). Gaps are derived, never authoritative source data; the authoritative data are current state and target state. Gaps connect assessment to transformation via addressed-by → Change (CR-5 §31)." .
+
+dea:MaturityModel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityModel" ;
+    skos:definition "An ordered set of maturity levels defined, governed and versioned by an assessment framework (CR-5 §12/§33). Maturity belongs to the framework, not to any architectural entity (CR-5 §13)." .
+
+dea:MaturityLevel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityLevel" ;
+    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)." .
+
+dea:MaturityScale a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityScale" ;
+    skos:definition "The scale over which a maturity model's levels are defined (CR-5 §12), e.g. a 1..5 ordered range." .
+
+dea:MaturityRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityRule" ;
+    skos:definition "A framework-defined rule mapping scores or measures to maturity levels, including gating criteria and maturity ceilings (CR-5 §12/§26)." .
+
+dea:AggregationRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AggregationRule" ;
+    skos:definition "Declares how lower-level results combine into higher-level results (CR-5 §25): weighted averages, minimum thresholds, gating criteria, ceilings, qualitative judgement, evidence sufficiency or rule-based scoring. Never assumed to be a simple arithmetic mean (A009)." .
+
+dea:ScoringRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ScoringRule" ;
+    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation." .
+
+dea:MaturityMappingRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityMappingRule" ;
+    skos:definition "Declares how scores map to maturity levels within a framework (CR-5 §11/§25): Measure → Score → Scoring Rule → Maturity Level." .
+
+dea:Evidence a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Evidence" ;
+    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
+
+dea:EvidenceSource a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EvidenceSource" ;
+    skos:definition "The origin from which evidence is collected (CR-5 §16): a system, document store, interview programme, survey instrument, audit, log pipeline or API endpoint." .
+
+dea:EvidenceArtifact a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EvidenceArtifact" ;
+    skos:definition "A concrete artifact referenced as evidence (CR-5 §16): an architecture document, system inventory, audit report, log extract or control test record." .
+
+dea:Benchmark a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Benchmark" ;
+    skos:definition "A comparative reference external to the enterprise's own assessment (CR-5 §28). Benchmarking is modeled separately from assessment: AssessmentResult ≠ Benchmark and AssessmentTarget ≠ Benchmark (A011)." .
+
+dea:BenchmarkPopulation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BenchmarkPopulation" ;
+    skos:definition "The peer or industry population over which a benchmark is computed (CR-5 §28)." .
+
+dea:BenchmarkReference a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BenchmarkReference" ;
+    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)." .
+
+# ═══ CR-5: Assessment profile object properties ═══
+
+dea:assesses a owl:ObjectProperty ;
+    rdfs:label "Assesses" ;
+    skos:definition "The source assessment construct evaluates the target subject against a framework (CR-5 §4/§10/§23). DMM dimensions assess DEA concepts rather than replacing them." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:assessed-by" .
+
+dea:conductedUnder a owl:ObjectProperty ;
+    rdfs:label "Conducted Under" ;
+    skos:definition "An Assessment is conducted under exactly one AssessmentFramework (CR-5 §5; A001)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:governs-assessment" .
+
+dea:defines a owl:ObjectProperty ;
+    rdfs:label "Defines" ;
+    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:defined-by" .
+
+dea:quantifies a owl:ObjectProperty ;
+    rdfs:label "Quantifies" ;
+    skos:definition "A Measure quantifies an Indicator or Observation (CR-5 §9/§27): Observation → Measure in the result chain." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:quantified-by" .
+
+dea:derivesFrom a owl:ObjectProperty ;
+    rdfs:label "Derives From" ;
+    skos:definition "The source is derived from the target: Score from Measure (CR-5 §11), AssessmentGap from current result and target (CR-5 §30), BenchmarkReference from Benchmark (CR-5 §28). Derived objects are never authoritative source data." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:feeds" .
+
+dea:evaluatedBy a owl:ObjectProperty ;
+    rdfs:label "Evaluated By" ;
+    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:evaluates" .
+
+dea:mapsTo a owl:ObjectProperty ;
+    rdfs:label "Maps To" ;
+    skos:definition "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score→maturity transformation." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:mapped-from" .
+
+dea:attains a owl:ObjectProperty ;
+    rdfs:label "Attains" ;
+    skos:definition "An AssessmentResult attains a MaturityLevel, or an AssessmentTarget sets one as goal (CR-5 §13). Maturity is attributed through results, never stored on the architectural entity (A008)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:attained-by" .
+
+dea:addressedBy a owl:ObjectProperty ;
+    rdfs:label "Addressed By" ;
+    skos:definition "An AssessmentGap is addressed by a Change or ChangeInitiative (CR-5 §31): Assessment → Current State → Gap → Required Change → Target Architecture → Outcome." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:addresses" .
+
+dea:benchmarkedAgainst a owl:ObjectProperty ;
+    rdfs:label "Benchmarked Against" ;
+    skos:definition "An AssessmentResult is compared with a BenchmarkReference (CR-5 §28). A benchmark is never an assessment result (A011)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:benchmark-for" .
+
+dea:scopedBy a owl:ObjectProperty ;
+    rdfs:label "Scoped By" ;
+    skos:definition "An Assessment or AssessmentSubject is bounded by an explicit AssessmentScope (CR-5 §15)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:scopes" .
+
+dea:refersTo a owl:ObjectProperty ;
+    rdfs:label "Refers To" ;
+    skos:definition "Generic reference from an assessment-layer object to a DEA entity (CR-5 §14/§15/§16): subjects and scopes reference actual enterprise entities rather than free-text labels." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:referenced-by" .
+
+dea:originatesFrom a owl:ObjectProperty ;
+    rdfs:label "Originates From" ;
+    skos:definition "Evidence, EvidenceArtifacts, Measures and Observations originate from a declared EvidenceSource (CR-5 §16/§19 provenance)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:origin-of" .
+
+# ═══ CR-5: Assessment profile classes ═══
+
+dea:Assessment a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Assessment" ;
+    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject." .
+
+dea:AssessmentFramework a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentFramework" ;
+    skos:definition "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
+
+dea:AssessmentDimension a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentDimension" ;
+    skos:definition "A structured perspective through which a subject is evaluated (CR-5 §6). An assessment perspective, not an architectural entity: a DMM dimension never becomes equivalent to the DEA entities it assesses." .
+
+dea:AssessmentCriterion a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentCriterion" ;
+    skos:definition "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
+
+dea:Indicator a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Indicator" ;
+    skos:definition "The observable signal used to evaluate a criterion (CR-5 §8). Criterion = what we evaluate; Indicator = what we observe; Measure = what we quantify; Result = what was assessed." .
+
+dea:Observation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Observation" ;
+    skos:definition "A raw measured or observed fact collected as input to assessment (CR-5 §27), e.g. '78% of applications have documented architecture'. Distinct from the derived result it may inform." .
+
+dea:Measure a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Measure" ;
+    skos:definition "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
+
+dea:Score a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Score" ;
+    skos:definition "A numerical or ordinal evaluation derived from measures against a declared scale (CR-5 §11). A score is not intrinsically a maturity level; the framework defines the transformation." .
+
+dea:Scale a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Scale" ;
+    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range." .
+
+dea:Unit a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Unit" ;
+    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
+
+dea:AssessmentResult a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentResult" ;
+    skos:definition "The central object connecting assessment to architecture (CR-5 §10): subject, criterion, score or maturity level, evidence, confidence, assessor, framework and temporal anchors. A result never modifies the identity of the assessed entity (A007)." .
+
+dea:AssessmentSubject a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentSubject" ;
+    skos:definition "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
+
+dea:AssessmentScope a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentScope" ;
+    skos:definition "The explicit boundary of an assessment (CR-5 §15), modeled as references to actual enterprise entities wherever possible rather than free-text labels." .
+
+dea:AssessmentTarget a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentTarget" ;
+    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity." .
+
+dea:AssessmentGap a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AssessmentGap" ;
+    skos:definition "The derived difference between a current result and a target (CR-5 §30). Gaps are derived, never authoritative source data; the authoritative data are current state and target state. Gaps connect assessment to transformation via addressed-by → Change (CR-5 §31)." .
+
+dea:MaturityModel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityModel" ;
+    skos:definition "An ordered set of maturity levels defined, governed and versioned by an assessment framework (CR-5 §12/§33). Maturity belongs to the framework, not to any architectural entity (CR-5 §13)." .
+
+dea:MaturityLevel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityLevel" ;
+    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)." .
+
+dea:MaturityScale a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityScale" ;
+    skos:definition "The scale over which a maturity model's levels are defined (CR-5 §12), e.g. a 1..5 ordered range." .
+
+dea:MaturityRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityRule" ;
+    skos:definition "A framework-defined rule mapping scores or measures to maturity levels, including gating criteria and maturity ceilings (CR-5 §12/§26)." .
+
+dea:AggregationRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AggregationRule" ;
+    skos:definition "Declares how lower-level results combine into higher-level results (CR-5 §25): weighted averages, minimum thresholds, gating criteria, ceilings, qualitative judgement, evidence sufficiency or rule-based scoring. Never assumed to be a simple arithmetic mean (A009)." .
+
+dea:ScoringRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ScoringRule" ;
+    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation." .
+
+dea:MaturityMappingRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "MaturityMappingRule" ;
+    skos:definition "Declares how scores map to maturity levels within a framework (CR-5 §11/§25): Measure → Score → Scoring Rule → Maturity Level." .
+
+dea:Evidence a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Evidence" ;
+    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
+
+dea:EvidenceSource a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EvidenceSource" ;
+    skos:definition "The origin from which evidence is collected (CR-5 §16): a system, document store, interview programme, survey instrument, audit, log pipeline or API endpoint." .
+
+dea:EvidenceArtifact a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "EvidenceArtifact" ;
+    skos:definition "A concrete artifact referenced as evidence (CR-5 §16): an architecture document, system inventory, audit report, log extract or control test record." .
+
+dea:Benchmark a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Benchmark" ;
+    skos:definition "A comparative reference external to the enterprise's own assessment (CR-5 §28). Benchmarking is modeled separately from assessment: AssessmentResult ≠ Benchmark and AssessmentTarget ≠ Benchmark (A011)." .
+
+dea:BenchmarkPopulation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BenchmarkPopulation" ;
+    skos:definition "The peer or industry population over which a benchmark is computed (CR-5 §28)." .
+
+dea:BenchmarkReference a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "BenchmarkReference" ;
+    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)." .
+
+# ═══ CR-5: Assessment profile object properties ═══
+
+dea:assesses a owl:ObjectProperty ;
+    rdfs:label "Assesses" ;
+    skos:definition "The source assessment construct evaluates the target subject against a framework (CR-5 §4/§10/§23). DMM dimensions assess DEA concepts rather than replacing them." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:assessed-by" .
+
+dea:conductedUnder a owl:ObjectProperty ;
+    rdfs:label "Conducted Under" ;
+    skos:definition "An Assessment is conducted under exactly one AssessmentFramework (CR-5 §5; A001)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:governs-assessment" .
+
+dea:defines a owl:ObjectProperty ;
+    rdfs:label "Defines" ;
+    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:defined-by" .
+
+dea:quantifies a owl:ObjectProperty ;
+    rdfs:label "Quantifies" ;
+    skos:definition "A Measure quantifies an Indicator or Observation (CR-5 §9/§27): Observation → Measure in the result chain." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:quantified-by" .
+
+dea:derivesFrom a owl:ObjectProperty ;
+    rdfs:label "Derives From" ;
+    skos:definition "The source is derived from the target: Score from Measure (CR-5 §11), AssessmentGap from current result and target (CR-5 §30), BenchmarkReference from Benchmark (CR-5 §28). Derived objects are never authoritative source data." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:feeds" .
+
+dea:evaluatedBy a owl:ObjectProperty ;
+    rdfs:label "Evaluated By" ;
+    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:evaluates" .
+
+dea:mapsTo a owl:ObjectProperty ;
+    rdfs:label "Maps To" ;
+    skos:definition "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score→maturity transformation." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:mapped-from" .
+
+dea:attains a owl:ObjectProperty ;
+    rdfs:label "Attains" ;
+    skos:definition "An AssessmentResult attains a MaturityLevel, or an AssessmentTarget sets one as goal (CR-5 §13). Maturity is attributed through results, never stored on the architectural entity (A008)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:attained-by" .
+
+dea:addressedBy a owl:ObjectProperty ;
+    rdfs:label "Addressed By" ;
+    skos:definition "An AssessmentGap is addressed by a Change or ChangeInitiative (CR-5 §31): Assessment → Current State → Gap → Required Change → Target Architecture → Outcome." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:addresses" .
+
+dea:benchmarkedAgainst a owl:ObjectProperty ;
+    rdfs:label "Benchmarked Against" ;
+    skos:definition "An AssessmentResult is compared with a BenchmarkReference (CR-5 §28). A benchmark is never an assessment result (A011)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:benchmark-for" .
+
+dea:scopedBy a owl:ObjectProperty ;
+    rdfs:label "Scoped By" ;
+    skos:definition "An Assessment or AssessmentSubject is bounded by an explicit AssessmentScope (CR-5 §15)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:scopes" .
+
+dea:refersTo a owl:ObjectProperty ;
+    rdfs:label "Refers To" ;
+    skos:definition "Generic reference from an assessment-layer object to a DEA entity (CR-5 §14/§15/§16): subjects and scopes reference actual enterprise entities rather than free-text labels." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:referenced-by" .
+
+dea:originatesFrom a owl:ObjectProperty ;
+    rdfs:label "Originates From" ;
+    skos:definition "Evidence, EvidenceArtifacts, Measures and Observations originate from a declared EvidenceSource (CR-5 §16/§19 provenance)." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:origin-of" .
+dea:mapsOnto a owl:ObjectProperty ;
+    rdfs:label "Maps Onto" ;
+    skos:definition "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score-to-maturity transformation." ;
+    dea:category "assessment" ;
+    dea:inverseOf "dea:mapped-from" .

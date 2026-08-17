@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.9.0
+  version: 0.10.0
   status: draft
   normative: true
   namespace:
@@ -1478,6 +1478,566 @@ entities:
   membership:
     kind: core
     profile: null
+- id: dea:Assessment
+  name: Assessment
+  legacy_ids: []
+  definition: "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment.json
+    sqlite_table: assessments
+    pydantic_model: pydantic/assessment.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentFramework
+  name: Assessment Framework
+  legacy_ids: []
+  definition: "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-framework.json
+    sqlite_table: assessment_frameworks
+    pydantic_model: pydantic/assessment_framework.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentDimension
+  name: Assessment Dimension
+  legacy_ids: []
+  definition: "A structured perspective through which a subject is evaluated (CR-5 §6). An assessment perspective, not an architectural entity: a DMM dimension never becomes equivalent to the DEA entities it assesses."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-dimension.json
+    sqlite_table: assessment_dimensions
+    pydantic_model: pydantic/assessment_dimension.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentCriterion
+  name: Assessment Criterion
+  legacy_ids: []
+  definition: "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-criterion.json
+    sqlite_table: assessment_criteria
+    pydantic_model: pydantic/assessment_criterion.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Indicator
+  name: Indicator
+  legacy_ids: []
+  definition: "The observable signal used to evaluate a criterion (CR-5 §8). Criterion = what we evaluate; Indicator = what we observe; Measure = what we quantify; Result = what was assessed."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/indicator.json
+    sqlite_table: indicators
+    pydantic_model: pydantic/indicator.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Observation
+  name: Observation
+  legacy_ids: []
+  definition: "A raw measured or observed fact collected as input to assessment (CR-5 §27), e.g. '78% of applications have documented architecture'. Distinct from the derived result it may inform."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/observation.json
+    sqlite_table: observations
+    pydantic_model: pydantic/observation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Measure
+  name: Measure
+  legacy_ids: []
+  definition: "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/measure.json
+    sqlite_table: measures
+    pydantic_model: pydantic/measure.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Score
+  name: Score
+  legacy_ids: []
+  definition: "A numerical or ordinal evaluation derived from measures against a declared scale (CR-5 §11). A score is not intrinsically a maturity level; the framework defines the transformation."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/score.json
+    sqlite_table: scores
+    pydantic_model: pydantic/score.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Scale
+  name: Scale
+  legacy_ids: []
+  definition: "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/scale.json
+    sqlite_table: scales
+    pydantic_model: pydantic/scale.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Unit
+  name: Unit
+  legacy_ids: []
+  definition: "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/unit.json
+    sqlite_table: units
+    pydantic_model: pydantic/unit.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentResult
+  name: Assessment Result
+  legacy_ids: []
+  definition: "The central object connecting assessment to architecture (CR-5 §10): subject, criterion, score or maturity level, evidence, confidence, assessor, framework and temporal anchors. A result never modifies the identity of the assessed entity (A007)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-result.json
+    sqlite_table: assessment_results
+    pydantic_model: pydantic/assessment_result.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentSubject
+  name: Assessment Subject
+  legacy_ids: []
+  definition: "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-subject.json
+    sqlite_table: assessment_subjects
+    pydantic_model: pydantic/assessment_subject.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentScope
+  name: Assessment Scope
+  legacy_ids: []
+  definition: "The explicit boundary of an assessment (CR-5 §15), modeled as references to actual enterprise entities wherever possible rather than free-text labels."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-scope.json
+    sqlite_table: assessment_scopes
+    pydantic_model: pydantic/assessment_scope.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentTarget
+  name: Assessment Target
+  legacy_ids: []
+  definition: "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-target.json
+    sqlite_table: assessment_targets
+    pydantic_model: pydantic/assessment_target.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentGap
+  name: Assessment Gap
+  legacy_ids: []
+  definition: "The derived difference between a current result and a target (CR-5 §30). Gaps are derived, never authoritative source data; the authoritative data are current state and target state. Gaps connect assessment to transformation via addressed-by → Change (CR-5 §31)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/assessment-gap.json
+    sqlite_table: assessment_gaps
+    pydantic_model: pydantic/assessment_gap.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityModel
+  name: Maturity Model
+  legacy_ids: []
+  definition: "An ordered set of maturity levels defined, governed and versioned by an assessment framework (CR-5 §12/§33). Maturity belongs to the framework, not to any architectural entity (CR-5 §13)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/maturity-model.json
+    sqlite_table: maturity_models
+    pydantic_model: pydantic/maturity_model.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityLevel
+  name: Maturity Level
+  legacy_ids: []
+  definition: "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/maturity-level.json
+    sqlite_table: maturity_levels
+    pydantic_model: pydantic/maturity_level.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityScale
+  name: Maturity Scale
+  legacy_ids: []
+  definition: "The scale over which a maturity model's levels are defined (CR-5 §12), e.g. a 1..5 ordered range."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/maturity-scale.json
+    sqlite_table: maturity_scales
+    pydantic_model: pydantic/maturity_scale.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityRule
+  name: Maturity Rule
+  legacy_ids: []
+  definition: "A framework-defined rule mapping scores or measures to maturity levels, including gating criteria and maturity ceilings (CR-5 §12/§26)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/maturity-rule.json
+    sqlite_table: maturity_rules
+    pydantic_model: pydantic/maturity_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AggregationRule
+  name: Aggregation Rule
+  legacy_ids: []
+  definition: "Declares how lower-level results combine into higher-level results (CR-5 §25): weighted averages, minimum thresholds, gating criteria, ceilings, qualitative judgement, evidence sufficiency or rule-based scoring. Never assumed to be a simple arithmetic mean (A009)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/aggregation-rule.json
+    sqlite_table: aggregation_rules
+    pydantic_model: pydantic/aggregation_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:ScoringRule
+  name: Scoring Rule
+  legacy_ids: []
+  definition: "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/scoring-rule.json
+    sqlite_table: scoring_rules
+    pydantic_model: pydantic/scoring_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityMappingRule
+  name: Maturity Mapping Rule
+  legacy_ids: []
+  definition: "Declares how scores map to maturity levels within a framework (CR-5 §11/§25): Measure → Score → Scoring Rule → Maturity Level."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/maturity-mapping-rule.json
+    sqlite_table: maturity_mapping_rules
+    pydantic_model: pydantic/maturity_mapping_rule.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Evidence
+  name: Evidence
+  legacy_ids: []
+  definition: "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/evidence.json
+    sqlite_table: evidence
+    pydantic_model: pydantic/evidence.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:EvidenceSource
+  name: Evidence Source
+  legacy_ids: []
+  definition: "The origin from which evidence is collected (CR-5 §16): a system, document store, interview programme, survey instrument, audit, log pipeline or API endpoint."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/evidence-source.json
+    sqlite_table: evidence_sources
+    pydantic_model: pydantic/evidence_source.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:EvidenceArtifact
+  name: Evidence Artifact
+  legacy_ids: []
+  definition: "A concrete artifact referenced as evidence (CR-5 §16): an architecture document, system inventory, audit report, log extract or control test record."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/evidence-artifact.json
+    sqlite_table: evidence_artifacts
+    pydantic_model: pydantic/evidence_artifact.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Benchmark
+  name: Benchmark
+  legacy_ids: []
+  definition: "A comparative reference external to the enterprise's own assessment (CR-5 §28). Benchmarking is modeled separately from assessment: AssessmentResult ≠ Benchmark and AssessmentTarget ≠ Benchmark (A011)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/benchmark.json
+    sqlite_table: benchmarks
+    pydantic_model: pydantic/benchmark.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:BenchmarkPopulation
+  name: Benchmark Population
+  legacy_ids: []
+  definition: "The peer or industry population over which a benchmark is computed (CR-5 §28)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/benchmark-population.json
+    sqlite_table: benchmark_populations
+    pydantic_model: pydantic/benchmark_population.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:BenchmarkReference
+  name: Benchmark Reference
+  legacy_ids: []
+  definition: "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/benchmark-reference.json
+    sqlite_table: benchmark_references
+    pydantic_model: pydantic/benchmark_reference.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
 relationships:
 - id: dea:composes
   name: Composes
@@ -1888,15 +2448,18 @@ relationships:
   source:
     types:
     - dea:ApplicationComponent
+    - dea:Assessment
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:Experiment
     - dea:SystemFunction
   target:
     types:
+    - dea:AssessmentResult
     - dea:BusinessObject
     - dea:DataEntity
     - dea:Event
+    - dea:Evidence
     - dea:InformationAsset
     - dea:Signal
   cardinality:
@@ -2717,17 +3280,19 @@ relationships:
   lifecycle: proposed
 - id: dea:benchmarked-against
   name: Benchmarked Against
-  definition: The source is compared against the target reference, standard, or peer.
+  definition: "The source is compared against the target reference, standard, or peer. Extended by CR-5 §28: AssessmentResult vs BenchmarkReference (a benchmark is never a result, A011)."
   category: assessment
   direction: source-to-target
   source:
     types:
+    - dea:AssessmentResult
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:Technology
   target:
     types:
+    - dea:BenchmarkReference
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
@@ -2921,12 +3486,15 @@ relationships:
     - dea:AIMLModel
     - dea:Actor
     - dea:ApplicationComponent
+    - dea:Evidence
+    - dea:EvidenceArtifact
     - dea:FinancialResource
     - dea:InvestmentInitiative
     - dea:Technology
   target:
     types:
     - dea:ApplicationComponent
+    - dea:AssessmentResult
     - dea:BusinessCapability
     - dea:ChangeInitiative
     - dea:StrategicObjective
@@ -3055,6 +3623,296 @@ relationships:
     source: 0..*
     target: 0..*
   inverse: dea:contributed-to-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:assesses
+  name: Assesses
+  definition: "The source assessment construct evaluates the target subject against a framework (CR-5 §4/§10/§23). DMM dimensions assess DEA concepts rather than replacing them."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Assessment
+    - dea:AssessmentFramework
+    - dea:AssessmentDimension
+    - dea:AssessmentResult
+  target:
+    types:
+    - dea:Entity
+    - dea:AssessmentSubject
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:assessed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:conducted-under
+  name: Conducted Under
+  definition: "An Assessment is conducted under exactly one AssessmentFramework (CR-5 §5; A001)."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Assessment
+  target:
+    types:
+    - dea:AssessmentFramework
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:governs-assessment
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:defines
+  name: Defines
+  definition: "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentFramework
+    - dea:MaturityModel
+  target:
+    types:
+    - dea:AssessmentDimension
+    - dea:AssessmentCriterion
+    - dea:Indicator
+    - dea:MaturityLevel
+    - dea:MaturityScale
+    - dea:MaturityRule
+    - dea:ScoringRule
+    - dea:AggregationRule
+    - dea:MaturityMappingRule
+    - dea:Scale
+    - dea:Unit
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:defined-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:quantifies
+  name: Quantifies
+  definition: "A Measure quantifies an Indicator or Observation (CR-5 §9/§27): Observation → Measure in the result chain."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Measure
+  target:
+    types:
+    - dea:Indicator
+    - dea:Observation
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:quantified-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:derives-from
+  name: Derives From
+  definition: "The source is derived from the target: Score from Measure (CR-5 §11), AssessmentGap from current result and target (CR-5 §30), BenchmarkReference from Benchmark (CR-5 §28). Derived objects are never authoritative source data."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentGap
+    - dea:Benchmark
+    - dea:BenchmarkReference
+    - dea:Score
+  target:
+    types:
+    - dea:AssessmentResult
+    - dea:AssessmentTarget
+    - dea:Benchmark
+    - dea:BenchmarkPopulation
+    - dea:Measure
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:feeds
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:evaluated-by
+  name: Evaluated By
+  definition: "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentResult
+  target:
+    types:
+    - dea:AggregationRule
+    - dea:ScoringRule
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:evaluates
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:maps-onto
+  name: Maps Onto
+  definition: "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score→maturity transformation."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:ScoringRule
+    - dea:MaturityMappingRule
+    - dea:MaturityRule
+  target:
+    types:
+    - dea:MaturityLevel
+    - dea:Scale
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:mapped-from
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:attains
+  name: Attains
+  definition: "An AssessmentResult attains a MaturityLevel, or an AssessmentTarget sets one as goal (CR-5 §13). Maturity is attributed through results, never stored on the architectural entity (A008)."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentResult
+    - dea:AssessmentTarget
+  target:
+    types:
+    - dea:MaturityLevel
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:attained-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:addressed-by
+  name: Addressed By
+  definition: "An AssessmentGap is addressed by a Change or ChangeInitiative (CR-5 §31): Assessment → Current State → Gap → Required Change → Target Architecture → Outcome."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentGap
+  target:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:addresses
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:scoped-by
+  name: Scoped By
+  definition: "An Assessment or AssessmentSubject is bounded by an explicit AssessmentScope (CR-5 §15)."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Assessment
+    - dea:AssessmentSubject
+  target:
+    types:
+    - dea:AssessmentScope
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:scopes
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:refers-to
+  name: Refers To
+  definition: "Generic reference from an assessment-layer object to a DEA entity (CR-5 §14/§15/§16): subjects and scopes reference actual enterprise entities rather than free-text labels."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:AssessmentSubject
+    - dea:AssessmentScope
+    - dea:AssessmentTarget
+    - dea:Evidence
+    - dea:EvidenceArtifact
+    - dea:BenchmarkReference
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:referenced-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:originates-from
+  name: Originates From
+  definition: "Evidence, EvidenceArtifacts, Measures and Observations originate from a declared EvidenceSource (CR-5 §16/§19 provenance)."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+    - dea:Evidence
+    - dea:EvidenceArtifact
+    - dea:Measure
+    - dea:Observation
+  target:
+    types:
+    - dea:EvidenceSource
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:origin-of
   transitive: false
   symmetric: false
   temporal: true

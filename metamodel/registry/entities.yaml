@@ -1,5 +1,5 @@
 # Entity Registry (CR-1.5/CR-4) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
-registry_version: 0.9.0
+registry_version: 0.10.0
 entities:
 - id: dea:Entity
   name: Entity
@@ -705,3 +705,311 @@ entities:
   membership:
     kind: core
     profile: null
+- id: dea:Assessment
+  name: Assessment
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentFramework
+  name: Assessment Framework
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentDimension
+  name: Assessment Dimension
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentCriterion
+  name: Assessment Criterion
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Indicator
+  name: Indicator
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Observation
+  name: Observation
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Measure
+  name: Measure
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Score
+  name: Score
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Scale
+  name: Scale
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Unit
+  name: Unit
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentResult
+  name: Assessment Result
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentSubject
+  name: Assessment Subject
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentScope
+  name: Assessment Scope
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentTarget
+  name: Assessment Target
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AssessmentGap
+  name: Assessment Gap
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityModel
+  name: Maturity Model
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityLevel
+  name: Maturity Level
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityScale
+  name: Maturity Scale
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityRule
+  name: Maturity Rule
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:AggregationRule
+  name: Aggregation Rule
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:ScoringRule
+  name: Scoring Rule
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:MaturityMappingRule
+  name: Maturity Mapping Rule
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Evidence
+  name: Evidence
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:EvidenceSource
+  name: Evidence Source
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:EvidenceArtifact
+  name: Evidence Artifact
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Benchmark
+  name: Benchmark
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:BenchmarkPopulation
+  name: Benchmark Population
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:BenchmarkReference
+  name: Benchmark Reference
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment

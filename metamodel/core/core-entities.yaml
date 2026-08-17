@@ -1,5 +1,5 @@
 # Core entity anchors (CR-4 §27) — definitions authoritative in dea-metamodel.yaml
-version: 0.9.0
+version: 0.10.0
 entities:
 - id: dea:Entity
   name: Entity

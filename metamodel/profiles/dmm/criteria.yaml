@@ -1,0 +1,15 @@
+# DMMv5 criteria container (CR-5 §7, §39 Phase 6).
+# Substantive DMMv5 criteria are owned by the authoritative DMMv5 definition and are
+# imported — never restated or invented by this metamodel. Structure shown for importers.
+version: 5.0.0
+framework: dmm:dmmv5
+status: pending-authoritative-import
+criterion_template:
+  kind: dea:AssessmentCriterion
+  id: null          # dmm:criterion/<dimension>/<slug>
+  dimension: null   # dmm:dimension/<name>
+  name: null
+  definition: null
+  applicability: null
+  evaluation_guidance: null
+criteria: []

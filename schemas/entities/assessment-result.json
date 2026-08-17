@@ -1,0 +1,159 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/assessment-result.json",
+  "metamodel_version": "0.10.0",
+  "title": "AssessmentResult",
+  "description": "The central object connecting assessment to architecture (CR-5 §10): subject, criterion, score or maturity level, evidence, confidence, assessor, framework and temporal anchors. A result never modifies the identity of the assessed entity (A007).",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Stable OpenDEA identifier (CR-3Q). Type prefix: dea:assessment_result-"
+    },
+    "type": {
+      "type": "string",
+      "const": "AssessmentResult"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assessment_ref": {
+      "type": "string"
+    },
+    "subject_ref": {
+      "type": "string",
+      "description": "Reference to the AssessmentSubject (A002)."
+    },
+    "criterion_ref": {
+      "type": "string",
+      "description": "Reference to the AssessmentCriterion (A003)."
+    },
+    "score": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "scale_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "maturity_level_ref": {
+      "type": "string",
+      "description": "MaturityLevel within the framework's MaturityModel (A005)."
+    },
+    "confidence": {
+      "type": "object",
+      "description": "CR-5 §18 common confidence structure.",
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "scale": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      }
+    },
+    "state_role": {
+      "type": "string",
+      "enum": [
+        "baseline",
+        "current",
+        "target",
+        "forecast"
+      ],
+      "description": "CR-5 §20/§29: role of this result in the maturity trajectory."
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the underlying evidence was collected (CR-5 §22)."
+    },
+    "assessed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the assessment was performed (CR-5 §22)."
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the result is considered applicable (CR-5 §22)."
+    },
+    "assessor": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string",
+      "description": "CR-5 §19: who assessed, with what framework, when, based on what evidence."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

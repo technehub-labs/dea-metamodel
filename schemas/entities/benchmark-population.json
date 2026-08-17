@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/benchmark-population.json",
+  "metamodel_version": "0.10.0",
+  "title": "BenchmarkPopulation",
+  "description": "The peer or industry population over which a benchmark is computed (CR-5 §28).",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Stable OpenDEA identifier (CR-3Q). Type prefix: dea:benchmark_population-"
+    },
+    "type": {
+      "type": "string",
+      "const": "BenchmarkPopulation"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "segment": {
+      "type": "string",
+      "description": "Industry, geography, size band or other segmentation."
+    },
+    "population_size": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

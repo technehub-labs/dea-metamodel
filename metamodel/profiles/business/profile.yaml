@@ -22,4 +22,4 @@ profile:
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).
   scope: Business behaviour, services, objects, strategy and change initiatives.
   status: draft
-  version: 0.9.0
+  version: 0.10.0

@@ -1,0 +1,37 @@
+# Assessment profile relationship grammar (CR-5) — subset of the canonical registry.
+# Endpoint semantics are authoritative in metamodel/dea-metamodel.yaml.
+version: 0.10.0
+relationships:
+- id: dea:assesses
+  chain: "Assessment/Framework/Dimension/Result → subject (CR-5 §4/§23)"
+- id: dea:conducted-under
+  chain: "Assessment → AssessmentFramework (A001: exactly one)"
+- id: dea:defines
+  chain: "Framework/MaturityModel → dimensions, criteria, indicators, levels, scales, rules (§5)"
+- id: dea:quantifies
+  chain: "Measure → Indicator/Observation (§9/§27)"
+- id: dea:derives-from
+  chain: "Score → Measure; AssessmentGap → Result+Target; BenchmarkReference → Benchmark (§11/§28/§30)"
+- id: dea:evaluated-by
+  chain: "AssessmentResult → AggregationRule/ScoringRule (§26; A009)"
+- id: dea:maps-onto
+  chain: "ScoringRule/MaturityMappingRule/MaturityRule → MaturityLevel/Scale (§11)"
+- id: dea:attains
+  chain: "AssessmentResult/AssessmentTarget → MaturityLevel (§13)"
+- id: dea:addressed-by
+  chain: "AssessmentGap → Change/ChangeInitiative (§31) — the assessment→transformation bridge"
+- id: dea:benchmarked-against
+  chain: "AssessmentResult → BenchmarkReference (§28; A011)"
+- id: dea:scoped-by
+  chain: "Assessment/AssessmentSubject → AssessmentScope (§15)"
+- id: dea:refers-to
+  chain: "assessment-layer objects → DEA entities (§14/§15) — references, not labels"
+- id: dea:originates-from
+  chain: "Evidence/Artifact/Measure/Observation → EvidenceSource (§16/§19 provenance)"
+reused_core_relationships:
+- id: dea:supports
+  extension: "Evidence/EvidenceArtifact → AssessmentResult (§17 — evidence supports, is not, the result)"
+- id: dea:produces
+  extension: "Assessment → AssessmentResult/Evidence (§10)"
+result_chain: "Observation → Measure → Score → AssessmentResult → MaturityLevel (CR-5 §27)"
+closed_loop: "Assessment → Current State → AssessmentGap → Change → Target Architecture → Outcome (CR-5 §31/§42)"

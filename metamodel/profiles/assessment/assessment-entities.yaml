@@ -1,0 +1,60 @@
+# Assessment profile entity anchors (CR-5 §3) — definitions authoritative in metamodel/dea-metamodel.yaml.
+#
+# The architectural separation this profile establishes (CR-5 §1):
+#   what the enterprise is          → DEA Core graph
+#   how the enterprise is assessed  → Assessment / AssessmentFramework
+#   what evidence supports it       → Evidence / EvidenceSource / EvidenceArtifact
+#   what maturity means             → MaturityModel / MaturityLevel (framework-owned)
+#   where the enterprise wants to be → AssessmentTarget
+version: 0.10.0
+entity_groups:
+  assessment:
+    section: CR-5 §4-§7, §14-§15
+    entities:
+    - dea:Assessment          # the evaluation event (§4)
+    - dea:AssessmentFramework # external methodology, independently versioned (§5, §33)
+    - dea:AssessmentDimension # assessment perspective — never an architectural entity (§6)
+    - dea:AssessmentCriterion # what is evaluated; never contains the result (§7)
+    - dea:AssessmentSubject   # the thing evaluated, at an explicit scope (§14)
+    - dea:AssessmentScope     # boundary as references to real enterprise entities (§15)
+  measurement:
+    section: CR-5 §8-§9, §27, Phase 2
+    entities:
+    - dea:Indicator           # what we observe (§8)
+    - dea:Observation         # raw observed fact (§27)
+    - dea:Measure             # what we quantify; unit referenced, never in the name (§9)
+    - dea:Score               # numerical evaluation — not intrinsically a maturity level (§11)
+    - dea:Scale               # declared value space (A004)
+    - dea:Unit                # standard quantity of a measure (Phase 2)
+  result:
+    section: CR-5 §10-§13, §20-§22, §25-§26, §30
+    entities:
+    - dea:AssessmentResult    # central object connecting assessment to architecture (§10)
+    - dea:AssessmentTarget    # desired future value/level with date + rationale (§21)
+    - dea:AssessmentGap       # derived difference current↔target; never authoritative (§30)
+    - dea:AggregationRule     # declared combination logic — never assumed arithmetic (§25)
+    - dea:ScoringRule         # measure → score transformation (§11)
+    - dea:MaturityMappingRule # score → maturity transformation (§11)
+  maturity:
+    section: CR-5 §12-§13
+    entities:
+    - dea:MaturityModel       # framework-owned, independently versioned (§33)
+    - dea:MaturityLevel       # belongs to the model, not the entity (§13)
+    - dea:MaturityScale
+    - dea:MaturityRule        # gating, ceilings, thresholds (§26)
+  evidence:
+    section: CR-5 §16-§19
+    entities:
+    - dea:Evidence            # first-class; supports results, is not the result (§17)
+    - dea:EvidenceSource
+    - dea:EvidenceArtifact
+  benchmarking:
+    section: CR-5 §28
+    entities:
+    - dea:Benchmark           # comparative reference — distinct from results and targets (A011)
+    - dea:BenchmarkPopulation
+    - dea:BenchmarkReference
+notes:
+- Confidence is a common structure (value, scale, rationale) on Evidence and AssessmentResult, not an entity (CR-5 §18).
+- Baseline/trajectory are expressed via AssessmentResult.state_role (baseline|current|target|forecast) and temporal anchors (CR-5 §20/§22/§29), not via separate entities.
+- EvidenceObservation (CR-5 §16 list) is represented by Observation + Evidence rather than a separate type.

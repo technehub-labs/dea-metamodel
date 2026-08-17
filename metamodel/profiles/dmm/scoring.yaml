@@ -1,0 +1,19 @@
+# DMMv5 scoring and aggregation container (CR-5 §11, §25-§26).
+# A009: aggregation rules must be declared — arithmetic is never hard-coded.
+# Substantive DMMv5 scoring rules are imported from the authoritative definition;
+# this file declares the rule kinds the framework may use.
+version: 5.0.0
+framework: dmm:dmmv5
+status: pending-authoritative-import
+supported_rule_kinds:
+  scoring: dea:ScoringRule
+  aggregation:
+  - weighted-average
+  - minimum-threshold
+  - gating            # e.g. "if Criterion B < 3, dimension maturity cannot exceed Level 2" (§26)
+  - ceiling
+  - qualitative-judgement
+  - evidence-sufficiency
+  - rule-based
+  maturity_mapping: dea:MaturityMappingRule   # score → level transformation is framework-defined (§11)
+rules: []

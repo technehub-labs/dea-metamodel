@@ -1,0 +1,11 @@
+# DMMv5 dimensions (CR-5 §6) — AssessmentDimension instances.
+# A dimension is an assessment perspective, not an architectural entity (§6).
+version: 5.0.0
+framework: dmm:dmmv5
+dimensions:
+- {id: dmm:dimension/strategy,    name: Strategy,    order: 1, kind: dea:AssessmentDimension}
+- {id: dmm:dimension/customer,    name: Customer,    order: 2, kind: dea:AssessmentDimension}
+- {id: dmm:dimension/culture,     name: Culture,     order: 3, kind: dea:AssessmentDimension}
+- {id: dmm:dimension/operations,  name: Operations,  order: 4, kind: dea:AssessmentDimension}
+- {id: dmm:dimension/technology,  name: Technology,  order: 5, kind: dea:AssessmentDimension}
+- {id: dmm:dimension/data,        name: Data,        order: 6, kind: dea:AssessmentDimension}

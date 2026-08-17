@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/scale.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "Scale",
   "description": "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) \u2014 e.g. a 0..1 ratio or a 1..5 ordinal range.",
   "type": "object",

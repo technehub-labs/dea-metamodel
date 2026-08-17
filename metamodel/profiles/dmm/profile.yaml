@@ -2,7 +2,7 @@
 profile:
   id: dea:dmm
   name: OpenDEA DMM Profile
-  version: 0.10.0
+  version: 0.11.0
   status: normative
   depends_on:
   - dea:core

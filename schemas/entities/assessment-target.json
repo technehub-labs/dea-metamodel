@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/assessment-target.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "AssessmentTarget",
   "description": "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity.",
   "type": "object",

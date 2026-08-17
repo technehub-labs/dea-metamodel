@@ -1,0 +1,34 @@
+# Architecture states (CR-6 Phase 3, §9-§13, §25-§27, §30-§31) — state semantics and isolation rules.
+version: 0.11.0
+states:
+  current:
+    entity: dea:CurrentState
+    rule: Best authoritative representation of what exists at a specified time (§11).
+    excludes: [proposed, planned, target, forecast, scenario, hypothetical]  # T003
+  baseline:
+    entity: dea:BaselineState
+    rule: Formally adopted reference state (§10) — a declared snapshot, not "whatever the model contains".
+    note: Snapshot may-become Baseline (§31); Snapshot ≠ Baseline until adopted.
+  target:
+    entity: dea:TargetState
+    rule: Intended future condition (§12). Target ≠ Current, ≠ Planned Change, ≠ Forecast (§27); T006.
+  transition:
+    entity: dea:TransitionState
+    rule: Intermediate plateaux between Current and Target (§13) — transformation never jumps.
+  scenario:
+    entity: dea:ScenarioState
+    container: dea:Scenario
+    rule: Hypothetical state under declared assumptions (§25). Scenario elements live inside the
+      scenario container and never enter CurrentState (§26; T007).
+forecast_vs_target:
+  # §27 + CR-5 integration: forecast (expected) and target (intended) are distinct;
+  # AssessmentResult.state_role already carries baseline|current|target|forecast (CR-5 §20/§29).
+  rule: The model exposes a forecast-to-target gap; a forecast may fail to reach the target.
+snapshot:
+  entity: dea:ArchitectureSnapshot
+  rule: Captured representation for audit, regulation, maturity assessment, comparison (§30).
+    Approved snapshots are immutable except via explicit revision (T010, revision_of).
+delta:
+  entity: dea:ArchitectureDelta
+  rule: Derived semantic difference between two states (§32) — added/removed/modified/replaced/
+    reclassified elements and relationship changes. Deltas are derived, never hand-authored (§33).

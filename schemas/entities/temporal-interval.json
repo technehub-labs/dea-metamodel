@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/temporal-interval.json",
+  "metamodel_version": "0.11.0",
+  "title": "TemporalInterval",
+  "description": "A bounded or open interval on one or more of the OpenDEA clocks (CR-6 §5): valid time (valid_from/valid_to), transaction time (recorded_at), observation time (observed_at), planned time (planned_start/planned_end) and effective time (effective_from/effective_to). The clocks are not interchangeable (§6): knowing a retirement in Aug 2026 for Jan 2027 produces recorded_at, planned and valid_to as three different facts.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Stable OpenDEA identifier (CR-3Q). Type prefix: dea:temporal-interval-"
+    },
+    "type": {
+      "type": "string",
+      "const": "TemporalInterval"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Valid time start (T001: valid_from < valid_to)."
+    },
+    "valid_to": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Transaction time — when the model learned this."
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "planned_start": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "planned_end": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "relationships": {
+      "type": "array",
+      "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

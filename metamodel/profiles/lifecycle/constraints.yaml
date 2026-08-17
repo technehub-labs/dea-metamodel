@@ -1,0 +1,33 @@
+# Temporal integrity rules (CR-6 §36) — enforced by tests/conformance/test_012_temporal_rules.py
+version: 0.11.0
+constraints:
+- id: T001
+  rule: No invalid intervals — valid_from < valid_to.
+  enforcement: "instance-level (TemporalInterval validation); metamodel-level — interval schema declares both fields (test_012)"
+- id: T002
+  rule: No impossible lifecycle — Retired → Active only via an explicit reactivation transition.
+  enforcement: "metamodel-level — lifecycle.yaml declares the reactivation transition; LifecycleTransition carries reactivation flag (test_012)"
+- id: T003
+  rule: No future entity in current state — planned elements cannot appear in authoritative current architecture.
+  enforcement: "metamodel-level — states.yaml current-state exclusion list (test_012)"
+- id: T004
+  rule: Temporal relationship integrity — a relationship cannot be active outside the validity of endpoints that must exist.
+  enforcement: "metamodel-level — relationship-instance schema carries valid_from/valid_to (test_012); instance-level validation"
+- id: T005
+  rule: No contradictory lifecycle states — not simultaneously Active and Retired for the same scope and time.
+  enforcement: "instance-level (in-state edge intervals); history preserved as events (§17)"
+- id: T006
+  rule: Target separation — target-state entities must not be interpreted as current-state entities.
+  enforcement: "metamodel-level — CurrentState and TargetState are distinct types with exclusion rules (test_012)"
+- id: T007
+  rule: Scenario isolation — scenario entities cannot silently contaminate the authoritative architecture.
+  enforcement: "metamodel-level — scenario containment via dea:contains inside dea:Scenario (test_012)"
+- id: T008
+  rule: Version ordering — version relationships must be acyclic.
+  enforcement: "metamodel-level — dea:precedes is non-symmetric, non-transitive; acyclicity declared (test_012); instance-level cycle detection"
+- id: T009
+  rule: Supersession consistency — a superseded entity must have a valid successor where semantics require one.
+  enforcement: "instance-level (supersedes endpoint validation); dea:supersedes kept distinct from dea:version-of (§20)"
+- id: T010
+  rule: Historical immutability — approved snapshots are mutated only via explicit revision semantics.
+  enforcement: "metamodel-level — ArchitectureSnapshot carries approved + revision_of (test_012)"

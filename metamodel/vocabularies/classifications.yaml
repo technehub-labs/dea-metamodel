@@ -525,3 +525,19 @@ classifications:
     entity: EvidenceSource
     property: source_kind
     values: [system, document-store, interview, survey, audit, log-pipeline, api, manual]
+  ArchitectureState.state_kind:
+    entity: ArchitectureState
+    property: state_kind
+    values: [current, baseline, target, transition, scenario]
+  LifecycleEvent.event_type:
+    entity: LifecycleEvent
+    property: event_type
+    values: [created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded]
+  Scenario.scenario_status:
+    entity: Scenario
+    property: scenario_status
+    values: [draft, under-evaluation, adopted-as-target, rejected, archived]
+  Transition.transition_status:
+    entity: Transition
+    property: transition_status
+    values: [planned, active, completed, cancelled]

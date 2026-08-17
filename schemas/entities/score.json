@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/score.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "Score",
   "description": "A numerical or ordinal evaluation derived from measures against a declared scale (CR-5 §11). A score is not intrinsically a maturity level; the framework defines the transformation. Derivation from measures is expressed via the dea:derives-from relationship (CR-3: no relationship state on entities).",
   "type": "object",

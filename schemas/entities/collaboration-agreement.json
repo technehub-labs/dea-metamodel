@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/collaboration-agreement.json",
-  "metamodel_version": "0.10.0",
+  "metamodel_version": "0.11.0",
   "title": "Collaboration Agreement",
   "description": "Terms governing cooperation with an ecosystem actor — cooperative or mandated. OpenDEAM v0.2.0: allocated to L1 Ecosystem & Value Network / Collaboration Agreements (moved from L2 by ADR-0002 D2 — an agreement is a feature of the exchange surface, not internal governance).",
   "type": "object",

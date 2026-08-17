@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.10.0
+  version: 0.11.0
   status: draft
   normative: true
   namespace:
@@ -66,6 +66,9 @@ dimensions:
 - id: semantic-dimension
   name: Semantic Dimension
   kind: cross-cutting concept graph (not a layer, not a static glossary)
+- id: temporal-dimension
+  name: Temporal & Lifecycle Dimension
+  kind: cross-cutting temporal overlay (CR-6 — time is orthogonal to layers, like measurement)
 entities:
 - id: dea:Entity
   name: Entity
@@ -2038,6 +2041,366 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:TemporalInterval
+  name: TemporalInterval
+  legacy_ids: []
+  definition: "A bounded or open interval on one or more of the OpenDEA clocks (CR-6 §5): valid time (valid_from/valid_to), transaction time (recorded_at), observation time (observed_at), planned time (planned_start/planned_end) and effective time (effective_from/effective_to). The clocks are not interchangeable (§6): knowing a retirement in Aug 2026 for Jan 2027 produces recorded_at, planned and valid_to as three different facts."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/temporal-interval.json
+    sqlite_table: temporal_intervals
+    pydantic_model: pydantic/temporal_interval.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TemporalEvent
+  name: TemporalEvent
+  legacy_ids: []
+  definition: "Abstract anchor for something that happened at a point in time (CR-6 §3/§29). An event is not a state: events occur; states are the conditions that result from events. Specialized by LifecycleEvent."
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TemporalState
+  name: TemporalState
+  legacy_ids: []
+  definition: "Abstract anchor for a condition that holds over a temporal extent (CR-6 §3/§29). Specialized by LifecycleState and ArchitectureState."
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleState
+  name: LifecycleState
+  legacy_ids: []
+  definition: "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile — never blindly uniform — and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/lifecycle-state.json
+    sqlite_table: lifecycle_states
+    pydantic_model: pydantic/lifecycle_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleEvent
+  name: LifecycleEvent
+  legacy_ids: []
+  definition: "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source — the raw material of architectural history (§17)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/lifecycle-event.json
+    sqlite_table: lifecycle_events
+    pydantic_model: pydantic/lifecycle_event.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:LifecycleTransition
+  name: LifecycleTransition
+  legacy_ids: []
+  definition: "A declared, allowed movement between two LifecycleStates for an entity scope (CR-6 §7; T002). Retired → Active is impossible unless an explicit reactivation transition is declared."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/lifecycle-transition.json
+    sqlite_table: lifecycle_transitions
+    pydantic_model: pydantic/lifecycle_transition.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Transition
+  name: Transition
+  legacy_ids: []
+  definition: "The movement between two architecture states, caused by a Change (CR-6 §14): from-state, to-state, causing change, planned/actual start and end, and status. A planned transition is never actual architecture (§2/§16)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/transition.json
+    sqlite_table: transitions
+    pydantic_model: pydantic/transition.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureState
+  name: ArchitectureState
+  legacy_ids: []
+  definition: "A coherent representation of the enterprise architecture at a defined temporal point or condition (CR-6 §9): contains elements, valid-during an interval. Architecture is a time-dependent state of the enterprise, not a static catalogue (§1). Specialized as Baseline/Current/Target/Transition/Scenario states."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/architecture-state.json
+    sqlite_table: architecture_states
+    pydantic_model: pydantic/architecture_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:BaselineState
+  name: BaselineState
+  legacy_ids: []
+  definition: "A formally adopted reference state of the architecture (CR-6 §10) — a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/baseline-state.json
+    sqlite_table: baseline_states
+    pydantic_model: pydantic/baseline_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:CurrentState
+  name: CurrentState
+  legacy_ids: []
+  definition: "The best authoritative representation of what exists at a specified time (CR-6 §11): actual elements, actual relationships, actual lifecycle states. Planned, proposed, target and hypothetical elements are excluded (T003)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/current-state.json
+    sqlite_table: current_states
+    pydantic_model: pydantic/current_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TargetState
+  name: TargetState
+  legacy_ids: []
+  definition: "An intended future condition of the architecture (CR-6 §12). Target ≠ Current, Target ≠ Planned Change, Target ≠ Forecast (§27). Target-state entities must never be read as current-state (T006)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/target-state.json
+    sqlite_table: target_states
+    pydantic_model: pydantic/target_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:TransitionState
+  name: TransitionState
+  legacy_ids: []
+  definition: "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → … → Target, never in one jump."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/transition-state.json
+    sqlite_table: transition_states
+    pydantic_model: pydantic/transition_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Scenario
+  name: Scenario
+  legacy_ids: []
+  definition: "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) — e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/scenario.json
+    sqlite_table: scenarios
+    pydantic_model: pydantic/scenario.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ScenarioState
+  name: ScenarioState
+  legacy_ids: []
+  definition: "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container — they are never inserted into CurrentState (T007)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/scenario-state.json
+    sqlite_table: scenario_states
+    pydantic_model: pydantic/scenario_state.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ScenarioAssumption
+  name: ScenarioAssumption
+  legacy_ids: []
+  definition: "A declared assumption under which a Scenario holds (CR-6 §25). Assumptions make the difference between a scenario and a target explicit and auditable."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/scenario-assumption.json
+    sqlite_table: scenario_assumptions
+    pydantic_model: pydantic/scenario_assumption.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureSnapshot
+  name: ArchitectureSnapshot
+  legacy_ids: []
+  definition: "A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/architecture-snapshot.json
+    sqlite_table: architecture_snapshots
+    pydantic_model: pydantic/architecture_snapshot.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:ArchitectureDelta
+  name: ArchitectureDelta
+  legacy_ids: []
+  definition: "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?' — the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/architecture-delta.json
+    sqlite_table: architecture_deltas
+    pydantic_model: pydantic/architecture_delta.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
+- id: dea:Version
+  name: Version
+  legacy_ids: []
+  definition: "An identity-evolution marker of a versioned entity (CR-6 §18/§19): v1.0 → v1.1 → v2.0 says nothing about operational state. Version, lifecycle and temporal validity are three different concepts; version-of and superseded-by are different relationships (§20). Version chains are acyclic (T008)."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/version.json
+    sqlite_table: versions
+    pydantic_model: pydantic/version.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:lifecycle
 relationships:
 - id: dea:composes
   name: Composes
@@ -2120,6 +2483,14 @@ relationships:
   source:
     types:
     - dea:ArchitecturePattern
+    - dea:ArchitectureState
+    - dea:BaselineState
+    - dea:CurrentState
+    - dea:LifecycleEvent
+    - dea:LifecycleState
+    - dea:ScenarioState
+    - dea:TargetState
+    - dea:TransitionState
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
@@ -2127,6 +2498,9 @@ relationships:
   target:
     types:
     - dea:ArchitecturePattern
+    - dea:ArchitectureState
+    - dea:TemporalEvent
+    - dea:TemporalState
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
@@ -2196,6 +2570,7 @@ relationships:
   source:
     types:
     - dea:ApplicationComponent
+    - dea:Change
     - dea:Behavior
     - dea:BusinessProcess
     - dea:InfrastructureComponent
@@ -2204,6 +2579,7 @@ relationships:
     - dea:SystemFunction
   target:
     types:
+    - dea:ArchitectureState
     - dea:BusinessCapability
     - dea:BusinessObject
     - dea:BusinessService
@@ -2285,6 +2661,7 @@ relationships:
   source:
     types:
     - dea:ApplicationComponent
+    - dea:Change
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:IntegrationComponent
@@ -2295,6 +2672,7 @@ relationships:
   target:
     types:
     - dea:API
+    - dea:Change
     - dea:ApplicationComponent
     - dea:BusinessService
     - dea:InfrastructureComponent
@@ -2354,6 +2732,7 @@ relationships:
   source:
     types:
     - dea:AIMLModel
+    - dea:Change
     - dea:ApplicationComponent
     - dea:BusinessCapability
     - dea:PhysicalResource
@@ -2363,6 +2742,7 @@ relationships:
   target:
     types:
     - dea:BusinessCapability
+    - dea:Change
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:StrategicObjective
@@ -3346,12 +3726,14 @@ relationships:
   source:
     types:
     - dea:ApplicationComponent
+    - dea:Change
     - dea:BusinessService
     - dea:ChangeInitiative
     - dea:Technology
   target:
     types:
     - dea:ApplicationComponent
+    - dea:ArchitectureElement
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:Technology
@@ -3372,14 +3754,20 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:ApplicationComponent
     - dea:ArchitecturePattern
+    - dea:BusinessService
+    - dea:Technology
     - dea:Blueprint
     - dea:Concept
     - dea:Guardrail
     - dea:Tenet
   target:
     types:
+    - dea:ApplicationComponent
     - dea:ArchitecturePattern
+    - dea:BusinessService
+    - dea:Technology
     - dea:Blueprint
     - dea:Concept
     - dea:Guardrail
@@ -3916,6 +4304,331 @@ relationships:
   transitive: false
   symmetric: false
   temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:valid-during
+  name: Valid During
+  definition: "The source holds or is captured over the target TemporalInterval (CR-6 §9/§14/§19/§30). Valid time is distinct from transaction, observation, planned and effective time (§5)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:ArchitectureState
+    - dea:ArchitectureSnapshot
+    - dea:Transition
+    - dea:Version
+  target:
+    types:
+    - dea:TemporalInterval
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:validity-of
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:contains
+  name: Contains
+  definition: "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes)."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+    - dea:ArchitectureState
+    - dea:BaselineState
+    - dea:CurrentState
+    - dea:TargetState
+    - dea:TransitionState
+    - dea:ScenarioState
+    - dea:ArchitectureSnapshot
+    - dea:Scenario
+  target:
+    types:
+    - dea:ArchitectureElement
+    - dea:ScenarioAssumption
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:contained-in
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:from-state
+  name: From State
+  definition: "The source transition, lifecycle transition or delta starts from the target state (CR-6 §14/§32)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:Transition
+    - dea:LifecycleTransition
+    - dea:ArchitectureDelta
+  target:
+    types:
+    - dea:ArchitectureState
+    - dea:BaselineState
+    - dea:CurrentState
+    - dea:TargetState
+    - dea:TransitionState
+    - dea:ScenarioState
+    - dea:LifecycleState
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:origin-of-transition
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:to-state
+  name: To State
+  definition: "The source transition, lifecycle transition or delta arrives at the target state (CR-6 §14/§32)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:Transition
+    - dea:LifecycleTransition
+    - dea:ArchitectureDelta
+  target:
+    types:
+    - dea:ArchitectureState
+    - dea:BaselineState
+    - dea:CurrentState
+    - dea:TargetState
+    - dea:TransitionState
+    - dea:ScenarioState
+    - dea:LifecycleState
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:destination-of-transition
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:caused-by
+  name: Caused By
+  definition: "A Transition between architecture states is caused by a Change (CR-6 §14). Planned transitions caused by planned changes are never actual architecture (§16)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:Transition
+  target:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:causes
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:introduces
+  name: Introduces
+  definition: "A Change introduces a new architecture element into a state (CR-6 §15)."
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  target:
+    types:
+    - dea:ArchitectureElement
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:introduced-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:removes
+  name: Removes
+  definition: "A Change removes an architecture element from a state (CR-6 §15). History is preserved: removal is an event with temporal bounds, never a silent delete (§17)."
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  target:
+    types:
+    - dea:ArchitectureElement
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:removed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:modifies
+  name: Modifies
+  definition: "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects."
+  category: transformation
+  direction: source-to-target
+  source:
+    types:
+    - dea:Change
+    - dea:ChangeInitiative
+  target:
+    types:
+    - dea:ArchitectureElement
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:modified-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:in-state
+  name: In State
+  definition: "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:Entity
+  target:
+    types:
+    - dea:LifecycleState
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:state-of
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:records
+  name: Records
+  definition: "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:LifecycleEvent
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:recorded-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:captures
+  name: Captures
+  definition: "An ArchitectureSnapshot captures an ArchitectureState at a point in time (CR-6 §30)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:ArchitectureSnapshot
+  target:
+    types:
+    - dea:ArchitectureState
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:captured-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:may-become
+  name: May Become
+  definition: "An ArchitectureSnapshot may be formally adopted as a BaselineState (CR-6 §31). Snapshot ≠ Baseline until adopted."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:ArchitectureSnapshot
+  target:
+    types:
+    - dea:BaselineState
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:adopted-from
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:version-of
+  name: Version Of
+  definition: "A Version identifies one identity-evolution step of the target entity (CR-6 §19/§20). Distinct from lifecycle state and from supersession."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+    - dea:Version
+  target:
+    types:
+    - dea:Entity
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:has-version
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
+- id: dea:precedes
+  name: Precedes
+  definition: "A Version precedes the next Version in an entity's identity evolution (CR-6 §19). Version chains are acyclic (T008)."
+  category: temporal
+  direction: source-to-target
+  source:
+    types:
+    - dea:Version
+  target:
+    types:
+    - dea:Version
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:follows
+  transitive: false
+  symmetric: false
+  temporal: false
   provenance: optional
   status: normative
   lifecycle: active

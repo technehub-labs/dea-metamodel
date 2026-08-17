@@ -14,7 +14,7 @@ current one ships.
 | [CR-004](CR-004.md) | Core DEA Ontology | Small, stable normative core + profile architecture | Implemented (v0.9.0) |
 | [CR-005](CR-005.md) | Assessment & Measurement | Separate DMM/measurement from architectural entities | Implemented (v0.10.0) |
 | [CR-006](CR-006.md) | Temporal & Lifecycle Semantics | Current/target/transition/time-aware architecture | Implemented (v0.11.0) |
-| CR-007 | Decision & Agentic Architecture | Decisions and agents first-class | Proposed — must not start before CR-2/3/4 |
+| [CR-007](CR-007.md) | Decision & Agentic Architecture | Decisions and agents first-class | Implemented (v0.12.0) |
 | CR-008 | Governance, Risk & Control | Formalized governance semantics | Proposed |
 | CR-009 | Extensions & Profiles | Modularize Data, AI, Security, Ecosystem, DMM | Proposed |
 | CR-010 | Conformance, Validation & Migration | Automated validation and migration of existing models | Proposed |

@@ -1,0 +1,20 @@
+# Intent semantics (CR-7 §3-§4, Phase A).
+version: 0.12.0
+principle: "Intent is not a goal metric (§3). Intent (direction) → Objective (measurable) → Outcome
+  (actual). The three must remain distinct — that distinction is what makes the causal loop measurable."
+examples:
+- intent: Reduce operational cost
+- intent: Improve customer experience
+- intent: Increase resilience
+- intent: Become AI-enabled
+- intent: Reduce technology complexity
+- intent: Improve regulatory compliance
+- intent: Increase data interoperability
+hierarchy:
+  # §4: composition supported, universal hierarchy NOT forced.
+  example: [enterprise-intent, strategic-intent, business-objective, transformation-objective, operational-objective]
+  rule: "Intent motivates Objective; Intent constrained-by Policy; Intent seeks Outcome."
+traceability:
+  # §44: the intent-to-outcome chain — a defining OpenDEA feature.
+  forward: "Strategic Intent → Objective → Decision → Change → Capability → Outcome"
+  backward: "Component ← Capability ← Objective ← Strategic Intent — 'why does this exist?'"

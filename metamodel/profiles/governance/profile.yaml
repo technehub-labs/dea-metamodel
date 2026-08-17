@@ -1,18 +1,66 @@
-# OpenDEA Governance Profile (CR-4 §28)
+# OpenDEA Governance Profile (CR-7 §61)
 profile:
   id: dea:governance
   name: OpenDEA Governance Profile
-  version: 0.11.0
-  status: draft
+  version: 0.12.0
+  status: normative
   depends_on:
   - dea:core
-  scope: Tenets, guardrails, regulations, controls, risks. Full governance semantics in CR-8.
+  - dea:assessment
+  - dea:lifecycle
+  scope: Intent, objective, policy, decision-structure, authority, delegation and governance semantics
+    (CR-7 §3-§19, §34-§44). The causal/governance layer — Intent → Objective → Policy → Decision →
+    Action → Change → Outcome → Evidence → reassessment (§2). An Agent is not the center of the
+    metamodel; decision, intent, authority, policy, evidence, action and accountability are (§1).
   entities:
-  - dea:Control
-  - dea:Guardrail
-  - dea:Regulation
-  - dea:Risk
-  - dea:Tenet
+  - dea:Intent
+  - dea:Objective
+  - dea:Policy
+  - dea:PolicyRule
+  - dea:PolicyEvaluation
+  - dea:PolicyDecision
+  - dea:DecisionOption
+  - dea:DecisionCriterion
+  - dea:DecisionRecord
+  - dea:Authority
+  - dea:Delegation
+  - dea:GovernanceBody
+  - dea:GovernanceRule
+  - dea:Action
+  relationships:
+  - dea:motivates
+  - dea:seeks
+  - dea:constrained-by
+  - dea:authorizes
+  - dea:performed-by
+  - dea:informed-by
+  - dea:delegates
+  - dea:grants
+  - dea:authorized-by
+  - dea:approves
+  - dea:establishes
+  - dea:consults
+  - dea:mitigates
+  - dea:escalates-to
+  - dea:evaluates
+  reused_core_entities:
+  - dea:Decision      # CR-4 §13 — extended by CR-7 §11/§17/§41 (rationale, confidence, uncertainty, assumptions, authority_ref)
+  - dea:Constraint    # CR-4 §16 — extended by CR-7 §10 (strength: hard/soft/preference/guideline)
+  - dea:Outcome       # CR-4 §14 — Objective seeks Outcome; Outcome is what actually happened (§6)
+  - dea:Risk          # existing — risk semantics (§42) via mitigates/controls
+  - dea:Control       # existing — RiskControl (§42)
+  - dea:Evidence      # CR-5 §16 — decision evidence reuses it; no DecisionEvidence duplicate (§16)
+  vocabulary_files:
+  - intent.yaml
+  - objectives.yaml
+  - policy.yaml
+  - authority.yaml
+  - governance.yaml
+  - constraints.yaml
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).
+  - "Decision ≠ Change (§12/G003): a decision authorizes a change; it does not constitute it."
+  - "Decision ≠ Action (§13): a decision may result in one or more actions."
+  - "Capability ≠ Authority (§18): structural, not documentary."
+  - "Agentic semantics reuse core DEA semantics (§65): AgentDecision/AgentAction/AgentOutcome are anti-patterns — use Decision + made-by Agent, Action + performed-by Agent, Outcome + results-in AgenticSystem."

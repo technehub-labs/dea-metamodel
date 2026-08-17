@@ -541,3 +541,44 @@ classifications:
     entity: Transition
     property: transition_status
     values: [planned, active, completed, cancelled]
+  Policy.policy_kind:
+    entity: Policy
+    property: policy_kind
+    values: [enterprise, domain, architecture, operational, agent]
+  PolicyEvaluation.result:
+    entity: PolicyEvaluation
+    property: result
+    values: [compliant, non-compliant, conditional, not-applicable]
+  PolicyDecision.decision:
+    entity: PolicyDecision
+    property: decision
+    values: [permit, deny, permit-with-conditions, escalate]
+  Action.reversibility:
+    entity: Action
+    property: reversibility
+    values: [reversible, irreversible, conditionally-reversible]
+  Constraint.strength:
+    entity: Constraint
+    property: strength
+    values: [hard, soft, preference, guideline]
+  Agent.agent_type:
+    entity: Agent
+    property: agent_type
+    values: [human, organizational, software, ai, autonomous-system, composite]
+  HumanOversight.oversight_pattern:
+    entity: HumanOversight
+    property: oversight_pattern
+    values: [approve-before, review-after, intervene-on-exception, continuous-supervision]
+  Approval.decision:
+    entity: Approval
+    property: decision
+    values: [granted, denied, granted-with-conditions]
+  Orchestration.orchestration_status:
+    entity: Orchestration
+    property: orchestration_status
+    values: [defined, running, paused, completed, failed, aborted]
+  Memory.memory_kind:
+    entity: Memory
+    property: memory_kind
+    values: [working, persistent, episodic, semantic]
+

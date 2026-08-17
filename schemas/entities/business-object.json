@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/business-object.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "BusinessObject",
   "description": "A real-world entity of interest to the business (e.g. Customer, Order, Product, Invoice, Feature Flag). Business Objects are the atoms that populate the ECF (Enterprise Concept Framework) matrix cells — every (domain, stage) cell contains the business objects currently in that lifecycle state. Ownership and stakeholders are referenced from typed catalogs. Catalog: technehub-labs/dea-catalog-business-objects.",
   "type": "object",

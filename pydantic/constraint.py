@@ -24,3 +24,5 @@ class Constraint(Entity):
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     statement: Optional[str] = None
     """The constraint statement in natural language."""
+    strength: Optional[Literal['hard', 'soft', 'preference', 'guideline']] = None
+    """CR-7 §10: constraint strength — hard (must), soft (should), preference, guideline."""

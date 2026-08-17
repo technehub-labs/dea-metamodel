@@ -1,0 +1,23 @@
+# Policy semantics (CR-7 §7-§10, §38-§39, Phase C/D/V).
+version: 0.12.0
+principle: "Policy ≠ Constraint (§9). A policy is a governing principle that directs behavior; a
+  constraint is a condition that limits what is possible. Constraint strength is explicit (§10):
+  hard / soft / preference / guideline — required for automated decision-making."
+examples:
+- All customer data must remain within approved jurisdictions.
+- Production AI agents must have human override capability.
+- Critical architecture decisions require Architecture Board approval.
+- No system may process PII without an approved data classification.
+- Technology components must use approved standards.
+hierarchy:
+  # §8: supported, not hard-coded.
+  example: [enterprise-policy, domain-policy, architecture-policy, operational-policy, agent-policy]
+  applies_to: [Organization, Capability, Process, Service, Application, Data, Technology, Agent, Decision, Change]
+enforcement:
+  # §38-§39: policies are evaluable. A PolicyEvaluation yields a PolicyDecision
+  # (permit/deny/permit-with-conditions/escalate) — distinct from an enterprise Decision.
+  chain: "Policy → evaluated-against → Action → compliant / non-compliant"
+  example:
+    policy: AI agents may not access restricted customer data.
+    agent_requests: customer database access
+    policy_decision: DENIED

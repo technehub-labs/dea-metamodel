@@ -1,5 +1,5 @@
 # DEA Metamodel — OWL/RDF Turtle Serialization
-# Version: 0.11.0
+# Version: 0.12.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
 
@@ -17,7 +17,7 @@
 # ─── Ontology Declaration ──────────────────────────────────
 
 dea: a owl:Ontology ;
-    owl:versionInfo "0.11.0" ;
+    owl:versionInfo "0.12.0" ;
     rdfs:label "Digital Enterprise Architecture Metamodel" ;
     dct:description "Canonical entity, relationship, and attribute definitions for the DEA catalog ecosystem." ;
     dct:creator "TechneHub Labs" ;
@@ -1284,3 +1284,311 @@ dea:precedes a owl:ObjectProperty ;
     skos:definition "A Version precedes the next Version in an entity's identity evolution (CR-6 §19). Version chains are acyclic (T008)." ;
     dea:category "temporal" ;
     dea:inverseOf "dea:follows" .
+
+# ═══ CR-7: Governance & agentic profile classes ═══
+
+dea:Intent a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Intent" ;
+    skos:definition "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) — e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)." .
+
+dea:Objective a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Objective" ;
+    skos:definition "Makes an Intent operationally measurable (CR-7 §5): statement, target value, unit, target date. Objective ≠ Outcome (§6): an objective is what we intend to achieve; an outcome is what happened. Connects to CR-5 via AssessmentTarget." .
+
+dea:Policy a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Policy" ;
+    skos:definition "A governing principle or rule that constrains or directs behavior (CR-7 §7), applicable to organizations, capabilities, processes, services, applications, data, technology, agents, decisions and changes (§8). Policy ≠ Constraint (§9): a policy directs; a constraint limits." .
+
+dea:PolicyRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "PolicyRule" ;
+    skos:definition "An atomic, evaluable rule within a Policy (CR-7 §7/§38) — the unit policy enforcement evaluates." .
+
+dea:PolicyEvaluation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "PolicyEvaluation" ;
+    skos:definition "The evaluation of an action or subject against a policy (CR-7 §38): policy, subject, action, context, result, reason, timestamp. Produces a PolicyDecision (§39)." .
+
+dea:PolicyDecision a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "PolicyDecision" ;
+    skos:definition "The outcome of a policy evaluation — e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate." .
+
+dea:DecisionOption a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "DecisionOption" ;
+    skos:definition "An alternative considered in a Decision (CR-7 §14), with cost, benefit, risk, constraint violations, expected outcome, dependencies, time and confidence. Makes decision-making explicit rather than burying rationale in documents." .
+
+dea:DecisionCriterion a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "DecisionCriterion" ;
+    skos:definition "A criterion by which decision options are evaluated (CR-7 §15): strategic alignment, cost, risk, time-to-value, security, regulatory compliance, customer impact, complexity, resilience." .
+
+dea:DecisionRecord a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "DecisionRecord" ;
+    skos:definition "The audit record of a Decision (CR-7 §11): who/what decided, what, why, on what evidence, under what authority, among which alternatives, with what consequences." .
+
+dea:Authority a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Authority" ;
+    skos:definition "The right to decide or act within defined limits (CR-7 §18). Capability to perform an action is not authority to perform it: an agent may be capable of approving transactions yet authorized only up to $10,000. This distinction is structural, not documentary." .
+
+dea:Delegation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Delegation" ;
+    skos:definition "The act of granting authority from a delegator to a delegate (CR-7 §19) with explicit scope, constraints, duration, conditions and revocation (G005)." .
+
+dea:GovernanceBody a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "GovernanceBody" ;
+    skos:definition "A body that sets policy, grants authority, reviews decisions, approves changes, monitors outcomes and enforces constraints (CR-7 §34): Architecture Review Board, AI Governance Board, Data Governance Council, Security Committee, Executive Steering Committee." .
+
+dea:GovernanceRule a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "GovernanceRule" ;
+    skos:definition "A rule established by a GovernanceBody (CR-7 §34) as part of the governance mechanism." .
+
+dea:Action a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Action" ;
+    skos:definition "A unit of execution that follows from a Decision (CR-7 §13). Decision ≠ Action: 'approve migration' vs 'execute migration'. Performed by an Actor or Agent (§65) within authority and policy boundaries; reversibility is explicit (§41) and drives control strictness." .
+
+dea:Agent a owl:Class ;
+    rdfs:subClassOf dea:Actor ;
+    rdfs:label "Agent" ;
+    skos:definition "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system — not its center (§1)." .
+
+dea:AgentProfile a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AgentProfile" ;
+    skos:definition "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle — placed inside the DEA semantic model rather than an isolated template." .
+
+dea:AgentSkill a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AgentSkill" ;
+    skos:definition "A reusable capability/competency available to an Agent (CR-7 §48/§49): purpose, inputs, outputs, preconditions, postconditions, tools, policies, decision/action scope, failure modes and escalation. AgentSkill ≠ BusinessCapability (§48): a skill may implement or contribute to one." .
+
+dea:Tool a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Tool" ;
+    skos:definition "An executable mechanism available to an Agent (CR-7 §30): CRM/ERP APIs, search, databases, workflow engines, payment services, code execution, knowledge graphs. Tool ≠ Service (§31): a Service exposes enterprise capability for consumption; a Tool is an invocable mechanism. They may overlap operationally but are semantically distinct." .
+
+dea:ToolPermission a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "ToolPermission" ;
+    skos:definition "Explicit permission governing an Agent's access to a Tool (CR-7 §30; G009): scope, constraints and authority. Tool access is never implicit." .
+
+dea:Orchestrator a owl:Class ;
+    rdfs:subClassOf dea:Actor ;
+    rdfs:label "Orchestrator" ;
+    skos:definition "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) — the three are never collapsed (§46)." .
+
+dea:Controller a owl:Class ;
+    rdfs:subClassOf dea:Actor ;
+    rdfs:label "Controller" ;
+    skos:definition "Enforces execution, state and control conditions in an agentic system (CR-7 §46): evaluates state, enforces policy, controls execution, triggers escalation." .
+
+dea:Orchestration a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Orchestration" ;
+    skos:definition "A coordinated execution of tasks, agents and services under an Orchestrator (CR-7 §47)." .
+
+dea:Workflow a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Workflow" ;
+    skos:definition "An ordered composition of tasks and decisions toward an outcome (CR-7 §47): Task A → Task B → Decision → Task C. Workflow ≠ Agent (§57), though a workflow may be part of an agentic system." .
+
+dea:Task a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Task" ;
+    skos:definition "A unit of work within a Workflow or Orchestration (CR-7 §47)." .
+
+dea:AutonomyPolicy a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AutonomyPolicy" ;
+    skos:definition "The policy governing how much autonomy an Agent may exercise (CR-7 §23) — the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale." .
+
+dea:AutonomyLevel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AutonomyLevel" ;
+    skos:definition "One level in a configurable autonomy model (CR-7 §23), e.g. 0 Inform · 1 Recommend · 2 Prepare · 3 Execute-with-approval · 4 Execute-within-delegated-authority · 5 Autonomous. The scale is a profile concern, never a boolean." .
+
+dea:HumanOversight a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "HumanOversight" ;
+    skos:definition "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision — materially different governance patterns." .
+
+dea:Approval a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Approval" ;
+    skos:definition "An approval act within a human-oversight pattern (CR-7 §25): approver, subject, decision, timestamp. The gate between recommendation and action in approve-before patterns." .
+
+dea:Escalation a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Escalation" ;
+    skos:definition "An escalation raised when authority, confidence or policy boundaries are exceeded (CR-7 §25; G011): actions exceeding an Agent's authority must escalate or fail safely." .
+
+dea:AgenticSystem a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AgenticSystem" ;
+    skos:definition "The architecture boundary of a multi-agent solution (CR-7 §58): a composition of agents, models, tools, services, policies, orchestration, memory and human oversight." .
+
+dea:AgentOpportunity a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "AgentOpportunity" ;
+    skos:definition "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived — never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)." .
+
+dea:Memory a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "Memory" ;
+    skos:definition "Information retained by or for an Agent (CR-7 §33). The DEA concern is governance, not AI implementation detail: what is retained, who controls it, how long, under what policy, who can access it." .
+
+# ═══ CR-7: Governance & agentic profile object properties ═══
+
+dea:motivates a owl:ObjectProperty ;
+    rdfs:label "Motivates" ;
+    skos:definition "An Intent motivates an Objective (CR-7 §4); objectives may decompose further. Composition is supported without a forced universal hierarchy." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:motivated-by" .
+
+dea:seeks a owl:ObjectProperty ;
+    rdfs:label "Seeks" ;
+    skos:definition "An Intent or Objective seeks an Outcome (CR-7 §4/§6). Objective = intended; Outcome = actual." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:sought-by" .
+
+dea:constrainedBy a owl:ObjectProperty ;
+    rdfs:label "Constrained By" ;
+    skos:definition "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:constrains" .
+
+dea:authorizes a owl:ObjectProperty ;
+    rdfs:label "Authorizes" ;
+    skos:definition "A Decision, Authority or GovernanceBody authorizes or directs a Change or Action (CR-7 §12/§35; G001). The decision authorizes the change; it does not constitute it (G003)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:authorized-by-decision" .
+
+dea:performedBy a owl:ObjectProperty ;
+    rdfs:label "Performed By" ;
+    skos:definition "An Action is performed by an Actor or Agent (CR-7 §65): 'Agent Action' is Action + performed-by Agent, never a separate AgentAction type." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:performs" .
+
+dea:informedBy a owl:ObjectProperty ;
+    rdfs:label "Informed By" ;
+    skos:definition "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type." ;
+    dea:category "traceability" ;
+    dea:inverseOf "dea:informs-decision" .
+
+dea:delegates a owl:ObjectProperty ;
+    rdfs:label "Delegates" ;
+    skos:definition "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:delegated-to" .
+
+dea:grants a owl:ObjectProperty ;
+    rdfs:label "Grants" ;
+    skos:definition "A Delegation or Authority grants rights to an Actor or Agent (CR-7 §18/§19)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:granted-to" .
+
+dea:authorizedBy a owl:ObjectProperty ;
+    rdfs:label "Authorized By" ;
+    skos:definition "The source acts or decides under the target Authority or Delegation (CR-7 §18; G006/G010). Autonomous action must stay within delegated authority." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:authorizes-party" .
+
+dea:approves a owl:ObjectProperty ;
+    rdfs:label "Approves" ;
+    skos:definition "A GovernanceBody, Actor or Approval approves a Decision, Change or Action (CR-7 §25/§35)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:approved-by" .
+
+dea:establishes a owl:ObjectProperty ;
+    rdfs:label "Establishes" ;
+    skos:definition "A GovernanceBody establishes a Policy or PolicyRule (CR-7 §35)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:established-by" .
+
+dea:consults a owl:ObjectProperty ;
+    rdfs:label "Consults" ;
+    skos:definition "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational." ;
+    dea:category "traceability" ;
+    dea:inverseOf "dea:consulted-by" .
+
+dea:mitigates a owl:ObjectProperty ;
+    rdfs:label "Mitigates" ;
+    skos:definition "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:mitigated-by" .
+
+dea:escalatesTo a owl:ObjectProperty ;
+    rdfs:label "Escalates To" ;
+    skos:definition "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:escalated-from" .
+
+dea:evaluates a owl:ObjectProperty ;
+    rdfs:label "Evaluates" ;
+    skos:definition "A PolicyEvaluation evaluates a Policy/PolicyRule against an Action or Agent (CR-7 §38), producing a PolicyDecision (permit/deny/escalate)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:evaluated-by-policy" .
+
+dea:hasSkill a owl:ObjectProperty ;
+    rdfs:label "Has Skill" ;
+    skos:definition "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014)." ;
+    dea:category "structural" ;
+    dea:inverseOf "dea:skill-of" .
+
+dea:invokes a owl:ObjectProperty ;
+    rdfs:label "Invokes" ;
+    skos:definition "A Tool, Orchestrator or AgentSkill invokes a Service, API, Task or Agent (CR-7 §30/§46)." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:invoked-by" .
+
+dea:coordinates a owl:ObjectProperty ;
+    rdfs:label "Coordinates" ;
+    skos:definition "An Orchestrator coordinates Agents, Workflows, Tasks and Services toward a goal (CR-7 §46/§50)." ;
+    dea:category "execution" ;
+    dea:inverseOf "dea:coordinated-by" .
+
+dea:enforces a owl:ObjectProperty ;
+    rdfs:label "Enforces" ;
+    skos:definition "A Controller enforces Policies, PolicyRules or Constraints on execution (CR-7 §46)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:enforced-by" .
+
+dea:permits a owl:ObjectProperty ;
+    rdfs:label "Permits" ;
+    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:permitted-by" .
+
+dea:prohibits a owl:ObjectProperty ;
+    rdfs:label "Prohibits" ;
+    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:prohibited-by" .
+
+dea:requiresApproval a owl:ObjectProperty ;
+    rdfs:label "Requires Approval" ;
+    skos:definition "An Action, Tool use or Skill invocation requires an Approval or HumanOversight gate before or after execution (CR-7 §24/§25)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:approval-for" .
+
+dea:hasOversight a owl:ObjectProperty ;
+    rdfs:label "Has Oversight" ;
+    skos:definition "An Agent or AgenticSystem operates under a HumanOversight pattern (CR-7 §25; G011)." ;
+    dea:category "governance" ;
+    dea:inverseOf "dea:oversees" .
+
+dea:accesses a owl:ObjectProperty ;
+    rdfs:label "Accesses" ;
+    skos:definition "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates." ;
+    dea:category "serving" ;
+    dea:inverseOf "dea:accessed-by" .

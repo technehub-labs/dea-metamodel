@@ -1,11 +1,16 @@
 # Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml
 # CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
-registry_version: 0.11.0
+registry_version: 0.12.0
 relationships:
 - id: dea:composes
   name: Composes
   category: structural
   source:
+  - dea:AgenticSystem
+  - dea:AutonomyPolicy
+  - dea:Decision
+  - dea:Orchestration
+  - dea:Workflow
   - dea:ApplicationComponent
   - dea:Blueprint
   - dea:BusinessCapability
@@ -18,6 +23,16 @@ relationships:
   - dea:SystemFunction
   target:
   - dea:Actor
+  - dea:AutonomyLevel
+  - dea:DecisionOption
+  - dea:Task
+  - dea:Agent
+  - dea:Controller
+  - dea:HumanOversight
+  - dea:Memory
+  - dea:Orchestrator
+  - dea:Policy
+  - dea:Tool
   - dea:ApplicationComponent
   - dea:ArchitecturePattern
   - dea:BusinessCapability
@@ -50,7 +65,10 @@ relationships:
   name: Specializes
   category: structural
   source:
+  - dea:Agent
   - dea:ArchitecturePattern
+  - dea:Controller
+  - dea:Orchestrator
   - dea:ArchitectureState
   - dea:BaselineState
   - dea:CurrentState
@@ -64,6 +82,7 @@ relationships:
   - dea:BusinessService
   - dea:Concept
   target:
+  - dea:Actor
   - dea:ArchitecturePattern
   - dea:ArchitectureState
   - dea:TemporalEvent
@@ -341,12 +360,15 @@ relationships:
   category: serving
   source:
   - dea:Actor
+  - dea:Agent
+  - dea:Orchestrator
   - dea:ApplicationComponent
   - dea:BusinessProcess
   - dea:JourneyTouchpoint
   - dea:SolutionComponent
   target:
   - dea:API
+  - dea:Tool
   - dea:BusinessService
   - dea:DigitalIdentity
   - dea:PlatformService
@@ -375,10 +397,12 @@ relationships:
   category: execution
   source:
   - dea:Actor
+  - dea:Orchestrator
   - dea:OrganizationalUnit
   - dea:Role
   target:
   - dea:Behavior
+  - dea:Orchestration
   - dea:BusinessFunction
   - dea:BusinessProcess
   inverse: dea:performed-by
@@ -415,12 +439,14 @@ relationships:
   name: Triggers
   category: execution
   source:
+  - dea:Controller
   - dea:Decision
   - dea:Event
   - dea:ModelFeedbackSignal
   - dea:Signal
   target:
   - dea:AIMLModel
+  - dea:Escalation
   - dea:Behavior
   - dea:BusinessProcess
   - dea:Experiment
@@ -433,6 +459,7 @@ relationships:
   category: governance
   source:
   - dea:CollaborationAgreement
+  - dea:GovernanceBody
   - dea:Guardrail
   - dea:OrganizationalUnit
   - dea:Regulation
@@ -440,6 +467,9 @@ relationships:
   - dea:Tenet
   target:
   - dea:AIMLModel
+  - dea:Agent
+  - dea:AgenticSystem
+  - dea:ArchitectureElement
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:EcosystemActor
@@ -486,6 +516,8 @@ relationships:
   - dea:Organization
   - dea:OrganizationalUnit
   target:
+  - dea:Agent
+  - dea:AgenticSystem
   - dea:ApplicationComponent
   - dea:BusinessCapability
   - dea:BusinessFunction
@@ -505,7 +537,10 @@ relationships:
   - dea:OrganizationalUnit
   - dea:Role
   target:
+  - dea:Action
+  - dea:Agent
   - dea:ArchitectureElement
+  - dea:Decision
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
@@ -843,6 +878,7 @@ relationships:
   category: governance
   source:
   - dea:Actor
+  - dea:Agent
   - dea:OrganizationalUnit
   target:
   - dea:Decision
@@ -853,6 +889,8 @@ relationships:
   name: Results In
   category: transformation
   source:
+  - dea:Action
+  - dea:AgenticSystem
   - dea:Decision
   - dea:Change
   target:
@@ -955,6 +993,7 @@ relationships:
   name: Derives From
   category: assessment
   source:
+  - dea:AgentOpportunity
   - dea:AssessmentGap
   - dea:Benchmark
   - dea:BenchmarkReference
@@ -973,8 +1012,10 @@ relationships:
   category: assessment
   source:
   - dea:AssessmentResult
+  - dea:Decision
   target:
   - dea:AggregationRule
+  - dea:DecisionCriterion
   - dea:ScoringRule
   inverse: dea:evaluates
   status: normative
@@ -1030,6 +1071,7 @@ relationships:
   category: assessment
   source:
   - dea:AssessmentSubject
+  - dea:DecisionRecord
   - dea:AssessmentScope
   - dea:AssessmentTarget
   - dea:Evidence
@@ -1071,6 +1113,7 @@ relationships:
   category: structural
   source:
   - dea:ArchitectureState
+  - dea:Memory
   - dea:BaselineState
   - dea:CurrentState
   - dea:TargetState
@@ -1080,6 +1123,7 @@ relationships:
   - dea:Scenario
   target:
   - dea:ArchitectureElement
+  - dea:Information
   - dea:ScenarioAssumption
   inverse: dea:contained-in
   status: normative
@@ -1222,5 +1266,310 @@ relationships:
   target:
   - dea:Version
   inverse: dea:follows
+  status: normative
+  lifecycle: active
+- id: dea:motivates
+  name: Motivates
+  category: governance
+  source:
+  - dea:Intent
+  - dea:Objective
+  target:
+  - dea:Objective
+  inverse: dea:motivated-by
+  status: normative
+  lifecycle: active
+- id: dea:seeks
+  name: Seeks
+  category: governance
+  source:
+  - dea:Intent
+  - dea:Objective
+  target:
+  - dea:Outcome
+  inverse: dea:sought-by
+  status: normative
+  lifecycle: active
+- id: dea:constrained-by
+  name: Constrained By
+  category: governance
+  source:
+  - dea:Intent
+  - dea:Objective
+  - dea:Decision
+  - dea:Action
+  - dea:Change
+  - dea:Agent
+  - dea:ArchitectureElement
+  target:
+  - dea:Policy
+  - dea:PolicyRule
+  - dea:Constraint
+  inverse: dea:constrains
+  status: normative
+  lifecycle: active
+- id: dea:authorizes
+  name: Authorizes
+  category: governance
+  source:
+  - dea:Decision
+  - dea:Authority
+  - dea:GovernanceBody
+  target:
+  - dea:Change
+  - dea:Action
+  inverse: dea:authorized-by-decision
+  status: normative
+  lifecycle: active
+- id: dea:performed-by
+  name: Performed By
+  category: execution
+  source:
+  - dea:Action
+  target:
+  - dea:Actor
+  - dea:Agent
+  inverse: dea:performs
+  status: normative
+  lifecycle: active
+- id: dea:informed-by
+  name: Informed By
+  category: traceability
+  source:
+  - dea:Decision
+  - dea:PolicyDecision
+  target:
+  - dea:Evidence
+  inverse: dea:informs-decision
+  status: normative
+  lifecycle: active
+- id: dea:delegates
+  name: Delegates
+  category: governance
+  source:
+  - dea:Actor
+  - dea:GovernanceBody
+  target:
+  - dea:Actor
+  - dea:Agent
+  inverse: dea:delegated-to
+  status: normative
+  lifecycle: active
+- id: dea:grants
+  name: Grants
+  category: governance
+  source:
+  - dea:Delegation
+  - dea:Authority
+  target:
+  - dea:Actor
+  - dea:Agent
+  inverse: dea:granted-to
+  status: normative
+  lifecycle: active
+- id: dea:authorized-by
+  name: Authorized By
+  category: governance
+  source:
+  - dea:Agent
+  - dea:Decision
+  - dea:Action
+  - dea:Change
+  target:
+  - dea:Authority
+  - dea:Delegation
+  inverse: dea:authorizes-party
+  status: normative
+  lifecycle: active
+- id: dea:approves
+  name: Approves
+  category: governance
+  source:
+  - dea:GovernanceBody
+  - dea:Actor
+  - dea:Approval
+  target:
+  - dea:Decision
+  - dea:Change
+  - dea:Action
+  inverse: dea:approved-by
+  status: normative
+  lifecycle: active
+- id: dea:establishes
+  name: Establishes
+  category: governance
+  source:
+  - dea:GovernanceBody
+  target:
+  - dea:GovernanceRule
+  - dea:Policy
+  - dea:PolicyRule
+  inverse: dea:established-by
+  status: normative
+  lifecycle: active
+- id: dea:consults
+  name: Consults
+  category: traceability
+  source:
+  - dea:Decision
+  - dea:Actor
+  - dea:Agent
+  target:
+  - dea:Actor
+  - dea:GovernanceBody
+  inverse: dea:consulted-by
+  status: normative
+  lifecycle: active
+- id: dea:mitigates
+  name: Mitigates
+  category: governance
+  source:
+  - dea:Decision
+  - dea:Control
+  - dea:Change
+  target:
+  - dea:Risk
+  inverse: dea:mitigated-by
+  status: normative
+  lifecycle: active
+- id: dea:escalates-to
+  name: Escalates To
+  category: governance
+  source:
+  - dea:Action
+  - dea:Agent
+  - dea:Escalation
+  target:
+  - dea:Actor
+  - dea:GovernanceBody
+  inverse: dea:escalated-from
+  status: normative
+  lifecycle: active
+- id: dea:evaluates
+  name: Evaluates
+  category: governance
+  source:
+  - dea:PolicyEvaluation
+  target:
+  - dea:Policy
+  - dea:PolicyRule
+  - dea:Action
+  - dea:Agent
+  inverse: dea:evaluated-by-policy
+  status: normative
+  lifecycle: active
+- id: dea:has-skill
+  name: Has Skill
+  category: structural
+  source:
+  - dea:Agent
+  target:
+  - dea:AgentSkill
+  inverse: dea:skill-of
+  status: normative
+  lifecycle: active
+- id: dea:invokes
+  name: Invokes
+  category: execution
+  source:
+  - dea:Tool
+  - dea:Orchestrator
+  - dea:AgentSkill
+  target:
+  - dea:Service
+  - dea:API
+  - dea:Task
+  - dea:Agent
+  inverse: dea:invoked-by
+  status: normative
+  lifecycle: active
+- id: dea:coordinates
+  name: Coordinates
+  category: execution
+  source:
+  - dea:Orchestrator
+  target:
+  - dea:Agent
+  - dea:Workflow
+  - dea:Task
+  - dea:Service
+  inverse: dea:coordinated-by
+  status: normative
+  lifecycle: active
+- id: dea:enforces
+  name: Enforces
+  category: governance
+  source:
+  - dea:Controller
+  target:
+  - dea:Policy
+  - dea:PolicyRule
+  - dea:Constraint
+  inverse: dea:enforced-by
+  status: normative
+  lifecycle: active
+- id: dea:permits
+  name: Permits
+  category: governance
+  source:
+  - dea:AgentProfile
+  - dea:AutonomyPolicy
+  - dea:ToolPermission
+  target:
+  - dea:Action
+  - dea:Tool
+  - dea:AgentSkill
+  inverse: dea:permitted-by
+  status: normative
+  lifecycle: active
+- id: dea:prohibits
+  name: Prohibits
+  category: governance
+  source:
+  - dea:AgentProfile
+  - dea:AutonomyPolicy
+  - dea:ToolPermission
+  target:
+  - dea:Action
+  - dea:Tool
+  - dea:AgentSkill
+  inverse: dea:prohibited-by
+  status: normative
+  lifecycle: active
+- id: dea:requires-approval
+  name: Requires Approval
+  category: governance
+  source:
+  - dea:Action
+  - dea:Tool
+  - dea:AgentSkill
+  target:
+  - dea:Approval
+  - dea:HumanOversight
+  inverse: dea:approval-for
+  status: normative
+  lifecycle: active
+- id: dea:has-oversight
+  name: Has Oversight
+  category: governance
+  source:
+  - dea:Agent
+  - dea:AgenticSystem
+  target:
+  - dea:HumanOversight
+  inverse: dea:oversees
+  status: normative
+  lifecycle: active
+- id: dea:accesses
+  name: Accesses
+  category: serving
+  source:
+  - dea:Agent
+  target:
+  - dea:Information
+  - dea:InformationAsset
+  - dea:KnowledgeAsset
+  - dea:Memory
+  inverse: dea:accessed-by
   status: normative
   lifecycle: active

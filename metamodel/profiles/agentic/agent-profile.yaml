@@ -1,0 +1,29 @@
+# AgentProfile structure (CR-7 §22, Phase J).
+version: 0.12.0
+structure:
+  id: null
+  name: null
+  type: null            # human | organizational | software | ai | autonomous-system | composite
+  purpose: null
+  objectives: []
+  capabilities: []
+  knowledge: []
+  models: []            # models the agent USES (§21) — not the agent itself
+  tools: []
+  policies: []
+  authority: null
+  decision_scope: null
+  action_scope: null
+  autonomy_level: null
+  human_oversight: null
+  memory: null
+  state: null
+  inputs: []
+  outputs: []
+  risks: []
+  controls: []
+  owner: null
+  lifecycle: null
+note: "This places the Agent Profile work into the DEA semantic model rather than an isolated
+  template (§22). The profile connects to Authority/Policy/HumanOversight via relationships,
+  never by copying their content."

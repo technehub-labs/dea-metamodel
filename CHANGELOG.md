@@ -4,6 +4,41 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [0.12.0] — 2026-08-17 — CR-007: Decision, Intent, Policy, Governance & Agentic Semantics
+
+### Added
+- **Governance profile** `metamodel/profiles/governance/` — 14 entities: Intent, Objective,
+  Policy, PolicyRule, PolicyEvaluation, PolicyDecision, DecisionOption, DecisionCriterion,
+  DecisionRecord, Authority, Delegation, GovernanceBody, GovernanceRule, Action.
+- **Agentic profile** `metamodel/profiles/agentic/` — 18 entities: Agent (specializes Actor),
+  AgentProfile, AgentSkill, Tool, ToolPermission, Orchestrator, Controller, Orchestration,
+  Workflow, Task, AutonomyPolicy, AutonomyLevel, HumanOversight, Approval, Escalation,
+  AgenticSystem, AgentOpportunity, Memory.
+- **24 relationships**: motivates, seeks, constrained-by, authorizes, performed-by,
+  informed-by, delegates, grants, authorized-by, approves, establishes, consults, mitigates,
+  escalates-to, evaluates, has-skill, invokes, coordinates, enforces, permits, prohibits,
+  requires-approval, has-oversight, accesses.
+- **G001–G016 conformance** (test_013) — suite now 112 tests.
+- Core schema extensions: Decision + rationale/confidence/uncertainty/assumptions/authority_ref
+  (§11/§17); Constraint + strength hard/soft/preference/guideline (§10);
+  Action reversibility (§41).
+
+### Changed
+- Endpoint extensions: agents make Decisions (§65), GovernanceBody governs/establishes,
+  owns covers Agents (G007), composes covers AgenticSystem (§58) and Decision options,
+  accountable-for covers Decision/Action (G016), specializes wires Agent/Orchestrator/
+  Controller under Actor (§27/§46).
+- The causal loop is now complete: Intent → Objective → Policy → Decision → Action →
+  Change → State → Outcome → Evidence → Assessment → new Decision (§2/§45/§68).
+
+### Deferred
+- 32 governance/agentic entities await upstream OpenDEAM allocation before entering the
+  viewer graph.
+- RACI profile (§37), AI Agent Maturity assessment profile (§54), agent readiness
+  scoring (§55) → follow-up profiles reusing CR-5 machinery.
+- LLM/prompt/RAG/vendor-framework specifics → technology profiles, deliberately out of
+  scope (§66).
+
 ## [0.11.0] — 2026-08-17 — CR-006: Temporal, Lifecycle & Transition Semantics
 
 ### Added

@@ -835,6 +835,240 @@ CREATE TABLE IF NOT EXISTS versions (
     released_at     TEXT
 );
 
+
+-- ═══════════════════════════════════════════════════════════
+-- CR-7: Decision, Intent, Policy & Governance (profile dea:governance)
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS intents (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    intent_kind        TEXT
+    statement          TEXT
+);
+
+CREATE TABLE IF NOT EXISTS objectives (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    intent_ref         TEXT
+    statement          TEXT
+    target_value       TEXT
+    unit               TEXT
+);
+
+CREATE TABLE IF NOT EXISTS policies (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    policy_kind        TEXT
+    statement          TEXT
+    applicability      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS policy_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    policy_ref         TEXT
+    expression         TEXT
+    applies_to         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS policy_evaluations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    policy_ref         TEXT
+    subject_ref        TEXT
+    action_ref         TEXT
+    context            TEXT
+);
+
+CREATE TABLE IF NOT EXISTS policy_decisions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    evaluation_ref     TEXT
+    decision           TEXT
+    decided_at         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS decision_options (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    decision_ref       TEXT
+    cost               TEXT
+    benefit            TEXT
+    risk               TEXT
+);
+
+CREATE TABLE IF NOT EXISTS decision_criteria (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    criterion_kind     TEXT
+    weight             TEXT
+    evaluation_guidance TEXT
+);
+
+CREATE TABLE IF NOT EXISTS decision_records (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    decision_ref       TEXT
+    recorded_at        TEXT
+    authority_ref      TEXT
+    rationale          TEXT
+);
+
+CREATE TABLE IF NOT EXISTS authorities (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    scope              TEXT
+    limits             TEXT
+    valid_from         TEXT
+    valid_to           TEXT
+);
+
+CREATE TABLE IF NOT EXISTS delegations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    delegator_ref      TEXT
+    delegate_ref       TEXT
+    authority_ref      TEXT
+    scope              TEXT
+);
+
+CREATE TABLE IF NOT EXISTS governance_bodies (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    body_kind          TEXT
+    mandate            TEXT
+);
+
+CREATE TABLE IF NOT EXISTS governance_rules (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    body_ref           TEXT
+    statement          TEXT
+    enforced_by        TEXT
+);
+
+CREATE TABLE IF NOT EXISTS actions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    action_kind        TEXT
+    decision_ref       TEXT
+    reversibility      TEXT
+    materiality        TEXT
+);
+
+-- ═══════════════════════════════════════════════════════════
+-- CR-7: Agentic semantics (profile dea:agentic)
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS agents (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    agent_type         TEXT
+    purpose            TEXT
+    autonomy_level_ref TEXT
+    owner_ref          TEXT
+);
+
+CREATE TABLE IF NOT EXISTS agent_profiles (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    agent_ref          TEXT
+    decision_scope     TEXT
+    action_scope       TEXT
+    human_oversight_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS agent_skills (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    purpose            TEXT
+    inputs             TEXT
+    outputs            TEXT
+    preconditions      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tools (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tool_kind          TEXT
+    endpoint_ref       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tool_permissions (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tool_ref           TEXT
+    agent_ref          TEXT
+    scope              TEXT
+    constraints        TEXT
+);
+
+CREATE TABLE IF NOT EXISTS orchestrators (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    coordination_scope TEXT
+);
+
+CREATE TABLE IF NOT EXISTS controllers (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    control_scope      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS orchestrations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    orchestrator_ref   TEXT
+    workflow_ref       TEXT
+    orchestration_status TEXT
+);
+
+CREATE TABLE IF NOT EXISTS workflows (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    definition         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    workflow_ref       TEXT
+    sequence           TEXT
+    task_kind          TEXT
+);
+
+CREATE TABLE IF NOT EXISTS autonomy_policies (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    policy_ref         TEXT
+    rules              TEXT
+);
+
+CREATE TABLE IF NOT EXISTS autonomy_levels (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref          TEXT
+    level_order        TEXT
+    level_name         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS human_oversight (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    oversight_pattern  TEXT
+    overseer_ref       TEXT
+);
+
+CREATE TABLE IF NOT EXISTS approvals (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    approver_ref       TEXT
+    subject_ref        TEXT
+    decision           TEXT
+    approved_at        TEXT
+);
+
+CREATE TABLE IF NOT EXISTS escalations (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    trigger            TEXT
+    raised_by          TEXT
+    target_ref         TEXT
+    reason             TEXT
+);
+
+CREATE TABLE IF NOT EXISTS agentic_systems (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    system_purpose     TEXT
+);
+
+CREATE TABLE IF NOT EXISTS agent_opportunities (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    subject_ref        TEXT
+    potential_agent_ref TEXT
+    expected_value     TEXT
+    risk               TEXT
+);
+
+CREATE TABLE IF NOT EXISTS memories (
+    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    memory_kind        TEXT
+    retention          TEXT
+    controller_ref     TEXT
+);
+
 -- ═══════════════════════════════════════════════════════════
 
 CREATE TABLE IF NOT EXISTS metamodel_meta (
@@ -843,7 +1077,7 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.11.0'),
+    ('metamodel_version', '0.12.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
 
 -- ═══════════════════════════════════════════════════════════

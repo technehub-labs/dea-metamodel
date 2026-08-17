@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/technology.json",
-  "metamodel_version": "0.11.0",
+  "metamodel_version": "0.12.0",
   "title": "Technology",
   "description": "A technology choice (language, framework, runtime, database, library) used by one or more solution components. Technologies are governed and standardised via the Standards + Principles catalogs. Catalog: technehub-labs/dea-catalog-patterns (shared with ArchitecturePattern).",
   "type": "object",

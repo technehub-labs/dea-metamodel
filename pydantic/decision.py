@@ -24,3 +24,13 @@ class Decision(Entity):
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     statement: Optional[str] = None
     """The decision statement in natural language."""
+    rationale: Optional[str] = None
+    """CR-7 §11: why this option was selected (G002)."""
+    authority_ref: Optional[str] = None
+    """CR-7 §18; G001: the Authority under which the decision was made."""
+    confidence: Optional[dict[str, Any]] = None
+    """CR-7 §17: decision confidence."""
+    uncertainty: Optional[str] = None
+    """CR-7 §17: known uncertainty, e.g. cost estimate ±20%."""
+    assumptions: Optional[list[str]] = None
+    """CR-7 §17: assumptions the decision rests on."""

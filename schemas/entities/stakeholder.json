@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/stakeholder.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "Stakeholder",
   "description": "An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes. Stakeholders are NOT internal performers — internal performers (employees, teams, systems, AI agents) are Actors, not Stakeholders. Catalog: technehub-labs/dea-catalog-stakeholders.",
   "type": "object",

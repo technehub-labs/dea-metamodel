@@ -1,0 +1,15 @@
+# CR-8 §31 Scenario 1 — traditional architecture (Core only)
+opendea: {version: "1.0.0"}
+model: {id: example.minimal, name: Minimal Valid Model, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+metadata: {author: opendea-examples, assertion_status: declared}
+elements:
+- id: cap.customer-service
+  type: BusinessCapability
+  name: Customer Service
+- id: app.cs-platform
+  type: ApplicationComponent
+  name: CS Platform
+  relationships:
+  - {type: supports, target: cap.customer-service}

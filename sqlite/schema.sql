@@ -1077,7 +1077,7 @@ CREATE TABLE IF NOT EXISTS metamodel_meta (
 );
 
 INSERT OR REPLACE INTO metamodel_meta (key, value) VALUES
-    ('metamodel_version', '0.12.0'),
+    ('metamodel_version', '1.0.0'),
     ('normative_source', 'metamodel/dea-metamodel.yaml');
 
 -- ═══════════════════════════════════════════════════════════

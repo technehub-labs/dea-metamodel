@@ -1,0 +1,45 @@
+# CR-8 §31 Scenario 2 — digital transformation (lifecycle profile)
+opendea: {version: "1.0.0"}
+model: {id: example.transformation, name: ERP Modernization, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:lifecycle@1.0.0, dea:governance@1.0.0]
+context: {kind: transformation}
+metadata: {author: opendea-examples, assertion_status: approved}
+elements:
+- id: st.baseline-2026
+  type: BaselineState
+  name: Baseline 2026
+  properties: {captured_at: "2026-01-01T00:00:00Z", adopted_by: architecture-board}
+- id: st.current
+  type: CurrentState
+  name: Current Architecture
+  properties: {as_of: "2026-08-17T00:00:00Z"}
+- id: st.target-2028
+  type: TargetState
+  name: Target 2028
+  properties: {target_date: "2028-01-01", approved_by: architecture-board}
+- id: chg.erp-modernization
+  type: Change
+  name: ERP Modernization
+- id: tr.phase-1
+  type: Transition
+  name: ERP Migration Phase 1
+  properties: {planned_start: "2026-09-01T00:00:00Z", planned_end: "2027-06-30T00:00:00Z", transition_status: planned}
+  relationships:
+  - {type: from-state, target: st.current}
+  - {type: to-state, target: st.target-2028}
+  - {type: caused-by, target: chg.erp-modernization}
+- id: snap.2026-q3
+  type: ArchitectureSnapshot
+  name: 2026-Q3 Snapshot
+  properties: {captured_at: "2026-08-17T00:00:00Z", model_version: "1.0.0", approved: true}
+  relationships:
+  - {type: may-become, target: st.baseline-2026}
+- id: app.erp
+  type: ApplicationComponent
+  name: ERP Platform
+- id: ver.erp-2
+  type: Version
+  name: ERP v2.0
+  properties: {version_number: "2.0", predecessor_ref: ver.erp-1}
+  relationships:
+  - {type: version-of, target: app.erp}

@@ -2,7 +2,7 @@
 
 > **Canonical entity definitions, relationships, and schemas for all DEA catalog repositories.**
 
-[![Metamodel Version](https://img.shields.io/badge/version-0.12.0-blue)](./VERSION)
+[![Metamodel Version](https://img.shields.io/badge/version-1.0.0-blue)](./VERSION)
 [![OpenDEAM Pin](https://img.shields.io/badge/OpenDEAM-v0.5.0-2DD4BF)](https://github.com/technehub-labs/dea-architecture-framework/tree/v0.5.0)
 [![Metamodel Schema](https://img.shields.io/badge/schema-JSON%20Schema-blue)](./schemas/)
 [![RDF Format](https://img.shields.io/badge/rdf-TTL-orange)](./ttl/)

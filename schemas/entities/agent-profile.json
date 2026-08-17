@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/agent-profile.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "AgentProfile",
   "description": "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle — placed inside the DEA semantic model rather than an isolated template.",
   "type": "object",

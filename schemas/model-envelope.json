@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/model-envelope.json",
+  "metamodel_version": "1.0.0",
+  "title": "OpenDEAModelEnvelope",
+  "description": "CR-8 §23/§24: the standard envelope every OpenDEA model document carries. The envelope gives consumers everything needed to interpret the model: spec version, model identity, declared profiles, context and metadata.",
+  "type": "object",
+  "required": ["opendea", "model", "profiles", "context", "elements"],
+  "properties": {
+    "opendea": {
+      "type": "object",
+      "required": ["version"],
+      "properties": {
+        "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$", "description": "OpenDEA specification version the model claims conformance to."}
+      }
+    },
+    "model": {
+      "type": "object",
+      "required": ["id", "name", "version"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*(\\.[a-z0-9-]+)*$"},
+        "name": {"type": "string", "minLength": 1, "maxLength": 200},
+        "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"}
+      }
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "description": "CR-8 §17: declared profiles — the validator applies exactly these semantic extensions. dea:core is mandatory.",
+      "items": {"type": "string", "pattern": "^(dea|ext):[a-z][a-z0-9-]*@\\d+\\.\\d+\\.\\d+$"}
+    },
+    "context": {
+      "type": "object",
+      "required": ["kind"],
+      "description": "CR-8 §24: prevents a fragment being read as a complete enterprise architecture.",
+      "properties": {
+        "kind": {"type": "string", "enum": ["enterprise", "business-unit", "program", "product", "solution", "capability-domain", "assessment", "transformation", "agentic-system"]},
+        "scope_ref": {"type": "string", "description": "Optional reference to the scoping entity."}
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "created": {"type": "string", "format": "date-time"},
+        "modified": {"type": "string", "format": "date-time"},
+        "author": {"type": "string"},
+        "organization": {"type": "string"},
+        "assertion_status": {"type": "string", "enum": ["declared", "observed", "imported", "inferred", "generated", "validated", "approved"],
+          "description": "CR-8 §40: provenance class of the whole model (element-level overrides win)."}
+      }
+    },
+    "elements": {
+      "type": "array",
+      "description": "The model's entity instances + their relationship assertions.",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "name"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z][a-z0-9-]*(\\.[a-z0-9-]+)*$", "description": "CR-8 §7: stable identity — names are not identities."},
+          "type": {"type": "string", "description": "Canonical OpenDEA type name (registry)."},
+          "name": {"type": "string", "minLength": 1, "maxLength": 200},
+          "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+          "lifecycle_status": {"type": "string", "enum": ["proposed", "planned", "active", "deprecated", "retired"]},
+          "assertion": {"type": "object",
+            "description": "CR-8 §40-§41: provenance of this assertion.",
+            "properties": {
+              "status": {"type": "string", "enum": ["declared", "observed", "imported", "inferred", "generated", "validated", "approved"]},
+              "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+              "asserted_by": {"type": "string"},
+              "observed_at": {"type": "string", "format": "date-time"}}},
+          "source": {"type": "object",
+            "description": "CR-8 §42-§43: system-of-record linkage + identity resolution.",
+            "properties": {
+              "source_system": {"type": "string"},
+              "source_record_id": {"type": "string"},
+              "same_as": {"type": "array", "items": {"type": "string"}},
+              "last_verified": {"type": "string", "format": "date"},
+              "verification_status": {"type": "string", "enum": ["verified", "unverified", "stale", "conflicted"]}}},
+          "properties": {"type": "object"},
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "target"],
+              "properties": {
+                "type": {"type": "string", "description": "Declared relationship_type (registry, kebab-case)."},
+                "target": {"type": "string", "description": "Target element id."},
+                "valid_from": {"type": "string", "format": "date-time"},
+                "valid_to": {"type": "string", "format": "date-time"},
+                "status": {"type": "string", "enum": ["proposed", "planned", "active", "deprecated", "retired"],
+                  "description": "CR-6 §22: a planned edge must never be read as a current edge."},
+                "provenance": {"type": "object",
+                  "description": "CR-8 §38-§39: present iff this edge is derived/inferred.",
+                  "properties": {
+                    "derived_from": {"type": "array", "items": {"type": "string"}},
+                    "derivation_rule": {"type": "string"}}}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

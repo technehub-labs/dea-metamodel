@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/transition.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "Transition",
   "description": "The movement between two architecture states, caused by a Change (CR-6 §14): from-state, to-state, causing change, planned/actual start and end, and status. A planned transition is never actual architecture (§2/§16).",
   "type": "object",

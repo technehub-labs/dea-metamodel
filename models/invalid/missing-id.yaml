@@ -1,0 +1,8 @@
+# expected: FAIL — DEA-E004 (envelope: element id required)
+opendea: {version: "1.0.0"}
+model: {id: example.bad1, name: Missing ID, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+elements:
+- type: BusinessCapability
+  name: No Id Capability

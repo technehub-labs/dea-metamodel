@@ -1,3 +1,3 @@
 """DEA metamodel pydantic models (generated)."""
 
-__metamodel_version__ = "0.12.0"
+__metamodel_version__ = "1.0.0"

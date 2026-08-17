@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/agentic-system.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "AgenticSystem",
   "description": "The architecture boundary of a multi-agent solution (CR-7 §58): a composition of agents, models, tools, services, policies, orchestration, memory and human oversight.",
   "type": "object",

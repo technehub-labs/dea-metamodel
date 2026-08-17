@@ -1,0 +1,18 @@
+# expected: FAIL — DEA-E003 / A001 (Assessment under two frameworks)
+opendea: {version: "1.0.0"}
+model: {id: example.bad5, name: Cardinality Error, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:assessment@1.0.0]
+context: {kind: assessment}
+elements:
+- id: fw.a
+  type: AssessmentFramework
+  name: Framework A
+- id: fw.b
+  type: AssessmentFramework
+  name: Framework B
+- id: asm.x
+  type: Assessment
+  name: Double-booked Assessment
+  relationships:
+  - {type: conducted-under, target: fw.a}
+  - {type: conducted-under, target: fw.b}

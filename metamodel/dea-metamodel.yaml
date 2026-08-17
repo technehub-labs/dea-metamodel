@@ -7,7 +7,7 @@
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
-  version: 0.12.0
+  version: 1.0.0
   status: draft
   normative: true
   namespace:
@@ -5367,13 +5367,16 @@ relationships:
   direction: source-to-target
   source:
     types:
-    - dea:Intent
-    - dea:Objective
-    - dea:Decision
     - dea:Action
-    - dea:Change
     - dea:Agent
     - dea:ArchitectureElement
+    - dea:Change
+    - dea:Controller
+    - dea:Decision
+    - dea:Intent
+    - dea:Objective
+    - dea:Orchestrator
+
   target:
     types:
     - dea:Policy

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/solution-component.json",
-  "metamodel_version": "0.12.0",
+  "metamodel_version": "1.0.0",
   "title": "SolutionComponent",
   "description": "A physical or logical software or hardware component that implements capabilities. OpenDEAM v0.2.0 (ADR-0002 D3): this is an ABSTRACT parent — concrete subclasses (ApplicationComponent, InfrastructureComponent, IntegrationComponent) are realized in L5 and discriminated by component_type.",
   "type": "object",

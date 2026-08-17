@@ -1,0 +1,49 @@
+# CR-8 §31 Scenario 6 — multi-agent transformation (orchestration + agentic system)
+opendea: {version: "1.0.0"}
+model: {id: example.multi-agent, name: Multi-Agent Transformation, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:governance@1.0.0, dea:agentic@1.0.0]
+context: {kind: transformation}
+metadata: {author: opendea-examples, assertion_status: validated}
+elements:
+- id: pol.agent-ops
+  type: Policy
+  name: Agent Operations Policy
+  properties: {policy_kind: agent, applicability: production agents}
+- id: sys.cs-agentic
+  type: AgenticSystem
+  name: Customer Service Agentic System
+  relationships:
+  - {type: composes, target: agent.cs-agent}
+  - {type: composes, target: orch.cs}
+  - {type: composes, target: tool.crm-api}
+- id: orch.cs
+  type: Orchestrator
+  name: CS Orchestrator
+  properties: {owner_ref: role.head-of-service, authority_ref: auth.orch}
+  relationships:
+  - {type: constrained-by, target: pol.agent-ops}
+  - {type: coordinates, target: agent.cs-agent}
+  - {type: coordinates, target: agent.kb-agent}
+- id: agent.cs-agent
+  type: Agent
+  name: Customer Agent
+  properties: {agent_type: ai, owner_ref: role.head-of-service, authority_ref: auth.cs-limited}
+  relationships:
+  - {type: constrained-by, target: pol.agent-ops}
+- id: agent.kb-agent
+  type: Agent
+  name: Knowledge Agent
+  properties: {agent_type: ai, owner_ref: role.knowledge-lead, authority_ref: auth.kb}
+  relationships:
+  - {type: constrained-by, target: pol.agent-ops}
+- id: tool.crm-api
+  type: Tool
+  name: CRM API
+- id: wf.resolution
+  type: Workflow
+  name: Resolution Workflow
+  relationships:
+  - {type: composes, target: task.classify}
+- id: task.classify
+  type: Task
+  name: Classify Request

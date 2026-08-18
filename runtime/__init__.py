@@ -8,5 +8,5 @@ assessment, decision, agentic runtime, explorer and conformance releases on
 top of this surface. See runtime/README.md and docs/runtime-architecture.md.
 """
 
-__version__ = "0.1.0"  # CR-9.1 — Runtime Foundation
+__version__ = "0.2.0"  # CR-9.1 Runtime Foundation + CR-10 Phase 1 Scenario Foundation
 __opendea_spec__ = "1.0.0"  # CR-8 specification this runtime consumes

@@ -93,5 +93,17 @@ store.neighbors("cap.customer-service", direction="in",
 | CR-9.9 | OpenDEA Explorer — viewer decoupled, API-driven (CR-9BX…CB) | Proposed |
 | CR-9.10 | Conformance & Interoperability Release — golden graphs, interop suite (CR-9CL…CP) | Proposed |
 
+## CR-10 — Scenario & Decision Intelligence (Phase 1 implemented)
+
+`runtime/scenario/` adds the CR-10 Phase 1 scenario foundation on top of the
+CR-9 graph: first-class scenarios referencing immutable baselines, an explicit
+eleven-operation delta vocabulary, explicit assumptions/constraints/outcomes
+with uncertainty classes, simulated-state isolation (production never
+mutated), frozen evaluated versions and reproducibility hashes. Golden
+example: `models/scenarios/customer-platform-replacement.yaml`. Concept doc:
+[`docs/concepts/scenario.md`](../docs/concepts/scenario.md). Phases 2–7
+(impact engine, decision intelligence, DMM integration, simulation adapters,
+agentic generation, digital-twin foundation) are queued.
+
 Full rationale: [`docs/runtime-architecture.md`](../docs/runtime-architecture.md).
 Change request: [`change-requests/CR-009.md`](../change-requests/CR-009.md).

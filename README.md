@@ -56,13 +56,15 @@ process and CR-4's core-ontology consolidation.
 dea-metamodel/
 ├── metamodel/                 # NORMATIVE — dea-metamodel.yaml, manifest.yaml, registry/
 ├── change-requests/           # CR-based change control
-├── docs/                      # architecture.md · semantics.md · temporal-semantics.md · governance-agentic-semantics.md · specification-and-conformance.md · versioning.md
+├── docs/                      # architecture.md · semantics.md · temporal-semantics.md · governance-agentic-semantics.md · specification-and-conformance.md · runtime-architecture.md · versioning.md
 ├── specification/             # CR-8: the formal OpenDEA 1.0 specification (+ generated inventory/vocabulary/catalogues)
 ├── tools/                     # CR-8: opendea_validate.py — reference conformance validator
 ├── models/                    # CR-8: golden/ (must pass) + invalid/ (must fail for the expected rule)
 ├── mappings/                  # CR-8: external standard mappings (ArchiMate; DMN evaluated)
 ├── visualization/             # CR-8: presentation profile — viewers consume, never define
+├── runtime/                   # CR-9: reference runtime — GraphStore, model loader, service API
 ├── tests/conformance/         # Conformance suite (runs in CI)
+├── tests/runtime/             # CR-9: runtime suite — graph contract, loader, CRUD, provenance/temporal
 ├── VERSION                    # == metamodel version (CI-enforced)
 ├── CHANGELOG.md
 ├── metamodel.yaml             # LEGACY index (deprecated v0.6.0 — kept for compatibility)
@@ -113,6 +115,7 @@ readers should be able to see *why* the ontology is shaped the way it is.
 | [CR-006](./change-requests/CR-006.md) | "Application A exists" and "A existed in 2024 / is planned for 2027 / was retired" collapsed into one static catalogue entry. Architecture is a *time-dependent state*, not a catalogue. | Five clocks (transaction/valid/observation/planned/effective); lifecycle states and events; Baseline/Current/Target/Transition/Scenario states; snapshots, deltas, version chains; planned ≠ actual; history never overwritten (T001–T010). |
 | [CR-007](./change-requests/CR-007.md) | The graph knew *what/when/how mature* but not *why a change is desired, who may decide it, what constrains it, what evidence informs it* — "agentic EA" was degenerating into an agent inventory. | The causal/governance layer: Intent → Objective → Policy → Decision → Action → Change → Outcome → Evidence → reassessment. Authority ≠ capability; autonomy is not a boolean; agents are participants, not the center (G001–G016). |
 | [CR-008](./change-requests/CR-008.md) | A rich metamodel is not a standard: two independent implementations could reach different conclusions about the same model. | **OpenDEA 1.0** — the consolidation into a formal specification: frozen Core, canonical vocabulary, envelope schema, reference validator, golden/negative model contract, conformance levels 0–5, generated documentation. See [`specification/`](./specification/OpenDEA-Semantic-Architecture-Specification.md). |
+| [CR-009](./change-requests/CR-009.md) | A specification without a runtime is a language nobody speaks: the model could be *validated* but not *executed* — no graph, no ingestion, no reasoning, no agent interaction, no closed loop. | **OpenDEA Runtime** — a semantic operating layer: vendor-independent `GraphStore`, canonical model loader (validate → atomic load), provenance/temporal-retaining graph, registry-validated CRUD. Invariants: no silent inference (CR-9CQ), no autonomous mutation by default (CR-9CR). Milestones CR-9.1–9.10; CR-9.1 implemented. See [`runtime/`](./runtime/README.md) + [`docs/runtime-architecture.md`](./docs/runtime-architecture.md). |
 
 ### The ontology in one picture
 

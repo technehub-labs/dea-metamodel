@@ -16,8 +16,8 @@ current one ships.
 | [CR-006](CR-006.md) | Temporal & Lifecycle Semantics | Current/target/transition/time-aware architecture | Implemented (v0.11.0) |
 | [CR-007](CR-007.md) | Decision & Agentic Architecture | Decisions and agents first-class | Implemented (v0.12.0) |
 | [CR-008](CR-008.md) | Semantic Architecture & Conformance Specification | Consolidation into an implementable standard | Implemented (v1.0.0) |
-| CR-009 | Extensions & Profiles | Modularize Data, AI, Security, Ecosystem, DMM | Proposed |
-| CR-010 | Conformance, Validation & Migration | Automated validation and migration of existing models | Proposed |
+| [CR-009](CR-009.md) | Runtime, Knowledge Graph & Interoperability | Executable semantic substrate — graph, reasoning, integration, agentic runtime | In progress (CR-9.1 Runtime Foundation implemented; CR-9.2–9.10 Proposed) |
+| CR-010 | Intelligence, Simulation & Optimization | Simulation, optimization and ecosystem capabilities (per CR-9 §1) | Proposed |
 
 ## Record format
 

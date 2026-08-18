@@ -4,6 +4,45 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 1: Semantic Interoperability Foundation
+
+First phase of CR-11 (Interoperability, Federation & Ecosystem Conformance).
+Specification and metamodel remain **1.0.0**. Governing principle (CR-11 §2):
+OpenDEA is the semantic contract; adapters absorb external complexity.
+
+### Added — interoperability foundation (`runtime/interoperability/`)
+- **Four distinct concepts, never conflated** (CR-11A): `ExternalSystem`
+  (Source), `IntegrationAdapter` (semantic mechanism — distinct from the
+  transport *connector*, CR-11D), `SemanticMapping` (correspondence),
+  `Exchange` (the transfer).
+- **`SemanticMapping`** with the full mapping vocabulary (CR-11F:
+  EQUIVALENT…NO_CORRESPONDENCE), explicit confidence (CR-11G), declared
+  lossiness (CR-11AQ), testable transformations (CR-11H), and governance —
+  owner/version/status/effective/deprecation dates; SUPERSEDED requires a
+  replacement reference (CR-11AT/AU).
+- **`ExternalIdentifier`** (CR-11I): external record ids are correlated,
+  never adopted as canonical identity. `InteropRegistry.resolve()` is exact
+  match only — reconciliation/confidence lands in Phase 2.
+- **`Extension`** (CR-11AR): unmappable external concepts are preserved in
+  non-`opendea` namespaces — never discarded, never absorbed into Core
+  (ADR-013, CR-11 §66).
+- **`Exchange` envelope** (CR-11S/V) with schema/profile/mapping version
+  declarations; `InteropRegistry.export()` produces the canonical JSON
+  exchange from any GraphStore — semantics, not storage layout (CR-11U).
+- **Integration error taxonomy** (CR-11AW) and import-mode / sync-direction /
+  locality vocabularies (CR-11P/Q/AI).
+- Credential safety: `ExternalSystem.authentication` is a credential-store
+  reference; inline secrets are rejected (CR-11AY).
+- 16 new runtime tests (87 total in `tests/runtime/`).
+
+### Added — interoperability documentation (CR-11BE)
+- `docs/interoperability/` — overview, architecture, identity, mappings,
+  federation, events, security, exchange-format, provenance, archimate,
+  bpmn, dmn, conformance (13 documents).
+- `docs/adr/ADR-013-core-non-accumulation.md` — the CR-11 §66 correction:
+  the Core does not accumulate; adapters absorb external complexity.
+- `change-requests/CR-011.md` — the CR as authored.
+
 ## [Unreleased] — CR-10 Phase 1: Scenario Foundation + Documentation Consolidation
 
 First phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision

@@ -26,6 +26,9 @@ jobs:
       - name: Run conformance suite (CR-1.9 tests 001-006 + CR-1.11 drift enforcement)
         run: python3 -m pytest tests/conformance/ -v
 
+      - name: Run runtime suite (CR-9.1 — graph contract, loader, CRUD, provenance/temporal)
+        run: python3 -m pytest tests/runtime/ -v
+
       - name: Validate metamodel.yaml
         run: python3 .github/scripts/validate_metamodel_yaml.py
 

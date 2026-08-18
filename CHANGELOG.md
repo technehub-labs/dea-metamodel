@@ -4,6 +4,42 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-9.1: Runtime Foundation
+
+First milestone of CR-9 (Runtime, Knowledge Graph & Interoperability). Additive
+tooling only — the specification and metamodel remain **1.0.0** (the CR-8
+semantic contract stays authoritative; the runtime provides interchangeable
+implementations, CR-9 §101).
+
+### Added
+- **`runtime/` — reference OpenDEA runtime** (CR-9BV: demonstrates the semantics;
+  not the only valid implementation):
+  - `runtime/graph/base.py` — canonical graph model (CR-9E: first-class edges
+    with provenance/temporal/status/properties) + `GraphStore`, the
+    vendor-independent graph interface (CR-9D). `infer()` raises
+    `InferenceUnavailable` — no silent inference (CR-9CQ).
+  - `runtime/graph/memory.py` — `InMemoryGraphStore` reference implementation:
+    defensive reads, referential integrity, copy-on-write transactions with
+    rollback (CR-9BP), temporal traversal (`at=` — "what is true now?", CR-9F;
+    planned edges never read as current, CR-6 §22).
+  - `runtime/model/loader.py` — canonical model loader: CR-8 reference
+    validator (levels 0–3) runs before any mutation; loads are atomic; envelope
+    provenance/source/temporal fields preserved verbatim (CR-9K, CR-9 DoD).
+  - `runtime/api/service.py` — `RuntimeService`: entity/relationship CRUD with
+    registry-backed write validation (types, abstract types, endpoint
+    compatibility via the TTL type hierarchy). No agent write path — no
+    autonomous mutation by default (CR-9CR).
+- **`tests/runtime/`** — 49-test runtime suite (CR-9CO): vendor-independent
+  GraphStore contract (CR-9CL seed — conform future Neo4j/Neptune/RDF stores by
+  subclassing), golden/negative loader contract, CRUD semantics,
+  provenance/temporal retention, transaction rollback, no-silent-inference.
+- **`docs/runtime-architecture.md`** — CR-9 KB note: closed-loop intent, layered
+  runtime, model-vs-state-vs-assertion-vs-evidence-vs-inference, integration/
+  reasoning/agentic principles, trust & freshness commitments, milestone plan
+  and DoD tracking.
+- **`change-requests/CR-009.md`** — the CR as authored; stale CR-009/CR-010
+  placeholder rows in `change-requests/README.md` corrected (drift fix).
+
 ## [1.0.0] — 2026-08-17 — CR-008: OpenDEA Semantic Architecture & Conformance Specification
 
 **OpenDEA 1.0.** Consolidation of CR-1…CR-7 into a formal, machine-validatable,

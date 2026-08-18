@@ -33,6 +33,7 @@ replaced; keep the original intact for the historical record.
 | [ADR-010](ADR-010-scenario-isolation-from-production-state.md) | Scenario isolation from production state | Baseline + deltas; scenarios never mutate production |
 | [ADR-011](ADR-011-simulation-adapter-architecture.md) | Simulation adapter architecture | `SimulationAdapter` boundary; result provenance |
 | [ADR-012](ADR-012-dmm-opendea-relationship.md) | DMM / OpenDEA relationship | Diagnostic instrument vs semantic substrate; closed loop |
+| [ADR-013](ADR-013-core-non-accumulation.md) | Core non-accumulation | Adapters absorb external complexity; the Core does not accumulate concepts |
 
 ## Status
 

@@ -105,5 +105,18 @@ example: `models/scenarios/customer-platform-replacement.yaml`. Concept doc:
 (impact engine, decision intelligence, DMM integration, simulation adapters,
 agentic generation, digital-twin foundation) are queued.
 
+## CR-11 — Interoperability & Federation (Phase 1 implemented)
+
+`runtime/interoperability/` adds the CR-11 Phase 1 semantic interoperability
+foundation: first-class ExternalSystem / IntegrationAdapter (connector ≠
+adapter) / SemanticMapping (relationship, confidence, lossiness, governed and
+versioned) / ExternalIdentifier (correlated, never adopted) / Exchange
+envelope, plus namespaced Extensions that never touch the Core (ADR-013).
+Docs: [`docs/interoperability/`](../docs/interoperability/overview.md).
+Phases 2–8 (identity & reconciliation, exchange schemas, provenance,
+reference mappings, events, federation, conformance) are queued.
+
 Full rationale: [`docs/runtime-architecture.md`](../docs/runtime-architecture.md).
-Change request: [`change-requests/CR-009.md`](../change-requests/CR-009.md).
+Change requests: [`change-requests/CR-009.md`](../change-requests/CR-009.md) ·
+[`CR-010`](../change-requests/CR-010.md) ·
+[`CR-011`](../change-requests/CR-011.md).

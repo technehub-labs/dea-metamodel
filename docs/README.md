@@ -40,7 +40,31 @@ specification wins and the documentation is drift (CR-10 §J).
 - [Temporal Semantics (CR-6)](temporal-semantics.md)
 - [Governance & Agentic Semantics (CR-7)](governance-agentic-semantics.md)
 - [Architecture Decision Records](adr/README.md) — settled decisions
-  (ADR-001…ADR-012); new questions land here, not in chat history
+  (ADR-001…ADR-013); new questions land here, not in chat history
+
+## Interoperability
+
+- [Overview](interoperability/overview.md) — the semantic contract holds;
+  adapters absorb external complexity (CR-11 §2)
+- [Architecture](interoperability/architecture.md) — Source / Adapter /
+  Mapping / Exchange; connector ≠ adapter (CR-11A/D)
+- [Identity & reconciliation](interoperability/identity.md) — external
+  identifiers, conflicts, property-specific authority (CR-11I–N)
+- [Mappings](interoperability/mappings.md) — relationships, confidence,
+  lossiness, governance (CR-11E–H, AQ–AU)
+- [Federation](interoperability/federation.md) — federated knowledge,
+  locality, phased boundary (CR-11AH–AK)
+- [Events](interoperability/events.md) — canonical event envelope (CR-11AF/AG)
+- [Security](interoperability/security.md) — the integration attack surface
+  (CR-11AY–BA)
+- [Exchange format](interoperability/exchange-format.md) — envelope,
+  versioning, semantic round-trip (CR-11S–V, AP)
+- [Provenance](interoperability/provenance.md) — the integration provenance
+  chain (CR-11O/AE/BD)
+- Standard mappings: [ArchiMate](interoperability/archimate.md) ·
+  [BPMN](interoperability/bpmn.md) · [DMN](interoperability/dmn.md)
+- [Conformance](interoperability/conformance.md) — classes, suites, golden
+  datasets (CR-11AM–AO)
 
 ## Reference
 

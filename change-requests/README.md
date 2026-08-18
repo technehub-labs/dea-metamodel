@@ -17,7 +17,10 @@ current one ships.
 | [CR-007](CR-007.md) | Decision & Agentic Architecture | Decisions and agents first-class | Implemented (v0.12.0) |
 | [CR-008](CR-008.md) | Semantic Architecture & Conformance Specification | Consolidation into an implementable standard | Implemented (v1.0.0) |
 | [CR-009](CR-009.md) | Runtime, Knowledge Graph & Interoperability | Executable semantic substrate — graph, reasoning, integration, agentic runtime | In progress (CR-9.1 Runtime Foundation implemented; CR-9.2–9.10 Proposed) |
-| CR-010 | Intelligence, Simulation & Optimization | Simulation, optimization and ecosystem capabilities (per CR-9 §1) | Proposed |
+| [CR-010](CR-010.md) | Scenario, Simulation, Digital Twin & Decision Intelligence | What-if without mutating live state; transformation decision platform | In progress (Phase 1 Scenario Foundation implemented; Phases 2–7 Proposed) |
+| CR-011 | Interoperability, Federation & Ecosystem Conformance | Consolidation into an ecosystem-oriented interoperability release (per CR-10 §O) | Proposed |
+| CR-012 | Enterprise Intelligence / Advanced Agentic Runtime | Advanced intelligence and agentic capabilities (per CR-10 §O) | Proposed |
+| CR-013 | Digital Twin / Continuous Enterprise Model | Synchronized operational state and behavioral semantics (per CR-10 §O) | Proposed |
 
 ## Record format
 

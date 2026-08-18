@@ -1,0 +1,25 @@
+# CR-10AS — baseline model for the canonical golden scenario.
+# A conformant OpenDEA 1.0 envelope: the "current state" the scenario
+# (customer-platform-replacement.yaml) is evaluated against.
+opendea: {version: "1.0.0"}
+model: {id: example.customer-service-baseline, name: Customer-Service Baseline, version: "1.0.0"}
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+metadata: {author: opendea-examples, assertion_status: declared}
+elements:
+- id: cap.customer-service
+  type: BusinessCapability
+  name: Customer Service
+- id: app.customer-platform
+  type: ApplicationComponent
+  name: Customer Platform A
+  lifecycle_status: active
+  properties: {vendor: legacy-vendor, deployment: on-prem}
+  relationships:
+  - {type: supports, target: cap.customer-service, status: active}
+- id: tech.hosting
+  type: Technology
+  name: Legacy Hosting
+  lifecycle_status: active
+  relationships:
+  - {type: supports, target: app.customer-platform, status: active}

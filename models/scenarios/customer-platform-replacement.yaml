@@ -1,0 +1,87 @@
+# CR-10AS — Canonical golden scenario: replace the customer-service platform.
+#
+# Question: should the enterprise replace the existing customer-service
+# platform (Application A) with Platform B?
+#
+# This file is the CR-10 golden scenario: the regression artifact every
+# runtime conformance claim about scenarios is tested against. Phase 1
+# evaluates it structurally (Level 0, CR-10K); Phases 2–3 add impact
+# propagation, constraint evaluation, scoring and recommendation.
+
+scenario:
+  id: scenario.replace-customer-platform
+  name: Replace Customer-Service Platform
+  description: >-
+    Replace the aging customer-service application (app.customer-platform)
+    with a modern platform (platform.customer-v2), preserving capability
+    support and re-hosting the technology dependency.
+  owner: architect-42
+  purpose: Evaluate the customer-service platform replacement (CR-10AS)
+  baseline: baseline.customer-service
+  provenance:
+    createdBy: architect-42
+    source: CR-10AS canonical example
+
+  assumptions:
+    - id: ASM-001
+      statement: Customer migration completes within 12 months
+      value: 12
+      unit: months
+      confidence: 0.75
+      source: program office
+      owner: ea-team
+    - id: ASM-002
+      statement: Platform B vendor support remains available for 5+ years
+      confidence: 0.9
+      source: vendor assessment
+
+  constraints:
+    - subject: budget
+      operator: "<="
+      value: 20000000
+      unit: USD
+      priority: mandatory
+      source: CFO guidance
+    - subject: migration duration
+      operator: "<="
+      value: 18
+      unit: months
+      priority: high
+    - subject: availability
+      operator: ">="
+      value: 99.95
+      unit: percent
+      priority: mandatory
+
+  changes:
+    - target: app.customer-platform
+      operation: REPLACE
+      node:
+        id: platform.customer-v2
+        type: ApplicationComponent
+        name: Customer Platform B
+        properties:
+          vendor: platform-vendor
+          deployment: saas
+      rationale: Application A is end-of-life; Platform B is the strategic target
+
+  expectedOutcomes:
+    - metric: customer wait time
+      baseline: 8
+      expected: 4.5
+      target: 5
+      unit: minutes
+      confidence: 0.82
+      uncertainty: estimated
+      timeframe: 12 months
+    - metric: technology debt
+      baseline: high
+      expected: reduced
+      uncertainty: assumed
+      confidence: 0.7
+    - metric: agent readiness
+      baseline: low
+      expected: high
+      uncertainty: predicted
+      confidence: 0.65
+      timeframe: 18 months

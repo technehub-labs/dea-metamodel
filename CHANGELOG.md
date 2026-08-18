@@ -4,6 +4,48 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-10 Phase 1: Scenario Foundation + Documentation Consolidation
+
+First phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision
+Intelligence) plus the CR-1→CR-10 documentation consolidation CR-10 calls for
+(§A–§P). Specification and metamodel remain **1.0.0**.
+
+### Added — scenario foundation (`runtime/scenario/`)
+- **Scenario as a first-class semantic object** (CR-10A): id, owner, purpose,
+  baseline reference, assumptions, changes, constraints, affected entities
+  (derived), expected outcomes, lifecycle status, version, provenance.
+- **Baseline immutability + simulated-state isolation** (CR-10B): baselines are
+  frozen snapshots; `ScenarioEngine.simulate()` applies the delta to a *fresh*
+  graph — production/current state is never mutated.
+- **Explicit delta vocabulary** (CR-10C): ADD, REMOVE, REPLACE, MODIFY,
+  RECLASSIFY, CONNECT, DISCONNECT, ENABLE, DISABLE, MOVE, SCALE — structural
+  (Level 0, CR-10K) semantics with registry validation.
+- **Explicit assumptions, constraints, outcomes** (CR-10D/E/I) with
+  **uncertainty classes** (CR-10O: Known/Estimated/Assumed/Predicted/
+  Simulated/Unknown) — forecasts are never deterministic facts.
+- **Scenario lifecycle enforcement** (CR-10A), **frozen evaluated versions +
+  explicit versioning** (CR-10AG), **reproducibility hash** (CR-10AF).
+- **Golden scenario** `models/scenarios/customer-platform-replacement.yaml` +
+  baseline model — the CR-10AS canonical example, exercised end-to-end in
+  `tests/runtime/test_golden_scenario.py`.
+- 22 new runtime tests (71 total in `tests/runtime/`).
+
+### Added — documentation consolidation (CR-10 §A–§P)
+- `docs/opendea-conceptual-architecture.md` — the authoritative CR-1→CR-10
+  narrative: what OpenDEA is (semantic contract, not an EA tool), the layer
+  model (§B), reference-implementation-vs-specification (§N), core-vs-profiles
+  (§I), normative-vs-informative (§J), the semantic stack (§P), roadmap (§O).
+- `docs/concepts/` — four-state model (§C), truth model (§D), semantic
+  lifecycle (§E), digital-twin positioning (§H + CR-10AA/AB), scenario.
+- `docs/opendea-and-dmm.md` (§F + terrain semantics CR-10AN–AQ) and
+  `docs/opendea-and-agents.md` (§G).
+- `docs/adr/` — ADR-001…ADR-012 recording settled architectural decisions (§K).
+- `docs/glossary.md` (§L) and `docs/conformance-model.md` (§M).
+- `docs/README.md` — documentation index with the normative/informative
+  convention.
+- `change-requests/CR-010.md` — the CR as authored; roadmap rows CR-011…CR-013
+  added per CR-10 §O.
+
 ## [Unreleased] — CR-9.1: Runtime Foundation
 
 First milestone of CR-9 (Runtime, Knowledge Graph & Interoperability). Additive

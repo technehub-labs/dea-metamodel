@@ -3,6 +3,24 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.5: Integration Framework
+
+Fifth milestone of CR-9 (Runtime, Knowledge Graph & Interoperability). Specification
+and metamodel remain **1.0.0**; integration is additive runtime machinery over
+the CR-9.1 graph and the CR-11 interop foundation.
+
+### Added — integration service (`runtime/integration/`)
+- **`IntegrationService.run_full_import` / `run_incremental_import`** materialise
+  ExternalSystem payloads as OpenDEA entities with source metadata and
+  ExternalIdentifier links.
+- **Source metadata on every imported entity:** `sourceSystem`, `sourceTag`,
+  `sourceRecord` are recorded on the node's properties and the `source`
+  envelope.
+- **Conflict preservation:** when an incremental import disagrees with an
+  existing entity's `lifecycle_state` or `classification`, the disagreement is
+  recorded as a `KnowledgeConflict` rather than silently overwritten.
+- 5 new runtime tests (146 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.10b: Interoperability & Performance Suites
 
 Second half of CR-9.10 (Conformance & Interoperability Release). Specification

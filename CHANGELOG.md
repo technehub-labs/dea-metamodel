@@ -4,6 +4,30 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-10 Phase 2: Impact Engine
+
+Second phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision
+Intelligence). Specification and metamodel remain **1.0.0**; impact analysis is
+additive runtime machinery over the Phase-1 scenario foundation.
+
+### Added — impact engine (`runtime/scenario/impact.py`)
+- **Impact graph** (CR-10G): dependency propagation from explicit scenario
+  changes, with direct (depth 1) vs indirect (depth > 1) impact and exact
+  relationship paths.
+- **Impact categories** (CR-10G): strategic, business, capability, process,
+  customer, data, application, technology, security, risk, agent, governance,
+  financial, operational.
+- **Explicit impact valence** (CR-10H): Positive / Negative / Neutral / Mixed /
+  Unknown. Affected never automatically means negative; valence changes only
+  through caller-supplied rules.
+- **Change analysis**: every CR-10C delta operation reports added / removed /
+  modified entities plus propagated impacts.
+- **Architecture delta**: canonical graph-snapshot diff for added, removed and
+  modified entities and relationships.
+- **Golden impact report** for the CR-10AS customer-platform replacement
+  scenario.
+- 5 new runtime tests (101 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.2: Knowledge Graph & Provenance
 
 Second milestone of CR-9 (Runtime, Knowledge Graph & Interoperability).

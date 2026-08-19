@@ -191,9 +191,10 @@ prompt/context *references* — not raw prompts in the graph).
   by comparing approved vs observed state, then risk-assessed and decided.
 - **Baselines and scenarios (CR-9BG/BJ):** Current / Approved / Target /
   Planned / Simulated states coexist; scenarios never touch the production
-  graph (the CR-10 digital-twin foundation, with the CR-9AT discipline:
+  graph. CR-10 Phase 2 now adds structural impact analysis and architecture
+  deltas over those simulated states while preserving the CR-9AT discipline:
   architecture model ≠ operational model ≠ observed state ≠ simulation ≠
-  digital twin).
+  digital twin.
 
 ## 10. Agentic architecture (CR-9AH…AR) — deferred to CR-9.8, decided now
 

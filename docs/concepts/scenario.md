@@ -1,8 +1,8 @@
-# The Scenario Concept (CR-10A–H, Phases 1–2 implementation)
+# The Scenario Concept (CR-10A–N, Phases 1–3 implementation)
 
 > Concept doc for the CR-10 scenario model. Implementation:
 > `runtime/scenario/` · Tests: `tests/runtime/test_scenario_foundation.py`,
-> `tests/runtime/test_impact_engine.py` · Golden example:
+> `tests/runtime/test_impact_engine.py`, `tests/runtime/test_decision_intelligence.py` · Golden example:
 > `models/scenarios/customer-platform-replacement.yaml`.
 
 ## The principle
@@ -121,6 +121,37 @@ report.impacts[0].path            # exact dependency path
 report.impacts[0].valence         # explicit; unknown unless configured
 ```
 
+## Phase 3 — decision intelligence (CR-10F/J/M/N/AI/AL)
+
+Phase 3 adds explainable comparison across scenario alternatives:
+
+- **Metrics are semantic objects (CR-10J):** id, definition, unit, calculation,
+  source, baseline and target — not constants buried in scoring code.
+- **Criteria and weights are explicit (CR-10M):** `Criterion(id, name, weight)`
+  makes every decision weight visible and auditable.
+- **Scores are decomposable (CR-10N):** each `ScenarioScore` exposes criterion
+  value, normalized weight and weighted contribution.
+- **Comparison and ranking (CR-10F/L):** `DecisionIntelligenceEngine.compare()`
+  ranks alternatives deterministically across strategic value, capability
+  impact, cost, risk and any other declared criteria.
+- **Recommendation ≠ decision (CR-10AI):** the engine returns a
+  `Recommendation` with `approvedDecision: false`; approval remains governed
+  decision machinery.
+- **Explainable recommendation (CR-10AL):** recommendations carry criteria,
+  weights, rationale, evidence and assumptions.
+
+```python
+from runtime.scenario import Criterion, CriterionScore, ScenarioEvaluation
+from runtime.scenario import DecisionIntelligenceEngine
+
+criteria = [Criterion("strategicValue", "Strategic Value", 0.25)]
+evaluation = ScenarioEvaluation(
+    "scenario.a", [CriterionScore("strategicValue", 0.8,
+                                  evidence=["strategy-map"])])
+report = DecisionIntelligenceEngine().compare([evaluation], criteria)
+report.recommendation.approved_decision  # False — support, not approval
+```
+
 ## Assumptions, constraints, outcomes — never buried (CR-10D/E/I/O)
 
 - **Assumption** — id, statement, value, unit, confidence, source, owner.
@@ -147,14 +178,15 @@ state (CR-10AF).
 |---|---|---|---|
 | 0 | Structural | "What depends on X?" | **Implemented** — delta application, simulated graph, impact graph, architecture delta |
 | 1 | Rule-based | "If X is removed, Y becomes non-compliant" | Seeded — explicit valence rules; compliance/rule evaluation lands with decision intelligence |
-| 2 | Quantitative | cost, capacity, time, risk, maturity | Phase 3 |
+| 2 | Quantitative | cost, capacity, time, risk, maturity | **Decision scoring implemented** — normalized criterion scores, comparison and ranking; domain simulators remain adapters |
 | 3 | Probabilistic | Monte Carlo, distributions | interface (CR-10P) |
 | 4 | Dynamic | time-dependent behavior | CR-10 Phase 7 |
 | 5 | Digital Twin | continuously synchronized state | CR-13 |
 
 Phase 2 implements structural impact propagation, change analysis and
-architecture delta. Constraint evaluation, comparison (CR-10F), scoring,
-ranking (CR-10M/N) and recommendation remain Phase 3 decision intelligence.
+architecture delta. Phase 3 implements metrics, criteria, weighted comparison,
+ranking and explainable recommendation. Constraint evaluation against domain
+simulators, probabilistic analysis and DMM integration remain Phases 4–5.
 
 ## Security note (CR-10AU)
 

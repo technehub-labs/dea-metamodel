@@ -4,6 +4,27 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-10 Phase 3: Decision Intelligence
+
+Third phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision
+Intelligence). Specification and metamodel remain **1.0.0**; decision
+intelligence is additive runtime machinery over Phases 1–2.
+
+### Added — decision intelligence (`runtime/scenario/decision.py`)
+- **Metrics as semantic objects** (CR-10J): id, definition, unit, calculation,
+  source, baseline and target.
+- **Explicit criteria and weights** (CR-10M): `Criterion` requires a visible
+  non-zero weight; no weights are hidden in algorithms.
+- **Decomposable scoring** (CR-10N): every `ScenarioScore` exposes criterion
+  value, normalized weight and weighted contribution.
+- **Comparison and ranking** (CR-10F/L): deterministic scenario ordering by
+  weighted score with stable tie-breaking.
+- **Recommendation ≠ decision** (CR-10AI): `Recommendation.approved_decision`
+  is always false; approval remains governed decision machinery.
+- **Explainable recommendation** (CR-10AL): rationale, criteria, weights,
+  evidence and assumptions are returned with the recommendation.
+- 6 new runtime tests (127 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.3: Semantic Reasoning
 
 Third milestone of CR-9 (Runtime, Knowledge Graph & Interoperability).

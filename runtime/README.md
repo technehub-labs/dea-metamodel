@@ -27,7 +27,7 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `ProvenanceService` — Assertion / Evidence / Source graph and `why()` chain | `runtime/provenance/` | §16–§17 (CR-9O/P), §21/§56 (CR-9T/BC) |
 | `RuleRegistry` + `ReasoningEngine` — governed rules, levelled inference, explainability | `runtime/reasoning/` | §18–§21 (CR-9Q/R/S/T) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
-| Runtime test suite (121 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (127 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, interop) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -108,7 +108,7 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 | CR-9.9 | OpenDEA Explorer — viewer decoupled, API-driven (CR-9BX…CB) | Proposed |
 | CR-9.10 | Conformance & Interoperability Release — golden graphs, interop suite (CR-9CL…CP) | Proposed |
 
-## CR-10 — Scenario & Decision Intelligence (Phases 1–2 implemented)
+## CR-10 — Scenario & Decision Intelligence (Phases 1–3 implemented)
 
 `runtime/scenario/` adds the CR-10 Phase 1 scenario foundation on top of the
 CR-9 graph: first-class scenarios referencing immutable baselines, an explicit
@@ -119,11 +119,16 @@ mutated), frozen evaluated versions and reproducibility hashes.
 `runtime/scenario/impact.py` adds Phase 2: impact graphs with direct/indirect
 dependency paths, change analysis over every scenario delta, architecture
 delta between baseline and simulated state, and explicit impact valence —
-affected never automatically means negative (CR-10G/H). Golden example:
+affected never automatically means negative (CR-10G/H).
+
+`runtime/scenario/decision.py` adds Phase 3: semantic metrics, explicit
+criteria and weights, decomposable scenario scores, deterministic comparison
+and ranking, and explainable recommendations that remain decision support —
+never approved decisions (CR-10F/J/M/N/AI/AL). Golden example:
 `models/scenarios/customer-platform-replacement.yaml`. Concept doc:
-[`docs/concepts/scenario.md`](../docs/concepts/scenario.md). Phases 3–7
-(decision intelligence, DMM integration, simulation adapters, agentic
-generation, digital-twin foundation) are queued.
+[`docs/concepts/scenario.md`](../docs/concepts/scenario.md). Phases 4–7
+(DMM integration, simulation adapters, agentic generation, digital-twin
+foundation) are queued.
 
 ## CR-11 — Interoperability & Federation (Phases 1–2 implemented)
 

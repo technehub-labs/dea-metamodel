@@ -4,6 +4,28 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-9.4: Temporal & Event Runtime
+
+Fourth milestone of CR-9 (Runtime, Knowledge Graph & Interoperability).
+Specification and metamodel remain **1.0.0**; the temporal/event runtime is
+additive on the CR-9.1 graph and the CR-9.2 provenance layer.
+
+### Added — temporal/event runtime (`runtime/temporal/`)
+- **Bitemporal truth (CR-9G):** `as_of(valid_at, recorded_at=None)` answers
+  "what was true at valid_at, as we knew it at recorded_at" using the
+  edge `recorded_at` property alongside `valid_from`/`valid_to`.
+- **Current-time filter (CR-9F):** `what_is_true_now(store, entity_id)` returns
+  only neighbours whose edges are currently valid and non-retired /
+  non-planned.
+- **Event envelope (CR-9H):** `Event` carries id, type, subject, occurredAt,
+  observedAt, source, version, payload and the canonical EventType taxonomy.
+- **Event log (CR-9I):** `EventLog` is append-only and exposes
+  `filter(subject, type)`.
+- **Snapshots and drift (CR-9BI/BD/BE):** `snapshot_graph(store, id, label)`
+  freezes any GraphStore; `diff_snapshots(before, after)` reports
+  added/removed/modified entities and edges.
+- 8 new runtime tests (135 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 3: Decision Intelligence
 
 Third phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision

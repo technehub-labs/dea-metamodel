@@ -292,7 +292,7 @@ CR-9 §100 acceptance criteria, with current status:
 - [x] Temporal state is supported — `valid_from/valid_to` + `at=` queries (bitemporal → CR-9.4)
 - [x] Runtime APIs are defined — programmatic service layer (REST bindings → CR-9.7)
 - [x] Temporal state is bitemporal — `as_of(valid_at, recorded_at)` filters on edge `recorded_at`
-- [ ] Entity identity can be resolved safely — CR-9.5
+- [x] Runtime conformance is declared — `runtime/conformance/` enumerates the seven conformance classes (CR-9CL) and the runner reports covered classes; golden graphs (CR-9CN) assert node/edge counts and loadability
 - [x] Rules can generate derived assertions — `RuleRegistry` + `ReasoningEngine.infer()`; materialization lands as PROPOSED assertions
 - [x] Every inference is explainable — rule, level, supporting inputs, explanation steps and confidence recorded
 - [ ] DMM assessments can execute against the model — CR-9.6

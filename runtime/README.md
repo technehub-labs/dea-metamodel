@@ -28,7 +28,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `RuleRegistry` + `ReasoningEngine` — governed rules, levelled inference, explainability | `runtime/reasoning/` | §18–§21 (CR-9Q/R/S/T) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
 | `Snapshot` + `diff_snapshots` + `as_of` + `EventLog` — bitemporal queries, events, drift | `runtime/temporal/` | §7–§9 (CR-9F/G/H/I), §56 (CR-9BI/BD) |
-| Runtime test suite (135 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop) | `tests/runtime/` | §94 (CR-9CO) |
+| `ConformanceClass` + `run_conformance` + `GOLDEN_GRAPHS` — runtime conformance classes, golden graphs, runner | `runtime/conformance/` |
+| Runtime test suite (140 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

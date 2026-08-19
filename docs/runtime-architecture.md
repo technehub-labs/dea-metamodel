@@ -145,25 +145,33 @@ CR-6 introduced the clocks; CR-9 operationalizes them.
    eventual / periodic / manual. Cached knowledge never silently becomes
    authoritative (CR-9BR).
 
-## 7. Reasoning principles (CR-9Q…T) — deferred to CR-9.3, decided now
+## 7. Reasoning principles (CR-9Q…T) — CR-9.3 implemented
 
 - **Reasoning is levelled (CR-9R):** 1 Deterministic → 2 Ontological →
-  3 Graph → 4 Probabilistic → 5 Generative. Every derived result records its
-  level. Levels are never blended.
-- **Rules are first-class artifacts (CR-9S):** versioned, enabled/disabled,
-  profile-scoped, testable, traceable (`DEA-GOV-001` pattern).
+  3 Graph → 4 Probabilistic → 5 Generative. `runtime/reasoning/` records the
+  level on every `Inference`; levels are never blended.
+- **Rules are first-class artifacts (CR-9S):** `RuleRegistry` stores versioned,
+  enabled/disabled, profile-scoped, severity-carrying rules (`DEA-INF-007`
+  pattern). Rules declare `applies_to`; the engine rejects out-of-scope
+  derivations.
+- **Evaluation ≠ materialization (CR-9CQ):** `ReasoningEngine.infer()` derives
+  candidates without touching the graph. `materialize()` is a separate explicit
+  call that records the result through CR-9.2 provenance as a **proposed**
+  assertion — never an approved fact.
 - **Every inference answers "Why?" (CR-9T):** conclusion → rule applied →
-  supporting assertions → confidence. This is the foundation of the viewer's
-  "Why?" navigation (CR-9BZ) and of AI-assisted EA credibility.
+  supporting inputs → explanation steps → confidence. This is the foundation
+  of the viewer's future "Why?" navigation (CR-9BZ) and of AI-assisted EA
+  credibility.
 
 ## 8. The two security invariants — enforced from the foundation
 
 **CR-9CQ — No silent inference.** The runtime never converts inferred
 knowledge into authoritative fact without an explicit state transition
-(Observed / Inferred / Proposed / Approved stay distinct). In CR-9.1 this is
-structural: `infer()` raises `InferenceUnavailable`, and a test proves loaded
-graphs contain exactly the edges the model declared — nothing derived
-materializes silently.
+(Observed / Inferred / Proposed / Approved stay distinct). `GraphStore.infer()`
+still raises `InferenceUnavailable` so no store implementation can silently
+derive edges; CR-9.3 reasoning happens only through the explicit
+`ReasoningEngine → ProvenanceService (PROPOSED)` path, and approval remains a
+separate actor-stamped transition.
 
 **CR-9CR — No autonomous mutation by default.** Agents are read-only by
 default; mutation rights arrive only through explicit authority, policy, scope
@@ -249,7 +257,7 @@ technology, governance and operational dimensions (CR-9BL).
 |---|---|---|
 | **CR-9.1 Runtime Foundation** | `runtime/` package (GraphStore ABC + in-memory reference store, model loader, identity, RuntimeService), runtime contract suite wired into CI | **Implemented** |
 | **CR-9.2 Knowledge Graph** | `runtime/provenance/` — Assertion/Evidence/Source provenance graph, explicit status transitions, `why()` provenance chains | **Implemented** |
-| CR-9.3 Semantic Reasoning | Rule registry, levelled inference, explainability (CR-9Q…T) | Proposed |
+| **CR-9.3 Semantic Reasoning** | `runtime/reasoning/` — governed rule registry, levelled inference, explicit materialization, Why explanations | **Implemented** |
 | CR-9.4 Temporal & Event Runtime | Bitemporal semantics, events, snapshots, drift (CR-9F…I, BD…BI) | Proposed |
 | CR-9.5 Integration Framework | Adapters, mapping spec, identity resolution (CR-9J…O) | Proposed |
 | CR-9.6 Assessment Runtime | Executable CR-5 incl. DMM runtime (CR-9X/Y) | Proposed |
@@ -262,7 +270,7 @@ technology, governance and operational dimensions (CR-9BL).
 foundation only, CR-9AS/AT), scenario engine as a major capability (CR-9BJ →
 CR-10), cost/value semantics beyond profile placeholders (CR-9BK).
 
-## 14. Definition of Done — CR-9.1/CR-9.2 contribution
+## 14. Definition of Done — CR-9.1/CR-9.2/CR-9.3 contribution
 
 CR-9 §100 acceptance criteria, with current status:
 
@@ -274,8 +282,8 @@ CR-9 §100 acceptance criteria, with current status:
 - [x] Runtime APIs are defined — programmatic service layer (REST bindings → CR-9.7)
 - [ ] External sources can be mapped into OpenDEA — CR-9.5
 - [ ] Entity identity can be resolved safely — CR-9.5
-- [ ] Rules can generate derived assertions — CR-9.3
-- [ ] Every inference is explainable — CR-9.3
+- [x] Rules can generate derived assertions — `RuleRegistry` + `ReasoningEngine.infer()`; materialization lands as PROPOSED assertions
+- [x] Every inference is explainable — rule, level, supporting inputs, explanation steps and confidence recorded
 - [ ] DMM assessments can execute against the model — CR-9.6
 - [ ] Impact analysis can traverse dependencies — CR-9.7 (traversal primitives ready)
 - [ ] Decisions can reference evidence and architecture — CR-9.7

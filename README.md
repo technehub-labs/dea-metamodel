@@ -151,7 +151,7 @@ graph TD
         AG[Agent] -. performs .-> AC
         AG -. authorized-by .-> AU
     end
-    DMM[DMMv5 profile] -. implements .-> AF
+    DMM[DMM profile] -. implements .-> AF
     PROFILES --> CORE
     ASSESS -. assesses .-> CORE
     LIFE -. temporal bounds .-> CORE
@@ -164,7 +164,7 @@ graph TD
 ### The CR-5 closed loop
 
 What the enterprise **is** (Core) and how it is **assessed** (profiles) are different
-semantic layers. The same Capability can be assessed by DMMv5, an AI-readiness model and
+semantic layers. The same Capability can be assessed by DMM, an AI-readiness model and
 a cyber framework at different dates and scopes — without conflict, because maturity lives
 on the `AssessmentResult`, never on the entity (rule A008, enforced in CI):
 

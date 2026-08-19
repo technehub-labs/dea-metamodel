@@ -1,6 +1,6 @@
 # OpenDEA Runtime — CR-9 Reference Implementation
 
-> **Status:** CR-9.1 (Runtime Foundation) + CR-9.2 (Knowledge Graph / Provenance) implemented · CR-9.3…CR-9.10 queued
+> **Status:** CR-9.1 (Runtime Foundation) + CR-9.2 (Knowledge Graph / Provenance) + CR-9.3 (Semantic Reasoning) implemented · CR-9.4…CR-9.10 queued
 > **Consumes:** OpenDEA Specification 1.0.0 (CR-8) — the semantic contract stays
 > authoritative; the runtime provides *interchangeable implementations* of graph,
 > inference, integration, assessment and agentic services (CR-9 §101).
@@ -25,8 +25,9 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | Canonical identity helpers (CR-8 §7) | `runtime/model/identity.py` | §14 (CR-9M prerequisite) |
 | `RuntimeService` — entity/relationship CRUD with registry validation | `runtime/api/service.py` | §74 Phase 1 (CR-9BU) |
 | `ProvenanceService` — Assertion / Evidence / Source graph and `why()` chain | `runtime/provenance/` | §16–§17 (CR-9O/P), §21/§56 (CR-9T/BC) |
+| `RuleRegistry` + `ReasoningEngine` — governed rules, levelled inference, explainability | `runtime/reasoning/` | §18–§21 (CR-9Q/R/S/T) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
-| Runtime test suite (114 tests: graph, loader, CRUD, provenance, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (121 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -98,7 +99,7 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 |---|---|---|
 | CR-9.1 | Runtime Foundation — graph abstraction, model loading, entity/relationship APIs | **Implemented** |
 | CR-9.2 | Knowledge Graph — canonical graph representation and provenance | **Implemented** |
-| CR-9.3 | Semantic Reasoning — rules, inference, explainability (CR-9Q/R/S/T) | Proposed |
+| CR-9.3 | Semantic Reasoning — rules, inference, explainability (CR-9Q/R/S/T) | **Implemented** |
 | CR-9.4 | Temporal & Event Runtime — events, snapshots, bitemporal queries (CR-9F/G/H/I) | Proposed |
 | CR-9.5 | Integration Framework — adapters, mapping, identity resolution (CR-9J…O) | Proposed |
 | CR-9.6 | Assessment Runtime — DMM execution (CR-9X/Y) | Proposed |

@@ -1,8 +1,9 @@
 """CR-9CQ/CR-9CR — the two foundational runtime security principles.
 
 1. No silent inference: the runtime never converts inferred knowledge into
-   authoritative fact without an explicit state transition. In the foundation
-   milestone this means: inference does not exist yet, and it fails loudly.
+   authoritative fact without an explicit state transition. `GraphStore.infer()`
+   remains a loud guard; CR-9.3 reasoning runs only through the explicit
+   ReasoningEngine → ProvenanceService path.
 2. No autonomous mutation by default: the foundation exposes no agent write
    path at all; loaded graphs contain exactly what the model declared.
 """

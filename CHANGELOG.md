@@ -4,6 +4,28 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-9.3: Semantic Reasoning
+
+Third milestone of CR-9 (Runtime, Knowledge Graph & Interoperability).
+Specification and metamodel remain **1.0.0**; reasoning is additive runtime
+machinery over the CR-9.1 graph and CR-9.2 provenance layer.
+
+### Added — reasoning engine (`runtime/reasoning/`)
+- **Governed rule registry** (CR-9S): rules carry id, name, version,
+  enabled/disabled state, profile scope, severity, declared `applies_to` scope
+  and executable condition. Duplicate or out-of-scope derivations are rejected.
+- **Levelled inference** (CR-9R): Deterministic, Ontological, Graph,
+  Probabilistic and Generative levels are explicit and recorded on every
+  `Inference`; levels are never blended.
+- **Evaluation ≠ materialization** (CR-9CQ): `ReasoningEngine.infer()` derives
+  candidate conclusions without mutating the graph. `materialize()` is an
+  explicit second step that records the result as a **PROPOSED** assertion via
+  the CR-9.2 provenance layer — never as approved fact.
+- **Explainability** (CR-9T): every inference records rule, level, supporting
+  inputs, explanation steps and confidence; `explain()` returns the structured
+  Why chain.
+- 7 new runtime tests (121 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-11 Phase 2: Identity & Reconciliation
 
 Second phase of CR-11 (Interoperability, Federation & Ecosystem Conformance).

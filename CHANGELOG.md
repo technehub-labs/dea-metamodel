@@ -3,6 +3,22 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.7: Decision & Impact Engine
+
+Seventh milestone of CR-9. Specification and metamodel remain **1.0.0**; the
+decision & impact engine is an executable governance layer over runtime
+decisions, gaps and outcome proposals.
+
+### Added — decision & impact engine (`runtime/decision/`)
+- **`DecisionImpactEngine.evaluate_decision`** against the live graph: targeted
+  outcomes, addressed gaps, dependency paths.
+- **`dependency_paths`** BFS through active edges (status `deprecated` / `retired`
+  excluded) returning explicit node + edge sequences.
+- **`propose_initiatives`** writes `Outcome` nodes into the graph with explicit
+  `results-in` authorship from the decision; duplicate ids are skipped.
+- **DecisionError** for unknown / non-Decision nodes.
+- 5 new runtime tests (161 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.6: Assessment Runtime
 
 Sixth milestone of CR-9. Specification and metamodel remain **1.0.0**; assessment

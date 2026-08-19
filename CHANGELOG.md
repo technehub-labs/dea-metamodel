@@ -3,6 +3,18 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-10 Phase 4: DMM Integration
+
+Fourth phase of CR-10. Specification and metamodel remain **1.0.0**;
+maturity projection is the gap-to-initiative transition layer.
+
+### Added — maturity projection (`runtime/maturity/`)
+- **`MaturityProjector.project(gap_id)`** returns a `MaturityProjection`
+  with current/target/projected maturity and proposed initiative ids.
+- Projects the maturity gap forward using the available ChangeInitiative
+  candidates in the graph.
+- 6 new runtime tests (182 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.9: OpenDEA Explorer
 
 Final tenth milestone of CR-9. Specification and metamodel remain **1.0.0**;

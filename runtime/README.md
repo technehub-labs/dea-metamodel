@@ -32,7 +32,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `INTEROP_SCENARIOS` + `PerformanceSuite` — interoperability end-to-end scenarios + performance engineering targets | `runtime/conformance/interop.py`, `runtime/conformance/performance.py` |
 | `ExplorerService` — seven-mode runtime API (explore / assess / trace / compare / query / simulate / govern) | `runtime/explorer/` |
 | `AgentRuntime` + `ToolRegistry` — policy decision point, audit trail, capability matching | `runtime/agent/` |
-| Runtime test suite (176 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer) | `tests/runtime/` | §94 (CR-9CO) |
+| `MaturityProjector` — projects assessment gaps to projected maturity and proposed initiatives | `runtime/maturity/` |
+| Runtime test suite (182 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

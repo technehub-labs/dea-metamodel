@@ -3,6 +3,23 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-10 Phase 5: Simulation Adapters
+
+Fifth phase of CR-10. Specification and metamodel remain **1.0.0**;
+the runtime is the semantic coordination layer; domain simulators live behind
+`SimulationAdapter`.
+
+### Added — simulation adapters (`runtime/simulation/`)
+- **`SimulationAdapter` ABC** with `prepare / execute / retrieve_results /
+  map_results / validate` lifecycle.
+- **`ScenarioImpactAdapter`** reference implementation that runs the CR-10
+  Phase 2 impact engine locally.
+- **`SimulationRegistry`** dispatches by capability.
+- **`SimulationRequest` / `PreparedRequest` / `ExecutedRun` /
+  `SimulationResult` / `MappedResult`** value objects preserve engine
+  contract, model version, parameters and assumptions.
+- 6 new runtime tests (188 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 4: DMM Integration
 
 Fourth phase of CR-10. Specification and metamodel remain **1.0.0**;

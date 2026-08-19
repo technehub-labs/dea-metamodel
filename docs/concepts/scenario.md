@@ -1,8 +1,9 @@
-# The Scenario Concept (CR-10A–C, Phase 1 implementation)
+# The Scenario Concept (CR-10A–H, Phases 1–2 implementation)
 
 > Concept doc for the CR-10 scenario model. Implementation:
-> `runtime/scenario/` · Tests: `tests/runtime/test_scenario_foundation.py` ·
-> Golden example: `models/scenarios/customer-platform-replacement.yaml`.
+> `runtime/scenario/` · Tests: `tests/runtime/test_scenario_foundation.py`,
+> `tests/runtime/test_impact_engine.py` · Golden example:
+> `models/scenarios/customer-platform-replacement.yaml`.
 
 ## The principle
 
@@ -73,6 +74,53 @@ Eleven operations keep scenarios compact and traceable:
 | MOVE | re-point a relationship | edge retarget, metadata kept |
 | SCALE | change capacity | `scale` property |
 
+## Phase 2 — impact engine (CR-10G/H)
+
+Phase 2 turns the simulated state into an explainable impact report:
+
+```text
+Scenario
+   ↓
+Change (explicit delta)
+   ↓
+Affected Entity
+   ↓
+Dependency Graph
+   ↓
+Direct / Indirect Impact
+   ↓
+Architecture Delta
+```
+
+`runtime/scenario/impact.py` provides:
+
+- **Impact graph (CR-10G):** `ImpactEngine.propagate()` walks active dependency
+  edges from each change target, records the exact relationship path, and
+  classifies depth 1 as **direct impact** and depth > 1 as **indirect impact**.
+- **Impact categories:** strategic, business, capability, process, customer,
+  data, application, technology, security, risk, agent, governance, financial,
+  operational.
+- **Impact ≠ valence (CR-10H):** removal is not automatically negative.
+  Valence is `Positive / Negative / Neutral / Mixed / Unknown`, defaults to
+  `unknown`, and changes only through explicit caller-supplied rules.
+- **Change analysis:** each of the eleven delta operations is reported as
+  added / removed / modified entities plus its propagated impacts.
+- **Architecture delta:** `architecture_delta(before, after)` compares graph
+  snapshots by canonical identity — added, removed and modified entities and
+  relationships — without conflating a metadata change with a delete/recreate.
+- **Impact report:** `ImpactEngine.evaluate(scenario, baseline)` returns the
+  frozen simulated-state delta and the merged impact graph; the baseline is
+  still never mutated.
+
+```python
+from runtime.scenario import ImpactEngine
+
+report = ImpactEngine().evaluate(scenario, baseline)
+report.delta.added_entities       # ["platform.customer-v2"]
+report.impacts[0].path            # exact dependency path
+report.impacts[0].valence         # explicit; unknown unless configured
+```
+
 ## Assumptions, constraints, outcomes — never buried (CR-10D/E/I/O)
 
 - **Assumption** — id, statement, value, unit, confidence, source, owner.
@@ -93,21 +141,20 @@ canonical serialization: baseline version + scenario definition + assumptions
 + rules + simulation version must fully determine a result; no hidden mutable
 state (CR-10AF).
 
-## Simulation levels (CR-10K) — what Phase 1 does and doesn't do
+## Simulation levels (CR-10K) — current boundary
 
 | Level | Name | Question | Status |
 |---|---|---|---|
-| 0 | Structural | "What depends on X?" | **Phase 1 — implemented** (delta application + simulated graph) |
-| 1 | Rule-based | "If X is removed, Y becomes non-compliant" | Phase 2 |
-| 2 | Quantitative | cost, capacity, time, risk, maturity | Phase 2/3 |
+| 0 | Structural | "What depends on X?" | **Implemented** — delta application, simulated graph, impact graph, architecture delta |
+| 1 | Rule-based | "If X is removed, Y becomes non-compliant" | Seeded — explicit valence rules; compliance/rule evaluation lands with decision intelligence |
+| 2 | Quantitative | cost, capacity, time, risk, maturity | Phase 3 |
 | 3 | Probabilistic | Monte Carlo, distributions | interface (CR-10P) |
 | 4 | Dynamic | time-dependent behavior | CR-10 Phase 7 |
 | 5 | Digital Twin | continuously synchronized state | CR-13 |
 
-Impact propagation (CR-10H, with impact *valence* — a removal can reduce debt
-and increase migration risk simultaneously), constraint evaluation, comparison
-(CR-10F), ranking (CR-10M/N) and recommendation land in Phases 2–3 on top of
-the simulated state this phase produces.
+Phase 2 implements structural impact propagation, change analysis and
+architecture delta. Constraint evaluation, comparison (CR-10F), scoring,
+ranking (CR-10M/N) and recommendation remain Phase 3 decision intelligence.
 
 ## Security note (CR-10AU)
 

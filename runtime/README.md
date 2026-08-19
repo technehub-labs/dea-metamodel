@@ -26,7 +26,7 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `RuntimeService` — entity/relationship CRUD with registry validation | `runtime/api/service.py` | §74 Phase 1 (CR-9BU) |
 | `ProvenanceService` — Assertion / Evidence / Source graph and `why()` chain | `runtime/provenance/` | §16–§17 (CR-9O/P), §21/§56 (CR-9T/BC) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
-| Runtime test suite (96 tests: graph, loader, CRUD, provenance, scenario, interop) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (101 tests: graph, loader, CRUD, provenance, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -107,17 +107,22 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 | CR-9.9 | OpenDEA Explorer — viewer decoupled, API-driven (CR-9BX…CB) | Proposed |
 | CR-9.10 | Conformance & Interoperability Release — golden graphs, interop suite (CR-9CL…CP) | Proposed |
 
-## CR-10 — Scenario & Decision Intelligence (Phase 1 implemented)
+## CR-10 — Scenario & Decision Intelligence (Phases 1–2 implemented)
 
 `runtime/scenario/` adds the CR-10 Phase 1 scenario foundation on top of the
 CR-9 graph: first-class scenarios referencing immutable baselines, an explicit
 eleven-operation delta vocabulary, explicit assumptions/constraints/outcomes
 with uncertainty classes, simulated-state isolation (production never
-mutated), frozen evaluated versions and reproducibility hashes. Golden
-example: `models/scenarios/customer-platform-replacement.yaml`. Concept doc:
-[`docs/concepts/scenario.md`](../docs/concepts/scenario.md). Phases 2–7
-(impact engine, decision intelligence, DMM integration, simulation adapters,
-agentic generation, digital-twin foundation) are queued.
+mutated), frozen evaluated versions and reproducibility hashes.
+
+`runtime/scenario/impact.py` adds Phase 2: impact graphs with direct/indirect
+dependency paths, change analysis over every scenario delta, architecture
+delta between baseline and simulated state, and explicit impact valence —
+affected never automatically means negative (CR-10G/H). Golden example:
+`models/scenarios/customer-platform-replacement.yaml`. Concept doc:
+[`docs/concepts/scenario.md`](../docs/concepts/scenario.md). Phases 3–7
+(decision intelligence, DMM integration, simulation adapters, agentic
+generation, digital-twin foundation) are queued.
 
 ## CR-11 — Interoperability & Federation (Phase 1 implemented)
 

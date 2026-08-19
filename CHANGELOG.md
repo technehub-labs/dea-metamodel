@@ -3,6 +3,21 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.8: Agent Runtime
+
+Eighth milestone of CR-9. Specification and metamodel remain **1.0.0**; the
+agent runtime is the governance surface for discovery, authority, policy,
+audit and tool registry.
+
+### Added — agent runtime (`runtime/agent/`)
+- **`AgentRuntime.request_authorization`** returns ALLOW / DENY / ESCALATE
+  driven by `Policy` nodes carrying `action`, `effect` and optional `actor_role`.
+- **`audit_log`** records every decision with agent, action, target, effect,
+  policy reference and timestamp.
+- **`ToolRegistry`** maintains a `provides -> capability` mapping and supports
+  agent → tool binding.
+- 7 new runtime tests (168 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.7: Decision & Impact Engine
 
 Seventh milestone of CR-9. Specification and metamodel remain **1.0.0**; the

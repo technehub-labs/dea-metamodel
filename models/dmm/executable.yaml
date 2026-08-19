@@ -1,0 +1,53 @@
+# CR-9.6 — executable DMM scenario graph (CR-9 §73/§74).
+# Runtime input for AssessmentService.execute_assessment:
+# - one Assessment under DMMv5 with scoring + mapping rules declared
+# - two Practice Areas with Indicators and Measures
+# - one Inventory Evidence supporting the assessment
+opendea: {version: "1.0.0"}
+model: {id: example.dmm.executable, name: DMM Executable, version: "1.0.0"}
+profiles: [dea:core@1.0.0, dea:assessment@1.0.0, dea:dmm@5.0.0]
+context: {kind: assessment}
+metadata: {author: opendea-examples, assertion_status: validated}
+elements:
+- id: fw.dmmv5
+  type: AssessmentFramework
+  name: DMMv5
+  properties: {framework_version: "5.0.0"}
+- id: pa.governance
+  type: AssessmentCriterion
+  name: Governance
+- id: pa.build
+  type: AssessmentCriterion
+  name: Build
+- id: ind.decision-rights
+  type: Indicator
+  name: Decision Rights
+- id: ind.tooling-automation
+  type: Indicator
+  name: Tooling Automation
+- id: me.decision-rights.observed
+  type: Measure
+  name: Decision Rights Observed
+  properties: {value: 3.0, scale_ref: dmmv5-scale}
+  relationships:
+  - {type: quantifies, target: ind.decision-rights}
+- id: me.tooling-automation.observed
+  type: Measure
+  name: Tooling Automation Observed
+  properties: {value: 2.0, scale_ref: dmmv5-scale}
+  relationships:
+  - {type: quantifies, target: ind.tooling-automation}
+- id: asm.2026-q3
+  type: Assessment
+  name: 2026-Q3 DMM Assessment
+  properties:
+    scoring_strategy: average
+    maturity_levels: {0: 1, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+    target_maturity: 4
+    measure_refs: [me.decision-rights.observed, me.tooling-automation.observed]
+  relationships:
+  - {type: conducted-under, target: fw.dmmv5}
+- id: ev.inventory
+  type: Evidence
+  name: Application Inventory
+  properties: {evidence_type: inventory, confidence: 0.9}

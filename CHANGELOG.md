@@ -4,6 +4,30 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 2: Identity & Reconciliation
+
+Second phase of CR-11 (Interoperability, Federation & Ecosystem Conformance).
+Specification and metamodel remain **1.0.0**; identity reconciliation is
+additive runtime machinery over the Phase-1 interoperability foundation.
+
+### Added — identity reconciliation (`runtime/interoperability/identity.py`)
+- **EntityResolution** with the full reconciliation-state vocabulary
+  (CR-11K/L): `UNMATCHED`, `CANDIDATE`, `MATCHED`, `MERGED`, `CONFLICTING`,
+  `REJECTED`. Thresholded exact/candidate matching; below the auto-match
+  threshold results are reviewable candidates, never silent merges.
+- **KnowledgeConflict** (CR-11L): first-class preservation of source
+  disagreement. Every competing value remains in the conflict; resolution
+  records the chosen value plus the policy, actor and timestamp.
+- **AuthorityPolicy** (CR-11M/N): property-specific source authority across
+  `(source, property)` pairs. Five tie-breakers: `highest`, `newest`,
+  `most-confident`, `human`, `no-write`. Undeclared authority is rejected
+  (CR-11R).
+- **No silent merge**: `approve_resolution` requires an explicit actor and
+  the chosen entity must be a candidate; `MERGED` without approval is rejected.
+- **External ids never adopted**: approved resolutions add an
+  `ExternalIdentifier` link; the canonical entity id is unchanged.
+- 13 new runtime tests (114 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 2: Impact Engine
 
 Second phase of CR-10 (Scenario, Simulation, Digital Twin & Strategic Decision

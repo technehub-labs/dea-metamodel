@@ -11,6 +11,33 @@
 > [mappings.md](mappings.md), [federation.md](federation.md),
 > [events.md](events.md), [security.md](security.md).
 
+## 0. Phase 2 implementation status
+
+`runtime/interoperability/identity.py` now implements the executable core of
+this document:
+
+| Concept | Runtime object / method |
+|---|---|
+| Entity reconciliation (CR-11J/K) | `EntityResolution`, `ResolutionCandidate`, `InteropRegistry.reconcile_external()` |
+| Reconciliation states (CR-11K/L) | `ReconciliationState`: `UNMATCHED / CANDIDATE / MATCHED / MERGED / CONFLICTING / REJECTED` |
+| Conflict preservation (CR-11L) | `KnowledgeConflict`, `ConflictValue`, `InteropRegistry.record_conflict()` |
+| Property-specific authority (CR-11M/N) | `AuthorityPolicy`, `TieBreaker`, `InteropRegistry.register_authority_policy()` |
+| Governed conflict resolution | `InteropRegistry.resolve_conflict()` — chooses via policy while preserving every losing value |
+| No silent merge | `InteropRegistry.approve_resolution()` — explicit actor required; MERGED without approval is rejected |
+| External ids never adopted | approved resolutions add an `ExternalIdentifier` link; the canonical entity id remains unchanged |
+
+```python
+resolution = registry.reconcile_external(
+    "system.servicenow", "CI-009999",
+    candidates=[ResolutionCandidate(entity="app.customer-platform", score=0.82)])
+# CANDIDATE — review required; no merge, no canonical-id adoption
+
+merged = registry.approve_resolution(
+    resolution.id, entity="app.customer-platform",
+    approved_by="ea-governance")
+# MERGED — auditable, and the external id is preserved as a link
+```
+
 ## 1. The canonical identity rule (CR-11I)
 
 > **OpenDEA MUST NOT default an external system's identifier to the

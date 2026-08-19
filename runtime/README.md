@@ -33,7 +33,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `ExplorerService` — seven-mode runtime API (explore / assess / trace / compare / query / simulate / govern) | `runtime/explorer/` |
 | `AgentRuntime` + `ToolRegistry` — policy decision point, audit trail, capability matching | `runtime/agent/` |
 | `MaturityProjector` — projects assessment gaps to projected maturity and proposed initiatives | `runtime/maturity/` |
-| Runtime test suite (182 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity) | `tests/runtime/` | §94 (CR-9CO) |
+| `SimulationAdapter` + `ScenarioImpactAdapter` + `SimulationRegistry` — domain-side seam (CR-10AC/AD/AF) | `runtime/simulation/` |
+| Runtime test suite (188 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

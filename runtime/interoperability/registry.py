@@ -17,11 +17,16 @@ CR-11T JSON exchange format (full schema/validation lands in Phase 3).
 """
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from dataclasses import replace
+from datetime import datetime, timezone
+from typing import Dict, Iterable, List, Optional
 
 from ..api.service import Registry
 from ..graph import GraphStore
 from ..scenario.engine import snapshot_store
+from .identity import (AuthorityPolicy, ConflictStatus, ConflictValue,
+                       EntityResolution, KnowledgeConflict,
+                       ReconciliationState, ResolutionCandidate)
 from .model import (Exchange, Extension, ExternalIdentifier, ExternalSystem,
                     ImportMode, IntegrationAdapter, InteropError, MappingRelation,
                     SemanticMapping, split_concept_ref)
@@ -35,6 +40,9 @@ class InteropRegistry:
         self.adapters: Dict[str, IntegrationAdapter] = {}
         self.mappings: Dict[str, SemanticMapping] = {}
         self.identifiers: List[ExternalIdentifier] = []
+        self.resolutions: List[EntityResolution] = []
+        self.conflicts: List[KnowledgeConflict] = []
+        self.authority_policies: Dict[str, AuthorityPolicy] = {}
         self.extensions: Dict[str, Extension] = {}
 
     # ---- sources ----
@@ -110,6 +118,150 @@ class InteropRegistry:
             if link.system == system and link.identifier == identifier:
                 return link.entity
         return None
+
+    def reconcile_external(self, system: str, identifier: str,
+                           candidates: Optional[Iterable[ResolutionCandidate]] = None,
+                           auto_match_threshold: float = 0.95,
+                           review_threshold: float = 0.70) -> EntityResolution:
+        """CR-11J/K — reconcile an external record without adopting its id.
+
+        Exact ExternalIdentifier links resolve as MATCHED. Candidate-based
+        matching is thresholded: below the auto-match threshold the result is a
+        reviewable CANDIDATE, never a silent merge.
+        """
+        resolution_id = f"resolution.{system}.{len(self.resolutions) + 1}"
+        exact = self.resolve(system, identifier)
+        if exact:
+            resolution = EntityResolution(
+                id=resolution_id, system=system, identifier=identifier,
+                state=ReconciliationState.MATCHED, entity=exact,
+                score=1.0, method="exact", review_required=False)
+            self.resolutions.append(resolution)
+            return resolution
+
+        candidate_list = list(candidates or [])
+        if not candidate_list:
+            resolution = EntityResolution(
+                id=resolution_id, system=system, identifier=identifier,
+                state=ReconciliationState.UNMATCHED, review_required=True)
+            self.resolutions.append(resolution)
+            return resolution
+
+        best = max(candidate_list, key=lambda c: c.score)
+        high = [c for c in candidate_list if c.score >= auto_match_threshold]
+        if len(high) > 1:
+            state, entity, review = ReconciliationState.CONFLICTING, None, True
+        elif high:
+            state, entity, review = ReconciliationState.MATCHED, best.entity, False
+        elif best.score >= review_threshold:
+            state, entity, review = ReconciliationState.CANDIDATE, None, True
+        else:
+            state, entity, review = ReconciliationState.UNMATCHED, None, True
+        resolution = EntityResolution(
+            id=resolution_id, system=system, identifier=identifier,
+            state=state, entity=entity, score=best.score, method=best.method,
+            candidates=candidate_list, review_required=review)
+        self.resolutions.append(resolution)
+        return resolution
+
+    def approve_resolution(self, resolution_id: str, entity: str,
+                           approved_by: str) -> EntityResolution:
+        """Explicitly approve a candidate/matched resolution as MERGED.
+
+        Approval is the only path to consolidation (CR-11L). The external id
+        remains an ExternalIdentifier link; it is never adopted as canonical
+        identity (CR-11I).
+        """
+        if not approved_by:
+            raise InteropError("resolution approval requires an explicit actor")
+        resolution = next((r for r in self.resolutions if r.id == resolution_id),
+                          None)
+        if resolution is None:
+            raise InteropError(f"unknown resolution {resolution_id!r}")
+        if resolution.state not in (ReconciliationState.CANDIDATE,
+                                    ReconciliationState.MATCHED,
+                                    ReconciliationState.CONFLICTING):
+            raise InteropError(
+                f"cannot approve resolution in state {resolution.state.value}")
+        candidate_entities = {c.entity for c in resolution.candidates}
+        if resolution.entity:
+            candidate_entities.add(resolution.entity)
+        if entity not in candidate_entities:
+            raise InteropError(
+                f"approved entity {entity!r} was not a reconciliation candidate")
+        merged = replace(
+            resolution,
+            state=ReconciliationState.MERGED,
+            entity=entity,
+            approved_by=approved_by,
+            review_required=False,
+        )
+        self.resolutions = [merged if r.id == resolution_id else r
+                            for r in self.resolutions]
+        self.link_external_identifier(ExternalIdentifier(
+            system=resolution.system, identifier=resolution.identifier,
+            entity=entity, identifier_type="reconciled"))
+        return merged
+
+    def record_conflict(self, entity: str, property: str,
+                        values: Iterable[ConflictValue]) -> Optional[KnowledgeConflict]:
+        """CR-11L — preserve source disagreement as first-class knowledge."""
+        value_list = list(values)
+        for value in value_list:
+            if value.source not in self.systems:
+                raise InteropError(f"unknown conflict source {value.source!r}")
+        if len({repr(v.value) for v in value_list}) < 2:
+            return None
+        conflict = KnowledgeConflict(
+            id=f"conflict.{entity}.{property}.{len(self.conflicts) + 1}",
+            entity=entity, property=property, values=value_list)
+        self.conflicts.append(conflict)
+        return conflict
+
+    # ---- source authority (CR-11M/N/R) ----
+    def register_authority_policy(self, policy: AuthorityPolicy) -> AuthorityPolicy:
+        for source, _property in policy.weights:
+            if source not in self.systems:
+                raise InteropError(
+                    f"authority policy references unregistered system {source!r}")
+        if policy.id in self.authority_policies:
+            raise InteropError(f"authority policy {policy.id!r} already registered")
+        self.authority_policies[policy.id] = policy
+        return policy
+
+    def resolve_conflict(self, conflict_id: str, policy_id: str,
+                         resolved_by: str) -> KnowledgeConflict:
+        """Resolve a conflict through a declared AuthorityPolicy.
+
+        The chosen value is recorded as the resolution; every competing value
+        remains in the conflict (CR-11L — conflicts are preserved, not erased).
+        """
+        if not resolved_by:
+            raise InteropError("conflict resolution requires an explicit actor")
+        conflict = next((c for c in self.conflicts if c.id == conflict_id), None)
+        if conflict is None:
+            raise InteropError(f"unknown conflict {conflict_id!r}")
+        policy = self.authority_policies.get(policy_id)
+        if policy is None:
+            raise InteropError(f"unknown authority policy {policy_id!r}")
+        chosen = policy.authoritative_value(conflict.property, conflict.values)
+        resolved_at = datetime.now(timezone.utc).isoformat()
+        resolved = replace(
+            conflict,
+            status=ConflictStatus.RESOLVED,
+            resolution={
+                "property": conflict.property,
+                "source": chosen.source,
+                "value": chosen.value,
+                "policy": policy.id,
+                "resolvedBy": resolved_by,
+                "resolvedAt": resolved_at,
+            },
+            resolved_at=resolved_at,
+        )
+        self.conflicts = [resolved if c.id == conflict_id else c
+                          for c in self.conflicts]
+        return resolved
 
     # ---- extensions (CR-11AR) ----
     def register_extension(self, extension: Extension) -> Extension:

@@ -3,6 +3,22 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-10 Phase 7: Digital Twin Foundation
+
+Final phase of CR-10. Specification and metamodel remain **1.0.0**;
+the runtime supports observation, operational state, and drift detection
+against the architecture baseline. The full "digital twin" claim remains
+deferred until synchronization and behavioral semantics exist (CR-013).
+
+### Added — digital twin foundation (`runtime/twin/`)
+- **`DigitalTwin.observe(subject, observed_state, at)`** records an
+  observation as both an in-memory event and a graph `Observation` node
+  traced from the subject.
+- **`current_state(subject)`** returns the latest `OperationalState`.
+- **`state_diff(subject)`** compares architecture lifecycle against
+  observed state, returning explicit drift signals.
+- 6 new runtime tests (199 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 6: Agentic Scenario Generation
 
 Sixth phase of CR-10. Specification and metamodel remain **1.0.0**;

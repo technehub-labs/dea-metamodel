@@ -3,6 +3,23 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.10b: Interoperability & Performance Suites
+
+Second half of CR-9.10 (Conformance & Interoperability Release). Specification
+and metamodel remain **1.0.0**.
+
+### Added — interop + performance suites (`runtime/conformance/`)
+- **Interop scenarios (CR-9CM):** three end-to-end scenarios — external-id
+  correlation, reasoning materialization, full scenario impact pipeline —
+  spanning the CR-9.2 provenance, CR-9.3 reasoning, CR-10 scenario, and
+  CR-11 interop layers.
+- **Performance suite (CR-9CJ/CK):** synthetic 1K / 10K enterprise models
+  exercising load + query + traversal against the reference in-memory store
+  with explicit engineering-target budgets.
+- **Conformance class coverage:** the interop suite covers API, Validation,
+  Provenance; the performance suite covers Query.
+- 6 new runtime tests (146 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.10a: Conformance classes, golden graphs, runner
 
 First half of CR-9.10 (Conformance & Interoperability Release). Specification

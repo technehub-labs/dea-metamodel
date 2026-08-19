@@ -29,7 +29,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
 | `Snapshot` + `diff_snapshots` + `as_of` + `EventLog` — bitemporal queries, events, drift | `runtime/temporal/` | §7–§9 (CR-9F/G/H/I), §56 (CR-9BI/BD) |
 | `ConformanceClass` + `run_conformance` + `GOLDEN_GRAPHS` — runtime conformance classes, golden graphs, runner | `runtime/conformance/` |
-| Runtime test suite (140 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance) | `tests/runtime/` | §94 (CR-9CO) |
+| `INTEROP_SCENARIOS` + `PerformanceSuite` — interoperability end-to-end scenarios + performance engineering targets | `runtime/conformance/interop.py`, `runtime/conformance/performance.py` |
+| Runtime test suite (146 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -104,6 +105,7 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 | CR-9.3 | Semantic Reasoning — rules, inference, explainability (CR-9Q/R/S/T) | **Implemented** |
 | CR-9.4 | Temporal & Event Runtime — bitemporal truth, events, snapshots, drift (CR-9F/G/H/I) | **Implemented** |
 | CR-9.4 | Temporal & Event Runtime — events, snapshots, bitemporal queries (CR-9F/G/H/I) | Proposed |
+| **CR-9.10b** | Interop suite + performance suite (CR-9CM/CJ/CK) | **Implemented**
 | CR-9.5 | Integration Framework — adapters, mapping, identity resolution (CR-9J…O) | Proposed |
 | CR-9.6 | Assessment Runtime — DMM execution (CR-9X/Y) | Proposed |
 | CR-9.7 | Decision & Impact Engine (CR-9Z…AG) | Proposed |

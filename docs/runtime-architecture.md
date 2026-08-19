@@ -197,6 +197,12 @@ prompt/context *references* — not raw prompts in the graph).
   assertion from an authoritative one.
 - **Provenance chain (CR-9BC):** Conclusion → Inference → Assertions →
   Evidence → Source Systems. Explainable enterprise intelligence.
+## 14. Definition of Done — CR-9.1/CR-9.2/CR-9.3/CR-9.4/CR-9.10a/CR-9.10b contribution
+
+CR-9 §100 acceptance criteria, with current status:
+
+- [x] Interop suite and performance suite pass — CR-9.10b
+
 - **Event model (CR-9H/I, CR-9.4):** `runtime/temporal/events.py` carries the
   canonical event envelope (id, type, subject, occurredAt, observedAt,
   source, version, payload) and the canonical event taxonomy. `EventLog`

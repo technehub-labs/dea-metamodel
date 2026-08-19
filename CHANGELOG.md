@@ -3,6 +3,27 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.10a: Conformance classes, golden graphs, runner
+
+First half of CR-9.10 (Conformance & Interoperability Release). Specification
+and metamodel remain **1.0.0**; conformance is the audit surface for the
+runtime programme.
+
+### Added — conformance suite (`runtime/conformance/`)
+- **Runtime conformance classes (CR-9CL):** the seven classes — Core, Profile,
+  API, Query, Validation, Provenance, Security — are declared explicitly
+  (`ConformanceClass` enum) and cannot be silently extended.
+- **Excluded endpoints audit:** `EXCLUDED_ENDPOINTS` documents which runtime
+  surfaces the public suite deliberately does not exercise, including
+  `store.infer` and any future autonomous-mutation endpoints.
+- **Golden graphs (CR-9CN):** `GOLDEN_GRAPHS` reuses the existing canonical
+  fixtures (`models/golden/{enterprise,dmm}.yaml`,
+  `models/scenarios/customer-service-baseline.yaml`) and asserts expected
+  node/edge counts and loadability.
+- **Conformance runner:** `run_conformance(suites)` produces a `ConformanceReport`
+  with the aggregated set of conformance classes covered by the suite catalog.
+- 5 new runtime tests (140 total in `tests/runtime/`).
+
 
 ## [Unreleased] — CR-9.4: Temporal & Event Runtime
 

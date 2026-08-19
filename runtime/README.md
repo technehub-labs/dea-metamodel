@@ -107,6 +107,7 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 | CR-9.4 | Temporal & Event Runtime — events, snapshots, bitemporal queries (CR-9F/G/H/I) | Proposed |
 | **CR-9.10b** | Interop suite + performance suite (CR-9CM/CJ/CK) | **Implemented**
 | **CR-9.5** | Integration framework — runtime bindings for interop with source metadata + conflict preservation (CR-9J/O) | **Implemented**
+| **CR-9.6** | Assessment runtime — measure collection, scoring, maturity mapping, gap recording (CR-9X/9Y) | **Implemented**
 | CR-9.6 | Assessment Runtime — adapters, mapping, identity resolution (CR-9J…O) | Proposed |
 | CR-9.6 | Assessment Runtime — DMM execution (CR-9X/Y) | Proposed |
 | CR-9.7 | Decision & Impact Engine (CR-9Z…AG) | Proposed |

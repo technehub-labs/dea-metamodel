@@ -3,6 +3,20 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.6: Assessment Runtime
+
+Sixth milestone of CR-9. Specification and metamodel remain **1.0.0**; assessment
+is the executability layer for the CR-5 assessment profile.
+
+### Added — assessment runtime (`runtime/assessment/`)
+- **`AssessmentService.execute_assessment`** walks the assessment graph,
+  aggregates measures, applies the scoring strategy and maturity mapping, and
+  persists an `AssessmentResult` with full provenance.
+- **AssessmentGap** recorded automatically when current maturity is below
+  `target_maturity`.
+- **Golden DMM executable** fixture: `models/dmm/executable.yaml`.
+- 5 new runtime tests (156 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-9.5: Integration Framework
 
 Fifth milestone of CR-9 (Runtime, Knowledge Graph & Interoperability). Specification

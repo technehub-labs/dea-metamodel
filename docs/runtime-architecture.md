@@ -59,6 +59,40 @@ Five kinds of knowledge, five distinct representations:
 Competing assertions coexist without corrupting the graph; state transitions —
 never overwrites — resolve them.
 
+### CR-9.2 implementation — the provenance graph
+
+CR-9.2 turns that separation into an executable graph without changing the
+frozen 1.0.0 specification:
+
+```text
+Conclusion (entity or relationship)
+        ↑ traces-to
+Assertion (KnowledgeAsset, provenance_kind=assertion)
+        ↑ traces-to
+Evidence (canonical Evidence)
+        ↑ traces-to
+EvidenceSource
+```
+
+- **Assertions are first-class runtime objects (CR-9O).** `runtime/provenance/`
+  encodes them as canonical `KnowledgeAsset` nodes carrying
+  `provenance_kind=assertion`, the subject id, claim payload, `asserted_by`,
+  confidence, validity window and status (`proposed`, `verified`, `approved`,
+  `rejected`, `superseded`, `disputed`). Using an existing profile type keeps
+  Core frozen while giving the runtime a registry-validated graph
+  representation.
+- **Evidence is a graph, not an attachment (CR-9P).** Evidence and
+  EvidenceSource use the CR-5 canonical assessment types. Runtime lineage uses
+  `traces-to`; loaded canonical models that already express
+  `Evidence -supports→ AssessmentResult` are included in `why()` unchanged.
+- **The chain is explainable (CR-9T/BC).** `ProvenanceService.why(subject)`
+  returns `Conclusion → Assertions → Evidence → Sources` as structured data —
+  the runtime seed of the viewer's future "Why?" navigation (CR-9BZ).
+- **No silent authority (CR-9CQ).** Assertions cannot be created `approved`.
+  Approval is an explicit transition through `verified`, actor-stamped and
+  history-recorded. Derived assertions may carry `derived_from` and
+  `derivation_rule`, but the reasoning engine itself remains CR-9.3 scope.
+
 ## 4. The graph abstraction (CR-9D/E)
 
 **Vendor independence is a conformance concern, not a preference.** All
@@ -212,8 +246,8 @@ technology, governance and operational dimensions (CR-9BL).
 
 | Milestone | Deliverable | Status |
 |---|---|---|
-| **CR-9.1 Runtime Foundation** | `runtime/` package (GraphStore ABC + in-memory reference store, model loader, identity, RuntimeService), 49-test runtime suite wired into CI | **Implemented** |
-| CR-9.2 Knowledge Graph | Canonical graph representation + provenance graph (CR-9O/P) | Proposed |
+| **CR-9.1 Runtime Foundation** | `runtime/` package (GraphStore ABC + in-memory reference store, model loader, identity, RuntimeService), runtime contract suite wired into CI | **Implemented** |
+| **CR-9.2 Knowledge Graph** | `runtime/provenance/` — Assertion/Evidence/Source provenance graph, explicit status transitions, `why()` provenance chains | **Implemented** |
 | CR-9.3 Semantic Reasoning | Rule registry, levelled inference, explainability (CR-9Q…T) | Proposed |
 | CR-9.4 Temporal & Event Runtime | Bitemporal semantics, events, snapshots, drift (CR-9F…I, BD…BI) | Proposed |
 | CR-9.5 Integration Framework | Adapters, mapping spec, identity resolution (CR-9J…O) | Proposed |
@@ -227,14 +261,14 @@ technology, governance and operational dimensions (CR-9BL).
 foundation only, CR-9AS/AT), scenario engine as a major capability (CR-9BJ →
 CR-10), cost/value semantics beyond profile placeholders (CR-9BK).
 
-## 14. Definition of Done — CR-9.1 contribution
+## 14. Definition of Done — CR-9.1/CR-9.2 contribution
 
-CR-9 §100 acceptance criteria, with CR-9.1 status:
+CR-9 §100 acceptance criteria, with current status:
 
 - [x] OpenDEA models can be loaded into a runtime — `runtime/model/loader.py`, 7 golden models load
 - [x] Canonical entities and relationships are preserved — verbatim-envelope test
 - [x] Graph queries work independently of graph vendor — `GraphStore` ABC + contract suite
-- [x] Provenance is retained — assertion/source/provenance fields round-trip
+- [x] Provenance is retained — envelope fields round-trip **and** resolve as Assertion → Evidence → Source chains via `ProvenanceService.why()`
 - [x] Temporal state is supported — `valid_from/valid_to` + `at=` queries (bitemporal → CR-9.4)
 - [x] Runtime APIs are defined — programmatic service layer (REST bindings → CR-9.7)
 - [ ] External sources can be mapped into OpenDEA — CR-9.5

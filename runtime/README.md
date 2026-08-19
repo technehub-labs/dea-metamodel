@@ -1,6 +1,6 @@
 # OpenDEA Runtime — CR-9 Reference Implementation
 
-> **Status:** CR-9.1 (Runtime Foundation) implemented · CR-9.2…CR-9.10 queued
+> **Status:** CR-9.1 (Runtime Foundation) + CR-9.2 (Knowledge Graph / Provenance) implemented · CR-9.3…CR-9.10 queued
 > **Consumes:** OpenDEA Specification 1.0.0 (CR-8) — the semantic contract stays
 > authoritative; the runtime provides *interchangeable implementations* of graph,
 > inference, integration, assessment and agentic services (CR-9 §101).
@@ -14,7 +14,7 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
      └────────── Action / Change ← Decision Support ←─────┘
 ```
 
-## What exists today (CR-9.1 — Runtime Foundation)
+## What exists today
 
 | Component | Path | CR-9 section |
 |---|---|---|
@@ -24,8 +24,9 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | Canonical model loader (validate → atomic load) | `runtime/model/loader.py` | §73 (CR-9BT.2/.3), §12 (CR-9K) |
 | Canonical identity helpers (CR-8 §7) | `runtime/model/identity.py` | §14 (CR-9M prerequisite) |
 | `RuntimeService` — entity/relationship CRUD with registry validation | `runtime/api/service.py` | §74 Phase 1 (CR-9BU) |
+| `ProvenanceService` — Assertion / Evidence / Source graph and `why()` chain | `runtime/provenance/` | §16–§17 (CR-9O/P), §21/§56 (CR-9T/BC) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
-| Runtime test suite (49 tests) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (96 tests: graph, loader, CRUD, provenance, scenario, interop) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -33,6 +34,7 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 from runtime.graph import InMemoryGraphStore
 from runtime.model import load_model
 from runtime.api import RuntimeService
+from runtime.provenance import AssertionStatus, ProvenanceService
 
 store = InMemoryGraphStore()
 
@@ -51,6 +53,16 @@ svc.traverse("app.cs-platform")
 svc.find_path("app.cs-platform", "cap.customer-service")
 store.neighbors("cap.customer-service", direction="in",
                 at="2026-06-01T00:00:00Z")   # "what is true now?"
+
+# CR-9.2 provenance graph: claims never mutate their subject
+prov = ProvenanceService(store)
+prov.register_source("src.cmdb", "Enterprise CMDB", system="ServiceNow")
+prov.register_evidence("ev.inventory", "Application Inventory", confidence=0.9)
+prov.assert_fact("assertion.cs-maturity", "cap.customer-service",
+                 {"maturity": 2.7}, asserted_by="architect-42",
+                 status=AssertionStatus.PROPOSED, confidence=0.92,
+                 evidence=["ev.inventory"], source="src.cmdb")
+prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → Source
 ```
 
 ## Design principles enforced in code
@@ -62,11 +74,13 @@ store.neighbors("cap.customer-service", direction="in",
    structure (CR-9C).** Edges are first-class and carry provenance, temporal
    validity, lifecycle status and properties (CR-9E).
 3. **Model ≠ runtime state ≠ assertion ≠ evidence ≠ inference (CR-9B).** These
-   are distinct fields on `Node`/`Edge`; nothing collapses them.
+   are distinct graph citizens: entities/relationships carry the model;
+   `ProvenanceService` records claims as Assertion nodes, support as Evidence
+   nodes and origins as EvidenceSource nodes — nothing collapses them.
 4. **No silent inference (CR-9CQ).** `GraphStore.infer()` raises
    `InferenceUnavailable` — reasoning lands in CR-9.3 and must always carry
-   provenance and explicit state transitions. Loads materialize exactly the
-   edges the model declared (test-enforced).
+   provenance and explicit state transitions. Assertions cannot be created
+   `approved`; approval is an explicit, audited transition.
 5. **No autonomous mutation by default (CR-9CR).** The foundation exposes no
    agent write path. Any future agent write passes through authority/policy
    evaluation (CR-9AJ/AK) first.
@@ -83,7 +97,7 @@ store.neighbors("cap.customer-service", direction="in",
 | Milestone | Scope | Status |
 |---|---|---|
 | CR-9.1 | Runtime Foundation — graph abstraction, model loading, entity/relationship APIs | **Implemented** |
-| CR-9.2 | Knowledge Graph — canonical graph representation and provenance | Proposed |
+| CR-9.2 | Knowledge Graph — canonical graph representation and provenance | **Implemented** |
 | CR-9.3 | Semantic Reasoning — rules, inference, explainability (CR-9Q/R/S/T) | Proposed |
 | CR-9.4 | Temporal & Event Runtime — events, snapshots, bitemporal queries (CR-9F/G/H/I) | Proposed |
 | CR-9.5 | Integration Framework — adapters, mapping, identity resolution (CR-9J…O) | Proposed |

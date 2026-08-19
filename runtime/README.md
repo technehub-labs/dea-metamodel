@@ -26,7 +26,7 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `RuntimeService` — entity/relationship CRUD with registry validation | `runtime/api/service.py` | §74 Phase 1 (CR-9BU) |
 | `ProvenanceService` — Assertion / Evidence / Source graph and `why()` chain | `runtime/provenance/` | §16–§17 (CR-9O/P), §21/§56 (CR-9T/BC) |
 | Vendor-independent contract suite | `tests/runtime/test_graphstore_contract.py` | §91 (CR-9CL seed) |
-| Runtime test suite (101 tests: graph, loader, CRUD, provenance, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (114 tests: graph, loader, CRUD, provenance, scenario, impact, interop) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -124,16 +124,23 @@ affected never automatically means negative (CR-10G/H). Golden example:
 (decision intelligence, DMM integration, simulation adapters, agentic
 generation, digital-twin foundation) are queued.
 
-## CR-11 — Interoperability & Federation (Phase 1 implemented)
+## CR-11 — Interoperability & Federation (Phases 1–2 implemented)
 
 `runtime/interoperability/` adds the CR-11 Phase 1 semantic interoperability
 foundation: first-class ExternalSystem / IntegrationAdapter (connector ≠
 adapter) / SemanticMapping (relationship, confidence, lossiness, governed and
 versioned) / ExternalIdentifier (correlated, never adopted) / Exchange
 envelope, plus namespaced Extensions that never touch the Core (ADR-013).
-Docs: [`docs/interoperability/`](../docs/interoperability/overview.md).
-Phases 2–8 (identity & reconciliation, exchange schemas, provenance,
-reference mappings, events, federation, conformance) are queued.
+
+`runtime/interoperability/identity.py` adds Phase 2: EntityResolution with
+thresholded exact/candidate matching, the full reconciliation-state vocabulary,
+KnowledgeConflict preservation, property-specific AuthorityPolicy and governed
+conflict resolution. Merges require explicit approval; external ids remain
+correlated links and are never adopted as canonical identity. Docs:
+[`docs/interoperability/`](../docs/interoperability/overview.md), especially
+[`identity.md`](../docs/interoperability/identity.md). Phases 3–8 (exchange
+schemas, provenance, reference mappings, events, federation, conformance) are
+queued.
 
 Full rationale: [`docs/runtime-architecture.md`](../docs/runtime-architecture.md).
 Change requests: [`change-requests/CR-009.md`](../change-requests/CR-009.md) ·

@@ -4,6 +4,29 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-9.2: Knowledge Graph & Provenance
+
+Second milestone of CR-9 (Runtime, Knowledge Graph & Interoperability).
+Specification and metamodel remain **1.0.0**; the provenance graph is additive
+runtime machinery over the frozen semantic contract.
+
+### Added — provenance graph (`runtime/provenance/`)
+- **First-class runtime assertions** (CR-9O): claims carry subject, payload,
+  `asserted_by`, confidence, validity window and status (`proposed`, `verified`,
+  `approved`, `rejected`, `superseded`, `disputed`). Assertions are encoded as
+  canonical `KnowledgeAsset` nodes with `provenance_kind=assertion`, preserving
+  the frozen Core.
+- **Evidence graph** (CR-9P): Evidence and EvidenceSource are graph citizens;
+  lineage uses canonical `traces-to`, while loaded models expressing
+  `Evidence -supports→ AssessmentResult` join the same explainability path.
+- **Provenance chain / Why?** (CR-9T/BC): `ProvenanceService.why(subject)`
+  returns Conclusion → Assertions → Evidence → Sources with stable structured
+  output — the runtime seed for CR-9BZ "Why?" navigation.
+- **Explicit authority transitions** (CR-9CQ): assertions cannot be created
+  approved; status changes are actor-stamped, reason-carrying transitions with
+  history. Derived assertions retain `derived_from` and `derivation_rule`.
+- 9 new runtime tests (96 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-11 Phase 1: Semantic Interoperability Foundation
 
 First phase of CR-11 (Interoperability, Federation & Ecosystem Conformance).

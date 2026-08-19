@@ -3,6 +3,19 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-10 Phase 6: Agentic Scenario Generation
+
+Sixth phase of CR-10. Specification and metamodel remain **1.0.0**;
+agentic scenario generation produces candidates that close a maturity gap,
+with humans retained in the approval loop.
+
+### Added — agentic scenario proposal (`runtime/agentic/`)
+- **`ScenarioProposer.propose_scenarios_for_gap(gap_id)`** returns a
+  `ScenarioProposalReport` with candidate scenarios, impact summaries and
+  a recommendation that is **never approved by default** (CR-9CR).
+- Candidates are evaluated against the CR-10 Phase 5 simulation adapter.
+- 5 new runtime tests (193 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 5: Simulation Adapters
 
 Fifth phase of CR-10. Specification and metamodel remain **1.0.0**;

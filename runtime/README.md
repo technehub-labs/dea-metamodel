@@ -34,7 +34,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `AgentRuntime` + `ToolRegistry` — policy decision point, audit trail, capability matching | `runtime/agent/` |
 | `MaturityProjector` — projects assessment gaps to projected maturity and proposed initiatives | `runtime/maturity/` |
 | `SimulationAdapter` + `ScenarioImpactAdapter` + `SimulationRegistry` — domain-side seam (CR-10AC/AD/AF) | `runtime/simulation/` |
-| Runtime test suite (188 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation) | `tests/runtime/` | §94 (CR-9CO) |
+| `ScenarioProposer` — agentic scenario generation for a maturity gap (CR-10AJ/AK) | `runtime/agentic/` |
+| Runtime test suite (193 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation, agentic) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

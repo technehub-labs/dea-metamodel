@@ -89,7 +89,9 @@ class ProvenanceService:
             self._require_kind(source, self.SOURCE_KIND)
         derived_ids = list(derived_from or [])
         for parent_id in derived_ids:
-            self._require_kind(parent_id, self.ASSERTION_KIND)
+            if not self.store.has_entity(parent_id):
+                raise ProvenanceError(
+                    f"derived_from reference {parent_id!r} is not present in the graph")
 
         props = {
             "provenance_kind": self.ASSERTION_KIND,

@@ -3,6 +3,18 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-9.9: OpenDEA Explorer
+
+Final tenth milestone of CR-9. Specification and metamodel remain **1.0.0**;
+the Explorer exposes the runtime through the seven-module API surface.
+
+### Added — Explorer runtime API ()
+-  enum with the seven modes (explore / assess / trace /
+  compare / query / simulate / govern).
+-  wrap the underlying runtime services.
+-  exposes conclusion → evidence → source provenance.
+- 8 new runtime tests (176 total in ).
+
 ## [Unreleased] — CR-9.8: Agent Runtime
 
 Eighth milestone of CR-9. Specification and metamodel remain **1.0.0**; the

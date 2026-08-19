@@ -30,8 +30,9 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `Snapshot` + `diff_snapshots` + `as_of` + `EventLog` — bitemporal queries, events, drift | `runtime/temporal/` | §7–§9 (CR-9F/G/H/I), §56 (CR-9BI/BD) |
 | `ConformanceClass` + `run_conformance` + `GOLDEN_GRAPHS` — runtime conformance classes, golden graphs, runner | `runtime/conformance/` |
 | `INTEROP_SCENARIOS` + `PerformanceSuite` — interoperability end-to-end scenarios + performance engineering targets | `runtime/conformance/interop.py`, `runtime/conformance/performance.py` |
+| `ExplorerService` — seven-mode runtime API (explore / assess / trace / compare / query / simulate / govern) | `runtime/explorer/` |
 | `AgentRuntime` + `ToolRegistry` — policy decision point, audit trail, capability matching | `runtime/agent/` |
-| Runtime test suite (168 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent) | `tests/runtime/` | §94 (CR-9CO) |
+| Runtime test suite (176 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 
@@ -115,7 +116,7 @@ prov.why("cap.customer-service")   # Conclusion → Assertion → Evidence → S
 | CR-9.7 | Decision & Impact Engine (CR-9Z…AG) | Proposed |
 | **CR-9.8** | Agent runtime — policy decision point, audit trail, tool registry (CR-9AH…AR) | **Implemented**
 | CR-9.8 | Agent Runtime — discovery, authority, policy, audit (CR-9AH…AR) | Proposed |
-| CR-9.9 | OpenDEA Explorer — viewer decoupled, API-driven (CR-9BX…CB) | Proposed |
+| CR-9.9 | OpenDEA Explorer — viewer decoupled, API-driven (CR-9BX…CB) | **Implemented** |
 | CR-9.10 | Conformance & Interoperability Release — golden graphs, interop suite (CR-9CL…CP) | Proposed |
 
 ## CR-10 — Scenario & Decision Intelligence (Phases 1–3 implemented)

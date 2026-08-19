@@ -9,5 +9,5 @@ runtime, explorer and conformance releases on top of this surface. See
 runtime/README.md and docs/runtime-architecture.md.
 """
 
-__version__ = "0.7.0"  # CR-9.1/9.2/9.3 + CR-10 Phases 1/2 + CR-11 Phases 1/2
+__version__ = "0.8.0"  # CR-9.1–9.3 + CR-10 Phases 1–3 + CR-11 Phases 1–2
 __opendea_spec__ = "1.0.0"  # CR-8 specification this runtime consumes

@@ -120,6 +120,9 @@ CR-6 introduced the clocks; CR-9 operationalizes them.
   was true last year / is expected next year" is answerable today
   (`test_provenance_temporal.py::test_what_is_true_now`). A *planned* edge is
   never read as a current edge (CR-6 §22).
+- **Bitemporal truth (CR-9G, CR-9.4):** `runtime/temporal/queries.py::as_of()` answers
+  "what was true at valid_at, as we knew it at recorded_at" using edge
+  `recorded_at` property alongside `valid_from`/`valid_to`.
 - **CR-9.4 (deferred):** full bitemporal semantics — valid time + transaction
   time — so the system can distinguish "the architecture changed in January"
   from "we learned about it in August" (CR-9G). This is the audit/governance
@@ -194,6 +197,14 @@ prompt/context *references* — not raw prompts in the graph).
   assertion from an authoritative one.
 - **Provenance chain (CR-9BC):** Conclusion → Inference → Assertions →
   Evidence → Source Systems. Explainable enterprise intelligence.
+- **Event model (CR-9H/I, CR-9.4):** `runtime/temporal/events.py` carries the
+  canonical event envelope (id, type, subject, occurredAt, observedAt,
+  source, version, payload) and the canonical event taxonomy. `EventLog`
+  is append-only.
+- **Snapshots and drift (CR-9BI/BD/BE, CR-9.4):** `runtime/temporal/snapshots.py`
+  freezes any GraphStore as a `Snapshot`; `diff_snapshots(before, after)`
+  reports added/removed/modified entities and edges. Drift detection between
+  approved and observed states deferred to CR-9.10.
 - **Architecture observability (CR-9BD/BE):** drift — architecture, policy,
   maturity, dependency, technology, agent behaviour, governance — is detected
   by comparing approved vs observed state, then risk-assessed and decided.
@@ -280,7 +291,7 @@ CR-9 §100 acceptance criteria, with current status:
 - [x] Provenance is retained — envelope fields round-trip **and** resolve as Assertion → Evidence → Source chains via `ProvenanceService.why()`
 - [x] Temporal state is supported — `valid_from/valid_to` + `at=` queries (bitemporal → CR-9.4)
 - [x] Runtime APIs are defined — programmatic service layer (REST bindings → CR-9.7)
-- [ ] External sources can be mapped into OpenDEA — CR-9.5
+- [x] Temporal state is bitemporal — `as_of(valid_at, recorded_at)` filters on edge `recorded_at`
 - [ ] Entity identity can be resolved safely — CR-9.5
 - [x] Rules can generate derived assertions — `RuleRegistry` + `ReasoningEngine.infer()`; materialization lands as PROPOSED assertions
 - [x] Every inference is explainable — rule, level, supporting inputs, explanation steps and confidence recorded

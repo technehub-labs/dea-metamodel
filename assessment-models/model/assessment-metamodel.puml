@@ -1,0 +1,346 @@
+@startuml OpenDEA_Assessment_Metamodel
+title OpenDEA Assessment Metamodel v1
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam packageStyle rectangle
+skinparam class {
+    BackgroundColor #F8FAFC
+    BorderColor #334155
+    ArrowColor #475569
+    FontColor #0F172A
+}
+skinparam package {
+    BackgroundColor #FFFFFF
+    BorderColor #CBD5E1
+    FontColor #0F172A
+}
+' ============================================================
+' CORE ASSESSMENT
+' ============================================================
+package "Assessment Core" {
+    class AssessmentModel {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +purpose : AssessmentPurpose[*]
+        +subjectType : SubjectType
+        +status : LifecycleStatus
+        +description : String
+        +metamodelVersion : Version
+    }
+    class AssessmentInstrument {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +instrumentType : InstrumentType
+        +status : LifecycleStatus
+    }
+    class AssessmentExecution {
+        +id : Identifier
+        +startedAt : DateTime
+        +completedAt : DateTime
+        +status : ExecutionStatus
+    }
+    class AssessmentResult {
+        +id : Identifier
+        +status : ResultStatus
+        +assessmentPeriod : Period
+        +confidence : Confidence
+        +createdAt : DateTime
+    }
+    class AssessmentDimension {
+        +id : Identifier
+        +name : String
+        +description : String
+        +weight : Decimal
+    }
+    class AssessmentQuestion {
+        +id : Identifier
+        +version : Version
+        +text : String
+        +required : Boolean
+        +weight : Decimal
+    }
+}
+' ============================================================
+' CAPABILITY
+' ============================================================
+package "Capability Model" {
+    class Capability {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +description : String
+        +status : LifecycleStatus
+    }
+    class CapabilityOutcome {
+        +id : Identifier
+        +name : String
+        +description : String
+    }
+    class CapabilityDependency {
+        +relationshipType : DependencyType
+    }
+}
+' ============================================================
+' SCENARIO
+' ============================================================
+package "Scenario Model" {
+    class Scenario {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +description : String
+        +status : LifecycleStatus
+    }
+    class ScenarioContext {
+        +id : Identifier
+        +name : String
+        +value : String
+    }
+    class ScenarioOutcome {
+        +id : Identifier
+        +name : String
+        +description : String
+    }
+}
+' ============================================================
+' MEASUREMENT
+' ============================================================
+package "Measurement Model" {
+    class Measure {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +definition : String
+        +unit : String
+        +status : LifecycleStatus
+    }
+    class MeasurementRule {
+        +id : Identifier
+        +expression : String
+        +method : String
+    }
+    class Observation {
+        +id : Identifier
+        +value : String
+        +observedAt : DateTime
+        +confidence : Confidence
+    }
+}
+' ============================================================
+' EVIDENCE
+' ============================================================
+package "Evidence Model" {
+    class EvidenceRequirement {
+        +id : Identifier
+        +name : String
+        +required : Boolean
+        +description : String
+    }
+    class Evidence {
+        +id : Identifier
+        +type : EvidenceType
+        +description : String
+        +source : String
+        +capturedAt : DateTime
+        +confidence : Confidence
+    }
+    class EvidenceProvenance {
+        +sourceType : String
+        +sourceId : String
+        +capturedBy : String
+        +capturedAt : DateTime
+    }
+}
+' ============================================================
+' SCORING
+' ============================================================
+package "Scoring Model" {
+    class ScoringModel {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +description : String
+        +status : LifecycleStatus
+    }
+    class ScoringRule {
+        +id : Identifier
+        +expression : String
+        +weight : Decimal
+    }
+    class Score {
+        +value : Decimal
+        +normalizedValue : Decimal
+        +scale : String
+    }
+}
+' ============================================================
+' MATURITY
+' ============================================================
+package "Maturity Model" {
+    class MaturityModel {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +description : String
+        +status : LifecycleStatus
+    }
+    class MaturityLevel {
+        +id : Identifier
+        +level : Integer
+        +name : String
+        +description : String
+    }
+    class MaturityCriterion {
+        +id : Identifier
+        +description : String
+        +threshold : Decimal
+    }
+}
+' ============================================================
+' BENCHMARK
+' ============================================================
+package "Benchmark Model" {
+    class BenchmarkModel {
+        +id : Identifier
+        +name : String
+        +version : Version
+        +description : String
+        +status : LifecycleStatus
+    }
+    class BenchmarkPopulation {
+        +id : Identifier
+        +name : String
+        +description : String
+    }
+    class ComparabilityRule {
+        +id : Identifier
+        +expression : String
+        +description : String
+    }
+    class BenchmarkResult {
+        +score : Decimal
+        +percentile : Decimal
+        +rank : Integer
+        +sampleSize : Integer
+        +status : BenchmarkStatus
+    }
+}
+' ============================================================
+' MODEL GOVERNANCE
+' ============================================================
+package "Model Governance" {
+    class ModelLineage {
+        +previousVersion : Version
+        +changeType : ChangeType
+        +supersedes : Identifier[*]
+    }
+    class Compatibility {
+        +backwardCompatible : Boolean
+        +scoringCompatible : Boolean
+        +maturityCompatible : Boolean
+        +benchmarkCompatible : Boolean
+        +resultCompatible : Boolean
+    }
+}
+' ============================================================
+' CORE RELATIONSHIPS
+' ============================================================
+AssessmentModel "1" o-- "1..*" AssessmentDimension : defines
+AssessmentDimension "1" o-- "0..*" AssessmentQuestion : contains
+AssessmentModel "1" --> "1..*" Capability : assesses
+AssessmentModel "0..*" --> "0..*" Scenario : applicable to
+AssessmentModel "1" --> "0..*" Measure : measures
+AssessmentModel "1" --> "0..*" EvidenceRequirement : requires
+AssessmentModel "1" --> "0..1" ScoringModel : uses
+AssessmentModel "0..*" --> "0..*" MaturityModel : may interpret with
+AssessmentModel "0..*" --> "0..*" BenchmarkModel : may support
+AssessmentInstrument "1" --> "1" AssessmentModel : implements
+AssessmentExecution "1" --> "1" AssessmentInstrument : executes
+AssessmentExecution "1" --> "1" Scenario : occurs in
+AssessmentExecution "1" --> "1" AssessmentResult : produces
+AssessmentResult "1" --> "1" AssessmentModel : conforms to
+AssessmentResult "1" --> "1..*" Observation : contains
+AssessmentResult "1" --> "0..*" Evidence : supported by
+AssessmentResult "1" --> "0..*" Score : produces
+AssessmentResult "1" --> "0..*" MaturityLevel : interpreted as
+AssessmentResult "1" --> "0..*" BenchmarkResult : produces
+AssessmentResult "1" --> "0..*" Finding : identifies
+Observation "1" --> "1" Measure : measures
+Observation "1" --> "0..*" Evidence : supported by
+Measure "1" --> "0..*" MeasurementRule : measured by
+Capability "1" o-- "0..*" CapabilityOutcome : produces
+Capability "0..*" --> "0..*" Capability : depends on
+Scenario "1" o-- "0..*" ScenarioContext : defined by
+Scenario "1" o-- "0..*" ScenarioOutcome : produces
+Evidence "1" --> "0..1" EvidenceProvenance : has
+ScoringModel "1" o-- "1..*" ScoringRule : defines
+ScoringRule "1" --> "0..*" Score : produces
+MaturityModel "1" o-- "1..*" MaturityLevel : defines
+MaturityLevel "1" o-- "0..*" MaturityCriterion : evaluated by
+BenchmarkModel "1" --> "1" BenchmarkPopulation : applies to
+BenchmarkModel "1" o-- "1..*" ComparabilityRule : defines
+BenchmarkResult "1" --> "1" BenchmarkModel : generated by
+AssessmentModel "1" --> "0..1" ModelLineage : has
+AssessmentModel "1" --> "0..1" Compatibility : declares
+' ============================================================
+' FINDINGS
+' ============================================================
+class Finding {
+    +id : Identifier
+    +type : FindingType
+    +severity : Severity
+    +description : String
+    +recommendation : String
+}
+' ============================================================
+' ENUMERATIONS
+' ============================================================
+enum AssessmentPurpose {
+    enterprise-health
+    capability-assessment
+    maturity-assessment
+    diagnostic
+    baseline
+    readiness
+    scenario
+    comparative
+    benchmark
+    compliance
+}
+enum LifecycleStatus {
+    draft
+    experimental
+    alpha
+    beta
+    stable
+    deprecated
+    retired
+}
+enum ChangeType {
+    major
+    minor
+    patch
+}
+enum Confidence {
+    low
+    medium
+    high
+}
+enum BenchmarkStatus {
+    eligible
+    not-comparable
+    insufficient-data
+    provisional
+}
+enum Severity {
+    informational
+    low
+    medium
+    high
+    critical
+}
+@enduml

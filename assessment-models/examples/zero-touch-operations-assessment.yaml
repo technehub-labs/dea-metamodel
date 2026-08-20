@@ -1,0 +1,47 @@
+# Example — Zero Touch Operations Capability Assessment
+# Source: CR-AM-01 supplement §9
+# Purpose: Demonstrates a scenario-based capability assessment that does
+# NOT require a maturity model. Proves the maturity decoupling.
+
+id: dea:assessment-zero-touch-operations
+name: Zero Touch Operations Capability Assessment
+type: assessment-model
+version: "1.0.0"
+metamodel_version: "1.0.0"
+
+purpose:
+  - capability-assessment
+  - scenario
+  - comparative
+
+subject_type: enterprise
+
+capabilities:
+  - id: dea:capability-automation
+    version: "1.0.0"
+  - id: dea:capability-self-governance
+    version: "1.0.0"
+  - id: dea:capability-self-adaptation
+    version: "1.0.0"
+
+scenarios:
+  - id: dea:scenario-zero-touch-service-assurance
+    version: "1.0.0"
+
+measures:
+  - id: dea:measure-automation-rate
+    version: "1.0.0"
+  - id: dea:measure-closed-loop-rate
+    version: "1.0.0"
+  - id: dea:measure-human-intervention-rate
+    version: "1.0.0"
+
+scoring_model:
+  id: dea:scoring-four-point
+  version: "1.0.0"
+
+maturity_models: []   # No maturity model required — proves the decoupling
+
+benchmark_models:
+  - id: dea:benchmark-zero-touch-operations
+    version: "1.0.0"

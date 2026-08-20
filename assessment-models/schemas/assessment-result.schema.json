@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-result.schema.json",
+  "title": "OpenDEA Assessment Result",
+  "description": "The persistent output of an AssessmentExecution. Stores exact versions of every referenced model. Subsequent model changes do not mutate historical results.",
+  "type": "object",
+  "required": [
+    "id",
+    "assessment_model",
+    "subject",
+    "assessment_period",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "assessment_model": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "assessment_instrument": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "scenario": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "assessment_period": {
+      "type": "object",
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "scores": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/score"
+      }
+    },
+    "maturity": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/maturityResult"
+      }
+    },
+    "benchmark": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/benchmarkResult"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in-progress",
+        "completed",
+        "validated",
+        "superseded"
+      ]
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "required": [
+        "id",
+        "measure",
+        "value"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "value": {},
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/modelReference"
+          }
+        }
+      }
+    },
+    "score": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "dimension": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "value": {
+          "type": "number"
+        },
+        "normalized_value": {
+          "type": "number"
+        },
+        "scale": {
+          "type": "string"
+        }
+      }
+    },
+    "maturityResult": {
+      "type": "object",
+      "required": [
+        "model",
+        "level"
+      ],
+      "properties": {
+        "model": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "level": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "benchmarkResult": {
+      "type": "object",
+      "required": [
+        "model",
+        "status"
+      ],
+      "properties": {
+        "model": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "status": {
+          "enum": [
+            "eligible",
+            "not-comparable",
+            "insufficient-data",
+            "provisional"
+          ]
+        },
+        "percentile": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sample_size": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "required": [
+        "id",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "informational",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "recommendation": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

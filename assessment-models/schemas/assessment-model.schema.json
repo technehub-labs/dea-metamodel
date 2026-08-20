@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-model.schema.json",
+  "title": "OpenDEA Assessment Model",
+  "description": "The semantic specification of an assessment. An AssessmentModel defines what is being assessed (capabilities), under what conditions (scenarios), how (measures, evidence, scoring), and how results may be interpreted (maturity, benchmark).",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "metamodel_version",
+    "type",
+    "purpose",
+    "subject_type"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "assessment-model"
+    },
+    "purpose": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/assessmentPurpose"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "subject_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dimension"
+      }
+    },
+    "measures": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "evidence_requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "scoring_model": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "maturity_models": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "benchmark_models": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "question": {
+      "type": "object",
+      "required": [
+        "id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "version": {
+          "$ref": "common.schema.json#/$defs/version"
+        },
+        "text": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean",
+          "default": true
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "evidence_requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/modelReference"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

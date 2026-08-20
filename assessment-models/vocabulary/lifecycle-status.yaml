@@ -1,0 +1,60 @@
+# Lifecycle Status Vocabulary
+# Source: CR-AM-01 §42, §43
+
+vocabulary: lifecycle-status
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  Lifecycle states a model passes through. The `retired` state was added
+  to the metamodel because retired ≠ deleted: definition required to interpret
+  historical assessment results must be retained after retirement.
+
+states:
+  - id: draft
+    label: Draft
+    description: Initial authoring. Not yet suitable for any consumer.
+
+  - id: experimental
+    label: Experimental
+    description: >
+      Posted for early feedback. May change without notice. Not for
+      production use.
+
+  - id: alpha
+    label: Alpha
+    description: >
+      API may still change. Known to be incomplete. May be used in
+      non-production settings.
+
+  - id: beta
+    label: Beta
+    description: >
+      API stabilising. May be used in production with caution.
+      Backward-compat breakage still permitted.
+
+  - id: stable
+    label: Stable
+    description: >
+      Production-ready. Backward-compat breakage requires a MAJOR version
+      bump and a deprecation period.
+
+  - id: deprecated
+    label: Deprecated
+    description: >
+      Still valid but slated for retirement. Consumers should migrate.
+      Definition remains available for historical result interpretation.
+
+  - id: retired
+    label: Retired
+    description: >
+      No longer valid for new work. Definition MUST remain available
+      because historical assessment results reference it (CR-AM-01 §43).
+
+# Default lifecycle for new models: draft
+default: draft
+
+# A retired model must not be deleted while any historical AssessmentResult references it.
+retention_policy: >
+  Definition must be retained as long as any historical AssessmentResult
+  references this model. Tooling must refuse to delete a model whose id
+  is referenced by any AssessmentResult.

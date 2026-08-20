@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/compatibility.schema.json",
+  "title": "OpenDEA Compatibility Metadata",
+  "description": "Explicit compatibility declaration for a model version. SemVer alone is insufficient — adding a question can change the statistical interpretation of a score (CR-AM-01 §25).",
+  "type": "object",
+  "required": [
+    "model_id",
+    "model_version",
+    "backward_compatible",
+    "scoring_compatible",
+    "maturity_compatible",
+    "benchmark_compatible",
+    "result_compatible"
+  ],
+  "properties": {
+    "model_id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "model_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "previous_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "backward_compatible": {
+      "type": "boolean",
+      "description": "Existing results from previous_version can still be processed without change."
+    },
+    "scoring_compatible": {
+      "type": "boolean",
+      "description": "Scores from previous_version have the same interpretation."
+    },
+    "maturity_compatible": {
+      "type": "boolean",
+      "description": "Results from previous_version can be mapped to the same maturity interpretation."
+    },
+    "benchmark_compatible": {
+      "type": "boolean",
+      "description": "Results from previous_version may legitimately participate in cross-organisation benchmarking with this version."
+    },
+    "result_compatible": {
+      "type": "boolean",
+      "description": "Result structure is unchanged; results can flow through unchanged downstream."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

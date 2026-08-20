@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/scoring-model.schema.json",
+  "title": "OpenDEA Scoring Model",
+  "description": "Pluggable aggregation and normalisation rules. The current 4-point questionnaire scoring becomes the default ScoringModel, not the metamodel.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "metamodel_version",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "scoring-model"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "scale_per_question": {
+      "type": "array",
+      "items": {"type": "integer", "minimum": 0},
+      "minItems": 2,
+      "description": "The integer scale per question. The default 4-point scale is [0,1,2,3]."
+    },
+    "scoring_method": {
+      "type": "string",
+      "description": "Free-form expression of how scores are aggregated (e.g. 'sum / max_possible × 100', 'weighted average', 'categorical mapping')."
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "expression"],
+        "properties": {
+          "id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "expression": {"type": "string"},
+          "weight": {"type": "number", "minimum": 0}
+        }
+      }
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    }
+  },
+  "additionalProperties": false
+}

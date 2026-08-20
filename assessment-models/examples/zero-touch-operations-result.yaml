@@ -1,0 +1,70 @@
+# Example — Zero Touch Operations Assessment Result
+# Source: CR-AM-01 supplement §10
+# Purpose: Demonstrates that an AssessmentResult is independently useful
+# and can be displayed as enterprise heatmap, capability profile, scenario
+# result, benchmark position, or trend against prior assessment.
+
+id: dea:result:2026:000184
+
+assessment_model:
+  id: dea:assessment-zero-touch-operations
+  version: "1.0.0"
+
+assessment_instrument:
+  id: dea:instrument-zero-touch-workshop
+  version: "1.0.0"
+
+subject:
+  id: enterprise-001
+  type: enterprise
+  name: Enterprise A
+
+scenario:
+  id: dea:scenario-zero-touch-service-assurance
+  version: "1.0.0"
+
+assessment_period:
+  start: "2026-07-01T00:00:00Z"
+  end: "2026-07-31T23:59:59Z"
+
+status: validated
+confidence: high
+
+observations:
+  - id: obs-001
+    measure:
+      id: dea:measure-automation-rate
+      version: "1.0.0"
+    value: 78
+    observed_at: "2026-07-31T12:00:00Z"
+  - id: obs-002
+    measure:
+      id: dea:measure-closed-loop-rate
+      version: "1.0.0"
+    value: 63
+    observed_at: "2026-07-31T12:00:00Z"
+
+scores:
+  - dimension: automation
+    value: 3.1
+    normalized_value: 77.5
+    scale: "0-4"
+  - dimension: self-governance
+    value: 2.8
+    normalized_value: 70
+    scale: "0-4"
+
+benchmark:
+  - model:
+      id: dea:benchmark-zero-touch-operations
+      version: "1.0.0"
+    status: eligible
+    percentile: 81
+    sample_size: 47
+
+# This result is independently useful. It can be displayed as:
+#   - enterprise heatmap
+#   - capability profile
+#   - scenario result
+#   - benchmark position
+#   - trend against prior assessment

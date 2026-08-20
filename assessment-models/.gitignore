@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# PlantUML render artefacts
+*.svg
+*.png
+!model/assessment-metamodel.svg
+!model/assessment-metamodel.png
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

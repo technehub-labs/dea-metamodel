@@ -1,0 +1,246 @@
+name: Validate assessment-models sub-tree
+
+on:
+  pull_request:
+    paths: ['assessment-models/**']
+  push:
+    branches: [main]
+    paths: ['assessment-models/**']
+
+jobs:
+  validate-schemas:
+    name: Validate JSON Schemas parse as Draft 2020-12
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema
+        run: pip install jsonschema
+      - name: Validate every schema parses
+        run: |
+          python -c "
+          import json, glob, sys
+          from jsonschema import Draft202012Validator
+          errors = []
+          files = sorted(glob.glob('assessment-models/schemas/*.schema.json'))
+          for f in files:
+              try:
+                  with open(f) as fh:
+                      schema = json.load(fh)
+                  Draft202012Validator.check_schema(schema)
+                  print(f'OK  {f}')
+              except Exception as e:
+                  errors.append(f'{f}: {e}')
+                  print(f'FAIL {f}: {e}')
+          if errors:
+              sys.exit(1)
+          print(f'OK — {len(files)} schemas validated')
+          "
+
+  validate-yaml:
+    name: Validate vocabulary + examples + maturity YAML parse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml
+        run: pip install pyyaml
+      - name: Validate YAML files
+        run: |
+          python -c "
+          import yaml, glob, sys
+          errors = []
+          files = sorted(glob.glob('assessment-models/vocabulary/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/examples/*.yaml'))
+          for f in files:
+              try:
+                  with open(f) as fh:
+                      yaml.safe_load(fh)
+                  print(f'OK  {f}')
+              except Exception as e:
+                  errors.append(f'{f}: {e}')
+                  print(f'FAIL {f}: {e}')
+          if errors:
+              sys.exit(1)
+          print(f'OK — {len(files)} YAML files parsed')
+          "
+
+  validate-example-against-schema:
+    name: Validate canonical-technology-assessment.yaml + zero-touch-operations-assessment.yaml against assessment-model schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          with open('assessment-models/schemas/common.schema.json') as fh:
+              common = json.load(fh)
+          with open('assessment-models/schemas/assessment-model.schema.json') as fh:
+              am_schema = json.load(fh)
+
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          resolver = RefResolver(base_uri='', referrer=am_schema, store=store)
+          validator = Draft202012Validator(am_schema, resolver=resolver)
+
+          errors = 0
+          for ex in ['assessment-models/examples/canonical-technology-assessment.yaml',
+                     'assessment-models/examples/zero-touch-operations-assessment.yaml']:
+              with open(ex) as fh:
+                  doc = yaml.safe_load(fh)
+              errs = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+              if errs:
+                  errors += 1
+                  print(f'FAIL {ex}:')
+                  for e in errs:
+                      print(f'  path={list(e.path)}: {e.message}')
+              else:
+                  print(f'OK  {ex}')
+
+          sys.exit(1 if errors else 0)
+          "
+
+  validate-result-against-schema:
+    name: Validate zero-touch-operations-result.yaml against assessment-result schema
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          with open('assessment-models/schemas/common.schema.json') as fh:
+              common = json.load(fh)
+          with open('assessment-models/schemas/assessment-result.schema.json') as fh:
+              ar_schema = json.load(fh)
+
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          resolver = RefResolver(base_uri='', referrer=ar_schema, store=store)
+          validator = Draft202012Validator(ar_schema, resolver=resolver)
+
+          ex = 'assessment-models/examples/zero-touch-operations-result.yaml'
+          with open(ex) as fh:
+              doc = yaml.safe_load(fh)
+          errs = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+          if errs:
+              for e in errs:
+                  print(f'  {ex}: path={list(e.path)}: {e.message}')
+              sys.exit(1)
+          print(f'OK  {ex}')
+          "
+
+  validate-maturity-v2-arithmetic:
+    name: Validate maturity v2 band arithmetic + worked example
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml
+        run: pip install pyyaml
+      - name: Validate bands and worked example
+        run: |
+          python -c "
+          import yaml, sys
+
+          with open('assessment-models/maturity/maturity-bands-v2.yaml') as fh:
+              bands_doc = yaml.safe_load(fh)
+          with open('assessment-models/maturity/v2-to-v1-legacy-name-map.yaml') as fh:
+              map_doc = yaml.safe_load(fh)
+          with open('assessment-models/maturity/examples/effort-adjusted-value.yaml') as fh:
+              ex_doc = yaml.safe_load(fh)
+
+          errors = []
+
+          # 1. Bands contiguous, non-overlapping, cover 0-100
+          bands = bands_doc['bands']
+          sorted_bands = sorted(bands, key=lambda b: b['range'][0])
+          prev_high = -1
+          total_width = 0
+          for b in sorted_bands:
+              lo, hi = b['range']
+              if lo != prev_high + 1:
+                  errors.append(f'band {b[\"id\"]}: range starts at {lo}, expected {prev_high + 1}')
+              if hi < lo:
+                  errors.append(f'band {b[\"id\"]}: invalid range')
+              total_width += (hi - lo + 1)
+              prev_high = hi
+          if total_width != 101:
+              errors.append(f'band total points = {total_width}, expected 101 (0–100 inclusive)')
+
+          # 2. Each band has effort_multiplier
+          for b in bands:
+              if 'effort_multiplier' not in b:
+                  errors.append(f'band {b[\"id\"]}: missing effort_multiplier')
+
+          # 3. Effort multipliers are monotonically increasing
+          multipliers = [b['effort_multiplier'] for b in sorted_bands]
+          if multipliers != sorted(multipliers):
+              errors.append(f'effort_multipliers not monotonically increasing: {multipliers}')
+
+          # 4. Legacy-name map has all 5 mappings
+          mappings = map_doc['mappings']
+          if len(mappings) != 5:
+              errors.append(f'legacy-name map has {len(mappings)} entries, expected 5')
+
+          # 5. Worked example: score 80 → value ~49.2
+          ex = ex_doc['example']
+          # Recompute
+          score = ex['inputs']['raw_score']
+          band_ranges = [(b['name'], b['range'][0], b['range'][1], b['width'], b['effort_multiplier']) for b in bands]
+          value = 0.0
+          for name, lo, hi, width, mult in band_ranges:
+              if score < lo:
+                  pts = 0
+              elif score >= hi:
+                  pts = width
+              else:
+                  pts = score - lo + 1
+              value += pts / mult
+
+          expected = ex['result']['effort_adjusted_value']
+          if abs(value - expected) > ex['acceptance_tolerance']:
+              errors.append(f'effort-adjusted value computed {value:.4f} != documented {expected} (tolerance {ex[\"acceptance_tolerance\"]})')
+
+          if errors:
+              print('FAIL — maturity v2 validation errors:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+
+          print(f'OK  bands: 5 bands, contiguous, total 101 points, multipliers {multipliers}')
+          print(f'OK  legacy-name map: 5 entries')
+          print(f'OK  worked example: score {score} → effort-adjusted value {value:.4f} (documented {expected}, tolerance {ex[\"acceptance_tolerance\"]})')
+          "

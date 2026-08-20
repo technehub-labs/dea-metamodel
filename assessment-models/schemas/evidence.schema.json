@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/evidence.schema.json",
+  "title": "OpenDEA Evidence",
+  "description": "Observable evidence supporting an Observation or an AssessmentResult. Includes source, timestamp, provenance, and confidence.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "metamodel_version",
+    "type",
+    "evidence_type",
+    "source",
+    "captured_at"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "evidence"
+    },
+    "evidence_type": {
+      "$ref": "vocabulary/evidence-types.yaml#evidence_type",
+      "description": "See vocabulary/evidence-types.yaml for the controlled list."
+    },
+    "description": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "source_type": {"type": "string"},
+        "source_id": {"type": "string"},
+        "captured_by": {"type": "string"},
+        "captured_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  },
+  "additionalProperties": false
+}

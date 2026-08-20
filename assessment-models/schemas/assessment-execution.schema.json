@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-execution.schema.json",
+  "title": "OpenDEA Assessment Execution",
+  "description": "A specific instance of running an AssessmentInstrument against a subject. Produces an AssessmentResult.",
+  "type": "object",
+  "required": [
+    "id",
+    "instrument",
+    "subject",
+    "status",
+    "started_at"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "instrument": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The AssessmentInstrument that was executed (e.g. dea:instrument-zero-touch-workshop@1.0.0)."
+    },
+    "subject": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string"},
+        "name": {"type": "string"}
+      }
+    },
+    "scenario": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "assessor": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "type": {"type": "string", "enum": ["human", "automated", "hybrid"]},
+        "name": {"type": "string"}
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["scheduled", "in-progress", "completed", "aborted", "superseded"]
+    },
+    "result": {
+      "$ref": "common.schema.json#/$defs/identifier",
+      "description": "Identifier of the AssessmentResult produced by this execution."
+    }
+  },
+  "additionalProperties": false
+}

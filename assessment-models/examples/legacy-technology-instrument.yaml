@@ -1,0 +1,40 @@
+# Example — Legacy Technology Instrument (current-style)
+# Source: CR-AM-01 supplement §7
+# Purpose: Demonstrates that an existing instrument does NOT need to be rewritten
+# to participate in the new metamodel. A migration layer interprets the legacy
+# fields as references to the new structure.
+
+id: dea-assessment-technology
+name: Technology Assessment
+domain: technology
+version: "1.0.0"
+metamodel_version: "0.1.0"
+
+# Legacy field — interpreted by the migration layer as:
+#   maturity_models:
+#     - id: dea-maturity-technology
+maturity_target:
+  id: dea-maturity-technology
+
+# Legacy dimensions — interpreted as AssessmentDimensions
+dimensions:
+  - id: architecture
+    name: Architecture
+    questions:
+      - id: architecture-01
+        text: "Is the technology stack documented in a shared catalog?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A catalog file or wiki page exists and is maintained"
+
+# The migration layer would interpret the above as the canonical form:
+#
+# type: assessment-model
+# capabilities:
+#   - id: dea:capability-technology-architecture
+# maturity_models:
+#   - id: dea:maturity-technology
+# dimensions:
+#   - id: architecture
+#
+# Nothing is lost.

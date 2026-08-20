@@ -1,0 +1,61 @@
+# Example — Benchmark Eligibility Declaration
+# Source: CR-AM-01 supplement §1 (directory listing) + §28 (Benchmark Eligibility)
+# Purpose: Demonstrates the explicit declaration that an AssessmentModel
+# version is eligible (or not) to participate in a BenchmarkModel.
+
+benchmark_model:
+  id: dea:benchmark-zero-touch-operations
+  name: Zero Touch Operations Benchmark
+  type: benchmark-model
+  version: "1.0.0"
+  metamodel_version: "1.0.0"
+  status: beta
+  description: >
+    Cross-organisation benchmark for Zero Touch Operations capability,
+    under the Zero Touch Service Assurance scenario.
+
+population:
+  id: dea:benchmark-population-zero-touch-2026
+  name: Zero Touch Operations 2026 Cohort
+  description: >
+    Cohort of enterprises operating zero-touch service assurance
+    workloads in 2026. Membership requires explicit eligibility below.
+
+eligibility_criteria:
+  # A result is benchmark-eligible only if ALL of the following are true:
+  required_assessment_model:
+    id: dea:assessment-zero-touch-operations
+    version_range: ">=1.0.0,<2.0.0"
+
+  required_scenario:
+    id: dea:scenario-zero-touch-service-assurance
+    version_range: ">=1.0.0,<2.0.0"
+
+  required_capabilities:
+    - id: dea:capability-automation
+      version_range: ">=1.0.0,<2.0.0"
+    - id: dea:capability-self-governance
+      version_range: ">=1.0.0,<2.0.0"
+    - id: dea:capability-self-adaptation
+      version_range: ">=1.0.0,<2.0.0"
+
+  required_compatibility:
+    backward_compatible: true
+    scoring_compatible: true
+    benchmark_compatible: true
+
+  # Otherwise the result receives benchmark_status = "not-comparable"
+  # rather than being silently included (CR-AM-01 §28).
+
+comparability_rules:
+  - id: rule-same-scenario
+    expression: >
+      Two results are comparable iff their assessment_model, scenario,
+      and capability versions all satisfy the required_assessment_model,
+      required_scenario, and required_capabilities constraints above.
+
+statistical_method: percentile-rank
+confidence_threshold:
+  minimum: medium
+  rationale: >
+    Results with confidence=low are excluded from percentile calculations.

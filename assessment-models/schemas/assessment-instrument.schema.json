@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-instrument.schema.json",
+  "title": "OpenDEA Assessment Instrument",
+  "description": "An executable or questionnaire realisation of an AssessmentModel. Implements exactly one AssessmentModel per its contract.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "metamodel_version",
+    "type",
+    "implements",
+    "instrument_type"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "assessment-instrument"
+    },
+    "implements": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The AssessmentModel this instrument implements (e.g. dea:assessment-zero-touch-operations@1.0.0)."
+    },
+    "instrument_type": {
+      "type": "string",
+      "enum": [
+        "self-assessment",
+        "facilitated-workshop",
+        "survey",
+        "interview",
+        "automated",
+        "telemetry-driven",
+        "hybrid"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "duration_minutes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "facilitator_required": {
+      "type": "boolean"
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,71 @@
+# Assessment Purpose Vocabulary
+# Canonical list of declared purposes an AssessmentModel may carry.
+# An assessment may declare multiple purposes.
+# Source: CR-AM-01 §49
+
+vocabulary: assessment-purpose
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The set of declared purposes an AssessmentModel may serve. An assessment
+  may declare multiple purposes (e.g. capability-assessment + diagnostic + benchmark).
+  This list is intentionally the assessment-type taxonomy from CR-AM-01 §49,
+  not the maturity/benchmark relationship vocabulary.
+
+values:
+  - id: enterprise-health
+    label: Enterprise Health
+    description: >
+      Whole-organisation assessment producing an enterprise heatmap.
+      Benchmarking is limited because the unit of comparison is broad.
+
+  - id: capability-assessment
+    label: Capability Assessment
+    description: >
+      Assessment of a specific capability against a defined scenario.
+      Strongly supports benchmarking when scenario and measurement are controlled.
+
+  - id: maturity-assessment
+    label: Maturity Assessment
+    description: >
+      Assessment that determines progression against a maturity model.
+      Maturity Model is optional in the metamodel — see CR-AM-01 §13.
+
+  - id: diagnostic
+    label: Diagnostic
+    description: >
+      Identify gaps, weaknesses, and improvement opportunities.
+      Primarily context-dependent, not primarily comparative.
+
+  - id: baseline
+    label: Baseline
+    description: >
+      Establish a point-in-time state. Supports longitudinal comparison.
+
+  - id: readiness
+    label: Readiness
+    description: >
+      Determine whether the organisation is ready for a target state
+      (e.g. migration, transformation, adoption of a new practice).
+
+  - id: scenario
+    label: Scenario
+    description: >
+      Assessment executed against a declared scenario context.
+      Enables controlled benchmarking.
+
+  - id: comparative
+    label: Comparative
+    description: >
+      Comparison between entities under common conditions.
+
+  - id: benchmark
+    label: Benchmark
+    description: >
+      Eligible to participate in a benchmark population. Requires explicit
+      compatibility declaration (see compatibility.schema.json).
+
+  - id: compliance
+    label: Compliance
+    description: >
+      Assessment against a regulatory or contractual requirement.

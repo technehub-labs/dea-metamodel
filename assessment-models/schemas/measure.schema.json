@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/measure.schema.json",
+  "title": "OpenDEA Measure",
+  "description": "An observable characteristic with a unit and a measurement rule. Measures are decoupled from scoring — the same measure can be scored by different ScoringModels.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "metamodel_version",
+    "type",
+    "definition",
+    "unit"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "measure"
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "measurement_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "expression"],
+        "properties": {
+          "id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "expression": {"type": "string"},
+          "method": {"type": "string"}
+        }
+      }
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    }
+  },
+  "additionalProperties": false
+}

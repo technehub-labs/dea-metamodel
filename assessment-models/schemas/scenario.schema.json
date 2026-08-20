@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/scenario.schema.json",
+  "title": "OpenDEA Scenario",
+  "description": "The contextual conditions under which a capability is evaluated. Scenarios are the missing ingredient for defensible cross-organisation benchmarking.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "metamodel_version",
+    "type"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "type": {
+      "const": "scenario"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "context": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "value"],
+        "properties": {
+          "id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "name": {"type": "string"},
+          "value": {"type": "string"}
+        }
+      },
+      "description": "Scenario context dimensions: organisation type, market, regulation, technology landscape, business model, scale."
+    },
+    "outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": {"$ref": "common.schema.json#/$defs/identifier"},
+          "name": {"type": "string"},
+          "description": {"type": "string"}
+        }
+      },
+      "description": "Expected outcomes: time-to-market, reuse, security, reliability, customer adoption."
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    }
+  },
+  "additionalProperties": false
+}

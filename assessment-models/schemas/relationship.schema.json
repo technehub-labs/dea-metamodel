@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/relationship.schema.json",
+  "title": "OpenDEA Relationship Edge",
+  "description": "A controlled-vocabulary edge between two model references. The full vocabulary is defined in vocabulary/relationship-types.yaml.",
+  "type": "object",
+  "required": [
+    "source",
+    "target",
+    "relationship_type"
+  ],
+  "properties": {
+    "source": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "target": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "relationship_type": {
+      "type": "string",
+      "enum": [
+        "assesses",
+        "implements",
+        "conforms-to",
+        "uses",
+        "measures",
+        "requires",
+        "supports",
+        "evaluates",
+        "occurs-in",
+        "produces",
+        "contains",
+        "interpreted-by",
+        "eligible-for",
+        "benchmarks",
+        "supersedes",
+        "derived-from",
+        "compatible-with"
+      ]
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

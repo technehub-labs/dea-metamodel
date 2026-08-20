@@ -1,0 +1,84 @@
+# Maturity Scoring v2 → v1 Legacy Name Map
+# Explicit alias table so existing v1 assessment data resolves under v2.
+# Every v2 level has exactly one legacy_name. v1 ids remain valid forever.
+
+schema_version: "2.0.0"
+metamodel_version: "1.0.0"
+status: beta
+description: >
+  The authoritative mapping between v2 level ids/names and v1 level ids/names.
+  v1 ids and names remain valid forever in v1-alpha files; v2 ids and names
+  apply to v2 files. Consumers that hold a v1 id can resolve to v2 via this map.
+
+mappings:
+  - v2_id: level-1-emergent
+    v2_name: Emergent
+    v1_id: level-1-ad-hoc
+    v1_name: Ad Hoc
+    range: [0, 20]
+
+  - v2_id: level-2-structured
+    v2_name: Structured
+    v1_id: level-2-defined
+    v1_name: Defined
+    range: [21, 45]
+
+  - v2_id: level-3-systematic
+    v2_name: Systematic
+    v1_id: level-3-managed
+    v1_name: Managed
+    range: [46, 70]
+
+  - v2_id: level-4-adaptive
+    v2_name: Adaptive
+    v1_id: level-4-quantitatively-managed
+    v1_name: Quantitatively Managed
+    range: [71, 88]
+
+  - v2_id: level-5-self-optimising
+    v2_name: Self-Optimising
+    v1_id: level-5-optimising
+    v1_name: Optimising
+    range: [89, 100]
+
+# Reverse map for tools that resolve v2 → v1.
+# (Same data; just a re-keyed view. Tools may use either direction.)
+reverse_mappings:
+  level-1-ad-hoc: level-1-emergent
+  level-2-defined: level-2-structured
+  level-3-managed: level-3-systematic
+  level-4-quantitatively-managed: level-4-adaptive
+  level-5-optimising: level-5-self-optimising
+
+# Aliases used in tooling output and CLI flags.
+aliases:
+  emergent: level-1-emergent
+  structured: level-2-structured
+  systematic: level-3-systematic
+  adaptive: level-4-adaptive
+  self_optimising: level-5-self-optimising
+
+# A "raw score boundary shift" table — what score changes band when crossing from v1 to v2.
+# These are scoring changes only; underlying assessment answers don't move.
+score_boundary_shifts:
+  - from: level-1-ad-hoc
+    to: level-1-emergent
+    note: "Same band conceptually (0–20 under v2; 0–25 under v1); boundary shift at 21 vs 26."
+  - from: level-2-defined
+    to: level-2-structured
+    note: "Range shifts from 26–50 (v1) to 21–45 (v2)."
+  - from: level-3-managed
+    to: level-3-systematic
+    note: "Range shifts from 51–75 (v1) to 46–70 (v2)."
+  - from: level-4-quantitatively-managed
+    to: level-4-adaptive
+    note: "Range shifts from 76–90 (v1) to 71–88 (v2)."
+  - from: level-5-optimising
+    to: level-5-self-optimising
+    note: "Range shifts from 91–100 (v1) to 89–100 (v2)."
+
+# Backward-compatibility note
+backward_compatibility:
+  v1_ids_valid_forever: true
+  v2_can_reference_v1_data: true
+  tool_must_report_both_mappings: true   # during transition window

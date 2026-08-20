@@ -1,0 +1,62 @@
+# Example — Canonical Technology Assessment
+# Source: CR-AM-01 supplement §8
+# Purpose: Demonstrates the canonical form after migration. The assessment
+# no longer OWNS the capability or maturity definition — it references them.
+
+id: dea:assessment-technology
+name: Technology Assessment
+type: assessment-model
+version: "2.0.0"
+metamodel_version: "1.0.0"
+
+purpose:
+  - enterprise-health
+  - capability-assessment
+  - diagnostic
+
+subject_type: enterprise
+status: stable
+
+capabilities:
+  - id: dea:capability-technology-architecture
+    version: "1.0.0"
+  - id: dea:capability-technology-platform
+    version: "1.0.0"
+  - id: dea:capability-technology-lifecycle
+    version: "1.0.0"
+
+dimensions:
+  - id: architecture
+    name: Architecture
+    weight: 0.25
+  - id: platform
+    name: Platform
+    weight: 0.25
+  - id: lifecycle
+    name: Technology Lifecycle
+    weight: 0.25
+  - id: technical-debt
+    name: Technical Debt
+    weight: 0.25
+
+measures:
+  - id: dea:measure-architecture-standardization
+    version: "1.0.0"
+  - id: dea:measure-platform-reuse
+    version: "1.0.0"
+
+scoring_model:
+  id: dea:scoring-four-point
+  version: "1.0.0"
+
+maturity_models:
+  - id: dea:maturity-technology
+    version: "1.0.0"
+
+# Explicit compatibility declaration (CR-AM-01 §25)
+compatibility:
+  backward_compatible: true
+  scoring_compatible: true
+  maturity_compatible: true
+  benchmark_compatible: false   # not yet eligible for benchmarking
+  result_compatible: true

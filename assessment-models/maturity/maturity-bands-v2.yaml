@@ -1,0 +1,104 @@
+# Maturity Scoring v2 — Canonical Band Definitions
+# Source: CR-AM-01 supplement + archived proposal docs/maturity-scoring-v2-proposal
+# Lands here as the canonical v2 scheme, alongside v1 (which remains canonical until promotion)
+
+schema_version: "2.0.0"
+metamodel_version: "1.0.0"
+status: beta           # advisory; promotion to stable at Phase D
+description: >
+  The v2 maturity scoring scheme: 5 levels with single-word names, non-linear
+  band widths (20/25/25/18/12), and explicit per-level effort multipliers that
+  encode the superlinear-effort / sublinear-value pattern of capability maturity.
+
+# Uniform scale — same 0–100 as v1, but split non-linearly.
+scale: [0, 100]
+
+# Band definitions: contiguous, non-overlapping, cover 0–100.
+# Sum of widths: 20 + 25 + 25 + 18 + 12 = 100.
+bands:
+  - id: level-1-emergent
+    name: Emergent
+    legacy_name: Ad Hoc
+    range: [0, 20]
+    width: 20
+    effort_multiplier: 1.0
+    colour: "#f85149"
+    summary: Practice exists but is person-dependent and informal
+    inflection: >
+      None — this band has the lowest marginal cost per point. Escaping chaos
+      is high-value, comparatively low-effort.
+
+  - id: level-2-structured
+    name: Structured
+    legacy_name: Defined
+    range: [21, 45]
+    width: 25
+    effort_multiplier: 1.5
+    colour: "#f0883e"
+    summary: Documented, agreed, but inconsistently enforced
+    inflection: >
+      Crossing from Emergent to Structured (point 21) is the "we have shared
+      vocabulary" moment. Documentation overhead starts here.
+
+  - id: level-3-systematic
+    name: Systematic
+    legacy_name: Managed
+    range: [46, 70]
+    width: 25
+    effort_multiplier: 2.5
+    colour: "#d29922"
+    summary: Formal, tooling-enabled, governance active
+    inflection: >
+      Crossing into Systematic unlocks COMPOUNDING returns: tooling-integrated
+      governance (CI checks, catalog validation) accelerates everything below.
+      The 2.5× multiplier reflects the cost of instrumenting pipelines; the
+      actual value uplift is non-monotonic and biased upward.
+
+  - id: level-4-adaptive
+    name: Adaptive
+    legacy_name: Quantitatively Managed
+    range: [71, 88]
+    width: 18
+    effort_multiplier: 4.0
+    colour: "#2dd4bf"
+    summary: Metrics-driven; organisation senses and responds
+    inflection: >
+      Each point costs 4× the L1 baseline. Diminishing returns are now sharp:
+      the typical Adaptive organisation is already running well; the next point
+      buys edge-case robustness, not step-change capability.
+
+  - id: level-5-self-optimising
+    name: Self-Optimising
+    legacy_name: Optimising
+    range: [89, 100]
+    width: 12
+    effort_multiplier: 6.0
+    colour: "#3fb950"
+    summary: Continuous improvement is autonomous, not programme-driven
+    inflection: >
+      Each point costs 6× the L1 baseline. The 12-point window encodes that
+      there are only ~12 distinct improvements worth distinguishing at this level.
+           Reaching 100 is rare; the model recognises that.
+
+# Cross-references
+relationships:
+  - source_id: maturity-bands-v2
+    target_id: maturity-bands-v1
+    relationship_type: supersedes-as-advisory
+    description: v2 supersedes v1 as advisory bands; v1 remains canonical until Phase D promotion.
+
+# Governance
+governance:
+  migration_phase: A          # currently in Phase A (registry advisory)
+  target_promotion_phase: D
+  deprecation_target: maturity-bands-v1
+  promotion_criteria: >
+    One full assessment cycle must complete using v2 in production before
+    promotion. Until then, v1 stays canonical.
+
+tags:
+  - maturity-model
+  - scoring-scheme
+  - v2
+  - non-linear-bands
+  - effort-multiplier

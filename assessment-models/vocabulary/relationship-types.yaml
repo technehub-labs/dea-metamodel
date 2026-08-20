@@ -1,0 +1,102 @@
+# Relationship Type Vocabulary
+# Controlled vocabulary for edges between model references.
+# Source: CR-AM-01 §17, §41
+
+vocabulary: relationship-type
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The controlled set of relationship_type values permitted in any
+  AssessmentMetamodel relationship edge. Replaces unrestricted relationship
+  strings with a closed vocabulary. Definitions match CR-AM-01 §17.
+
+values:
+  - id: assesses
+    description: AssessmentModel assesses Capability
+    source_kinds: [assessment-model]
+    target_kinds: [capability]
+
+  - id: implements
+    description: AssessmentInstrument implements AssessmentModel
+    source_kinds: [assessment-instrument]
+    target_kinds: [assessment-model]
+
+  - id: conforms-to
+    description: Assessment conforms to AssessmentModel
+    source_kinds: [assessment, assessment-execution]
+    target_kinds: [assessment-model]
+
+  - id: uses
+    description: AssessmentModel uses AssessmentMethod / ScoringModel
+    source_kinds: [assessment-model]
+    target_kinds: [scoring-model]
+
+  - id: measures
+    description: AssessmentModel / Observation measures Measure
+    source_kinds: [assessment-model, observation]
+    target_kinds: [measure]
+
+  - id: requires
+    description: AssessmentModel requires EvidenceRequirement
+    source_kinds: [assessment-model]
+    target_kinds: [evidence]
+
+  - id: supports
+    description: Generic support edge
+    source_kinds: ["*"]
+    target_kinds: ["*"]
+
+  - id: evaluates
+    description: Generic evaluation edge
+    source_kinds: ["*"]
+    target_kinds: [capability, scenario, measure]
+
+  - id: occurs-in
+    description: AssessmentExecution occurs in Scenario
+    source_kinds: [assessment-execution]
+    target_kinds: [scenario]
+
+  - id: produces
+    description: AssessmentExecution / ScoringRule / AssessmentModel produces result or output
+    source_kinds: [assessment-execution, scoring-model, assessment-model]
+    target_kinds: [assessment-result, score, benchmark-result]
+
+  - id: contains
+    description: AssessmentResult contains Observation / Finding / Score
+    source_kinds: [assessment-result]
+    target_kinds: [observation, finding, score]
+
+  - id: interpreted-by
+    description: AssessmentResult interpreted by MaturityModel (canonical). Replaces produces-score-for.
+    source_kinds: [assessment-result]
+    target_kinds: [maturity-model]
+
+  - id: eligible-for
+    description: AssessmentResult eligible for BenchmarkModel
+    source_kinds: [assessment-result]
+    target_kinds: [benchmark-model]
+
+  - id: benchmarks
+    description: BenchmarkModel benchmarks Capability / AssessmentResult
+    source_kinds: [benchmark-model]
+    target_kinds: [capability, assessment-result]
+
+  - id: supersedes
+    description: New model version supersedes previous version (lineage)
+    source_kinds: ["*"]
+    target_kinds: ["*"]
+
+  - id: derived-from
+    description: Model or artefact is derived from another
+    source_kinds: ["*"]
+    target_kinds: ["*"]
+
+  - id: compatible-with
+    description: Declared compatibility between two model versions
+    source_kinds: ["*"]
+    target_kinds: ["*"]
+
+# Legacy aliases — accepted during transition only (CR-AM-01 §20):
+legacy_aliases:
+  produces-score-for: interpreted-by
+  scored-by: interpreted-by

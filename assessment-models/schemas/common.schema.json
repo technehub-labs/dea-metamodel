@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/common.schema.json",
+  "title": "OpenDEA Assessment Metamodel — Common Definitions",
+  "description": "Shared definitions for the OpenDEA Assessment Metamodel. Referenced by all other schemas in this repository.",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._:-]*$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
+    "modelReference": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assessmentPurpose": {
+      "type": "string",
+      "enum": [
+        "enterprise-health",
+        "capability-assessment",
+        "maturity-assessment",
+        "diagnostic",
+        "baseline",
+        "readiness",
+        "scenario",
+        "comparative",
+        "benchmark",
+        "compliance"
+      ]
+    },
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "experimental",
+        "alpha",
+        "beta",
+        "stable",
+        "deprecated",
+        "retired"
+      ]
+    },
+    "changeType": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor",
+        "patch"
+      ]
+    },
+    "lineage": {
+      "type": "object",
+      "properties": {
+        "previous_version": {
+          "$ref": "#/$defs/version"
+        },
+        "change_type": {
+          "$ref": "#/$defs/changeType"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "compatibility": {
+      "type": "object",
+      "required": [
+        "backward_compatible",
+        "scoring_compatible",
+        "maturity_compatible",
+        "benchmark_compatible",
+        "result_compatible"
+      ],
+      "properties": {
+        "backward_compatible": {
+          "type": "boolean"
+        },
+        "scoring_compatible": {
+          "type": "boolean"
+        },
+        "maturity_compatible": {
+          "type": "boolean"
+        },
+        "benchmark_compatible": {
+          "type": "boolean"
+        },
+        "result_compatible": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

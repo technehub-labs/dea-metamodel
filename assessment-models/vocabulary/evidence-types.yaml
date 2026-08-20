@@ -1,0 +1,50 @@
+# Evidence Type Vocabulary
+# Controlled list of evidence_type values permitted in Evidence records.
+
+vocabulary: evidence-type
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  Evidence types classify what kind of observational record supports an
+  Observation or an AssessmentResult. The list is open — new values can
+  be added without breaking existing consumers — but the canonical set
+  is recorded here for reference.
+
+values:
+  - id: document
+    label: Document
+    description: >
+      A written document (policy, design doc, runbook, ADR) supporting
+      the observation.
+
+  - id: measurement
+    label: Measurement
+    description: >
+      A quantitative measurement from a defined source (telemetry,
+      dashboard, report).
+
+  - id: observation
+    label: Observation
+    description: >
+      A direct human observation (interview, workshop note, walkthrough).
+
+  - id: artifact
+    label: Artifact
+    description: >
+      A produced artifact (code commit, configuration file, deployment
+      record, system screenshot).
+
+  - id: external-attestation
+    label: External Attestation
+    description: >
+      Third-party attestation (audit report, certification, peer review).
+
+  - id: automated-check
+    label: Automated Check
+    description: >
+      Output from an automated compliance or fitness check (CI run,
+      static analysis, linter).
+
+# Future-proofing: any string not in this list is permitted but should be
+# added to this vocabulary in a follow-on PR.
+open_vocabulary: true

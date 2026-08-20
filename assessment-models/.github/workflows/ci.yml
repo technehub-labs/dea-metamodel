@@ -2,7 +2,6 @@ name: Validate assessment-models sub-tree
 
 on:
   pull_request:
-    paths: ['assessment-models/**']
   push:
     branches: [main]
     paths: ['assessment-models/**']

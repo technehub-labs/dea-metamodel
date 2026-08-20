@@ -35,7 +35,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `MaturityProjector` — projects assessment gaps to projected maturity and proposed initiatives | `runtime/maturity/` |
 | `SimulationAdapter` + `ScenarioImpactAdapter` + `SimulationRegistry` — domain-side seam (CR-10AC/AD/AF) | `runtime/simulation/` |
 | `ScenarioProposer` — agentic scenario generation for a maturity gap (CR-10AJ/AK) | `runtime/agentic/` |
-| Runtime test suite (193 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation, agentic) | `tests/runtime/` | §94 (CR-9CO) |
+| `DigitalTwin` — observation + operational state + drift detection (CR-10AA/AB) | `runtime/twin/` |
+| Runtime test suite (199 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation, agentic, twin) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

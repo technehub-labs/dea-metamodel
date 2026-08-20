@@ -3,6 +3,23 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-11 Phase 3: Exchange JSON Schema
+
+Third phase of CR-11. Specification and metamodel remain **1.0.0**;
+the canonical exchange envelope is now validated against an explicit
+JSON Schema and round-trips through import/export with ExternalIdentifier
+links.
+
+### Added — exchange service (`runtime/interop/exchange_service.py`)
+- **`EXCHANGE_JSON_SCHEMA`** + `exchange_json_schema()` for the canonical
+  Exchange envelope.
+- **`ExchangeService.export_graph`** produces an Exchange from any
+  GraphStore.
+- **`ExchangeService.import_exchange`** materialises entities, edges
+  and external-identifier links from an Exchange.
+- **`ExchangeService.validate`** runs schema + semantic checks.
+- 6 new runtime tests (205 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-10 Phase 7: Digital Twin Foundation
 
 Final phase of CR-10. Specification and metamodel remain **1.0.0**;

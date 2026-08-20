@@ -36,7 +36,8 @@ Enterprise Reality → Ingest → Knowledge Graph → Assess / Reason / Query
 | `SimulationAdapter` + `ScenarioImpactAdapter` + `SimulationRegistry` — domain-side seam (CR-10AC/AD/AF) | `runtime/simulation/` |
 | `ScenarioProposer` — agentic scenario generation for a maturity gap (CR-10AJ/AK) | `runtime/agentic/` |
 | `DigitalTwin` — observation + operational state + drift detection (CR-10AA/AB) | `runtime/twin/` |
-| Runtime test suite (199 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation, agentic, twin) | `tests/runtime/` | §94 (CR-9CO) |
+| `ExchangeService` — JSON schema + export / import / validate (CR-11S/T/U/V) | `runtime/interop/exchange_service.py` |
+| Runtime test suite (205 tests: graph, loader, CRUD, provenance, reasoning, scenario, impact, decision, temporal, interop, conformance, integration, assessment, decision-engine, agent, explorer, maturity, simulation, agentic, twin, exchange) | `tests/runtime/` | §94 (CR-9CO) |
 
 ## Usage
 

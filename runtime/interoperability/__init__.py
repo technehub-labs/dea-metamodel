@@ -7,6 +7,7 @@ from .model import (AdapterCapability, EntityLocality, Exchange, Extension,
                     InteropError, Lossiness, MappingConfidence, MappingRelation,
                     Namespace, SemanticMapping, SyncDirection, split_concept_ref)
 from .registry import InteropRegistry
+from .mapping_loader import MappingRegistry, load_reference_mappings
 
 __all__ = [
     "AdapterCapability", "EntityLocality", "Exchange", "Extension",
@@ -16,5 +17,5 @@ __all__ = [
     "SyncDirection", "split_concept_ref", "InteropRegistry",
     "AuthorityPolicy", "ConflictStatus", "ConflictValue", "EntityResolution",
     "KnowledgeConflict", "ReconciliationState", "ResolutionCandidate",
-    "TieBreaker",
+    "TieBreaker", "MappingRegistry", "load_reference_mappings",
 ]

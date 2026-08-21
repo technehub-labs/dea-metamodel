@@ -4,6 +4,35 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 5: Reference Mappings
+
+Fifth phase of CR-11. Specification and metamodel remain **1.0.0**;
+Phase 5 lands canonical mappings from OpenDEA into the four most
+relevant EA-domain standards — ArchiMate, BPMN, DMN, DMM — in that
+order. Mappings are *informative bridges*: OpenDEA never adopts the
+external metamodel (CR-11W); standards-specific concepts without an
+OpenDEA counterpart are recorded as Extensions in the standard's own
+namespace (CR-11AR), never absorbed into the core.
+
+### Added — reference mappings (`mappings/`, `runtime/interoperability/mapping_loader.py`)
+- **`mappings/archimate/mapping.yaml`** — CR-11X extends the CR-8 §45
+  matrix with explicit relationship classes, confidence/lossiness on
+  every entry, and the document rule that composite/approximate
+  alignments are marked, never smoothed over.
+- **`mappings/bpmn/mapping.yaml`** (new) — CR-11Y: Process / Task /
+  Sub-Process / Event / Gateway mapping to OpenDEA's
+  BusinessProcess/Workflow/Task/TemporalEvent/DecisionCriterion shapes.
+- **`mappings/dmn/mapping.yaml`** (new) — CR-11Z: the DMN profile
+  shape (Decision → Decision → Decision Evidence → Decision Outcome)
+  plus FEEL preservation (rule-expression kind: `dmn-feel`).
+- **`mappings/dmm/mapping.yaml`** (new) — Phase 5 DMM band
+  correspondence: DMM Level 1–5 ↔ OpenDEA maturity v2
+  Emergent/Structured/Systematic/Adaptive/Self-Optimising.
+- **`MappingRegistry` + `load_reference_mappings`** lifts the YAML
+  files into an :class:`InteropRegistry` with governed mappings,
+  confidence + lossiness, and an Extension fallback for unmapped
+  concepts. 8 new runtime tests (343 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-MM-01.1: Maturity v2 Phase B follow-on — vocabulary + governance metadata
 
 Closes two alignment gaps surfaced by the post-CR-MM-01 / CR-AM-01 compliance audit

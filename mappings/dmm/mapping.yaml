@@ -1,0 +1,61 @@
+# OpenDEA ↔ DMM mapping (CR-11 §46 / Phase 5 DMM).
+#
+# DMM (Data Management Maturity Model) has no formal metamodel standard; the
+# canonical DMM dimensions (Data Management, Data Quality, Data Governance,
+# Data Architecture, Data Operations, Data Security, Data Integration &
+# Warehousing, Document & Content, Reference & Master Data, Data Development
+# & Engineering) are usually represented as capability areas with maturity
+# bands.
+#
+# OpenDEA already encodes the DMM-shaped pattern through the CR-5 Assessment
+# layer (Capability ↔ Maturity Band ↔ Evidence ↔ AssessmentResult) and the
+# CR-11 maturity scoring (Emergent / Structured / Systematic / Adaptive /
+# Self-Optimising). This file documents the correspondence explicitly so an
+# enterprise running an existing DMM assessment can lift the result into
+# OpenDEA without rewriting the assessment.
+version: 1.0.0
+standard: "DMM (CMMI Institute)"
+direction: informative-mapping
+
+mappings:
+# DMM area ↔ OpenDEA capability scope.
+- {opendea: dea:AssessmentScope,  dmn_dmm: "DMM Area (one of ten)",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "Each DMM area becomes an AssessmentScope with a representative BusinessCapability."}
+- {opendea: dea:BusinessCapability, dmm: "Capability area",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "Per CR-5 §16: BusinessCapability is the unit of assessment."}
+- {opendea: dea:AssessmentFramework, dmm: "DMM Framework",
+   confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:Assessment,       dmm: "DMM Assessment (process)",
+   confidence: HIGH, lossiness: LOSSLESS}
+- {opendea: dea:AssessmentCriterion, dmm: "DMM Practice / Process Area",
+   confidence: HIGH, lossiness: PARTIAL,
+   note: "DMM practice areas become AssessmentCriterion entries tied to evidence."}
+
+# Maturity bands — DMM uses five-level (Initial / Managed / Defined /
+# Quantitatively Managed / Optimising); OpenDEA maturity scoring v2 uses
+# Emergent/Structured/Systematic/Adaptive/Self-Optimising with explicit
+# effort / value weighting. The mapping is semantic, not numeric.
+- {opendea: dea:AssessmentResult, dmm: "Maturity Level (1–5)",
+   confidence: HIGH, lossiness: PARTIAL,
+   note: "Band-to-band mapping below; OpenDEA bands are deliberately restated to encode diminishing returns."}
+
+bands:
+  DMM_initial: {opendea: Emergent,    rationale: "DMM Level 1 ↔ OpenDEA Emergent; practices ad-hoc, no evidence."}
+  DMM_managed: {opendea: Structured,  rationale: "DMM Level 2 ↔ OpenDEA Structured; basic policy + records."}
+  DMM_defined: {opendea: Systematic,  rationale: "DMM Level 3 ↔ OpenDEA Systematic; organisation-wide standards + evidence."}
+  DMM_quantitative: {opendea: Adaptive, rationale: "DMM Level 4 ↔ OpenDEA Adaptive; measured + adjusted."}
+  DMM_optimising: {opendea: "Self-Optimising",
+                    rationale: "DMM Level 5 ↔ OpenDEA Self-Optimising; closed-loop improvement."}
+
+# DMM-specific extensions stay external.
+no_direct_equivalent:
+- {opendea: dea:AssessmentResult.score,    dmm_note: "DMM produces a 1–5 level; OpenDEA produces a band + score; the band-to-band conversion is informative, the numeric score is canonical OpenDEA."}
+- {opendea: dea:AssessmentGap,             dmm_note: "DMM gaps are surfaced via OpenDEA AssessmentGap with explicit deficiency category."}
+- {opendea: dea:AssessmentInstrument,      dmm_note: "DMM questionnaires map to AssessmentInstrument; competency weights are encoded as MaturityMappingRule."}
+
+notes:
+- "DMM is an assessment framework, not a metamodel — the mapping lifts *results* into OpenDEA, not DMM practice definitions."
+- "OpenDEA bands encode diminishing returns (effort ×; value ~ √) by design; DMM treats levels as ordinal. The mapping is therefore band-level, not score-level."
+- "Phase 6 (events) and Phase 8 (conformance) will exercise this mapping with golden fixtures (CR-11O/AN)."

@@ -13,9 +13,14 @@ from conftest import BASE
 
 
 def test_runtime_conformance_classes_are_explicitly_declared():
-    """CR-9.10: the seven runtime conformance classes are listed, not implicit."""
+    """CR-9.10 + CR-11AM: the thirteen runtime + interop conformance classes
+    are listed, not implicit. Adding a class is a contract change.
+    """
     expected = {"Core", "Profile", "API", "Query",
-                "Validation", "Provenance", "Security"}
+                "Validation", "Provenance", "Security",
+                # CR-11AM — interoperability surfaces.
+                "Exchange", "Identity", "Mapping", "Runtime",
+                "Federation", "Agentic"}
     declared = {cls.value for cls in ConformanceClass}
     assert declared == expected
 
@@ -58,4 +63,6 @@ def test_conformance_runner_produces_class_resolution_report():
     report = run_conformance(suites)
     assert isinstance(report, ConformanceReport)
     assert report.suite_count == 2
-    assert report.classes_covered == {"Core", "Query", "Validation"}
+    assert set(report.classes_covered) == {"Core", "Query", "Validation"}
+    # Stable ordering so consumers can rely on the list shape.
+    assert report.classes_covered == ["Core", "Query", "Validation"]

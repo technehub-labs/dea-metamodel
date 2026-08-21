@@ -1,7 +1,8 @@
 """CR-9.1 model loader tests — the golden/negative contract extended to runtime.
 
-- All 7 golden models (CR-8 §31-32) MUST load, preserving canonical entities
-  and relationships verbatim (CR-9 DoD).
+- All 8 golden models (CR-8 §31-32 + the CR-11AO ``basic-enterprise``
+  baseline) MUST load, preserving canonical entities and relationships
+  verbatim (CR-9 DoD).
 - All 8 negative models MUST be refused, and the graph MUST remain empty —
   validation happens before any mutation (CR-9K), and loads are atomic
   (CR-9BP).
@@ -16,7 +17,7 @@ from runtime.model import ModelLoadError, load_model
 GOLDEN = sorted((BASE / "models" / "golden").glob("*.yaml"))
 INVALID = sorted((BASE / "models" / "invalid").glob("*.yaml"))
 
-assert len(GOLDEN) == 7, "CR-8 §32 golden suite drifted"
+assert len(GOLDEN) == 8, "CR-8 §32 golden suite drifted (was 7, now 8 with CR-11AO basic-enterprise)"
 assert len(INVALID) == 8, "CR-8 §33 negative suite drifted"
 
 

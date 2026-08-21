@@ -4,6 +4,39 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 8: Conformance
+
+Eighth and final phase of CR-11. Specification and metamodel remain
+**1.0.0**; this phase realises the public conformance surface
+(CR-11AM), conformance test suite (CR-11AN), and golden
+interoperability datasets (CR-11AO). The OpenDEA CLI gains an
+`opendea-conformance` entry point that emits a typed report.
+
+### Added — conformance profiles + suite + golden datasets
+- **`ConformanceClass`** extended with the six CR-11AM interoperability
+  classes: `Exchange`, `Identity`, `Mapping`, `Runtime` (CR-11AM's
+  "Runtime" side — encoded internally as `MAPPING_RUNTIME` to avoid
+  clashing with the runtime's own usage of the word), `Federation`,
+  `Agentic`. Adding a class is a contract change; the seven CR-9
+  classes remain unchanged.
+- **`ConformanceReport.render_text` + `render_json`** produce typed
+  reports — the public CR-11AN contract includes `conformanceVersion`,
+  `runtimeVersion`, `specVersion`, stable alphabetical
+  `classesCovered`, and per-suite declarations.
+- **`runtime.conformance.runner`** ships a default interop-roundtrip
+  suite (Exchange / Identity / Mapping / Provenance / Federation) and
+  an `opendea-conformance` CLI bound to it via `python -m runtime.conformance.runner`
+  with `--format {text,json}` + `--runtime-version` + `--spec-version`
+  + `--include-golden`.
+- **`models/golden/basic-enterprise.yaml`** — the smallest
+  conformance-valid OpenDEA graph (7 nodes / 5 edges across
+  organisational, capability, application, service, actor, stakeholder
+  + data dimensions). Validates against the canonical registry at load.
+- **`golden_graph_assertions(basic-enterprise)`** regression baseline
+  added; `test_model_loader.py` + `test_014_specification_rules.py`
+  golden-suite count update from 7 → 8.
+- 13 new runtime tests (384 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-11 Phase 7: Federation
 
 Seventh phase of CR-11. Specification and metamodel remain **1.0.0**;

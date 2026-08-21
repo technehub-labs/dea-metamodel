@@ -1,0 +1,54 @@
+# CR-11AO golden fixture: basic-enterprise
+#
+# The smallest canonical OpenDEA graph that exercises the canonical
+# entity + relationship vocabulary across organisational, capability,
+# service, application, data, and stakeholder actors. Relationship
+# source/target pairs are validated against the canonical registry
+# (DEA-E006 / DEA-E005). Relationships are nested per-source per the
+# CR-8 model loader convention.
+#
+# This fixture is referenced by the Phase 8 conformance suite as a
+# regression baseline.
+opendea: {version: "1.0.0"}
+model:
+  id: basic-enterprise.golden
+  name: Basic Enterprise — golden fixture
+  version: "1.0.0"
+profiles: [dea:core@1.0.0]
+context: {kind: enterprise}
+metadata:
+  author: opendea-conformance
+  assertion_status: approved
+elements:
+- id: ou.hq
+  type: OrganizationalUnit
+  name: Headquarters
+  relationships:
+  # OrganizationalUnit owns Capabilities, Functions, Apps, Services.
+  - {type: owns, target: cap.customer-service}
+- id: cap.customer-service
+  type: BusinessCapability
+  name: Customer Service
+- id: app.crm
+  type: ApplicationComponent
+  name: CRM Platform
+  relationships:
+  # CRM realises Customer Service capability and provides the service.
+  - {type: realizes, target: cap.customer-service}
+  - {type: provides, target: svc.case-management}
+- id: svc.case-management
+  type: BusinessService
+  name: Case Management Service
+  relationships:
+  - {type: serves, target: actor.cs-team}
+- id: actor.cs-team
+  type: Actor
+  name: CS Team
+  relationships:
+  - {type: owns, target: app.crm}
+- id: stake.cx-lead
+  type: Stakeholder
+  name: CX Lead
+- id: de.case-record
+  type: DataEntity
+  name: Case Record

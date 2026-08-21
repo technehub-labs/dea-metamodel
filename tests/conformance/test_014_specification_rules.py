@@ -74,7 +74,8 @@ def test_abstracts_are_not_instantiable_in_golden_models():
 
 def test_golden_models_pass():
     goldens = sorted((BASE / "models" / "golden").glob("*.yaml"))
-    assert len(goldens) == 7, "golden suite incomplete (§32)"
+    assert len(goldens) == 8, (
+        "golden suite incomplete (§32, was 7, now 8 with CR-11AO basic-enterprise)")
     for f in goldens:
         code, report = _run_validator(f)
         assert code == 0, f"golden model {f.name} FAILED: {report['violations']}"

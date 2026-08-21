@@ -57,6 +57,26 @@ profile:
   - assessment-entities.yaml
   - assessment-relationships.yaml
   - assessment-constraints.yaml
+  cross_references:
+  - target: assessment-models/
+    kind: internal-sub-tree
+    relation: integrates_with
+    doc_uri: relative  # file://relative within this repo
+    canonical_url: https://github.com/technehub-labs/dea-metamodel/tree/main/assessment-models
+    description: >-
+      The conceptual model, JSON Schemas, controlled vocabularies, governance
+      policy, and maturity scoring v2 that this profile participates in live as
+      a coherent sub-tree at `assessment-models/` in this repo. This profile
+      defines the OpenDEA-vocabulary surface (`dea:Assessment*`, `dea:Maturity*`,
+      `dea:Evidence*`, `dea:Benchmark*` entities and the 13 relationships
+      enumerated above); the assessment sub-tree defines the canonical schemas,
+      YAML conventions, maturity bands v2, governance, and CHANGELOG for any
+      concrete assessment instrument or maturity model that consumes this
+      profile. Land additions to this profile and to `assessment-models/`
+      together when they are semantically coupled (a new `dea:` entity should
+      appear in both `vocabulary_files` here and a controlled vocabulary under
+      `assessment-models/vocabulary/`).
+    cross_ref_cr: CR-015
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).

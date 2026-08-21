@@ -100,6 +100,14 @@ The existing canonical profile + Pydantic models continue to be authoritative fo
 
 Future CRs may add forward-pointers from `metamodel/profiles/assessment/profile.yaml` to this sub-tree. That work is out of scope for CR-014 itself.
 
+### Upstream profile
+
+The OpenDEA assessment profile (`metamodel/profiles/assessment/profile.yaml`, id `dea:assessment`, version 1.0.0) defines the **vocabulary surface** — the `dea:Assessment*`, `dea:Maturity*`, `dea:Evidence*`, and `dea:Benchmark*` entities and the 13 relationships that participate in assessment — that this sub-tree operationalises.
+
+The forward-pointer landed by **CR-015** (committed via this sub-tree's README + the reciprocal `cross_references:` block on `profile.yaml`) makes the relationship explicit: the profile is the *vocabulary contract*; this sub-tree defines the *schemas, conventions, governance, and maturity bands* that any concrete assessment instrument or maturity model consumes. When new `dea:` entities are added to the profile, their counterparts should also be added to the controlled vocabularies under `vocabulary/` in this sub-tree.
+
+Both pieces live in this same repo (`technehub-labs/dea-metamodel`); the split is a layering convention, not a multi-repo split.
+
 ---
 
 ## Maturity scoring v2 (status: beta)

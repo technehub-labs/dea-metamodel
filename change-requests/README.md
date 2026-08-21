@@ -22,6 +22,7 @@ current one ships.
 | CR-012 | Enterprise Intelligence / Advanced Agentic Runtime | Advanced intelligence and agentic capabilities (per CR-10 §O) | Proposed |
 | CR-013 | Digital Twin / Continuous Enterprise Model | Synchronized operational state and behavioral semantics (per CR-10 §O) | Proposed |
 | [CR-014](CR-014.md) | Assessment Metamodel v1 + Maturity Scoring v2 | Establish the assessment sub-metamodel as a coherent sub-tree (PlantUML + 12 JSON Schemas + governance); accept the maturity-scoring-v2 proposal (renames Emergent / Structured / Systematic / Adaptive / Self-Optimising, non-linear bands 20/25/25/18/12, per-level `effort_multiplier`) as canonical v2 alongside v1 | Proposed (sub-tree additive; no canonical version bump) |
+| [CR-015](CR-015.md) | Assessment-Profile ↔ Assessment-Sub-Tree Cross-Reference | Reciprocal doc-only cross-link between `metamodel/profiles/assessment/profile.yaml` and `assessment-models/`; completes the integration story left open by CR-014 §3 | Proposed (docs-only; no canonical version bump) |
 
 ## Record format
 

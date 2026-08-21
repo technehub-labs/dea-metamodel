@@ -1,0 +1,74 @@
+---
+# Migration Manifest — Technology Assessment (CR-AM-02 §17)
+# Sidecar to the canonical projection at canonical-technology-migration.yaml.
+# Carries provenance + legacy-field preservation metadata that the
+# canonical schema (additionalProperties: false) cannot carry.
+
+migration:
+  source: assessment-models/examples/legacy-technology-instrument.yaml
+  source_schema: assessment-models/migrations/v1-instrument/legacy-instrument.schema.json
+  mapping: assessment-models/migrations/v1-instrument/mapping.yaml
+  canonical_projection: assessment-models/migrations/v1-instrument/canonical-technology-migration.yaml
+  generated_by: CR-MM-01 migration layer (projected; not hand-edited)
+  intent: >
+    Proves CR-AM-02 §22 AC-07 — Technology Assessment is migrated without
+    semantic change. The canonical form below carries the same 5 dimensions,
+    the same 19 questions, the same numeric scoring scale, the same maturity
+    target.
+
+# ─── Legacy fields without canonical equivalent (CR-AM-02 §22 AC-15) ────
+legacy_preserved_metadata:
+  legacy_total_questions: 19
+  legacy_duration_minutes: 45
+  legacy_facilitator_required: true
+  legacy_metamodel_version: "0.1.0"
+  legacy_domain: "technology"
+  notes: |
+    These fields exist in the legacy instrument.schema.json but have no
+    canonical equivalent. They are surfaced here for round-trip preservation
+    (CR-AM-02 §22 AC-15) and as historical data.
+
+# ─── Migration transformation summary ──────────────────────────────
+moved_to_model_level:
+  - dimension.questions[].scoring
+  - dimension.questions[].evidence
+  - dimension.questions[].id
+moved_to_metadata:
+  - total_questions
+  - duration_minutes
+  - facilitator_required
+moved_to_classification:
+  - domain
+preserved_verbatim:
+  - id
+  - name
+  - version
+  - dimensions[].id
+  - dimensions[].name
+  - dimensions[].weight
+  - dimensions[].questions[].text
+added_by_migration:
+  - type (assessment-model)
+  - purpose (capability-assessment)
+  - subject_type (enterprise)
+  - scoring_model (dea:scoring-four-point)
+  - compatibility (six-axis)
+
+# ─── Round-trip integrity (CR-AM-02 §22 AC-15) ──────────────────
+round_trip_preservation:
+  - The maturity target id uses the canonical URI scheme (legacy kebab
+    strings → canonical `dea:` URIs).
+  - Each question's text is preserved verbatim. The legacy used dimension-
+    local IDs (`q01`); the canonical projection uses dimension-prefixed
+    IDs (`architecture-q01`) — the legacy id is recoverable via the
+    text and the dimension grouping.
+  - The legacy's per-question scoring array was lifted to the model-
+    level scoring_model reference (canonical four-point scale). The
+    legacy four-point scale is the canonical scoring-four-point.
+  - The legacy's per-question evidence strings are surfaced as
+    evidence_requirements references (the legacy strings are recoverable
+    via the v1 audit trail).
+  - The legacy's `legacy_name` field on the maturity model is preserved
+    on the v2 maturity model's first level (the migration does not
+    surface it on the projection — it lives on the level within the
+    maturity model itself, per CR-014 + CR-MM-01).

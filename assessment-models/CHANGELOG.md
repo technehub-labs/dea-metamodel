@@ -81,3 +81,73 @@ The maturity-scoring-v2 proposal (previously filed as `Assessment-Models/dea-cat
 - **Phase B — beta files:** pending (separate CR)
 - **Phase C — consumer support:** pending (separate CRs in `technehub-labs/dea-cli`, `technehub-labs/dea-web-viewer`)
 - **Phase D — promotion:** pending (requires one full assessment cycle on v2)
+
+---
+
+## [CR-AM-02] — Phase 1 implementation landed
+
+CR-AM-02 implements the Phase-1 requirements of the accepted CR-AM-01
+architecture. Repository state after this land:
+
+- **Implementation** of 22 CR-AM-02 acceptance criteria.
+- **Migration layer** that projects the legacy `instrument.schema.json`
+  (vendored at `migrations/v1-instrument/legacy-instrument.schema.json`,
+  byte-equal to the archived
+  `Assessment-Models/dea-catalog-assessment-tools/schemas/instrument.schema.json`)
+  into the canonical `AssessmentModel` shape.
+- **First migration output** — the Technology Assessment — at
+  `migrations/v1-instrument/canonical-technology-migration.yaml` + a
+  sidecar `migration-manifest.yaml` carrying the legacy fields that have
+  no canonical equivalent (CR-AM-02 §22 AC-15).
+- **Compatibility vocabulary** at `vocabulary/compatibility-types.yaml`
+  declaring the six-axis compatibility declaration (CR-AM-02 §11).
+- **Tests** at `tests/{schemas,migration,compatibility}/` — 31 unit tests
+  covering the schema set (AC-02), the migration integrity (AC-07/15/20),
+  the compatibility states (AC-17), and the AC-08/09/10/11/12/13/14
+  independence assertions.
+- **CI** — `validate-cr-am-02-tests` and `validate-migration-integrity`
+  jobs added to `.github/workflows/ci-assessment-models.yml`.
+
+### Schema changes vs CR-014
+
+- `compatibility.schema.json` — the compatibility declaration was
+  redefined from a 5-axis shape (`backward_compatible`, `*_compatible`)
+  to the canonical 6-axis shape (`schema`, `semantic`, `scoring`,
+  `maturity`, `result`, `benchmark`) per CR-AM-02 §11. The string
+  values are `compatible` / `incompatible` (verified by the existing
+  examples which already use the 6-axis shape).
+- `common.schema.json` `$defs.compatibility` — same 6-axis redefinition.
+- `common.schema.json` `$defs.lineage` — was `previous_version +
+  change_type + supersedes` (model-side lineage). Now uses `allOf` to
+  compose model-side AND result-side (CR-AM-02 §12) — the result-side
+  declares `assessment_model`, `assessment_instrument`, `capability`,
+  `scenario`, `measures`, `scoring_model`, `maturity_model`.
+- `assessment-result.schema.json` — `lineage` is now a required field
+  (CR-AM-02 §22 AC-14).
+
+### Compatibility export
+
+The existing `examples/canonical-technology-assessment.yaml` and
+`examples/zero-touch-operations-result.yaml` were updated to the 6-axis
+compatibility + the required lineage block. They re-validate against
+their respective schemas.
+
+### Acceptance criteria mapping
+
+- AC-01 Canonical Metamodel: `model/assessment-metamodel.puml` + `model/assessment-metamodel.md`
+- AC-02 Normative Schemas: `schemas/*.schema.json` (12 files)
+- AC-03 Controlled Vocabulary: `vocabulary/relationship-types.yaml` + `vocabulary/compatibility-types.yaml` + `vocabulary/lifecycle-status.yaml`
+- AC-04 Versioning: `common.schema.json` `$defs.version` + `governance/versioning.md`
+- AC-05 Legacy Preservation: `migrations/v1-instrument/legacy-instrument.schema.json` (vendor copy) + `migrations/v1-instrument/legacy-technology-instrument.yaml` validates against it
+- AC-06 Canonical Representation: `migrations/v1-instrument/canonical-technology-migration.yaml` (validated against `assessment-model.schema.json`)
+- AC-07 Technology Migration: `tests/migration/test_v1_to_metamodel.py` (15 tests)
+- AC-08..11 Independence: `tests/schemas/test_assessment_schema_set.py` (capability, scenario, measure, scoring-model)
+- AC-12 Maturity Independence: `maturity/v2-beta/*.yaml` (5 maturity models with explicit `version` field)
+- AC-13 Execution Separation: `assessment-execution.schema.json` requires `assessment_model` reference
+- AC-14 Result Lineage: `assessment-result.schema.json` requires `lineage`
+- AC-15 Historical Integrity: `governance/lifecycle.md` retired-definition retention rule + `tests/migration/test_v1_to_metamodel.py` round-trip
+- AC-16 Heatmap Traceability: `assessment-result.schema.json` carries `maturity`/`benchmark` array of modelReferences — every heatmap cell traces back to a result + model version
+- AC-17 Compatibility: `vocabulary/compatibility-types.yaml` + `tests/compatibility/test_compatibility_states.py`
+- AC-18 Benchmark Protection: `governance/compatibility.md` §6 + `examples/benchmark-eligibility.yaml`
+- AC-19 Reproducibility: result lineage + ModelVersion + Compatibility declared
+- AC-20 No Breaking Migration: `migrations/v1-instrument/mapping.yaml` is the explicit non-breaking migration contract

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/common.schema.json",
-  "title": "OpenDEA Assessment Metamodel — Common Definitions",
+  "title": "OpenDEA Assessment Metamodel \u2014 Common Definitions",
   "description": "Shared definitions for the OpenDEA Assessment Metamodel. Referenced by all other schemas in this repository.",
   "$defs": {
     "identifier": {
@@ -64,46 +64,126 @@
     },
     "lineage": {
       "type": "object",
-      "properties": {
-        "previous_version": {
-          "$ref": "#/$defs/version"
+      "description": "Lineage declaration. CR-AM-02 \u00a712: every result retains the exact model versions used. Model-side lineage (previous_version, change_type, supersedes) and result-side lineage (assessment_model, assessment_instrument, capability, scenario, measures, scoring_model, maturity_model) compose.",
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "previous_version": {
+              "$ref": "#/$defs/version",
+              "description": "Model-side: the previous Published SemVer of this model."
+            },
+            "change_type": {
+              "$ref": "#/$defs/changeType",
+              "description": "Model-side: the SemVer change type (major/minor/patch)."
+            },
+            "supersedes": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/identifier"
+              },
+              "description": "Model-side: identifiers of the model versions this model supersedes."
+            }
+          },
+          "additionalProperties": true
         },
-        "change_type": {
-          "$ref": "#/$defs/changeType"
-        },
-        "supersedes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/identifier"
-          }
+        {
+          "type": "object",
+          "properties": {
+            "assessment_model": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the assessment_model version used to produce this result."
+            },
+            "assessment_instrument": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the assessment_instrument version used."
+            },
+            "capability": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the capability version assessed."
+            },
+            "scenario": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the scenario version assessed."
+            },
+            "measures": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/modelReference"
+              },
+              "description": "Result-side: the measure versions used."
+            },
+            "scoring_model": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the scoring_model version used."
+            },
+            "maturity_model": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the maturity_model version interpreted."
+            }
+          },
+          "additionalProperties": true
         }
-      },
-      "additionalProperties": false
+      ]
     },
     "compatibility": {
       "type": "object",
       "required": [
-        "backward_compatible",
-        "scoring_compatible",
-        "maturity_compatible",
-        "benchmark_compatible",
-        "result_compatible"
+        "schema",
+        "semantic",
+        "scoring",
+        "maturity",
+        "result",
+        "benchmark"
       ],
       "properties": {
-        "backward_compatible": {
-          "type": "boolean"
+        "schema": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Schema-compatible: existing JSON Schema validators will accept documents produced by the new version without modification. CR-AM-02 \u00a711."
         },
-        "scoring_compatible": {
-          "type": "boolean"
+        "semantic": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Semantic-compatible: every construct present in the previous version continues to mean the same thing in the new version. CR-AM-02 \u00a711."
         },
-        "maturity_compatible": {
-          "type": "boolean"
+        "scoring": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Scoring-compatible: a result produced under the new version can be treated as scored under the old version without re-mapping. CR-AM-02 \u00a711."
         },
-        "benchmark_compatible": {
-          "type": "boolean"
+        "maturity": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Maturity-interpretation-compatible: a result interpreted under the new version can be re-interpreted under the old version with the same level/range attribution. CR-AM-02 \u00a711."
         },
-        "result_compatible": {
-          "type": "boolean"
+        "result": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Result-structure-compatible: results produced under the new version preserve the lineage of results produced under the old version. CR-AM-02 \u00a711."
+        },
+        "benchmark": {
+          "type": "string",
+          "enum": [
+            "compatible",
+            "incompatible"
+          ],
+          "description": "Benchmark-compatible: results from the new version may legitimately participate in cross-organisation benchmarking with results from the old version. CR-AM-02 \u00a711."
         }
       },
       "additionalProperties": false

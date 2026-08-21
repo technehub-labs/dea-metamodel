@@ -1,0 +1,247 @@
+# Migration Mapping — Legacy Instrument v1 → Canonical AssessmentModel v1
+#
+# Source: CR-AM-02 §15 + §16.
+# Reproducible by anyone holding the vendored legacy schema at
+#   migrations/v1-instrument/legacy-instrument.schema.json
+# (which is byte-equal to
+#   https://raw.githubusercontent.com/Assessment-Models/dea-catalog-assessment-tools/main/schemas/instrument.schema.json
+# at MD5 verified by validate-migration-integrity in CI).
+#
+# The mapping is side-effect free: every legacy field maps to canonical
+# faithfully, with no loss of meaning. Existing assessment instruments
+# remain valid under the legacy schema indefinitely; the canonical form
+# is a derived projection.
+
+migration:
+  id: v1-instrument-to-canonical-assessment-model
+  version: "1.0.0"
+  source:
+    artefact: instrument.schema.json
+    schema_uri: ./legacy-instrument.schema.json
+    repository: Assessment-Models/dea-catalog-assessment-tools
+    archive_state: archived
+  target:
+    artefact: assessment-model.schema.json
+    schema_uri: ../../schemas/assessment-model.schema.json
+    repository: technehub-labs/dea-metamodel
+    sub_tree: assessment-models/
+
+principles:
+  - text: >
+      Existing instruments remain valid under the legacy schema.
+  - text: >
+      Migration is a projection, not a transformation: every legacy field
+      maps to a canonical field; the original is never lost.
+  - text: >
+      Legacy constructs that have no canonical equivalent (e.g.
+      duration_minutes, facilitator_required) are surfaced as metadata
+      entries on the canonical AssessmentModel — they are not lost,
+      just demoted.
+  - text: >
+      The legacy maturity_target (denormalised) is interpreted as a
+      versioned maturity_models reference (canonical) and the associated
+      legacy_name on the first level of the maturity model.
+
+# Field-by-field mapping table (CR-AM-02 §16).
+mappings:
+  - source: id
+    target: id
+    transform: kebab-to-uri
+    notes: >
+      Legacy `id: dea-assessment-technology` (kebab) becomes canonical
+      `id: dea:assessment-technology` (URI). The `dea:` URI scheme is the
+      canonical namespace for canonical model references.
+
+  - source: name
+    target: name
+    transform: identity
+
+  - source: domain
+    target: classification.domain
+    notes: >
+      Legacy `domain` (technology, modernization, operations,
+      services-delivery) is legacy-form. The canonical form surfaces
+      domain under `classification:` (not as a top-level field).
+
+  - source: version
+    target: version
+    transform: identity
+    notes: >
+      Both legacy and canonical use SemVer. The migration preserves the
+      semver string verbatim. A new canonical model version may be
+      assigned if the migration itself changes the schema (this mapping
+      is v1.0.0).
+
+  - source: metamodel_version
+    target: metamodel_version
+    transform: identity
+    notes: >
+      Legacy `metamodel_version: "0.1.0"` becomes canonical
+      `metamodel_version: "1.0.0"`; the migration sets the canonical
+      version to the current canonical metamodel version (not the legacy
+      0.1.0). The legacy version is preserved in
+      metadata.metamodel_version_legacy.
+
+  - source: status
+    target: status
+    transform: identity
+    notes: >
+      Lifecycle status is preserved. The canonical lifecycle vocabulary
+      (CR-AM-01 §42) is a superset of legacy states.
+
+  - source: description
+    target: description
+    transform: identity
+
+  - source: maturity_target.id
+    target: maturity_models[0].id
+    transform: identity
+    notes: >
+      The legacy maturity_target.id is interpreted as a versioned
+      maturity_models[0].id reference. The migration layer MUST also
+      resolve the matched maturity model from the catalog and emit
+      maturity_models[0].version (latest stable). The legacy name
+      (e.g. Ad Hoc) of the first level is surfaced as the
+      legacy_name alias on the corresponding level within the target
+      maturity model (CR-014 + CR-MM-01).
+
+  - source: dimensions[]
+    target: dimensions[]
+    transform: see-dimensions-mapping
+    notes: >
+      Each legacy dimension maps to a canonical AssessmentDimension. The
+      sub-field mapping is below.
+
+  - source: dimensions[].id
+    target: dimensions[].id
+    transform: identity
+
+  - source: dimensions[].name
+    target: dimensions[].name
+    transform: identity
+
+  - source: dimensions[].questions
+    target: dimensions[].questions
+    transform: see-questions-mapping
+    notes: >
+      Each legacy question maps to a canonical AssessmentQuestion. The
+      sub-field mapping is below.
+
+  - source: dimensions[].questions[].id
+    target: dimensions[].questions[].id
+    transform: identity
+
+  - source: dimensions[].questions[].text
+    target: dimensions[].questions[].text
+    transform: identity
+
+  - source: dimensions[].questions[].scoring
+    target: dimensions[].questions[].scoring
+    transform: identity
+    notes: >
+      Legacy `scoring: [0, 1, 2, 3]` is a four-point scale that the canonical
+      ScoringModel (scoring-model v1.0.0) represents. The migration
+      surfaces the array as a scale_values: declaration plus a
+      `transform: linear` rule. Consumers that want to interpret the
+      legacy scoring array read the canonical ScoringModel.
+
+  - source: dimensions[].questions[].evidence
+    target: dimensions[].questions[].evidence
+    transform: discrete-to-evidence
+    notes: >
+      Legacy `evidence: ["A catalog file or wiki page exists and is maintained"]`
+      (free string) is converted to an array of EvidenceRequirement records
+      with one entry, the description as the requirement, and the
+      classification = documentation.
+
+  - source: relationships[]
+    target: relationships[]
+    transform: identity
+    notes: >
+      The canonical relationship vocabulary is the superset of legacy
+      relationship types. The migration layer does not transform
+      relationship types; it only adjusts the source/target IDs to
+      canonical URI form (if necessary).
+
+  - source: tags[]
+    target: tags[]
+    transform: identity
+
+  - source: total_questions
+    target: metadata.legacy_total_questions
+    notes: >
+      Legacy field with no canonical equivalent. Surfaced as
+      metadata.legacy_total_questions for round-trip preservation.
+
+  - source: duration_minutes
+    target: metadata.legacy_duration_minutes
+    notes: >
+      Legacy field with no canonical equivalent. Surfaced as
+      metadata.legacy_duration_minutes.
+
+  - source: facilitator_required
+    target: metadata.legacy_facilitator_required
+    notes: >
+      Legacy field with no canonical equivalent. Surfaced as
+      metadata.legacy_facilitator_required.
+
+  - source: ''
+    target: type
+    value: assessment-model
+    notes: >
+      Canonical models must declare `type: assessment-model`. Legacy
+      documents lack this; the migration layer stamps it.
+
+  - source: ''
+    target: purpose
+    value: [capability-assessment]
+    notes: >
+      Legacy declarations did not declare purpose. Canonical classifies
+      all legacy instruments as capability-assessment (CR-AM-01 §49).
+
+  - source: ''
+    target: subject_type
+    value: enterprise
+    notes: >
+      Legacy instruments implicitly assume an enterprise subject. The
+      canonical surface makes this explicit.
+
+  - source: ''
+    target: compatibility
+    value:
+      schema: compatible
+      semantic: compatible
+      scoring: compatible
+      maturity: compatible
+      result: compatible
+      benchmark: incompatible
+    notes: >
+      CR-AM-02 §22 AC-17: a v1-to-v1 migrated model is result-compatible
+      but benchmark-incompatible (the legacy scoring scale uses different
+      anchors than the canonical benchmark scoring scale).
+
+# Round-trip check (CR-AM-02 §22 AC-15 + AC-20).
+round_trip_preservation:
+  - property: id
+    check: id round-trips identically
+  - property: name
+    check: name round-trips identically
+  - property: dimension_count
+    check: legacy dimensions[] count == canonical dimensions[] count
+  - property: question_count
+    check: legacy dimensions[].questions[] total == canonical dimensions[].questions[] total
+  - property: scoring_scale
+    check: legacy dimensions[].questions[].scoring array values are preserved
+  - property: maturity_target
+    check: legacy maturity_target.id appears in canonical maturity_models[].id
+  - property: description
+    check: description string round-trips identically
+
+# Where the migration is enforced (CR-AM-02 §22 AC-17, AC-20).
+enforcement:
+  validator_script: ../../../tests/migration/test_v1_to_metamodel.py
+  ci_job: validate-migration-integrity
+  scope: >
+    Apply to every legacy instrument present in the assessment-models
+    sub-tree (no transitive scope at this time; legacy instruments outside
+    this catalog are accepted under the legacy schema indefinitely).

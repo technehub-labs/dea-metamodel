@@ -30,6 +30,41 @@ assessment_period:
 status: validated
 confidence: high
 
+# CR-AM-02 §12: every result retains the exact model versions used.
+# The lineage block is required by the canonical assessment-result schema
+# (CR-AM-02 §22 AC-14). This is what makes the result a historical record.
+lineage:
+  assessment_model:
+    id: dea:assessment-zero-touch-operations
+    version: "1.0.0"
+  assessment_instrument:
+    id: dea:instrument-zero-touch-workshop
+    version: "1.0.0"
+  capability:
+    id: dea:capability-zero-touch-operations
+    version: "1.0.0"
+  scenario:
+    id: dea:scenario-zero-touch-service-assurance
+    version: "1.0.0"
+  measures:
+    - id: dea:measure-automation-rate
+      version: "1.0.0"
+    - id: dea:measure-closed-loop-rate
+      version: "1.0.0"
+  maturity_model:
+    id: dea:maturity-operations
+    version: "1.0.0"
+
+# CR-AM-02 §11: six-axis compatibility declaration against the
+# producing model version. All axes compatible against v1.0.0.
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+
 observations:
   - id: obs-001
     measure:

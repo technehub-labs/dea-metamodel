@@ -1,0 +1,104 @@
+# Compatibility Type Vocabulary
+# Controlled vocabulary for the compatibility declaration declared on every
+# normative model artefact (CR-AM-01 §25 and CR-AM-02 §11).
+#
+# Each model version declares which of these dimensions it considers compatible
+# with the previous version. The set is intentionally Cartesian — a single
+# model change can affect schema, semantic, scoring, maturity, result, and
+# benchmark compatibility independently. The default for any new model
+# version is to inherit the previous version's declaration; only the
+# dimensions that change need to be re-declared.
+#
+# Source: CR-AM-02 §11 + CR-AM-01 §25.
+
+vocabulary: compatibility-type
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The controlled set of compatibility property values permitted in any
+  AssessmentMetamodel compatibility declaration. Each value is a single
+  boolean property of model compatibility: a model can be schema/semantic
+  /scoring/maturity/result/benchmark compatible (or not) with its predecessor,
+  independently.
+
+# Permitted values per compatibility dimension.
+dimensions:
+  - id: schema
+    description: >
+      The artifact's schema (JSON Schema, PlantUML, vocabulary) is structurally
+      compatible: existing JSON Schema validators will accept documents
+      produced by the new version without modification.
+    values: [compatible, incompatible]
+    default: compatible
+
+  - id: semantic
+    description: >
+      The artifact's semantic meaning is unchanged: every construct present
+      in v_n continues to mean the same thing in v_n+1. New constructs may be
+      added; removed/changed constructs set this to incompatible.
+    values: [compatible, incompatible]
+    default: compatible
+
+  - id: scoring
+    description: >
+      The scoring model (e.g. a 0-3 four-point scale) is compatible: a result
+      produced under the new version can be treated as scored under the old
+      version without re-mapping. Changing weights or scale anchors sets this
+      to incompatible.
+    values: [compatible, incompatible]
+    default: compatible
+
+  - id: maturity
+    description: >
+      The maturity interpretation model is compatible: a result interpreted
+      under the new version can be re-interpreted under the old version with
+      the same level/range attribution. Restructuring the level set
+      (e.g. CR-014's v1 → v2 maturity-band change) sets this to incompatible.
+    values: [compatible, incompatible]
+    default: compatible
+
+  - id: result
+    description: >
+      Results produced under the new version preserve the lineage of results
+      produced under the old version: a result from v_n can still be read,
+      re-validated, and compared under v_n+1. Schema-only changes typically
+      keep this compatible; semantic changes typically don't.
+    values: [compatible, incompatible]
+    default: compatible
+
+  - id: benchmark
+    description: >
+      Results from the new version may legitimately participate in
+      cross-organisation benchmarking with results from the old version. This
+      is the strictest property: a benchmark population must declare
+      version-range eligibility, and a single PATCH may legitimately break this
+      (e.g. a benchmark eligibility rule change).
+    values: [compatible, incompatible]
+    default: compatible
+
+# Default declaration when a model version is silent — preserves the
+# backward-compatible assumption where undeclared dimensions are inherited from
+# the previous version.
+declaration_shape:
+  scope: per-model-version
+  emitted_in: metamodel extension (e.g. assessment-model.yaml under `compatibility:`)
+  example:
+    compatibility:
+      schema: compatible
+      semantic: compatible
+      scoring: compatible
+      maturity: compatible
+      result: compatible
+      benchmark: incompatible
+
+# Lifecycle contract for compatibility declarations (CR-AM-01 §25).
+lifecycle:
+  - When a model version is first published, its compatibility declaration
+    defaults to all-compatible against the previous version (or all-incompatible
+    if no previous version exists).
+  - A MAJOR version bump MUST set at least one dimension to `incompatible`.
+  - A MINOR version bump MAY set one or more dimensions to `incompatible` only
+    if the change is semantically observable by consumers.
+  - A PATCH version bump MUST NOT set any dimension to `incompatible`.
+  - Compatibility declarations are immutable once the model version is
+    published under a SemVer tag.

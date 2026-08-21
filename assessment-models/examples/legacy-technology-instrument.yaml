@@ -1,40 +1,147 @@
-# Example — Legacy Technology Instrument (current-style)
-# Source: CR-AM-01 supplement §7
-# Purpose: Demonstrates that an existing instrument does NOT need to be rewritten
-# to participate in the new metamodel. A migration layer interprets the legacy
-# fields as references to the new structure.
+# Example — Legacy Technology Instrument (v1 linear schema)
+# Source: CR-AM-01 supplement §7 + CR-AM-02 §17.
+# Purpose: Demonstrates that an existing instrument does NOT need to be
+# rewritten to participate in the new metamodel. A migration layer
+# interprets the legacy fields as references to the new structure.
+# The CR §17 commitment is "five dimensions and 19 questions" — this
+# file is the full legacy declaration (drafted to validate against the
+# vendored legacy schema at migrations/v1-instrument/legacy-instrument.schema.json).
+#
+# Each dimension has a `weight` (0..1) — the legacy scoring allocation that
+# the canonical ScoringModel replaces. Each question has id `q[0-9]+` — the
+# legacy numeric-only ID convention that the canonical projection round-trips
+# by combining `<dimension-id> + qNN`.
 
-id: dea-assessment-technology
+id: dea:assessment-technology
 name: Technology Assessment
 domain: technology
 version: "1.0.0"
 metamodel_version: "0.1.0"
+status: stable
+description: "Legacy v1 technology assessment instrument with five weighted dimensions and 19 questions. The migration layer projects this into the canonical AssessmentModel v1 with semantically equivalent canonical structure."
+total_questions: 19
+duration_minutes: 45
+facilitator_required: true
 
-# Legacy field — interpreted by the migration layer as:
+# Legacy single-string field — interpreted by the migration layer as:
 #   maturity_models:
-#     - id: dea-maturity-technology
-maturity_target:
-  id: dea-maturity-technology
+#     - id: dea:maturity-technology
+#       version: "1.0.0"
+maturity_target: dea:maturity-technology
 
-# Legacy dimensions — interpreted as AssessmentDimensions
+# Five dimensions, 19 questions (CR-AM-02 §17 commitment).
 dimensions:
   - id: architecture
     name: Architecture
+    weight: 0.25
     questions:
-      - id: architecture-01
+      - id: q01
         text: "Is the technology stack documented in a shared catalog?"
         scoring: [0, 1, 2, 3]
         evidence:
           - "A catalog file or wiki page exists and is maintained"
+      - id: q02
+        text: "Is there a published architecture review cadence?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "Review meeting minutes are recorded"
+      - id: q03
+        text: "Are architecture decisions recorded as ADRs?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "An ADR template and index are accessible"
+      - id: q04
+        text: "Is the architecture layered (edge / platform / data / etc.)?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A layering scheme is documented"
+      - id: q05
+        text: "Is the architecture diagram under version control?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A git repository holds the diagram"
 
-# The migration layer would interpret the above as the canonical form:
-#
-# type: assessment-model
-# capabilities:
-#   - id: dea:capability-technology-architecture
-# maturity_models:
-#   - id: dea:maturity-technology
-# dimensions:
-#   - id: architecture
-#
-# Nothing is lost.
+  - id: technology-choice
+    name: Technology Choice
+    weight: 0.20
+    questions:
+      - id: q01
+        text: "Is there an approved technology list?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "An approved list is documented and accessible"
+      - id: q02
+        text: "Is the technology list reviewed periodically?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "Review cadence and minutes are recorded"
+      - id: q03
+        text: "Is there a deprecation policy for end-of-life technology?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A deprecation policy is published"
+      - id: q04
+        text: "Is there a clear process for adopting new technology?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A new-technology adoption process is documented"
+
+  - id: technical-debt
+    name: Technical Debt
+    weight: 0.20
+    questions:
+      - id: q01
+        text: "Is technical debt tracked?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A debt register exists and is maintained"
+      - id: q02
+        text: "Is there a remediation roadmap?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A roadmap with target dates is published"
+      - id: q03
+        text: "Is technical debt prioritised against other work?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "Debt items appear in the standard backlog and prioritisation"
+
+  - id: skills
+    name: Skills
+    weight: 0.20
+    questions:
+      - id: q01
+        text: "Is skill coverage mapped?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A skill matrix is maintained"
+      - id: q02
+        text: "Are single points of failure identified?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "An SPF register is reviewed"
+      - id: q03
+        text: "Is there a succession plan for critical roles?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A succession plan is documented"
+
+  - id: lifecycle
+    name: Lifecycle
+    weight: 0.15
+    questions:
+      - id: q01
+        text: "Is end-of-life software tracked?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "An EOL register is maintained"
+      - id: q02
+        text: "Is there a refresh budget?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "A refresh line item appears in the budget"
+      - id: q03
+        text: "Is end-of-life software actively retired?"
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - "EOL software is removed from production on schedule"

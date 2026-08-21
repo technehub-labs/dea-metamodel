@@ -17,6 +17,9 @@ description: >
   effort_multiplier change. v1-alpha stays canonical until Phase D
   promotion.
 owner:               Chief Architect
+steward:              Chief Architect
+effective_date:       2026-08-21
+review_date:          2027-02-21
 
 levels:
   - id:               level-1-emergent

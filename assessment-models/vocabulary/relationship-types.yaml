@@ -96,6 +96,54 @@ values:
     source_kinds: ["*"]
     target_kinds: ["*"]
 
+  # CR-MM-01.1 — registered 2026-08-21 to close the vocabulary gap surfaced by the
+  # CR-MM-01 / CR-AM-01 compliance audit. Used by all 5 v2-beta maturity model YAMLs
+  # in `assessment-models/maturity/v2-beta/` to link each v2 maturity model to the
+  # canonical v2 bands registry.
+  - id: scored-by-v2-bands
+    description: |
+      MaturityModel scored by the canonical v2 maturity scoring bands (non-linear
+      20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0). Distinct from
+      `scored-by` (legacy alias for `interpreted-by`) so v1 and v2 scoring paths
+      are first-class at the relationship-type layer.
+    source_kinds: [maturity-model]
+    target_kinds: [maturity-bands]
+
+  # CR-MM-01.1 — registered 2026-08-21. The new `validate-relationship-vocabulary`
+  # CI job surfaced these relationship types that have been used in the maturity
+  # sub-tree since the v1 lineage but never formally registered.
+  - id: instance-of
+    description: |
+      A model is an instance-of a catalog (e.g. a maturity model is one of the
+      five canonical maturity models). Inherited from the v1 catalog lineage;
+      registered retroactively to close the gap surfaced by the v2 vocabulary check.
+    source_kinds: ["*"]
+    target_kinds: [catalog, "*"]
+
+  - id: measured-by
+    description: |
+      A model or artefact is measured by a referenced measurement framework or
+      instrument. Inherited from the v1 catalog lineage; registered retroactively.
+    source_kinds: ["*"]
+    target_kinds: [assessment-instrument, framework, "*"]
+
+  - id: references
+    description: |
+      A model references a related entity (e.g. a modernisation maturity model
+      references the strangler-fig pattern, an operations maturity model references
+      the circuit-breaker pattern). Inherited from the v1 catalog lineage.
+    source_kinds: ["*"]
+    target_kinds: [pattern, "*"]
+
+  - id: supersedes-as-advisory
+    description: |
+      A registry artefact supersedes a previous one as advisory content (the
+      previous version remains canonical until promotion). Used by
+      `maturity-bands-v2.yaml` to declare v2 supersedes v1 advisory-bands while
+      v1 stays canonical.
+    source_kinds: [registry-artefact]
+    target_kinds: [registry-artefact]
+
 # Legacy aliases — accepted during transition only (CR-AM-01 §20):
 legacy_aliases:
   produces-score-for: interpreted-by

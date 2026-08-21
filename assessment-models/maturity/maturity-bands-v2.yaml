@@ -5,6 +5,10 @@
 schema_version: "2.0.0"
 metamodel_version: "1.0.0"
 status: beta           # advisory; promotion to stable at Phase D
+owner:                Chief Architect       # CR-MM-01.1
+steward:              Chief Architect       # CR-MM-01.1
+effective_date:       2026-08-20            # CR-MM-01.1
+review_date:          2027-02-20            # CR-MM-01.1
 description: >
   The v2 maturity scoring scheme: 5 levels with single-word names, non-linear
   band widths (20/25/25/18/12), and explicit per-level effort multipliers that

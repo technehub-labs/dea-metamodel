@@ -4,6 +4,34 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-MM-01.1: Maturity v2 Phase B follow-on — vocabulary + governance metadata
+
+Closes two alignment gaps surfaced by the post-CR-MM-01 / CR-AM-01 compliance audit
+on 2026-08-21:
+
+1. **`scored-by-v2-bands` registered** in `assessment-models/vocabulary/relationship-types.yaml`
+   (CR-MM-01 introduced this relationship type but did not register it; CI did not catch it).
+2. **CR-AM-01 §42 governance fields added** to 5 v2-beta maturity models and the 2 Phase A registry
+   artefacts: `steward`, `effective_date: 2026-08-21` (or `2026-08-20` for Phase A), `review_date: 2027-02-21` (or `2027-02-20`).
+
+### Added
+- `assessment-models/vocabulary/relationship-types.yaml`: new entry `scored-by-v2-bands`
+  (source_kinds: maturity-model, target_kinds: maturity-bands).
+- `assessment-models/maturity/v2-beta/{ea-capability,modernization,technology,operations,services-delivery}.yaml`:
+  each gains `steward`, `effective_date`, `review_date`.
+- `assessment-models/maturity/maturity-bands-v2.yaml` and `v2-to-v1-legacy-name-map.yaml`:
+  each gains `owner`, `steward`, `effective_date`, `review_date`.
+- `.github/workflows/ci-assessment-models.yml`: new CI job `validate-relationship-vocabulary`
+  asserts every `relationship_type` value in `maturity/*`, `maturity/v2-beta/*`,
+  `maturity/examples/*`, `examples/*` is registered in the controlled vocabulary.
+
+### Behaviour
+- None. This is metadata-only. All v2-beta maturity model content (characteristics, exit
+  criteria, evidence) is unchanged from CR-MM-01. All v1 → v2 scoring logic is unchanged.
+  Phase C consumer tooling remains parked for CR-MM-02.
+
+See [CR-MM-01.1](change-requests/CR-MM-01.1.md).
+
 ## [Unreleased] — CR-11 Phase 4: External Provenance
 
 Fourth phase of CR-11. Specification and metamodel remain **1.0.0**;

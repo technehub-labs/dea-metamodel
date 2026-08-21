@@ -3,6 +3,27 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+
+## [Unreleased] — CR-11 Phase 4: External Provenance
+
+Fourth phase of CR-11. Specification and metamodel remain **1.0.0**;
+this phase extends the CR-9.2 / CR-11 Phase 1–3 internal provenance
+graph with the *external* source chain so every canonical fact remains
+traceable back to where it came from, and exposes a PROV-shaped
+projection so the chain is interoperable with established provenance
+vocabularies.
+
+### Added — external provenance (`runtime/provenance/external.py`)
+- **`ExternalProvenanceService.record_external_source`** registers an
+  Evidence + Source pair atomically with its ExternalIdentifier
+  correlation in the InteropRegistry (CR-11O).
+- **`ExternalProvenanceService.integration_chain`** walks
+  OpenDEA Entity → Assertion → Evidence → Mapping → Adapter →
+  ExternalIdentifier → External System (CR-11BD).
+- **`prov_projection`** exposes any Assertion as PROV-style
+  Entity / Activity / Agent / Source (CR-11AE).
+- 5 new runtime tests (335 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-015: Assessment-Profile ↔ Assessment-Sub-Tree Cross-Reference
 
 Documentation-only reciprocal cross-link between

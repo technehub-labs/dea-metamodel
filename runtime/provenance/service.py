@@ -238,6 +238,10 @@ class ProvenanceService:
         return ProvenanceChain(subject=subject, assertions=assertions,
                                evidence=evidence, sources=sources)
 
+    def read_assertion(self, assertion_id: str) -> Assertion:
+        """Public read accessor for a single assertion by id."""
+        return self._read_assertion(assertion_id)
+
     # ---- internals ----
     def _read_assertion(self, assertion_id: str) -> Assertion:
         node = self.store.get_entity(assertion_id)

@@ -4,6 +4,38 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 7: Federation
+
+Seventh phase of CR-11. Specification and metamodel remain **1.0.0**;
+this phase realises the *bounded* federation shape from
+CR-11AH/AI/AJ + the CR-11AK boundary rule ("Do not implement a
+universal federation engine"). Federation delivers entity-locality
+labelling, a structured reference shape, and a query-dispatch facade
+that can answer with local + remote sources under three explicit
+strategies — never silently.
+
+### Added — federation (`runtime/federation/`)
+- **`EntityLocality`** (re-export) — the five canonical states
+  (LOCAL / FEDERATED / IMPORTED / DERIVED / VIRTUAL) CR-11AI mandates.
+- **`FederatedReference`** — system + adapter + external identifier +
+  schema version; rejects incomplete references at construction.
+- **`FederatedQuery`** — typed dispatch request with declared sources,
+  authority policy name, and one of three strategies.
+- **`AuthorityContext`** — the slice of the resolved AuthorityPolicy
+  affecting one query; recorded on every result, never invented.
+- **`FederationView.dispatch`** + **`FederationView.resolve_reference`**
+  — the single entry point for bounded federation dispatch.
+- **`SourceResolver`** + **`InGraphResolver`** pluggable resolvers;
+  the in-graph resolver matches by entity id for `opendea` and by
+  (system, external_identifier) for remote systems.
+- **`RemoteSource`** + **`QueryAdapter`** + **`DirectQueryAdapter`** —
+  the adapter shape: declare sources, run the chosen adapter, never
+  invent identifiers the remote system did not return.
+- **`ResolutionStrategy`** — IN_GRAPH_FIRST / SOURCE_PRIORITY / MERGED,
+  declared by the caller; the dispatcher never re-orders silently
+  (CR-11AK boundary).
+- 13 new runtime tests (370 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-11 Phase 6: Event Interoperability
 
 Sixth phase of CR-11. Specification and metamodel remain **1.0.0**;

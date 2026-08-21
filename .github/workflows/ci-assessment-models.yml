@@ -58,7 +58,8 @@ jobs:
           files = sorted(glob.glob('assessment-models/vocabulary/*.yaml')) + \
                   sorted(glob.glob('assessment-models/examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
-                  sorted(glob.glob('assessment-models/maturity/examples/*.yaml'))
+                  sorted(glob.glob('assessment-models/maturity/examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml'))
           for f in files:
               try:
                   with open(f) as fh:
@@ -242,4 +243,100 @@ jobs:
           print(f'OK  bands: 5 bands, contiguous, total 101 points, multipliers {multipliers}')
           print(f'OK  legacy-name map: 5 entries')
           print(f'OK  worked example: score {score} → effort-adjusted value {value:.4f} (documented {expected}, tolerance {ex[\"acceptance_tolerance\"]})')
+          "
+
+  validate-v2-beta-models:
+    name: Validate maturity v2-beta model files (CR-MM-01)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml
+        run: pip install pyyaml
+      - name: Validate v2-beta model files
+        run: |
+          python -c "
+          import yaml, glob, sys
+
+          # Load canonical v2 bands and legacy-name map
+          with open('assessment-models/maturity/maturity-bands-v2.yaml') as fh:
+              bands = yaml.safe_load(fh)['bands']
+          with open('assessment-models/maturity/v2-to-v1-legacy-name-map.yaml') as fh:
+              mappings = {m['v2_name']: m for m in yaml.safe_load(fh)['mappings']}
+
+          errors = []
+          files = sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml'))
+          if len(files) != 5:
+              errors.append(f'expected 5 v2-beta files, found {len(files)}: {files}')
+
+          # Required domains (from CR-AM-01 and the five canonical maturity models)
+          required_domains = {'enterprise-architecture','modernization','technology','operations','services-delivery'}
+
+          seen_domains = set()
+          band_by_id = {b['id']: b for b in bands}
+
+          for f in files:
+              with open(f) as fh:
+                  doc = yaml.safe_load(fh)
+              domain = doc.get('domain')
+              seen_domains.add(domain)
+              if domain not in required_domains:
+                  errors.append(f'{f}: domain {domain!r} not in required set {required_domains}')
+
+              if doc.get('status') != 'beta':
+                  errors.append(f'{f}: status must be beta, got {doc.get(\"status\")!r}')
+              if doc.get('score_scheme') != 'dea-maturity-v2':
+                  errors.append(f'{f}: score_scheme must be dea-maturity-v2, got {doc.get(\"score_scheme\")!r}')
+              if not doc.get('band_reference','').endswith('maturity-bands-v2.yaml'):
+                  errors.append(f'{f}: band_reference must point to maturity-bands-v2.yaml')
+
+              levels = doc.get('levels', [])
+              if len(levels) != 5:
+                  errors.append(f'{f}: expected 5 levels, got {len(levels)}')
+
+              for lvl in levels:
+                  # Every level must reference an id from the canonical v2 bands
+                  if lvl['id'] not in band_by_id:
+                      errors.append(f'{f}: level {lvl[\"id\"]!r} not in canonical v2 bands')
+                      continue
+                  band = band_by_id[lvl['id']]
+                  if lvl['name'] != band['name']:
+                      errors.append(f'{f}/{lvl[\"id\"]}: name {lvl[\"name\"]!r} != canonical band name {band[\"name\"]!r}')
+                  if lvl['score_range'] != band['range']:
+                      errors.append(f'{f}/{lvl[\"id\"]}: score_range {lvl[\"score_range\"]} != canonical band range {band[\"range\"]}')
+                  if lvl['effort_multiplier'] != band['effort_multiplier']:
+                      errors.append(f'{f}/{lvl[\"id\"]}: effort_multiplier {lvl[\"effort_multiplier\"]} != canonical {band[\"effort_multiplier\"]}')
+
+                  # legacy_name must be in the legacy-name map and round-trip
+                  ln = lvl.get('legacy_name')
+                  if ln is None:
+                      errors.append(f'{f}/{lvl[\"id\"]}: missing legacy_name')
+                      continue
+                  map_entry = mappings.get(lvl['name'])
+                  if map_entry is None:
+                      errors.append(f'{f}/{lvl[\"id\"]}: no legacy-name map entry for v2 name {lvl[\"name\"]!r}')
+                  elif map_entry['v1_name'] != ln:
+                      errors.append(f'{f}/{lvl[\"id\"]}: legacy_name {ln!r} != map v1_name {map_entry[\"v1_name\"]!r}')
+
+                  # Required content fields preserved from v1
+                  for fld in ('summary','characteristics','exit_criteria','evidence'):
+                      if fld not in lvl or not lvl[fld]:
+                          errors.append(f'{f}/{lvl[\"id\"]}: missing or empty field {fld!r}')
+
+          missing_domains = required_domains - seen_domains
+          if missing_domains:
+              errors.append(f'missing v2-beta file(s) for domains: {missing_domains}')
+
+          if errors:
+              print('FAIL — v2-beta validation errors:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+
+          print(f'OK  {len(files)} v2-beta files validated')
+          print(f'OK  domains covered: {sorted(seen_domains)}')
+          print(f'OK  every level carries canonical v2 id + name + range + effort_multiplier + legacy_name + content fields')
           "

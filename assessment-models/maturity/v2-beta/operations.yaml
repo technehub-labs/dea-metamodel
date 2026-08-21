@@ -1,0 +1,143 @@
+id:                  dea:maturity-operations
+name:                Operations Maturity Model (v2-beta)
+domain:              operations
+version:             "2.0.0-beta"
+metamodel_version:   "^1.0.0"
+status:              beta
+score_scheme:        dea-maturity-v2
+band_reference:      ../maturity-bands-v2.yaml
+legacy_model:        ../v2-to-v1-legacy-name-map.yaml
+description: >
+  v2-beta of the Operations maturity model. Scoring switches from v1 bands
+  (0–25 / 26–50 / 51–75 / 76–90 / 91–100) to v2 bands (0–20 / 21–45 /
+  46–70 / 71–88 / 89–100) with explicit per-level effort_multiplier
+  (1.0× / 1.5× / 2.5× / 4.0× / 6.0×). Characteristics, exit criteria, and
+  evidence are preserved verbatim from v1-alpha; only the four level
+  scoring fields (id, name, legacy_name, score_range) plus effort_multiplier
+  change. v1-alpha stays canonical until Phase D promotion.
+owner:               Head of Operations / SRE Lead
+
+levels:
+  - id:               level-1-emergent
+    name:             Emergent
+    legacy_name:      Ad Hoc
+    score_range:      [0, 20]
+    effort_multiplier: 1.0
+    summary: Operations is reactive
+    characteristics:
+      - Production issues detected by user complaints
+      - Manual deployments, often after-hours
+      - No incident response process
+      - Logs exist but not centralised
+    exit_criteria:
+      - Centralised logging deployed
+      - Incident response runbook exists
+      - Deployment automation ≥ 50% of services
+    evidence:
+      - Frequent customer-reported incidents
+      - Frequent rollbacks after deployment
+      - Mean time to recovery measured in days
+
+  - id:               level-2-structured
+    name:             Structured
+    legacy_name:      Defined
+    score_range:      [21, 45]
+    effort_multiplier: 1.5
+    summary: Core practices in place
+    characteristics:
+      - Incident command system documented
+      - Observability stack deployed (logs, metrics, traces)
+      - Post-mortem culture started
+      - Deployment automation > 80%
+    exit_criteria:
+      - SLOs defined for top services
+      - Error budgets enforced
+      - Post-mortems within 7 days of incident for sev-1/sev-2
+    evidence:
+      - SLO dashboards published
+      - Incident review board meets regularly
+      - Deployment frequency tracked
+
+  - id:               level-3-systematic
+    name:             Systematic
+    legacy_name:      Managed
+    score_range:      [46, 70]
+    effort_multiplier: 2.5
+    summary: Operations is metrics-driven
+    characteristics:
+      - SLOs defined for all customer-facing services
+      - Error budgets influence release decisions
+      - Chaos engineering experiments run
+      - On-call rotations are sustainable
+    exit_criteria:
+      - MTTR < 30 minutes for sev-1
+      - Deployment frequency > 10/day
+      - Change failure rate < 15%
+    evidence:
+      - Quarterly ops health report
+      - Chaos engineering results tracked
+      - On-call satisfaction score > 7/10
+
+  - id:               level-4-adaptive
+    name:             Adaptive
+    legacy_name:      Quantitatively Managed
+    score_range:      [71, 88]
+    effort_multiplier: 4.0
+    summary: Operations is optimised
+    characteristics:
+      - Predictive incident detection
+      - Auto-remediation for known failure modes
+      - Capacity planning is data-driven
+      - Cost of operations tracked per workload
+    exit_criteria:
+      - Auto-remediation > 30% of incidents
+      - Predictive alerts > 50% of sev-1
+      - Cost per workload tracked weekly
+    evidence:
+      - ML-based anomaly detection deployed
+      - Auto-remediation playbook library
+      - Capacity headroom dashboards
+
+  - id:               level-5-self-optimising
+    name:             Self-Optimising
+    legacy_name:      Optimising
+    score_range:      [89, 100]
+    effort_multiplier: 6.0
+    summary: Operations as competitive advantage
+    characteristics:
+      - Reliability is a product feature
+      - Operations practice contributes to industry
+      - Cross-team operational excellence programs
+      - Internal SRE training academy
+    exit_criteria:
+      - None — continuous improvement is the practice
+    evidence:
+      - External conference talks on ops
+      - Open-source observability contributions
+      - Internal SRE certification programme
+
+relationships:
+  - source_id: dea:maturity-operations
+    target_id: dea:catalog-maturity-models
+    relationship_type: instance-of
+    description: Operations model is one of the five canonical maturity models
+  - source_id: dea:maturity-operations
+    target_id: dea:catalog-assessment-tools
+    relationship_type: scored-by
+    description: Assessed via the Operations assessment instrument
+  - source_id: dea:maturity-operations
+    target_id: dea:pattern-circuit-breaker
+    relationship_type: references
+    description: Level 2+ requires circuit breaker adoption
+  - source_id: dea:maturity-operations
+    target_id: dea:maturity-bands-v2
+    relationship_type: scored-by-v2-bands
+    description: v2 scoring uses non-linear bands 20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0. v1 ids remain resolvable via legacy_name aliases.
+
+tags:
+  - operations
+  - sre
+  - incident-response
+  - observability
+  - slo
+  - v2-beta

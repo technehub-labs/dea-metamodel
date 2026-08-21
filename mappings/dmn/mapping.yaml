@@ -1,0 +1,90 @@
+# OpenDEA ↔ DMN mapping (CR-11Z).
+#
+# OpenDEA Decision is broader than DMN Decision: OpenDEA carries authority,
+# governance, enterprise context, architecture impact, change semantics,
+# accountability (CR-9/CR-10), evidence (CR-9), and assessed maturity (CR-5).
+# DMN Decision is a structured logical decision; mapping preserves the
+# *logical* part and lifts the rest into OpenDEA extensions.
+#
+# A DMN profile (CR-11 §39 interop profile) is a future extension candidate;
+# this file is the baseline mapping.
+version: 1.0.0
+standard: "DMN 1.4"
+direction: informative-mapping
+
+# The DMN profile shape, per CR-11Z §28:
+#   DMN Decision
+#       ↓
+#   OpenDEA Decision
+#       ↓
+#   Decision Evidence
+#       ↓
+#   Decision Outcome
+profile:
+  name: opendea-dmn
+  version: 1.0.0
+  decision: opendea:Decision
+  evidence: opendea:Evidence
+  outcome: opendea:DecisionRecord
+
+mappings:
+  # Core decision shape.
+- {opendea: dea:Decision,          dmn: "Decision",     confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA Decision absorbs DMN Decision identity + decision logic and adds authority + governance."}
+- {opendea: dea:DecisionCriterion, dmn: "InputData",    confidence: HIGH,     lossiness: LOSSLESS,
+   note: "BPMN/DMN InputData ↔ DecisionCriterion in OpenDEA's decision vocabulary."}
+- {opendea: dea:DecisionOption,    dmn: "Decision Table (rule outputs)",
+   confidence: HIGH, lossiness: LOSSLESS}
+- {opendea: dea:DecisionRecord,    dmn: "DecisionResult (decision invocation)",
+   confidence: EXACT, lossiness: LOSSLESS,
+   note: "Each DMN decision invocation becomes a DecisionRecord with explicit inputs and outcome."}
+
+# Decision logic preservation.
+- {opendea: dea:GovernanceRule,    dmn: "Decision Table",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "DMN Decision Table preserves as GovernanceRule with rule-expression kind = `dmn-table`."}
+- {opendea: dea:AggregationRule,   dmn: "Hit Policy (PRIORITY / FIRST / UNIQUE / ANY / RULE ORDER / COLLECT / SUM / MIN / MAX / COUNT)",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "Hit policy decoded into AggregationRule forms."}
+- {opendea: dea:ScoringRule,       dmn: "Context / Expression",
+   confidence: MEDIUM, lossiness: PARTIAL,
+   note: "DMN expressions lower to OpenDEA ScoringRule for scoring decisions."}
+
+# DMN ↔ OpenDEA data shape.
+- {opendea: dea:BusinessObject,    dmn: "ItemDefinition / InputData (typed)",
+   confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:DataEntity,        dmn: "Knowledge Source (data)",
+   confidence: HIGH, lossiness: PARTIAL,
+   note: "DMN Knowledge Source may be data, procedure, or external authority; OpenDEA represents data-bearing ones as DataEntity + Evidence link."}
+- {opendea: dea:Authority,         dmn: "Knowledge Source (authority)",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "DMN authority-level Knowledge Sources map cleanly to OpenDEA Authority."}
+- {opendea: dea:Evidence,          dmn: "Decision Invocation Evidence (criterion-level facts)",
+   confidence: HIGH, lossiness: LOSSLESS,
+   note: "DMN requires evidence be presented at decision time; OpenDEA captures the same facts as Evidence supporting the DecisionRecord."}
+
+# DMN Authority Requirement ↔ OpenDEA governance vocabulary.
+- {opendea: dea:PolicyRule,        dmn: "Authority Requirement (rule-level)",
+   confidence: HIGH, lossiness: LOSSLESS}
+
+# DMN FEEL expressions are preserved verbatim in the rule-expression shape.
+feels_preserved:
+  rule_expression_format: "FEEL"
+  rule_expression_kind: "dmn-feel"
+  note: "FEEL expressions are stored unchanged; OpenDEA does not attempt to re-execute FEEL — only to preserve the decision logic shape."
+
+no_direct_equivalent:
+- {opendea: dea:Change,            dmn: "(no direct equivalent)", note: "OpenDEA Decision may evolve across time; DMN versions are sequential snapshots."}
+- {opendea: dea:ArchitectureState, dmn: "(no direct equivalent)", note: "DMN does not carry architecture validity context."}
+- {opendea: dea:AssessmentResult,  dmn: "(no direct equivalent)", note: "DMN decision quality is expressed through DMN analytics; OpenDEA Decision ties to Assessment via CR-5."}
+- {opendea: dea:Agent,             dmn: "(no direct equivalent)", note: "DMN has no agent-class concept; OpenDEA captures agents through CR-7."}
+
+relationships:
+  information_requirement: "DMN Information Requirement ↔ OpenDEA `dea:depends-on` (Decision → DecisionCriterion/decision inputs)."
+  knowledge_requirement: "DMN Knowledge Requirement ↔ OpenDEA `dea:cites` (Decision → Evidence + Authority)."
+  authority_requirement: "DMN Authority Requirement ↔ OpenDEA `dea:authorised-by` (Decision → Authority/Permission)."
+
+notes:
+- "OpenDEA Decision is a superset of DMN Decision; a DMN Decision fits entirely inside an OpenDEA Decision."
+- "A DMN profile becomes `external:dmn:*` Extensions when lifted into OpenDEA (CR-11AR)."
+- "DMN FEEL expressions are preserved literally, not re-evaluated — OpenDEA tools do not become DMN engines (CR-11Y §1)."

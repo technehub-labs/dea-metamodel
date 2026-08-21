@@ -1,0 +1,68 @@
+# OpenDEA ↔ BPMN mapping (CR-11Y).
+#
+# OpenDEA semantic identity remains authoritative. Where semantics differ,
+# the difference is documented — never pretend equivalence (§45).
+#
+# Scope is deliberately realistic: OpenDEA does not attempt to become BPMN
+# (CR-11Y); it maps only the subset that interoperates with OpenDEA's
+# process, decision and event vocabulary. Anything not listed here is
+# represented as an Extension in `external:` namespace (CR-11AR), never
+# absorbed into the OpenDEA core.
+version: 1.0.0
+standard: BPMN 2.0
+direction: informative-mapping
+mappings:
+  # Activity layer
+- {opendea: dea:BusinessProcess,  bpmn: Process,           confidence: EXACT,     lossiness: LOSSLESS,
+   note: "OpenDEA BusinessProcess maps cleanly to BPMN Process / Sub-Process; OpenDEA adds governance + authority metadata."}
+- {opendea: dea:Workflow,         bpmn: Process,           confidence: HIGH,     lossiness: LOSSLESS,
+   note: "Workflow maps to BPMN Process; OpenDEA adds CR-10 scenario semantics absent in BPMN."}
+- {opendea: dea:Task,             bpmn: Task,              confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:Task,             bpmn: "Sub-Process",     confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA Task is execution-scoped; a Sub-Process scope resolves to a nested Workflow."}
+  # Events — BPMN start/intermediate/end ↔ OpenDEA TemporalEvent families.
+- {opendea: dea:TemporalEvent,    bpmn: "Start Event",     confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA captures triggers as TemporalEvent types; Map to Conditional/Message/None as needed."}
+- {opendea: dea:TemporalEvent,    bpmn: "Intermediate Event", confidence: HIGH,   lossiness: PARTIAL}
+- {opendea: dea:TemporalEvent,    bpmn: "End Event",       confidence: HIGH,     lossiness: PARTIAL}
+- {opendea: dea:LifecycleEvent,   bpmn: "Boundary Event",  confidence: HIGH,     lossiness: PARTIAL,
+   note: "Boundary events become LifecycleEvent attached to an OpenDEA Workflow scope."}
+- {opendea: dea:Event,            bpmn: "Intermediate Event (message/timer/error)", confidence: MEDIUM, lossiness: PARTIAL,
+   note: "OpenDEA's general Event is broader; specific BPMN event definitions are recorded as Extensions."}
+  # Gateways — BPMN has flow-control; OpenDEA expresses the same via decision logic.
+- {opendea: dea:DecisionCriterion,bpmn: "Exclusive Gateway", confidence: HIGH, lossiness: PARTIAL,
+   note: "BPMN exclusive gateway maps to a DecisionCriterion + decision logic; OpenDEA owns the result."}
+- {opendea: dea:DecisionOption,   bpmn: "Exclusive Gateway Branch", confidence: HIGH, lossiness: PARTIAL}
+- {opendea: dea:Decision,         bpmn: "Complex Gateway",  confidence: HIGH,    lossiness: LOSSY,
+   note: "BPMN complex gateway defers to DMN; OpenDEA Decision captures the decision + authority + governance."}
+- {opendea: dea:AggregationRule,  bpmn: "Parallel Gateway", confidence: MEDIUM,  lossiness: PARTIAL,
+   note: "Parallel splitting is collapsed into an AggregationRule (CR-10)."}
+
+# Data / artefacts — BPMN DataObject / DataStore ↔ OpenDEA DataObject / DataEntity.
+- {opendea: dea:BusinessObject,  bpmn: "DataObject (input/output)", confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:DataEntity,       bpmn: "DataStore Reference", confidence: HIGH, lossiness: PARTIAL,
+   note: "OpenDEA DataEntity is content-typed; BPMN DataStore is opaque — mapping preserves identity, not type."}
+
+# Swimlanes / participants.
+- {opendea: dea:Actor,            bpmn: "Pool / Lane",      confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA Actor is finer-grained than BPMN Pool/Lane; multi-actor lanes are recorded as actors with role."}
+- {opendea: dea:Stakeholder,      bpmn: "Participant",      confidence: HIGH,     lossiness: PARTIAL}
+
+# OpenDEA concepts without a BPMN counterpart — listed as (no direct equivalent)
+# per CR-8 §45 / CR-11X style.
+no_direct_equivalent:
+- {opendea: dea:Decision,                bpmn: "(no direct equivalent)", note: "BPMN delegates decision logic to DMN; OpenDEA carries authority + governance."}
+- {opendea: dea:ArchitectureState,       bpmn: "(no direct equivalent)", note: "OpenDEA states are first-class; BPMN models executions, not architecture states."}
+- {opendea: dea:AssessmentResult,        bpmn: "(no direct equivalent)", note: "Assessment is an OpenDEA layer (CR-5)."}
+- {opendea: dea:Agent,                   bpmn: "(no direct equivalent)", note: "Agentic semantics are outside BPMN scope."}
+- {opendea: dea:Change,                  bpmn: "(no direct equivalent)", note: "BPMN has no change/transition vocabulary; use OpenDEA Change + Transition (CR-6)."}
+
+relationships:
+  sequence_flow: "BPMN Sequence Flow ↔ OpenDEA `dea:follows` (Workflow edge) — direction and ordering preserved."
+  message_flow: "BPMN Message Flow ↔ OpenDEA event edge with `kind=message` — preserved as a TemporalEvent shape."
+  association: "BPMN Association / DataInputAssociation / DataOutputAssociation ↔ OpenDEA `dea:reads` / `dea:writes` (BusinessObject attachment)."
+  process_call: "BPMN Call Activity ↔ OpenDEA `dea:invokes` between Workflow scopes."
+
+notes:
+- "OpenDEA never imports the BPMN engine semantic; mappings are informative bridges (CR-11W)."
+- "BPMN-specific extensions (compensation handlers, escalation, multi-instance) become OpenDEA `external:bpmn:*` Extensions (CR-11AR)."

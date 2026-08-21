@@ -23,3 +23,41 @@ mappings:
 relationship_notes:
 - "OpenDEA relationships are typed, directed, inverse-aware and temporally boundable (CR-2/CR-6); ArchiMate relationships are typed but not temporal."
 - "OpenDEA dea:assesses / dea:informed-by / dea:authorized-by have no ArchiMate counterparts."
+
+# CR-11X — typed relationships + confidence/lossiness (extends CR-8 §45).
+# A mapping never implies metamodel adoption (CR-11W). Confidence/lossiness
+# are explicit, not derived.
+relationships:
+  composite_relationship: "ArchiMate Composition is bidirectional grouping; OpenDEA `dea:part-of` is directional — only the parent→child direction maps cleanly. The reverse direction is a derived view."
+  serving_relationship: "ArchiMate Serving ↔ OpenDEA `dea:serves` (Capability → BusinessService, ApplicationComponent → Service)."
+  realisation_relationship: "ArchiMate Realisation (Passes/Is Realised By) ↔ OpenDEA realisation (`dea:realises`) — the canonical meaning matches when OpenDEA binds the realised element to evidence (CR-9)."
+  flow_relationship: "ArchiMate Triggering/Flow ↔ OpenDEA `dea:triggers` (TemporalEvent → event edge). OpenDEA adds validity intervals the ArchiMate flow inherently lacks."
+# CR-11X — explicit confidence/lossiness on the closest-relation entries.
+confidence_lossiness:
+- {opendea: dea:BusinessCapability,     archimate: Capability,            confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:BusinessProcess,        archimate: "Business Process",    confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:BusinessService,        archimate: "Business Service",    confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:ApplicationComponent,   archimate: "Application Component", confidence: EXACT,  lossiness: LOSSLESS}
+- {opendea: dea:Technology,             archimate: "Technology Component", confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA Technology may aggregate node + service + data-plane concerns that ArchiMate keeps separate."}
+- {opendea: dea:Outcome,                archimate: Outcome,               confidence: HIGH,     lossiness: LOSSLESS,
+   note: "ArchiMate Outcome lacks first-class evidence binding."}
+- {opendea: dea:Requirement,            archimate: Requirement,           confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:Stakeholder,            archimate: Stakeholder,           confidence: EXACT,     lossiness: LOSSLESS}
+- {opendea: dea:Actor,                  archimate: "Business Actor",      confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA Actor includes system and AI agents (CR-7 §27)."}
+- {opendea: dea:Decision,               archimate: "(no direct equivalent)", confidence: UNCERTAIN, lossiness: LOSSY,
+   note: "ArchiMate modelling recommends importing DMN decisions; see mappings/dmn/."}
+- {opendea: dea:Change,                 archimate: "(no direct equivalent)", confidence: UNCERTAIN, lossiness: LOSSY,
+   note: "ArchiMate models plateaux, not change semantics; use OpenDEA Change + Transition (CR-6)."}
+- {opendea: dea:ArchitectureState,      archimate: Plateau,               confidence: HIGH,     lossiness: PARTIAL,
+   note: "OpenDEA states carry validity intervals ArchiMate cannot natively express."}
+- {opendea: dea:AssessmentResult,       archimate: "(no direct equivalent)", confidence: UNCERTAIN, lossiness: LOSSY,
+   note: "Assessment is an OpenDEA layer (CR-5), not an ArchiMate concern."}
+- {opendea: dea:Agent,                  archimate: "(no direct equivalent)", confidence: UNCERTAIN, lossiness: LOSSY,
+   note: "Agentic semantics are outside ArchiMate scope."}
+# CR-11X — bridge cases documented as approximate or composite.
+bridges:
+- {archimate: Plateaus, opendea_note: "ArchiPlateau ↔ OpenDEA ArchitectureState; the structural decomposition is the same but OpenDEA adds validity intervals."}
+- {archimate: "Value", opendea_note: "No direct equivalent; OpenDEA expresses value through Outcome + StrategicObjective + evidence (CR-9)."}
+- {archimate: "Driver", opendea_note: "No direct equivalent; OpenDEA expresses drivers through Objective + Outcome and the assessment layer (CR-5)."}

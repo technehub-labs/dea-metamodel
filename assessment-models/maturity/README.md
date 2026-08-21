@@ -94,8 +94,8 @@ Per the additive-migration rule:
 
 | Phase | What ships | Status |
 |-------|-----------|--------|
-| **A — registry** | `maturity-bands-v2.yaml` published as advisory alongside v1 | ✅ this PR |
-| **B — beta files** | v2 maturity model files with `legacy_name` aliases; consumer tooling reads v1 by default | ✅ this PR (band YAML + legacy-name map + worked example) |
+| **A — registry** | `maturity-bands-v2.yaml` published as advisory alongside v1 | ✅ shipped (CR-014) |
+| **B — beta files** | v2 maturity model files with `legacy_name` aliases; consumer tooling reads v1 by default | ✅ shipped (CR-MM-01) |
 | **C — consumers** | dea-cli gains `--scoring v2`; dea-web-viewer renders both band sets behind a feature flag; assessment-tools mappings updated | future CRs in `technehub-labs/dea-cli`, `technehub-labs/dea-web-viewer`, `Assessment-Models/dea-catalog-assessment-tools` (archived, but consumers can mirror locally) |
 | **D — promotion** | After one full assessment cycle on v2, v2 becomes canonical; v1 deprecated with `superseded-by` link | future CR |
 
@@ -103,7 +103,33 @@ No model content (characteristics, exit criteria, evidence) changes in this prop
 
 ---
 
-## 6. Backward compatibility
+## 6. v2-beta maturity model files
+
+In addition to the registry artefacts above, `v2-beta/` holds one YAML file per canonical maturity domain, ready for consumers to read with a v2 flag:
+
+```
+assessment-models/maturity/v2-beta/
+├── ea-capability.yaml        (domain: enterprise-architecture)
+├── modernization.yaml        (domain: modernization)
+├── technology.yaml           (domain: technology)
+├── operations.yaml           (domain: operations)
+└── services-delivery.yaml    (domain: services-delivery)
+```
+
+Each v2-beta file:
+
+- Has the same `id`, `domain`, `description`, and `owner` as the archived v1-alpha twin.
+- Bumps `version` to `2.0.0-beta` and `metamodel_version` to `^1.0.0` (canonical metamodel is 1.0.0 post CR-008).
+- Carries v2-only top-level metadata: `status: beta`, `score_scheme: dea-maturity-v2`, `band_reference: ../maturity-bands-v2.yaml`, `legacy_model: ../v2-to-v1-legacy-name-map.yaml`.
+- Rewrites per-level scoring fields (`id`, `name`, `score_range`) using the canonical v2 values; adds `legacy_name: <v1 name>` and `effort_multiplier` (sourced from `maturity-bands-v2.yaml`).
+- **Preserves every `summary`, `characteristics`, `exit_criteria`, and `evidence` byte-identically from v1-alpha.** Content fidelity is the whole point of Phase B.
+- Adds ONE new relationship: `scored-by-v2-bands → dea:maturity-bands-v2`.
+
+The `validate-v2-beta-models` CI job enforces all of the above as part of every PR to this sub-tree.
+
+---
+
+## 7. Backward compatibility
 
 - v1 ids (`level-1-ad-hoc` etc.) remain valid forever in v1-alpha files.
 - `legacy_name` alias on every v2 level lets existing assessment data resolve. See [`v2-to-v1-legacy-name-map.yaml`](v2-to-v1-legacy-name-map.yaml).
@@ -111,18 +137,21 @@ No model content (characteristics, exit criteria, evidence) changes in this prop
 
 ---
 
-## 7. Where this fits in CR-014
+## 8. Where this fits in CR-014
 
 This sub-tree is part of the [assessment sub-metamodel landing](../../change-requests/CR-014.md). The v2 maturity scoring scheme is the maturity-model-interpretation layer for the assessment sub-metamodel: a result can be `interpreted-by` a MaturityModel (v1 or v2 — both are valid MaturityModel references per CR-AM-01 §13).
 
 ---
 
-## 8. Cross-references
+## 9. Cross-references
 
 - Historical proposal (archived repo, read-only): https://github.com/Assessment-Models/dea-catalog-maturity-models/pull/1
-- CR-014 (parent CR): [`../../change-requests/CR-014.md`](../../change-requests/CR-014.md)
+- CR-014 (Phase A): [`../../change-requests/CR-014.md`](../../change-requests/CR-014.md)
+- CR-015 (assessment profile cross-link): [`../../change-requests/CR-015.md`](../../change-requests/CR-015.md)
+- CR-MM-01 (Phase B — this CR, v2-beta model files): [`../../change-requests/CR-MM-01.md`](../../change-requests/CR-MM-01.md)
 - CR-AM-01 (parent CR for the assessment sub-metamodel evolution): https://github.com/Assessment-Models/dea-catalog-assessment-tools/blob/main/change-requests/CR-AM-01.md
-- Canonical machine-readable form: [`maturity-bands-v2.yaml`](maturity-bands-v2.yaml)
+- Canonical machine-readable bands: [`maturity-bands-v2.yaml`](maturity-bands-v2.yaml)
 - Legacy-name map: [`v2-to-v1-legacy-name-map.yaml`](v2-to-v1-legacy-name-map.yaml)
 - Worked example: [`examples/effort-adjusted-value.yaml`](examples/effort-adjusted-value.yaml)
+- v2-beta model files: [`v2-beta/`](v2-beta/)
 - Migration governance: [`governance/migration.md`](governance/migration.md)

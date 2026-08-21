@@ -1,0 +1,142 @@
+id:                  dea:maturity-services-delivery
+name:                Services Delivery Maturity Model (v2-beta)
+domain:              services-delivery
+version:             "2.0.0-beta"
+metamodel_version:   "^1.0.0"
+status:              beta
+score_scheme:        dea-maturity-v2
+band_reference:      ../maturity-bands-v2.yaml
+legacy_model:        ../v2-to-v1-legacy-name-map.yaml
+description: >
+  v2-beta of the Services Delivery maturity model. Scoring switches from v1
+  bands (0–25 / 26–50 / 51–75 / 76–90 / 91–100) to v2 bands
+  (0–20 / 21–45 / 46–70 / 71–88 / 89–100) with explicit per-level
+  effort_multiplier (1.0× / 1.5× / 2.5× / 4.0× / 6.0×). Characteristics,
+  exit criteria, and evidence are preserved verbatim from v1-alpha; only the
+  four level scoring fields (id, name, legacy_name, score_range) plus
+  effort_multiplier change. v1-alpha stays canonical until Phase D promotion.
+owner:               Head of Delivery / VP Engineering
+
+levels:
+  - id:               level-1-emergent
+    name:             Emergent
+    legacy_name:      Ad Hoc
+    score_range:      [0, 20]
+    effort_multiplier: 1.0
+    summary: Delivery is unpredictable
+    characteristics:
+      - Release dates slip frequently
+      - Quality measured by bug count, not customer impact
+      - Customer satisfaction not systematically tracked
+      - Scope, time, quality trade-offs made ad-hoc
+    exit_criteria:
+      - Release predictability tracked
+      - Customer satisfaction baseline measured
+      - Delivery retrospectives held
+    evidence:
+      - Quarterly commitments missed > 50% of time
+      - Quality measured only as defect count
+      - Customer satisfaction surveys absent
+
+  - id:               level-2-structured
+    name:             Structured
+    legacy_name:      Defined
+    score_range:      [21, 45]
+    effort_multiplier: 1.5
+    summary: Core delivery practices established
+    characteristics:
+      - Sprint/iteration cadence in place
+      - Definition of Done documented
+      - Customer impact metrics tracked
+      - Delivery retrospectives feed into planning
+    exit_criteria:
+      - 80% of releases hit planned dates
+      - Customer satisfaction ≥ neutral baseline
+      - Retrospective actions tracked to completion
+    evidence:
+      - Burndown/burnup charts in use
+      - Customer NPS or CSAT trend tracked
+      - Action register from retrospectives
+
+  - id:               level-3-systematic
+    name:             Systematic
+    legacy_name:      Managed
+    score_range:      [46, 70]
+    effort_multiplier: 2.5
+    summary: Delivery is data-informed
+    characteristics:
+      - Flow metrics tracked (lead time, cycle time, WIP)
+      - Customer outcomes linked to releases
+      - Quality measured by escaped defects
+      - Predictive release date forecasting
+    exit_criteria:
+      - Lead time for changes < 1 week
+      - Change failure rate < 15%
+      - Customer outcome improvements > 5% YoY
+    evidence:
+      - Flow metrics dashboard published
+      - Release forecasting accuracy > 80%
+      - Outcome-tracking per feature
+
+  - id:               level-4-adaptive
+    name:             Adaptive
+    legacy_name:      Quantitatively Managed
+    score_range:      [71, 88]
+    effort_multiplier: 4.0
+    summary: Delivery is optimised
+    characteristics:
+      - Delivery ROI measured per initiative
+      - Customer LTV/CAC improvement linked to delivery
+      - Time-to-market is competitive advantage
+      - A/B testing infrastructure mature
+    exit_criteria:
+      - Delivery ROI > 5x measured
+      - Time-to-market improving quarterly
+      - A/B testing informs > 50% of major decisions
+    evidence:
+      - Delivery ROI dashboards
+      - Time-to-market competitive benchmarks
+      - Experimentation velocity tracked
+
+  - id:               level-5-self-optimising
+    name:             Self-Optimising
+    legacy_name:      Optimising
+    score_range:      [89, 100]
+    effort_multiplier: 6.0
+    summary: Delivery is market-leading
+    characteristics:
+      - Industry-leading time-to-market
+      - Continuous delivery with zero-downtime deployments
+      - Customer outcome focus drives everything
+      - External recognition as delivery leader
+    exit_criteria:
+      - None — continuous improvement is the practice
+    evidence:
+      - Industry awards or analyst recognition
+      - Conference talks on delivery practice
+      - Open-source delivery tooling contributions
+
+relationships:
+  - source_id: dea:maturity-services-delivery
+    target_id: dea:catalog-maturity-models
+    relationship_type: instance-of
+    description: Services Delivery model is one of the five canonical maturity models
+  - source_id: dea:maturity-services-delivery
+    target_id: dea:catalog-assessment-tools
+    relationship_type: scored-by
+    description: Assessed via the Services Delivery assessment instrument
+  - source_id: dea:maturity-services-delivery
+    target_id: dea:catalog-metrics
+    relationship_type: measured-by
+    description: Outcomes tracked via metrics catalog entries
+  - source_id: dea:maturity-services-delivery
+    target_id: dea:maturity-bands-v2
+    relationship_type: scored-by-v2-bands
+    description: v2 scoring uses non-linear bands 20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0. v1 ids remain resolvable via legacy_name aliases.
+
+tags:
+  - services-delivery
+  - time-to-market
+  - customer-outcomes
+  - flow-metrics
+  - v2-beta

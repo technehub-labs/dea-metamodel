@@ -1,0 +1,142 @@
+id:                  dea:maturity-modernization
+name:                Architecture Modernization Maturity Model (v2-beta)
+domain:              modernization
+version:             "2.0.0-beta"
+metamodel_version:   "^1.0.0"
+status:              beta
+score_scheme:        dea-maturity-v2
+band_reference:      ../maturity-bands-v2.yaml
+legacy_model:        ../v2-to-v1-legacy-name-map.yaml
+description: >
+  v2-beta of the Architecture Modernization maturity model. Scoring switches
+  from v1 bands (0–25 / 26–50 / 51–75 / 76–90 / 91–100) to v2 bands
+  (0–20 / 21–45 / 46–70 / 71–88 / 89–100) with explicit per-level
+  effort_multiplier (1.0× / 1.5× / 2.5× / 4.0× / 6.0×). Characteristics,
+  exit criteria, and evidence are preserved verbatim from v1-alpha; only the
+  four level scoring fields (id, name, legacy_name, score_range) plus
+  effort_multiplier change. v1-alpha stays canonical until Phase D promotion.
+owner:               Modernisation Lead
+
+levels:
+  - id:               level-1-emergent
+    name:             Emergent
+    legacy_name:      Ad Hoc
+    score_range:      [0, 20]
+    effort_multiplier: 1.0
+    summary: Modernisation happens opportunistically
+    characteristics:
+      - Legacy systems replaced in big-bang rewrites
+      - No assessment of modernisation readiness
+      - Business stakeholders surprised by project outcomes
+      - No consistent migration pattern across initiatives
+    exit_criteria:
+      - Modernisation strategy documented and approved by leadership
+      - Migration patterns (e.g., strangler-fig) documented and shared
+      - Readiness assessment performed before each major modernisation
+    evidence:
+      - Multiple failed big-bang rewrite attempts
+      - No documented migration playbook
+      - Modernisation cost overruns are common
+
+  - id:               level-2-structured
+    name:             Structured
+    legacy_name:      Defined
+    score_range:      [21, 45]
+    effort_multiplier: 1.5
+    summary: Strategy exists but execution is inconsistent
+    characteristics:
+      - Modernisation roadmap published but not enforced
+      - Some strangler-fig applications in progress
+      - Decomposition patterns documented but not standardised
+      - Coexistence strategy between old and new unclear
+    exit_criteria:
+      - Modernisation backlogs tracked in shared register
+      - Decomposition pattern library has ≥ 3 entries
+      - Coexistence strategy documented per migration wave
+    evidence:
+      - Strangler-fig pattern used in at least one production migration
+      - Migration waves have explicit exit criteria
+      - Dual-running period is planned, not reactive
+
+  - id:               level-3-systematic
+    name:             Systematic
+    legacy_name:      Managed
+    score_range:      [46, 70]
+    effort_multiplier: 2.5
+    summary: Modernisation is managed as a portfolio
+    characteristics:
+      - All modernisations use documented patterns
+      - Wave planning with risk-adjusted roadmap
+      - Metrics tracked — time-to-replace, business continuity
+      - Anti-corruption layer pattern is standard
+    exit_criteria:
+      - Modernisation metrics on leadership dashboard
+      - All legacy systems have modernisation roadmap entry
+      - Anti-corruption layer reuse ≥ 80% of migrations
+    evidence:
+      - Quarterly modernisation progress report
+      - Pattern reuse tracked in dea-cli
+      - Lessons learned captured per wave
+
+  - id:               level-4-adaptive
+    name:             Adaptive
+    legacy_name:      Quantitatively Managed
+    score_range:      [71, 88]
+    effort_multiplier: 4.0
+    summary: Outcomes predicted and measured
+    characteristics:
+      - Modernisation ROI calculated per project
+      - Velocity of modernisation measured and improved
+      - Failure modes catalogued and mitigated
+      - Cost of legacy technical debt quantified
+    exit_criteria:
+      - Modernisation ROI > 2x within 24 months
+      - Technical debt trend decreasing year-over-year
+      - Modernisation velocity improving each wave
+    evidence:
+      - ROI dashboard per modernisation
+      - Predictive models for modernisation duration
+      - Cost-of-delay calculated for legacy systems
+
+  - id:               level-5-self-optimising
+    name:             Self-Optimising
+    legacy_name:      Optimising
+    score_range:      [89, 100]
+    effort_multiplier: 6.0
+    summary: Continuous modernisation as a discipline
+    characteristics:
+      - Modernisation is part of ongoing architecture practice
+      - New patterns evaluated in modernisation context first
+      - Industry leadership in modernisation practice
+      - Open-source contributions of modernisation tooling
+    exit_criteria:
+      - None — continuous improvement is the practice
+    evidence:
+      - Internal modernisation conferences or community-of-practice
+      - Contributions to upstream modernisation tooling
+      - Patterns published externally
+
+relationships:
+  - source_id: dea:maturity-modernization
+    target_id: dea:catalog-maturity-models
+    relationship_type: instance-of
+    description: Modernisation model is one of the five canonical maturity models
+  - source_id: dea:maturity-modernization
+    target_id: dea:catalog-assessment-tools
+    relationship_type: scored-by
+    description: Assessed via the Architecture Modernization assessment instrument
+  - source_id: dea:maturity-modernization
+    target_id: dea:pattern-strangler-fig
+    relationship_type: references
+    description: Level 2+ requires strangler-fig pattern adoption
+  - source_id: dea:maturity-modernization
+    target_id: dea:maturity-bands-v2
+    relationship_type: scored-by-v2-bands
+    description: v2 scoring uses non-linear bands 20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0. v1 ids remain resolvable via legacy_name aliases.
+
+tags:
+  - modernization
+  - legacy-migration
+  - strangler-fig
+  - decomposition
+  - v2-beta

@@ -1,0 +1,142 @@
+id:                  dea:maturity-ea-capability
+name:                EA Capability Maturity Model (v2-beta)
+domain:              enterprise-architecture
+version:             "2.0.0-beta"
+metamodel_version:   "^1.0.0"
+status:              beta
+score_scheme:        dea-maturity-v2
+band_reference:      ../maturity-bands-v2.yaml
+legacy_model:        ../v2-to-v1-legacy-name-map.yaml
+description: >
+  v2-beta of the EA Capability maturity model. Scoring switches from v1
+  bands (0–25 / 26–50 / 51–75 / 76–90 / 91–100) to v2 bands (0–20 / 21–45 /
+  46–70 / 71–88 / 89–100) with explicit per-level effort_multiplier (1.0×
+  / 1.5× / 2.5× / 4.0× / 6.0×). Characteristics, exit criteria, and
+  evidence are preserved verbatim from v1-alpha; only the four level
+  scoring fields (id, name, legacy_name, score_range) plus
+  effort_multiplier change. v1-alpha stays canonical until Phase D
+  promotion.
+owner:               Chief Architect
+
+levels:
+  - id:               level-1-emergent
+    name:             Emergent
+    legacy_name:      Ad Hoc
+    score_range:      [0, 20]
+    effort_multiplier: 1.0
+    summary: EA practice is informal and person-dependent
+    characteristics:
+      - Architecture decisions made ad-hoc, often by senior engineers
+      - No shared vocabulary or framework
+      - Diagrams and documents exist in personal silos
+      - No ownership of architectural decisions
+    exit_criteria:
+      - Documented architecture principles agreed by leadership
+      - Designated architecture owner identified
+      - Shared vocabulary defined (even informally)
+    evidence:
+      - Architecture decisions undocumented or in personal notes
+      - No meeting cadence for architectural review
+      - New hires learn architecture by asking around
+
+  - id:               level-2-structured
+    name:             Structured
+    legacy_name:      Defined
+    score_range:      [21, 45]
+    effort_multiplier: 1.5
+    summary: Core practices documented but enforcement inconsistent
+    characteristics:
+      - Principles and patterns are documented
+      - Architecture review board exists but meets irregularly
+      - Some catalog entries exist but not maintained
+      - People understand the framework but bypass it under pressure
+    exit_criteria:
+      - Architecture review board meets on a fixed cadence (≥ monthly)
+      - Catalog entries are kept up to date as part of definition of done
+      - Architecture decisions require ADR sign-off before merge
+    evidence:
+      - ADRs exist for major decisions
+      - Pattern catalog has ≥ 5 entries with forces and consequences
+      - Onboarding includes architecture training
+
+  - id:               level-3-systematic
+    name:             Systematic
+    legacy_name:      Managed
+    score_range:      [46, 70]
+    effort_multiplier: 2.5
+    summary: Formal framework with active governance
+    characteristics:
+      - EA framework is documented and tooling-enabled
+      - Architecture reviews are regular and decision-led
+      - Metrics tracked (catalog coverage, review throughput)
+      - Tooling (dea-cli) integrated into CI/CD
+    exit_criteria:
+      - Quarterly architecture health report published
+      - All repos have CODEOWNERS with EA approval gates
+      - Architecture metrics on leadership dashboard
+    evidence:
+      - dea validate runs in CI on every catalog PR
+      - Architecture decisions logged in GitHub Projects
+      - SBOM published for all EA tooling
+
+  - id:               level-4-adaptive
+    name:             Adaptive
+    legacy_name:      Quantitatively Managed
+    score_range:      [71, 88]
+    effort_multiplier: 4.0
+    summary: Metrics-driven decision-making
+    characteristics:
+      - EA impact measured against business outcomes
+      - Predictive metrics — defect reduction, time-to-market improvement
+      - Architecture debt quantified with remediation roadmap
+      - Comparative benchmarks against industry peers
+    exit_criteria:
+      - EA ROI demonstrated with quantitative analysis
+      - Architecture debt tracked as a top-5 risk register item
+      - External benchmark reviewed annually
+    evidence:
+      - Quarterly architecture review includes quantitative trends
+      - Architecture decisions tracked against predicted outcomes
+      - Peer benchmark (e.g. Gartner, Forrester) consulted
+
+  - id:               level-5-self-optimising
+    name:             Self-Optimising
+    legacy_name:      Optimising
+    score_range:      [89, 100]
+    effort_multiplier: 6.0
+    summary: Self-sustaining, continuously improving
+    characteristics:
+      - Framework evolves based on measured outcomes
+      - Architecture practice contributes to industry/community
+      - Mentoring of other organisations
+      - Innovation pipeline — experimental patterns evaluated systematically
+    exit_criteria:
+      - None — continuous improvement is the practice
+    evidence:
+      - Annual conference talks or publications
+      - Contributing to upstream open-source frameworks
+      - Experimental patterns evaluated in sandboxes before adoption
+
+relationships:
+  - source_id: dea:maturity-ea-capability
+    target_id: dea:catalog-maturity-models
+    relationship_type: instance-of
+    description: EA Capability model is one of the five canonical maturity models
+  - source_id: dea:maturity-ea-capability
+    target_id: dea:catalog-assessment-tools
+    relationship_type: scored-by
+    description: Assessed via the EA Capability assessment instrument
+  - source_id: dea:maturity-ea-capability
+    target_id: dea:reference-dera
+    relationship_type: measured-by
+    description: Phase 4 governance health report uses this score as headline metric
+  - source_id: dea:maturity-ea-capability
+    target_id: dea:maturity-bands-v2
+    relationship_type: scored-by-v2-bands
+    description: v2 scoring uses non-linear bands 20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0. v1 ids remain resolvable via legacy_name aliases.
+
+tags:
+  - enterprise-architecture
+  - capability-maturity
+  - governance
+  - v2-beta

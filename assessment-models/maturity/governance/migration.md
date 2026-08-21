@@ -2,7 +2,7 @@
 
 Additive migration only. No existing v1 file is modified. v2 lands as a sibling.
 
-## Phase A — Registry advisory (current phase)
+## Phase A — Registry advisory (✅ shipped 2026-08-20, CR-014)
 
 **Goal:** Publish v2 bands + legacy-name map as advisory artefacts. v1 stays canonical.
 
@@ -21,13 +21,16 @@ Additive migration only. No existing v1 file is modified. v2 lands as a sibling.
 - At least one consumer team (dea-cli, dea-web-viewer, or an Assessment-Models instrument) signals intent to read v2 bands.
 - Worked example reproduced by hand or by a unit test.
 
-## Phase B — Beta files + consumer preview
+## Phase B — Beta files + consumer preview (✅ shipped 2026-08-21, CR-MM-01)
 
 **Goal:** v2 maturity model YAMLs in the assessment-models sub-tree gain `legacy_name` aliases and `score_range` matches v2 bands. Consumers may preview v2 behind a flag.
 
 **Lands:**
-- A `v2-beta/` directory with one YAML per maturity domain (EA Capability, Modernization, Technology, Operations, Services Delivery), mirroring `maturity-models/v1-alpha/*.yaml` but with v2 ids + ranges.
+- A `v2-beta/` directory with one YAML per maturity domain (EA Capability, Modernization, Technology, Operations, Services Delivery), mirroring `maturity-models/v1-alpha/*.yaml` (archived) but with v2 ids + ranges.
 - Each v2 file carries `legacy_name` on every level for cross-resolution.
+- Each v2 file adds a new per-level `effort_multiplier` sourced from `maturity-bands-v2.yaml`.
+- Content fidelity: every level's `summary`, `characteristics`, `exit_criteria`, `evidence` is preserved byte-identically from v1-alpha.
+- CI validator `validate-v2-beta-models` asserts canonical-band alignment + legacy_name round-trip + content-field presence.
 
 **Status:** `status: beta` on every v2-beta file.
 

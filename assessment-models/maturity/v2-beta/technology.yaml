@@ -1,0 +1,142 @@
+id:                  dea:maturity-technology
+name:                Technology Maturity Model (v2-beta)
+domain:              technology
+version:             "2.0.0-beta"
+metamodel_version:   "^1.0.0"
+status:              beta
+score_scheme:        dea-maturity-v2
+band_reference:      ../maturity-bands-v2.yaml
+legacy_model:        ../v2-to-v1-legacy-name-map.yaml
+description: >
+  v2-beta of the Technology maturity model. Scoring switches from v1 bands
+  (0–25 / 26–50 / 51–75 / 76–90 / 91–100) to v2 bands (0–20 / 21–45 / 46–70
+  / 71–88 / 89–100) with explicit per-level effort_multiplier (1.0× / 1.5×
+  / 2.5× / 4.0× / 6.0×). Characteristics, exit criteria, and evidence are
+  preserved verbatim from v1-alpha; only the four level scoring fields
+  (id, name, legacy_name, score_range) plus effort_multiplier change.
+  v1-alpha stays canonical until Phase D promotion.
+owner:               CTO / Platform Engineering
+
+levels:
+  - id:               level-1-emergent
+    name:             Emergent
+    legacy_name:      Ad Hoc
+    score_range:      [0, 20]
+    effort_multiplier: 1.0
+    summary: Technology choices made without central visibility
+    characteristics:
+      - Teams choose technologies independently
+      - No central inventory of technologies in use
+      - End-of-life software runs in production
+      - Skill coverage is opaque — single points of failure
+    exit_criteria:
+      - Technology inventory published (even if informal)
+      - End-of-life software tracked
+      - Single points of failure identified
+    evidence:
+      - Shadow IT — teams using unapproved tools
+      - Production incidents due to skill gaps
+      - No CVE management process
+
+  - id:               level-2-structured
+    name:             Structured
+    legacy_name:      Defined
+    score_range:      [21, 45]
+    effort_multiplier: 1.5
+    summary: Inventory exists but not enforced
+    characteristics:
+      - Approved technology list published
+      - SBOM generated for major systems
+      - CVE scanning in CI but not on all repos
+      - Skill matrix exists but is stale
+    exit_criteria:
+      - SBOM on every production release
+      - CVE scanning covers ≥ 90% of repos
+      - Skill matrix refreshed quarterly
+    evidence:
+      - Approved technology list referenced in PRs
+      - Deprecation policy published
+      - New technology adoption process documented
+
+  - id:               level-3-systematic
+    name:             Systematic
+    legacy_name:      Managed
+    score_range:      [46, 70]
+    effort_multiplier: 2.5
+    summary: Technology is actively managed
+    characteristics:
+      - Deprecation roadmap enforced
+      - Skill coverage has redundancy (no SPoF)
+      - Cost-per-workload tracked
+      - Technology refresh is planned, not reactive
+    exit_criteria:
+      - Zero end-of-life software in production
+      - Technology refresh budget line item
+      - Cost transparency — every workload has cost owner
+    evidence:
+      - Quarterly tech radar published
+      - Skill coverage matrix with backups per critical skill
+      - Cost-per-workload dashboard
+
+  - id:               level-4-adaptive
+    name:             Adaptive
+    legacy_name:      Quantitatively Managed
+    score_range:      [71, 88]
+    effort_multiplier: 4.0
+    summary: Technology decisions are data-driven
+    characteristics:
+      - Technology churn measured
+      - Technology ROI evaluated
+      - Innovation budget tracked vs. value delivered
+      - Skill market trends monitored
+    exit_criteria:
+      - Technology churn trend decreasing
+      - Innovation ROI > 3x measured
+      - Skill gap analysis automated
+    evidence:
+      - Predictive models for technology obsolescence
+      - Vendor cost optimisation programmes
+      - Skill forecast model
+
+  - id:               level-5-self-optimising
+    name:             Self-Optimising
+    legacy_name:      Optimising
+    score_range:      [89, 100]
+    effort_multiplier: 6.0
+    summary: Technology is a strategic asset
+    characteristics:
+      - Technology choices are differentiators
+      - Open-source contributions back into technology stack
+      - Industry partnerships with key vendors
+      - Experimental sandboxes for emerging tech evaluation
+    exit_criteria:
+      - None — continuous improvement is the practice
+    evidence:
+      - Conference talks on technology strategy
+      - Open-source maintainer roles
+      - Vendor advisory boards
+
+relationships:
+  - source_id: dea:maturity-technology
+    target_id: dea:catalog-maturity-models
+    relationship_type: instance-of
+    description: Technology model is one of the five canonical maturity models
+  - source_id: dea:maturity-technology
+    target_id: dea:catalog-assessment-tools
+    relationship_type: scored-by
+    description: Assessed via the Technology assessment instrument
+  - source_id: dea:maturity-technology
+    target_id: dea:catalog-standards
+    relationship_type: references
+    description: Approved technology list draws from standards catalog
+  - source_id: dea:maturity-technology
+    target_id: dea:maturity-bands-v2
+    relationship_type: scored-by-v2-bands
+    description: v2 scoring uses non-linear bands 20/25/25/18/12 with effort_multiplier 1.0/1.5/2.5/4.0/6.0. v1 ids remain resolvable via legacy_name aliases.
+
+tags:
+  - technology
+  - technical-debt
+  - lifecycle
+  - skill-coverage
+  - v2-beta

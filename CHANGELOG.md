@@ -24,6 +24,34 @@ vocabularies.
   Entity / Activity / Agent / Source (CR-11AE).
 - 5 new runtime tests (335 total in `tests/runtime/`).
 
+## [Unreleased] — CR-MM-01: Maturity v2 Phase B — beta maturity model files
+
+A new `assessment-models/maturity/v2-beta/` directory lands five YAML files
+— one per canonical maturity domain — that mirror the v1-alpha originals
+in `Assessment-Models/dea-catalog-maturity-models` (archived) but use v2
+level ids, names, score ranges, and `legacy_name` aliases, plus a new
+per-level `effort_multiplier`.
+
+### Added — `assessment-models/maturity/v2-beta/`
+- `ea-capability.yaml` — domain: enterprise-architecture
+- `modernization.yaml` — domain: modernization
+- `technology.yaml` — domain: technology
+- `operations.yaml` — domain: operations
+- `services-delivery.yaml` — domain: services-delivery
+- Each carries `status: beta`, `score_scheme: dea-maturity-v2`, `band_reference: ../maturity-bands-v2.yaml`, `legacy_model: ../v2-to-v1-legacy-name-map.yaml`.
+- Content fidelity: every level's `summary`, `characteristics`, `exit_criteria`, `evidence` is preserved byte-identically from v1-alpha.
+
+### Added — CI validator
+- New job `validate-v2-beta-models` in `.github/workflows/ci-assessment-models.yml` asserts:
+  - exact 5-file count and complete coverage of the five domains
+  - every level's `id` / `name` / `score_range` / `effort_multiplier` matches the canonical `maturity-bands-v2.yaml`
+  - every level's `legacy_name` round-trips through `v2-to-v1-legacy-name-map.yaml`
+  - every level has non-empty `summary`, `characteristics`, `exit_criteria`, `evidence`
+- `validate-yaml` glob extended to include `assessment-models/maturity/v2-beta/*.yaml`.
+
+Specification and metamodel remain **1.0.0** — no canonical VERSION bump.
+See [CR-MM-01](change-requests/CR-MM-01.md).
+
 ## [Unreleased] — CR-015: Assessment-Profile ↔ Assessment-Sub-Tree Cross-Reference
 
 Documentation-only reciprocal cross-link between

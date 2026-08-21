@@ -3,6 +3,23 @@
 All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
+## [Unreleased] — CR-015: Assessment-Profile ↔ Assessment-Sub-Tree Cross-Reference
+
+Documentation-only reciprocal cross-link between
+`metamodel/profiles/assessment/profile.yaml` and `assessment-models/`.
+Closes the integration story left open by CR-014 §3 (explicitly out of scope
+for CR-014 itself).
+
+### Added — reciprocal cross-link
+- `metamodel/profiles/assessment/profile.yaml` gains a `cross_references:`
+  block pointing at `assessment-models/` (kind: internal-sub-tree,
+  relation: integrates_with, canonical_url anchor).
+- `assessment-models/README.md` gains a `### Upstream profile` subsection
+  pointing back at the profile and stating the layering convention.
+
+Specification and metamodel remain **1.0.0** — no canonical version bump.
+See [CR-015](change-requests/CR-015.md).
+
 ## [Unreleased] — CR-11 Phase 3: Exchange JSON Schema
 
 Third phase of CR-11. Specification and metamodel remain **1.0.0**;

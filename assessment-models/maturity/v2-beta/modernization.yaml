@@ -16,6 +16,9 @@ description: >
   four level scoring fields (id, name, legacy_name, score_range) plus
   effort_multiplier change. v1-alpha stays canonical until Phase D promotion.
 owner:               Modernisation Lead
+steward:              Modernisation Lead
+effective_date:       2026-08-21
+review_date:          2027-02-21
 
 levels:
   - id:               level-1-emergent

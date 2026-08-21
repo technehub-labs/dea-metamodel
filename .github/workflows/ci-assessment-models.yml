@@ -340,3 +340,58 @@ jobs:
           print(f'OK  domains covered: {sorted(seen_domains)}')
           print(f'OK  every level carries canonical v2 id + name + range + effort_multiplier + legacy_name + content fields')
           "
+
+  validate-relationship-vocabulary:
+    name: Validate relationship_type values against vocabulary (CR-AM-01 §41, CR-MM-01.1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml
+        run: pip install pyyaml
+      - name: Validate relationship_type values
+        run: |
+          python -c "
+          import yaml, glob, sys, re
+
+          with open('assessment-models/vocabulary/relationship-types.yaml') as fh:
+              vocab = yaml.safe_load(fh)
+
+          # Build the set of permitted relationship_type ids (canonical + legacy aliases).
+          permitted = set()
+          for v in vocab['values']:
+              permitted.add(v['id'])
+          for alias in (vocab.get('legacy_aliases') or {}).keys():
+              permitted.add(alias)
+
+          errors = []
+          files = sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/examples/*.yaml'))
+
+          # Just spot-check files that have a 'relationships:' block.
+          for f in files:
+              with open(f) as fh:
+                  doc = yaml.safe_load(fh)
+              rels = doc.get('relationships', []) if isinstance(doc, dict) else []
+              if not rels:
+                  continue
+              for r in rels:
+                  rt = r.get('relationship_type')
+                  if rt is None:
+                      continue
+                  if rt not in permitted:
+                      errors.append(f'{f}: relationship_type {rt!r} not in controlled vocabulary (allowed: {sorted(permitted)})')
+
+          if errors:
+              print('FAIL — unregistered relationship_type values:')
+              for e in errors:
+                  print(f'  {e}')
+              sys.exit(1)
+          print(f'OK  all relationship_type values in maturity/* + maturity/v2-beta/* + maturity/examples/* + examples/* are in the controlled vocabulary')
+          print(f'OK  permitted set size: {len(permitted)} (canonical: {len(vocab[\"values\"])} + legacy aliases: {len(vocab.get(\"legacy_aliases\") or {})})')
+          "

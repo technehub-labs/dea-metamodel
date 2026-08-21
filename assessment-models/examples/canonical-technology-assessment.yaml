@@ -54,9 +54,16 @@ maturity_models:
     version: "1.0.0"
 
 # Explicit compatibility declaration (CR-AM-01 §25)
+# CR-AM-02 §11: six-axis compatibility declaration against the
+# previous model version. Schema+semantic compatible (the same fields
+# are present); scoring compatible (same scale 0-3); maturity compatible
+# (same level set); result compatible (result structure unchanged by
+# this version); benchmark INCOMPATIBLE (the benchmark population now
+# requires explicit eligibility — declared per result).
 compatibility:
-  backward_compatible: true
-  scoring_compatible: true
-  maturity_compatible: true
-  benchmark_compatible: false   # not yet eligible for benchmarking
-  result_compatible: true
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible

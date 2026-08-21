@@ -395,3 +395,181 @@ jobs:
           print(f'OK  all relationship_type values in maturity/* + maturity/v2-beta/* + maturity/examples/* + examples/* are in the controlled vocabulary')
           print(f'OK  permitted set size: {len(permitted)} (canonical: {len(vocab[\"values\"])} + legacy aliases: {len(vocab.get(\"legacy_aliases\") or {})})')
           "
+
+  # CR-MM-02.1 — CR-AM-02 schema set + migration + compatibility tests.
+  # Runs the unit tests in assessment-models/tests/{schemas,migration,compatibility}/
+  # and the inline legacy-instrument validation against the vendored legacy schema.
+  validate-cr-am-02-tests:
+    name: CR-AM-02 regression tests (schema set, migration, compatibility)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml + jsonschema
+        run: pip install pyyaml jsonschema
+      - name: Run unittest discovery
+        run: python -m unittest discover -v -s assessment-models/tests -t .
+      - name: Validate legacy instrument against legacy schema (AC-05)
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator
+          with open('assessment-models/migrations/v1-instrument/legacy-instrument.schema.json') as fh:
+              legacy_schema = json.load(fh)
+          with open('assessment-models/examples/legacy-technology-instrument.yaml') as fh:
+              legacy_doc = yaml.safe_load(fh)
+          v = Draft202012Validator(legacy_schema)
+          errs = list(v.iter_errors(legacy_doc))
+          if errs:
+              print('FAIL — legacy instrument does not validate against legacy schema:')
+              for e in errs[:3]:
+                  print(f'  {e.message}')
+              sys.exit(1)
+          print('OK — legacy instrument validates against legacy schema')
+          "
+      - name: Validate canonical examples against their schemas (AC-06)
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+          with open('assessment-models/schemas/common.schema.json') as fh: common = json.load(fh)
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          cases = [
+              ('assessment-models/examples/canonical-technology-assessment.yaml',     'assessment-models/schemas/assessment-model.schema.json'),
+              ('assessment-models/examples/zero-touch-operations-assessment.yaml',    'assessment-models/schemas/assessment-model.schema.json'),
+              ('assessment-models/migrations/v1-instrument/canonical-technology-migration.yaml', 'assessment-models/schemas/assessment-model.schema.json'),
+              ('assessment-models/examples/zero-touch-operations-result.yaml',         'assessment-models/schemas/assessment-result.schema.json'),
+          ]
+          errors = 0
+          for path, schema_path in cases:
+              with open(schema_path) as fh: s = json.load(fh)
+              resolver = RefResolver(base_uri='', referrer=s, store=store)
+              v = Draft202012Validator(s, resolver=resolver)
+              doc = yaml.safe_load(open(path))
+              errs = list(v.iter_errors(doc))
+              if errs:
+                  errors += 1
+                  print(f'FAIL {path}: {errs[0].message}')
+              else:
+                  print(f'OK against {schema_path.split(chr(47))[-1]}: {path}')
+          if errors:
+              sys.exit(1)
+          print(f'OK — {len(cases)} canonical examples validate against their schemas')
+          "
+
+  validate-migration-integrity:
+    name: CR-AM-02 migration integrity (legacy → canonical preserves semantics)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml + jsonschema
+        run: pip install pyyaml jsonschema
+      - name: Validate mapping + manifest + legacy + canonical round-trip
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          with open('assessment-models/schemas/common.schema.json') as fh: common = json.load(fh)
+          with open('assessment-models/schemas/assessment-model.schema.json') as fh: am = json.load(fh)
+          with open('assessment-models/migrations/v1-instrument/legacy-instrument.schema.json') as fh: legacy_schema = json.load(fh)
+          with open('assessment-models/migrations/v1-instrument/mapping.yaml') as fh: mapping = yaml.safe_load(fh)
+          with open('assessment-models/migrations/v1-instrument/canonical-technology-migration.yaml') as fh: canonical = yaml.safe_load(fh)
+          with open('assessment-models/migrations/v1-instrument/migration-manifest.yaml') as fh: manifest = yaml.safe_load(fh)
+          with open('assessment-models/examples/legacy-technology-instrument.yaml') as fh: legacy_doc = yaml.safe_load(fh)
+
+          errors = 0
+
+          # 1. Legacy schema validates as JSON Schema
+          try:
+              Draft202012Validator.check_schema(legacy_schema)
+              print('OK  legacy schema parses as Draft 2020-12')
+          except Exception as e:
+              errors += 1
+              print(f'FAIL legacy schema parse: {e}')
+
+          # 2. Legacy YAML validates against legacy schema
+          v = Draft202012Validator(legacy_schema)
+          errs = list(v.iter_errors(legacy_doc))
+          if errs:
+              errors += 1
+              print(f'FAIL legacy YAML does not validate against legacy schema: {errs[0].message}')
+          else:
+              print('OK  legacy YAML validates against legacy schema (AC-05)')
+
+          # 3. Canonical projection validates against canonical assessment-model schema
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          resolver = RefResolver(base_uri='', referrer=am, store=store)
+          v = Draft202012Validator(am, resolver=resolver)
+          errs = list(v.iter_errors(canonical))
+          if errs:
+              errors += 1
+              print(f'FAIL canonical projection does not validate: {errs[0].message}')
+          else:
+              print('OK  canonical projection validates against assessment-model.schema.json (AC-06)')
+
+          # 4. Round-trip: legacy dimensions count == canonical dimensions count
+          legacy_dims = sum(1 for d in legacy_doc['dimensions'])
+          canonical_dims = sum(1 for d in canonical['dimensions'])
+          if legacy_dims != canonical_dims:
+              errors += 1
+              print(f'FAIL dimension count mismatch: legacy={legacy_dims} canonical={canonical_dims}')
+          else:
+              print(f'OK  dimension count preserved: {legacy_dims}')
+
+          # 5. Round-trip: legacy total questions == canonical total questions
+          legacy_q = sum(len(d['questions']) for d in legacy_doc['dimensions'])
+          canonical_q = sum(len(d['questions']) for d in canonical['dimensions'])
+          if legacy_q != canonical_q:
+              errors += 1
+              print(f'FAIL question count mismatch: legacy={legacy_q} canonical={canonical_q}')
+          else:
+              print(f'OK  question count preserved: {legacy_q}')
+
+          # 6. Round-trip: legacy maturity_target appears in canonical maturity_models
+          legacy_mat_id = legacy_doc['maturity_target']
+          canonical_mat_ids = [m['id'] for m in canonical['maturity_models']]
+          if legacy_mat_id not in canonical_mat_ids:
+              errors += 1
+              print(f'FAIL legacy maturity_target {legacy_mat_id!r} not in canonical maturity_models: {canonical_mat_ids}')
+          else:
+              print(f'OK  legacy maturity_target preserved in canonical maturity_models')
+
+          # 7. Compatibility declaration is the six-axis shape
+          comp = canonical.get('compatibility')
+          required_axes = {'schema','semantic','scoring','maturity','result','benchmark'}
+          if not comp or not required_axes.issubset(set(comp.keys())):
+              errors += 1
+              print(f'FAIL compatibility declaration missing required axes: {required_axes}')
+          else:
+              print(f'OK  compatibility declaration declares all six axes (AC-17)')
+
+          # 8. Migration manifest preserves legacy fields that have no canonical equivalent
+          manifest_meta = manifest.get('legacy_preserved_metadata', {})
+          for legacy_field in ('legacy_total_questions', 'legacy_duration_minutes', 'legacy_facilitator_required'):
+              if legacy_field not in manifest_meta:
+                  errors += 1
+                  print(f'FAIL migration manifest missing {legacy_field}')
+          if all(legacy_field in manifest_meta for legacy_field in ('legacy_total_questions', 'legacy_duration_minutes', 'legacy_facilitator_required')):
+              print(f'OK  migration manifest preserves all legacy fields without canonical equivalent')
+
+          if errors:
+              print(f'--- FAIL: migration integrity errors: {errors}')
+              sys.exit(1)
+          print(f'--- OK — migration integrity verified (8/8 checks)')
+          "

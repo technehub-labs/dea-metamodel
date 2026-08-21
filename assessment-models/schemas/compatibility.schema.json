@@ -2,16 +2,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/compatibility.schema.json",
   "title": "OpenDEA Compatibility Metadata",
-  "description": "Explicit compatibility declaration for a model version. SemVer alone is insufficient — adding a question can change the statistical interpretation of a score (CR-AM-01 §25).",
+  "description": "Explicit compatibility declaration for a model version. SemVer alone is insufficient \u2014 adding a question can change the statistical interpretation of a score (CR-AM-01 \u00a725 + CR-AM-02 \u00a711). Each axis is independent: a model can declare schema/semantic/scoring/maturity/result/benchmark compatibility independently. Default behaviour: a model version that is silent on compatibility is treated as compatible on every axis (CR-AM-02 \u00a711 default-shape rule).",
   "type": "object",
+  "title_suffix": " v1.1.0",
   "required": [
     "model_id",
     "model_version",
-    "backward_compatible",
-    "scoring_compatible",
-    "maturity_compatible",
-    "benchmark_compatible",
-    "result_compatible"
+    "schema",
+    "semantic",
+    "scoring",
+    "maturity",
+    "result",
+    "benchmark"
   ],
   "properties": {
     "model_id": {
@@ -23,25 +25,53 @@
     "previous_version": {
       "$ref": "common.schema.json#/$defs/version"
     },
-    "backward_compatible": {
-      "type": "boolean",
-      "description": "Existing results from previous_version can still be processed without change."
+    "schema": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Schema-compatible: existing JSON Schema validators will accept documents produced by the new version without modification. CR-AM-02 \u00a711."
     },
-    "scoring_compatible": {
-      "type": "boolean",
-      "description": "Scores from previous_version have the same interpretation."
+    "semantic": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Semantic-compatible: every construct present in the previous version continues to mean the same thing in the new version. CR-AM-02 \u00a711."
     },
-    "maturity_compatible": {
-      "type": "boolean",
-      "description": "Results from previous_version can be mapped to the same maturity interpretation."
+    "scoring": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Scoring-compatible: a result produced under the new version can be treated as scored under the old version without re-mapping. CR-AM-02 \u00a711."
     },
-    "benchmark_compatible": {
-      "type": "boolean",
-      "description": "Results from previous_version may legitimately participate in cross-organisation benchmarking with this version."
+    "maturity": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Maturity-interpretation-compatible: a result interpreted under the new version can be re-interpreted under the old version with the same level/range attribution. CR-AM-02 \u00a711."
     },
-    "result_compatible": {
-      "type": "boolean",
-      "description": "Result structure is unchanged; results can flow through unchanged downstream."
+    "result": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Result-structure-compatible: results produced under the new version preserve the lineage of results produced under the old version. CR-AM-02 \u00a711."
+    },
+    "benchmark": {
+      "type": "string",
+      "enum": [
+        "compatible",
+        "incompatible"
+      ],
+      "description": "Benchmark-compatible: results from the new version may legitimately participate in cross-organisation benchmarking with results from the old version. CR-AM-02 \u00a711."
     },
     "notes": {
       "type": "string"

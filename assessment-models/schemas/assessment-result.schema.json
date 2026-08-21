@@ -9,7 +9,8 @@
     "assessment_model",
     "subject",
     "assessment_period",
-    "status"
+    "status",
+    "lineage"
   ],
   "properties": {
     "id": {
@@ -105,6 +106,9 @@
         "validated",
         "superseded"
       ]
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
     }
   },
   "$defs": {

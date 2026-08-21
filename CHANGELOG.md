@@ -4,6 +4,36 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-11 Phase 6: Event Interoperability
+
+Sixth phase of CR-11. Specification and metamodel remain **1.0.0**;
+this phase wraps the CR-9H/I canonical event envelope with a
+schema-first JSON contract (CR-11AF) and an end-to-end
+external-event → knowledge-update pipeline (CR-11AG).
+
+### Added — event envelope + pipeline (`runtime/events/`)
+- **`EVENT_JSON_SCHEMA`** + `event_json_schema()` + `validate_envelope()`:
+  Draft-07 contract for the canonical envelope. `additionalProperties`
+  is `false`, the event-type taxonomy matches the CR-9H enum, and
+  the optional `provenance` bag mirrors the CR-11S/T/U Exchange
+  envelope so consumers can audit and reconcile events with no extra
+  translation step.
+- **`EventPublicationService.publish`** is the only path that turns a
+  runtime mutation into a canonical event. The service validates
+  every payload at the boundary and refuses to publish invalid
+  envelopes.
+- **`EventPipeline.ingest`** runs the full CR-11AG flow:
+  `External Event → Adapter → OpenDEA Event → Knowledge Update →
+  Rules → Assessment → Agent/Decision`, with pluggable hooks for
+  rules, assessment and agent stages plus a knowledge-update
+  applier for the four entity-/relationship-mutating event types.
+- **`PassthroughAdapter`** validates an envelope as-is; subclasses
+  can lift any external wire format into the canonical shape.
+- **`derive_updates(event)`** maps ENTITY_CREATED / ENTITY_CHANGED /
+  ENTITY_DELETED / RELATIONSHIP_CHANGED to `KnowledgeUpdate` hints;
+  the other event types pass through so downstream stages can react.
+- 14 new runtime tests (357 total in `tests/runtime/`).
+
 ## [Unreleased] — CR-11 Phase 5: Reference Mappings
 
 Fifth phase of CR-11. Specification and metamodel remain **1.0.0**;

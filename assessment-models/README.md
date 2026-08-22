@@ -56,11 +56,12 @@ assessment-models/
 │   ├── zero-touch-operations-result.yaml      ← independently useful AssessmentResult
 │   └── benchmark-eligibility.yaml             ← explicit benchmark eligibility declaration
 │
-├── governance/                                 ← 5 policy docs
+├── governance/                                 ← 6 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
 │   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
 │   ├── result-lineage.md                      ← CR-AM-04 result lineage & operations
 │   ├── maturity-interpretation.md             ← CR-AM-04 multi-dimensional maturity interpretation
+│   ├── views.md                               ← CR-AM-05 view & aggregation policy
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
 └── maturity/                                   ← maturity scoring v2 (this PR's other landing)
@@ -71,6 +72,15 @@ assessment-models/
     │   └── effort-adjusted-value.yaml         ← worked example: score 80 → 49.2 effort-adjusted value
     └── governance/
         └── migration.md                       ← 4-phase migration plan (Phase A → D)
+
+├── views/                                      ← CR-AM-05 derived projections over AssessmentResults
+│   ├── enterprise/technology-heatmap.yaml     ← capability × period heatmap
+│   ├── capability/technology-architecture-profile.yaml  ← capability profile
+│   ├── scenario/service-assurance-profile.yaml ← scenario profile
+│   └── trend/technology-maturity-trend.yaml   ← historical trend
+
+├── aggregation/                                ← CR-AM-05 AggregationModel contract
+│   └── examples/capability-score.yaml         ← canonical AggregationModel example
 ```
 
 ---
@@ -201,3 +211,17 @@ All four paths are supported by the schemas in `schemas/`. Concrete examples are
 - Canonical OpenDEA metamodel: see `../../metamodel/`, `../../metamodel.yaml`, `../../specification/`
 - Archived maturity-models proposal (historical reference): https://github.com/Assessment-Models/dea-catalog-maturity-models/pull/1
 - Archived assessment catalog (read-only, contains CR-AM-01 reference): https://github.com/Assessment-Models/dea-catalog-assessment-tools
+
+## Assessment views & aggregation (CR-AM-05)
+
+An `AssessmentView` is a derived projection over one or more
+`AssessmentResult` instances. Five view types ship with CR-AM-05:
+`enterprise_profile`, `capability_profile`, `scenario_profile`, `heatmap`,
+`trend`. Every view declares its `AggregationModel` (id + version) and
+method; score and maturity aggregation are distinct; missing data is
+N/A, not zero; compatibility guards prevent incompatible results from
+silently participating in trends or aggregates. See
+`governance/views.md`, `schemas/assessment-view.schema.json`,
+`schemas/aggregation-model.schema.json`, and `runtime/views/`.
+
+## Result operations & maturity interpretation (CR-AM-04)

@@ -1,0 +1,105 @@
+id: dea:view-trend-technology-maturity
+version: 1.0.0
+name: Technology Maturity Trend
+type: trend
+status: stable
+description: >
+  Trend view (CR-AM-05 §19, §20). Two historical AssessmentResults for the
+  same assessment_model + scoring_model + maturity_model are joined into a
+  trend. Compatibility must hold across the result versions; this example
+  uses two 1.0.0 results which are identical-version and therefore comparable.
+subject:
+  id: dea:capability-technology-architecture
+  type: capability
+assessment_period:
+  start: 2026-01-01T00:00:00Z
+  end: 2026-06-30T23:59:59Z
+filters:
+  assessment_models:
+    - dea:assessment-technology
+  capabilities:
+    - dea:capability-technology-architecture
+  scenarios:
+    - dea:scenario-enterprise-technology-health
+  result_status: completed
+source_results:
+  - id: dea:result-technology-2026-q1
+    version: 1.0.0
+  - id: dea:result-technology-2026-q2
+    version: 1.0.0
+aggregation:
+  method: identity
+  model:
+    id: dea:aggregation-trend-point
+    version: 1.0.0
+  rationale: >
+    Trend view: identity aggregation; cell level comes from the source result
+    interpretation. CR-AM-05 §20: never infer progression from incompatible
+    versions.
+dimensions:
+  - capability
+  - assessment_period
+cells:
+  - subject:
+      id: dea:capability-technology-architecture-2026-q1
+      type: capability
+    value:
+      score: 65
+      normalized: 0.65
+      level: 3
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 3
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 1
+      applicable: 1
+    source_results:
+      - dea:result-technology-2026-q1
+  - subject:
+      id: dea:capability-technology-architecture-2026-q2
+      type: capability
+    value:
+      score: 78
+      normalized: 0.78
+      level: 4
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 4
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 1
+      applicable: 1
+    source_results:
+      - dea:result-technology-2026-q2
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+lineage:
+  source_results:
+    - id: dea:result-technology-2026-q1
+      version: 1.0.0
+    - id: dea:result-technology-2026-q2
+      version: 1.0.0
+  assessment_models:
+    - id: dea:assessment-technology
+      version: 1.0.0
+  scoring_models:
+    - id: dea:scoring-four-point
+      version: 1.0.0
+  maturity_models:
+    - id: dea:maturity-technology
+      version: 1.0.0
+  aggregation:
+    id: dea:aggregation-trend-point
+    version: 1.0.0

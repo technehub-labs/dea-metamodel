@@ -1,0 +1,85 @@
+# Aggregation Method Vocabulary
+# Controlled vocabulary for AggregationModel.method and AssessmentView.aggregation.method.
+# Source: CR-AM-05 §10, §11, §12, §24
+# CR-AM-05 explicitly refuses to hard-code "average" as the canonical enterprise rule.
+# Score aggregation and Maturity aggregation are distinct: a view must declare
+# which quantity it consumes (input.type) and the method applies to that quantity.
+
+vocabulary: aggregation-method
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of aggregation methods permitted in an AggregationModel and
+  on AssessmentView.aggregation.method. Each method has a defined applicability
+  (score vs maturity vs measure vs observation) and may require an explicit
+  weighting object. CR-AM-05 §10, §11, §12.
+
+values:
+  - id: identity
+    applies_to: [score, maturity, measure, observation]
+    description: >
+      Pass-through aggregation: emit the source value unchanged. Used for
+      capability/scenario profiles where no consolidation is required.
+
+  - id: sum
+    applies_to: [score, measure]
+    description: >
+      Arithmetic sum over the source set. Most commonly used for measure
+      aggregation under the weighting model.
+
+  - id: count
+    applies_to: [observation, measure]
+    description: >
+      Count of source inputs. Often combined with coverage calculation.
+
+  - id: minimum
+    applies_to: [score, maturity]
+    description: >
+      Smallest source value. CR-AM-05 §11 — applicable to maturity as well as
+      scores; useful when the weakest link dominates.
+
+  - id: maximum
+    applies_to: [score, maturity]
+    description: >
+      Largest source value.
+
+  - id: average
+    applies_to: [score, measure]
+    description: >
+      Arithmetic mean. CR-AM-05 §11: explicitly NOT the default for maturity.
+      Score aggregation only.
+
+  - id: weighted-average
+    applies_to: [score, measure]
+    description: >
+      Mean weighted by the AggregationModel.weighting object. Requires explicit
+      weights unless source=measure-weight.
+
+  - id: median
+    applies_to: [score, measure]
+    description: >
+      Statistical median.
+
+  - id: threshold
+    applies_to: [maturity, score]
+    description: >
+      Source value must meet a declared threshold to participate. CR-AM-05
+      §11: requires an explicit threshold rule.
+
+  - id: dominant-level
+    applies_to: [maturity]
+    description: >
+      Most-frequent level across the source set, ties broken by the lower
+      level. CR-AM-04 default maturity aggregation.
+
+  - id: coverage
+    applies_to: [observation, measure]
+    description: >
+      Coverage ratio (assessed / applicable). CR-AM-05 §28: coverage is a
+      first-class analytical dimension.
+
+  - id: custom
+    applies_to: [score, maturity, measure, observation]
+    description: >
+      Custom aggregation declared via AggregationModel.notes + rationale.
+      Refused at runtime unless an explicit custom rule is provided.

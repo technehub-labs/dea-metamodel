@@ -1,0 +1,29 @@
+id: dea:aggregation-capability-score
+version: 1.0.0
+name: Capability Score Aggregation
+status: stable
+description: >
+  Aggregation contract for capability-level score aggregation (CR-AM-05 §24).
+  Declared method: weighted-average, weighting source: measure-weight.
+  Used by capability profile views.
+method: weighted-average
+input:
+  type: score
+grouping:
+  dimension: capability
+weighting:
+  source: measure-weight
+missing_data:
+  method: exclude
+normalization:
+  required: true
+  scale: 0-100
+compatibility:
+  required_axes:
+    - scoring
+    - schema
+    - semantic
+  min_compatible_axes: 3
+notes: >
+  CR-AM-05 §24 example AggregationModel. Refuses to participate if the
+  scoring axis is incompatible; otherwise weights by per-measure weight.

@@ -1,0 +1,89 @@
+id: dea:view-capability-technology-architecture
+version: 1.0.0
+name: Technology Architecture Capability Profile
+type: capability_profile
+status: stable
+description: >
+  Single-capability profile for Technology Architecture (CR-AM-05 §15).
+  Derived from CR-AM-03 migrated AssessmentResults for the technology domain.
+  Source results are listed in `lineage.source_results` so the view is
+  reproducible from the declared AssessmentResults only.
+subject:
+  id: dea:capability-technology-architecture
+  type: capability
+  name: Technology Architecture
+assessment_period:
+  start: 2026-01-01T00:00:00Z
+  end: 2026-12-31T23:59:59Z
+filters:
+  assessment_models:
+    - dea:assessment-technology
+  capabilities:
+    - dea:capability-technology-architecture
+  scenarios:
+    - dea:scenario-enterprise-technology-health
+  result_status: completed
+source_results:
+  - id: dea:result-technology-2026-q1
+    version: 1.0.0
+  - id: dea:result-technology-2026-q2
+    version: 1.0.0
+aggregation:
+  method: average
+  model:
+    id: dea:aggregation-capability-score
+    version: 1.0.0
+  rationale: Declared average over the four CR-AM-03 technology dimensions.
+dimensions: []
+measures:
+  - id: dea:measure-technology-score
+    version: 1.0.0
+cells:
+  - subject:
+      id: dea:capability-technology-architecture
+      type: capability
+    measure:
+      id: dea:measure-technology-score
+      version: 1.0.0
+    value:
+      score: 70
+      normalized: 0.7
+      level: 4
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 4
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 4
+      applicable: 4
+    source_results:
+      - dea:result-technology-2026-q1
+      - dea:result-technology-2026-q2
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+lineage:
+  source_results:
+    - id: dea:result-technology-2026-q1
+      version: 1.0.0
+    - id: dea:result-technology-2026-q2
+      version: 1.0.0
+  assessment_models:
+    - id: dea:assessment-technology
+      version: 1.0.0
+  scoring_models:
+    - id: dea:scoring-four-point
+      version: 1.0.0
+  maturity_models:
+    - id: dea:maturity-technology
+      version: 1.0.0
+  aggregation:
+    id: dea:aggregation-capability-score
+    version: 1.0.0

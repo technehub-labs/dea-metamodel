@@ -1,0 +1,105 @@
+id: dea:view-scenario-service-assurance
+version: 1.0.0
+name: Service Assurance Scenario Profile
+type: scenario_profile
+status: stable
+description: >
+  Scenario-anchored profile for Service Assurance (CR-AM-05 §16). Aggregates
+  capability scores and maturity levels under a declared scenario context.
+  Source results remain the canonical analytical fact (CR-AM-05 §3).
+subject:
+  id: dea:scenario-service-assurance
+  type: scenario
+  name: Service Assurance
+assessment_period:
+  start: 2026-04-01T00:00:00Z
+  end: 2026-06-30T23:59:59Z
+filters:
+  scenarios:
+    - dea:scenario-service-assurance
+  capabilities:
+    - dea:capability-operations-automation
+    - dea:capability-services-delivery-customer-experience
+  result_status: completed
+source_results:
+  - id: dea:result-operations-2026-q2
+    version: 1.0.0
+  - id: dea:result-services-delivery-2026-q2
+    version: 1.0.0
+aggregation:
+  method: dominant-level
+  model:
+    id: dea:aggregation-scenario-maturity
+    version: 1.0.0
+  rationale: Declared dominant-level aggregation over capability maturity levels.
+dimensions:
+  - capability
+  - scenario
+cells:
+  - subject:
+      id: dea:capability-operations-automation
+      type: capability
+    value:
+      score: 72
+      normalized: 0.72
+      level: 4
+    maturity:
+      model:
+        id: dea:maturity-operations
+        version: 1.0.0
+      level: 4
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 1
+      applicable: 1
+    source_results:
+      - dea:result-operations-2026-q2
+  - subject:
+      id: dea:capability-services-delivery-customer-experience
+      type: capability
+    value:
+      score: 65
+      normalized: 0.65
+      level: 3
+    maturity:
+      model:
+        id: dea:maturity-services-delivery
+        version: 1.0.0
+      level: 3
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 1
+      applicable: 1
+    source_results:
+      - dea:result-services-delivery-2026-q2
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+lineage:
+  source_results:
+    - id: dea:result-operations-2026-q2
+      version: 1.0.0
+    - id: dea:result-services-delivery-2026-q2
+      version: 1.0.0
+  assessment_models:
+    - id: dea:assessment-operations
+      version: 1.0.0
+    - id: dea:assessment-services-delivery
+      version: 1.0.0
+  scoring_models:
+    - id: dea:scoring-four-point
+      version: 1.0.0
+  maturity_models:
+    - id: dea:maturity-operations
+      version: 1.0.0
+    - id: dea:maturity-services-delivery
+      version: 1.0.0
+  aggregation:
+    id: dea:aggregation-scenario-maturity
+    version: 1.0.0

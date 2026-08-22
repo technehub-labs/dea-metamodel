@@ -2,7 +2,45 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
-## [Unreleased] — CR-AM-04 result operations & maturity interpretation
+## [Unreleased] — CR-AM-05 assessment views & aggregation
+
+CR-AM-05 establishes the canonical AssessmentView + AggregationModel layer.
+AssessmentResult remains the canonical analytical fact; a view is a
+governed projection, never the source of truth. New artefacts:
+
+- `schemas/assessment-view.schema.json` — generic AssessmentView contract
+  with `id`, `version`, `type`, `subject`, `source_results`, `aggregation`,
+  `lineage`, `compatibility` (six-axis, CR-AM-02 §11), and structured cells.
+- `schemas/aggregation-model.schema.json` — versioned AggregationModel
+  contract with `method`, `input.type`, `grouping`, `weighting`,
+  `missing_data`, `normalization`, `compatibility` guard.
+- `vocabulary/view-types.yaml` — five controlled view types
+  (`enterprise_profile`, `capability_profile`, `scenario_profile`,
+  `heatmap`, `trend`).
+- `vocabulary/aggregation-methods.yaml` — twelve controlled aggregation
+  methods with applicability per input type.
+- `runtime/views/` — `AssessmentViewEngine` + `AggregationModel` +
+  `CoverageCalculator`. Refuses `threshold` / `custom` / `dominant-level`
+  without an explicit rule.
+- `views/enterprise/technology-heatmap.yaml`, `views/capability/...`,
+  `views/scenario/...`, `views/trend/...` — four CR-AM-05 worked views.
+- `aggregation/examples/capability-score.yaml` — canonical
+  AggregationModel example (CR-AM-05 §24).
+- `governance/views.md` — view-layer policy doc.
+- `model/assessment-metamodel.puml` — Assessment View package extended.
+
+Pre-existing-repo corrections per CR-AM-05 §34:
+
+- `CHANGELOG.md` line updated from "five compatibility properties" to
+  "six compatibility properties" (canonical schema already declares six
+  axes per CR-AM-02 §11).
+- All 12 schema `$id` values already use the canonical
+  `technehub-labs/dea-metamodel/assessment-models/schemas/` namespace
+  (CR-AM-03 §19 closed this earlier).
+
+Canonical version is unchanged; CR-AM-05 is additive.
+
+## [CR-AM-04 landing] — superseded by CR-AM-05 assessment views
 
 CR-AM-04 turns the four CR-AM-03 migrated AssessmentModels into reproducible
 AssessmentResults. A canonical `runtime/result_operations/` service combines the
@@ -68,7 +106,7 @@ The first landing of the assessment sub-metamodel inside the canonical repositor
 #### governance/ (3 policy docs)
 
 - `versioning.md` — SemVer + explicit compatibility metadata.
-- `compatibility.md` — five compatibility properties and benchmark eligibility rules.
+- `compatibility.md` — six compatibility properties and benchmark eligibility rules.
 - `lifecycle.md` — seven lifecycle states and the **retired ≠ deleted** rule.
 
 ### Added — Maturity scoring v2 (CR-014's other landing)

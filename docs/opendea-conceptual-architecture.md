@@ -115,7 +115,10 @@ implementations to exist (CR-9BV, CR-9CL).
 Each layer consumes the layer below through defined interfaces; no layer
 reaches around another. CR-1…CR-8 built the Semantic Foundation; CR-9 built
 the Knowledge Graph and started Runtime Services; CR-10 builds Decision
-Intelligence; the Explorer and agent experiences (CR-9.9) sit on top.
+Intelligence; CR-11 builds the Interoperability & Federation boundary;
+CR-012 closes the **Enterprise Intelligence loop** (continuous reasoning
+→ signal promotion → governed agentic action) on top. The Explorer and
+agent experiences (CR-9.9) sit on top.
 
 ## 6. What is the relationship to enterprise architecture?
 

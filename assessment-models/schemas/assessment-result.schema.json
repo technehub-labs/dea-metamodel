@@ -7,10 +7,15 @@
   "required": [
     "id",
     "assessment_model",
+    "assessment_instrument",
+    "assessment_execution",
     "subject",
     "assessment_period",
     "status",
-    "lineage"
+    "lineage",
+    "determinations",
+    "maturity_interpretation",
+    "compatibility"
   ],
   "properties": {
     "id": {
@@ -24,6 +29,16 @@
     },
     "assessment_execution": {
       "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "determinations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/determination"
+      }
+    },
+    "maturity_interpretation": {
+      "$ref": "#/$defs/maturityInterpretation"
     },
     "subject": {
       "type": "object",
@@ -110,6 +125,13 @@
       },
       "additionalProperties": false
     },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidenceRecord"
+      }
+    },
     "observations": {
       "type": "array",
       "items": {
@@ -163,6 +185,88 @@
     }
   },
   "$defs": {
+    "determination": {
+      "type": "object",
+      "required": [
+        "score",
+        "maturity_model",
+        "maturity_level",
+        "finding",
+        "confidence",
+        "evidence"
+      ],
+      "properties": {
+        "score": {
+          "type": "object",
+          "required": ["value", "normalized_value", "scale"],
+          "properties": {
+            "value": {"type": "number"},
+            "normalized_value": {"type": "number"},
+            "scale": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "maturity_model": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "maturity_level": {"type": "integer", "minimum": 1},
+        "finding": {"type": "string", "minLength": 1},
+        "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/evidenceRecord"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "maturityInterpretation": {
+      "type": "object",
+      "required": ["model", "dimensions", "overall"],
+      "properties": {
+        "model": {"$ref": "common.schema.json#/$defs/modelReference"},
+        "dimensions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "level", "score", "confidence"],
+            "properties": {
+              "id": {"type": "string"},
+              "level": {"type": "integer", "minimum": 1},
+              "score": {"type": "number"},
+              "confidence": {"type": "string", "enum": ["low", "medium", "high"]}
+            },
+            "additionalProperties": false
+          }
+        },
+        "overall": {
+          "type": "object",
+          "required": ["level", "method", "rationale"],
+          "properties": {
+            "level": {"type": "integer", "minimum": 1},
+            "method": {
+              "type": "string",
+              "enum": ["min", "average", "weighted-average", "threshold", "dominant-level", "custom"]
+            },
+            "rationale": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidenceRecord": {
+      "type": "object",
+      "required": ["id", "version", "description", "confidence"],
+      "properties": {
+        "id": {"$ref": "common.schema.json#/$defs/identifier"},
+        "version": {"$ref": "common.schema.json#/$defs/version"},
+        "description": {"type": "string", "minLength": 1},
+        "confidence": {"type": "string", "enum": ["low", "medium", "high"]}
+      },
+      "additionalProperties": false
+    },
     "observation": {
       "type": "object",
       "required": [

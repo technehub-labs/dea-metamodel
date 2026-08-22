@@ -2,7 +2,26 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
-## [Unreleased] — CR-AM-03 assessment catalog migration
+## [Unreleased] — CR-AM-04 result operations & maturity interpretation
+
+CR-AM-04 turns the four CR-AM-03 migrated AssessmentModels into reproducible
+AssessmentResults. A canonical `runtime/result_operations/` service combines the
+model, legacy instrument, and conformance report into a deterministic result
+package that distinguishes Observation, Score, AssessmentDetermination, Evidence,
+Finding, and MaturityLevel. The result carries a multi-dimensional
+`maturity_interpretation` with a declared aggregation method, a complete
+versioned lineage including a new `aggregation_model` reference, and a
+`source_responses` vector for reproducibility. No benchmark calculation is
+introduced; benchmark eligibility is declared, not computed.
+
+New governance docs: `governance/result-lineage.md` and
+`governance/maturity-interpretation.md`. New conformance tests:
+`assessment-models/tests/conformance/test_result_operations.py` (13 tests, one
+per AC). `assessment-result.schema.json` is extended with required `determinations`,
+`maturity_interpretation`, top-level `evidence`, and the six-axis `compatibility`
+declaration. Canonical version is unchanged; this CR is additive.
+
+## [CR-AM-03 landing] — superseded by CR-AM-04 result operations
 
 CR-AM-03 migrates the Technology, Modernization, Operations, and Services Delivery legacy instruments into canonical AssessmentModel v1.0.0 projections, preserving source instruments byte-for-byte beside explicit mapping, manifest, and conformance contracts. The change also adds the four-domain assessment portfolio, reference catalogue, coverage matrix, completed AssessmentExecution examples, versioned AssessmentResult lineage, benchmark eligibility declarations, and CR-AM-03 schema/test coverage. Canonical schema `$id` values now use the `technehub-labs/dea-metamodel/assessment-models/schemas/` namespace.
 

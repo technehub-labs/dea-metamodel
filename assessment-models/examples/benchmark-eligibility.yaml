@@ -40,11 +40,14 @@ eligibility_criteria:
       version_range: ">=1.0.0,<2.0.0"
 
   required_compatibility:
-    backward_compatible: true
-    scoring_compatible: true
-    benchmark_compatible: true
+    schema: compatible
+    semantic: compatible
+    scoring: compatible
+    maturity: compatible
+    result: compatible
+    benchmark: compatible
 
-  # Otherwise the result receives benchmark_status = "not-comparable"
+  # Otherwise, the result receives benchmark_eligibility.status = "not-comparable"
   # rather than being silently included (CR-AM-01 §28).
 
 comparability_rules:

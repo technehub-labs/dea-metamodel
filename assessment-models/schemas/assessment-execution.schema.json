@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-execution.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-execution.schema.json",
   "title": "OpenDEA Assessment Execution",
   "description": "A specific instance of running an AssessmentInstrument against a subject. Produces an AssessmentResult.",
   "type": "object",
@@ -16,8 +16,10 @@
       "$ref": "common.schema.json#/$defs/identifier"
     },
     "instrument": {
-      "$ref": "common.schema.json#/$defs/modelReference",
-      "description": "The AssessmentInstrument that was executed (e.g. dea:instrument-zero-touch-workshop@1.0.0)."
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "assessment_model": {
+      "$ref": "common.schema.json#/$defs/modelReference"
     },
     "subject": {
       "type": "object",
@@ -39,6 +41,12 @@
         "name": {"type": "string"}
       }
     },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
     "started_at": {
       "type": "string",
       "format": "date-time"
@@ -52,7 +60,7 @@
       "enum": ["scheduled", "in-progress", "completed", "aborted", "superseded"]
     },
     "result": {
-      "$ref": "common.schema.json#/$defs/identifier",
+      "$ref": "common.schema.json#/$defs/modelReference",
       "description": "Identifier of the AssessmentResult produced by this execution."
     }
   },

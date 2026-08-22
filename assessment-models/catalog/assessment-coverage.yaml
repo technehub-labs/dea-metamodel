@@ -1,0 +1,248 @@
+coverage_matrix:
+  id: dea:coverage-assessment
+  name: OpenDEA Assessment Coverage Matrix
+  version: 1.0.0
+  rows:
+  - assessment: dea:assessment-technology
+    capability: dea:capability-technology-architecture
+    scenario: dea:scenario-enterprise-technology-health
+    measures:
+    - dea:measure-architecture-standardization
+    - dea:measure-lifecycle-compliance
+    - dea:measure-skill-coverage
+    - dea:measure-technical-debt-trend
+    maturity_model: dea:maturity-technology
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-technology-core
+    benchmark_eligibility: ELIGIBLE
+  - assessment: dea:assessment-technology
+    capability: dea:capability-technology-lifecycle
+    scenario: dea:scenario-enterprise-technology-health
+    measures:
+    - dea:measure-architecture-standardization
+    - dea:measure-lifecycle-compliance
+    - dea:measure-skill-coverage
+    - dea:measure-technical-debt-trend
+    maturity_model: dea:maturity-technology
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-technology-core
+    benchmark_eligibility: ELIGIBLE
+  - assessment: dea:assessment-technology
+    capability: dea:capability-skills-and-coverage
+    scenario: dea:scenario-enterprise-technology-health
+    measures:
+    - dea:measure-architecture-standardization
+    - dea:measure-lifecycle-compliance
+    - dea:measure-skill-coverage
+    - dea:measure-technical-debt-trend
+    maturity_model: dea:maturity-technology
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-technology-core
+    benchmark_eligibility: ELIGIBLE
+  - assessment: dea:assessment-technology
+    capability: dea:capability-technical-debt-management
+    scenario: dea:scenario-enterprise-technology-health
+    measures:
+    - dea:measure-architecture-standardization
+    - dea:measure-lifecycle-compliance
+    - dea:measure-skill-coverage
+    - dea:measure-technical-debt-trend
+    maturity_model: dea:maturity-technology
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-technology-core
+    benchmark_eligibility: ELIGIBLE
+  - assessment: dea:assessment-modernization
+    capability: dea:capability-modernization-strategy
+    scenario: dea:scenario-enterprise-modernization-programme
+    measures:
+    - dea:measure-modernization-strategy-coverage
+    - dea:measure-pattern-library-adoption
+    - dea:measure-wave-velocity-trend
+    - dea:measure-migration-roi-trend
+    - dea:measure-modernization-cop-health
+    maturity_model: dea:maturity-modernization
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-modernization-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-modernization
+    capability: dea:capability-migration-pattern-library
+    scenario: dea:scenario-enterprise-modernization-programme
+    measures:
+    - dea:measure-modernization-strategy-coverage
+    - dea:measure-pattern-library-adoption
+    - dea:measure-wave-velocity-trend
+    - dea:measure-migration-roi-trend
+    - dea:measure-modernization-cop-health
+    maturity_model: dea:maturity-modernization
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-modernization-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-modernization
+    capability: dea:capability-wave-planning-and-execution
+    scenario: dea:scenario-enterprise-modernization-programme
+    measures:
+    - dea:measure-modernization-strategy-coverage
+    - dea:measure-pattern-library-adoption
+    - dea:measure-wave-velocity-trend
+    - dea:measure-migration-roi-trend
+    - dea:measure-modernization-cop-health
+    maturity_model: dea:maturity-modernization
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-modernization-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-modernization
+    capability: dea:capability-modernization-metrics
+    scenario: dea:scenario-enterprise-modernization-programme
+    measures:
+    - dea:measure-modernization-strategy-coverage
+    - dea:measure-pattern-library-adoption
+    - dea:measure-wave-velocity-trend
+    - dea:measure-migration-roi-trend
+    - dea:measure-modernization-cop-health
+    maturity_model: dea:maturity-modernization
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-modernization-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-modernization
+    capability: dea:capability-modernization-culture
+    scenario: dea:scenario-enterprise-modernization-programme
+    measures:
+    - dea:measure-modernization-strategy-coverage
+    - dea:measure-pattern-library-adoption
+    - dea:measure-wave-velocity-trend
+    - dea:measure-migration-roi-trend
+    - dea:measure-modernization-cop-health
+    maturity_model: dea:maturity-modernization
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-modernization-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-operations
+    capability: dea:capability-incident-response-capability
+    scenario: dea:scenario-service-assurance-operations
+    measures:
+    - dea:measure-mttr-sev1
+    - dea:measure-slo-coverage
+    - dea:measure-deployment-frequency
+    - dea:measure-change-failure-rate
+    - dea:measure-on-call-satisfaction-score
+    maturity_model: dea:maturity-operations
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-operations-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-operations
+    capability: dea:capability-observability-practice
+    scenario: dea:scenario-service-assurance-operations
+    measures:
+    - dea:measure-mttr-sev1
+    - dea:measure-slo-coverage
+    - dea:measure-deployment-frequency
+    - dea:measure-change-failure-rate
+    - dea:measure-on-call-satisfaction-score
+    maturity_model: dea:maturity-operations
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-operations-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-operations
+    capability: dea:capability-deployment-automation
+    scenario: dea:scenario-service-assurance-operations
+    measures:
+    - dea:measure-mttr-sev1
+    - dea:measure-slo-coverage
+    - dea:measure-deployment-frequency
+    - dea:measure-change-failure-rate
+    - dea:measure-on-call-satisfaction-score
+    maturity_model: dea:maturity-operations
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-operations-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-operations
+    capability: dea:capability-reliability-engineering
+    scenario: dea:scenario-service-assurance-operations
+    measures:
+    - dea:measure-mttr-sev1
+    - dea:measure-slo-coverage
+    - dea:measure-deployment-frequency
+    - dea:measure-change-failure-rate
+    - dea:measure-on-call-satisfaction-score
+    maturity_model: dea:maturity-operations
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-operations-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-operations
+    capability: dea:capability-operational-culture
+    scenario: dea:scenario-service-assurance-operations
+    measures:
+    - dea:measure-mttr-sev1
+    - dea:measure-slo-coverage
+    - dea:measure-deployment-frequency
+    - dea:measure-change-failure-rate
+    - dea:measure-on-call-satisfaction-score
+    maturity_model: dea:maturity-operations
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-operations-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-services-delivery
+    capability: dea:capability-delivery-predictability
+    scenario: dea:scenario-customer-facing-delivery-programme
+    measures:
+    - dea:measure-release-forecast-accuracy
+    - dea:measure-lead-time-p50
+    - dea:measure-escaped-defect-rate
+    - dea:measure-outcome-to-release-linkage
+    - dea:measure-team-health-index
+    maturity_model: dea:maturity-services-delivery
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-services-delivery-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-services-delivery
+    capability: dea:capability-flow-efficiency
+    scenario: dea:scenario-customer-facing-delivery-programme
+    measures:
+    - dea:measure-release-forecast-accuracy
+    - dea:measure-lead-time-p50
+    - dea:measure-escaped-defect-rate
+    - dea:measure-outcome-to-release-linkage
+    - dea:measure-team-health-index
+    maturity_model: dea:maturity-services-delivery
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-services-delivery-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-services-delivery
+    capability: dea:capability-quality-management
+    scenario: dea:scenario-customer-facing-delivery-programme
+    measures:
+    - dea:measure-release-forecast-accuracy
+    - dea:measure-lead-time-p50
+    - dea:measure-escaped-defect-rate
+    - dea:measure-outcome-to-release-linkage
+    - dea:measure-team-health-index
+    maturity_model: dea:maturity-services-delivery
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-services-delivery-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-services-delivery
+    capability: dea:capability-customer-outcomes
+    scenario: dea:scenario-customer-facing-delivery-programme
+    measures:
+    - dea:measure-release-forecast-accuracy
+    - dea:measure-lead-time-p50
+    - dea:measure-escaped-defect-rate
+    - dea:measure-outcome-to-release-linkage
+    - dea:measure-team-health-index
+    maturity_model: dea:maturity-services-delivery
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-services-delivery-core
+    benchmark_eligibility: TBD
+  - assessment: dea:assessment-services-delivery
+    capability: dea:capability-team-health
+    scenario: dea:scenario-customer-facing-delivery-programme
+    measures:
+    - dea:measure-release-forecast-accuracy
+    - dea:measure-lead-time-p50
+    - dea:measure-escaped-defect-rate
+    - dea:measure-outcome-to-release-linkage
+    - dea:measure-team-health-index
+    maturity_model: dea:maturity-services-delivery
+    scoring_model: dea:scoring-four-point
+    evidence: dea:evidence-services-delivery-core
+    benchmark_eligibility: TBD

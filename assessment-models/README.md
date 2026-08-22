@@ -58,7 +58,7 @@ assessment-models/
 │
 ├── governance/                                 ← 3 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
-│   ├── compatibility.md                       ← five compatibility properties + benchmark eligibility
+│   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
 └── maturity/                                   ← maturity scoring v2 (this PR's other landing)
@@ -163,7 +163,7 @@ All four paths are supported by the schemas in `schemas/`. Concrete examples are
 ### To evolve a model version
 
 1. Read `governance/versioning.md` — decide PATCH/MINOR/MAJOR.
-2. Read `governance/compatibility.md` — declare the five compatibility properties.
+2. Read `governance/compatibility.md` — declare the six compatibility axes.
 3. Bump the version, add a `lineage:` block.
 
 ---

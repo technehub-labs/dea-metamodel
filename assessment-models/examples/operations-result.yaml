@@ -1,0 +1,165 @@
+id: dea:result:2026:000300
+assessment_model:
+  id: dea:assessment-operations
+  version: 1.0.0
+assessment_instrument:
+  id: dea:instrument-operations-workshop
+  version: 1.0.0
+assessment_execution:
+  id: dea:execution-operations-001
+  version: 1.0.0
+subject:
+  id: enterprise-ope-001
+  type: enterprise
+  name: Enterprise Operations Cohort
+scenario: &id001
+  id: dea:scenario-service-assurance-operations
+  version: 1.0.0
+assessment_period:
+  start: '2026-08-01T00:00:00Z'
+  end: '2026-08-15T23:59:59Z'
+status: validated
+confidence: high
+raw_score: 71
+raw_score_band: Adaptive
+source_responses:
+- question_id: incident-response-q1
+  value: 2
+- question_id: incident-response-q2
+  value: 2
+- question_id: incident-response-q3
+  value: 3
+- question_id: incident-response-q4
+  value: 2
+- question_id: observability-q1
+  value: 2
+- question_id: observability-q2
+  value: 2
+- question_id: observability-q3
+  value: 3
+- question_id: observability-q4
+  value: 2
+- question_id: deployment-q1
+  value: 2
+- question_id: deployment-q2
+  value: 2
+- question_id: deployment-q3
+  value: 3
+- question_id: deployment-q4
+  value: 2
+- question_id: deployment-q5
+  value: 2
+- question_id: reliability-q1
+  value: 2
+- question_id: reliability-q2
+  value: 2
+- question_id: reliability-q3
+  value: 3
+- question_id: reliability-q4
+  value: 2
+- question_id: culture-q1
+  value: 2
+- question_id: culture-q2
+  value: 2
+- question_id: culture-q3
+  value: 3
+observations:
+- id: dea:result:2026:000300-obs-1
+  measure: &id002
+    id: dea:measure-mttr-sev1
+    version: 1.0.0
+  value: 65
+- id: dea:result:2026:000300-obs-2
+  measure: &id003
+    id: dea:measure-slo-coverage
+    version: 1.0.0
+  value: 70
+- id: dea:result:2026:000300-obs-3
+  measure: &id004
+    id: dea:measure-deployment-frequency
+    version: 1.0.0
+  value: 75
+- id: dea:result:2026:000300-obs-4
+  measure: &id005
+    id: dea:measure-change-failure-rate
+    version: 1.0.0
+  value: 80
+- id: dea:result:2026:000300-obs-5
+  measure: &id006
+    id: dea:measure-on-call-satisfaction-score
+    version: 1.0.0
+  value: 85
+scores:
+- dimension: incident-response
+  value: 2.2
+  normalized_value: 75.0
+  scale: 0-3
+- dimension: observability
+  value: 2.2
+  normalized_value: 75.0
+  scale: 0-3
+- dimension: deployment
+  value: 2.2
+  normalized_value: 73.3
+  scale: 0-3
+- dimension: reliability
+  value: 2.2
+  normalized_value: 75.0
+  scale: 0-3
+- dimension: culture
+  value: 2.3
+  normalized_value: 77.8
+  scale: 0-3
+maturity:
+- model:
+    id: dea:maturity-operations
+    version: 1.0.0
+  level: 4
+findings:
+- id: dea:result:2026:000300-finding-1
+  type: recommendation
+  severity: medium
+  description: Apply the canonical pattern library; improve MTTR Sev1.
+lineage:
+  assessment_model:
+    id: dea:assessment-operations
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-operations-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-operations-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-incident-response-capability
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-operations
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+benchmark_eligibility:
+  status: eligible
+  requirements:
+    assessment_model: dea:assessment-operations@1.0.0
+    capability: dea:capability-incident-response-capability
+    scenario: dea:scenario-service-assurance-operations
+    scoring_model: dea:scoring-four-point@1.0.0
+    evidence: dea:evidence-operations-core@1.0.0
+    population: not-applicable-to-example
+    measurement_period: 2026-08-01/2026-08-15

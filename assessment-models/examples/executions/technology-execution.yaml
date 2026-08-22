@@ -1,0 +1,26 @@
+id: dea:execution-technology-001
+instrument:
+  id: dea:instrument-technology-workshop
+  version: 1.0.0
+assessment_model:
+  id: dea:assessment-technology
+  version: 1.0.0
+subject:
+  id: enterprise-tec-001
+  type: enterprise
+  name: Enterprise Technology Cohort
+scenario:
+  id: dea:scenario-enterprise-technology-health
+  version: 1.0.0
+started_at: '2026-07-01T09:00:00Z'
+completed_at: '2026-07-15T17:00:00Z'
+status: completed
+assessor:
+  id: assessor-technology-001
+  type: human
+  name: Technology Assessor Team
+evidence:
+- id: dea:evidence-technology-core
+  version: 1.0.0
+result:
+  id: dea:result:2026:000100

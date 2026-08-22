@@ -1,0 +1,199 @@
+id:                  dea:assessment-services-delivery
+name:                Services Delivery Assessment
+domain:              services-delivery
+version:             "1.0.0-alpha"
+metamodel_version:   "^0.1.0"
+status:              draft
+description: >
+  Assess services delivery capability — delivery predictability, flow efficiency,
+  quality and defect management, customer outcomes, and team health.
+owner:               Head of Delivery / VP Engineering
+
+maturity_target:     dea:maturity-services-delivery
+total_questions:     18
+duration_minutes:    70
+facilitator_required: false
+
+dimensions:
+  - id: predictability
+    name: Delivery Predictability
+    weight: 0.25
+    questions:
+      - id: q1
+        text: Are release dates forecast with more than 80% accuracy?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - forecast model
+          - variance tracked
+          - accuracy reported
+      - id: q2
+        text: Are scope, time, quality trade-offs explicitly managed?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - trade-off framework
+          - stakeholder communication
+          - decisions documented
+      - id: q3
+        text: Is there a clear definition of done used across all teams?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - DoD published
+          - enforced in PR review
+          - referenced in retros
+      - id: q4
+        text: Are delivery commitments tracked at portfolio and team level?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - commitment register
+          - miss analysis
+          - root-cause reviews
+
+  - id: flow
+    name: Flow Metrics & Efficiency
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Are lead time and cycle time tracked per team?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - flow metrics dashboard
+          - per-team reporting
+          - trend analysis
+      - id: q2
+        text: Is WIP (work-in-progress) actively limited?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - WIP limits per team
+          - violation tracked
+          - actions on breaches
+      - id: q3
+        text: Are blockers identified and resolved within 24 hours?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - blocker log
+          - escalation path
+          - median resolution time
+      - id: q4
+        text: Is there investment in flow improvement (tools, training, automation)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - flow improvement backlog
+          - quarterly OKRs
+          - improvements shipped
+
+  - id: quality
+    name: Quality & Defect Management
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Is escaped defect rate tracked and trending downward?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - escaped defect metric
+          - trend reported
+          - actions on spikes
+      - id: q2
+        text: Are quality gates enforced in CI (test coverage, static analysis)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - coverage threshold
+          - static analysis in CI
+          - gate failures reviewed
+      - id: q3
+        text: Is quality measured by customer impact, not just bug count?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - customer-impact metric
+          - bug severity weighting
+          - CX team involvement
+      - id: q4
+        text: Are production incidents correlated with release changes?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - incident-deploy correlation
+          - release quality score
+          - feedback loop to dev
+
+  - id: outcomes
+    name: Customer Outcomes & Value
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Are customer outcomes linked to releases (outcome-based roadmaps)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - outcome tracking per release
+          - OKR linkage
+          - CX metrics dashboard
+      - id: q2
+        text: Is there an experimentation capability (A/B testing, feature flags)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - experimentation platform
+          - hypothesis-driven development
+          - results shared
+      - id: q3
+        text: Is delivery ROI measured per initiative?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - ROI model
+          - per-initiative tracking
+          - ROI reviewed quarterly
+      - id: q4
+        text: Is customer satisfaction (NPS/CSAT) tracked and acted upon?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - NPS/CSAT dashboard
+          - trend tracked
+          - actions on negative feedback
+
+  - id: team
+    name: Team Health & Practices
+    weight: 0.15
+    questions:
+      - id: q1
+        text: Are retrospectives held regularly and produce tracked actions?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - retro cadence
+          - action register
+          - action completion rate
+      - id: q2
+        text: Is team satisfaction measured (e.g., annual survey, pulse checks)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - survey process
+          - results acted upon
+          - trend tracked
+      - id: q3
+        text: Is there a healthy balance of feature work, tech debt, and learning?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - allocation policy
+          - tracked per team
+          - balanced review
+
+relationships:
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:maturity-services-delivery
+    relationship_type: produces-score-for
+    description: Assessment scores map to services delivery maturity levels
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:catalog-metrics
+    relationship_type: measured-by
+    description: Outcomes tracked via metrics catalog entries
+
+tags:
+  - services-delivery
+  - time-to-market
+  - customer-outcomes
+  - flow-metrics
+  - assessment

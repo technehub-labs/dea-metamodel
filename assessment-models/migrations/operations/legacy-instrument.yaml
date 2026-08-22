@@ -1,0 +1,207 @@
+id:                  dea:assessment-operations
+name:                Operations Assessment
+domain:              operations
+version:             "1.0.0-alpha"
+metamodel_version:   "^0.1.0"
+status:              draft
+description: >
+  Assess operations practice maturity — incident response, observability,
+  deployment automation, SLOs, SRE practices, and operational culture.
+owner:               Head of Operations / SRE Lead
+
+maturity_target:     dea:maturity-operations
+total_questions:     20
+duration_minutes:    80
+facilitator_required: true
+
+dimensions:
+  - id: incident-response
+    name: Incident Response
+    weight: 0.25
+    questions:
+      - id: q1
+        text: Is there a documented incident response process with on-call rotation?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - runbook published
+          - on-call rotation active
+          - incident commander role defined
+      - id: q2
+        text: Are sev-1 incidents resolved in < 30 minutes (MTTR)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - MTTR tracked
+          - trend reported
+          - target met
+      - id: q3
+        text: Are post-mortems written within 7 days for sev-1 and sev-2 incidents?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - post-mortem template
+          - action register
+          - blameless culture
+      - id: q4
+        text: Is the on-call experience measured and acted upon (satisfaction, paging volume)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - on-call survey
+          - paging volume tracked
+          - improvements shipped
+
+  - id: observability
+    name: Observability
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Are logs, metrics, and traces centralised and queryable?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - centralised stack
+          - retention policy
+          - query language standard
+      - id: q2
+        text: Are SLOs defined for all customer-facing services?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - SLO doc per service
+          - error budget tracked
+          - ownership assigned
+      - id: q3
+        text: Is there a unified tracing system across services?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - tracing deployed
+          - more than 80% services instrumented
+          - trace sampling defined
+      - id: q4
+        text: Are dashboards built per service with golden signals?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - dashboard template
+          - per-service coverage
+          - linked to SLOs
+
+  - id: deployment
+    name: Deployment & Release Engineering
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Is deployment automation > 90% of services?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - deployment inventory
+          - automation % tracked
+          - manual exceptions documented
+      - id: q2
+        text: Is deployment frequency > 10 per day (organisational or per team)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - frequency metric
+          - target met
+          - DORA report shared
+      - id: q3
+        text: Are feature flags / progressive rollouts used for risk mitigation?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - flag system deployed
+          - rollout policy
+          - kill switch tested
+      - id: q4
+        text: Is change failure rate < 15%?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - CFR tracked
+          - trend reported
+          - target met
+      - id: q5
+        text: Are rollbacks automated and tested regularly?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - automated rollback
+          - rollback tested in chaos game days
+          - rollback time measured
+
+  - id: reliability
+    name: Reliability Engineering
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Is chaos engineering practiced regularly (game days, fault injection)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - game day cadence
+          - fault injection in CI
+          - learnings captured
+      - id: q2
+        text: Are SLOs used to make release decisions (error budgets enforced)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - error budget policy
+          - release freeze triggers
+          - ownership clear
+      - id: q3
+        text: Are reliability requirements part of design (capacity, redundancy, recovery)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - NFR template
+          - reviewed in design
+          - load tested
+      - id: q4
+        text: Is auto-remediation in place for known failure modes?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - auto-remediation library
+          - coverage metric
+          - reviewed quarterly
+
+  - id: culture
+    name: Operational Culture
+    weight: 0.15
+    questions:
+      - id: q1
+        text: Is there shared on-call between dev and ops?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - shared rotation
+          - handoff documented
+          - shared incident tools
+      - id: q2
+        text: Is blameless post-mortem culture enforced?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - charter published
+          - retrospective training
+          - no-blame policy in runbook
+      - id: q3
+        text: Are SLOs owned by service teams, not just ops?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - ownership matrix
+          - SLO review cadence
+          - service teams accountable
+
+relationships:
+  - source_id: dea:assessment-operations
+    target_id: dea:maturity-operations
+    relationship_type: produces-score-for
+    description: Assessment scores map to operations maturity levels
+  - source_id: dea:assessment-operations
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-operations
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-operations
+    target_id: dea:pattern-circuit-breaker
+    relationship_type: assesses-adoption-of
+    description: Reliability dimension assesses circuit breaker adoption
+
+tags:
+  - operations
+  - sre
+  - incident-response
+  - observability
+  - slo
+  - assessment

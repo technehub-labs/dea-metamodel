@@ -1,0 +1,334 @@
+id: dea:assessment-technology
+name: Technology Assessment
+type: assessment-model
+version: 1.0.0
+metamodel_version: 1.0.0
+status: stable
+description: 'Assess technology stack fitness, technical debt management, lifecycle management, skill coverage, and tooling integration.
+
+  '
+purpose:
+- capability-assessment
+subject_type: enterprise
+classification:
+  domain: technology
+capabilities:
+- id: dea:capability-technology-architecture
+  version: 1.0.0
+- id: dea:capability-technology-lifecycle
+  version: 1.0.0
+- id: dea:capability-skills-and-coverage
+  version: 1.0.0
+- id: dea:capability-technical-debt-management
+  version: 1.0.0
+scenarios:
+- &id001
+  id: dea:scenario-enterprise-technology-health
+  version: 1.0.0
+dimensions:
+- id: stack-fitness
+  name: Stack Fitness & Standardisation
+  weight: 0.3
+  questions:
+  - id: stack-fitness-q1
+    text: Is there a published, approved technology list (ATL)?
+  - id: stack-fitness-q2
+    text: Is technology usage measured against the ATL (adherence rate)?
+  - id: stack-fitness-q3
+    text: Are new technology adoption requests reviewed through a formal process?
+  - id: stack-fitness-q4
+    text: Are shadow IT instances identified and remediated?
+- id: technical-debt
+  name: Technical Debt Management
+  weight: 0.25
+  questions:
+  - id: technical-debt-q1
+    text: Is technical debt quantified (effort, cost, or risk)?
+  - id: technical-debt-q2
+    text: Is there a technical debt remediation roadmap?
+  - id: technical-debt-q3
+    text: Is technical debt tracked as a top-N risk register item?
+  - id: technical-debt-q4
+    text: Are 'don't repeat yourself' violations (DRY/dead code) actively reduced?
+- id: lifecycle
+  name: Lifecycle & End-of-Life Management
+  weight: 0.2
+  questions:
+  - id: lifecycle-q1
+    text: Is software lifecycle (e.g., LTS) tracked across all production systems?
+  - id: lifecycle-q2
+    text: Is there zero end-of-life software in production?
+  - id: lifecycle-q3
+    text: Are dependency upgrades part of the regular development cycle?
+  - id: lifecycle-q4
+    text: Is SBOM generated for every production release?
+- id: skill-coverage
+  name: Skill Coverage & Knowledge Risk
+  weight: 0.15
+  questions:
+  - id: skill-coverage-q1
+    text: Is there a skill matrix for critical technologies?
+  - id: skill-coverage-q2
+    text: Are single points of failure (SPoF) per critical technology identified?
+  - id: skill-coverage-q3
+    text: Is knowledge sharing active (lunch-and-learns, internal docs, pair rotation)?
+- id: tooling-integration
+  name: Tooling Integration & Observability
+  weight: 0.1
+  questions:
+  - id: tooling-integration-q1
+    text: Is technology observability tooling integrated with incident response?
+  - id: tooling-integration-q2
+    text: Is cost-per-workload tracked for production systems?
+  - id: tooling-integration-q3
+    text: Are technology decisions evaluated against ROI before adoption?
+measures:
+- id: dea:measure-architecture-standardization
+  version: 1.0.0
+- id: dea:measure-lifecycle-compliance
+  version: 1.0.0
+- id: dea:measure-skill-coverage
+  version: 1.0.0
+- id: dea:measure-technical-debt-trend
+  version: 1.0.0
+scoring_model:
+  id: dea:scoring-four-point
+  version: 1.0.0
+maturity_models:
+- id: dea:maturity-technology
+  version: 1.0.0
+evidence_requirements:
+- id: dea:evidence-technology-core
+  version: 1.0.0
+lineage:
+  assessment_model:
+    id: dea:assessment-technology
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-technology-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-technology-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-technology-architecture
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - id: dea:measure-architecture-standardization
+    version: 1.0.0
+  - id: dea:measure-lifecycle-compliance
+    version: 1.0.0
+  - id: dea:measure-skill-coverage
+    version: 1.0.0
+  - id: dea:measure-technical-debt-trend
+    version: 1.0.0
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-technology
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+metadata:
+  legacy_total_questions: 19
+  legacy_duration_minutes: 75
+  legacy_facilitator_required: false
+  legacy_owner: CTO / Platform Engineering
+  legacy_status: draft
+  legacy_tags:
+  - technology
+  - technical-debt
+  - lifecycle
+  - skill-coverage
+  - assessment
+  legacy_relationships:
+  - source_id: dea:assessment-technology
+    target_id: dea:maturity-technology
+    relationship_type: produces-score-for
+    description: Assessment scores map to technology maturity levels
+  - source_id: dea:assessment-technology
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-technology
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-technology
+    target_id: dea:catalog-standards
+    relationship_type: references
+    description: Approved technology list draws from the standards catalog
+  legacy_dimensions:
+  - id: stack-fitness
+    name: Stack Fitness & Standardisation
+    weight: 0.3
+    questions:
+    - id: q1
+      text: Is there a published, approved technology list (ATL)?
+      evidence:
+      - ATL published
+      - PR template references ATL
+      - ATL reviewed quarterly
+    - id: q2
+      text: Is technology usage measured against the ATL (adherence rate)?
+      evidence:
+      - adherence dashboard
+      - deviations flagged
+      - drift tracked
+    - id: q3
+      text: Are new technology adoption requests reviewed through a formal process?
+      evidence:
+      - process documented
+      - decision authority clear
+      - request template in use
+    - id: q4
+      text: Are shadow IT instances identified and remediated?
+      evidence:
+      - discovery process
+      - remediation playbook
+      - tracked in register
+  - id: technical-debt
+    name: Technical Debt Management
+    weight: 0.25
+    questions:
+    - id: q1
+      text: Is technical debt quantified (effort, cost, or risk)?
+      evidence:
+      - quantification model
+      - debt register
+      - risk-weighted scoring
+    - id: q2
+      text: Is there a technical debt remediation roadmap?
+      evidence:
+      - roadmap published
+      - owners assigned
+      - budget line
+    - id: q3
+      text: Is technical debt tracked as a top-N risk register item?
+      evidence:
+      - in risk register
+      - reviewed monthly
+      - escalation path defined
+    - id: q4
+      text: Are 'don't repeat yourself' violations (DRY/dead code) actively reduced?
+      evidence:
+      - DRY metric tracked
+      - dead code removed quarterly
+      - lint rules enforced
+  - id: lifecycle
+    name: Lifecycle & End-of-Life Management
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Is software lifecycle (e.g., LTS) tracked across all production systems?
+      evidence:
+      - lifecycle inventory
+      - EOL alerts configured
+      - renewal calendar
+    - id: q2
+      text: Is there zero end-of-life software in production?
+      evidence:
+      - EOL check automated
+      - zero EOL confirmed
+      - exceptions documented
+    - id: q3
+      text: Are dependency upgrades part of the regular development cycle?
+      evidence:
+      - Dependabot/Renovate active
+      - upgrade PRs merged regularly
+      - upgrade SLA defined
+    - id: q4
+      text: Is SBOM generated for every production release?
+      evidence:
+      - SBOM in CI
+      - SBOM in release artefacts
+      - SBOM archived
+  - id: skill-coverage
+    name: Skill Coverage & Knowledge Risk
+    weight: 0.15
+    questions:
+    - id: q1
+      text: Is there a skill matrix for critical technologies?
+      evidence:
+      - matrix published
+      - refreshed quarterly
+      - covers all critical tech
+    - id: q2
+      text: Are single points of failure (SPoF) per critical technology identified?
+      evidence:
+      - SPoF register
+      - backup owners assigned
+      - redundancy plan
+    - id: q3
+      text: Is knowledge sharing active (lunch-and-learns, internal docs, pair rotation)?
+      evidence:
+      - monthly sessions
+      - internal docs maintained
+      - pair rotation scheduled
+  - id: tooling-integration
+    name: Tooling Integration & Observability
+    weight: 0.1
+    questions:
+    - id: q1
+      text: Is technology observability tooling integrated with incident response?
+      evidence:
+      - integrated stack
+      - incident playbook references
+      - runbooks linked
+    - id: q2
+      text: Is cost-per-workload tracked for production systems?
+      evidence:
+      - cost tagging
+      - dashboard published
+      - cost owner assigned
+    - id: q3
+      text: Are technology decisions evaluated against ROI before adoption?
+      evidence:
+      - ROI template
+      - evaluation criteria documented
+      - post-adoption review
+  capability_names:
+  - name: Technology Architecture
+    domain: Technology
+  - name: Technology Lifecycle
+    domain: Technology
+  - name: Skills and Coverage
+    domain: Technology
+  - name: Technical Debt Management
+    domain: Technology
+  scenario_names:
+  - name: Enterprise Technology Health
+    version: 1.0.0
+  measure_specs:
+  - name: Architecture Standardization
+    description: ratio of services with documented architecture to total services
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Lifecycle Compliance
+    description: ratio of components with current lifecycle to total components
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Skill Coverage
+    description: ratio of critical skills with redundant coverage to total critical skills
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Technical Debt Trend
+    description: rolling 90-day trend in technical debt backlog size (count)
+    unit: count
+    range:
+    - -50
+    - 50
+  migration_notes: Generated from the vendored legacy instrument by the CR-AM-03 migration contract; question text, evidence, dimension names, weights, tags, and relationships are preserved in metadata. No scoring or maturity redesign is performed.

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/evidence.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/evidence.schema.json",
   "title": "OpenDEA Evidence",
   "description": "Observable evidence supporting an Observation or an AssessmentResult. Includes source, timestamp, provenance, and confidence.",
   "type": "object",

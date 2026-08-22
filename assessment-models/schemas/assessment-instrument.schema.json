@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-instrument.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-instrument.schema.json",
   "title": "OpenDEA Assessment Instrument",
   "description": "An executable or questionnaire realisation of an AssessmentModel. Implements exactly one AssessmentModel per its contract.",
   "type": "object",

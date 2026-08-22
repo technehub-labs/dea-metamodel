@@ -1,0 +1,356 @@
+id: dea:assessment-services-delivery
+name: Services Delivery Assessment
+type: assessment-model
+version: 1.0.0
+metamodel_version: 1.0.0
+status: stable
+description: 'Assess services delivery capability — delivery predictability, flow efficiency, quality and defect management, customer outcomes, and team health.
+
+  '
+purpose:
+- capability-assessment
+subject_type: enterprise
+classification:
+  domain: services-delivery
+capabilities:
+- id: dea:capability-delivery-predictability
+  version: 1.0.0
+- id: dea:capability-flow-efficiency
+  version: 1.0.0
+- id: dea:capability-quality-management
+  version: 1.0.0
+- id: dea:capability-customer-outcomes
+  version: 1.0.0
+- id: dea:capability-team-health
+  version: 1.0.0
+scenarios:
+- &id001
+  id: dea:scenario-customer-facing-delivery-programme
+  version: 1.0.0
+dimensions:
+- id: predictability
+  name: Delivery Predictability
+  weight: 0.25
+  questions:
+  - id: predictability-q1
+    text: Are release dates forecast with more than 80% accuracy?
+  - id: predictability-q2
+    text: Are scope, time, quality trade-offs explicitly managed?
+  - id: predictability-q3
+    text: Is there a clear definition of done used across all teams?
+  - id: predictability-q4
+    text: Are delivery commitments tracked at portfolio and team level?
+- id: flow
+  name: Flow Metrics & Efficiency
+  weight: 0.2
+  questions:
+  - id: flow-q1
+    text: Are lead time and cycle time tracked per team?
+  - id: flow-q2
+    text: Is WIP (work-in-progress) actively limited?
+  - id: flow-q3
+    text: Are blockers identified and resolved within 24 hours?
+  - id: flow-q4
+    text: Is there investment in flow improvement (tools, training, automation)?
+- id: quality
+  name: Quality & Defect Management
+  weight: 0.2
+  questions:
+  - id: quality-q1
+    text: Is escaped defect rate tracked and trending downward?
+  - id: quality-q2
+    text: Are quality gates enforced in CI (test coverage, static analysis)?
+  - id: quality-q3
+    text: Is quality measured by customer impact, not just bug count?
+  - id: quality-q4
+    text: Are production incidents correlated with release changes?
+- id: outcomes
+  name: Customer Outcomes & Value
+  weight: 0.2
+  questions:
+  - id: outcomes-q1
+    text: Are customer outcomes linked to releases (outcome-based roadmaps)?
+  - id: outcomes-q2
+    text: Is there an experimentation capability (A/B testing, feature flags)?
+  - id: outcomes-q3
+    text: Is delivery ROI measured per initiative?
+  - id: outcomes-q4
+    text: Is customer satisfaction (NPS/CSAT) tracked and acted upon?
+- id: team
+  name: Team Health & Practices
+  weight: 0.15
+  questions:
+  - id: team-q1
+    text: Are retrospectives held regularly and produce tracked actions?
+  - id: team-q2
+    text: Is team satisfaction measured (e.g., annual survey, pulse checks)?
+  - id: team-q3
+    text: Is there a healthy balance of feature work, tech debt, and learning?
+measures:
+- id: dea:measure-release-forecast-accuracy
+  version: 1.0.0
+- id: dea:measure-lead-time-p50
+  version: 1.0.0
+- id: dea:measure-escaped-defect-rate
+  version: 1.0.0
+- id: dea:measure-outcome-to-release-linkage
+  version: 1.0.0
+- id: dea:measure-team-health-index
+  version: 1.0.0
+scoring_model:
+  id: dea:scoring-four-point
+  version: 1.0.0
+maturity_models:
+- id: dea:maturity-services-delivery
+  version: 1.0.0
+evidence_requirements:
+- id: dea:evidence-services-delivery-core
+  version: 1.0.0
+lineage:
+  assessment_model:
+    id: dea:assessment-services-delivery
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-services-delivery-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-services-delivery-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-delivery-predictability
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - id: dea:measure-release-forecast-accuracy
+    version: 1.0.0
+  - id: dea:measure-lead-time-p50
+    version: 1.0.0
+  - id: dea:measure-escaped-defect-rate
+    version: 1.0.0
+  - id: dea:measure-outcome-to-release-linkage
+    version: 1.0.0
+  - id: dea:measure-team-health-index
+    version: 1.0.0
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-services-delivery
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+metadata:
+  legacy_total_questions: 18
+  legacy_duration_minutes: 70
+  legacy_facilitator_required: false
+  legacy_owner: Head of Delivery / VP Engineering
+  legacy_status: draft
+  legacy_tags:
+  - services-delivery
+  - time-to-market
+  - customer-outcomes
+  - flow-metrics
+  - assessment
+  legacy_relationships:
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:maturity-services-delivery
+    relationship_type: produces-score-for
+    description: Assessment scores map to services delivery maturity levels
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-services-delivery
+    target_id: dea:catalog-metrics
+    relationship_type: measured-by
+    description: Outcomes tracked via metrics catalog entries
+  legacy_dimensions:
+  - id: predictability
+    name: Delivery Predictability
+    weight: 0.25
+    questions:
+    - id: q1
+      text: Are release dates forecast with more than 80% accuracy?
+      evidence:
+      - forecast model
+      - variance tracked
+      - accuracy reported
+    - id: q2
+      text: Are scope, time, quality trade-offs explicitly managed?
+      evidence:
+      - trade-off framework
+      - stakeholder communication
+      - decisions documented
+    - id: q3
+      text: Is there a clear definition of done used across all teams?
+      evidence:
+      - DoD published
+      - enforced in PR review
+      - referenced in retros
+    - id: q4
+      text: Are delivery commitments tracked at portfolio and team level?
+      evidence:
+      - commitment register
+      - miss analysis
+      - root-cause reviews
+  - id: flow
+    name: Flow Metrics & Efficiency
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Are lead time and cycle time tracked per team?
+      evidence:
+      - flow metrics dashboard
+      - per-team reporting
+      - trend analysis
+    - id: q2
+      text: Is WIP (work-in-progress) actively limited?
+      evidence:
+      - WIP limits per team
+      - violation tracked
+      - actions on breaches
+    - id: q3
+      text: Are blockers identified and resolved within 24 hours?
+      evidence:
+      - blocker log
+      - escalation path
+      - median resolution time
+    - id: q4
+      text: Is there investment in flow improvement (tools, training, automation)?
+      evidence:
+      - flow improvement backlog
+      - quarterly OKRs
+      - improvements shipped
+  - id: quality
+    name: Quality & Defect Management
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Is escaped defect rate tracked and trending downward?
+      evidence:
+      - escaped defect metric
+      - trend reported
+      - actions on spikes
+    - id: q2
+      text: Are quality gates enforced in CI (test coverage, static analysis)?
+      evidence:
+      - coverage threshold
+      - static analysis in CI
+      - gate failures reviewed
+    - id: q3
+      text: Is quality measured by customer impact, not just bug count?
+      evidence:
+      - customer-impact metric
+      - bug severity weighting
+      - CX team involvement
+    - id: q4
+      text: Are production incidents correlated with release changes?
+      evidence:
+      - incident-deploy correlation
+      - release quality score
+      - feedback loop to dev
+  - id: outcomes
+    name: Customer Outcomes & Value
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Are customer outcomes linked to releases (outcome-based roadmaps)?
+      evidence:
+      - outcome tracking per release
+      - OKR linkage
+      - CX metrics dashboard
+    - id: q2
+      text: Is there an experimentation capability (A/B testing, feature flags)?
+      evidence:
+      - experimentation platform
+      - hypothesis-driven development
+      - results shared
+    - id: q3
+      text: Is delivery ROI measured per initiative?
+      evidence:
+      - ROI model
+      - per-initiative tracking
+      - ROI reviewed quarterly
+    - id: q4
+      text: Is customer satisfaction (NPS/CSAT) tracked and acted upon?
+      evidence:
+      - NPS/CSAT dashboard
+      - trend tracked
+      - actions on negative feedback
+  - id: team
+    name: Team Health & Practices
+    weight: 0.15
+    questions:
+    - id: q1
+      text: Are retrospectives held regularly and produce tracked actions?
+      evidence:
+      - retro cadence
+      - action register
+      - action completion rate
+    - id: q2
+      text: Is team satisfaction measured (e.g., annual survey, pulse checks)?
+      evidence:
+      - survey process
+      - results acted upon
+      - trend tracked
+    - id: q3
+      text: Is there a healthy balance of feature work, tech debt, and learning?
+      evidence:
+      - allocation policy
+      - tracked per team
+      - balanced review
+  capability_names:
+  - name: Delivery Predictability
+    domain: Services Delivery
+  - name: Flow Efficiency
+    domain: Services Delivery
+  - name: Quality Management
+    domain: Services Delivery
+  - name: Customer Outcomes
+    domain: Services Delivery
+  - name: Team Health
+    domain: Services Delivery
+  scenario_names:
+  - name: Customer-Facing Delivery Programme
+    version: 1.0.0
+  measure_specs:
+  - name: Release Forecast Accuracy
+    description: ratio of releases forecast within ±10% to total releases (percent)
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Lead Time p50
+    description: rolling 30-day median commit-to-deploy (hours)
+    unit: hours
+    range:
+    - 0
+    - 168
+  - name: Escaped Defect Rate
+    description: ratio of escaped defects to deployments (per 100 deployments)
+    unit: rate
+    range:
+    - 0
+    - 100
+  - name: Outcome-to-Release Linkage
+    description: ratio of releases with declared customer outcome linkage to total releases (percent)
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Team Health Index
+    description: rolling-quarter composite team health (0-100)
+    unit: score
+    range:
+    - 0
+    - 100
+  migration_notes: Generated from the vendored legacy instrument by the CR-AM-03 migration contract; question text, evidence, dimension names, weights, tags, and relationships are preserved in metadata. No scoring or maturity redesign is performed.

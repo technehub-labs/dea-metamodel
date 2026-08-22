@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-result.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-result.schema.json",
   "title": "OpenDEA Assessment Result",
   "description": "The persistent output of an AssessmentExecution. Stores exact versions of every referenced model. Subsequent model changes do not mutate historical results.",
   "type": "object",
@@ -20,6 +20,9 @@
       "$ref": "common.schema.json#/$defs/modelReference"
     },
     "assessment_instrument": {
+      "$ref": "common.schema.json#/$defs/modelReference"
+    },
+    "assessment_execution": {
       "$ref": "common.schema.json#/$defs/modelReference"
     },
     "subject": {
@@ -58,6 +61,54 @@
           "format": "date-time"
         }
       }
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    },
+    "benchmark_eligibility": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "eligible",
+            "not-comparable",
+            "insufficient-data",
+            "provisional"
+          ]
+        },
+        "requirements": {
+          "type": "object",
+          "properties": {
+            "assessment_model": {
+              "type": "string"
+            },
+            "capability": {
+              "type": "string"
+            },
+            "scenario": {
+              "type": "string"
+            },
+            "scoring_model": {
+              "type": "string"
+            },
+            "evidence": {
+              "type": "string"
+            },
+            "population": {
+              "type": "string"
+            },
+            "measurement_period": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
     },
     "observations": {
       "type": "array",

@@ -1,0 +1,27 @@
+id: dea:execution-zero-touch-operations-001
+instrument:
+  id: dea:instrument-zero-touch-workshop
+  version: "1.0.0"
+assessment_model:
+  id: dea:assessment-zero-touch-operations
+  version: "1.0.0"
+subject:
+  id: enterprise-001
+  type: enterprise
+  name: Enterprise A
+scenario:
+  id: dea:scenario-zero-touch-service-assurance
+  version: "1.0.0"
+started_at: '2026-07-01T09:00:00Z'
+completed_at: '2026-07-31T17:00:00Z'
+status: completed
+assessor:
+  id: assessor-zero-touch-001
+  type: human
+  name: Enterprise A Assessor Team
+evidence:
+  - id: dea:evidence-zero-touch-core
+    version: "1.0.0"
+result:
+  id: dea:result:2026:000184
+  version: "1.0.0"

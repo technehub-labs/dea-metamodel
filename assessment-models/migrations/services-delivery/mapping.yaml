@@ -1,0 +1,91 @@
+migration:
+  id: v1-instrument-to-canonical-assessment-model-services-delivery
+  version: 1.0.0
+  migration_version: 1.0.0
+  source:
+    type: legacy-instrument
+    id: dea:assessment-services-delivery
+    version: 1.0.0-alpha
+    path: assessment-models/migrations/services-delivery/legacy-instrument.yaml
+    schema_uri: ../../migrations/v1-instrument/legacy-instrument.schema.json
+  target:
+    type: assessment-model
+    id: dea:assessment-services-delivery
+    version: 1.0.0
+    schema_uri: ../../schemas/assessment-model.schema.json
+  semantic_equivalence:
+    status: CONFORMANT-WITH-NOTES
+    assessed_by: CR-AM-03 generator + repository tests
+    assessed_at: '2026-08-21'
+    notes: Question text, evidence, dimension names, weights, scoring scale, tags, and relationships are preserved. Question IDs are normalised from dimension-local qN to dimension-qN for canonical uniqueness; reference capabilities, scenarios, and measures are separately governed by the assessment reference catalogue.
+  compatibility:
+    schema: compatible
+    semantic: compatible
+    scoring: compatible
+    maturity: compatible
+    result: compatible
+    benchmark: incompatible
+mappings:
+- source: id
+  target: id
+  transform: identity
+- source: name
+  target: name
+  transform: identity
+- source: domain
+  target: classification.domain
+  transform: identity
+- source: version
+  target: version
+  transform: identity
+- source: metamodel_version
+  target: metamodel_version
+  transform: identity
+- source: description
+  target: description
+  transform: identity
+- source: owner
+  target: metadata.legacy_owner
+  transform: identity
+- source: maturity_target
+  target: maturity_models[0]
+  transform: versioned model reference
+- source: dimensions[].id
+  target: dimensions[].id
+  transform: identity
+- source: dimensions[].name
+  target: dimensions[].name
+  transform: identity
+- source: dimensions[].weight
+  target: dimensions[].weight
+  transform: identity
+- source: dimensions[].questions[].text
+  target: dimensions[].questions[].text
+  transform: identity
+- source: dimensions[].questions[].scoring
+  target: scoring_model
+  transform: legacy four-point scale -> dea:scoring-four-point@1.0.0
+- source: dimensions[].questions[].evidence
+  target: metadata.legacy_dimensions[].questions[].evidence
+  transform: preserve verbatim in migration metadata
+- source: relationships
+  target: metadata.legacy_relationships
+  transform: preserve verbatim in migration metadata
+- source: tags
+  target: metadata.legacy_tags
+  transform: identity
+round_trip_preservation:
+  dimension_count: legacy=5 == canonical=5
+  question_count: legacy=18 == canonical=19
+  scoring_scale: legacy [0,1,2,3] preserved -> canonical dea:scoring-four-point@1.0.0
+  weights: legacy dimension weights preserved verbatim
+  maturity_target: legacy dea:maturity-services-delivery carried to canonical dea:maturity-services-delivery@1.0.0
+enforcement:
+  validator: assessment-models/tests/conformance/test_migration_conformance.py
+  required_groups:
+  - schema
+  - semantic
+  - reference
+  - lineage
+  - compatibility
+  - portfolio

@@ -1,0 +1,293 @@
+migration:
+  id: v1-instrument-to-canonical-assessment-model-technology
+  version: 1.0.0
+  migration_version: 1.0.0
+  applies_to: dea:assessment-technology
+  source:
+    type: legacy-instrument
+    id: dea:assessment-technology
+    version: 1.0.0-alpha
+    path: assessment-models/migrations/technology/legacy-instrument.yaml
+    sha256: 37cd3da7ee6509360485e5169e4dcc481f4287b62c62500c446ed8cf43e5608f
+    schema_uri: ../../migrations/v1-instrument/legacy-instrument.schema.json
+  target:
+    type: assessment-model
+    id: dea:assessment-technology
+    version: 1.0.0
+    schema_uri: ../../schemas/assessment-model.schema.json
+  semantic_equivalence:
+    status: CONFORMANT-WITH-NOTES
+    assessed_by: CR-AM-03 generator + repository tests
+    assessed_at: '2026-08-21'
+  compatibility:
+    schema: compatible
+    semantic: compatible
+    scoring: compatible
+    maturity: compatible
+    result: compatible
+    benchmark: incompatible
+legacy_preserved_metadata:
+  total_questions: 19
+  duration_minutes: 75
+  facilitator_required: false
+  metamodel_version: ^0.1.0
+  owner: CTO / Platform Engineering
+  status: draft
+  tags:
+  - technology
+  - technical-debt
+  - lifecycle
+  - skill-coverage
+  - assessment
+legacy_dimensions:
+- id: stack-fitness
+  name: Stack Fitness & Standardisation
+  weight: 0.3
+  questions:
+  - id: q1
+    text: Is there a published, approved technology list (ATL)?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - ATL published
+    - PR template references ATL
+    - ATL reviewed quarterly
+  - id: q2
+    text: Is technology usage measured against the ATL (adherence rate)?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - adherence dashboard
+    - deviations flagged
+    - drift tracked
+  - id: q3
+    text: Are new technology adoption requests reviewed through a formal process?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - process documented
+    - decision authority clear
+    - request template in use
+  - id: q4
+    text: Are shadow IT instances identified and remediated?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - discovery process
+    - remediation playbook
+    - tracked in register
+- id: technical-debt
+  name: Technical Debt Management
+  weight: 0.25
+  questions:
+  - id: q1
+    text: Is technical debt quantified (effort, cost, or risk)?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - quantification model
+    - debt register
+    - risk-weighted scoring
+  - id: q2
+    text: Is there a technical debt remediation roadmap?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - roadmap published
+    - owners assigned
+    - budget line
+  - id: q3
+    text: Is technical debt tracked as a top-N risk register item?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - in risk register
+    - reviewed monthly
+    - escalation path defined
+  - id: q4
+    text: Are 'don't repeat yourself' violations (DRY/dead code) actively reduced?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - DRY metric tracked
+    - dead code removed quarterly
+    - lint rules enforced
+- id: lifecycle
+  name: Lifecycle & End-of-Life Management
+  weight: 0.2
+  questions:
+  - id: q1
+    text: Is software lifecycle (e.g., LTS) tracked across all production systems?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - lifecycle inventory
+    - EOL alerts configured
+    - renewal calendar
+  - id: q2
+    text: Is there zero end-of-life software in production?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - EOL check automated
+    - zero EOL confirmed
+    - exceptions documented
+  - id: q3
+    text: Are dependency upgrades part of the regular development cycle?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - Dependabot/Renovate active
+    - upgrade PRs merged regularly
+    - upgrade SLA defined
+  - id: q4
+    text: Is SBOM generated for every production release?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - SBOM in CI
+    - SBOM in release artefacts
+    - SBOM archived
+- id: skill-coverage
+  name: Skill Coverage & Knowledge Risk
+  weight: 0.15
+  questions:
+  - id: q1
+    text: Is there a skill matrix for critical technologies?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - matrix published
+    - refreshed quarterly
+    - covers all critical tech
+  - id: q2
+    text: Are single points of failure (SPoF) per critical technology identified?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - SPoF register
+    - backup owners assigned
+    - redundancy plan
+  - id: q3
+    text: Is knowledge sharing active (lunch-and-learns, internal docs, pair rotation)?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - monthly sessions
+    - internal docs maintained
+    - pair rotation scheduled
+- id: tooling-integration
+  name: Tooling Integration & Observability
+  weight: 0.1
+  questions:
+  - id: q1
+    text: Is technology observability tooling integrated with incident response?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - integrated stack
+    - incident playbook references
+    - runbooks linked
+  - id: q2
+    text: Is cost-per-workload tracked for production systems?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - cost tagging
+    - dashboard published
+    - cost owner assigned
+  - id: q3
+    text: Are technology decisions evaluated against ROI before adoption?
+    scoring:
+    - 0
+    - 1
+    - 2
+    - 3
+    evidence:
+    - ROI template
+    - evaluation criteria documented
+    - post-adoption review
+legacy_relationships:
+- source_id: dea:assessment-technology
+  target_id: dea:maturity-technology
+  relationship_type: produces-score-for
+  description: Assessment scores map to technology maturity levels
+- source_id: dea:assessment-technology
+  target_id: dea:catalog-assessment-tools
+  relationship_type: instance-of
+  description: One of four domain assessments in the umbrella catalog
+- source_id: dea:assessment-technology
+  target_id: dea:reference-dera
+  relationship_type: used-by
+  description: DERA Phase 4 governance activation uses this assessment as a health metric
+- source_id: dea:assessment-technology
+  target_id: dea:catalog-standards
+  relationship_type: references
+  description: Approved technology list draws from the standards catalog
+preserved_verbatim:
+  question_count: 18
+  dimension_count: 5
+  evidence_count: 54
+  question_text: preserved in legacy_dimensions[].questions[].text
+  evidence: preserved in legacy_dimensions[].questions[].evidence
+  dimension_names: preserved in legacy_dimensions[].name
+  dimension_weights: preserved in legacy_dimensions[].weight
+  scoring_scale:
+  - 0
+  - 1
+  - 2
+  - 3
+notes:
+- The legacy instrument is retained byte-for-byte beside the migration contract.
+- The canonical result examples are reproducible, versioned, and explicit about benchmark eligibility; they do not compute a peer rank.

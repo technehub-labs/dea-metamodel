@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/capability.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/capability.schema.json",
   "title": "OpenDEA Capability",
   "description": "What an organisation or entity is able to do, independently of how that capability is assessed. Reusable across many assessments.",
   "type": "object",

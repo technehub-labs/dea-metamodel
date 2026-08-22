@@ -45,6 +45,17 @@ class TestAssessmentSchemaSet(unittest.TestCase):
             except Exception as e:
                 self.fail(f"Schema {os.path.basename(f)} does not parse as Draft 2020-12: {e}")
 
+    def test_canonical_schema_ids_use_approved_namespace(self):
+        """CR-AM03-19: canonical schemas must not publish the retired org namespace."""
+        expected_prefix = "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/"
+        for f in sorted(glob.glob(str(SCHEMAS_DIR / "*.schema.json"))):
+            with open(f) as fh:
+                schema = json.load(fh)
+            self.assertTrue(
+                schema.get("$id", "").startswith(expected_prefix),
+                f"Schema {os.path.basename(f)} uses retired namespace: {schema.get('$id')!r}",
+            )
+
     def test_p0_schemas_are_present(self):
         """CR §6 enumerates the P0 entity schemas. Every one must exist."""
         expected = [

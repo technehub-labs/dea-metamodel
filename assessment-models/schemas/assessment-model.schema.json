@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/assessment-model.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-model.schema.json",
   "title": "OpenDEA Assessment Model",
   "description": "The semantic specification of an assessment. An AssessmentModel defines what is being assessed (capabilities), under what conditions (scenarios), how (measures, evidence, scoring), and how results may be interpreted (maturity, benchmark).",
   "type": "object",
@@ -43,6 +43,28 @@
     },
     "description": {
       "type": "string"
+    },
+    "classification": {
+      "type": "object",
+      "description": "Classification metadata (CR-AM-03 \u00a79: the migration layer projects the legacy `domain` field into the canonical `classification.domain`).",
+      "properties": {
+        "domain": {
+          "type": "string",
+          "enum": [
+            "technology",
+            "modernization",
+            "operations",
+            "services-delivery"
+          ]
+        },
+        "primary_capability": {
+          "type": "string"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Free-form sidecar for fields with no canonical schema equivalent (CR-AM-03 \u00a715: legacy fields preserved here, not on the canonical form). The canonical schema permits additionalProperties by declaring this object \u2014 fields here must be defined in the migration-manifest.yaml."
     },
     "status": {
       "$ref": "common.schema.json#/$defs/lifecycleStatus"

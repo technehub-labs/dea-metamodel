@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/scoring-model.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/scoring-model.schema.json",
   "title": "OpenDEA Scoring Model",
   "description": "Pluggable aggregation and normalisation rules. The current 4-point questionnaire scoring becomes the default ScoringModel, not the metamodel.",
   "type": "object",

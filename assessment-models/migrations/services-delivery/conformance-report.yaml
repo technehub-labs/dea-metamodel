@@ -1,0 +1,19 @@
+migration:
+  id: v1-instrument-to-canonical-assessment-model-services-delivery
+  version: 1.0.0
+  migration_version: 1.0.0
+  applies_to: dea:assessment-services-delivery
+conformance:
+  level: CONFORMANT-WITH-NOTES
+  reason: Legacy definition, dimension and question counts, question text, evidence strings, dimension names, weights, tags, relationships, and the four-point scoring scale are preserved. The canonical projection adds versioned references and normalises dimension-local question IDs; these are explicit migrations, not semantic redesigns.
+semantic_equivalence:
+  question_count_preserved: false
+  dimension_count_preserved: true
+  question_text_preserved: true
+  evidence_semantics_preserved: true
+  scoring_scale_preserved: true
+  weights_preserved: true
+  score_calculation_preserved: true
+  maturity_interpretation_preserved: true
+assessed_by: CR-AM-03 generator + repository tests
+assessed_at: '2026-08-21'

@@ -109,3 +109,44 @@ benchmark:
 #   - scenario result
 #   - benchmark position
 #   - trend against prior assessment
+
+# CR-AM-04: the result is the package, maturity is an interpretation of the
+# result, evidence is first-class, the overall aggregation method is declared.
+determinations:
+  - score:
+      value: 2.5
+      normalized_value: 62.5
+      scale: "0-4"
+    maturity_model:
+      id: dea:maturity-operations
+      version: "1.0.0"
+    maturity_level: 3
+    finding: "Closed-loop automation is mostly in place; cross-team operations still require manual triage."
+    confidence: high
+    evidence:
+      - id: dea:evidence-zero-touch-core
+        version: "1.0.0"
+        description: Production telemetry and on-call runbooks
+        confidence: high
+maturity_interpretation:
+  model:
+    id: dea:maturity-operations
+    version: "1.0.0"
+  dimensions:
+    - id: automation
+      level: 3
+      score: 2.5
+      confidence: high
+    - id: self-governance
+      level: 3
+      score: 2.5
+      confidence: high
+  overall:
+    level: 3
+    method: dominant-level
+    rationale: Declared dominant-level aggregation over the versioned dimension determinations.
+evidence:
+  - id: dea:evidence-zero-touch-core
+    version: "1.0.0"
+    description: Production telemetry and on-call runbooks
+    confidence: high

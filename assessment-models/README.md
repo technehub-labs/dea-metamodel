@@ -56,9 +56,11 @@ assessment-models/
 │   ├── zero-touch-operations-result.yaml      ← independently useful AssessmentResult
 │   └── benchmark-eligibility.yaml             ← explicit benchmark eligibility declaration
 │
-├── governance/                                 ← 3 policy docs
+├── governance/                                 ← 5 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
 │   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
+│   ├── result-lineage.md                      ← CR-AM-04 result lineage & operations
+│   ├── maturity-interpretation.md             ← CR-AM-04 multi-dimensional maturity interpretation
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
 └── maturity/                                   ← maturity scoring v2 (this PR's other landing)
@@ -109,6 +111,29 @@ The forward-pointer landed by **CR-015** (committed via this sub-tree's README +
 Both pieces live in this same repo (`technehub-labs/dea-metamodel`); the split is a layering convention, not a multi-repo split.
 
 ---
+
+## Result operations & maturity interpretation (CR-AM-04)
+
+An AssessmentExecution now produces a reproducible AssessmentResult that
+distinguishes Observation, Score, AssessmentDetermination, Evidence, Finding,
+and MaturityLevel. The result carries:
+
+- a `lineage` block with versioned references to the AssessmentModel, Instrument,
+  Execution, Capability, Scenario, Measures, ScoringModel, MaturityModel, **and**
+  AggregationModel;
+- a multi-dimensional `maturity_interpretation` with a declared overall
+  aggregation rule (`min`, `average`, `weighted-average`, `threshold`,
+  `dominant-level`, `custom`) — never an implicit average;
+- a result-level `evidence` array and per-determination `confidence`;
+- a deterministic `source_responses` vector for reproducibility;
+- `benchmark_eligibility` declared but never calculated (no percentile/rank).
+
+Enterprise, Capability, and Scenario views are projections over the same
+result facts. See `governance/result-lineage.md` and
+`governance/maturity-interpretation.md` for the contracts. The runtime
+module is `runtime/result_operations/` (Python). The conformance tests are
+`assessment-models/tests/conformance/test_result_operations.py`
+(13 tests, one per AC).
 
 ## Maturity scoring v2 (status: beta)
 

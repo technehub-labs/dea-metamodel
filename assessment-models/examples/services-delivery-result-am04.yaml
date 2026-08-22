@@ -1,0 +1,217 @@
+id: dea:result:assessment-services-delivery-2026-am04
+assessment_model:
+  id: dea:assessment-services-delivery
+  version: 1.0.0
+assessment_instrument: &id001
+  id: dea:instrument-services-delivery-workshop
+  version: 1.0.0
+assessment_execution: &id002
+  id: dea:execution-services-delivery-001
+  version: 1.0.0
+subject:
+  id: example-organization
+  type: enterprise
+  name: Example Organization
+scenario: &id003
+  id: dea:scenario-customer-facing-delivery-programme
+  version: 1.0.0
+assessment_period:
+  start: '2026-01-01T00:00:00Z'
+  end: '2026-06-30T23:59:59Z'
+status: completed
+confidence: medium
+observations:
+- id: obs-001
+  measure: &id004
+    id: dea:measure-release-forecast-accuracy
+    version: 1.0.0
+  value: 70
+- id: obs-002
+  measure: &id005
+    id: dea:measure-lead-time-p50
+    version: 1.0.0
+  value: 71
+- id: obs-003
+  measure: &id006
+    id: dea:measure-escaped-defect-rate
+    version: 1.0.0
+  value: 72
+- id: obs-004
+  measure: &id007
+    id: dea:measure-outcome-to-release-linkage
+    version: 1.0.0
+  value: 73
+- id: obs-005
+  measure: &id008
+    id: dea:measure-team-health-index
+    version: 1.0.0
+  value: 74
+scores:
+- dimension: predictability
+  value: 2.0
+  normalized_value: 66.7
+  scale: 0-3
+- dimension: flow
+  value: 2.0
+  normalized_value: 66.7
+  scale: 0-3
+- dimension: quality
+  value: 2.0
+  normalized_value: 66.7
+  scale: 0-3
+- dimension: outcomes
+  value: 2.0
+  normalized_value: 66.7
+  scale: 0-3
+- dimension: team
+  value: 2.0
+  normalized_value: 66.7
+  scale: 0-3
+findings:
+- id: finding-001
+  type: determination
+  severity: informational
+  description: Assessment result interpreted from the versioned score and evidence package.
+maturity_interpretation:
+  model:
+    id: dea:maturity-services-delivery
+    version: 1.0.0
+  dimensions:
+  - id: predictability
+    level: 2
+    score: 2.0
+    confidence: high
+  - id: flow
+    level: 2
+    score: 2.0
+    confidence: high
+  - id: quality
+    level: 2
+    score: 2.0
+    confidence: high
+  - id: outcomes
+    level: 2
+    score: 2.0
+    confidence: high
+  - id: team
+    level: 2
+    score: 2.0
+    confidence: high
+  overall:
+    level: 2
+    method: dominant-level
+    rationale: Overall maturity is a declared dominant-level aggregation of the versioned dimension determinations.
+determinations:
+- score:
+    value: 2.0
+    normalized_value: 66.7
+    scale: 0-3
+  maturity_model:
+    id: dea:maturity-services-delivery
+    version: 1.0.0
+  maturity_level: 2
+  finding: Assessment result interpreted from the versioned score and evidence package.
+  confidence: medium
+  evidence:
+  - id: dea:evidence-services-delivery-core
+    version: 1.0.0
+    description: forecast model
+    confidence: medium
+evidence:
+- id: dea:evidence-services-delivery-core
+  version: 1.0.0
+  description: forecast model
+  confidence: medium
+lineage:
+  assessment_model:
+    id: dea:assessment-services-delivery
+    version: 1.0.0
+  assessment_instrument: *id001
+  assessment_execution: *id002
+  capability:
+    id: dea:capability-delivery-predictability
+    version: 1.0.0
+  scenario: *id003
+  measures:
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-services-delivery
+    version: 1.0.0
+  aggregation_model:
+    id: dea:aggregation-maturity-dominant-level
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+benchmark_eligibility:
+  status: eligible
+  requirements:
+    assessment_model: dea:maturity-services-delivery@1.0.0
+    capability: dea:capability-delivery-predictability
+    scenario: dea:scenario-customer-facing-delivery-programme
+    scoring_model: dea:scoring-four-point@1.0.0
+    evidence: dea:evidence-services-delivery-core
+    population: dea:population-example-2026
+    measurement_period: 2026-H1
+aggregation_model:
+  id: dea:aggregation-maturity-dominant-level
+  version: 1.0.0
+maturity_model:
+  id: dea:maturity-services-delivery
+  version: 1.0.0
+benchmark_calculation: null
+source_responses:
+- question_id: predictability-q1
+  value: 2
+- question_id: predictability-q2
+  value: 2
+- question_id: predictability-q3
+  value: 2
+- question_id: predictability-q4
+  value: 2
+- question_id: flow-q1
+  value: 2
+- question_id: flow-q2
+  value: 2
+- question_id: flow-q3
+  value: 2
+- question_id: flow-q4
+  value: 2
+- question_id: quality-q1
+  value: 2
+- question_id: quality-q2
+  value: 2
+- question_id: quality-q3
+  value: 2
+- question_id: quality-q4
+  value: 2
+- question_id: outcomes-q1
+  value: 2
+- question_id: outcomes-q2
+  value: 2
+- question_id: outcomes-q3
+  value: 2
+- question_id: outcomes-q4
+  value: 2
+- question_id: team-q1
+  value: 2
+- question_id: team-q2
+  value: 2
+- question_id: team-q3
+  value: 2
+conformance:
+  level: CONFORMANT-WITH-NOTES
+  reason: Legacy definition, dimension and question counts, question text, evidence strings, dimension names, weights, tags,
+    relationships, and the four-point scoring scale are preserved. The canonical projection adds versioned references and
+    normalises dimension-local question IDs; these are explicit migrations, not semantic redesigns.

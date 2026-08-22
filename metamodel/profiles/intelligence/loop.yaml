@@ -1,0 +1,13 @@
+# Intelligence loop vocabulary (CR-012 §3.3).
+# Phase 1 ships the vocabulary only; the scheduler + observability ship in Phase 4.
+version: 1.0.0
+fields:
+  - id
+  - patterns              # one or more Pattern refs
+  - scope                 # declared bounded scope (CR-012 §6.2)
+  - cadence               # ISO 8601 duration string or cron expression
+  - mute                  # per-classification mute list (CR-012 §3.5)
+  - escalation_policy_ref # required if any pattern can produce critical-severity signals
+invariants:
+  - "A loop whose patterns include any that can produce critical-severity signals MUST declare escalation_policy_ref."
+  - "A loop with no `scope` is rejected at registration (CR-012 §6.2 — no unbounded reasoning)."

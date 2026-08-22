@@ -1,0 +1,36 @@
+# Signal lifecycle vocabulary (CR-012 §3.2, §6.5).
+# Lifecycle is observable + auditable + reversible-until-resolved.
+version: 1.0.0
+states:
+  - name: open
+    definition: >
+      Initial state. Raised by a reasoning cycle; no human interaction yet.
+      Transitions allowed → acknowledged, dismissed, resolved.
+  - name: acknowledged
+    definition: >
+      The owner has confirmed receipt. Sets acknowledged_at. Transitions
+      allowed → in_review, dismissed, resolved.
+  - name: in_review
+    definition: >
+      The owner is investigating. Transitions allowed → accepted, dismissed,
+      resolved. Setting acknowledged_at a second time is a no-op.
+  - name: accepted
+    definition: >
+      The owner accepts the signal's classification and severity and commits
+      to remediation. Sets resolved_at optionally if remediation is instant;
+      otherwise remains accepted until resolution.
+  - name: dismissed
+    definition: >
+      The owner determines the signal is not actionable in its current form
+      (false positive, classified in error, or already remediated by a
+      concurrent change). Sets resolved_at. rationale MUST be supplied.
+  - name: resolved
+    definition: >
+      The signal's underlying condition has been addressed (a remediation,
+      a change scenario executed, or a mapping re-approved). Sets resolved_at.
+      No further transitions permitted.
+invariants:
+  - "Lifecycle transitions MUST follow the directed graph above (no skipping)."
+  - "Transitions to dismissed or resolved MUST set resolved_at."
+  - "Transitions to acknowledged, in_review, accepted, dismissed or resolved MUST set acknowledged_at if not already set."
+  - "Any transition MUST record a `transition_at` and (optionally) `transition_by` (CR-012 §6.5 audit chain)."

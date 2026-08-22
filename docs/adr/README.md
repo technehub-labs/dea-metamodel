@@ -34,10 +34,12 @@ replaced; keep the original intact for the historical record.
 | [ADR-011](ADR-011-simulation-adapter-architecture.md) | Simulation adapter architecture | `SimulationAdapter` boundary; result provenance |
 | [ADR-012](ADR-012-dmm-opendea-relationship.md) | DMM / OpenDEA relationship | Diagnostic instrument vs semantic substrate; closed loop |
 | [ADR-013](ADR-013-core-non-accumulation.md) | Core non-accumulation | Adapters absorb external complexity; the Core does not accumulate concepts |
+| [ADR-014](ADR-014-intelligence-loop-architecture.md) | Intelligence loop architecture | Five bounded layers (Observation → Signal → Pattern → Loop → ActionProposal); 8 binding rules for the composition layer that closes the CR-10 §P loop |
 
 ## Status
 
-All twelve ADRs in this index were authored as part of CR-10 (scenario
-foundation) and are **Accepted** as of 2026-08-18. They form the
-architectural baseline for the scenario / simulation / decision-support
-work in CR-10 and beyond.
+The ADRs in this index are **Accepted** as of their listed dates. They form
+the architectural baseline for OpenDEA. ADR-014 supersedes nothing; it
+records the composition-layer decisions for CR-012 (Enterprise
+Intelligence & Advanced Agentic Runtime), building on ADR-002 / 007 /
+008 / 009.

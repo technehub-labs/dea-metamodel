@@ -1,0 +1,46 @@
+# OpenDEA Intelligence Profile (CR-012 §3.1-§3.5, Phase 1).
+profile:
+  id: dea:intelligence
+  name: OpenDEA Intelligence Profile
+  version: 1.0.0
+  status: normative
+  depends_on:
+  - dea:core
+  - dea:governance
+  - dea:assessment
+  - dea:agentic
+  scope: >
+    Continuous enterprise intelligence — Signal / Observation / IntelligenceLoop /
+    ActionProposal semantics (CR-012 §3). The intelligence layer absorbs reasoning,
+    pattern detection, signal promotion and governed agentic action; it does NOT
+    extend the 18 core anchors (ADR-002, CR-8 core-freeze). Signals are governed
+    observations, never silent assertions (ADR-008).
+  entities:
+  - dea:Signal
+  - dea:Observation
+  - dea:IntelligenceLoop
+  - dea:Pattern
+  - dea:ActionProposal
+  relationships:
+  - dea:promoted-from
+  - dea:raised-by
+  - dea:proposes
+  - dea:executes
+  vocabulary_files:
+  - signal.yaml
+  - classification.yaml
+  - severity.yaml
+  - confidence.yaml
+  - lifecycle.yaml
+  - observation.yaml
+  - loop.yaml
+  - proposal.yaml
+
+# CR-012 §6 design constraint #6 — Core is never extended.
+core_extension: false
+governance:
+  signals_carry_owner: true                # §3.2
+  signals_carry_classification: true       # §3.2
+  signals_carry_confidence: true           # §3.2
+  unbounded_reasoning_rejected: true       # §6.2
+  core_anchor_count_locked: 18             # ADR-002

@@ -1,0 +1,17 @@
+# Observation vocabulary (CR-012 §3.1).
+# An Observation is the raw, governed output of one reasoning cycle. It is
+# NOT an inference (ADR-008): an Observation is recorded evidence; promotion
+# to a Signal requires an explicit decision.
+version: 1.0.0
+fields:
+  - id
+  - cycle_id               # the IntelligenceLoop cycle that produced it (CR-012 §3.1)
+  - scope                 # the bounded scope the reasoning cycle declared (CR-012 §6.2)
+  - subject               # the canonical entity observed
+  - kind                  # pattern name + version that matched (CR-012 §3.1 pattern library)
+  - evidence              # the evidence chain (CR-9B)
+  - confidence            # CR-012 confidence vocabulary
+  - observed_at           # the wall-clock time the cycle completed
+invariants:
+  - "Observations are NEVER promoted to assertions; only Signals carry classification (CR-9R/T, ADR-008)."
+  - "Observations carry no severity — that is a promotion-time decision."

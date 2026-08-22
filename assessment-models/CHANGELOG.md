@@ -2,7 +2,11 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
-## [Unreleased] — CR-014 landing
+## [Unreleased] — CR-AM-03 assessment catalog migration
+
+CR-AM-03 migrates the Technology, Modernization, Operations, and Services Delivery legacy instruments into canonical AssessmentModel v1.0.0 projections, preserving source instruments byte-for-byte beside explicit mapping, manifest, and conformance contracts. The change also adds the four-domain assessment portfolio, reference catalogue, coverage matrix, completed AssessmentExecution examples, versioned AssessmentResult lineage, benchmark eligibility declarations, and CR-AM-03 schema/test coverage. Canonical schema `$id` values now use the `technehub-labs/dea-metamodel/assessment-models/schemas/` namespace.
+
+## [CR-014 landing] — superseded by CR-AM-03 assessment catalog migration
 
 ### Added — Assessment sub-metamodel v1
 

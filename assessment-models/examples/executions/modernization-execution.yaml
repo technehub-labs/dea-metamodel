@@ -1,0 +1,26 @@
+id: dea:execution-modernization-001
+instrument:
+  id: dea:instrument-modernization-workshop
+  version: 1.0.0
+assessment_model:
+  id: dea:assessment-modernization
+  version: 1.0.0
+subject:
+  id: enterprise-mod-001
+  type: enterprise
+  name: Enterprise Modernization Cohort
+scenario:
+  id: dea:scenario-enterprise-modernization-programme
+  version: 1.0.0
+started_at: '2026-06-15T09:00:00Z'
+completed_at: '2026-06-30T17:00:00Z'
+status: completed
+assessor:
+  id: assessor-modernization-001
+  type: human
+  name: Modernization Assessor Team
+evidence:
+- id: dea:evidence-modernization-core
+  version: 1.0.0
+result:
+  id: dea:result:2026:000200

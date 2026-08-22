@@ -1,0 +1,104 @@
+portfolio:
+  id: dea:portfolio-assessment
+  name: OpenDEA Assessment Portfolio
+  version: 1.0.0
+  lifecycle_status: stable
+  assessments:
+  - id: dea:assessment-technology
+    name: Technology Assessment
+    version: 1.0.0
+    lifecycle_status: stable
+    domain: technology
+    capabilities:
+    - dea:capability-technology-architecture:1.0.0
+    - dea:capability-technology-lifecycle:1.0.0
+    - dea:capability-skills-and-coverage:1.0.0
+    - dea:capability-technical-debt-management:1.0.0
+    scenarios:
+    - dea:scenario-enterprise-technology-health:1.0.0
+    measures:
+    - dea:measure-architecture-standardization:1.0.0
+    - dea:measure-lifecycle-compliance:1.0.0
+    - dea:measure-skill-coverage:1.0.0
+    - dea:measure-technical-debt-trend:1.0.0
+    scoring_model: dea:scoring-four-point:1.0.0
+    maturity_models:
+    - dea:maturity-technology:1.0.0
+    legacy_source: assessment-models/migrations/technology/legacy-instrument.yaml
+    canonical_source: assessment-models/migrations/technology/canonical-assessment-model.yaml
+    migration_status: CONFORMANT-WITH-NOTES
+  - id: dea:assessment-modernization
+    name: Architecture Modernization Assessment
+    version: 1.0.0
+    lifecycle_status: stable
+    domain: modernization
+    capabilities:
+    - dea:capability-modernization-strategy:1.0.0
+    - dea:capability-migration-pattern-library:1.0.0
+    - dea:capability-wave-planning-and-execution:1.0.0
+    - dea:capability-modernization-metrics:1.0.0
+    - dea:capability-modernization-culture:1.0.0
+    scenarios:
+    - dea:scenario-enterprise-modernization-programme:1.0.0
+    measures:
+    - dea:measure-modernization-strategy-coverage:1.0.0
+    - dea:measure-pattern-library-adoption:1.0.0
+    - dea:measure-wave-velocity-trend:1.0.0
+    - dea:measure-migration-roi-trend:1.0.0
+    - dea:measure-modernization-cop-health:1.0.0
+    scoring_model: dea:scoring-four-point:1.0.0
+    maturity_models:
+    - dea:maturity-modernization:1.0.0
+    legacy_source: assessment-models/migrations/modernization/legacy-instrument.yaml
+    canonical_source: assessment-models/migrations/modernization/canonical-assessment-model.yaml
+    migration_status: CONFORMANT-WITH-NOTES
+  - id: dea:assessment-operations
+    name: Operations Assessment
+    version: 1.0.0
+    lifecycle_status: stable
+    domain: operations
+    capabilities:
+    - dea:capability-incident-response-capability:1.0.0
+    - dea:capability-observability-practice:1.0.0
+    - dea:capability-deployment-automation:1.0.0
+    - dea:capability-reliability-engineering:1.0.0
+    - dea:capability-operational-culture:1.0.0
+    scenarios:
+    - dea:scenario-service-assurance-operations:1.0.0
+    measures:
+    - dea:measure-mttr-sev1:1.0.0
+    - dea:measure-slo-coverage:1.0.0
+    - dea:measure-deployment-frequency:1.0.0
+    - dea:measure-change-failure-rate:1.0.0
+    - dea:measure-on-call-satisfaction-score:1.0.0
+    scoring_model: dea:scoring-four-point:1.0.0
+    maturity_models:
+    - dea:maturity-operations:1.0.0
+    legacy_source: assessment-models/migrations/operations/legacy-instrument.yaml
+    canonical_source: assessment-models/migrations/operations/canonical-assessment-model.yaml
+    migration_status: CONFORMANT-WITH-NOTES
+  - id: dea:assessment-services-delivery
+    name: Services Delivery Assessment
+    version: 1.0.0
+    lifecycle_status: stable
+    domain: services-delivery
+    capabilities:
+    - dea:capability-delivery-predictability:1.0.0
+    - dea:capability-flow-efficiency:1.0.0
+    - dea:capability-quality-management:1.0.0
+    - dea:capability-customer-outcomes:1.0.0
+    - dea:capability-team-health:1.0.0
+    scenarios:
+    - dea:scenario-customer-facing-delivery-programme:1.0.0
+    measures:
+    - dea:measure-release-forecast-accuracy:1.0.0
+    - dea:measure-lead-time-p50:1.0.0
+    - dea:measure-escaped-defect-rate:1.0.0
+    - dea:measure-outcome-to-release-linkage:1.0.0
+    - dea:measure-team-health-index:1.0.0
+    scoring_model: dea:scoring-four-point:1.0.0
+    maturity_models:
+    - dea:maturity-services-delivery:1.0.0
+    legacy_source: assessment-models/migrations/services-delivery/legacy-instrument.yaml
+    canonical_source: assessment-models/migrations/services-delivery/canonical-assessment-model.yaml
+    migration_status: CONFORMANT-WITH-NOTES

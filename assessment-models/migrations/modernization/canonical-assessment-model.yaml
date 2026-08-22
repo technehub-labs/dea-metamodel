@@ -1,0 +1,373 @@
+id: dea:assessment-modernization
+name: Architecture Modernization Assessment
+type: assessment-model
+version: 1.0.0
+metamodel_version: 1.0.0
+status: stable
+description: 'Assess an organisation''s approach to architecture modernisation — legacy migration, strangler-fig adoption, decomposition strategy, execution discipline, and people readiness.
+
+  '
+purpose:
+- capability-assessment
+subject_type: enterprise
+classification:
+  domain: modernization
+capabilities:
+- id: dea:capability-modernization-strategy
+  version: 1.0.0
+- id: dea:capability-migration-pattern-library
+  version: 1.0.0
+- id: dea:capability-wave-planning-and-execution
+  version: 1.0.0
+- id: dea:capability-modernization-metrics
+  version: 1.0.0
+- id: dea:capability-modernization-culture
+  version: 1.0.0
+scenarios:
+- &id001
+  id: dea:scenario-enterprise-modernization-programme
+  version: 1.0.0
+dimensions:
+- id: strategy
+  name: Modernisation Strategy
+  weight: 0.2
+  questions:
+  - id: strategy-q1
+    text: Is there a documented modernisation strategy with executive sponsorship?
+  - id: strategy-q2
+    text: Are modernisation priorities ranked by business value / cost of delay?
+  - id: strategy-q3
+    text: Is there a budget envelope and runway approved for the modernisation programme?
+  - id: strategy-q4
+    text: Are legacy systems inventoried with risk ratings?
+  - id: strategy-q5
+    text: Does the strategy include coexistence and rollback plans for the transition period?
+- id: patterns
+  name: Migration Pattern Library
+  weight: 0.25
+  questions:
+  - id: patterns-q1
+    text: Are standard migration patterns documented (strangler-fig, anti-corruption layer, etc.)?
+  - id: patterns-q2
+    text: Is the strangler-fig pattern used in production migrations?
+  - id: patterns-q3
+    text: Are decomposition patterns (by capability, by data, by transaction) standardised?
+  - id: patterns-q4
+    text: Are anti-corruption layers reused across migrations?
+  - id: patterns-q5
+    text: Is the pattern library version-controlled and reviewed like code?
+- id: execution
+  name: Execution & Wave Planning
+  weight: 0.25
+  questions:
+  - id: execution-q1
+    text: Are modernisation efforts planned in waves with explicit exit criteria?
+  - id: execution-q2
+    text: Is migration velocity measured and improving over time?
+  - id: execution-q3
+    text: Are migration failures captured and learnings applied to subsequent waves?
+  - id: execution-q4
+    text: Is there a rollback plan for every migration wave?
+  - id: execution-q5
+    text: Are wave timelines reviewed and re-baselined when reality diverges?
+- id: metrics
+  name: Metrics & Outcomes
+  weight: 0.15
+  questions:
+  - id: metrics-q1
+    text: Are modernisation outcomes measured against business KPIs?
+  - id: metrics-q2
+    text: Is technical debt quantified and trending downward?
+  - id: metrics-q3
+    text: Is modernisation ROI calculated and reviewed?
+- id: people
+  name: People & Culture
+  weight: 0.15
+  questions:
+  - id: people-q1
+    text: Are teams trained on migration patterns?
+  - id: people-q2
+    text: Is there a community of practice for modernisation?
+  - id: people-q3
+    text: Are legacy system owners engaged as partners, not obstacles?
+measures:
+- id: dea:measure-modernization-strategy-coverage
+  version: 1.0.0
+- id: dea:measure-pattern-library-adoption
+  version: 1.0.0
+- id: dea:measure-wave-velocity-trend
+  version: 1.0.0
+- id: dea:measure-migration-roi-trend
+  version: 1.0.0
+- id: dea:measure-modernization-cop-health
+  version: 1.0.0
+scoring_model:
+  id: dea:scoring-four-point
+  version: 1.0.0
+maturity_models:
+- id: dea:maturity-modernization
+  version: 1.0.0
+evidence_requirements:
+- id: dea:evidence-modernization-core
+  version: 1.0.0
+lineage:
+  assessment_model:
+    id: dea:assessment-modernization
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-modernization-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-modernization-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-modernization-strategy
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - id: dea:measure-modernization-strategy-coverage
+    version: 1.0.0
+  - id: dea:measure-pattern-library-adoption
+    version: 1.0.0
+  - id: dea:measure-wave-velocity-trend
+    version: 1.0.0
+  - id: dea:measure-migration-roi-trend
+    version: 1.0.0
+  - id: dea:measure-modernization-cop-health
+    version: 1.0.0
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-modernization
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+metadata:
+  legacy_total_questions: 21
+  legacy_duration_minutes: 90
+  legacy_facilitator_required: true
+  legacy_owner: Modernisation Lead
+  legacy_status: draft
+  legacy_tags:
+  - modernization
+  - legacy-migration
+  - strangler-fig
+  - decomposition
+  - assessment
+  legacy_relationships:
+  - source_id: dea:assessment-modernization
+    target_id: dea:maturity-modernization
+    relationship_type: produces-score-for
+    description: Assessment scores map to modernization maturity levels
+  - source_id: dea:assessment-modernization
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-modernization
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-modernization
+    target_id: dea:pattern-strangler-fig
+    relationship_type: assesses-adoption-of
+    description: Pattern library dimension assesses strangler-fig adoption
+  legacy_dimensions:
+  - id: strategy
+    name: Modernisation Strategy
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Is there a documented modernisation strategy with executive sponsorship?
+      evidence:
+      - strategy document exists
+      - signed by CEO/CTO
+      - reviewed in last 12 months
+      - linked to business outcomes
+    - id: q2
+      text: Are modernisation priorities ranked by business value / cost of delay?
+      evidence:
+      - backlog with cost-of-delay
+      - weighted scoring model
+      - priorities updated quarterly
+    - id: q3
+      text: Is there a budget envelope and runway approved for the modernisation programme?
+      evidence:
+      - budget approved
+      - multi-year runway
+      - reviewed quarterly vs. spend
+    - id: q4
+      text: Are legacy systems inventoried with risk ratings?
+      evidence:
+      - central inventory
+      - risk score per system
+      - refresh dates tracked
+    - id: q5
+      text: Does the strategy include coexistence and rollback plans for the transition period?
+      evidence:
+      - coexistence documented
+      - rollback tested
+      - dual-running period planned
+  - id: patterns
+    name: Migration Pattern Library
+    weight: 0.25
+    questions:
+    - id: q1
+      text: Are standard migration patterns documented (strangler-fig, anti-corruption layer, etc.)?
+      evidence:
+      - pattern library exists
+      - forces and consequences documented
+      - shared with engineering teams
+    - id: q2
+      text: Is the strangler-fig pattern used in production migrations?
+      evidence:
+      - at least one production migration using it
+      - proxy/router layer shared
+      - incremental cutover demonstrated
+    - id: q3
+      text: Are decomposition patterns (by capability, by data, by transaction) standardised?
+      evidence:
+      - decomposition playbook
+      - ≥3 patterns documented
+      - reviewed in architecture review
+    - id: q4
+      text: Are anti-corruption layers reused across migrations?
+      evidence:
+      - shared ACL library
+      - reuse rate > 50%
+      - pattern evaluated in design phase
+    - id: q5
+      text: Is the pattern library version-controlled and reviewed like code?
+      evidence:
+      - in git
+      - CODEOWNERS assigned
+      - PR review required
+  - id: execution
+    name: Execution & Wave Planning
+    weight: 0.25
+    questions:
+    - id: q1
+      text: Are modernisation efforts planned in waves with explicit exit criteria?
+      evidence:
+      - wave plan published
+      - exit criteria per wave
+      - wave retrospectives held
+    - id: q2
+      text: Is migration velocity measured and improving over time?
+      evidence:
+      - velocity metrics tracked
+      - trend reviewed monthly
+      - targets set per quarter
+    - id: q3
+      text: Are migration failures captured and learnings applied to subsequent waves?
+      evidence:
+      - post-mortems per wave
+      - action register
+      - lessons in pattern library
+    - id: q4
+      text: Is there a rollback plan for every migration wave?
+      evidence:
+      - rollback tested
+      - rollback time measured
+      - rollback ownership assigned
+    - id: q5
+      text: Are wave timelines reviewed and re-baselined when reality diverges?
+      evidence:
+      - monthly variance reviews
+      - re-baselined quarterly
+      - variance reasons documented
+  - id: metrics
+    name: Metrics & Outcomes
+    weight: 0.15
+    questions:
+    - id: q1
+      text: Are modernisation outcomes measured against business KPIs?
+      evidence:
+      - KPI dashboard per migration
+      - pre/post comparison
+      - business stakeholder sign-off
+    - id: q2
+      text: Is technical debt quantified and trending downward?
+      evidence:
+      - debt quantified in $ or effort
+      - trend tracked
+      - remediation roadmap
+    - id: q3
+      text: Is modernisation ROI calculated and reviewed?
+      evidence:
+      - ROI per migration
+      - cumulative ROI reported
+      - ROI > 2x target
+  - id: people
+    name: People & Culture
+    weight: 0.15
+    questions:
+    - id: q1
+      text: Are teams trained on migration patterns?
+      evidence:
+      - training sessions held
+      - onboarding includes patterns
+      - pattern champions identified
+    - id: q2
+      text: Is there a community of practice for modernisation?
+      evidence:
+      - monthly CoP meeting
+      - sharing session
+      - cross-team participation
+    - id: q3
+      text: Are legacy system owners engaged as partners, not obstacles?
+      evidence:
+      - joint planning sessions
+      - shared success criteria
+      - legacy team in retrospectives
+  capability_names:
+  - name: Modernization Strategy
+    domain: Modernization
+  - name: Migration Pattern Library
+    domain: Modernization
+  - name: Wave Planning and Execution
+    domain: Modernization
+  - name: Modernization Metrics
+    domain: Modernization
+  - name: Modernization Culture
+    domain: Modernization
+  scenario_names:
+  - name: Enterprise Modernization Programme
+    version: 1.0.0
+  measure_specs:
+  - name: Modernization Strategy Coverage
+    description: ratio of modernisation backlog items with explicit strategy mapping to total backlog items
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Pattern Library Adoption
+    description: ratio of in-flight migrations using the canonical pattern library to total in-flight migrations
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Wave Velocity Trend
+    description: rolling 90-day trend in waves completed per quarter (count)
+    unit: count
+    range:
+    - -10
+    - 10
+  - name: Migration ROI Trend
+    description: rolling 90-day trend in migration ROI (multiplier)
+    unit: multiplier
+    range:
+    - 0
+    - 5
+  - name: Modernization CoP Health
+    description: ratio of team members attending monthly modernization CoP to total team members
+    unit: percent
+    range:
+    - 0
+    - 100
+  migration_notes: Generated from the vendored legacy instrument by the CR-AM-03 migration contract; question text, evidence, dimension names, weights, tags, and relationships are preserved in metadata. No scoring or maturity redesign is performed.

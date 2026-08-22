@@ -1,0 +1,167 @@
+id: dea:result:2026:000200
+assessment_model:
+  id: dea:assessment-modernization
+  version: 1.0.0
+assessment_instrument:
+  id: dea:instrument-modernization-workshop
+  version: 1.0.0
+assessment_execution:
+  id: dea:execution-modernization-001
+  version: 1.0.0
+subject:
+  id: enterprise-mod-001
+  type: enterprise
+  name: Enterprise Modernization Cohort
+scenario: &id001
+  id: dea:scenario-enterprise-modernization-programme
+  version: 1.0.0
+assessment_period:
+  start: '2026-06-15T00:00:00Z'
+  end: '2026-06-30T23:59:59Z'
+status: validated
+confidence: high
+raw_score: 64
+raw_score_band: Systematic
+source_responses:
+- question_id: strategy-q1
+  value: 2
+- question_id: strategy-q2
+  value: 2
+- question_id: strategy-q3
+  value: 1
+- question_id: strategy-q4
+  value: 2
+- question_id: strategy-q5
+  value: 2
+- question_id: patterns-q1
+  value: 2
+- question_id: patterns-q2
+  value: 2
+- question_id: patterns-q3
+  value: 1
+- question_id: patterns-q4
+  value: 2
+- question_id: patterns-q5
+  value: 2
+- question_id: execution-q1
+  value: 2
+- question_id: execution-q2
+  value: 2
+- question_id: execution-q3
+  value: 1
+- question_id: execution-q4
+  value: 2
+- question_id: execution-q5
+  value: 2
+- question_id: metrics-q1
+  value: 2
+- question_id: metrics-q2
+  value: 2
+- question_id: metrics-q3
+  value: 1
+- question_id: people-q1
+  value: 2
+- question_id: people-q2
+  value: 2
+- question_id: people-q3
+  value: 1
+observations:
+- id: dea:result:2026:000200-obs-1
+  measure: &id002
+    id: dea:measure-modernization-strategy-coverage
+    version: 1.0.0
+  value: 65
+- id: dea:result:2026:000200-obs-2
+  measure: &id003
+    id: dea:measure-pattern-library-adoption
+    version: 1.0.0
+  value: 70
+- id: dea:result:2026:000200-obs-3
+  measure: &id004
+    id: dea:measure-wave-velocity-trend
+    version: 1.0.0
+  value: 75
+- id: dea:result:2026:000200-obs-4
+  measure: &id005
+    id: dea:measure-migration-roi-trend
+    version: 1.0.0
+  value: 80
+- id: dea:result:2026:000200-obs-5
+  measure: &id006
+    id: dea:measure-modernization-cop-health
+    version: 1.0.0
+  value: 85
+scores:
+- dimension: strategy
+  value: 1.8
+  normalized_value: 60.0
+  scale: 0-3
+- dimension: patterns
+  value: 1.8
+  normalized_value: 60.0
+  scale: 0-3
+- dimension: execution
+  value: 1.8
+  normalized_value: 60.0
+  scale: 0-3
+- dimension: metrics
+  value: 1.7
+  normalized_value: 55.6
+  scale: 0-3
+- dimension: people
+  value: 1.7
+  normalized_value: 55.6
+  scale: 0-3
+maturity:
+- model:
+    id: dea:maturity-modernization
+    version: 1.0.0
+  level: 3
+findings:
+- id: dea:result:2026:000200-finding-1
+  type: recommendation
+  severity: medium
+  description: Apply the canonical pattern library; improve Modernization Strategy Coverage.
+lineage:
+  assessment_model:
+    id: dea:assessment-modernization
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-modernization-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-modernization-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-modernization-strategy
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-modernization
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+benchmark_eligibility:
+  status: eligible
+  requirements:
+    assessment_model: dea:assessment-modernization@1.0.0
+    capability: dea:capability-modernization-strategy
+    scenario: dea:scenario-enterprise-modernization-programme
+    scoring_model: dea:scoring-four-point@1.0.0
+    evidence: dea:evidence-modernization-core@1.0.0
+    population: not-applicable-to-example
+    measurement_period: 2026-06-15/2026-06-30

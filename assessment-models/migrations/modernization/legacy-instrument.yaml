@@ -1,0 +1,215 @@
+id:                  dea:assessment-modernization
+name:                Architecture Modernization Assessment
+domain:              modernization
+version:             "1.0.0-alpha"
+metamodel_version:   "^0.1.0"
+status:              draft
+description: >
+  Assess an organisation's approach to architecture modernisation — legacy
+  migration, strangler-fig adoption, decomposition strategy, execution
+  discipline, and people readiness.
+owner:               Modernisation Lead
+
+maturity_target:     dea:maturity-modernization
+total_questions:     21
+duration_minutes:    90
+facilitator_required: true
+
+dimensions:
+  - id: strategy
+    name: Modernisation Strategy
+    weight: 0.20
+    questions:
+      - id: q1
+        text: Is there a documented modernisation strategy with executive sponsorship?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - strategy document exists
+          - signed by CEO/CTO
+          - reviewed in last 12 months
+          - linked to business outcomes
+      - id: q2
+        text: Are modernisation priorities ranked by business value / cost of delay?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - backlog with cost-of-delay
+          - weighted scoring model
+          - priorities updated quarterly
+      - id: q3
+        text: Is there a budget envelope and runway approved for the modernisation programme?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - budget approved
+          - multi-year runway
+          - reviewed quarterly vs. spend
+      - id: q4
+        text: Are legacy systems inventoried with risk ratings?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - central inventory
+          - risk score per system
+          - refresh dates tracked
+      - id: q5
+        text: Does the strategy include coexistence and rollback plans for the transition period?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - coexistence documented
+          - rollback tested
+          - dual-running period planned
+
+  - id: patterns
+    name: Migration Pattern Library
+    weight: 0.25
+    questions:
+      - id: q1
+        text: Are standard migration patterns documented (strangler-fig, anti-corruption layer, etc.)?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - pattern library exists
+          - forces and consequences documented
+          - shared with engineering teams
+      - id: q2
+        text: Is the strangler-fig pattern used in production migrations?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - at least one production migration using it
+          - proxy/router layer shared
+          - incremental cutover demonstrated
+      - id: q3
+        text: Are decomposition patterns (by capability, by data, by transaction) standardised?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - decomposition playbook
+          - ≥3 patterns documented
+          - reviewed in architecture review
+      - id: q4
+        text: Are anti-corruption layers reused across migrations?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - shared ACL library
+          - reuse rate > 50%
+          - pattern evaluated in design phase
+      - id: q5
+        text: Is the pattern library version-controlled and reviewed like code?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - in git
+          - CODEOWNERS assigned
+          - PR review required
+
+  - id: execution
+    name: Execution & Wave Planning
+    weight: 0.25
+    questions:
+      - id: q1
+        text: Are modernisation efforts planned in waves with explicit exit criteria?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - wave plan published
+          - exit criteria per wave
+          - wave retrospectives held
+      - id: q2
+        text: Is migration velocity measured and improving over time?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - velocity metrics tracked
+          - trend reviewed monthly
+          - targets set per quarter
+      - id: q3
+        text: Are migration failures captured and learnings applied to subsequent waves?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - post-mortems per wave
+          - action register
+          - lessons in pattern library
+      - id: q4
+        text: Is there a rollback plan for every migration wave?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - rollback tested
+          - rollback time measured
+          - rollback ownership assigned
+      - id: q5
+        text: Are wave timelines reviewed and re-baselined when reality diverges?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - monthly variance reviews
+          - re-baselined quarterly
+          - variance reasons documented
+
+  - id: metrics
+    name: Metrics & Outcomes
+    weight: 0.15
+    questions:
+      - id: q1
+        text: Are modernisation outcomes measured against business KPIs?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - KPI dashboard per migration
+          - pre/post comparison
+          - business stakeholder sign-off
+      - id: q2
+        text: Is technical debt quantified and trending downward?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - debt quantified in $ or effort
+          - trend tracked
+          - remediation roadmap
+      - id: q3
+        text: Is modernisation ROI calculated and reviewed?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - ROI per migration
+          - cumulative ROI reported
+          - ROI > 2x target
+
+  - id: people
+    name: People & Culture
+    weight: 0.15
+    questions:
+      - id: q1
+        text: Are teams trained on migration patterns?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - training sessions held
+          - onboarding includes patterns
+          - pattern champions identified
+      - id: q2
+        text: Is there a community of practice for modernisation?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - monthly CoP meeting
+          - sharing session
+          - cross-team participation
+      - id: q3
+        text: Are legacy system owners engaged as partners, not obstacles?
+        scoring: [0, 1, 2, 3]
+        evidence:
+          - joint planning sessions
+          - shared success criteria
+          - legacy team in retrospectives
+
+relationships:
+  - source_id: dea:assessment-modernization
+    target_id: dea:maturity-modernization
+    relationship_type: produces-score-for
+    description: Assessment scores map to modernization maturity levels
+  - source_id: dea:assessment-modernization
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-modernization
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-modernization
+    target_id: dea:pattern-strangler-fig
+    relationship_type: assesses-adoption-of
+    description: Pattern library dimension assesses strangler-fig adoption
+
+tags:
+  - modernization
+  - legacy-migration
+  - strangler-fig
+  - decomposition
+  - assessment

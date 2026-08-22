@@ -1,0 +1,301 @@
+catalogue:
+  id: dea:catalogue-assessment-references
+  name: OpenDEA Assessment Reference Catalogue
+  version: 1.0.0
+  status: stable
+  description: Versioned Capability, Scenario, Measure, Evidence, ScoringModel, and MaturityModel references used by the CR-AM-03 assessment portfolio. The catalogue is the resolution authority for canonical references; it does not redefine assessment scoring or maturity semantics.
+  references:
+  - kind: capability
+    id: dea:capability-technology-architecture
+    version: 1.0.0
+    domain: technology
+  - kind: capability
+    id: dea:capability-technology-lifecycle
+    version: 1.0.0
+    domain: technology
+  - kind: capability
+    id: dea:capability-skills-and-coverage
+    version: 1.0.0
+    domain: technology
+  - kind: capability
+    id: dea:capability-technical-debt-management
+    version: 1.0.0
+    domain: technology
+  - kind: scenario
+    id: dea:scenario-enterprise-technology-health
+    version: 1.0.0
+    domain: technology
+  - kind: measure
+    id: dea:measure-architecture-standardization
+    version: 1.0.0
+    domain: technology
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of services with documented architecture to total services
+  - kind: measure
+    id: dea:measure-lifecycle-compliance
+    version: 1.0.0
+    domain: technology
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of components with current lifecycle to total components
+  - kind: measure
+    id: dea:measure-skill-coverage
+    version: 1.0.0
+    domain: technology
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of critical skills with redundant coverage to total critical skills
+  - kind: measure
+    id: dea:measure-technical-debt-trend
+    version: 1.0.0
+    domain: technology
+    unit: count
+    range:
+    - -50
+    - 50
+    description: rolling 90-day trend in technical debt backlog size (count)
+  - kind: evidence
+    id: dea:evidence-technology-core
+    version: 1.0.0
+    domain: technology
+  - kind: capability
+    id: dea:capability-modernization-strategy
+    version: 1.0.0
+    domain: modernization
+  - kind: capability
+    id: dea:capability-migration-pattern-library
+    version: 1.0.0
+    domain: modernization
+  - kind: capability
+    id: dea:capability-wave-planning-and-execution
+    version: 1.0.0
+    domain: modernization
+  - kind: capability
+    id: dea:capability-modernization-metrics
+    version: 1.0.0
+    domain: modernization
+  - kind: capability
+    id: dea:capability-modernization-culture
+    version: 1.0.0
+    domain: modernization
+  - kind: scenario
+    id: dea:scenario-enterprise-modernization-programme
+    version: 1.0.0
+    domain: modernization
+  - kind: measure
+    id: dea:measure-modernization-strategy-coverage
+    version: 1.0.0
+    domain: modernization
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of modernisation backlog items with explicit strategy mapping to total backlog items
+  - kind: measure
+    id: dea:measure-pattern-library-adoption
+    version: 1.0.0
+    domain: modernization
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of in-flight migrations using the canonical pattern library to total in-flight migrations
+  - kind: measure
+    id: dea:measure-wave-velocity-trend
+    version: 1.0.0
+    domain: modernization
+    unit: count
+    range:
+    - -10
+    - 10
+    description: rolling 90-day trend in waves completed per quarter (count)
+  - kind: measure
+    id: dea:measure-migration-roi-trend
+    version: 1.0.0
+    domain: modernization
+    unit: multiplier
+    range:
+    - 0
+    - 5
+    description: rolling 90-day trend in migration ROI (multiplier)
+  - kind: measure
+    id: dea:measure-modernization-cop-health
+    version: 1.0.0
+    domain: modernization
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of team members attending monthly modernization CoP to total team members
+  - kind: evidence
+    id: dea:evidence-modernization-core
+    version: 1.0.0
+    domain: modernization
+  - kind: capability
+    id: dea:capability-incident-response-capability
+    version: 1.0.0
+    domain: operations
+  - kind: capability
+    id: dea:capability-observability-practice
+    version: 1.0.0
+    domain: operations
+  - kind: capability
+    id: dea:capability-deployment-automation
+    version: 1.0.0
+    domain: operations
+  - kind: capability
+    id: dea:capability-reliability-engineering
+    version: 1.0.0
+    domain: operations
+  - kind: capability
+    id: dea:capability-operational-culture
+    version: 1.0.0
+    domain: operations
+  - kind: scenario
+    id: dea:scenario-service-assurance-operations
+    version: 1.0.0
+    domain: operations
+  - kind: measure
+    id: dea:measure-mttr-sev1
+    version: 1.0.0
+    domain: operations
+    unit: minutes
+    range:
+    - 0
+    - 240
+    description: rolling 30-day median time to resolve a sev-1 incident (minutes)
+  - kind: measure
+    id: dea:measure-slo-coverage
+    version: 1.0.0
+    domain: operations
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of customer-facing services with declared SLOs to total customer-facing services
+  - kind: measure
+    id: dea:measure-deployment-frequency
+    version: 1.0.0
+    domain: operations
+    unit: count
+    range:
+    - 0
+    - 200
+    description: deployments per business day (count)
+  - kind: measure
+    id: dea:measure-change-failure-rate
+    version: 1.0.0
+    domain: operations
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of releases that cause a sev-1 or sev-2 incident to total releases (percent)
+  - kind: measure
+    id: dea:measure-on-call-satisfaction-score
+    version: 1.0.0
+    domain: operations
+    unit: score
+    range:
+    - 1
+    - 10
+    description: rolling-quarter on-call survey score (1-10)
+  - kind: evidence
+    id: dea:evidence-operations-core
+    version: 1.0.0
+    domain: operations
+  - kind: capability
+    id: dea:capability-delivery-predictability
+    version: 1.0.0
+    domain: services-delivery
+  - kind: capability
+    id: dea:capability-flow-efficiency
+    version: 1.0.0
+    domain: services-delivery
+  - kind: capability
+    id: dea:capability-quality-management
+    version: 1.0.0
+    domain: services-delivery
+  - kind: capability
+    id: dea:capability-customer-outcomes
+    version: 1.0.0
+    domain: services-delivery
+  - kind: capability
+    id: dea:capability-team-health
+    version: 1.0.0
+    domain: services-delivery
+  - kind: scenario
+    id: dea:scenario-customer-facing-delivery-programme
+    version: 1.0.0
+    domain: services-delivery
+  - kind: measure
+    id: dea:measure-release-forecast-accuracy
+    version: 1.0.0
+    domain: services-delivery
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of releases forecast within ±10% to total releases (percent)
+  - kind: measure
+    id: dea:measure-lead-time-p50
+    version: 1.0.0
+    domain: services-delivery
+    unit: hours
+    range:
+    - 0
+    - 168
+    description: rolling 30-day median commit-to-deploy (hours)
+  - kind: measure
+    id: dea:measure-escaped-defect-rate
+    version: 1.0.0
+    domain: services-delivery
+    unit: rate
+    range:
+    - 0
+    - 100
+    description: ratio of escaped defects to deployments (per 100 deployments)
+  - kind: measure
+    id: dea:measure-outcome-to-release-linkage
+    version: 1.0.0
+    domain: services-delivery
+    unit: percent
+    range:
+    - 0
+    - 100
+    description: ratio of releases with declared customer outcome linkage to total releases (percent)
+  - kind: measure
+    id: dea:measure-team-health-index
+    version: 1.0.0
+    domain: services-delivery
+    unit: score
+    range:
+    - 0
+    - 100
+    description: rolling-quarter composite team health (0-100)
+  - kind: evidence
+    id: dea:evidence-services-delivery-core
+    version: 1.0.0
+    domain: services-delivery
+  - kind: scoring-model
+    id: dea:scoring-four-point
+    version: 1.0.0
+  - kind: maturity-model
+    id: dea:maturity-technology
+    version: 1.0.0
+  - kind: maturity-model
+    id: dea:maturity-modernization
+    version: 1.0.0
+  - kind: maturity-model
+    id: dea:maturity-operations
+    version: 1.0.0
+  - kind: maturity-model
+    id: dea:maturity-services-delivery
+    version: 1.0.0

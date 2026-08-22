@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/measure.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/measure.schema.json",
   "title": "OpenDEA Measure",
   "description": "An observable characteristic with a unit and a measurement rule. Measures are decoupled from scoring — the same measure can be scored by different ScoringModels.",
   "type": "object",

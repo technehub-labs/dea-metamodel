@@ -1,0 +1,365 @@
+id: dea:assessment-operations
+name: Operations Assessment
+type: assessment-model
+version: 1.0.0
+metamodel_version: 1.0.0
+status: stable
+description: 'Assess operations practice maturity — incident response, observability, deployment automation, SLOs, SRE practices, and operational culture.
+
+  '
+purpose:
+- capability-assessment
+subject_type: enterprise
+classification:
+  domain: operations
+capabilities:
+- id: dea:capability-incident-response-capability
+  version: 1.0.0
+- id: dea:capability-observability-practice
+  version: 1.0.0
+- id: dea:capability-deployment-automation
+  version: 1.0.0
+- id: dea:capability-reliability-engineering
+  version: 1.0.0
+- id: dea:capability-operational-culture
+  version: 1.0.0
+scenarios:
+- &id001
+  id: dea:scenario-service-assurance-operations
+  version: 1.0.0
+dimensions:
+- id: incident-response
+  name: Incident Response
+  weight: 0.25
+  questions:
+  - id: incident-response-q1
+    text: Is there a documented incident response process with on-call rotation?
+  - id: incident-response-q2
+    text: Are sev-1 incidents resolved in < 30 minutes (MTTR)?
+  - id: incident-response-q3
+    text: Are post-mortems written within 7 days for sev-1 and sev-2 incidents?
+  - id: incident-response-q4
+    text: Is the on-call experience measured and acted upon (satisfaction, paging volume)?
+- id: observability
+  name: Observability
+  weight: 0.2
+  questions:
+  - id: observability-q1
+    text: Are logs, metrics, and traces centralised and queryable?
+  - id: observability-q2
+    text: Are SLOs defined for all customer-facing services?
+  - id: observability-q3
+    text: Is there a unified tracing system across services?
+  - id: observability-q4
+    text: Are dashboards built per service with golden signals?
+- id: deployment
+  name: Deployment & Release Engineering
+  weight: 0.2
+  questions:
+  - id: deployment-q1
+    text: Is deployment automation > 90% of services?
+  - id: deployment-q2
+    text: Is deployment frequency > 10 per day (organisational or per team)?
+  - id: deployment-q3
+    text: Are feature flags / progressive rollouts used for risk mitigation?
+  - id: deployment-q4
+    text: Is change failure rate < 15%?
+  - id: deployment-q5
+    text: Are rollbacks automated and tested regularly?
+- id: reliability
+  name: Reliability Engineering
+  weight: 0.2
+  questions:
+  - id: reliability-q1
+    text: Is chaos engineering practiced regularly (game days, fault injection)?
+  - id: reliability-q2
+    text: Are SLOs used to make release decisions (error budgets enforced)?
+  - id: reliability-q3
+    text: Are reliability requirements part of design (capacity, redundancy, recovery)?
+  - id: reliability-q4
+    text: Is auto-remediation in place for known failure modes?
+- id: culture
+  name: Operational Culture
+  weight: 0.15
+  questions:
+  - id: culture-q1
+    text: Is there shared on-call between dev and ops?
+  - id: culture-q2
+    text: Is blameless post-mortem culture enforced?
+  - id: culture-q3
+    text: Are SLOs owned by service teams, not just ops?
+measures:
+- id: dea:measure-mttr-sev1
+  version: 1.0.0
+- id: dea:measure-slo-coverage
+  version: 1.0.0
+- id: dea:measure-deployment-frequency
+  version: 1.0.0
+- id: dea:measure-change-failure-rate
+  version: 1.0.0
+- id: dea:measure-on-call-satisfaction-score
+  version: 1.0.0
+scoring_model:
+  id: dea:scoring-four-point
+  version: 1.0.0
+maturity_models:
+- id: dea:maturity-operations
+  version: 1.0.0
+evidence_requirements:
+- id: dea:evidence-operations-core
+  version: 1.0.0
+lineage:
+  assessment_model:
+    id: dea:assessment-operations
+    version: 1.0.0
+  assessment_instrument:
+    id: dea:instrument-operations-workshop
+    version: 1.0.0
+  assessment_execution:
+    id: dea:execution-operations-001
+    version: 1.0.0
+  capability:
+    id: dea:capability-incident-response-capability
+    version: 1.0.0
+  scenario: *id001
+  measures:
+  - id: dea:measure-mttr-sev1
+    version: 1.0.0
+  - id: dea:measure-slo-coverage
+    version: 1.0.0
+  - id: dea:measure-deployment-frequency
+    version: 1.0.0
+  - id: dea:measure-change-failure-rate
+    version: 1.0.0
+  - id: dea:measure-on-call-satisfaction-score
+    version: 1.0.0
+  scoring_model:
+    id: dea:scoring-four-point
+    version: 1.0.0
+  maturity_model:
+    id: dea:maturity-operations
+    version: 1.0.0
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: incompatible
+metadata:
+  legacy_total_questions: 20
+  legacy_duration_minutes: 80
+  legacy_facilitator_required: true
+  legacy_owner: Head of Operations / SRE Lead
+  legacy_status: draft
+  legacy_tags:
+  - operations
+  - sre
+  - incident-response
+  - observability
+  - slo
+  - assessment
+  legacy_relationships:
+  - source_id: dea:assessment-operations
+    target_id: dea:maturity-operations
+    relationship_type: produces-score-for
+    description: Assessment scores map to operations maturity levels
+  - source_id: dea:assessment-operations
+    target_id: dea:catalog-assessment-tools
+    relationship_type: instance-of
+    description: One of four domain assessments in the umbrella catalog
+  - source_id: dea:assessment-operations
+    target_id: dea:reference-dera
+    relationship_type: used-by
+    description: DERA Phase 4 governance activation uses this assessment as a health metric
+  - source_id: dea:assessment-operations
+    target_id: dea:pattern-circuit-breaker
+    relationship_type: assesses-adoption-of
+    description: Reliability dimension assesses circuit breaker adoption
+  legacy_dimensions:
+  - id: incident-response
+    name: Incident Response
+    weight: 0.25
+    questions:
+    - id: q1
+      text: Is there a documented incident response process with on-call rotation?
+      evidence:
+      - runbook published
+      - on-call rotation active
+      - incident commander role defined
+    - id: q2
+      text: Are sev-1 incidents resolved in < 30 minutes (MTTR)?
+      evidence:
+      - MTTR tracked
+      - trend reported
+      - target met
+    - id: q3
+      text: Are post-mortems written within 7 days for sev-1 and sev-2 incidents?
+      evidence:
+      - post-mortem template
+      - action register
+      - blameless culture
+    - id: q4
+      text: Is the on-call experience measured and acted upon (satisfaction, paging volume)?
+      evidence:
+      - on-call survey
+      - paging volume tracked
+      - improvements shipped
+  - id: observability
+    name: Observability
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Are logs, metrics, and traces centralised and queryable?
+      evidence:
+      - centralised stack
+      - retention policy
+      - query language standard
+    - id: q2
+      text: Are SLOs defined for all customer-facing services?
+      evidence:
+      - SLO doc per service
+      - error budget tracked
+      - ownership assigned
+    - id: q3
+      text: Is there a unified tracing system across services?
+      evidence:
+      - tracing deployed
+      - more than 80% services instrumented
+      - trace sampling defined
+    - id: q4
+      text: Are dashboards built per service with golden signals?
+      evidence:
+      - dashboard template
+      - per-service coverage
+      - linked to SLOs
+  - id: deployment
+    name: Deployment & Release Engineering
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Is deployment automation > 90% of services?
+      evidence:
+      - deployment inventory
+      - automation % tracked
+      - manual exceptions documented
+    - id: q2
+      text: Is deployment frequency > 10 per day (organisational or per team)?
+      evidence:
+      - frequency metric
+      - target met
+      - DORA report shared
+    - id: q3
+      text: Are feature flags / progressive rollouts used for risk mitigation?
+      evidence:
+      - flag system deployed
+      - rollout policy
+      - kill switch tested
+    - id: q4
+      text: Is change failure rate < 15%?
+      evidence:
+      - CFR tracked
+      - trend reported
+      - target met
+    - id: q5
+      text: Are rollbacks automated and tested regularly?
+      evidence:
+      - automated rollback
+      - rollback tested in chaos game days
+      - rollback time measured
+  - id: reliability
+    name: Reliability Engineering
+    weight: 0.2
+    questions:
+    - id: q1
+      text: Is chaos engineering practiced regularly (game days, fault injection)?
+      evidence:
+      - game day cadence
+      - fault injection in CI
+      - learnings captured
+    - id: q2
+      text: Are SLOs used to make release decisions (error budgets enforced)?
+      evidence:
+      - error budget policy
+      - release freeze triggers
+      - ownership clear
+    - id: q3
+      text: Are reliability requirements part of design (capacity, redundancy, recovery)?
+      evidence:
+      - NFR template
+      - reviewed in design
+      - load tested
+    - id: q4
+      text: Is auto-remediation in place for known failure modes?
+      evidence:
+      - auto-remediation library
+      - coverage metric
+      - reviewed quarterly
+  - id: culture
+    name: Operational Culture
+    weight: 0.15
+    questions:
+    - id: q1
+      text: Is there shared on-call between dev and ops?
+      evidence:
+      - shared rotation
+      - handoff documented
+      - shared incident tools
+    - id: q2
+      text: Is blameless post-mortem culture enforced?
+      evidence:
+      - charter published
+      - retrospective training
+      - no-blame policy in runbook
+    - id: q3
+      text: Are SLOs owned by service teams, not just ops?
+      evidence:
+      - ownership matrix
+      - SLO review cadence
+      - service teams accountable
+  capability_names:
+  - name: Incident Response Capability
+    domain: Operations
+  - name: Observability Practice
+    domain: Operations
+  - name: Deployment Automation
+    domain: Operations
+  - name: Reliability Engineering
+    domain: Operations
+  - name: Operational Culture
+    domain: Operations
+  scenario_names:
+  - name: Service Assurance Operations
+    version: 1.0.0
+  measure_specs:
+  - name: MTTR Sev1
+    description: rolling 30-day median time to resolve a sev-1 incident (minutes)
+    unit: minutes
+    range:
+    - 0
+    - 240
+  - name: SLO Coverage
+    description: ratio of customer-facing services with declared SLOs to total customer-facing services
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: Deployment Frequency
+    description: deployments per business day (count)
+    unit: count
+    range:
+    - 0
+    - 200
+  - name: Change Failure Rate
+    description: ratio of releases that cause a sev-1 or sev-2 incident to total releases (percent)
+    unit: percent
+    range:
+    - 0
+    - 100
+  - name: On-call Satisfaction Score
+    description: rolling-quarter on-call survey score (1-10)
+    unit: score
+    range:
+    - 1
+    - 10
+  migration_notes: Generated from the vendored legacy instrument by the CR-AM-03 migration contract; question text, evidence, dimension names, weights, tags, and relationships are preserved in metadata. No scoring or maturity redesign is performed.

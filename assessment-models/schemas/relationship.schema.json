@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/relationship.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/relationship.schema.json",
   "title": "OpenDEA Relationship Edge",
   "description": "A controlled-vocabulary edge between two model references. The full vocabulary is defined in vocabulary/relationship-types.yaml.",
   "type": "object",

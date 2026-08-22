@@ -13,6 +13,9 @@ assessment_model:
 assessment_instrument:
   id: dea:instrument-zero-touch-workshop
   version: "1.0.0"
+assessment_execution:
+  id: dea:execution-zero-touch-operations-001
+  version: "1.0.0"
 
 subject:
   id: enterprise-001
@@ -51,6 +54,9 @@ lineage:
       version: "1.0.0"
     - id: dea:measure-closed-loop-rate
       version: "1.0.0"
+  scoring_model:
+    id: dea:scoring-four-point
+    version: "1.0.0"
   maturity_model:
     id: dea:maturity-operations
     version: "1.0.0"

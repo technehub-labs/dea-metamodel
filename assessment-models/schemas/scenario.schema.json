@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/scenario.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/scenario.schema.json",
   "title": "OpenDEA Scenario",
   "description": "The contextual conditions under which a capability is evaluated. Scenarios are the missing ingredient for defensible cross-organisation benchmarking.",
   "type": "object",

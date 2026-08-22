@@ -1,0 +1,26 @@
+id: dea:execution-operations-001
+instrument:
+  id: dea:instrument-operations-workshop
+  version: 1.0.0
+assessment_model:
+  id: dea:assessment-operations
+  version: 1.0.0
+subject:
+  id: enterprise-ope-001
+  type: enterprise
+  name: Enterprise Operations Cohort
+scenario:
+  id: dea:scenario-service-assurance-operations
+  version: 1.0.0
+started_at: '2026-08-01T09:00:00Z'
+completed_at: '2026-08-15T17:00:00Z'
+status: completed
+assessor:
+  id: assessor-operations-001
+  type: human
+  name: Operations Assessor Team
+evidence:
+- id: dea:evidence-operations-core
+  version: 1.0.0
+result:
+  id: dea:result:2026:000300

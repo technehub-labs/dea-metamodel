@@ -2,15 +2,15 @@
 
 The OpenDEA Assessment Metamodel uses **Semantic Versioning** (`MAJOR.MINOR.PATCH`) **plus explicit compatibility metadata**.
 
-SemVer alone is insufficient. Adding a question can technically be a MINOR change while materially changing the statistical interpretation of the resulting score (CR-AM-01 §11 / §26). Therefore every released model version declares its compatibility properties explicitly via `compatibility: { backward_compatible, scoring_compatible, maturity_compatible, benchmark_compatible, result_compatible }` (see `schemas/compatibility.schema.json`).
+SemVer alone is insufficient. Adding a question can technically be a MINOR change while materially changing the statistical interpretation of the resulting score (CR-AM-01 §11 / §26). Therefore every released model version declares its compatibility axes explicitly via `compatibility: { schema, semantic, scoring, maturity, result, benchmark }` (see `schemas/compatibility.schema.json` and `schemas/common.schema.json#/$defs/compatibility`).
 
 ## When to bump
 
 | Bump | Use when | Score interpretation impact |
 |------|---------|-----------------------------|
 | **PATCH** | Typo, grammar, non-semantic clarification, additional explanatory evidence, metadata correction | **No** score interpretation may change |
-| **MINOR** | Additional optional evidence, additional optional measure, new optional assessment question, new optional dimension, additive capability mapping | Existing result interpretation must remain valid; `backward_compatible: true` |
-| **MAJOR** | Scoring changes, weighting changes, question meaning changes, dimension meaning changes, mandatory evidence changes, maturity interpretation changes, comparability changes, normalisation changes | A MAJOR version must never silently reinterpret historical results. The new version declares `backward_compatible: false` and historical results keep their original version reference. |
+| **MINOR** | Additional optional evidence, additional optional measure, new optional assessment question, new optional dimension, additive capability mapping | Existing result interpretation must remain valid; `schema: compatible`, `semantic: compatible`, and the relevant axes must be explicit. |
+| **MAJOR** | Scoring changes, weighting changes, question meaning changes, dimension meaning changes, mandatory evidence changes, maturity interpretation changes, comparability changes, normalisation changes | A MAJOR version must never silently reinterpret historical results. The new version declares the affected axes as `incompatible`, and historical results keep their original version reference. |
 
 ## Component versioning
 

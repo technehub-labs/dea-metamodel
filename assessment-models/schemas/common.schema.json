@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/common.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json",
   "title": "OpenDEA Assessment Metamodel \u2014 Common Definitions",
   "description": "Shared definitions for the OpenDEA Assessment Metamodel. Referenced by all other schemas in this repository.",
   "$defs": {
@@ -97,6 +97,10 @@
             "assessment_instrument": {
               "$ref": "#/$defs/modelReference",
               "description": "Result-side: the assessment_instrument version used."
+            },
+            "assessment_execution": {
+              "$ref": "#/$defs/modelReference",
+              "description": "Result-side: the assessment_execution that produced this result."
             },
             "capability": {
               "$ref": "#/$defs/modelReference",

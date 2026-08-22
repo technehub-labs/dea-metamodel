@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/Assessment-Models/dea-metamodel/schemas/compatibility.schema.json",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/compatibility.schema.json",
   "title": "OpenDEA Compatibility Metadata",
   "description": "Explicit compatibility declaration for a model version. SemVer alone is insufficient \u2014 adding a question can change the statistical interpretation of a score (CR-AM-01 \u00a725 + CR-AM-02 \u00a711). Each axis is independent: a model can declare schema/semantic/scoring/maturity/result/benchmark compatibility independently. Default behaviour: a model version that is silent on compatibility is treated as compatible on every axis (CR-AM-02 \u00a711 default-shape rule).",
   "type": "object",

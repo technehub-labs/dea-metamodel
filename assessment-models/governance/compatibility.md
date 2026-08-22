@@ -2,24 +2,25 @@
 
 The OpenDEA Assessment Metamodel requires **explicit compatibility metadata** on every model version. SemVer alone is insufficient because adding a question can change the statistical interpretation of a score (CR-AM-01 §11 / §26).
 
-## The five compatibility properties
+## The six compatibility axes
 
-Every model version declares five boolean compatibility properties (see `schemas/common.schema.json#/$defs/compatibility`):
+Every model version declares six compatibility axes (see `schemas/common.schema.json#/$defs/compatibility`):
 
 | Property | Meaning |
 |----------|---------|
-| `backward_compatible` | Existing results from the previous version can still be processed without change. |
-| `scoring_compatible` | Scores from the previous version have the same interpretation. |
-| `result_compatible` | Result structure is unchanged; results can flow through downstream unchanged. |
-| `maturity_compatible` | Results from the previous version can be mapped to the same maturity interpretation. |
-| `benchmark_compatible` | Results from the previous version may legitimately participate in cross-organisation benchmarking with this version. |
+| `schema` | Existing validators accept the document shape. |
+| `semantic` | Existing constructs retain their meaning. |
+| `scoring` | Scores retain the same interpretation. |
+| `maturity` | Results retain the same maturity interpretation. |
+| `result` | Result structure remains interoperable. |
+| `benchmark` | Results may participate in cross-organisation benchmarking. |
 
 ## Compatibility ≠ SemVer
 
 SemVer describes *how* the change was made. Compatibility describes *what* the change preserves. They are independent:
 
-- A PATCH may declare `benchmark_compatible: false` if a benchmark population's eligibility rules changed.
-- A MAJOR may declare `backward_compatible: true` if the new version explicitly handles old result structures.
+- A PATCH may declare `benchmark: incompatible` if benchmark eligibility rules changed.
+- A MAJOR may declare `schema: compatible` if the new version explicitly handles old result structures.
 
 The compatibility metadata is the **declared ground truth** for whether two versions can interoperate. Never infer compatibility from semver alone.
 
@@ -30,10 +31,10 @@ A result is benchmark-eligible only if **all** of the following are true:
 1. The AssessmentModel version satisfies the benchmark's `required_assessment_model.version_range`.
 2. The Scenario version satisfies the benchmark's `required_scenario.version_range`.
 3. Every Capability version satisfies the benchmark's `required_capabilities.version_range`.
-4. The AssessmentModel declares `benchmark_compatible: true`.
-5. Compatibility metadata is consistent across all referenced model versions.
+4. The result's compatibility declaration carries `benchmark: compatible` when eligibility is established.
+5. The versioned result lineage and eligibility references are consistent.
 
-Otherwise, the result receives `benchmark_status: not-comparable` rather than being silently included (CR-AM-01 §28).
+Otherwise, the result carries `benchmark_eligibility.status: not-comparable` rather than being silently included (CR-AM-03 §22).
 
 ## Reference
 

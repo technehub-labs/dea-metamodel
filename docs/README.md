@@ -66,6 +66,12 @@ specification wins and the documentation is drift (CR-10 §J).
 - [Conformance](interoperability/conformance.md) — classes, suites, golden
   datasets (CR-11AM–AO)
 
+## Enterprise Intelligence (CR-012)
+
+- [Signal model](intelligence/signal-model.md) — first-class governed
+  artifacts (`Observation` + `Signal`); classification / severity /
+  confidence / lifecycle vocabularies; Phase 1 of CR-012
+
 ## Reference
 
 - [Glossary](glossary.md) — canonical terminology (CR-10 §L)

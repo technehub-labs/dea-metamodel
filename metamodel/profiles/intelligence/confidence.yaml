@@ -1,0 +1,28 @@
+# Confidence vocabulary shared by Signals and Observations (CR-012 §3.1, §3.2).
+# Aligns with MappingConfidence (CR-11G) but applies to intelligence-layer claims,
+# not to mappings. Same five-point scale prevents false precision (CR-011 principle).
+version: 1.0.0
+vocabulary:
+  - name: exact
+    definition: >
+      The reasoning cycle that produced this claim had a deterministic result
+      and the evidence chain is complete.
+  - name: high
+    definition: >
+      The reasoning cycle completed and the evidence chain covers ≥ 95% of the
+      declared scope.
+  - name: medium
+    definition: >
+      The reasoning cycle completed but the evidence chain covers ≥ 70%.
+  - name: low
+    definition: >
+      The reasoning cycle completed but the evidence chain covers ≥ 40%, or
+      partial source unavailability reduced coverage.
+  - name: uncertain
+    definition: >
+      The reasoning cycle could not complete its full scope, or the underlying
+      confidence of one or more dependent claims was `low` or `uncertain`.
+      Promotion of an `uncertain` observation to a signal is permitted only at
+      severity ∈ {info, low}.
+invariants:
+  - "confidence MUST be drawn from this vocabulary"

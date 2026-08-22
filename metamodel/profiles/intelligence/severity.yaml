@@ -1,0 +1,24 @@
+# Signal severity vocabulary (CR-012 §3.2).
+version: 1.0.0
+vocabulary:
+  - name: info
+    definition: Informational; no action required, recorded for traceability.
+  - name: low
+    definition: >
+      Acknowledgeable in the normal review cycle; no escalation policy required
+      unless it persists beyond its declared freshness window.
+  - name: medium
+    definition: >
+      Requires acknowledgment within the freshness window; may require routing
+      to the entity's declared owner.
+  - name: high
+    definition: >
+      Requires routing + acknowledgment; the entity owner MUST respond or
+      escalate (CR-012 §3.5 governance).
+  - name: critical
+    definition: >
+      Routes to escalation authority (per AuthorityPolicy). A critical signal
+      with no escalation policy is rejected at construction (CR-012 §3.5).
+invariants:
+  - "severity MUST be drawn from this vocabulary"
+  - "critical signals MUST carry an `escalation_policy_ref` field (CR-012 §3.5)"

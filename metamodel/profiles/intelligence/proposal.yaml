@@ -1,0 +1,19 @@
+# ActionProposal vocabulary (CR-012 §3.4) — vocabulary only in Phase 1.
+# Implementation lands in Phase 5.
+version: 1.0.0
+fields:
+  - id
+  - signal_ref            # the Signal that motivates the proposal
+  - action                # the governed action class (e.g. scenario.create, mapping.reapprove)
+  - target                # the canonical entity or scenario the action targets
+  - rationale
+  - proposed_by           # the agent / role id proposing (CR-9CR — never silent)
+  - status                # proposed | approved | rejected | executed | failed | withdrawn
+  - approved_by           # required when status == approved (CR-7 governance, ADR-009)
+  - approved_at
+  - executed_at
+  - audit_chain           # the full proposal → approval → execution → outcome trace (CR-9AM extended)
+invariants:
+  - "A proposal MUST NOT mutate state before status == approved AND execution has traversed the PDP (CR-9AK)."
+  - "approved_by MUST be a canonical OpenDEA Actor id (CR-9AJ authority chain)."
+  - "Withdrawal is permitted only when status ∈ {proposed, approved-but-not-yet-executed}."

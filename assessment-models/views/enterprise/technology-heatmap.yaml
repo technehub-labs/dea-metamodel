@@ -1,0 +1,150 @@
+id: dea:view-enterprise-technology-heatmap
+version: 1.0.0
+name: Technology Enterprise Heatmap
+type: heatmap
+status: stable
+description: >
+  Enterprise heatmap (CR-AM-05 §13, §14). Rows = capability; columns =
+  assessment period; cell = score + maturity + coverage + confidence.
+  Cells with no source AssessmentResult are reported as N/A (coverage
+  assessed/applicable = 0/1) — never as 0.
+subject:
+  id: dea:enterprise-example
+  type: organization
+  name: Enterprise A
+assessment_period:
+  start: 2026-01-01T00:00:00Z
+  end: 2026-12-31T23:59:59Z
+filters:
+  assessment_models:
+    - dea:assessment-technology
+  result_status: completed
+source_results:
+  - id: dea:result-technology-2026-q1
+    version: 1.0.0
+  - id: dea:result-technology-2026-q2
+    version: 1.0.0
+  - id: dea:result-modernization-2026-q1
+    version: 1.0.0
+  - id: dea:result-modernization-2026-q2
+    version: 1.0.0
+  - id: dea:result-operations-2026-q1
+    version: 1.0.0
+  - id: dea:result-operations-2026-q2
+    version: 1.0.0
+  - id: dea:result-services-delivery-2026-q1
+    version: 1.0.0
+  - id: dea:result-services-delivery-2026-q2
+    version: 1.0.0
+aggregation:
+  method: dominant-level
+  model:
+    id: dea:aggregation-capability-maturity
+    version: 1.0.0
+  rationale: >
+    Declared dominant-level aggregation over maturity levels. Score and
+    maturity aggregation are distinct (CR-AM-05 §12); this view consumes
+    maturity only.
+dimensions:
+  - capability
+  - assessment_period
+measures:
+  - id: dea:measure-technology-score
+    version: 1.0.0
+cells:
+  - subject:
+      id: dea:capability-technology-architecture
+      type: capability
+    value:
+      score: 78
+      normalized: 0.78
+      level: 4
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 4
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 2
+      applicable: 2
+    source_results:
+      - dea:result-technology-2026-q1
+      - dea:result-technology-2026-q2
+  - subject:
+      id: dea:capability-technology-platform
+      type: capability
+    value:
+      score: 71
+      normalized: 0.71
+      level: 3
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 3
+    confidence: medium
+    coverage:
+      value: 0.5
+      assessed: 1
+      applicable: 2
+    source_results:
+      - dea:result-technology-2026-q1
+  - subject:
+      id: dea:capability-technology-lifecycle
+      type: capability
+    value:
+      score: 61
+      normalized: 0.61
+      level: 3
+    maturity:
+      model:
+        id: dea:maturity-technology
+        version: 1.0.0
+      level: 3
+    confidence: high
+    coverage:
+      value: 1.0
+      assessed: 2
+      applicable: 2
+    source_results:
+      - dea:result-technology-2026-q1
+      - dea:result-technology-2026-q2
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+lineage:
+  source_results:
+    - id: dea:result-technology-2026-q1
+      version: 1.0.0
+    - id: dea:result-technology-2026-q2
+      version: 1.0.0
+    - id: dea:result-modernization-2026-q1
+      version: 1.0.0
+    - id: dea:result-modernization-2026-q2
+      version: 1.0.0
+    - id: dea:result-operations-2026-q1
+      version: 1.0.0
+    - id: dea:result-operations-2026-q2
+      version: 1.0.0
+    - id: dea:result-services-delivery-2026-q1
+      version: 1.0.0
+    - id: dea:result-services-delivery-2026-q2
+      version: 1.0.0
+  assessment_models:
+    - id: dea:assessment-technology
+      version: 1.0.0
+  scoring_models:
+    - id: dea:scoring-four-point
+      version: 1.0.0
+  maturity_models:
+    - id: dea:maturity-technology
+      version: 1.0.0
+  aggregation:
+    id: dea:aggregation-capability-maturity
+    version: 1.0.0

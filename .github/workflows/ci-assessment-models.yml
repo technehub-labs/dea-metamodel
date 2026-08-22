@@ -587,3 +587,65 @@ jobs:
       - name: Run CR-AM-04 result operations conformance suite
         run: |
           python -m unittest -v assessment-models.tests.conformance.test_result_operations assessment-models.tests.conformance.test_result_views
+
+  validate-cr-am-05-views:
+    name: CR-AM-05 assessment views & aggregation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate aggregation-model schema parses
+        run: |
+          python -c "
+          import json
+          from jsonschema import Draft202012Validator
+          for f in ['assessment-models/schemas/aggregation-model.schema.json',
+                    'assessment-models/schemas/assessment-view.schema.json']:
+              with open(f) as fh:
+                  Draft202012Validator.check_schema(json.load(fh))
+              print(f'OK  {f}')
+          "
+      - name: Validate view examples against assessment-view schema
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          # PyYAML parses ISO timestamps as datetime by default; the schema
+          # declares date-time as string with format=date-time. Force scalars
+          # through the generic constructor to preserve raw strings.
+          yaml.SafeLoader.add_constructor(
+              'tag:yaml.org,2002:timestamp',
+              lambda loader, node: loader.construct_scalar(node),
+          )
+
+          with open('assessment-models/schemas/common.schema.json') as fh: common = json.load(fh)
+          with open('assessment-models/schemas/assessment-view.schema.json') as fh: av = json.load(fh)
+          store = {
+            'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+            'common.schema.json': common,
+          }
+          for path in [
+            'assessment-models/views/enterprise/technology-heatmap.yaml',
+            'assessment-models/views/capability/technology-architecture-profile.yaml',
+            'assessment-models/views/scenario/service-assurance-profile.yaml',
+            'assessment-models/views/trend/technology-maturity-trend.yaml',
+          ]:
+            with open(path) as fh: doc = yaml.safe_load(fh)
+            resolver = RefResolver(base_uri='', referrer=av, store=store)
+            validator = Draft202012Validator(av, resolver=resolver)
+            errs = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+            if errs:
+              for e in errs:
+                print(f'  {path}: path={list(e.path)}: {e.message}')
+              sys.exit(1)
+            print(f'OK  {path}')
+          "
+      - name: Run CR-AM-05 views & aggregation conformance suite
+        run: |
+          python -m unittest -v assessment-models.tests.conformance.test_views_aggregation

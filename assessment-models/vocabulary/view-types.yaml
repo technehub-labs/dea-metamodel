@@ -1,0 +1,42 @@
+# View Type Vocabulary
+# Controlled vocabulary for AssessmentView.type values.
+# Source: CR-AM-05 §6 (five initial types), §14, §35
+# Presentation formats (radar / table / bar-chart) are NOT view types
+# and remain outside the metamodel.
+
+vocabulary: view-type
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of AssessmentView.type values permitted under CR-AM-05.
+  Each entry defines what the view produces from its source AssessmentResults.
+  The set is deliberately small: presentation formats are derived from the
+  view at render time and never enter the metamodel.
+
+values:
+  - id: enterprise_profile
+    description: >
+      Whole-organisation view aggregating capabilities and scenarios into an
+      enterprise profile. CR-AM-05 §13.
+
+  - id: capability_profile
+    description: >
+      Single-capability view showing measure scores and maturity for a
+      capability subject. CR-AM-05 §15.
+
+  - id: scenario_profile
+    description: >
+      Scenario-anchored view aggregating capabilities and measures under a
+      defined scenario context. CR-AM-05 §16.
+
+  - id: heatmap
+    description: >
+      Multi-dimensional cell-structured view over a capability × period or
+      capability × scenario grid. The same AssessmentView contract supports
+      all heatmap shapes; only dimensions change. CR-AM-05 §13, §14.
+
+  - id: trend
+    description: >
+      Time-series view over historical AssessmentResults for the same subject.
+      Requires explicit compatibility validation across result versions.
+      CR-AM-05 §19, §20.

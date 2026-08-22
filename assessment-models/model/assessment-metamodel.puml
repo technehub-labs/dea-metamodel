@@ -343,4 +343,76 @@ enum Severity {
     high
     critical
 }
+
+' ============================================================
+' CR-AM-05 — VIEW LAYER
+' AssessmentView is a derived projection over AssessmentResults.
+' Never the source of truth.
+' ============================================================
+package "Assessment View" {
+    class AssessmentView {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +type : ViewType
+        +subject : ViewSubject
+        +assessmentPeriod : AssessmentPeriod
+        +sourceResults : ModelReference[*]
+        +aggregation : ViewAggregation
+        +lineage : ViewLineage
+        +compatibility : Compatibility
+    }
+    class AggregationModel {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +method : AggregationMethod
+        +input : AggregationInput
+        +grouping : AggregationGrouping
+        +weighting : AggregationWeighting
+        +missingData : MissingDataMethod
+        +normalization : AggregationNormalization
+        +compatibility : CompatibilityGuard
+    }
+    class ViewCell {
+        +subject : ViewSubject
+        +measure : ModelReference
+        +value : ViewValue
+        +maturity : ViewMaturity
+        +confidence : Confidence
+        +coverage : Coverage
+        +sourceResults : Identifier[*]
+        +compatibilityGuard : CompatibilityGuard
+    }
+    enum ViewType {
+        enterprise_profile
+        capability_profile
+        scenario_profile
+        heatmap
+        trend
+    }
+    enum AggregationMethod {
+        identity
+        sum
+        count
+        minimum
+        maximum
+        average
+        weighted_average
+        median
+        threshold
+        dominant_level
+        coverage
+        custom
+    }
+    enum MissingDataMethod {
+        exclude
+        propagate
+        explicit_unknown
+        treat_as_zero
+    }
+    AssessmentView --> "1" AggregationModel : aggregation
+    AssessmentView --> "*" ViewCell : cells
+    AssessmentView ..> AssessmentResult : derives from
+}
 @enduml

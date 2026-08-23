@@ -1,0 +1,140 @@
+# Example — Not-comparable AssessmentResult (CR-AM-06 §11 invalid shape)
+# A valid result whose semantic dimensions do not match the cohort:
+# maturity model v2 (vs required v1) under a different scenario.
+# Same labels elsewhere — exactly the §2 trap the comparability key
+# exists to prevent. The determination carries machine-actionable
+# reasons from vocabulary/eligibility-reasons.yaml.
+
+id: dea:result-org-b-network-operations-2026
+version: "1.0.0"
+metamodel_version: "1.0.0"
+assessment_model:
+  id: cla-assessment-v1
+  version: "1.0.0"
+assessment_instrument:
+  id: cla-instrument-v1
+  version: "1.0.0"
+assessment_execution:
+  id: cla-exec-b-2026
+  version: "1.0.0"
+subject:
+  id: dea:org-b
+  type: organization
+assessment_period:
+  start: "2026-02-01T00:00:00Z"
+  end: "2026-04-30T00:00:00Z"
+status: completed
+confidence: high
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+determinations:
+  - score:
+      value: 91
+      normalized_value: 91
+      scale: 0-100
+    maturity_model:
+      id: cla-maturity-v1
+      version: "2.0.0"
+    maturity_level: 4
+    finding: High automation coverage under network operations.
+    confidence: high
+    evidence:
+      - id: dea:evidence-b-1
+        version: "1.0.0"
+        description: Production telemetry extract, 2026-02-01..2026-04-30.
+        confidence: high
+maturity_interpretation:
+  model:
+    id: cla-maturity-v1
+    version: "2.0.0"
+  dimensions:
+    - id: automation-coverage
+      level: 4
+      score: 91
+      confidence: high
+  overall:
+    level: 4
+    method: dominant-level
+    rationale: Single-dimension determination; dominant-level aggregation is identity here.
+observations:
+  - id: dea:obs-b-1
+    measure:
+      id: automation-coverage
+      version: "1.0.0"
+    value: 91
+    observed_at: "2026-04-20T00:00:00Z"
+evidence:
+  - id: dea:evidence-b-1
+    version: "1.0.0"
+    description: Production telemetry extract, 2026-02-01..2026-04-30.
+    confidence: high
+lineage:
+  assessment_model:
+    id: cla-assessment-v1
+    version: "1.0.0"
+  assessment_instrument:
+    id: cla-instrument-v1
+    version: "1.0.0"
+  assessment_execution:
+    id: cla-exec-b-2026
+    version: "1.0.0"
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  scenario:
+    id: network-operations
+    version: "1.0.0"
+  measures:
+    - id: automation-coverage
+      version: "1.0.0"
+  scoring_model:
+    id: cla-score-v1
+    version: "1.0.0"
+  maturity_model:
+    id: cla-maturity-v1
+    version: "2.0.0"
+
+# CR-AM-06 §11 — a strong score under the wrong semantic dimensions is
+# not comparable; the score is never consulted for eligibility (§15).
+benchmark:
+  - model:
+      id: dea:benchmark-cla
+      version: "1.0.0"
+    status: not-comparable
+    reasons:
+      - maturity-model-incompatible
+      - scenario-definition-mismatch
+    comparability:
+      key:
+        scenario:
+          id: network-operations
+          version: "1.0.0"
+        capability:
+          id: closed-loop-automation
+          version: "1.0.0"
+        measure:
+          id: automation-coverage
+          version: "1.0.0"
+        assessment_model:
+          id: cla-assessment-v1
+          version: "1.0.0"
+        scoring_model:
+          id: cla-score-v1
+          version: "1.0.0"
+        maturity_model:
+          id: cla-maturity-v1
+          version: "2.0.0"
+    eligibility:
+      evidence: true
+      coverage: true
+      confidence: true
+      currency: true
+      compatibility: false
+    cohort:
+      id: telecom-service-assurance-2026
+      version: "1.0.0"

@@ -43,11 +43,16 @@ assessment-models/
 │   ├── compatibility.schema.json
 │   └── relationship.schema.json
 │
-├── vocabulary/                                 ← 4 controlled vocabularies
+├── vocabulary/                                 ← 9 controlled vocabularies
 │   ├── assessment-types.yaml
 │   ├── relationship-types.yaml                ← 17 types + legacy aliases
 │   ├── lifecycle-status.yaml                  ← 7 states incl. retired
-│   └── evidence-types.yaml
+│   ├── evidence-types.yaml
+│   ├── view-types.yaml                        ← CR-AM-05: 5 view types
+│   ├── aggregation-methods.yaml               ← CR-AM-05: 12 aggregation methods
+│   ├── compatibility-types.yaml
+│   ├── benchmark-status.yaml                  ← CR-AM-06: 6 eligibility states
+│   └── eligibility-reasons.yaml               ← CR-AM-06: 13 machine-actionable reason codes
 │
 ├── examples/                                   ← 5 canonical YAML examples
 │   ├── legacy-technology-instrument.yaml      ← current-style + migration-layer interpretation
@@ -56,12 +61,13 @@ assessment-models/
 │   ├── zero-touch-operations-result.yaml      ← independently useful AssessmentResult
 │   └── benchmark-eligibility.yaml             ← explicit benchmark eligibility declaration
 │
-├── governance/                                 ← 6 policy docs
+├── governance/                                 ← 7 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
 │   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
 │   ├── result-lineage.md                      ← CR-AM-04 result lineage & operations
 │   ├── maturity-interpretation.md             ← CR-AM-04 multi-dimensional maturity interpretation
 │   ├── views.md                               ← CR-AM-05 view & aggregation policy
+│   ├── benchmark-eligibility.md               ← CR-AM-06 eligibility & cohort policy
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
 └── maturity/                                   ← maturity scoring v2 (this PR's other landing)
@@ -81,7 +87,17 @@ assessment-models/
 
 ├── aggregation/                                ← CR-AM-05 AggregationModel contract
 │   └── examples/capability-score.yaml         ← canonical AggregationModel example
+
+├── benchmark/                                  ← CR-AM-06 benchmark eligibility & cohorts
+│   ├── cohort-examples/
+│   │   └── telecom-service-assurance-2026.yaml ← §6 worked cohort
+│   └── eligibility-examples/
+│       ├── eligible-result.yaml               ← §11 valid determination shape
+│       └── not-comparable-result.yaml         ← §11 invalid determination shape
 ```
+
+The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
+(CR-AM-06: BenchmarkCohort contract — 13 schemas total).
 
 ---
 

@@ -1,0 +1,59 @@
+# Benchmark Eligibility Status Vocabulary
+# Controlled vocabulary for AssessmentResult.benchmark[].status values.
+# Source: CR-AM-06 §4 (six states), §14 (AC: controlled vocabulary).
+#
+# The six states are mutually exclusive and collectively exhaustive for
+# benchmark participation. The distinction between not-eligible and
+# not-comparable is load-bearing for benchmark governance (CR-AM-06 §4):
+#   not-eligible    — the result fails a benchmark participation rule.
+#   not-comparable  — the result is valid, but no compatible comparison
+#                     population exists for its semantic dimensions.
+
+vocabulary: benchmark-status
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of AssessmentResult.benchmark[].status values permitted
+  under CR-AM-06. Eligibility is a governed determination about the
+  comparability of an AssessmentResult; it is never inferred from the
+  existence of a score or maturity level (CR-AM-06 §15).
+
+values:
+  - id: eligible
+    description: >
+      The result satisfies every eligibility dimension of at least one
+      BenchmarkCohort and may participate in cross-organisation comparison
+      within that cohort. CR-AM-06 §4.
+
+  - id: provisional
+    description: >
+      The result may participate only under explicitly defined conditions
+      recorded in BenchmarkCohort.eligibility_criteria.conditions.
+      Provisional membership is visible to consumers; it is not silently
+      promoted to eligible. CR-AM-06 §4.
+
+  - id: not-eligible
+    description: >
+      The result fails a benchmark participation rule (e.g. confidence
+      below cohort threshold, population requirements unmet, governance
+      exclusion). The result may be valid for enterprise views while
+      remaining not-eligible for benchmarking. CR-AM-06 §4.
+
+  - id: not-comparable
+    description: >
+      The result is valid, but its comparability key does not match the
+      cohort's required semantic dimensions — scenario, capability,
+      measure, assessment model, scoring model, or maturity model
+      incompatibility. CR-AM-06 §4, §5.
+
+  - id: insufficient-data
+    description: >
+      The result itself lacks required evidence or assessment coverage.
+      This is a statement about the result's completeness, not about
+      population compatibility. CR-AM-06 §4.
+
+  - id: expired
+    description: >
+      The result's assessment period falls outside the cohort's temporal
+      boundary, or the result has been superseded. Currency is an
+      eligibility dimension in its own right (CR-AM-06 §8).

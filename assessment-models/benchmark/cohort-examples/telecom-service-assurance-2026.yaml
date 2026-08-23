@@ -1,0 +1,71 @@
+# Example — BenchmarkCohort
+# Source: CR-AM-06 §6 (Benchmark Cohort), §11 (worked cohort reference).
+# The §6 worked cohort: "Telecom Operators + Service Assurance +
+# Closed Loop Automation + Automation Coverage + CLA-Maturity v1 + 2026"
+# produces a legitimate comparison population.
+
+id: telecom-service-assurance-2026
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Telecom Service Assurance 2026
+status: stable
+description: >
+  Cross-organisation comparison population for Closed Loop Automation
+  maturity under the Service Assurance scenario, measured by Automation
+  Coverage, interpreted under CLA-Maturity v1, over the 2026 comparison
+  window. Membership is a governed determination (CR-AM-06 §15):
+  results enter only through the eligibility engine.
+
+definition:
+  population_segment: telecom-operators
+  scope_note: >
+    Facilities-based telecom operators running service assurance
+    workloads. MVNOs and equipment vendors are out of scope.
+
+eligibility_criteria:
+  minimum_confidence: medium
+  minimum_evidence_records: 1
+  minimum_coverage: 1.0
+  required_compatibility:
+    benchmark: compatible
+  conditions:
+    - id: cond-pilot-segment
+      description: >
+        Operators in the 2026 pilot programme may participate
+        provisionally while their evidence base is completed.
+
+comparability_key:
+  scenario:
+    id: service-assurance
+    version: "1.0.0"
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+  assessment_model:
+    id: cla-assessment-v1
+    version: "1.0.0"
+  scoring_model:
+    id: cla-score-v1
+    version: "1.0.0"
+  maturity_model:
+    id: cla-maturity-v1
+    version: "1.0.0"
+
+population:
+  members: []
+
+minimum_sample_size: 2
+
+temporal_boundary:
+  start: "2026-01-01T00:00:00Z"
+  end: "2026-12-31T23:59:59Z"
+
+governance:
+  owner: dea-benchmark-board
+  review_date: "2026-09-30"
+  notes: >
+    Inaugural cohort for CR-AM-06. Comparative analytics (percentile,
+    rank, peer position) are out of scope until CR-AM-07.

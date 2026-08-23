@@ -57,6 +57,8 @@ jobs:
           errors = []
           files = sorted(glob.glob('assessment-models/vocabulary/*.yaml')) + \
                   sorted(glob.glob('assessment-models/examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/benchmark/cohort-examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/benchmark/eligibility-examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml'))
@@ -649,3 +651,71 @@ jobs:
       - name: Run CR-AM-05 views & aggregation conformance suite
         run: |
           python -m unittest -v assessment-models.tests.conformance.test_views_aggregation
+
+  validate-cr-am-06-eligibility:
+    name: CR-AM-06 benchmark model & eligibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate benchmark-cohort schema parses as Draft 2020-12
+        run: |
+          python -c "
+          import json
+          from jsonschema import Draft202012Validator
+          for f in ['assessment-models/schemas/benchmark-cohort.schema.json',
+                    'assessment-models/schemas/assessment-result.schema.json',
+                    'assessment-models/schemas/common.schema.json']:
+              with open(f) as fh:
+                  Draft202012Validator.check_schema(json.load(fh))
+              print(f'OK  {f}')
+          "
+      - name: Validate cohort + eligibility examples against schemas
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          yaml.SafeLoader.add_constructor(
+              'tag:yaml.org,2002:timestamp',
+              lambda loader, node: loader.construct_scalar(node),
+          )
+
+          with open('assessment-models/schemas/common.schema.json') as fh: common = json.load(fh)
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          cases = [
+              ('assessment-models/benchmark/cohort-examples/telecom-service-assurance-2026.yaml',
+               'assessment-models/schemas/benchmark-cohort.schema.json'),
+              ('assessment-models/benchmark/eligibility-examples/eligible-result.yaml',
+               'assessment-models/schemas/assessment-result.schema.json'),
+              ('assessment-models/benchmark/eligibility-examples/not-comparable-result.yaml',
+               'assessment-models/schemas/assessment-result.schema.json'),
+          ]
+          errors = 0
+          for path, schema_path in cases:
+              with open(schema_path) as fh: s = json.load(fh)
+              resolver = RefResolver(base_uri='', referrer=s, store=store)
+              v = Draft202012Validator(s, resolver=resolver)
+              doc = yaml.safe_load(open(path))
+              errs = list(v.iter_errors(doc))
+              if errs:
+                  errors += 1
+                  for e in errs[:5]:
+                      print(f'FAIL {path}: path={list(e.path)}: {e.message}')
+              else:
+                  print(f'OK  {path}')
+          if errors:
+              sys.exit(1)
+          print(f'OK — {len(cases)} benchmark examples validate against their schemas')
+          "
+      - name: Run CR-AM-06 benchmark eligibility conformance suite
+        run: |
+          python -m unittest -v assessment-models.tests.conformance.test_benchmark_eligibility

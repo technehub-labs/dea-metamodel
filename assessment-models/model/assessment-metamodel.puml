@@ -415,4 +415,72 @@ package "Assessment View" {
     AssessmentView --> "*" ViewCell : cells
     AssessmentView ..> AssessmentResult : derives from
 }
+' ============================================================
+' BENCHMARK ELIGIBILITY (CR-AM-06)
+' ============================================================
+package "Benchmark Eligibility" {
+    class BenchmarkEligibility {
+        +status : BenchmarkStatus
+        +reasons : EligibilityReason[*]
+        +comparabilityKey : ComparabilityKey
+        +cohort : ModelReference
+        +eligibility : EligibilityFlags
+    }
+    class ComparabilityKey {
+        +scenario : ModelReference
+        +capability : ModelReference
+        +measure : ModelReference
+        +assessmentModel : ModelReference
+        +scoringModel : ModelReference
+        +maturityModel : ModelReference
+    }
+    class EligibilityFlags {
+        +evidence : Boolean
+        +coverage : Boolean
+        +confidence : Boolean
+        +currency : Boolean
+        +compatibility : Boolean
+    }
+    class BenchmarkCohort {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +status : LifecycleStatus
+        +definition : CohortDefinition
+        +eligibilityCriteria : EligibilityCriteria
+        +comparabilityKey : ComparabilityKey
+        +population : CohortPopulation
+        +minimumSampleSize : Integer
+        +temporalBoundary : TemporalBoundary
+        +governance : CohortGovernance
+    }
+    enum BenchmarkStatus {
+        eligible
+        provisional
+        not_eligible
+        not_comparable
+        insufficient_data
+        expired
+    }
+    enum EligibilityReason {
+        scenario_definition_mismatch
+        capability_mismatch
+        measure_mismatch
+        assessment_model_incompatible
+        scoring_model_incompatible
+        maturity_model_incompatible
+        period_mismatch
+        version_incompatible
+        evidence_insufficient
+        coverage_insufficient
+        confidence_below_threshold
+        population_requirements_unmet
+        result_expired
+    }
+    AssessmentResult --> "*" BenchmarkEligibility : benchmark
+    BenchmarkEligibility --> "1" ComparabilityKey : identity
+    BenchmarkEligibility --> "1" BenchmarkCohort : evaluated against
+    BenchmarkCohort --> "1" ComparabilityKey : requires
+    BenchmarkCohort --> "*" AssessmentResult : population (eligible only)
+}
 @enduml

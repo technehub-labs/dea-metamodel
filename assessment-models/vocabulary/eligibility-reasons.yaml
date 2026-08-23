@@ -1,0 +1,122 @@
+# Benchmark Eligibility Reason Vocabulary
+# Controlled vocabulary for AssessmentResult.benchmark[].reasons values.
+# Source: CR-AM-06 §4 (status distinctions), §8 (twelve dimensions),
+# §11 (worked reason examples).
+#
+# Every non-eligible determination MUST carry at least one reason from
+# this vocabulary. Reasons are machine-actionable: they name the
+# dimension that failed, not a free-text explanation.
+
+vocabulary: eligibility-reasons
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of machine-actionable reason codes for non-eligible
+  benchmark determinations under CR-AM-06. Each code names the §8
+  eligibility dimension that produced the determination.
+
+values:
+  # --- Comparability dimension failures (produce not-comparable) ---
+  - id: scenario-definition-mismatch
+    dimension: scenario
+    produces: not-comparable
+    description: >
+      The result's scenario does not match the cohort's required scenario
+      identity or version compatibility declaration. CR-AM-06 §5, §8.
+
+  - id: capability-mismatch
+    dimension: capability
+    produces: not-comparable
+    description: >
+      The result's capability semantics differ from the cohort's required
+      capability — same label, different meaning is exactly what the
+      comparability key exists to prevent. CR-AM-06 §2, §5.
+
+  - id: measure-mismatch
+    dimension: measure
+    produces: not-comparable
+    description: >
+      The result's measure definition differs from the cohort's required
+      measure. CR-AM-06 §8.
+
+  - id: assessment-model-incompatible
+    dimension: assessment_model
+    produces: not-comparable
+    description: >
+      The result was produced under an assessment model version whose
+      compatibility declaration does not permit comparison with the
+      cohort's required version. CR-AM-06 §9.
+
+  - id: scoring-model-incompatible
+    dimension: scoring_model
+    produces: not-comparable
+    description: >
+      The result's scoring semantics are incompatible with the cohort's
+      scoring model. Version-number proximity is never sufficient; the
+      explicit compatibility declaration governs. CR-AM-06 §9.
+
+  - id: maturity-model-incompatible
+    dimension: maturity_model
+    produces: not-comparable
+    description: >
+      The result's maturity model version is incompatible with the
+      cohort's maturity model (e.g. AOMM v1 result vs AOMM v2 cohort).
+      CR-AM-06 §2, §9.
+
+  - id: period-mismatch
+    dimension: period
+    produces: not-comparable
+    description: >
+      The result's assessment period does not overlap the cohort's
+      comparison period. Distinct from expiry: the result may be current
+      yet anchored to the wrong comparison window. CR-AM-06 §8.
+
+  - id: version-incompatible
+    dimension: version
+    produces: not-comparable
+    description: >
+      A model version referenced by the result lacks an explicit
+      compatibility declaration with the cohort's required version, and
+      the default-silent rule (CR-AM-02 §11) does not apply because the
+      benchmark axis is explicitly declared incompatible. CR-AM-06 §9.
+
+  # --- Result completeness failures (produce insufficient-data) ---
+  - id: evidence-insufficient
+    dimension: evidence
+    produces: insufficient-data
+    description: >
+      The result does not carry the minimum evidence records required by
+      the cohort's eligibility criteria. CR-AM-06 §8.
+
+  - id: coverage-insufficient
+    dimension: coverage
+    produces: insufficient-data
+    description: >
+      The result's assessment coverage is below the cohort's minimum.
+      Coverage is reported explicitly; missing sources are never
+      treated as zero (CR-AM-05) nor as eligible (CR-AM-06). CR-AM-06 §8.
+
+  # --- Participation rule failures (produce not-eligible) ---
+  - id: confidence-below-threshold
+    dimension: confidence
+    produces: not-eligible
+    description: >
+      The result's confidence is below the cohort's minimum confidence
+      threshold. CR-AM-06 §8.
+
+  - id: population-requirements-unmet
+    dimension: population
+    produces: not-eligible
+    description: >
+      The result's subject does not satisfy the cohort's population
+      requirements (e.g. segment membership, minimum sample size
+      contribution rules). CR-AM-06 §6, §8.
+
+  # --- Currency failures (produce expired) ---
+  - id: result-expired
+    dimension: currency
+    produces: expired
+    description: >
+      The result's assessment period ends before the cohort's temporal
+      boundary opens, or the result has been superseded by a newer
+      result for the same subject. CR-AM-06 §8.

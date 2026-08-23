@@ -719,3 +719,83 @@ jobs:
       - name: Run CR-AM-06 benchmark eligibility conformance suite
         run: |
           python -m unittest -v assessment-models.tests.conformance.test_benchmark_eligibility
+
+  validate-cr-am-05a-instruments:
+    name: CR-AM-05A hierarchical dimensions & instruments
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate new schemas parse as Draft 2020-12
+        run: |
+          python -c "
+          import json
+          from jsonschema import Draft202012Validator
+          for f in ['assessment-models/schemas/dimension.schema.json',
+                    'assessment-models/schemas/criterion.schema.json',
+                    'assessment-models/schemas/indicator.schema.json',
+                    'assessment-models/schemas/question.schema.json',
+                    'assessment-models/schemas/response-specification.schema.json',
+                    'assessment-models/schemas/assessment-item.schema.json',
+                    'assessment-models/schemas/assessment-instrument.schema.json']:
+              with open(f) as fh:
+                  Draft202012Validator.check_schema(json.load(fh))
+              print(f'OK  {f}')
+          "
+      - name: Validate hierarchical-maturity-assessment example
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          yaml.SafeLoader.add_constructor(
+              'tag:yaml.org,2002:timestamp',
+              lambda loader, node: loader.construct_scalar(node),
+          )
+
+          with open('assessment-models/schemas/common.schema.json') as fh: common = json.load(fh)
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          for extra in ['response-specification.schema.json', 'assessment-item.schema.json']:
+              with open(f'assessment-models/schemas/{extra}') as fh: s = json.load(fh)
+              store[extra] = s
+              store[s['\$id']] = s
+
+          with open('assessment-models/examples/hierarchical-maturity-assessment.yaml') as fh:
+              doc = yaml.safe_load(fh)
+
+          cases = []
+          for d in doc['dimensions']:
+              cases.append((d, 'dimension.schema.json'))
+          for c in doc['criteria']:
+              cases.append((c, 'criterion.schema.json'))
+          for i in doc['indicators']:
+              cases.append((i, 'indicator.schema.json'))
+          for q in doc['questions']:
+              cases.append((q, 'question.schema.json'))
+          cases.append((doc['instrument'], 'assessment-instrument.schema.json'))
+
+          errors = 0
+          for entity, schema_file in cases:
+              with open(f'assessment-models/schemas/{schema_file}') as fh: schema = json.load(fh)
+              resolver = RefResolver(base_uri='', referrer=schema, store=store)
+              v = Draft202012Validator(schema, resolver=resolver)
+              errs = list(v.iter_errors(entity))
+              if errs:
+                  errors += 1
+                  for e in errs[:3]:
+                      print(f'FAIL {entity.get(\"id\")} vs {schema_file}: {e.message}')
+          if errors:
+              sys.exit(1)
+          print(f'OK — {len(cases)} entities validate (3 dimensions, 2 criteria, 2 indicators, 6 questions, 1 instrument)')
+          "
+      - name: Run CR-AM-05A hierarchical instruments conformance suite
+        run: |
+          python -m unittest -v assessment-models.tests.conformance.test_hierarchical_instruments

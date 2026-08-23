@@ -59,6 +59,39 @@
     "facilitator_required": {
       "type": "boolean"
     },
+    "maturity_model": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityModel this instrument gathers evidence for (CR-AM-05A §14). The instrument is versioned independently of the maturity model (§15, §32): a new instrument version may add questions without changing the maturity model."
+    },
+    "sections": {
+      "type": "array",
+      "description": "Questionnaire organization (CR-AM-05A §23). A Section is organizational/presentation structure — never a semantic hierarchy competing with the Dimension taxonomy.",
+      "items": {
+        "type": "object",
+        "required": ["id", "items"],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "items": {
+            "type": "array",
+            "description": "AssessmentItem bindings administered in this section.",
+            "items": {
+              "$ref": "assessment-item.schema.json"
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
     "lineage": {
       "$ref": "common.schema.json#/$defs/lineage"
     },

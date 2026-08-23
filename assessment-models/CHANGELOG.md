@@ -2,7 +2,57 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
-## [Unreleased] — CR-AM-06 benchmark model & eligibility
+## [Unreleased] — CR-AM-05A hierarchical dimensions & instruments
+
+CR-AM-05A establishes the canonical structure for hierarchical assessment
+dimensions and extensible assessment instruments without coupling questions
+to maturity levels. Dimension is a recursively composable taxonomy — there
+is no SubDimension class (§3, §40). The maturity model describes what
+maturity means; the instrument describes how evidence is gathered (§42).
+
+- `schemas/dimension.schema.json` — recursive Dimension with
+  `parent_dimension`; arbitrary depth; acyclic by construction
+  (`runtime/instruments` enforces §8: no cycles, no self-parent, unique
+  identity, known parents).
+- `schemas/criterion.schema.json` — the semantic bridge between evidence
+  and maturity (§11), with threshold + evidence requirement.
+- `schemas/indicator.schema.json` — observable characteristics supporting
+  Criteria (§12).
+- `schemas/question.schema.json` — standalone, versioned, reusable
+  Question asset. Never owns a maturity level (§17; schema-enforced).
+  `supersedes` carries replacement lineage (§31).
+- `schemas/response-specification.schema.json` — twelve controlled
+  response types with type-scoped constraints (§20).
+- `schemas/assessment-item.schema.json` — the instrument-specific
+  Question ↔ model binding (§25); contextual properties live here, not
+  on the global Question (§24).
+- `schemas/assessment-instrument.schema.json` — extended additively with
+  `maturity_model` (§14) and `sections[]` → `items[]` (§23: sections are
+  organizational, never a competing semantic hierarchy).
+- `vocabulary/dimension-status.yaml`, `question-status.yaml` — four-state
+  lifecycles (draft/active/deprecated/retired; §30 retirement never
+  invalidates historical results).
+- `vocabulary/response-type.yaml` — twelve response types.
+- `runtime/instruments/` — `validate_dimension_hierarchy` (§8),
+  `hierarchy_depth`, `iter_path` (§34 semantic path),
+  `validate_instrument_evolution` (§29: adding questions must not change
+  the maturity model), `result_lineage_preserves_instrument` (§33).
+- `examples/hierarchical-maturity-assessment.yaml` — §37/§41 worked
+  example: 3-level hierarchy, 2 capabilities, 2 criteria, 6 questions,
+  6 response types, instrument v1.0, result lineage.
+- `governance/hierarchical-instruments.md` — policy doc.
+- `model/assessment-metamodel.puml` — Assessment Instrument & Taxonomy
+  package (§35 target model).
+- `tests/conformance/test_hierarchical_instruments.py` — 20 tests:
+  17 ACs + §38 scenarios (cycle rejection, question reuse, instrument
+  evolution, retirement, response types, criterion aggregation,
+  dimension/capability independence).
+- `validate-cr-am-05a-instruments` CI job.
+
+Canonical version is unchanged; CR-AM-05A is additive. Existing assessment
+models and results remain schema-valid (AC-AM05A-17).
+
+## [CR-AM-06 landing] — superseded by CR-AM-05A hierarchical instruments
 
 CR-AM-06 establishes benchmark eligibility as a governed determination about
 the comparability of an AssessmentResult — never inferred from the existence

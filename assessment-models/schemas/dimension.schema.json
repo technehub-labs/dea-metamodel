@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/dimension.schema.json",
+  "title": "OpenDEA Assessment Dimension",
+  "description": "A recursively composable assessment taxonomy node (CR-AM-05A §3). A sub-dimension is simply a Dimension with a parent Dimension — there is no SubDimension class (§40). Arbitrary depth is permitted (AC-AM05A-02); the hierarchy is directed and acyclic (§8, validated by runtime/instruments). The Dimension hierarchy organizes the assessment; it is not the Capability hierarchy (§5).",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name. Changing the name does not change identity (§8: stable identity)."
+    },
+    "description": {
+      "type": "string"
+    },
+    "parent_dimension": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The parent Dimension. Absent = root dimension (§3). A Dimension has at most one parent and may have many children."
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Ordering position among siblings."
+    },
+    "status": {
+      "type": "string",
+      "description": "Controlled vocabulary: assessment-models/vocabulary/dimension-status.yaml (CR-AM-05A §30 rule).",
+      "enum": ["draft", "active", "deprecated", "retired"]
+    },
+    "capabilities": {
+      "type": "array",
+      "description": "Capabilities organized under this Dimension (§10). One Dimension may organize several capabilities; one Capability may be relevant to multiple Dimensions. Capability is not a subtype of Dimension (AC-AM05A-04).",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "description": "Criteria attached to this Dimension (§11). A Criterion is the semantic bridge between evidence and maturity.",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "maturity_scale": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "Optional per-Dimension maturity scale override (§28). Default remains the parent model's canonical scale unless explicitly overridden."
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    }
+  },
+  "additionalProperties": false
+}

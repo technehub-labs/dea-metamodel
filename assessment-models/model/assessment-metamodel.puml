@@ -416,6 +416,103 @@ package "Assessment View" {
     AssessmentView ..> AssessmentResult : derives from
 }
 ' ============================================================
+' ASSESSMENT INSTRUMENT & TAXONOMY (CR-AM-05A)
+' ============================================================
+package "Assessment Instrument & Taxonomy" {
+    class Dimension {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +description : String
+        +sequence : Integer
+        +status : DimensionStatus
+        +maturityScale : ModelReference
+    }
+    class Criterion {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +description : String
+        +applicability : String
+        +threshold : Threshold
+        +evidenceRequirement : EvidenceRequirement
+    }
+    class Indicator {
+        +id : Identifier
+        +version : Version
+        +name : String
+        +measure : ModelReference
+        +unit : String
+    }
+    class AssessmentSection {
+        +id : Identifier
+        +name : String
+        +sequence : Integer
+    }
+    class AssessmentItem {
+        +id : Identifier
+        +sequence : Integer
+        +required : Boolean
+        +applicability : String
+    }
+    class Question {
+        +id : Identifier
+        +version : Version
+        +text : String
+        +description : String
+        +required : Boolean
+        +sequence : Integer
+        +status : QuestionStatus
+        +supersedes : ModelReference[*]
+    }
+    class ResponseSpecification {
+        +type : ResponseType
+        +options : ResponseOption[*]
+        +min : Decimal
+        +max : Decimal
+        +unit : String
+    }
+    enum DimensionStatus {
+        draft
+        active
+        deprecated
+        retired
+    }
+    enum QuestionStatus {
+        draft
+        active
+        deprecated
+        retired
+    }
+    enum ResponseType {
+        boolean
+        single_choice
+        multi_choice
+        ordinal
+        numeric
+        percentage
+        duration
+        frequency
+        text
+        date
+        evidence
+        measurement
+    }
+    Dimension "0..1" <-- "0..*" Dimension : parentDimension
+    Dimension "0..*" --> "0..*" Capability : assesses
+    Dimension "1" o-- "0..*" Criterion
+    Criterion "1" o-- "0..*" Indicator
+    AssessmentInstrument "1" o-- "0..*" AssessmentSection
+    AssessmentSection "1" o-- "0..*" AssessmentItem
+    AssessmentItem "*" --> "1" Question
+    AssessmentItem "*" --> "0..1" Dimension
+    AssessmentItem "*" --> "0..1" Capability
+    AssessmentItem "*" --> "0..1" Criterion
+    AssessmentItem "*" --> "0..1" Measure
+    Question "1" o-- "1" ResponseSpecification
+    AssessmentInstrument "0..1" --> "1" MaturityModel : gathers evidence for
+}
+' ============================================================
 ' BENCHMARK ELIGIBILITY (CR-AM-06)
 ' ============================================================
 package "Benchmark Eligibility" {

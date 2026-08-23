@@ -332,6 +332,7 @@
     },
     "benchmarkResult": {
       "type": "object",
+      "description": "Benchmark eligibility determination for this result against a benchmark model. CR-AM-06 makes the semantics normative: eligibility is a governed determination about comparability, never inferred from the existence of a score or maturity level (CR-AM-06 \u00a715). percentile/rank/sample_size are CR-AM-07 comparative-analytics fields and are NOT produced by CR-AM-06 eligibility determination (CR-AM-06 \u00a710).",
       "required": [
         "model",
         "status"
@@ -341,25 +342,78 @@
           "$ref": "common.schema.json#/$defs/modelReference"
         },
         "status": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/benchmark-status.yaml (CR-AM-06 \u00a74).",
           "enum": [
             "eligible",
+            "provisional",
+            "not-eligible",
             "not-comparable",
             "insufficient-data",
-            "provisional"
+            "expired"
           ]
+        },
+        "reasons": {
+          "type": "array",
+          "description": "Machine-actionable reason codes for any non-eligible determination. Every non-eligible status MUST carry at least one reason (CR-AM-06 \u00a74, \u00a711). Controlled vocabulary: assessment-models/vocabulary/eligibility-reasons.yaml.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "comparability": {
+          "type": "object",
+          "description": "The canonical comparability identity of this result (CR-AM-06 \u00a75).",
+          "required": [
+            "key"
+          ],
+          "properties": {
+            "key": {
+              "$ref": "common.schema.json#/$defs/comparabilityKey"
+            }
+          },
+          "additionalProperties": false
+        },
+        "eligibility": {
+          "type": "object",
+          "description": "Per-dimension eligibility flags (CR-AM-06 \u00a78, \u00a711). Each flag is the boolean outcome of evaluating that dimension against the cohort's eligibility criteria.",
+          "properties": {
+            "evidence": {
+              "type": "boolean"
+            },
+            "coverage": {
+              "type": "boolean"
+            },
+            "confidence": {
+              "type": "boolean"
+            },
+            "currency": {
+              "type": "boolean"
+            },
+            "compatibility": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false
+        },
+        "cohort": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The BenchmarkCohort this determination was evaluated against. Benchmark is a population construct (CR-AM-06 \u00a76, \u00a77): membership flows AssessmentResult \u2192 Eligibility \u2192 BenchmarkCohort \u2192 Comparison."
         },
         "percentile": {
           "type": "number",
           "minimum": 0,
-          "maximum": 100
+          "maximum": 100,
+          "description": "CR-AM-07 comparative analytics field. Not produced by CR-AM-06 eligibility determination."
         },
         "rank": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 1,
+          "description": "CR-AM-07 comparative analytics field. Not produced by CR-AM-06 eligibility determination."
         },
         "sample_size": {
           "type": "integer",
-          "minimum": 0
+          "minimum": 0,
+          "description": "CR-AM-07 comparative analytics field. Not produced by CR-AM-06 eligibility determination."
         }
       }
     },

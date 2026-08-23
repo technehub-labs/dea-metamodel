@@ -191,6 +191,45 @@
         }
       },
       "additionalProperties": false
+    },
+    "comparabilityKey": {
+      "type": "object",
+      "description": "Canonical comparability identity of an AssessmentResult. Two results belong to the same benchmark population only when their relevant semantic dimensions are compatible (CR-AM-06 \u00a75). This prevents comparing things that share a label but not a meaning (CR-AM-06 \u00a72).",
+      "required": [
+        "scenario",
+        "capability",
+        "measure",
+        "assessment_model",
+        "scoring_model",
+        "maturity_model"
+      ],
+      "properties": {
+        "scenario": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The scenario identity under which the result was produced."
+        },
+        "capability": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The capability identity assessed."
+        },
+        "measure": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The measure identity applied."
+        },
+        "assessment_model": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The assessment model version used to produce the result."
+        },
+        "scoring_model": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The scoring model version that produced the result's scores."
+        },
+        "maturity_model": {
+          "$ref": "#/$defs/modelReference",
+          "description": "The maturity model version under which the result was interpreted."
+        }
+      },
+      "additionalProperties": false
     }
   }
 }

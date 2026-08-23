@@ -2,7 +2,54 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
-## [Unreleased] — CR-AM-05 assessment views & aggregation
+## [Unreleased] — CR-AM-06 benchmark model & eligibility
+
+CR-AM-06 establishes benchmark eligibility as a governed determination about
+the comparability of an AssessmentResult — never inferred from the existence
+of a score or maturity level (CR-AM-06 §15). It answers "is it comparable?";
+CR-AM-07 will answer "how do we compare it?". New artefacts:
+
+- `schemas/benchmark-cohort.schema.json` — BenchmarkCohort contract:
+  definition, eligibility criteria, comparability key, population,
+  minimum sample size, temporal boundary, governance (CR-AM-06 §6).
+- `schemas/common.schema.json` — new `comparabilityKey` `$def`: the
+  canonical six-dimension comparability identity (scenario, capability,
+  measure, assessment_model, scoring_model, maturity_model) (CR-AM-06 §5).
+- `schemas/assessment-result.schema.json` — `benchmarkResult` extended
+  additively: status enum gains `not-eligible` and `expired` (six states,
+  CR-AM-06 §4); new optional `reasons`, `comparability`, `eligibility`,
+  and `cohort` properties. `percentile`/`rank`/`sample_size` remain
+  optional and are documented as CR-AM-07 fields — CR-AM-06 determinations
+  never emit them (CR-AM-06 §10).
+- `vocabulary/benchmark-status.yaml` — six controlled eligibility states.
+- `vocabulary/eligibility-reasons.yaml` — thirteen machine-actionable
+  reason codes mapped to the twelve §8 dimensions and the status each
+  produces.
+- `runtime/eligibility/` — `BenchmarkEligibilityEngine` (deterministic
+  twelve-dimension evaluation with explicit version-compatibility
+  declarations per CR-AM-06 §9), `ComparabilityKey`, `CohortRegistry`
+  (ineligible results cannot silently enter a cohort, CR-AM-06 §14).
+- `benchmark/cohort-examples/telecom-service-assurance-2026.yaml` — the
+  §6 worked cohort (Telecom Operators + Service Assurance + Closed Loop
+  Automation + Automation Coverage + CLA-Maturity v1 + 2026).
+- `benchmark/eligibility-examples/eligible-result.yaml` and
+  `not-comparable-result.yaml` — the §11 worked determination shapes.
+- `governance/benchmark-eligibility.md` — eligibility policy incl. the
+  §15 architectural principle.
+- `model/assessment-metamodel.puml` — Benchmark Eligibility package
+  (BenchmarkEligibility, ComparabilityKey, EligibilityFlags,
+  BenchmarkCohort, BenchmarkStatus, EligibilityReason).
+- `tests/conformance/test_benchmark_eligibility.py` — 17 conformance
+  tests: one per §14 acceptance criterion plus the §15 guard and
+  vocabulary-integrity checks (positive and negative paths).
+- `validate-cr-am-06-eligibility` CI job; YAML-parse job extended to
+  `benchmark/cohort-examples/` and `benchmark/eligibility-examples/`.
+
+Canonical version is unchanged; CR-AM-06 is additive. Existing enterprise
+heatmaps and existing AssessmentResults remain schema-compatible
+(verified by AC-AM06-11 and AC-AM06-12).
+
+## [CR-AM-05 landing] — superseded by CR-AM-06 benchmark eligibility
 
 CR-AM-05 establishes the canonical AssessmentView + AggregationModel layer.
 AssessmentResult remains the canonical analytical fact; a view is a

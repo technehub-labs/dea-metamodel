@@ -1,0 +1,134 @@
+# Example — Eligible AssessmentResult (CR-AM-06 §11 valid shape)
+# A result whose benchmark determination is 'eligible' for the
+# telecom-service-assurance-2026 cohort. Timestamps are quoted so YAML
+# preserves them as date-time strings per the schema.
+
+id: dea:result-org-a-service-assurance-2026
+version: "1.0.0"
+metamodel_version: "1.0.0"
+assessment_model:
+  id: cla-assessment-v1
+  version: "1.0.0"
+assessment_instrument:
+  id: cla-instrument-v1
+  version: "1.0.0"
+assessment_execution:
+  id: cla-exec-a-2026
+  version: "1.0.0"
+subject:
+  id: dea:org-a
+  type: organization
+assessment_period:
+  start: "2026-01-15T00:00:00Z"
+  end: "2026-03-15T00:00:00Z"
+status: completed
+confidence: high
+compatibility:
+  schema: compatible
+  semantic: compatible
+  scoring: compatible
+  maturity: compatible
+  result: compatible
+  benchmark: compatible
+determinations:
+  - score:
+      value: 82
+      normalized_value: 82
+      scale: 0-100
+    maturity_model:
+      id: cla-maturity-v1
+      version: "1.0.0"
+    maturity_level: 4
+    finding: Closed-loop automation covers the majority of assurance flows.
+    confidence: high
+    evidence:
+      - id: dea:evidence-a-1
+        version: "1.0.0"
+        description: Production telemetry extract, 2026-01-15..2026-03-15.
+        confidence: high
+maturity_interpretation:
+  model:
+    id: cla-maturity-v1
+    version: "1.0.0"
+  dimensions:
+    - id: automation-coverage
+      level: 4
+      score: 82
+      confidence: high
+  overall:
+    level: 4
+    method: dominant-level
+    rationale: Single-dimension determination; dominant-level aggregation is identity here.
+observations:
+  - id: dea:obs-a-1
+    measure:
+      id: automation-coverage
+      version: "1.0.0"
+    value: 82
+    observed_at: "2026-03-10T00:00:00Z"
+evidence:
+  - id: dea:evidence-a-1
+    version: "1.0.0"
+    description: Production telemetry extract, 2026-01-15..2026-03-15.
+    confidence: high
+lineage:
+  assessment_model:
+    id: cla-assessment-v1
+    version: "1.0.0"
+  assessment_instrument:
+    id: cla-instrument-v1
+    version: "1.0.0"
+  assessment_execution:
+    id: cla-exec-a-2026
+    version: "1.0.0"
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  scenario:
+    id: service-assurance
+    version: "1.0.0"
+  measures:
+    - id: automation-coverage
+      version: "1.0.0"
+  scoring_model:
+    id: cla-score-v1
+    version: "1.0.0"
+  maturity_model:
+    id: cla-maturity-v1
+    version: "1.0.0"
+
+# CR-AM-06 §11 — the normative benchmark eligibility block.
+benchmark:
+  - model:
+      id: dea:benchmark-cla
+      version: "1.0.0"
+    status: eligible
+    comparability:
+      key:
+        scenario:
+          id: service-assurance
+          version: "1.0.0"
+        capability:
+          id: closed-loop-automation
+          version: "1.0.0"
+        measure:
+          id: automation-coverage
+          version: "1.0.0"
+        assessment_model:
+          id: cla-assessment-v1
+          version: "1.0.0"
+        scoring_model:
+          id: cla-score-v1
+          version: "1.0.0"
+        maturity_model:
+          id: cla-maturity-v1
+          version: "1.0.0"
+    eligibility:
+      evidence: true
+      coverage: true
+      confidence: true
+      currency: true
+      compatibility: true
+    cohort:
+      id: telecom-service-assurance-2026
+      version: "1.0.0"

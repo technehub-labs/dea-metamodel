@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/benchmark-cohort.schema.json",
+  "title": "OpenDEA Benchmark Cohort",
+  "description": "A governed comparison population (CR-AM-06 §6, §7). A BenchmarkCohort defines the semantic dimensions, eligibility criteria, temporal boundary, and governance under which a set of AssessmentResults may legitimately be compared. The benchmark exists BETWEEN comparable results, not inside an individual organization (CR-AM-06 §7). This schema defines eligibility and membership only — no percentile, rank, quartile, or peer-position computation (CR-AM-06 §10; those belong to CR-AM-07).",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "status",
+    "definition",
+    "eligibility_criteria",
+    "comparability_key",
+    "minimum_sample_size",
+    "temporal_boundary",
+    "governance"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "definition": {
+      "type": "object",
+      "description": "What this cohort IS (CR-AM-06 §6). Example: 'Telecom Operators + Service Assurance + Closed Loop Automation + Automation Coverage + AOMM v1 + 2026'.",
+      "required": [
+        "population_segment"
+      ],
+      "properties": {
+        "population_segment": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The organizational segment this cohort compares (e.g. 'telecom-operators')."
+        },
+        "scope_note": {
+          "type": "string",
+          "description": "Free-text clarification of what is in scope and out of scope for this cohort."
+        }
+      },
+      "additionalProperties": false
+    },
+    "eligibility_criteria": {
+      "type": "object",
+      "description": "The explicit rules an AssessmentResult must satisfy to participate (CR-AM-06 §6, §8). All criteria are evaluated by the eligibility engine; failures produce machine-actionable reasons (vocabulary/eligibility-reasons.yaml).",
+      "properties": {
+        "minimum_confidence": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "description": "Minimum result confidence required for membership."
+        },
+        "minimum_evidence_records": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Minimum count of evidence records the result must carry."
+        },
+        "minimum_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Minimum assessment coverage fraction (0..1) the result must demonstrate."
+        },
+        "required_compatibility": {
+          "type": "object",
+          "description": "Required six-axis compatibility declaration of any participating result (CR-AM-02 §11, CR-AM-06 §9).",
+          "properties": {
+            "schema": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            },
+            "semantic": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            },
+            "scoring": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            },
+            "maturity": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            },
+            "result": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            },
+            "benchmark": {
+              "type": "string",
+              "enum": ["compatible", "incompatible"]
+            }
+          },
+          "additionalProperties": false
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Explicit conditions under which a result may participate as 'provisional' rather than 'eligible' (CR-AM-06 §4). Empty array means no provisional pathway exists for this cohort.",
+          "items": {
+            "type": "object",
+            "required": ["id", "description"],
+            "properties": {
+              "id": {
+                "$ref": "common.schema.json#/$defs/identifier"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "comparability_key": {
+      "$ref": "common.schema.json#/$defs/comparabilityKey",
+      "description": "The canonical comparability identity required of every member result (CR-AM-06 §5). A result joins this cohort only if its comparability key is compatible on every dimension."
+    },
+    "population": {
+      "type": "object",
+      "description": "The membership of this cohort. Membership is a governed determination (CR-AM-06 §15): ineligible results cannot silently enter (CR-AM-06 §14).",
+      "properties": {
+        "members": {
+          "type": "array",
+          "description": "References to AssessmentResults determined eligible (or provisional under declared conditions) for this cohort.",
+          "items": {
+            "$ref": "common.schema.json#/$defs/modelReference"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "minimum_sample_size": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Minimum eligible membership required before this cohort may be used for comparison (CR-AM-06 §6). A cohort below minimum sample size exists but produces no benchmark."
+    },
+    "temporal_boundary": {
+      "type": "object",
+      "description": "The comparison window (CR-AM-06 §6, §8). Results whose assessment period falls outside this boundary are 'expired' for this cohort.",
+      "required": ["start", "end"],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "governance": {
+      "type": "object",
+      "description": "Who owns and reviews this cohort (CR-AM-06 §6).",
+      "required": ["owner"],
+      "properties": {
+        "owner": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Accountable party for cohort definition and membership decisions."
+        },
+        "review_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Next scheduled review of cohort definition."
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

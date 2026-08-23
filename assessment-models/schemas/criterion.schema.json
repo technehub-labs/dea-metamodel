@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/criterion.schema.json",
+  "title": "OpenDEA Assessment Criterion",
+  "description": "A condition that must be demonstrated to establish a particular assessment/maturity state (CR-AM-05A §11). The Criterion is the semantic bridge between evidence and maturity: Question → Response → Observation → Measure → Criterion → MaturityLevel (§13). Multiple Questions may contribute evidence to the same Criterion (§18).",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "applicability": {
+      "type": "string",
+      "description": "When this criterion applies (e.g. 'all operational domains', 'only where automated decisioning is in scope')."
+    },
+    "threshold": {
+      "type": "object",
+      "description": "The condition under which the criterion is considered demonstrated. Declarative; interpretation belongs to the scoring/maturity model.",
+      "properties": {
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "operator": {
+          "type": "string",
+          "enum": ["gte", "lte", "gt", "lt", "eq", "neq"]
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_requirement": {
+      "type": "object",
+      "description": "Evidence required to demonstrate this criterion (§22).",
+      "required": ["required"],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "types": {
+          "type": "array",
+          "description": "Evidence classifications from vocabulary/evidence-types.yaml.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "indicators": {
+      "type": "array",
+      "description": "Observable characteristics supporting this Criterion (§12).",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "maturity_model": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The maturity model whose levels this criterion informs (§13). The criterion does not own a level; it bridges evidence to the maturity determination."
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    }
+  },
+  "additionalProperties": false
+}

@@ -43,7 +43,7 @@ assessment-models/
 │   ├── compatibility.schema.json
 │   └── relationship.schema.json
 │
-├── vocabulary/                                 ← 9 controlled vocabularies
+├── vocabulary/                                 ← 12 controlled vocabularies
 │   ├── assessment-types.yaml
 │   ├── relationship-types.yaml                ← 17 types + legacy aliases
 │   ├── lifecycle-status.yaml                  ← 7 states incl. retired
@@ -52,7 +52,10 @@ assessment-models/
 │   ├── aggregation-methods.yaml               ← CR-AM-05: 12 aggregation methods
 │   ├── compatibility-types.yaml
 │   ├── benchmark-status.yaml                  ← CR-AM-06: 6 eligibility states
-│   └── eligibility-reasons.yaml               ← CR-AM-06: 13 machine-actionable reason codes
+│   ├── eligibility-reasons.yaml               ← CR-AM-06: 13 machine-actionable reason codes
+│   ├── dimension-status.yaml                  ← CR-AM-05A: 4 dimension lifecycle states
+│   ├── question-status.yaml                   ← CR-AM-05A: 4 question lifecycle states
+│   └── response-type.yaml                     ← CR-AM-05A: 12 response types
 │
 ├── examples/                                   ← 5 canonical YAML examples
 │   ├── legacy-technology-instrument.yaml      ← current-style + migration-layer interpretation
@@ -61,13 +64,14 @@ assessment-models/
 │   ├── zero-touch-operations-result.yaml      ← independently useful AssessmentResult
 │   └── benchmark-eligibility.yaml             ← explicit benchmark eligibility declaration
 │
-├── governance/                                 ← 7 policy docs
+├── governance/                                 ← 8 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
 │   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
 │   ├── result-lineage.md                      ← CR-AM-04 result lineage & operations
 │   ├── maturity-interpretation.md             ← CR-AM-04 multi-dimensional maturity interpretation
 │   ├── views.md                               ← CR-AM-05 view & aggregation policy
 │   ├── benchmark-eligibility.md               ← CR-AM-06 eligibility & cohort policy
+│   ├── hierarchical-instruments.md            ← CR-AM-05A dimension/instrument policy
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
 └── maturity/                                   ← maturity scoring v2 (this PR's other landing)
@@ -97,7 +101,13 @@ assessment-models/
 ```
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
-(CR-AM-06: BenchmarkCohort contract — 13 schemas total).
+(CR-AM-06) and the CR-AM-05A instrument layer: `dimension.schema.json`
+(recursive hierarchy — no SubDimension class), `criterion.schema.json`,
+`indicator.schema.json`, `question.schema.json`,
+`response-specification.schema.json`, and `assessment-item.schema.json`
+— 19 schemas total. `examples/hierarchical-maturity-assessment.yaml` is
+the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
+2 criteria, 6 questions, instrument v1.0, result lineage).
 
 ---
 

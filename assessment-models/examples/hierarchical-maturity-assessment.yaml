@@ -1,0 +1,327 @@
+# Example — Hierarchical Maturity Assessment (CR-AM-05A §37, §41)
+#
+# One complete worked example: a 3-level Dimension hierarchy, two
+# Capabilities, two Criteria, six Questions with multiple response types,
+# a versioned AssessmentInstrument, a maturity-model reference, and
+# assessment-result lineage.
+#
+# The semantic path (§34):
+#   Dimension → Sub-Dimension → Sub-Dimension → Capability → Criterion
+#     → Indicator → Question → Observation → Measure → Score → Maturity
+#
+# Architectural rules demonstrated:
+#   * No SubDimension class — a child is a Dimension with a parent (§3).
+#   * Capability is not a subtype of Dimension (§10, AC-AM05A-04).
+#   * Questions never own maturity levels (§17).
+#   * Instrument is versioned independently of the MaturityModel (§15).
+
+id: dea:package-hierarchical-maturity-assessment
+version: "1.0.0"
+metamodel_version: "1.0.0"
+type: hierarchical-maturity-assessment-example
+description: >
+  CR-AM-05A worked example: Automation maturity assessment with a
+  three-level dimension hierarchy and an independently versioned
+  instrument.
+
+# --- 3-level Dimension hierarchy (§7, §9) -------------------------------
+dimensions:
+  - id: dea:dimension-automation
+    version: "1.0.0"
+    name: Automation
+    description: Degree to which operational activities are automated.
+    sequence: 1
+    status: active
+    capabilities:
+      - id: dea:capability-event-detection
+        version: "1.0.0"
+      - id: dea:capability-decision-automation
+        version: "1.0.0"
+      - id: dea:capability-policy-execution
+        version: "1.0.0"
+      - id: dea:capability-automated-remediation
+        version: "1.0.0"
+
+  - id: dea:dimension-closed-loop-automation
+    version: "1.0.0"
+    name: Closed Loop Automation
+    description: Automation of detect-decide-act loops without human initiation.
+    sequence: 1
+    status: active
+    parent_dimension:
+      id: dea:dimension-automation
+      version: "1.0.0"
+
+  - id: dea:dimension-decision-automation
+    version: "1.0.0"
+    name: Decision Automation
+    description: Automated selection and enforcement of operational decisions.
+    sequence: 1
+    status: active
+    parent_dimension:
+      id: dea:dimension-closed-loop-automation
+      version: "1.0.0"
+    criteria:
+      - id: dea:criterion-automated-policy-enforcement
+        version: "1.0.0"
+      - id: dea:criterion-automated-decision-enforcement
+        version: "1.0.0"
+
+# --- Capabilities (referenced, not nested — §5, §10) ---------------------
+capabilities:
+  - id: dea:capability-decision-automation
+    version: "1.0.0"
+    name: Decision Automation
+    description: Ability to select and enact operational decisions automatically.
+    status: stable
+
+  - id: dea:capability-automated-remediation
+    version: "1.0.0"
+    name: Automated Remediation
+    description: Ability to remediate detected conditions without human action.
+    status: stable
+
+# --- Criteria — the semantic bridge between evidence and maturity (§11) --
+criteria:
+  - id: dea:criterion-automated-policy-enforcement
+    version: "1.0.0"
+    name: Automated Policy Enforcement
+    description: Operational policies are defined, deployed and enforced automatically.
+    applicability: all operational domains
+    threshold:
+      measure:
+        id: dea:measure-policy-enforcement-automation
+        version: "1.0.0"
+      operator: gte
+      value: 80
+    evidence_requirement:
+      required: true
+      types:
+        - system-record
+        - policy-document
+        - operational-metric
+    indicators:
+      - id: dea:indicator-policy-enforcement-pct
+        version: "1.0.0"
+    maturity_model:
+      id: dea:maturity-aomm
+      version: "1.0.0"
+    status: stable
+
+  - id: dea:criterion-automated-decision-enforcement
+    version: "1.0.0"
+    name: Automated Decision Enforcement
+    description: Approved operational decisions execute without manual intervention.
+    applicability: domains with automated decisioning in scope
+    threshold:
+      measure:
+        id: dea:measure-decision-execution-pct
+        version: "1.0.0"
+      operator: gte
+      value: 75
+    evidence_requirement:
+      required: true
+      types:
+        - system-record
+        - operational-metric
+    indicators:
+      - id: dea:indicator-decision-execution-pct
+        version: "1.0.0"
+    maturity_model:
+      id: dea:maturity-aomm
+      version: "1.0.0"
+    status: stable
+
+# --- Indicators — observable characteristics (§12) ------------------------
+indicators:
+  - id: dea:indicator-policy-enforcement-pct
+    version: "1.0.0"
+    name: Policy Enforcement Automation
+    description: Percentage of applicable operational policies automatically enforced.
+    measure:
+      id: dea:measure-policy-enforcement-automation
+      version: "1.0.0"
+    unit: percent
+    criterion:
+      id: dea:criterion-automated-policy-enforcement
+      version: "1.0.0"
+    status: stable
+
+  - id: dea:indicator-decision-execution-pct
+    version: "1.0.0"
+    name: Automated Decision Execution
+    description: Percentage of operational decisions automatically executed (§12 example).
+    measure:
+      id: dea:measure-decision-execution-pct
+      version: "1.0.0"
+    unit: percent
+    criterion:
+      id: dea:criterion-automated-decision-enforcement
+      version: "1.0.0"
+    status: stable
+
+# --- Questions — reusable, versioned, no maturityLevel (§16, §17) ---------
+questions:
+  - id: dea:q-policy-definition
+    version: "1.0.0"
+    text: Are operational policies formally defined in a machine-readable form?
+    required: true
+    sequence: 1
+    status: active
+    response_specification:
+      type: boolean
+
+  - id: dea:q-policy-coverage
+    version: "1.0.0"
+    text: What percentage of applicable operational domains have defined policies?
+    required: true
+    sequence: 2
+    status: active
+    response_specification:
+      type: percentage
+      unit: percent
+      min: 0
+      max: 100
+
+  - id: dea:q-policy-enforcement
+    version: "1.0.0"
+    text: Are operational policies automatically enforced?
+    required: true
+    sequence: 3
+    status: active
+    response_specification:
+      type: single-choice
+      options:
+        - id: none
+          label: No automated enforcement
+          sequence: 1
+        - id: partial
+          label: Enforcement in some domains
+          sequence: 2
+        - id: substantial
+          label: Enforcement across most domains
+          sequence: 3
+        - id: complete
+          label: Enforcement across all applicable domains
+          sequence: 4
+    evidence:
+      required: true
+      types:
+        - system-record
+        - policy-document
+
+  - id: dea:q-enforcement-exceptions
+    version: "1.0.0"
+    text: How are policy-enforcement exceptions handled?
+    required: false
+    sequence: 4
+    status: active
+    response_specification:
+      type: multi-choice
+      options:
+        - id: manual-review
+          sequence: 1
+        - id: queued-override
+          sequence: 2
+        - id: auto-escalation
+          sequence: 3
+
+  - id: dea:q-enforcement-auditability
+    version: "1.0.0"
+    text: Provide evidence that policy-enforcement actions are auditable.
+    required: true
+    sequence: 5
+    status: active
+    response_specification:
+      type: evidence
+    evidence:
+      required: true
+      types:
+        - system-record
+        - audit-log
+
+  - id: dea:q-decision-execution-rate
+    version: "1.0.0"
+    text: What percentage of approved operational decisions execute automatically?
+    required: true
+    sequence: 6
+    status: active
+    response_specification:
+      type: measurement
+      unit: percent
+
+# --- AssessmentInstrument — versioned independently of the model (§14, §15)
+instrument:
+  id: dea:instrument-aom-automation
+  version: "1.0.0"
+  metamodel_version: "1.0.0"
+  name: AOM Automation Assessment Instrument
+  type: assessment-instrument
+  implements:
+    id: dea:assessment-automation-maturity
+    version: "1.0.0"
+  instrument_type: hybrid
+  maturity_model:
+    id: dea:maturity-aomm
+    version: "1.0.0"
+  status: stable
+  sections:
+    - id: dea:section-policy-enforcement
+      name: Policy Enforcement
+      sequence: 1
+      items:
+        - id: dea:item-policy-definition
+          question: {id: dea:q-policy-definition, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          capability: {id: dea:capability-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-policy-enforcement, version: "1.0.0"}
+          sequence: 1
+        - id: dea:item-policy-coverage
+          question: {id: dea:q-policy-coverage, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          capability: {id: dea:capability-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-policy-enforcement, version: "1.0.0"}
+          measure: {id: dea:measure-policy-enforcement-automation, version: "1.0.0"}
+          sequence: 2
+        - id: dea:item-policy-enforcement
+          question: {id: dea:q-policy-enforcement, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          capability: {id: dea:capability-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-policy-enforcement, version: "1.0.0"}
+          measure: {id: dea:measure-policy-enforcement-automation, version: "1.0.0"}
+          sequence: 3
+        - id: dea:item-enforcement-exceptions
+          question: {id: dea:q-enforcement-exceptions, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-policy-enforcement, version: "1.0.0"}
+          required: false
+          sequence: 4
+        - id: dea:item-enforcement-auditability
+          question: {id: dea:q-enforcement-auditability, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-policy-enforcement, version: "1.0.0"}
+          sequence: 5
+    - id: dea:section-decision-execution
+      name: Decision Execution
+      sequence: 2
+      items:
+        - id: dea:item-decision-execution-rate
+          question: {id: dea:q-decision-execution-rate, version: "1.0.0"}
+          dimension: {id: dea:dimension-decision-automation, version: "1.0.0"}
+          capability: {id: dea:capability-decision-automation, version: "1.0.0"}
+          criterion: {id: dea:criterion-automated-decision-enforcement, version: "1.0.0"}
+          measure: {id: dea:measure-decision-execution-pct, version: "1.0.0"}
+          sequence: 1
+
+# --- Result lineage — instrument + question versions preserved (§33) ------
+result_lineage:
+  assessment_model: {id: dea:assessment-automation-maturity, version: "1.0.0"}
+  assessment_instrument: {id: dea:instrument-aom-automation, version: "1.0.0"}
+  assessment_execution: {id: dea:execution-example-2026, version: "1.0.0"}
+  capability: {id: dea:capability-decision-automation, version: "1.0.0"}
+  scenario: {id: dea:scenario-enterprise, version: "1.0.0"}
+  measures:
+    - {id: dea:measure-policy-enforcement-automation, version: "1.0.0"}
+    - {id: dea:measure-decision-execution-pct, version: "1.0.0"}
+  scoring_model: {id: dea:scoring-four-point, version: "1.0.0"}
+  maturity_model: {id: dea:maturity-aomm, version: "1.0.0"}

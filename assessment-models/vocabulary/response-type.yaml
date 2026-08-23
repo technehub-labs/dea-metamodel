@@ -1,0 +1,54 @@
+# Response Type Vocabulary
+# Controlled vocabulary for ResponseSpecification.type values.
+# Source: CR-AM-05A §20 (twelve initial response types).
+#
+# Not every question returns a maturity score (CR-AM-05A §1.6). The response
+# type declares the shape of the collected answer; conversion into
+# observations, measures, and scores happens downstream (§13, §21).
+
+vocabulary: response-type
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of ResponseSpecification.type values permitted under
+  CR-AM-05A. Each type constrains which ResponseSpecification constraint
+  fields are meaningful (e.g. options for choice types, min/max/unit for
+  numeric types).
+
+values:
+  - id: boolean
+    description: Yes/no answer.
+    constraint_fields: []
+  - id: single-choice
+    description: Exactly one option from a declared option set.
+    constraint_fields: [options]
+  - id: multi-choice
+    description: Zero or more options from a declared option set.
+    constraint_fields: [options]
+  - id: ordinal
+    description: One value from an ordered declared option set.
+    constraint_fields: [options]
+  - id: numeric
+    description: A number, optionally bounded and unit-qualified.
+    constraint_fields: [min, max, unit]
+  - id: percentage
+    description: A number in the range 0-100, unit percent.
+    constraint_fields: [min, max, unit]
+  - id: duration
+    description: A time span, unit-qualified (e.g. hours, days).
+    constraint_fields: [min, max, unit]
+  - id: frequency
+    description: A rate over a time unit (e.g. per-day, per-week).
+    constraint_fields: [unit]
+  - id: text
+    description: Free text.
+    constraint_fields: []
+  - id: date
+    description: A calendar date.
+    constraint_fields: []
+  - id: evidence
+    description: One or more evidence references (§22).
+    constraint_fields: []
+  - id: measurement
+    description: "A direct measure value with unit (§21 — response records what was received; the Observation carries the assessed fact)."
+    constraint_fields: [unit]

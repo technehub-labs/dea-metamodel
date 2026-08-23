@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/question.schema.json",
+  "title": "OpenDEA Assessment Question",
+  "description": "A reusable, independently identifiable and versionable assessment asset (CR-AM-05A §16, §8). A Question never owns a maturity level (§17); it contributes evidence to Criteria through the canonical evidence chain (§13). Contextual binding to dimensions/capabilities/criteria/measures happens in the AssessmentItem inside an AssessmentInstrument (§24, §25) — not on the global Question definition — so the same Question can be used differently in different instruments.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "text",
+    "response_specification",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "response_specification": {
+      "$ref": "response-specification.schema.json"
+    },
+    "required": {
+      "type": "boolean",
+      "default": true
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Default ordering hint; an instrument may override via AssessmentItem.sequence (§25)."
+    },
+    "status": {
+      "type": "string",
+      "description": "Controlled vocabulary: assessment-models/vocabulary/question-status.yaml (CR-AM-05A §30).",
+      "enum": ["draft", "active", "deprecated", "retired"]
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Evidence collection requirement (§22). References the canonical evidence model by type, without forcing a single evidence model onto the assessment metamodel.",
+      "required": ["required"],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "types": {
+          "type": "array",
+          "description": "Evidence classifications from vocabulary/evidence-types.yaml.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "supersedes": {
+      "type": "array",
+      "description": "Question replacement lineage (§31): the question versions this version replaces. Creates lineage without destroying the old definition.",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    }
+  },
+  "additionalProperties": false
+}

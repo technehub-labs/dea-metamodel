@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/indicator.schema.json",
+  "title": "OpenDEA Assessment Indicator",
+  "description": "An observable characteristic relevant to determining whether a Criterion has been met (CR-AM-05A §12). The Indicator separates the Question from what is actually being measured (§12). Example: 'Percentage of operational decisions automatically executed' — possible value 78%.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "measure": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Measure through which this Indicator is observed (§13: Observation → Indicator/Measure → Criterion)."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of the observed value (e.g. percent)."
+    },
+    "criterion": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Criterion this Indicator supports (§12)."
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    }
+  },
+  "additionalProperties": false
+}

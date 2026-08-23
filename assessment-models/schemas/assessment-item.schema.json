@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-item.schema.json",
+  "title": "OpenDEA Assessment Item",
+  "description": "The instrument-specific binding of a reusable Question to the model context (CR-AM-05A §25). Contextual properties live here — not on the global Question definition — so the same Question can be used differently in different instruments (§24, §19). If Question↔Criterion cardinality ever needs constraining, it is constrained here, preserving question reuse (§19).",
+  "type": "object",
+  "required": [
+    "id",
+    "question"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "question": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The versioned Question this item administers (§16, §33: the effective question version is part of result lineage)."
+    },
+    "dimension": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Dimension context for this item within the instrument (§24)."
+    },
+    "capability": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Capability this item informs (§10, §24)."
+    },
+    "criterion": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Criterion this item contributes evidence to (§13, §18)."
+    },
+    "measure": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The Measure the resulting Observation feeds (§13, §21)."
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Ordering within the instrument/section; overrides the Question's default sequence hint (§25)."
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Whether a response is mandatory in this instrument context; overrides the Question's default (§25)."
+    },
+    "applicability": {
+      "type": "string",
+      "description": "Instrument-specific applicability condition (e.g. 'only when automated decisioning is in scope')."
+    }
+  },
+  "additionalProperties": false
+}

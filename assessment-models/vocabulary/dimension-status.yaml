@@ -1,0 +1,25 @@
+# Dimension Status Vocabulary
+# Controlled vocabulary for Dimension.status values.
+# Source: CR-AM-05A §7 (Dimension fields), §30 (lifecycle pattern).
+#
+# Dimensions are versioned taxonomy nodes; retiring a dimension must not
+# invalidate historical results (same rule as CR-AM-05A §30 for questions).
+
+vocabulary: dimension-status
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  Lifecycle states for a Dimension. A Dimension is a recursively composable
+  assessment taxonomy node (CR-AM-05A §3); its status governs whether new
+  instruments may bind to it, never the interpretability of historical
+  results produced under it.
+
+values:
+  - id: draft
+    description: Under construction; not yet bindable by instruments.
+  - id: active
+    description: Current and bindable by instruments.
+  - id: deprecated
+    description: Bindable only for continuity; scheduled for retirement. New instruments should not adopt it.
+  - id: retired
+    description: No longer bindable. Historical references remain valid forever (CR-AM-05A §30 rule).

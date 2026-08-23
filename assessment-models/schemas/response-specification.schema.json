@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/response-specification.schema.json",
+  "title": "OpenDEA Response Specification",
+  "description": "The declared shape of a Question's answer (CR-AM-05A §20). Not every question returns a maturity score (§1.6); the response type constrains which constraint fields are meaningful. The response records what the assessor/mechanism received; the Observation carries the assessed fact (§21).",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Controlled vocabulary: assessment-models/vocabulary/response-type.yaml (CR-AM-05A §20).",
+      "enum": [
+        "boolean",
+        "single-choice",
+        "multi-choice",
+        "ordinal",
+        "numeric",
+        "percentage",
+        "duration",
+        "frequency",
+        "text",
+        "date",
+        "evidence",
+        "measurement"
+      ]
+    },
+    "options": {
+      "type": "array",
+      "description": "Declared option set. Meaningful only for single-choice, multi-choice and ordinal types.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          },
+          "label": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Ordering position; meaningful for ordinal responses."
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "min": {
+      "type": "number",
+      "description": "Inclusive lower bound. Meaningful for numeric, percentage and duration types."
+    },
+    "max": {
+      "type": "number",
+      "description": "Inclusive upper bound. Meaningful for numeric, percentage and duration types."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measure (e.g. percent, hours, per-day). Meaningful for numeric, percentage, duration, frequency and measurement types."
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "type": {"enum": ["single-choice", "multi-choice", "ordinal"]}
+        }
+      },
+      "then": {
+        "required": ["options"]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "type": {"const": "percentage"}
+        }
+      },
+      "then": {
+        "properties": {
+          "min": {"const": 0},
+          "max": {"const": 100},
+          "unit": {"const": "percent"}
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# Question Status Vocabulary
+# Controlled vocabulary for Question.status values.
+# Source: CR-AM-05A §16 (Question fields), §30 (lifecycle states).
+
+vocabulary: question-status
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  Lifecycle states for a Question. Questions are independently identifiable
+  and versionable assessment assets (CR-AM-05A §8, §16). Retiring a Question
+  must not invalidate historical AssessmentResults — historical results
+  retain their original Question version (CR-AM-05A §30, §33).
+
+values:
+  - id: draft
+    description: Under construction; not yet collectable.
+  - id: active
+    description: Current and collectable by instruments.
+  - id: deprecated
+    description: Collectable only for continuity; scheduled for retirement. New instruments should not adopt it.
+  - id: retired
+    description: No longer collectable. Historical responses remain valid forever (CR-AM-05A §30).

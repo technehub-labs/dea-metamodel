@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/aggregation-model.schema.json",
+  "title": "OpenDEA Aggregation Model",
+  "description": "Versioned aggregation contract used by AssessmentView to derive cell values from AssessmentResults. The AggregationModel is named (id+version), not a generic mathematical engine, so historical views remain interpretable. Source: CR-AM-05 \u00a723, \u00a724.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "method",
+    "input",
+    "missing_data"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "method": {
+      "$ref": "vocabulary/aggregation-methods.yaml"
+    },
+    "input": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "score",
+            "maturity",
+            "measure",
+            "observation"
+          ],
+          "description": "Which result-level quantity this aggregation consumes."
+        },
+        "scoring_model": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "maturity_model": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "grouping": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "enum": [
+            "capability",
+            "scenario",
+            "measure",
+            "subject",
+            "assessment_model",
+            "assessment_period"
+          ]
+        },
+        "secondary_dimension": {
+          "type": "string",
+          "enum": [
+            "capability",
+            "scenario",
+            "measure",
+            "subject",
+            "assessment_model",
+            "assessment_period"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "weighting": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "measure-weight",
+            "capability-weight",
+            "explicit",
+            "uniform"
+          ]
+        },
+        "weights": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "missing_data": {
+      "type": "object",
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "exclude",
+            "propagate",
+            "explicit-unknown",
+            "treat-as-zero"
+          ],
+          "description": "How missing input values are handled. CR-AM-05 \u00a726: missing is not zero unless the source result explicitly says zero."
+        }
+      },
+      "additionalProperties": false
+    },
+    "normalization": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "scale": {
+          "type": "string",
+          "enum": [
+            "0-1",
+            "0-100",
+            "0-3",
+            "0-4",
+            "0-5"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "compatibility": {
+      "type": "object",
+      "description": "Compatibility guard for participating sources. CR-AM-05 \u00a720: incompatible model versions cannot silently participate.",
+      "properties": {
+        "required_axes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "schema",
+              "semantic",
+              "scoring",
+              "maturity",
+              "result",
+              "benchmark"
+            ]
+          }
+        },
+        "min_compatible_axes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 6
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

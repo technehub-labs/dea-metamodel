@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-view.schema.json",
+  "title": "OpenDEA Assessment View",
+  "description": "A derived analytical projection over one or more AssessmentResults. CR-AM-05 \u00a75\u2013\u00a76. AssessmentResult remains the canonical fact; an AssessmentView is a governed projection, never the source of truth. Views are governed by AggregationModel and must not introduce a new first-class enterprise, capability, or heatmap assessment entity \u2014 such entities are intentionally absent from the canonical schema and the view layer derives all analytical presentations from existing AssessmentResult facts.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "type",
+    "subject",
+    "assessment_period",
+    "source_results",
+    "aggregation",
+    "lineage",
+    "compatibility"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "enterprise_profile",
+        "capability_profile",
+        "scenario_profile",
+        "heatmap",
+        "trend"
+      ],
+      "description": "CR-AM-05 \u00a76 controlled view types. Presentation formats (radar / table / bar-chart) remain outside the metamodel."
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "organization",
+            "capability",
+            "scenario",
+            "assessment_model",
+            "subject"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assessment_period": {
+      "type": "object",
+      "required": [
+        "start"
+      ],
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "end": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "filters": {
+      "type": "object",
+      "description": "CR-AM-05 \u00a79 selection context. Every filter is versioned.",
+      "properties": {
+        "assessment_models": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "measures": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "maturity_models": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/identifier"
+          }
+        },
+        "organizations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "result_status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "in-progress",
+            "completed",
+            "validated",
+            "superseded"
+          ]
+        },
+        "assessment_period": {
+          "type": "object",
+          "properties": {
+            "start": { "type": "string", "format": "date-time" },
+            "end": { "type": "string", "format": "date-time" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "source_results": {
+      "type": "array",
+      "description": "CR-AM-05 \u00a77: every view explicitly identifies its source AssessmentResults.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "version"],
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/identifier" },
+          "version": { "$ref": "common.schema.json#/$defs/version" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "aggregation": {
+      "type": "object",
+      "required": ["method", "model"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "identity",
+            "sum",
+            "count",
+            "minimum",
+            "maximum",
+            "average",
+            "weighted-average",
+            "median",
+            "threshold",
+            "dominant-level",
+            "coverage",
+            "custom"
+          ]
+        },
+        "model": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "Versioned AggregationModel reference."
+        },
+        "rationale": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "dimensions": {
+      "type": "array",
+      "description": "CR-AM-05 \u00a714: row + column dimensions. Empty for capability-profile.",
+      "items": {
+        "type": "string",
+        "enum": ["capability", "scenario", "measure", "subject", "assessment_model", "assessment_period"]
+      }
+    },
+    "measures": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      }
+    },
+    "cells": {
+      "type": "array",
+      "description": "CR-AM-05 \u00a725: cells are structured, not just numbers.",
+      "items": {
+        "$ref": "#/$defs/viewCell"
+      }
+    },
+    "compatibility": {
+      "$ref": "common.schema.json#/$defs/compatibility"
+    },
+    "lineage": {
+      "type": "object",
+      "required": ["source_results"],
+      "description": "CR-AM-05 \u00a721 view lineage. versioned source_results + assessment_models + scoring_models + maturity_models + aggregation.",
+      "properties": {
+        "source_results": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "version"],
+            "properties": {
+              "id": { "$ref": "common.schema.json#/$defs/identifier" },
+              "version": { "$ref": "common.schema.json#/$defs/version" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "assessment_models": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" }
+        },
+        "scoring_models": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" }
+        },
+        "maturity_models": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" }
+        },
+        "aggregation": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "viewCell": {
+      "type": "object",
+      "description": "CR-AM-05 \u00a725\u2013\u00a728: a heatmap cell carries value + coverage + confidence + source_results + structured subject.",
+      "required": ["subject"],
+      "properties": {
+        "subject": {
+          "type": "object",
+          "required": ["id", "type"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "type": {
+              "type": "string",
+              "enum": ["capability", "scenario", "measure", "subject", "assessment_model"]
+            },
+            "name": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "score": { "type": "number" },
+            "normalized": { "type": "number" },
+            "level": { "type": "integer", "minimum": 1, "maximum": 5 }
+          },
+          "additionalProperties": false
+        },
+        "maturity": {
+          "type": "object",
+          "required": ["model"],
+          "properties": {
+            "model": { "$ref": "common.schema.json#/$defs/modelReference" },
+            "level": { "type": "integer", "minimum": 1, "maximum": 5 }
+          },
+          "additionalProperties": false
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "coverage": {
+          "type": "object",
+          "required": ["value"],
+          "properties": {
+            "value": { "type": "number", "minimum": 0, "maximum": 1 },
+            "assessed": { "type": "integer", "minimum": 0 },
+            "applicable": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "source_results": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/identifier" }
+        },
+        "compatibility_guard": {
+          "type": "object",
+          "description": "If true, this cell was excluded by a compatibility guard (CR-AM-05 \u00a715).",
+          "properties": {
+            "excluded": { "type": "boolean" },
+            "reason": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

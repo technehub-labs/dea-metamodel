@@ -1,0 +1,29 @@
+# Comparison Exclusion Reason Vocabulary
+# Controlled vocabulary for BenchmarkComparison.derivation.excluded_members[].reason.
+# Source: CR-AM-07 §10 constraint 2 (missing data is N/A, not zero).
+#
+# An admitted cohort member is excluded from the distribution only with
+# an explicit, machine-actionable reason. Exclusion is never silent and
+# scores are never imputed.
+
+vocabulary: comparison-exclusion-reasons
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of reasons for which an admitted cohort member may be
+  excluded from a BenchmarkComparison distribution. Excluded members
+  remain admitted to the cohort; exclusion is a statement about the
+  member's data on the comparison axis, not about eligibility
+  (CR-AM-07 §10 constraint 2).
+
+values:
+  - id: score-missing-on-comparison-axis
+    description: >
+      The member carries no value on the declared comparison axis.
+      Missing data is N/A, not zero (CR-AM-07 §10; CR-AM-05).
+
+  - id: score-not-numeric
+    description: >
+      The member's value on the declared comparison axis is not a
+      number (including booleans, which are never scores).
+      Non-numeric values are never coerced.

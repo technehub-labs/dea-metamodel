@@ -104,6 +104,33 @@ example changes.
   vocabulary & schema → distribution engine → percentile & ranking →
   integration & governance.
 
+## [Unreleased] — CR-CM-000A: Terminology Alignment (extension)
+
+Extension to CR-CM-000, landed before the Concepts Model repository
+exists (CR-CM-001). Specification and metamodel remain **1.0.0**.
+
+### Added — supplement semantics encoded in the registry (v1.1.0)
+- **`change-requests/CR-CM-000A.md`** — the extension, landed verbatim
+  (md5 `5d2283edffd9ee2a7ccda015589017c2`).
+- **`vocabulary/terminology-registry.yaml`** extended with: the §7
+  canonical vocabulary (11 terms across MetaFramework / Concepts Model /
+  Metamodel / Catalog layers, each with namespace/status/owner); the §9
+  conceptual relationship verbs (`has-ecf-context`, `uses-domain`,
+  `uses-stage`, `belongs-to`, `includes`, `maps-to` — with `maps-to`
+  explicitly distinct from inheritance); the §10 prohibited semantics
+  (bare `domain:` attribute, Concept-Area-as-Domain, Profile-as-Domain,
+  implicit metamodel typing); the §11 nine initial Concept Areas; and the
+  mandated `dea-concepts-model` repository layout (`concept-areas/`,
+  never `domains/`; registry's long-term home
+  `governance/terminology-registry.yaml`).
+- **`docs/concepts/terminology-alignment.md`** — new §7 covering the
+  extension.
+- **10 new conformance tests** in
+  `tests/conformance/test_015_terminology_registry.py` covering every
+  supplement section.
+- Companion document lands in `dea-metaframework`:
+  `docs/terminology/concepts-model-alignment.md` (CR-CM-000A §16).
+
 ## [Unreleased] — CR-CM-000: Terminology Alignment
 
 First CR of the Concepts Model (CM) series. Specification and metamodel

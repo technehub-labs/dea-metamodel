@@ -76,3 +76,35 @@ schemas, examples, and docs inherit the boundaries by construction instead
 of being retrofitted after drift has set in. The conformance test
 (`test_015_terminology_registry.py`) enforces the registry's integrity and
 guards the boundary going forward.
+
+## 7. CR-CM-000A — the extension (2026-08-24)
+
+[CR-CM-000A](../../change-requests/CR-CM-000A.md) extends this decision
+before the Concepts Model repository itself exists. Its additions, all
+encoded in the registry (v1.1.0):
+
+- **Canonical vocabulary table (§7)** — 11 terms across four layers
+  (MetaFramework, Concepts Model, Metamodel, Catalog Layer), each with
+  namespace / status / owner / canonical meaning.
+- **Conceptual relationship verbs (§9)** — `has-ecf-context`,
+  `uses-domain`, `uses-stage`, `belongs-to`, `includes` (×2), `maps-to`.
+  `maps-to` is deliberately distinct from `is-a` / `specializes` /
+  `inherits-from`: conceptual classification never implies metamodel
+  inheritance; a metamodel mapping is a separate decision.
+- **Prohibited semantics (§10)** — no bare `domain:` attribute on
+  concepts; no Concept-Area-equals-ECF-Domain equivalence; no
+  Profile-as-Domain naming; no implicit metamodel typing.
+- **Initial Concept Areas (§11)** — Enterprise, Operations, Intelligence,
+  Execution, Control, Scenario, Value, Measurement, Systems. Scaffolding,
+  not a permanent ontology.
+- **Compositional profiles (§5)** — a Concept Profile INCLUDES concepts
+  and relationships and may reference ECF Contexts; it is compositional,
+  never hierarchical.
+- **Repository governance (§14–§16)** — the long-term canonical home of
+  the terminology registry is `governance/terminology-registry.yaml` in
+  the forthcoming `dea-concepts-model` repository (created by CR-CM-001).
+  Until then, this repo's `vocabulary/terminology-registry.yaml` is the
+  canonical interim registry, and the mandated `dea-concepts-model` layout
+  (with `concept-areas/`, never `domains/`) is recorded in the registry so
+  CR-CM-001 inherits it by construction. The companion alignment document
+  lands in `dea-metaframework` at `docs/terminology/concepts-model-alignment.md`.

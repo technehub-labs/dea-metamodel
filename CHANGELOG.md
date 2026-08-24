@@ -4,6 +4,33 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-CM-000: Terminology Alignment
+
+First CR of the Concepts Model (CM) series. Specification and metamodel
+remain **1.0.0**; this CR is terminology governance only — no schema,
+runtime, or version changes.
+
+### Added — terminology registry + semantic boundaries
+- **`vocabulary/terminology-registry.yaml`** — the authoritative
+  terminology registry, introduced *before* the first canonical Concepts
+  Model (CR-CM-000 AC-7). Bounds the five artifacts (Enterprise Concept
+  Framework, OpenDEA Concepts Model, OpenDEA Foundational Metamodel,
+  Catalogs, Profiles), reserves **Domain**/**Stage** for the ECF (every use
+  must be *ECF Domain*/*ECF Stage* or namespace-qualified), and introduces
+  the Concepts Model vocabulary: **Concept Area** (many-to-many
+  membership), **Concept Profile**, **Concept Classification**, and
+  **ECF Context** (zero-or-more; association, not identity — Concept Area
+  ≠ ECF Domain, no automatic 1:1 mapping).
+- **`docs/concepts/terminology-alignment.md`** — KB note capturing the
+  CR's decisions, the five artifact boundaries, and the non-identity
+  principle.
+- **`tests/conformance/test_015_terminology_registry.py`** — 9 conformance
+  tests covering registry integrity, reserved-term ownership, Concepts
+  Model term constraints (AC-1…AC-7), and a forward guard against bare
+  `domain:` fields in future Concepts Model artifacts.
+- **`change-requests/CR-CM-000.md`** — the CR, landed verbatim (md5
+  `2ec1e5c4539835f9b971ae7042280450`).
+
 ## [Unreleased] — CR-11 Phase 8: Conformance
 
 Eighth and final phase of CR-11. Specification and metamodel remain

@@ -4,6 +4,31 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-07 Phase 3: Percentile & ranking
+
+Third implementation phase of CR-AM-07. Specification and metamodel
+remain **1.0.0**; additive runtime module, no canonical version bump.
+
+### Added — standings engine + comparison composer
+- **`runtime/comparison/standings.py`** — `StandingsEngine` computes
+  per-member percentile, rank, and peer position (`4/27`) over admitted
+  members. Governed enums `PercentileMethod` (inclusive / exclusive) and
+  `RankingRule` (competition / dense), values ≡ the Phase 1
+  vocabularies. Ties share percentile and rank; competition ranking
+  skips after a tie, dense does not. Admission guard, minimum-sample
+  enforcement, and exclusion semantics are inherited from the Phase 2
+  distribution engine.
+- **`runtime/comparison/compose.py`** — `compose_comparison` is the only
+  path that assembles a complete, schema-valid `BenchmarkComparison`
+  document: distribution and standings derived together from the same
+  member input over the same cohort snapshot, with membership hash and
+  reproducibility hash (CR-AM-07 §10, §13).
+- **17 conformance tests**
+  (`assessment-models/tests/conformance/test_comparison_standings.py`) —
+  worked-example regression (all 27 standings + hashes reproduced
+  exactly), tie semantics under both ranking rules, both percentile
+  methods, boundary guards, and composed-document schema validation.
+
 ## [Unreleased] — CR-AM-07 Phase 2: Distribution engine
 
 Second implementation phase of CR-AM-07. Specification and metamodel

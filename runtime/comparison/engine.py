@@ -58,6 +58,7 @@ class MemberScore:
 
     member: str
     score: Any
+    member_version: str = "1.0.0"
 
 
 @dataclass(frozen=True)

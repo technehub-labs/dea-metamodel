@@ -11,13 +11,188 @@
 
 registry:
   id: dea:terminology-registry
-  version: 1.0.0
+  version: 1.1.0
   status: canonical
   introduced_by: CR-CM-000
+  extended_by: CR-CM-000A
   purpose: >-
     Establish semantic boundaries between the Enterprise Concept Framework,
     the OpenDEA Concepts Model, the OpenDEA Foundational Metamodel, the
     Catalogs, and the Profiles.
+  planned_home: >-
+    CR-CM-000A §14 designates governance/terminology-registry.yaml in the
+    forthcoming dea-concepts-model repository as the long-term canonical
+    home. Until CR-CM-001 creates that repository, THIS registry
+    (dea-metamodel/vocabulary/terminology-registry.yaml) is the canonical
+    interim registry; the CR-CM-001 migration must preserve the
+    name/namespace/status/owner term shape exactly.
+
+# ---------------------------------------------------------------------------
+# Canonical term registry (CR-CM-000A §14 minimum shape + §7 vocabulary table)
+# ---------------------------------------------------------------------------
+terms:
+  - name: Domain
+    namespace: ECF
+    status: reserved
+    owner: dea-metaframework
+    layer: MetaFramework
+    canonical_meaning: Enterprise structural dimension defined by ECF.
+  - name: Stage
+    namespace: ECF
+    status: reserved
+    owner: dea-metaframework
+    layer: MetaFramework
+    canonical_meaning: Enterprise lifecycle dimension defined by ECF.
+  - name: ECF Context
+    namespace: ConceptModel
+    status: canonical
+    owner: dea-concepts-model
+    layer: Concepts Model
+    canonical_meaning: Domain + Stage context for an enterprise concept.
+  - name: Concept
+    namespace: ConceptModel
+    status: canonical
+    owner: dea-concepts-model
+    layer: Concepts Model
+    canonical_meaning: A defined unit of meaning.
+  - name: Concept Area
+    namespace: ConceptModel
+    status: canonical
+    owner: dea-concepts-model
+    layer: Concepts Model
+    canonical_meaning: Thematic organization of concepts.
+  - name: Concept Profile
+    namespace: ConceptModel
+    status: canonical
+    owner: dea-concepts-model
+    layer: Concepts Model
+    canonical_meaning: Purposeful composition of concepts and relationships.
+  - name: Concept Classification
+    namespace: ConceptModel
+    status: canonical
+    owner: dea-concepts-model
+    layer: Concepts Model
+    canonical_meaning: Mechanism for categorizing concepts.
+  - name: Entity
+    namespace: Metamodel
+    status: canonical
+    owner: dea-metamodel
+    layer: Metamodel
+    canonical_meaning: Formal information-model construct.
+  - name: EntitySpec
+    namespace: Metamodel
+    status: canonical
+    owner: dea-metamodel
+    layer: Metamodel
+    canonical_meaning: Specification of an entity type.
+  - name: Relationship
+    namespace: Metamodel
+    status: canonical
+    owner: dea-metamodel
+    layer: Metamodel
+    canonical_meaning: Formal association between information constructs.
+  - name: Catalog
+    namespace: Catalog
+    status: canonical
+    owner: dea-catalog-repositories
+    layer: Catalog Layer
+    canonical_meaning: Curated reusable collection of semantic artifacts.
+
+# ---------------------------------------------------------------------------
+# Conceptual relationship verbs (CR-CM-000A §9)
+# ---------------------------------------------------------------------------
+conceptual_relationships:
+  - id: has-ecf-context
+    source: Concept
+    target: ECF Context
+    note: Contextualizes a concept against the ECF coordinate system.
+  - id: uses-domain
+    source: ECF Context
+    target: ECF Domain
+  - id: uses-stage
+    source: ECF Context
+    target: ECF Stage
+  - id: belongs-to
+    source: Concept
+    target: Concept Area
+    note: Many-to-many — a concept may belong to multiple Concept Areas.
+  - id: includes
+    source: Concept Profile
+    target: Concept
+    note: Profiles are compositional, not hierarchical.
+  - id: includes
+    source: Concept Profile
+    target: Concept Relationship
+  - id: maps-to
+    source: Concept
+    target: Metamodel EntitySpec
+    note: >-
+      Deliberately distinct from is-a / specializes / inherits-from:
+      conceptual classification does NOT automatically imply metamodel
+      inheritance. A metamodel mapping is a separate decision
+      (CR-CM-000A §9, §10).
+
+# ---------------------------------------------------------------------------
+# Prohibited semantics (CR-CM-000A §10)
+# ---------------------------------------------------------------------------
+prohibited:
+  - id: generic-domain-attribute
+    pattern: "concept: { domain: <name> }"
+    rule: >-
+      No concept may carry a bare `domain:` attribute unless the value is
+      an actual canonical ECF Domain. Thematic grouping uses
+      conceptAreas, not domain.
+  - id: concept-area-as-ecf-domain
+    pattern: "Operations Concept Area = Operations ECF Domain"
+    rule: >-
+      No equivalence between a Concept Area and an ECF Domain may be
+      assumed (CR-CM-000 AC-5/AC-6).
+  - id: profile-as-domain
+    pattern: "Agentic Enterprise Domain"
+    rule: >-
+      A conceptual perspective is a Concept Profile, never a Domain.
+  - id: implicit-metamodel-type
+    pattern: "Concept X -> automatically XxxYyy : Capability"
+    rule: >-
+      A concept never becomes a metamodel entity type without a separate
+      metamodel mapping decision via maps-to.
+
+# ---------------------------------------------------------------------------
+# Initial Concept Areas (CR-CM-000A §11) — organizational scaffolding,
+# not a permanent ontology; may evolve as the Concepts Model matures.
+# ---------------------------------------------------------------------------
+initial_concept_areas:
+  - Enterprise
+  - Operations
+  - Intelligence
+  - Execution
+  - Control
+  - Scenario
+  - Value
+  - Measurement
+  - Systems
+
+# ---------------------------------------------------------------------------
+# Mandated dea-concepts-model repository structure (CR-CM-000A §15/§16).
+# CR-CM-001 creates the repository; it MUST use concept-areas/, not
+# domains/.
+# ---------------------------------------------------------------------------
+planned_repository:
+  name: dea-concepts-model
+  established_by: CR-CM-001
+  required_layout:
+    - README.md
+    - GOVERNANCE.md
+    - governance/terminology-registry.yaml
+    - concept-areas/
+    - profiles/
+    - concepts/
+    - relationships/
+    - mappings/ecf/
+    - models/terminology-alignment.puml
+  forbidden_paths:
+    - domains/
+
 
 # ---------------------------------------------------------------------------
 # Artifact boundaries (CR-CM-000 §Purpose)
@@ -103,27 +278,34 @@ concepts_model_terms:
     id: concept-profile
     owner: opendea-concepts-model
     definition: >-
-      A named, purpose-bound selection of concepts and their groupings
-      within the Concepts Model. Detailed semantics land with the first
-      canonical Concepts Model.
+      A purposeful selection and relationship view of concepts addressing
+      a particular problem, capability, architecture or transformation
+      perspective (CR-CM-000A §5). A profile INCLUDES concepts and concept
+      relationships and may REFERENCE ECF Contexts; it is compositional,
+      never hierarchical.
     constraints:
       membership: many-to-many
+      compositional: true
+      hierarchical: false
   - term: Concept Classification
     id: concept-classification
     owner: opendea-concepts-model
     definition: >-
-      The assignment of a concept to one or more classification targets
-      (Concept Areas, Concept Profiles) within the Concepts Model.
+      The mechanism for categorizing concepts — the assignment of a
+      concept to one or more classification targets (Concept Areas,
+      Concept Profiles) within the Concepts Model.
     constraints:
       membership: many-to-many
   - term: ECF Context
     id: ecf-context
     owner: opendea-concepts-model
     definition: >-
-      An optional association between a concept and ECF coordinates
-      (ECF Domain, ECF Stage). A concept MAY carry zero or more ECF
-      Contexts (AC-4). An ECF Context is an association, not an identity:
-      it never implies that a Concept Area IS an ECF Domain (AC-5, AC-6).
+      An optional association between a concept and the ECF coordinate
+      system, identifying the applicable ECF Domain + ECF Stage pair
+      (CR-CM-000A §6). A concept MAY carry zero or more ECF Contexts
+      (AC-4). An ECF Context is an association, not an identity: it never
+      implies that a Concept Area IS an ECF Domain (AC-5, AC-6), and a
+      concept never carries a bare `domain:` attribute (CR-CM-000A §10).
     constraints:
       cardinality: zero-or-more     # AC-4
       distinct_from: ecf-domain     # AC-5

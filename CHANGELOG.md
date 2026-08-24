@@ -4,6 +4,31 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-07 Phase 2: Distribution engine
+
+Second implementation phase of CR-AM-07. Specification and metamodel
+remain **1.0.0**; additive runtime module, no canonical version bump.
+
+### Added — `runtime/comparison` distribution engine
+- **`runtime/comparison/engine.py`** — `DistributionEngine.compute`
+  derives cohort statistics (n, min/q1/median/q3/max, mean, sample
+  standard deviation, IQR) over admitted members on the comparison axis.
+  Exclusive median-of-halves quartiles; sha256 reproducibility hash over
+  the canonically sorted score multiset. Emits distribution + exclusions
+  only — percentile/rank/peer position remain Phase 3 (CR-AM-07 §11).
+- **Enforced by construction** (CR-AM-07 §10): non-admitted members
+  raise `ComparisonError` (eligibility is the only door); distributions
+  below the cohort `minimum_sample_size` are refused, never silently
+  emitted; members with missing/non-numeric scores are excluded with
+  explicit machine-actionable reasons — never imputed (missing data is
+  N/A, not zero).
+- **`vocabulary/comparison-exclusion-reasons.yaml`** — governed reasons
+  (`score-missing-on-comparison-axis`, `score-not-numeric`).
+- **18 conformance tests**
+  (`assessment-models/tests/conformance/test_comparison_distribution.py`),
+  including the regression pin that the engine reproduces the Phase 1
+  worked example's distribution *and* reproducibility hash exactly.
+
 ## [Unreleased] — CR-AM-07 Phase 1: Comparison vocabulary & schema
 
 First implementation phase of CR-AM-07. Specification and metamodel

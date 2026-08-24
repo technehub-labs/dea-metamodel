@@ -849,3 +849,20 @@ jobs:
       - name: Run CR-AM-05A hierarchical instruments conformance suite
         run: |
           python -m unittest -v assessment-models.tests.conformance.test_hierarchical_instruments
+
+  # CR-AM-07 Phase 4 — comparison report surfacing + governance.
+  validate-cr-am-07-phase-4:
+    name: CR-AM-07 Phase 4 comparison reporting & governance
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml + jsonschema
+        run: pip install pyyaml jsonschema
+      - name: Run CR-AM-07 Phase 4 comparison report conformance suite
+        run: |
+          python -m unittest -v assessment-models.tests.conformance.test_comparison_report

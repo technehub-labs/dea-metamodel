@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/benchmark-comparison.schema.json",
+  "title": "OpenDEA Benchmark Comparison",
+  "description": "A governed, reproducible derivation over the admitted members of a BenchmarkCohort (CR-AM-07 §3). A BenchmarkComparison answers 'how do we compare it?' — distribution, percentile, rank, and peer position — consuming CR-AM-06 eligibility without redefining it. A comparison is a derived artifact, never the truth: the truth is the set of eligible AssessmentResults, and the same cohort snapshot must always reproduce the same comparison (CR-AM-07 §10). This schema defines the comparison shape only — the distribution engine (Phase 2) and percentile/ranking engine (Phase 3) are runtime concerns.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "cohort",
+    "comparability_key",
+    "comparison_axis",
+    "distribution",
+    "standings",
+    "derivation"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "cohort": {
+      "type": "object",
+      "description": "The BenchmarkCohort this comparison derives from, pinned to a membership snapshot so the derivation is reproducible (CR-AM-07 §3). Membership itself is governed exclusively by CR-AM-06 — this object references the cohort, it does not admit members.",
+      "required": [
+        "reference",
+        "snapshot"
+      ],
+      "properties": {
+        "reference": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "snapshot": {
+          "type": "object",
+          "required": [
+            "cohort_version",
+            "snapshot_at",
+            "membership_hash"
+          ],
+          "properties": {
+            "cohort_version": {
+              "$ref": "common.schema.json#/$defs/version"
+            },
+            "snapshot_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "membership_hash": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Content hash of the admitted membership at snapshot time. The hashing method is declared in derivation.notes; same membership must always produce the same hash."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "comparability_key": {
+      "$ref": "common.schema.json#/$defs/comparabilityKey",
+      "description": "Inherited verbatim from the cohort (CR-AM-07 §3). Comparison never widens the comparability key."
+    },
+    "comparison_axis": {
+      "type": "object",
+      "description": "The single score axis standings are computed on — never a mixture of axes (CR-AM-07 §5).",
+      "required": [
+        "measure"
+      ],
+      "properties": {
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "distribution": {
+      "type": "object",
+      "description": "Population statistics over the admitted members on the comparison axis (CR-AM-07 §4). Emitted only when the cohort's minimum_sample_size is satisfied — small-population statistics are never silently emitted (CR-AM-07 §4, §10).",
+      "required": [
+        "n",
+        "minimum",
+        "q1",
+        "median",
+        "q3",
+        "maximum",
+        "mean"
+      ],
+      "properties": {
+        "n": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Admitted population size included in this distribution."
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "q1": {
+          "type": "number",
+          "description": "First quartile of the distribution on the comparison axis."
+        },
+        "median": {
+          "type": "number"
+        },
+        "q3": {
+          "type": "number",
+          "description": "Third quartile of the distribution on the comparison axis."
+        },
+        "maximum": {
+          "type": "number"
+        },
+        "mean": {
+          "type": "number"
+        },
+        "standard_deviation": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Optional spread measure. Sample standard deviation unless derivation.notes declares otherwise."
+        },
+        "iqr": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Optional interquartile range (q3 − q1)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "standings": {
+      "type": "array",
+      "description": "Per-member standing within the cohort (CR-AM-07 §5, §6). Tied members share the same percentile and rank under the declared derivation rules — ties are never broken by member identity.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "member",
+          "score",
+          "percentile",
+          "rank",
+          "peer_position"
+        ],
+        "properties": {
+          "member": {
+            "$ref": "common.schema.json#/$defs/modelReference",
+            "description": "The AssessmentResult this standing belongs to."
+          },
+          "score": {
+            "type": "number",
+            "description": "The member's value on the comparison axis."
+          },
+          "percentile": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Standing within the cohort distribution under the declared percentile_method (CR-AM-07 §5)."
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Ordinal standing under the declared ranking_rule (CR-AM-07 §6)."
+          },
+          "peer_position": {
+            "type": "string",
+            "pattern": "^[0-9]+/[0-9]+$",
+            "description": "Human-readable rank/population rendering, e.g. '4/27' (CR-AM-07 §6)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "derivation": {
+      "type": "object",
+      "description": "How this comparison was produced (CR-AM-07 §3, §10). Every methodological choice is declared; nothing is implicit.",
+      "required": [
+        "percentile_method",
+        "ranking_rule",
+        "minimum_sample_size",
+        "minimum_sample_satisfied",
+        "excluded_members",
+        "computed_at",
+        "reproducibility_hash"
+      ],
+      "properties": {
+        "percentile_method": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/percentile-methods.yaml (CR-AM-07 §5).",
+          "enum": [
+            "inclusive",
+            "exclusive"
+          ]
+        },
+        "ranking_rule": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/ranking-rules.yaml (CR-AM-07 §6).",
+          "enum": [
+            "competition",
+            "dense"
+          ]
+        },
+        "minimum_sample_size": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The cohort's minimum sample size enforced for this derivation (CR-AM-06 §6, CR-AM-07 §10)."
+        },
+        "minimum_sample_satisfied": {
+          "type": "boolean",
+          "description": "MUST be true whenever distribution is present. A comparison with minimum_sample_satisfied=false is refused, not emitted (CR-AM-07 §10)."
+        },
+        "excluded_members": {
+          "type": "array",
+          "description": "Admitted members excluded from the distribution with an explicit reason — missing data is N/A, never zero (CR-AM-07 §10 constraint 2).",
+          "items": {
+            "type": "object",
+            "required": [
+              "member",
+              "reason"
+            ],
+            "properties": {
+              "member": {
+                "$ref": "common.schema.json#/$defs/modelReference"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "computed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reproducibility_hash": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Content hash of the derivation inputs. Same cohort snapshot must produce the same comparison (CR-AM-07 §10 constraint 1). The hashing method is declared in notes."
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

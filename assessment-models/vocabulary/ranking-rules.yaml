@@ -1,0 +1,27 @@
+# Ranking Rule Vocabulary
+# Controlled vocabulary for BenchmarkComparison.derivation.ranking_rule.
+# Source: CR-AM-07 §6 (peer ranking & peer position).
+#
+# The ranking rule determines how ties affect subsequent ranks. Tied
+# members always share a rank; the rule only governs what happens to the
+# rank AFTER the tie.
+
+vocabulary: ranking-rules
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of ranking rules permitted for a BenchmarkComparison.
+  Ties share a rank under every rule; the rule governs the ranks that
+  follow a tie (CR-AM-07 §6).
+
+values:
+  - id: competition
+    description: >
+      Tied members share the best rank; the ranks following the tie are
+      skipped. Sequence shape: 1, 2, 2, 4. Also known as standard or
+      "1224" competition ranking. CR-AM-07 §6.
+
+  - id: dense
+    description: >
+      Tied members share the best rank; the ranks following the tie are
+      NOT skipped. Sequence shape: 1, 2, 2, 3. CR-AM-07 §6.

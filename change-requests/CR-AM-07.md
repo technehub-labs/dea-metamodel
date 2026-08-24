@@ -1,6 +1,6 @@
 CR-AM-07 — Comparative Benchmarking & Peer Analytics
 
-Status: Proposed (spec proposal — phase plan in §11 awaiting sign-off)
+Status: In progress (Phase 1 comparison vocabulary & schema implemented; Phases 2–4 Proposed)
 Predecessors: CR-AM-02 → CR-AM-03 → CR-AM-04 → CR-AM-05 → CR-AM-06
 Umbrella: CR-AM-01 (Assessment Metamodel Evolution)
 Siblings: CR-AM-08 (Benchmark Analytics & Insights — parked)

@@ -4,6 +4,21 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-07: Comparative Benchmarking & Peer Analytics (proposal)
+
+Spec-only proposal for the CR-AM series successor to CR-AM-06.
+Specification and metamodel remain **1.0.0**; no runtime, schema, or
+example changes.
+
+### Added — CR-AM-07 specification
+- **`change-requests/CR-AM-07.md`** — defines `BenchmarkComparison` as a
+  reproducible derivation over an admitted BenchmarkCohort: cohort
+  distribution, percentile semantics, peer ranking & peer position, and
+  the CR-AM-08 insight hand-off. Consumes CR-AM-06 eligibility without
+  redefining it (§8 boundaries). Four-phase implementation plan (§11):
+  vocabulary & schema → distribution engine → percentile & ranking →
+  integration & governance.
+
 ## [Unreleased] — CR-CM-000: Terminology Alignment
 
 First CR of the Concepts Model (CM) series. Specification and metamodel

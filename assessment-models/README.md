@@ -64,13 +64,14 @@ assessment-models/
 │   ├── zero-touch-operations-result.yaml      ← independently useful AssessmentResult
 │   └── benchmark-eligibility.yaml             ← explicit benchmark eligibility declaration
 │
-├── governance/                                 ← 8 policy docs
+├── governance/                                 ← 9 policy docs
 │   ├── versioning.md                          ← SemVer + explicit compatibility metadata
 │   ├── compatibility.md                       ← six compatibility axes + benchmark eligibility
 │   ├── result-lineage.md                      ← CR-AM-04 result lineage & operations
 │   ├── maturity-interpretation.md             ← CR-AM-04 multi-dimensional maturity interpretation
 │   ├── views.md                               ← CR-AM-05 view & aggregation policy
 │   ├── benchmark-eligibility.md               ← CR-AM-06 eligibility & cohort policy
+│   ├── comparison-policy.md                   ← CR-AM-07 comparison policy + CR-AM-08 hand-off
 │   ├── hierarchical-instruments.md            ← CR-AM-05A dimension/instrument policy
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │

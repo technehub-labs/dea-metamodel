@@ -4,6 +4,41 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-07 Phase 4: Integration & governance
+
+Final implementation phase of CR-AM-07. Specification and metamodel
+remain **1.0.0**; additive surfacing + governance, no canonical version
+bump.
+
+### Added — comparison report surfacing
+- **`runtime/comparison/report.py`** — `render_text` / `render_json`
+  surface a `BenchmarkComparison` document as a human-readable report
+  or canonical JSON. The report is a view over the derived artifact
+  (CR-AM-07 §3): it renders exactly the schema-declared fields, in
+  deterministic order (standings sorted by rank, JSON with sorted
+  keys), and carries no CR-AM-08 vocabulary — insight, narrative,
+  trend, and recommendation remain parked. CLI:
+  `python -m runtime.comparison.report <comparison.yaml> [--format text|json]`.
+- **`assessment-models/governance/comparison-policy.md`** — the
+  comparison policy: eight policy rules (derived-never-truth,
+  eligibility-only-door, minimum-sample gate, missing-data-N/A,
+  declared methods, ties share standing, one cohort one snapshot,
+  additive schema evolution), the Phase 4 surfacing contract, and the
+  CR-AM-08 hand-off (what the insight layer consumes, may rely on,
+  owns, and is never handed).
+- **13 conformance tests**
+  (`assessment-models/tests/conformance/test_comparison_report.py`) —
+  header/cohort identity, distribution block, rank-ordered standings,
+  tie semantics (shared rank 15, competition skip of 16), derivation
+  hashes, determinism, JSON round-trip, schema-declared keys only,
+  CR-AM-08 vocabulary guard, and CLI behaviour.
+- **CI** — new `validate-cr-am-07-phase-4` job runs the report
+  conformance suite.
+
+### Changed
+- `change-requests/CR-AM-07.md` status → Implemented (all four phases).
+- `change-requests/README.md` CR-AM-07 row → Implemented.
+
 ## [Unreleased] — CR-AM-07 Phase 3: Percentile & ranking
 
 Third implementation phase of CR-AM-07. Specification and metamodel

@@ -4,6 +4,41 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-07 Phase 1: Comparison vocabulary & schema
+
+First implementation phase of CR-AM-07. Specification and metamodel
+remain **1.0.0**; sub-tree additive, no canonical version bump. Phase 1
+ships the comparison contract only — no distribution engine (Phase 2) or
+percentile/ranking engine (Phase 3).
+
+### Added — BenchmarkComparison schema + vocabularies + worked example
+- **`assessment-models/schemas/benchmark-comparison.schema.json`** — a
+  BenchmarkComparison binds a cohort *snapshot* (membership hash), the
+  comparability key inherited verbatim from CR-AM-06, a single declared
+  comparison axis, distribution statistics (n, quartiles, mean, spread),
+  per-member standings (score, percentile, rank, peer position `4/27`),
+  and full derivation metadata (percentile method, ranking rule,
+  minimum-sample enforcement, excluded members with explicit reasons,
+  reproducibility hash). The schema carries no eligibility or membership
+  rules — CR-AM-06's surface is consumed, never redefined (CR-AM-07 §8).
+- **`vocabulary/percentile-methods.yaml`** — `inclusive` / `exclusive`,
+  with formulas; tied members always share a percentile.
+- **`vocabulary/ranking-rules.yaml`** — `competition` (1,2,2,4) / `dense`
+  (1,2,2,3); ties share the best rank.
+- **`benchmark/comparison-examples/telecom-service-assurance-2026-comparison.yaml`** —
+  the CR-AM-06 §10 worked shape made canonical over the §6 worked cohort:
+  27 members, org-a at score 82 → percentile 88.5 → peer position 4/27
+  (percentile under the declared `inclusive` method; §10's "87" was an
+  illustrative shape), with an exercised tie at score 70.
+- **16 conformance tests**
+  (`assessment-models/tests/conformance/test_benchmark_comparison.py`) —
+  schema/example validity, vocabulary ↔ enum parity, tie and ranking-rule
+  semantics, minimum-sample enforcement, comparability-key inheritance,
+  and the CR-AM-06/CR-AM-08 boundary guards.
+- **CI**: `ci-assessment-models.yml` gains a
+  `validate-comparison-against-schema` job; the YAML-parse glob now
+  covers `benchmark/comparison-examples/`.
+
 ## [Unreleased] — CR-AM-07: Comparative Benchmarking & Peer Analytics (proposal)
 
 Spec-only proposal for the CR-AM series successor to CR-AM-06.

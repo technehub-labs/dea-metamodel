@@ -1,0 +1,29 @@
+# Percentile Method Vocabulary
+# Controlled vocabulary for BenchmarkComparison.derivation.percentile_method.
+# Source: CR-AM-07 §5 (percentile semantics).
+#
+# The percentile method is declared in derivation metadata and is stable
+# across recomputations (CR-AM-07 §5). Tied members share the same
+# percentile — ties are never broken by member identity.
+
+vocabulary: percentile-methods
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of percentile computation methods permitted for a
+  BenchmarkComparison. The method determines how a member's standing
+  within the cohort distribution is expressed as a 0–100 percentile.
+
+values:
+  - id: inclusive
+    description: >
+      percentile = (members strictly below) / (n − 1) × 100. The maximum
+      member reaches percentile 100. Analogous to the inclusive
+      (PERCENTILE.INC) convention. Example: n=27, 23 members strictly
+      below → 23/26 × 100 = 88.5. CR-AM-07 §5.
+
+  - id: exclusive
+    description: >
+      percentile = (members strictly below) / (n + 1) × 100. No member
+      reaches percentile 0 or 100. Analogous to the exclusive
+      (PERCENTILE.EXC) convention. CR-AM-07 §5.

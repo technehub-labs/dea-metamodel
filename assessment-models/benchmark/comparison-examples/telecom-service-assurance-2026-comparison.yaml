@@ -1,0 +1,277 @@
+# Example — BenchmarkComparison (CR-AM-07 Phase 1)
+# A reproducible derivation over the admitted members of the
+# telecom-service-assurance-2026 BenchmarkCohort (CR-AM-06 §6 worked
+# cohort). This is the CR-AM-06 §10 worked shape made canonical:
+#   Company A -> Score = 82 -> Percentile -> Peer position 4/27.
+#
+# Note on the percentile value: CR-AM-06 §10 illustrated "87" as an
+# example of the SHAPE of the output. The exact value is determined by
+# the declared percentile_method; under `inclusive` with n=27 and 23
+# members strictly below 82, percentile = 23/26 x 100 = 88.5. The Phase 3
+# engine recomputes this deterministically from the cohort snapshot.
+
+id: dea:comparison-telecom-service-assurance-2026-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Telecom Service Assurance 2026 — Comparison v1
+status: stable
+description: >
+  First canonical comparison over the telecom-service-assurance-2026
+  cohort: 27 admitted members on the automation-coverage score axis,
+  interpreted under cla-maturity-v1. Derived, never the truth — the
+  truth is the set of eligible AssessmentResults (CR-AM-07 §3).
+
+cohort:
+  reference:
+    id: telecom-service-assurance-2026
+    version: "1.0.0"
+  snapshot:
+    cohort_version: "1.0.0"
+    snapshot_at: "2026-08-24T00:00:00Z"
+    membership_hash: "sha256:62299c3e240e739541e1e267e8a352cac772d2377913d186a8573dd9f9191804"
+
+comparability_key:
+  scenario:
+    id: service-assurance
+    version: "1.0.0"
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+  assessment_model:
+    id: cla-assessment-v1
+    version: "1.0.0"
+  scoring_model:
+    id: cla-score-v1
+    version: "1.0.0"
+  maturity_model:
+    id: cla-maturity-v1
+    version: "1.0.0"
+
+comparison_axis:
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+  description: >
+    Standings are computed on the automation-coverage score only —
+    never on a mixture of axes (CR-AM-07 §5).
+
+distribution:
+  n: 27
+  minimum: 41
+  q1: 60
+  median: 71
+  q3: 78
+  maximum: 95
+  mean: 69.2
+  standard_deviation: 13.5
+  iqr: 18
+
+standings:
+  - member:
+      id: dea:result-org-a-service-assurance-2026
+      version: "1.0.0"
+    score: 82
+    percentile: 88.5
+    rank: 4
+    peer_position: "4/27"
+  - member:
+      id: dea:result-org-b-service-assurance-2026
+      version: "1.0.0"
+    score: 95
+    percentile: 100.0
+    rank: 1
+    peer_position: "1/27"
+  - member:
+      id: dea:result-org-c-service-assurance-2026
+      version: "1.0.0"
+    score: 90
+    percentile: 96.2
+    rank: 2
+    peer_position: "2/27"
+  - member:
+      id: dea:result-org-d-service-assurance-2026
+      version: "1.0.0"
+    score: 88
+    percentile: 92.3
+    rank: 3
+    peer_position: "3/27"
+  - member:
+      id: dea:result-org-e-service-assurance-2026
+      version: "1.0.0"
+    score: 80
+    percentile: 84.6
+    rank: 5
+    peer_position: "5/27"
+  - member:
+      id: dea:result-org-f-service-assurance-2026
+      version: "1.0.0"
+    score: 79
+    percentile: 80.8
+    rank: 6
+    peer_position: "6/27"
+  - member:
+      id: dea:result-org-g-service-assurance-2026
+      version: "1.0.0"
+    score: 78
+    percentile: 76.9
+    rank: 7
+    peer_position: "7/27"
+  - member:
+      id: dea:result-org-h-service-assurance-2026
+      version: "1.0.0"
+    score: 77
+    percentile: 73.1
+    rank: 8
+    peer_position: "8/27"
+  - member:
+      id: dea:result-org-i-service-assurance-2026
+      version: "1.0.0"
+    score: 76
+    percentile: 69.2
+    rank: 9
+    peer_position: "9/27"
+  - member:
+      id: dea:result-org-j-service-assurance-2026
+      version: "1.0.0"
+    score: 75
+    percentile: 65.4
+    rank: 10
+    peer_position: "10/27"
+  - member:
+      id: dea:result-org-k-service-assurance-2026
+      version: "1.0.0"
+    score: 74
+    percentile: 61.5
+    rank: 11
+    peer_position: "11/27"
+  - member:
+      id: dea:result-org-l-service-assurance-2026
+      version: "1.0.0"
+    score: 73
+    percentile: 57.7
+    rank: 12
+    peer_position: "12/27"
+  - member:
+      id: dea:result-org-m-service-assurance-2026
+      version: "1.0.0"
+    score: 72
+    percentile: 53.8
+    rank: 13
+    peer_position: "13/27"
+  - member:
+      id: dea:result-org-n-service-assurance-2026
+      version: "1.0.0"
+    score: 71
+    percentile: 50.0
+    rank: 14
+    peer_position: "14/27"
+  - member:
+      id: dea:result-org-o-service-assurance-2026
+      version: "1.0.0"
+    score: 70
+    percentile: 42.3
+    rank: 15
+    peer_position: "15/27"
+  - member:
+      id: dea:result-org-p-service-assurance-2026
+      version: "1.0.0"
+    score: 70
+    percentile: 42.3
+    rank: 15
+    peer_position: "15/27"
+  - member:
+      id: dea:result-org-q-service-assurance-2026
+      version: "1.0.0"
+    score: 68
+    percentile: 38.5
+    rank: 17
+    peer_position: "17/27"
+  - member:
+      id: dea:result-org-r-service-assurance-2026
+      version: "1.0.0"
+    score: 66
+    percentile: 34.6
+    rank: 18
+    peer_position: "18/27"
+  - member:
+      id: dea:result-org-s-service-assurance-2026
+      version: "1.0.0"
+    score: 64
+    percentile: 30.8
+    rank: 19
+    peer_position: "19/27"
+  - member:
+      id: dea:result-org-t-service-assurance-2026
+      version: "1.0.0"
+    score: 62
+    percentile: 26.9
+    rank: 20
+    peer_position: "20/27"
+  - member:
+      id: dea:result-org-u-service-assurance-2026
+      version: "1.0.0"
+    score: 60
+    percentile: 23.1
+    rank: 21
+    peer_position: "21/27"
+  - member:
+      id: dea:result-org-v-service-assurance-2026
+      version: "1.0.0"
+    score: 58
+    percentile: 19.2
+    rank: 22
+    peer_position: "22/27"
+  - member:
+      id: dea:result-org-w-service-assurance-2026
+      version: "1.0.0"
+    score: 56
+    percentile: 15.4
+    rank: 23
+    peer_position: "23/27"
+  - member:
+      id: dea:result-org-x-service-assurance-2026
+      version: "1.0.0"
+    score: 52
+    percentile: 11.5
+    rank: 24
+    peer_position: "24/27"
+  - member:
+      id: dea:result-org-y-service-assurance-2026
+      version: "1.0.0"
+    score: 48
+    percentile: 7.7
+    rank: 25
+    peer_position: "25/27"
+  - member:
+      id: dea:result-org-z-service-assurance-2026
+      version: "1.0.0"
+    score: 44
+    percentile: 3.8
+    rank: 26
+    peer_position: "26/27"
+  - member:
+      id: dea:result-org-aa-service-assurance-2026
+      version: "1.0.0"
+    score: 41
+    percentile: 0.0
+    rank: 27
+    peer_position: "27/27"
+
+derivation:
+  percentile_method: inclusive
+  ranking_rule: competition
+  minimum_sample_size: 2
+  minimum_sample_satisfied: true
+  excluded_members: []
+  computed_at: "2026-08-24T00:00:00Z"
+  reproducibility_hash: "sha256:62299c3e240e739541e1e267e8a352cac772d2377913d186a8573dd9f9191804"
+  notes: >
+    membership_hash and reproducibility_hash are computed over the
+    canonically sorted score multiset of the cohort snapshot
+    (sha256 of the comma-joined ascending scores). Same snapshot ->
+    same comparison (CR-AM-07 §10 constraint 1). The tie at score 70
+    (org-o, org-p) shares percentile 42.3 and rank 15 under the
+    declared competition ranking rule; the next rank skips to 17.

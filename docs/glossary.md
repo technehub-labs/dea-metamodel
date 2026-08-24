@@ -19,9 +19,15 @@
 - [Authority](#authority)
 - [Baseline](#baseline)
 - [Capability](#capability)
+- [Concept Area](#concept-area)
+- [Concept Classification](#concept-classification)
+- [Concept Profile](#concept-profile)
 - [Current State](#current-state)
 - [Decision](#decision)
 - [Digital Twin](#digital-twin)
+- [ECF Context](#ecf-context)
+- [ECF Domain](#ecf-domain)
+- [ECF Stage](#ecf-stage)
 - [Entity](#entity)
 - [Evidence](#evidence)
 - [Inference](#inference)
@@ -129,6 +135,26 @@ Services, *supported-by* Applications, *owned-by* Organizations, and
 *assessed-by* Assessments. Capability does not carry maturity scores —
 those live on AssessmentResult (rule A008).
 
+## Concept Area
+
+A thematic grouping of Concepts within the OpenDEA Concepts Model
+(CR-CM-000). A Concept may belong to **multiple** Concept Areas.
+
+It is NOT an ECF Domain. Concept Area and ECF Domain are different
+concepts; no automatic one-to-one mapping is assumed between them.
+See [concepts/terminology-alignment.md](concepts/terminology-alignment.md).
+
+## Concept Classification
+
+The assignment of a Concept to one or more classification targets
+(Concept Areas, Concept Profiles) within the OpenDEA Concepts Model
+(CR-CM-000).
+
+## Concept Profile
+
+A named, purpose-bound selection of Concepts and their groupings within
+the OpenDEA Concepts Model (CR-CM-000).
+
 ## Current State
 
 The best authoritative representation of what *actually exists* in the
@@ -165,6 +191,33 @@ levels; CR-10 Phase 7 lays the foundation but MUST NOT be claimed complete
 until **state synchronization** and **behavioural semantics** exist.
 See [concepts/digital-twin.md](concepts/digital-twin.md) for the maturity
 ladder and the minimum requirements.
+
+## ECF Context
+
+An optional association between a Concept and ECF coordinates
+(ECF Domain, ECF Stage) (CR-CM-000). A Concept may carry **zero or more**
+ECF Contexts; the association is not an identity — it never implies that a
+Concept Area IS an ECF Domain.
+
+## ECF Domain
+
+One of the seven axiom-derived rows of the Enterprise Concept Framework
+foundation matrix (Governance & Existence, Supply & Resources, People &
+Organization, Customer & Demand, Product & Offering, Operations &
+Delivery, Finance & Value) — answers *"what does the enterprise do?"*
+(CR-CM-000; ECF home: `technehub-labs/dea-metaframework`).
+
+The bare word **Domain** is reserved to the ECF: every use must be
+explicitly *ECF Domain* or namespace-qualified. It is NOT a generic
+thematic grouping in the Concepts Model — that is a Concept Area.
+
+## ECF Stage
+
+One of the seven lifecycle columns of the Enterprise Concept Framework
+foundation matrix (Conceive, Design, Build, Activate, Operate, Improve,
+Retire) — answers *"how does the work evolve?"* (CR-CM-000). The bare word
+**Stage** is reserved to the ECF; every use must be explicitly *ECF Stage*
+or namespace-qualified.
 
 ## Entity
 

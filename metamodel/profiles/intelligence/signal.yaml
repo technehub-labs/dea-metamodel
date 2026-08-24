@@ -1,0 +1,28 @@
+# Signal type vocabulary (CR-012 §3.2).
+# A Signal is a governed observation promoted to enterprise attention.
+# Signals MUST carry classification + severity + confidence; the vocabulary is
+# normative for those three axes (CR-012 §3.2, §6.3).
+version: 1.0.0
+principle: >
+  Signals are first-class governance artifacts. A signal without owner,
+  classification, severity or confidence is malformed and rejected at construction.
+fields:
+  - id                     # canonical OpenDEA id (lowercase, dot-namespaced — CR-8 §7)
+  - observation_ref        # the Observation that produced it (CR-012 §3.2)
+  - classification         # CR-012 §3.2 vocab — maturity_gap | compliance_drift | risk | ...
+  - severity               # info | low | medium | high | critical
+  - confidence             # exact | high | medium | low | uncertain
+  - entities               # the affected canonical entities (one or more)
+  - rationale              # human-readable explanation
+  - proposed_action        # optional — never auto-executed (CR-012 §3.4)
+  - owner                  # governance accountability (CR-012 §6.3)
+  - status                 # lifecycle (open → acknowledged → ... → resolved)
+  - raised_at
+  - acknowledged_at        # optional
+  - resolved_at            # optional
+invariants:
+  - "owner MUST be a canonical OpenDEA Actor id (CR-3 governance, ADR-009)"
+  - "observation_ref MUST reference an existing Observation"
+  - "acknowledged_at requires status ∈ {acknowledged, in_review, accepted, dismissed, resolved}"
+  - "resolved_at requires status == resolved"
+  - "proposed_action MUST NOT carry an `approved: true` flag — proposals are a separate type (CR-012 §3.4)"

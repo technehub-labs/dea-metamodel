@@ -1,0 +1,42 @@
+# Signal classification vocabulary (CR-012 §3.2).
+# Extends, does not redefine, the provenance taxonomy from CR-9 (CR-012 §3.2).
+version: 1.0.0
+vocabulary:
+  - name: maturity_gap
+    definition: >
+      A maturity assessment result indicates the enterprise has fallen below the
+      target maturity band for a named capability, relationship or component.
+      Backed by an AssessmentResult (CR-014 / CR-AM-02).
+  - name: compliance_drift
+    definition: >
+      A controlled entity, evidence chain or policy state has drifted away from
+      its declared state. Backed by a PolicyViolation or Evidence freshness check.
+  - name: risk
+    definition: >
+      A risk-bearing entity, dependency or scenario has crossed a declared risk
+      threshold. Backed by a RiskAssessment or ScenarioImpact (CR-10 Phase 2).
+  - name: capability_gap
+    definition: >
+      A declared business capability lacks a sufficient application, data,
+      process or technology support chain. Backed by CapabilityCoverage analysis.
+  - name: federation_anomaly
+    definition: >
+      An external source has stopped updating, returned conflicting values, or
+      failed a freshness check. Backed by CR-11 Federation observability.
+  - name: mapping_staleness
+    definition: >
+      A governed SemanticMapping (CR-11E/AT) has exceeded its declared effective
+      period without a re-approval. Backed by CR-11 governance lifecycle.
+  - name: agent_anomaly
+    definition: >
+      An agent has produced an audit entry whose effect was ESCALATE/DENY at an
+      unexpected rate, or whose proposed action class has drifted from its
+      declared boundary (CR-7 §24, CR-9.8 PDP).
+  - name: observation_only
+    definition: >
+      Reserved for classifications whose semantic has not yet been formalised in
+      the metamodel. Use of this classification requires a CR (it does not let
+      consumers invent new vocab silently — CR-012 §3.2 vocabulary principle).
+invariants:
+  - "All classifications MUST be drawn from this vocabulary (no free-form strings)."
+  - "observation_only MUST be replaced by a formal entry before the signal can transition to status=resolved."

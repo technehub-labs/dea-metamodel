@@ -4,6 +4,34 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-CM-001 follow-up: registry pointer downgrade
+
+Follow-up slice of CR-CM-001 (terminology registry migration to
+`technehub-labs/dea-concepts-model`). Specification and metamodel remain
+**1.0.0**; no canonical version bump.
+
+### Changed — terminology registry downgraded to pointer
+- **`vocabulary/terminology-registry.yaml`** — the interim canonical
+  registry (CR-CM-000 / CR-CM-000A §14) is replaced by a governed
+  **pointer** to the canonical home
+  (`technehub-labs/dea-concepts-model · governance/terminology-registry.yaml`,
+  v1.1.0, `homed_by: CR-CM-001`). All content blocks (terms, verbs,
+  prohibitions, Concept Areas, artifacts, rules, planned-repository
+  mandate) now live solely in the canonical home — two diverging copies
+  are exactly the failure the migration exists to prevent.
+- **`tests/conformance/test_015_terminology_registry.py`** — rewritten
+  from registry-content conformance to **pointer integrity**: canonical
+  home declaration, non-canonical local status, full provenance
+  (introduced/extended/homed), version parity, and a drift guard that
+  fails if any content block reappears locally. Landed-spec guards
+  (CR-CM-000/000A verbatim) and the bare-`domain:` forward guard are
+  unchanged. Registry content conformance is owned by the canonical
+  home, whose `tools/validate.py` exercises the vocabulary against every
+  concept file (proven 11/11 violation classes at foundation).
+- **`docs/concepts/terminology-alignment.md`**, **`README.md`**,
+  **`change-requests/README.md`** — registry references updated to the
+  canonical home + local pointer.
+
 ## [Unreleased] — CR-AM-07 Phase 4: Integration & governance
 
 Final implementation phase of CR-AM-07. Specification and metamodel

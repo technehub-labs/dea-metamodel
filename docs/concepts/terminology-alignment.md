@@ -5,7 +5,10 @@
 > Concept Classification, and ECF Context. The two vocabularies are related
 > by association, never by identity.** Source:
 > [CR-CM-000](../../change-requests/CR-CM-000.md). Machine-readable registry:
-> [`vocabulary/terminology-registry.yaml`](../../vocabulary/terminology-registry.yaml).
+> canonically homed at `governance/terminology-registry.yaml` in
+> `technehub-labs/dea-concepts-model` since CR-CM-001; the local
+> [`vocabulary/terminology-registry.yaml`](../../vocabulary/terminology-registry.yaml)
+> is a governed pointer to it.
 > Conformance: `tests/conformance/test_015_terminology_registry.py`.
 
 ## 1. The problem
@@ -102,9 +105,11 @@ encoded in the registry (v1.1.0):
   never hierarchical.
 - **Repository governance (§14–§16)** — the long-term canonical home of
   the terminology registry is `governance/terminology-registry.yaml` in
-  the forthcoming `dea-concepts-model` repository (created by CR-CM-001).
-  Until then, this repo's `vocabulary/terminology-registry.yaml` is the
-  canonical interim registry, and the mandated `dea-concepts-model` layout
-  (with `concept-areas/`, never `domains/`) is recorded in the registry so
-  CR-CM-001 inherits it by construction. The companion alignment document
+  the `dea-concepts-model` repository — **realised by CR-CM-001
+  (2026-08-25)**: the registry migrated byte-exactly at v1.1.0, and this
+  repo's `vocabulary/terminology-registry.yaml` is downgraded to a
+  governed pointer (content drift back into this repo is
+  conformance-blocked). The mandated `dea-concepts-model` layout
+  (`concept-areas/`, never `domains/`) is enforced there by
+  `tools/validate.py`. The companion alignment document
   lands in `dea-metaframework` at `docs/terminology/concepts-model-alignment.md`.

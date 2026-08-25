@@ -1,0 +1,35 @@
+# Conformance Status Vocabulary
+# Controlled vocabulary for MaturityScale.conformance.status.
+# Source: CR-AM-09 §25 (explicit per-result conformance).
+
+vocabulary: conformance-statuses
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of conformance outcomes for a maturity-level
+  determination. A level may be achieved, partially achieved, not
+  achieved, indeterminate from the available evidence, or the assessment
+  may not yet be possible. Conformance is determined per the model's
+  LevelResolutionRule (Phase 3) and never inferred from a raw score.
+
+values:
+  - id: conformant
+    description: >
+      The model's resolution logic determined full conformance with the
+      level's conditions.
+  - id: partially-conformant
+    description: >
+      Some level conditions are met; others are not. The model decides
+      whether partial conformance is sufficient for level attribution.
+  - id: non-conformant
+    description: >
+      The level's conditions are demonstrably not met.
+  - id: indeterminate
+    description: >
+      The evidence base is too weak to support a conformance decision;
+      typically follows from an insufficient-cohort or small-population
+      signal.
+  - id: not-assessable
+    description: >
+      The level cannot be assessed in the current scope (e.g. a
+      criterion the model declares inapplicable).

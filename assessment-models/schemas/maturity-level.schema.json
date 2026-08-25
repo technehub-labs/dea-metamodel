@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-level.schema.json",
+  "title": "OpenDEA Maturity Level",
+  "description": "A model-owned maturity level within a MaturityScale (CR-AM-09 §8–§13). The level identifier is structural (L0, L1, L2, …); the name and definition carry the model's semantics. The metamodel never prescribes a global five-level shape — different maturity models legitimately use different identifiers, names, level counts, and semantic interpretations. A level is canonical only within (MaturityModel, MaturityScale, MaturityLevel) (CR-AM-09 §9). The ordinal supports ordering within a scale; it never implies cross-model equivalence or fixed progression difficulty.",
+  "type": "object",
+  "required": ["id", "ordinal", "name", "definition"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Level identifier within its scale (structural, e.g. 'L0', 'L1', 'L3', 'A2', 'Phase 2'). Cross-model equivalent: never assumed."
+    },
+    "ordinal": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Position within the scale's ordered progression. Supports ordering only; never implies cross-model equivalence or progression difficulty."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Model-defined name for the level (e.g. 'Absent', 'Not Present', 'Unaware' — all valid L0 names in different models)."
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Explicit definition: what the level actually represents in this model's terms. Mandatory."
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "characteristics": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Observable properties associated with the level — descriptive, not scoring rules."
+    },
+    "expected_practices": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "expected_capabilities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "expected_behaviours": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "evidence_expectations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "conformance_description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

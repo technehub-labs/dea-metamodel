@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-scale.schema.json",
+  "title": "OpenDEA Maturity Scale",
+  "description": "A model-owned, versioned maturity scale (CR-AM-09 §3–§6). The canonical maturity-scale shape: MaturityModel 1—1 MaturityScale; MaturityScale 1—2..* MaturityLevel. A maturity model must have at least two levels. The metamodel standardizes HOW a scale is represented; the scale itself defines WHAT maturity means for the model — level set, level names, progression topology, progression function, scoring bands, resolution rules, conformance outcomes, and versioning. Different maturity models may legitimately carry 3, 4, 5, 6, 7+ levels, begin at L0 or L1, use linear/exponential/logarithmic/stepwise/threshold progression, score on 0–100 or 0–10 or categorical conditions, and require mandatory criteria in addition to scores. The levelCount is derived from the levels collection (validated for consistency when materialized). Phase 1 scope: scale + level shape + 3 progression vocabs; scoring bands, resolution rule, and baseline locking ship in Phases 3 and 4.",
+  "type": "object",
+  "required": ["id", "version", "name", "levels", "ordering", "progression"],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "levels": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "maturity-level.schema.json" }
+    },
+    "ordering": {
+      "type": "string",
+      "enum": ["ascending"],
+      "description": "Direction of progression within the scale; only ascending is canonical in Phase 1."
+    },
+    "progression": {
+      "type": "object",
+      "description": "The progression contract (CR-AM-09 §14–§17). Topology and function are independent axes: linear topology with exponential function is the maturity-v2 effort-coefficient insight, formalised.",
+      "required": ["topology", "function"],
+      "properties": {
+        "topology": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/progression-topologies.yaml.",
+          "enum": ["linear", "branching", "gated", "state-based", "custom"]
+        },
+        "function": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/progression-functions.yaml.",
+          "enum": ["linear", "exponential", "logarithmic", "stepwise", "threshold", "custom"]
+        },
+        "transition_rules": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Optional model-defined transition rules (gates, branching conditions)."
+        },
+        "custom_definition": {
+          "type": "string",
+          "description": "Required when topology or function is 'custom' — describes the model-defined behaviour."
+        }
+      },
+      "additionalProperties": false
+    },
+    "conformance": {
+      "type": "object",
+      "description": "Per-result conformance outcomes (CR-AM-09 §25). Controlled vocabulary: assessment-models/vocabulary/conformance-statuses.yaml. Phase 1 declares the contract; resolution logic lands in Phase 3.",
+      "properties": {
+        "statuses": {
+          "type": "array",
+          "items": {
+            "enum": ["conformant", "partially-conformant", "non-conformant",
+                     "indeterminate", "not-assessable"]
+          },
+          "minItems": 1,
+          "default": ["conformant", "partially-conformant", "non-conformant",
+                      "indeterminate", "not-assessable"]
+        },
+        "highest_conformant_level_resolution": {
+          "type": "boolean",
+          "default": false,
+          "description": "When true, L4 (or any level) is assigned only when all lower-level prerequisites AND the level's own conditions are satisfied — never from a raw accumulated score."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

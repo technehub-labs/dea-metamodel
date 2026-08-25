@@ -1,0 +1,33 @@
+# Progression Topology Vocabulary
+# Controlled vocabulary for MaturityScale.progression.topology.
+# Source: CR-AM-09 §15 (topology independent of function).
+
+vocabulary: progression-topologies
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of structural shapes for maturity progression. Topology
+  describes the shape of the path between levels, not the difficulty or
+  rate of progression — function is independent (CR-AM-09 §17).
+
+values:
+  - id: linear
+    description: >
+      One path, ordered levels (L0 → L1 → L2 → …).
+  - id: branching
+    description: >
+      A single level fans out into multiple parallel paths
+      (e.g. L1 → {L2A, L2B} → L3).
+  - id: gated
+    description: >
+      A level is preceded by an explicit gate — a precondition (e.g.
+      mandatory governance conformance) that must be satisfied before
+      progression continues.
+  - id: state-based
+    description: >
+      Progression is defined by a state machine over named states
+      rather than a fixed level ordering.
+  - id: custom
+    description: >
+      Model-defined topology; the custom contract is described in
+      `progression.custom_definition` and is not enumerated here.

@@ -1,0 +1,58 @@
+# Maturity Scale — six-level linear-exponential model
+# Worked example 2 — proves the metamodel supports 6+ levels.
+# Same topology/function as the 5-level example (linear, exponential);
+# the addition of L-5 demonstrates the metamodel's level-count
+# agnosticism.
+
+id: dea:scale-six-level-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Six-level linear-exponential maturity scale
+description: >
+  Worked example proving the metamodel supports six (and more) levels.
+  Topology linear; function exponential; ordinal ordering ascending.
+  The Adaptive level adds a feedback-driven self-improvement dimension
+  beyond Autonomous — the same effort-coefficient insight still holds
+  (each level costs disproportionately more than the previous one).
+status: stable
+
+levels:
+  - id: L0
+    ordinal: 0
+    name: Absent
+    definition: Capability is not established.
+  - id: L1
+    ordinal: 1
+    name: Initial
+    definition: Capability exists in isolated form.
+  - id: L2
+    ordinal: 2
+    name: Managed
+    definition: Capability is repeatable and governed.
+  - id: L3
+    ordinal: 3
+    name: Automated
+    definition: Defined activities are systematically automated.
+  - id: L4
+    ordinal: 4
+    name: Autonomous
+    definition: Capability operates autonomously within defined governance constraints.
+  - id: L5
+    ordinal: 5
+    name: Adaptive
+    definition: Capability dynamically adapts based on feedback.
+
+ordering: ascending
+
+progression:
+  topology: linear
+  function: exponential
+
+conformance:
+  statuses:
+    - conformant
+    - partially-conformant
+    - non-conformant
+    - indeterminate
+    - not-assessable
+  highest_conformant_level_resolution: true

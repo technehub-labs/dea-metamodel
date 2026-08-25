@@ -88,6 +88,8 @@ assessment-models/
 │   │   ├── autonomous-operations-5level.yaml    ← 5-level linear/exponential (canonical naming)
 │   │   ├── six-level-linear-exponential.yaml    ← 6-level proves the metamodel supports 6+ levels
 │   │   └── proactive-operations-alternate-naming.yaml ← alternate-naming (proves no canonical terminology imposed)
+│   ├── evaluation-examples/                     ← CR-AM-09 Phase 2 worked evaluation-model examples
+│   │   └── proactive-operations-evaluation.yaml ← native 0–10 domain + criterion-level expectations (spec test 4)
     ├── README.md                              ← entry point for the v2 scheme
     ├── maturity-bands-v2.yaml                 ← canonical v2 band definitions (Emergent / Structured / ...)
     ├── v2-to-v1-legacy-name-map.yaml          ← explicit alias table v2 ↔ v1
@@ -132,12 +134,12 @@ assessment-models/
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
 (CR-AM-06), `benchmark-comparison.schema.json` (CR-AM-07),
-`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` + `improvement-objective.schema.json` (CR-AM-08 Phases 1–4) + `maturity-scale.schema.json` + `maturity-level.schema.json` (CR-AM-09 Phase 1), and the CR-AM-05A
+`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` + `improvement-objective.schema.json` (CR-AM-08 Phases 1–4) + `maturity-scale.schema.json` + `maturity-level.schema.json` + `maturity-evaluation-model.schema.json` (CR-AM-09 Phases 1–2), and the CR-AM-05A
 instrument layer: `dimension.schema.json`
 (recursive hierarchy — no SubDimension class), `criterion.schema.json`,
 `indicator.schema.json`, `question.schema.json`,
 `response-specification.schema.json`, and `assessment-item.schema.json`
-— 27 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
+— 28 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
 the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
 2 criteria, 6 questions, instrument v1.0, result lineage).
 

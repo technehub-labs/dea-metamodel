@@ -1,0 +1,37 @@
+# Scoring Domain Kind Vocabulary
+# Controlled vocabulary for MaturityEvaluationModel.scoring.domain.kind.
+# Source: CR-AM-09 §6 — no universal 0–100. A model may score 0–5, 0–10,
+# percentage, weighted index, categorical, boolean conformance,
+# multi-dimensional vector, or custom.
+
+vocabulary: scoring-domain-kinds
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of native scoring domains. The metamodel never
+  normalizes a model's scores onto a universal scale — a 0–10 native
+  model stays 0–10 end to end.
+
+values:
+  - id: numeric-0-100
+    description: Numeric score on the 0–100 range.
+  - id: numeric-0-5
+    description: Numeric score on the 0–5 range.
+  - id: numeric-0-10
+    description: Numeric score on the 0–10 range.
+  - id: percentage
+    description: Percentage 0–100 with percent semantics.
+  - id: weighted-index
+    description: Weighted index with model-defined bounds.
+  - id: categorical
+    description: Categorical labels (no numeric distance implied).
+  - id: boolean-conformance
+    description: Boolean conformance per criterion.
+  - id: multi-dimensional-vector
+    description: Multi-dimensional score vector (no scalar collapse).
+  - id: rubric
+    description: Non-numeric rubric-based assessment.
+  - id: custom
+    description: >
+      Model-defined domain; contract described in
+      scoring.custom_definition.

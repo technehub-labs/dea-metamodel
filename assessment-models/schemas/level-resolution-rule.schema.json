@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/level-resolution-rule.schema.json",
+  "title": "OpenDEA Level Resolution Rule",
+  "description": "LevelResolutionRule determines which level is achieved given evaluation outputs (CR-AM-09 §7). Canonical flow: Evidence → Native Evaluation → Native Score(s) → Progress Scoring Bands → Level Resolution Rule → Maturity Level. Highest-level resolution is expressible: a level is attributed only when all lower-level prerequisites AND its own conditions hold — a raw score never automatically represents accumulated maturity. The rule consumes exactly the inputs the MaturityEvaluationModel declares in level_resolution_inputs (conformance-asserted in the worked chain).",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "scale",
+    "strategy",
+    "consumes",
+    "logic"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "scale": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityScale this rule resolves levels within."
+    },
+    "evaluation_model": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityEvaluationModel whose outputs this rule consumes."
+    },
+    "band_set": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The progress-scoring-band set this rule consults (band-mapping and highest-conformant-level strategies)."
+    },
+    "strategy": {
+      "description": "Controlled vocabulary: assessment-models/vocabulary/level-resolution-strategies.yaml.",
+      "enum": [
+        "highest-conformant-level",
+        "band-mapping",
+        "threshold-based",
+        "expert-review",
+        "custom"
+      ]
+    },
+    "consumes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "description": "The evaluation-model outputs this rule consumes. Must match the evaluation model's level_resolution_inputs (conformance-enforced in the worked chain)."
+    },
+    "logic": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The model-owned resolution logic, stated explicitly (e.g. the highest-conformant-level walk). Models own WHAT maturity means; the rule is where that meaning becomes an attribution."
+    },
+    "custom_definition": {
+      "type": "string",
+      "description": "Required when strategy is 'custom'."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,34 @@
+# Level Resolution Strategy Vocabulary
+# Controlled vocabulary for LevelResolutionRule.strategy.
+# Source: CR-AM-09 §7 — LevelResolutionRule determines which level is
+# achieved given evaluation outputs; scores never imply levels.
+
+vocabulary: level-resolution-strategies
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of level-resolution strategies. The resolution rule
+  consumes the evaluation model's declared inputs; the strategy
+  determines how bands, thresholds, mandatory criteria, and expert
+  judgement combine into a level attribution.
+
+values:
+  - id: highest-conformant-level
+    description: >
+      A level is attributed only when all lower-level prerequisites
+      AND the level's own conditions hold — a raw score never
+      automatically represents accumulated maturity (CR-AM-09 §7).
+  - id: band-mapping
+    description: >
+      The level is read directly from the progress scoring band the
+      score falls into (bands carry the mandatory-criteria gates).
+  - id: threshold-based
+    description: >
+      Levels attributed by declared thresholds over the native domain.
+  - id: expert-review
+    description: >
+      Bands and thresholds inform a governed expert attribution.
+  - id: custom
+    description: >
+      Model-defined strategy; contract described in the rule's
+      custom_definition.

@@ -66,6 +66,7 @@ jobs:
                   sorted(glob.glob('assessment-models/objectives/examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/scale-examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/evaluation-examples/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/maturity/resolution-examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/examples/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml'))
@@ -511,6 +512,59 @@ jobs:
                       print(f'  path={list(e.path)}: {e.message}')
               else:
                   print(f'OK  {ex}')
+          sys.exit(1 if errors else 0)
+          "
+
+  validate-maturity-resolution-against-schema:
+    name: Validate maturity band/resolution examples against schemas (CR-AM-09 Phase 3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          yaml.SafeLoader.add_constructor(
+              'tag:yaml.org,2002:timestamp',
+              lambda loader, node: loader.construct_scalar(node))
+
+          with open('assessment-models/schemas/common.schema.json') as fh:
+              common = json.load(fh)
+
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+
+          import glob
+          errors = 0
+          for schema_name, pattern in [
+              ('progress-scoring-band', '*bands*.yaml'),
+              ('level-resolution-rule', '*resolution*.yaml'),
+          ]:
+              with open(f'assessment-models/schemas/{schema_name}.schema.json') as fh:
+                  schema = json.load(fh)
+              resolver = RefResolver(base_uri='', referrer=schema, store=store)
+              validator = Draft202012Validator(schema, resolver=resolver)
+              for ex in sorted(glob.glob(f'assessment-models/maturity/resolution-examples/{pattern}')):
+                  with open(ex) as fh:
+                      doc = yaml.safe_load(fh)
+                  errs = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+                  if errs:
+                      errors += 1
+                      print(f'FAIL {ex}:')
+                      for e in errs:
+                          print(f'  path={list(e.path)}: {e.message}')
+                  else:
+                      print(f'OK  {ex}')
           sys.exit(1 if errors else 0)
           "
 

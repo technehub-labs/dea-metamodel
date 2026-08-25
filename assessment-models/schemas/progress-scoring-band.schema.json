@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/progress-scoring-band.schema.json",
+  "title": "OpenDEA Progress Scoring Band Set",
+  "description": "ProgressScoringBand is a first-class scale component (CR-AM-09 §7): a model-specific classification rule identifying the range or conditions under which assessed progress conforms to a level. Bands belong to the scale and resolve to defined levels. Three band families are supported: numeric intervals (min/max/inclusivity → level), non-numeric conditions (e.g. governance_conformance = true AND automation_score ≥ 75 → L4), and multi-dimensional conditions (overall + dimension scores + mandatory criteria + evidence requirements). Scores never imply levels: bands may carry mandatory-criteria gates and the resolution rule (separate schema) determines the final attribution.",
+  "type": "object",
+  "required": ["id", "version", "scale", "bands"],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "scale": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityScale these bands resolve into (id + version). Every band's level must resolve within that scale (conformance-enforced)."
+    },
+    "bands": {
+      "type": "array",
+      "minItems": 2,
+      "description": "The band set, one or more per scale level. Bands are ordered by the level ordinal they resolve to.",
+      "items": {
+        "type": "object",
+        "required": ["id", "level", "family"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The scale level id this band resolves to."
+          },
+          "family": {
+            "description": "Band family (CR-AM-09 §7): numeric interval, non-numeric conditions, or multi-dimensional conditions.",
+            "enum": ["numeric", "non-numeric", "multi-dimensional"]
+          },
+          "numeric": {
+            "type": "object",
+            "description": "Numeric interval over the model's native score domain (family=numeric).",
+            "required": ["minimum", "maximum"],
+            "properties": {
+              "minimum": { "type": "number" },
+              "maximum": { "type": "number" },
+              "min_inclusive": { "type": "boolean", "default": true },
+              "max_inclusive": { "type": "boolean", "default": true }
+            },
+            "additionalProperties": false
+          },
+          "conditions": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Non-numeric conditions (family=non-numeric or multi-dimensional): indicator/operator/value triples ANDed together.",
+            "items": {
+              "type": "object",
+              "required": ["indicator", "operator", "value"],
+              "properties": {
+                "indicator": { "type": "string", "minLength": 1 },
+                "operator": {
+                  "enum": ["<", "<=", ">", ">=", "==", "!="]
+                },
+                "value": {
+                  "anyOf": [
+                    { "type": "number" },
+                    { "type": "string", "minLength": 1 },
+                    { "type": "boolean" }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "dimensions": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Per-dimension numeric requirements (family=multi-dimensional).",
+            "items": {
+              "type": "object",
+              "required": ["dimension", "minimum"],
+              "properties": {
+                "dimension": { "type": "string", "minLength": 1 },
+                "minimum": { "type": "number" },
+                "maximum": { "type": "number" }
+              },
+              "additionalProperties": false
+            }
+          },
+          "mandatory_criteria": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "description": "Evaluation-model criterion ids that must be satisfied for this band — the score alone is never sufficient (CR-AM-09 §7)."
+          },
+          "evidence_requirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "description": "Evidence required for this band (multi-dimensional family)."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

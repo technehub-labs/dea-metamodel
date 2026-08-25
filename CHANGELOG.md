@@ -4,6 +4,53 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-09 Phase 3: Scoring bands & level resolution
+
+Third implementation phase of CR-AM-09. Specification and metamodel
+remain **1.0.0**; additive schemas + vocabulary + worked examples, no
+canonical version bump.
+
+### Added — ProgressScoringBand + LevelResolutionRule
+- **`assessment-models/schemas/progress-scoring-band.schema.json`** —
+  the first-class scale component (CR-AM-09 §7): a band set document
+  bound to a MaturityScale, each band resolving to a level id. Three
+  families: `numeric` (min/max/inclusivity over the native domain),
+  `non-numeric` (indicator/operator/value condition triples),
+  `multi-dimensional` (dimension requirements + mandatory criteria +
+  evidence requirements). Bands may gate on `mandatory_criteria` — the
+  score alone is never sufficient.
+- **`assessment-models/schemas/level-resolution-rule.schema.json`** —
+  the seam between native scores and level attribution (CR-AM-09 §7):
+  required `id, version, scale, strategy, consumes, logic`; optional
+  `evaluation_model` and `band_set` references. Highest-conformant-level
+  resolution is expressible — a level is attributed only when all
+  lower-level prerequisites AND its own conditions hold.
+- **`vocabulary/level-resolution-strategies.yaml`** — 5 strategies:
+  highest-conformant-level / band-mapping / threshold-based /
+  expert-review / custom. Schema enum ≡ vocabulary, asserted.
+- **Worked examples** under `maturity/resolution-examples/` —
+  `proactive-operations-bands.yaml` (numeric bands over the native
+  0–10 domain, contiguous with unambiguous boundary ownership, L3/L4
+  gated on the mandatory `event-detection` criterion + L4 evidence
+  requirements — spec test 5: the score never implies the level) and
+  `proactive-operations-resolution.yaml` (highest-conformant-level
+  walk; consumes exactly the evaluation model's declared
+  level_resolution_inputs).
+- **21 conformance tests**
+  (`assessment-models/tests/conformance/test_progress_resolution.py`) —
+  schema integrity, three-family enum, strategy vocabulary parity,
+  mandatory-field refusal, spec test 5 (high bands gate on mandatory
+  criteria; L4 gates on evidence; mandatory criterion ids resolve in
+  the Phase 2 evaluation model; rule consumes exactly the declared
+  inputs; the highest-conformant walk is stated), band↔scale
+  consistency (every band level resolves within the scale; every scale
+  level has a band; numeric bands contiguous over the native domain
+  with unambiguous boundary ownership), and boundary guards (no Phase 4
+  baseline vocabulary, no TRANSFORM keys, frozen CR-AM-06/07 surfaces
+  untouched).
+- **CI** — new `validate-maturity-resolution-against-schema` job;
+  `validate-yaml` glob extended to `maturity/resolution-examples/`.
+
 ## [Unreleased] — CR-AM-09 Phase 2: Progression & native evaluation
 
 Second implementation phase of CR-AM-09. Specification and metamodel

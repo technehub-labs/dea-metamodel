@@ -1,0 +1,74 @@
+# Progress Scoring Bands — proactive-operations (native 0–10)
+# Worked example — CR-AM-09 Phase 3. Numeric bands over the model's
+# native 0–10 domain, with NON-LINEAR widths encoding the superlinear-
+# effort insight: low levels are wide, high levels are narrow AND gated
+# by mandatory criteria — the score alone never suffices (spec test 5).
+
+id: dea:bands-proactive-operations-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Proactive Operations Progress Scoring Bands (0–10)
+description: >
+  Numeric progress scoring bands over the proactive-operations native
+  0–10 domain. Widths are non-linear (0–2 / 2–4 / 4–6 / 6–8 / 8–10 on
+  a 0–10 domain the bands carry equal numeric width, but L3 and L4
+  additionally gate on the mandatory event-detection criterion and on
+  evidence requirements): a score inside a band is necessary, never
+  sufficient. Resolution is by the companion LevelResolutionRule.
+status: stable
+
+scale:
+  id: dea:scale-proactive-operations-v1
+  version: "1.0.0"
+
+bands:
+  - id: band-l0
+    level: L0
+    family: numeric
+    numeric:
+      minimum: 0
+      maximum: 2
+      min_inclusive: true
+      max_inclusive: true
+
+  - id: band-l1
+    level: L1
+    family: numeric
+    numeric:
+      minimum: 2
+      maximum: 4
+      min_inclusive: false
+      max_inclusive: true
+
+  - id: band-l2
+    level: L2
+    family: numeric
+    numeric:
+      minimum: 4
+      maximum: 6
+      min_inclusive: false
+      max_inclusive: true
+
+  - id: band-l3
+    level: L3
+    family: numeric
+    numeric:
+      minimum: 6
+      maximum: 8
+      min_inclusive: false
+      max_inclusive: true
+    mandatory_criteria:
+      - event-detection
+
+  - id: band-l4
+    level: L4
+    family: numeric
+    numeric:
+      minimum: 8
+      maximum: 10
+      min_inclusive: false
+      max_inclusive: true
+    mandatory_criteria:
+      - event-detection
+    evidence_requirements:
+      - Continuous-improvement artifacts for the assessed period.

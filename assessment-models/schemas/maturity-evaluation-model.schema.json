@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-evaluation-model.schema.json",
+  "title": "OpenDEA Maturity Evaluation Model",
+  "description": "The model-owned evaluation contract for a maturity model (CR-AM-09 §6): how criteria are evaluated, what evidence is required, which native scoring mechanism and domain apply, and what feeds level resolution. Native evaluation stays model-owned — no universal 0–100: a model may score 0–5, 0–10, percentage, weighted index, categorical, boolean conformance, multi-dimensional vector, rubric, or custom, and the metamodel never normalizes scores onto a universal scale. CriterionLevelExpectation lets each criterion state how it manifests at each level (maturity is demonstrated through progressive behavior change, not merely a score). Scores never imply levels — level attribution is the Phase 3 LevelResolutionRule's concern over this model's outputs.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "name",
+    "scale",
+    "scoring",
+    "criteria"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "scale": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityScale this evaluation model feeds (id + version). Level references inside criteria must resolve within that scale (conformance-enforced)."
+    },
+    "scoring": {
+      "type": "object",
+      "description": "The model's native scoring contract: mechanism + domain. Never normalized by the metamodel.",
+      "required": ["mechanism", "domain"],
+      "properties": {
+        "mechanism": {
+          "description": "Controlled vocabulary: assessment-models/vocabulary/scoring-mechanisms.yaml.",
+          "enum": [
+            "weighted",
+            "threshold",
+            "criterion-satisfaction",
+            "mandatory-criterion",
+            "expert-assessment",
+            "evidence-based-classification",
+            "multi-factor",
+            "hybrid",
+            "custom"
+          ]
+        },
+        "domain": {
+          "type": "object",
+          "description": "The native score domain. Numeric domains carry explicit min/max; non-numeric domains carry labels or a model-defined contract.",
+          "required": ["kind"],
+          "properties": {
+            "kind": {
+              "description": "Controlled vocabulary: assessment-models/vocabulary/scoring-domain-kinds.yaml.",
+              "enum": [
+                "numeric-0-100",
+                "numeric-0-5",
+                "numeric-0-10",
+                "percentage",
+                "weighted-index",
+                "categorical",
+                "boolean-conformance",
+                "multi-dimensional-vector",
+                "rubric",
+                "custom"
+              ]
+            },
+            "minimum": {
+              "type": "number",
+              "description": "Domain lower bound (numeric domains only)."
+            },
+            "maximum": {
+              "type": "number",
+              "description": "Domain upper bound (numeric domains only)."
+            },
+            "labels": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "minItems": 1,
+              "description": "Categorical domain labels (categorical/rubric domains only)."
+            },
+            "dimensions": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "minItems": 2,
+              "description": "Vector dimensions (multi-dimensional-vector domain only)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "custom_definition": {
+          "type": "string",
+          "description": "Required when mechanism or domain.kind is 'custom'."
+        },
+        "aggregation_rule": {
+          "type": "string",
+          "description": "Model-declared aggregation across criteria (e.g. weighted mean with declared weights)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "criteria": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The evaluation criteria with their per-level expectations (CriterionLevelExpectation, CR-AM-09 §4: maturity is demonstrated through progressive behavior change, not merely a score).",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "level_expectations"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string"
+          },
+          "mandatory": {
+            "type": "boolean",
+            "default": false,
+            "description": "Mandatory gate criterion (mandatory-criterion mechanism) — the level cannot be reached without it regardless of aggregate score."
+          },
+          "evidence_requirements": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "description": "Evidence this criterion requires."
+          },
+          "level_expectations": {
+            "type": "array",
+            "minItems": 1,
+            "description": "How this criterion manifests at each scale level. Level ids must resolve within the referenced scale (conformance-enforced).",
+            "items": {
+              "type": "object",
+              "required": ["level", "expectation"],
+              "properties": {
+                "level": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The level id within the referenced MaturityScale."
+                },
+                "expectation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "description": "The behavior expected at that level for this criterion."
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "level_resolution_inputs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "What the Phase 3 LevelResolutionRule consumes from this model's outputs (e.g. criterion-scores, mandatory-criteria, evidence-confidence). Declared here; resolution ships in Phase 3."
+    }
+  },
+  "additionalProperties": false
+}

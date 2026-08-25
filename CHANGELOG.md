@@ -4,6 +4,51 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-09 Phase 2: Progression & native evaluation
+
+Second implementation phase of CR-AM-09. Specification and metamodel
+remain **1.0.0**; additive schema + vocabularies + worked example, no
+canonical version bump.
+
+### Added — MaturityEvaluationModel + native scoring vocabularies
+- **`assessment-models/schemas/maturity-evaluation-model.schema.json`**
+  — the model-owned evaluation contract (CR-AM-09 §6): required
+  `id, version, name, scale, scoring, criteria`; the `scale` reference
+  binds the evaluation to its Phase 1 MaturityScale; `scoring`
+  declares the native mechanism + domain (never normalized — a 0–10
+  native model stays 0–10 end to end); `criteria` carry
+  CriterionLevelExpectation (per-level behavior expectations, CR-AM-09
+  §4 — maturity is behavior, not merely a score), mandatory-gate flags,
+  and evidence requirements; `level_resolution_inputs` declares what
+  the Phase 3 LevelResolutionRule consumes.
+- **Two controlled vocabularies** — `scoring-mechanisms.yaml` (9:
+  weighted / threshold / criterion-satisfaction / mandatory-criterion /
+  expert-assessment / evidence-based-classification / multi-factor /
+  hybrid / custom) and `scoring-domain-kinds.yaml` (10: numeric-0-100,
+  numeric-0-5, numeric-0-10, percentage, weighted-index, categorical,
+  boolean-conformance, multi-dimensional-vector, rubric, custom).
+  Schema enums ≡ vocabulary YAMLs, asserted both directions.
+- **Worked example**
+  `assessment-models/maturity/evaluation-examples/proactive-operations-evaluation.yaml`
+  — a native 0–10 threshold-mechanism evaluation feeding the Phase 1
+  alternate-naming scale, with three criteria (one mandatory gate) and
+  progressive level expectations per criterion (spec test 4: native
+  0–10 validates without normalization).
+- **22 conformance tests**
+  (`assessment-models/tests/conformance/test_maturity_evaluation.py`) —
+  schema integrity + mandatory-field refusal (incl. normalization
+  vocabulary structurally refused), mechanism/domain vocabulary parity
+  (all 10 native domains present), spec test 4 (native 0–10 validates;
+  domain bounds asserted), spec test 6 deepened (evaluation schema
+  carries no topology/function fields — progression lives on the
+  scale), criterion-level expectations resolve within the referenced
+  scale (cross-artifact consistency), expectations demonstrate
+  progression (≥ 3 levels per criterion), no-assumed-equal-unit-distance
+  guard, and boundary guards (no Phase 3 resolution vocabulary, no
+  TRANSFORM keys, frozen CR-AM-06/07 surfaces untouched).
+- **CI** — new `validate-maturity-evaluation-against-schema` job;
+  `validate-yaml` glob extended to `maturity/evaluation-examples/`.
+
 ## [Unreleased] — CR-AM-09 Phase 1: Maturity scale & level semantics
 
 First implementation phase of CR-AM-09 (proposal merged as PR #133).

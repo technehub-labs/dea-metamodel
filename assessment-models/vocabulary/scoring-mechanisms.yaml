@@ -1,0 +1,35 @@
+# Scoring Mechanism Vocabulary
+# Controlled vocabulary for MaturityEvaluationModel.scoring.mechanism.
+# Source: CR-AM-09 §6 (native scoring mechanisms are model-specific).
+
+vocabulary: scoring-mechanisms
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of native scoring mechanisms a maturity model may
+  declare. The mechanism is part of the model's own evaluation contract
+  — the metamodel never imposes a universal one.
+
+values:
+  - id: weighted
+    description: Criteria scores weighted and aggregated.
+  - id: threshold
+    description: Levels reached by satisfying declared thresholds.
+  - id: criterion-satisfaction
+    description: Level attribution from satisfied criterion conditions.
+  - id: mandatory-criterion
+    description: >
+      Certain criteria are mandatory gates; the level cannot be reached
+      without them regardless of aggregate score.
+  - id: expert-assessment
+    description: Level attributed by governed expert judgement.
+  - id: evidence-based-classification
+    description: Level classified from evidence satisfaction.
+  - id: multi-factor
+    description: Multiple independent factors combined per model rules.
+  - id: hybrid
+    description: A declared combination of the above mechanisms.
+  - id: custom
+    description: >
+      Model-defined mechanism; contract described in
+      scoring.custom_definition.

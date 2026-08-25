@@ -1,0 +1,86 @@
+# Maturity Evaluation Model — proactive-operations (native 0–10)
+# Worked example — CR-AM-09 Phase 2 spec test 4: a native 0–10 scoring
+# domain validates end to end, never normalized onto 0–100.
+# Feeds the Phase 1 alternate-naming scale (dea:scale-proactive-operations-v1).
+# Criterion-level expectations reference that scale's level ids.
+
+id: dea:evaluation-proactive-operations-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Proactive Operations Evaluation Model (native 0–10)
+description: >
+  Model-owned evaluation contract for the proactive-operations maturity
+  model. Native scoring: threshold mechanism over a 0–10 numeric domain
+  (never normalized). Each criterion carries per-level expectations
+  demonstrating progressive behavior change — maturity is behavior,
+  not merely a score.
+status: stable
+
+scale:
+  id: dea:scale-proactive-operations-v1
+  version: "1.0.0"
+
+scoring:
+  mechanism: threshold
+  domain:
+    kind: numeric-0-10
+    minimum: 0
+    maximum: 10
+  aggregation_rule: >
+    Criterion scores on the native 0–10 domain; the model's Phase 3
+    resolution rule consumes them against its declared thresholds.
+    No normalization to 0–100 at any step.
+
+level_resolution_inputs:
+  - criterion-scores
+  - mandatory-criteria
+  - evidence-confidence
+
+criteria:
+  - id: event-detection
+    name: Event detection
+    mandatory: true
+    evidence_requirements:
+      - Monitoring coverage report for the assessed period.
+      - Detection latency telemetry.
+    level_expectations:
+      - level: L0
+        expectation: No detection capability present.
+      - level: L1
+        expectation: Detection is reactive — events surface after impact.
+      - level: L2
+        expectation: Detection coverage and latency are governed and observable.
+      - level: L3
+        expectation: Forward-looking detection anticipates events before impact.
+      - level: L4
+        expectation: Detection continuously self-improves from operational evidence.
+
+  - id: incident-response
+    name: Incident response
+    evidence_requirements:
+      - Incident records with response timestamps.
+    level_expectations:
+      - level: L0
+        expectation: No defined response practice.
+      - level: L1
+        expectation: Response is ad hoc, person-dependent.
+      - level: L2
+        expectation: Response follows documented runbooks within tolerances.
+      - level: L3
+        expectation: Response is proactive — playbooks trigger on anticipated events.
+      - level: L4
+        expectation: Response adapts autonomously and improves systemically.
+
+  - id: knowledge-capture
+    name: Knowledge capture
+    evidence_requirements:
+      - Post-incident review artifacts.
+    level_expectations:
+      - level: L1
+        expectation: Knowledge lives with individuals.
+      - level: L2
+        expectation: Knowledge is captured in shared documentation.
+      - level: L3
+        expectation: Captured knowledge drives proactive playbooks.
+      - level: L4
+        expectation: Knowledge capture is continuous and feeds self-optimization.

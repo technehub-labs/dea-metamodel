@@ -109,18 +109,20 @@ assessment-models/
 │       └── telecom-service-assurance-2026-comparison.yaml ← CR-AM-07 worked comparison (27 members, tie at 70)
 │
 ├── insights/                                   ← CR-AM-08 assessment insights
-│   └── examples/
-│       └── telecom-sa-2026-automation-coverage-gap.yaml ← Phase 1 worked insight (benchmark-gap, rule-generated)
+│   ├── examples/
+│   │   └── telecom-sa-2026-automation-coverage-gap.yaml ← Phase 1 worked insight (benchmark-gap, rule-generated)
+│   └── rules/
+│       └── benchmark-below-median.yaml        ← Phase 2 worked InsightRule (percentile < 50 → benchmark-gap)
 ```
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
 (CR-AM-06), `benchmark-comparison.schema.json` (CR-AM-07),
-`assessment-insight.schema.json` (CR-AM-08 Phase 1), and the CR-AM-05A
+`assessment-insight.schema.json` + `insight-rule.schema.json` (CR-AM-08 Phases 1–2), and the CR-AM-05A
 instrument layer: `dimension.schema.json`
 (recursive hierarchy — no SubDimension class), `criterion.schema.json`,
 `indicator.schema.json`, `question.schema.json`,
 `response-specification.schema.json`, and `assessment-item.schema.json`
-— 23 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
+— 24 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
 the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
 2 criteria, 6 questions, instrument v1.0, result lineage).
 

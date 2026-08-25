@@ -1,0 +1,34 @@
+# Example — InsightRule (CR-AM-08 Phase 2)
+# The canonical below-median benchmark-gap rule, referenced by the
+# Phase 1 worked insight (telecom-sa-2026-automation-coverage-gap.yaml).
+# Same evidence + same rule version → same insight (reproducible
+# interpretation, CR-AM-08 §6).
+
+id: dea:rule-benchmark-below-median
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Below-median benchmark standing
+status: stable
+description: >
+  Fires when a subject member's percentile standing in a
+  BenchmarkComparison falls below 50 — i.e. the subject stands in the
+  lower half of the admitted cohort population on the comparison axis.
+
+condition:
+  evidence: benchmark_comparisons
+  metric: percentile
+  operator: "<"
+  threshold: 50
+
+result:
+  insight_type: benchmark-gap
+  significance: high
+  interpretation_template: >
+    The subject stands at percentile {value} ({peer_position}) among
+    {n} admitted comparable results — below the cohort median
+    ({threshold}th percentile reference).
+
+confidence:
+  level: high
+  minimum_population: 5
+  limitations: []

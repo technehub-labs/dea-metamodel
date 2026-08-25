@@ -1,0 +1,51 @@
+# Level Resolution Rule — proactive-operations
+# Worked example — CR-AM-09 Phase 3. Highest-conformant-level
+# resolution over the band set: a level is attributed only when all
+# lower-level prerequisites AND the level's own conditions hold
+# (CR-AM-09 §7). Consumes exactly the evaluation model's declared
+# level_resolution_inputs.
+
+id: dea:resolution-proactive-operations-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Proactive Operations Level Resolution Rule
+description: >
+  Highest-conformant-level resolution for the proactive-operations
+  maturity model. Walks the scale from L0 upward; attributes the
+  highest level whose band contains the native 0–10 score AND whose
+  mandatory criteria are satisfied AND whose evidence requirements are
+  met. A raw score never automatically represents accumulated maturity.
+status: stable
+
+scale:
+  id: dea:scale-proactive-operations-v1
+  version: "1.0.0"
+
+evaluation_model:
+  id: dea:evaluation-proactive-operations-v1
+  version: "1.0.0"
+
+band_set:
+  id: dea:bands-proactive-operations-v1
+  version: "1.0.0"
+
+strategy: highest-conformant-level
+
+consumes:
+  - criterion-scores
+  - mandatory-criteria
+  - evidence-confidence
+
+logic: >
+  For each level in ascending ordinal order: attribute the level iff
+  (a) the native 0–10 score falls within the level's band
+  (respecting inclusivity), (b) every mandatory_criteria entry of that
+  band is satisfied in the evaluation output, and (c) every
+  evidence_requirements entry is met with evidence-confidence above the
+  model's declared floor. The attributed level is the highest level for
+  which all conditions hold; if a higher band's conditions fail, the
+  highest fully-satisfied lower level is attributed. Conformance status
+  is conformant when the level's own band conditions hold;
+  partially-conformant when the score is in-band but a mandatory
+  criterion or evidence requirement fails; indeterminate when
+  evidence-confidence is below the floor.

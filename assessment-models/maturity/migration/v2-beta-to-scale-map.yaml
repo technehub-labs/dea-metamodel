@@ -1,0 +1,105 @@
+# Migration Map — CR-AM-09 Phase 4: v1 / v2-beta maturity content → scale structure
+# Evolutionary migration (CR-AM-09 §11 constraint 6): existing CR-014 v1
+# and CR-MM-01 v2-beta maturity content maps INTO the scale structure;
+# nothing is reconstructed from scratch; historical results keep their
+# scale version. This map is the explicit bridge — it re-uses the v2-beta
+# band definitions verbatim (summary → definition) and records the v1
+# legacy alias from the existing v2-to-v1-legacy-name-map. It does not
+# re-author level content.
+
+mapping_id: dea:migration-maturity-v2-beta-to-scale-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+status: stable
+description: >
+  Maps the CR-MM-01 v2-beta band set (assessment-models/maturity/
+  maturity-bands-v2.yaml) and the CR-014 v1 legacy names
+  (assessment-models/maturity/v2-to-v1-legacy-name-map.yaml) into the
+  CR-AM-09 MaturityScale structure. Target scale: the OpenDEA maturity
+  scale for CR-MM-01 content, 5 levels, linear topology with exponential
+  function (the v2-beta effort multipliers 1.0 → 6.0 encode exactly
+  this insight).
+
+source:
+  v2_beta:
+    id: maturity-bands-v2
+    version: "2.0.0"
+    path: assessment-models/maturity/maturity-bands-v2.yaml
+  v1_legacy_map:
+    id: v2-to-v1-legacy-name-map
+    version: "2.0.0"
+    path: assessment-models/maturity/v2-to-v1-legacy-name-map.yaml
+
+target_scale:
+  id: dea:scale-openidea-maturity-v2
+  version: "1.0.0"
+  name: OpenDEA Maturity Scale (v2 content, scale form)
+  ordering: ascending
+  progression:
+    topology: linear
+    function: exponential
+
+level_map:
+  - source_band: level-1-emergent
+    target_level:
+      id: L0
+      ordinal: 0
+      name: Emergent
+      definition: Practice exists but is person-dependent and informal
+    legacy_v1_name: Ad Hoc
+    source_range: [0, 20]
+    effort_multiplier: 1.0
+
+  - source_band: level-2-structured
+    target_level:
+      id: L1
+      ordinal: 1
+      name: Structured
+      definition: Documented, agreed, but inconsistently enforced
+    legacy_v1_name: Defined
+    source_range: [21, 45]
+    effort_multiplier: 1.5
+
+  - source_band: level-3-systematic
+    target_level:
+      id: L2
+      ordinal: 2
+      name: Systematic
+      definition: Formal, tooling-enabled, governance active
+    legacy_v1_name: Managed
+    source_range: [46, 70]
+    effort_multiplier: 2.5
+
+  - source_band: level-4-adaptive
+    target_level:
+      id: L3
+      ordinal: 3
+      name: Adaptive
+      definition: Metrics-driven; organisation senses and responds
+    legacy_v1_name: Quantitatively Managed
+    source_range: [71, 88]
+    effort_multiplier: 4.0
+
+  - source_band: level-5-self-optimising
+    target_level:
+      id: L4
+      ordinal: 4
+      name: Self-Optimising
+      definition: Continuous improvement is autonomous, not programme-driven
+    legacy_v1_name: Optimising
+    source_range: [89, 100]
+    effort_multiplier: 6.0
+
+notes:
+  - >
+    The v2-beta band ranges [0,100] with non-linear widths
+    (20/25/25/18/12) are the source scoring bands; Phase 3 band
+    semantics carry them forward when the scale's ProgressScoringBand
+    set is authored. This map fixes identity and semantics only.
+  - >
+    The effort multipliers (1.0 → 6.0) are the formalised superlinear-
+    effort insight: linear topology, exponential function.
+  - >
+    v1 ids and names remain valid forever in v1-alpha files (per the
+    existing v2-to-v1 legacy map); this migration map adds the
+    scale-form identity without invalidating either.

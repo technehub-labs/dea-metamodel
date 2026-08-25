@@ -82,15 +82,53 @@ satisfied — never from a raw accumulated score (CR-AM-09 §26).
 
 | AC | Status |
 |---|---|
-| MaturityScale canonical | Phase 1 — this PR |
-| MaturityLevel canonical (id + ordinal + name + definition) | Phase 1 — this PR |
-| 3 progression vocabs (topology / function / conformance status) | Phase 1 — this PR |
-| 5-level model validates (spec test 1) | Phase 1 — this PR |
-| 6-level model validates (spec test 2) | Phase 1 — this PR |
-| Alternate-naming model validates without canonical terminology (spec test 3) | Phase 1 — this PR |
-| Topology independent of function (spec test 6) | Phase 1 — this PR |
-| Identity rule: (model, scale, level), never normalised | Phase 1 — this PR |
+| MaturityScale canonical | Phase 1 — merged |
+| MaturityLevel canonical (id + ordinal + name + definition) | Phase 1 — merged |
+| 3 progression vocabs (topology / function / conformance status) | Phase 1 — merged |
+| 5-level model validates (spec test 1) | Phase 1 — merged |
+| 6-level model validates (spec test 2) | Phase 1 — merged |
+| Alternate-naming model validates without canonical terminology (spec test 3) | Phase 1 — merged |
+| Topology independent of function (spec test 6) | Phase 1 — merged |
+| Identity rule: (model, scale, level), never normalised | Phase 1 — merged |
 | Spec + metamodel remain **1.0.0** | Confirmed |
+
+## 6a. Baselines are immutable (Phase 4)
+
+A `MaturityScaleBaseline` is an immutable snapshot of the effective
+scale contract within a defined benchmark context (CR-AM-09 §8):
+scale identity + version, level definitions, progression, band set,
+resolution rule, evaluation model, lock timestamp, and a sha256 content
+hash over the snapshot block.
+
+- **A locked baseline never mutates.** Model evolution produces a new
+  baseline version, never an edit. The conformance suite asserts the
+  hash recomputes over the snapshot — and that any snapshot mutation
+  invalidates it.
+- **Historical reproducibility is mandatory.** Given "Benchmark 2027",
+  the exact model, version, scale, levels, progression, bands, and
+  resolution rules are reconstructable from the baseline alone, without
+  depending on today's model version. This extends the CR-AM-06 cohort
+  snapshot and CR-AM-07 reproducibility-hash discipline to maturity
+  semantics.
+- **The Benchmark Assessment Contract** = assessment model + version +
+  maturity model + scale baseline + scoring rules + bands + resolution
+  rules. Every participant is evaluated under that contract.
+
+## 6b. Migration is evolutionary (Phase 4)
+
+Existing maturity content (CR-014 v1, CR-MM-01 v2-beta) maps INTO the
+scale structure; nothing is reconstructed from scratch; historical
+results keep their scale version (CR-AM-09 §11 constraint 6).
+
+The landed bridge is
+`assessment-models/maturity/migration/v2-beta-to-scale-map.yaml`: every
+v2-beta band maps exactly once to a target scale level; target
+definitions are the v2-beta summaries **verbatim** (the conformance
+suite asserts text equality — the map must never re-author content);
+v1 legacy names agree with the existing v2-to-v1 alias map; and the
+v2-beta effort multipliers (1.0 → 6.0) are carried forward as the
+formalised superlinear-effort insight (linear topology, exponential
+function).
 
 ## 7. Boundaries with other CRs
 

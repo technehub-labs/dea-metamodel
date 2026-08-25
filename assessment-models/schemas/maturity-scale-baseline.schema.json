@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-scale-baseline.schema.json",
+  "title": "OpenDEA Maturity Scale Baseline",
+  "description": "An immutable snapshot of the effective scale contract within a defined assessment/benchmark context (CR-AM-09 §8): scale identity + version, level definitions, progression model, scoring bands, resolution rules, effective date. A benchmark references a locked baseline; the Benchmark Assessment Contract = assessment model + version + maturity model + scale baseline + scoring rules + bands + resolution rules; every participant is evaluated under that contract. Baselines are immutable (CR-AM-09 §11 constraint 5): a locked baseline never mutates — model evolution produces a new version, not an edit. Historical reproducibility is a mandatory acceptance criterion: given the baseline, the exact model, version, scale, levels, progression, bands, and resolution rules are reconstructable without depending on today's model version. This extends the CR-AM-06 cohort snapshot and CR-AM-07 reproducibility-hash discipline to maturity semantics.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "scale",
+    "locked_at",
+    "content_hash",
+    "snapshot"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "benchmark": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The benchmark/benchmark cohort this baseline is locked to (the Benchmark Assessment Contract context)."
+    },
+    "scale": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The MaturityScale (id + version) this baseline snapshots."
+    },
+    "locked_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The lock timestamp. After this instant the baseline never changes; evolution produces a new baseline version."
+    },
+    "locked_by": {
+      "type": "string",
+      "description": "The authority that locked the baseline (role or identifier)."
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Content hash of the snapshot — the reproducibility anchor (CR-AM-06/07 discipline extended to maturity semantics). Any mutation of the snapshot invalidates the hash."
+    },
+    "snapshot": {
+      "type": "object",
+      "description": "The frozen effective scale contract: levels, progression, bands, and resolution rule references as they stood at lock time.",
+      "required": ["levels", "progression", "band_set", "resolution_rule"],
+      "properties": {
+        "levels": {
+          "type": "array",
+          "minItems": 2,
+          "description": "Level definitions snapshot — id + ordinal + name + definition as locked (full semantics, so the baseline is self-contained).",
+          "items": {
+            "type": "object",
+            "required": ["id", "ordinal", "name", "definition"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "ordinal": { "type": "integer", "minimum": 0 },
+              "name": { "type": "string", "minLength": 1 },
+              "definition": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "progression": {
+          "type": "object",
+          "required": ["topology", "function"],
+          "properties": {
+            "topology": {
+              "enum": ["linear", "branching", "gated", "state-based", "custom"]
+            },
+            "function": {
+              "enum": ["linear", "exponential", "logarithmic", "stepwise", "threshold", "custom"]
+            },
+            "transition_rules": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 }
+            }
+          },
+          "additionalProperties": false
+        },
+        "band_set": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The progress-scoring-band set (id + version) effective at lock time."
+        },
+        "resolution_rule": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The level-resolution rule (id + version) effective at lock time."
+        },
+        "evaluation_model": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The evaluation model (id + version) effective at lock time."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

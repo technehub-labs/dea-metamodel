@@ -1,0 +1,81 @@
+# Maturity Scale Baseline — proactive-operations, locked for Benchmark 2027
+# Worked example — CR-AM-09 Phase 4. Immutable snapshot of the effective
+# scale contract: the Phase 1 scale's levels + progression, the Phase 3
+# band set + resolution rule, and the Phase 2 evaluation model, frozen
+# at lock time. content_hash is sha256 over the canonical JSON of the
+# snapshot block — the reproducibility anchor (spec test 7 recomputes
+# it). Given "Benchmark 2027", the exact model/version/scale/levels/
+# progression/bands/resolution are reconstructable from this document
+# alone, without depending on today's model version.
+
+id: dea:baseline-proactive-operations-benchmark-2027
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Proactive Operations Scale Baseline — Benchmark 2027
+description: >
+  Locked baseline of the proactive-operations maturity scale for the
+  Benchmark 2027 assessment contract. Every participant is evaluated
+  under exactly this contract; model evolution produces a new baseline
+  version, never an edit.
+status: stable
+
+benchmark:
+  id: dea:benchmark-2027
+  version: "1.0.0"
+
+scale:
+  id: dea:scale-proactive-operations-v1
+  version: "1.0.0"
+
+locked_at: "2026-08-25T00:00:00Z"
+locked_by: chief-architect
+
+content_hash: "sha256:66d00e32c9dba5ea49400098a9488b8cb0b7ea4f2a003488d0e3e3ca33d58c69"
+
+snapshot:
+  levels:
+    - id: L0
+      ordinal: 0
+      name: Not Present
+      definition: >
+        The capability or practice is not present in the assessed scope.
+    - id: L1
+      ordinal: 1
+      name: Reactive
+      definition: >
+        Practice responds to events after they occur; there is no
+        forward-looking detection or control.
+    - id: L2
+      ordinal: 2
+      name: Managed
+      definition: >
+        Practice is repeatable and governed; performance is observable
+        and within declared tolerances.
+    - id: L3
+      ordinal: 3
+      name: Proactive
+      definition: >
+        Practice anticipates and prevents the events before they happen;
+        forward-looking detection and control are routine.
+    - id: L4
+      ordinal: 4
+      name: Optimized
+      definition: >
+        Practice continuously improves itself based on operational
+        evidence; improvement is systemic, not ad-hoc.
+
+  progression:
+    topology: linear
+    function: exponential
+
+  band_set:
+    id: dea:bands-proactive-operations-v1
+    version: "1.0.0"
+
+  resolution_rule:
+    id: dea:resolution-proactive-operations-v1
+    version: "1.0.0"
+
+  evaluation_model:
+    id: dea:evaluation-proactive-operations-v1
+    version: "1.0.0"

@@ -4,6 +4,56 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-09 Phase 4: Baseline locking & migration (CR-AM-09 close)
+
+Final implementation phase of CR-AM-09. Specification and metamodel
+remain **1.0.0**; additive schema + worked baseline + migration map +
+governance sections, no canonical version bump. After this PR lands,
+**CR-AM-09 is closed**: maturity scales are model-owned, versioned,
+benchmark-locked, and the existing v1/v2-beta content is mapped into
+the scale structure.
+
+### Added — MaturityScaleBaseline + migration map
+- **`assessment-models/schemas/maturity-scale-baseline.schema.json`** —
+  the immutable, benchmark-locked snapshot of the effective scale
+  contract (CR-AM-09 §8): required `id, version, status, scale,
+  locked_at, content_hash, snapshot`; the snapshot carries the full
+  level definitions, the progression contract, and id+version
+  references to the band set, resolution rule, and evaluation model.
+  `content_hash` is sha256 over the canonical JSON of the snapshot —
+  the reproducibility anchor; any mutation invalidates it.
+- **Worked baseline**
+  `maturity/baseline-examples/proactive-operations-benchmark-2027.yaml`
+  — locks the Phase 1 alternate-naming scale + Phase 3 band set +
+  resolution rule + Phase 2 evaluation model for "Benchmark 2027";
+  hash-verified.
+- **Migration map**
+  `maturity/migration/v2-beta-to-scale-map.yaml` — maps every CR-MM-01
+  v2-beta band exactly once into the scale structure with verbatim
+  definitions (summary → definition), preserves the v1 legacy aliases
+  from the existing v2-to-v1 name map, and carries the v2-beta effort
+  multipliers (1.0 → 6.0) forward as the formalised superlinear-effort
+  insight (linear topology, exponential function). Evolutionary, never
+  re-authored (CR-AM-09 §11 constraint 6).
+- **Governance** — `assessment-models/governance/maturity-scales.md`
+  gains §6a (baselines are immutable; the Benchmark Assessment
+  Contract; historical reproducibility mandatory) and §6b (evolutionary
+  migration discipline).
+- **19 conformance tests**
+  (`assessment-models/tests/conformance/test_maturity_baseline.py`) —
+  schema integrity + lock/hash refusal; spec test 7 (content hash
+  recomputes over the snapshot; mutation invalidates; snapshot levels
+  and progression match the locked scale; band/resolution/evaluation
+  references resolve to landed artifacts); spec test 8 (every v2-beta
+  band maps exactly once; target definitions verbatim-equal to v2-beta
+  summaries; legacy v1 names agree with the existing alias map; target
+  ordinals strictly ascending; source ranges preserved; target scale
+  declares linear/exponential); boundary guards (frozen CR-AM-06/07
+  surfaces untouched; no TRANSFORM keys).
+- **CI** — new `validate-maturity-baseline-against-schema` job;
+  `validate-yaml` glob extended to `maturity/baseline-examples/` and
+  `maturity/migration/`.
+
 ## [Unreleased] — CR-AM-09 Phase 3: Scoring bands & level resolution
 
 Third implementation phase of CR-AM-09. Specification and metamodel

@@ -93,6 +93,10 @@ assessment-models/
 │   ├── resolution-examples/                     ← CR-AM-09 Phase 3 worked band/resolution examples
 │   │   ├── proactive-operations-bands.yaml      ← numeric bands, non-linear widths, L3/L4 mandatory-criteria gates (spec test 5)
 │   │   └── proactive-operations-resolution.yaml ← highest-conformant-level resolution rule
+│   ├── baseline-examples/                       ← CR-AM-09 Phase 4 baseline snapshots
+│   │   └── proactive-operations-benchmark-2027.yaml ← immutable, benchmark-locked, hash-verified (spec test 7)
+│   ├── migration/
+│   │   └── v2-beta-to-scale-map.yaml            ← CR-AM-09 Phase 4: v1/v2-beta → scale structure (verbatim semantics, spec test 8)
     ├── README.md                              ← entry point for the v2 scheme
     ├── maturity-bands-v2.yaml                 ← canonical v2 band definitions (Emergent / Structured / ...)
     ├── v2-to-v1-legacy-name-map.yaml          ← explicit alias table v2 ↔ v1
@@ -137,12 +141,12 @@ assessment-models/
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
 (CR-AM-06), `benchmark-comparison.schema.json` (CR-AM-07),
-`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` + `improvement-objective.schema.json` (CR-AM-08 Phases 1–4) + `maturity-scale.schema.json` + `maturity-level.schema.json` + `maturity-evaluation-model.schema.json` + `progress-scoring-band.schema.json` + `level-resolution-rule.schema.json` (CR-AM-09 Phases 1–3), and the CR-AM-05A
+`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` + `improvement-objective.schema.json` (CR-AM-08 Phases 1–4) + `maturity-scale.schema.json` + `maturity-level.schema.json` + `maturity-evaluation-model.schema.json` + `progress-scoring-band.schema.json` + `level-resolution-rule.schema.json` + `maturity-scale-baseline.schema.json` (CR-AM-09 Phases 1–4), and the CR-AM-05A
 instrument layer: `dimension.schema.json`
 (recursive hierarchy — no SubDimension class), `criterion.schema.json`,
 `indicator.schema.json`, `question.schema.json`,
 `response-specification.schema.json`, and `assessment-item.schema.json`
-— 30 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
+— 31 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
 the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
 2 criteria, 6 questions, instrument v1.0, result lineage).
 

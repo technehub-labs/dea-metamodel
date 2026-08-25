@@ -1,345 +1,41 @@
-# Terminology Registry — CR-CM-000
+# Terminology Registry — POINTER (downgraded after CR-CM-001)
 #
-# The authoritative semantic-boundary registry for the DEA ecosystem. It
-# reserves terms for the Enterprise Concept Framework (ECF) and introduces
-# the Concepts Model vocabulary BEFORE the first canonical Concepts Model
-# ships (CR-CM-000 AC-7). Every Concepts Model artifact, catalog, and
-# profile is governed by this registry.
+# This file is no longer the terminology registry. The canonical home is:
 #
-# Source of authority: change-requests/CR-CM-000.md
-# Conformance: tests/conformance/test_015_terminology_registry.py
+#   technehub-labs/dea-concepts-model · governance/terminology-registry.yaml
+#
+# designated by CR-CM-000A §14 and realised by CR-CM-001 (2026-08-25),
+# with the governed term shape (name/namespace/status/owner) preserved
+# byte-exactly at version 1.1.0.
+#
+# This pointer exists so existing references resolve to a governed
+# statement of where the authority now lives. Do NOT add registry content
+# here — the conformance suite
+# (tests/conformance/test_015_terminology_registry.py) fails if any
+# content block reappears (drift guard).
+#
+# Source of authority: change-requests/CR-CM-000.md (this repo),
+# change-requests/CR-CM-001.md (dea-concepts-model).
 
 registry:
   id: dea:terminology-registry
   version: 1.1.0
-  status: canonical
+  status: pointer
   introduced_by: CR-CM-000
   extended_by: CR-CM-000A
+  homed_by: CR-CM-001
   purpose: >-
     Establish semantic boundaries between the Enterprise Concept Framework,
     the OpenDEA Concepts Model, the OpenDEA Foundational Metamodel, the
     Catalogs, and the Profiles.
-  planned_home: >-
-    CR-CM-000A §14 designates governance/terminology-registry.yaml in the
-    forthcoming dea-concepts-model repository as the long-term canonical
-    home. Until CR-CM-001 creates that repository, THIS registry
-    (dea-metamodel/vocabulary/terminology-registry.yaml) is the canonical
-    interim registry; the CR-CM-001 migration must preserve the
-    name/namespace/status/owner term shape exactly.
-
-# ---------------------------------------------------------------------------
-# Canonical term registry (CR-CM-000A §14 minimum shape + §7 vocabulary table)
-# ---------------------------------------------------------------------------
-terms:
-  - name: Domain
-    namespace: ECF
-    status: reserved
-    owner: dea-metaframework
-    layer: MetaFramework
-    canonical_meaning: Enterprise structural dimension defined by ECF.
-  - name: Stage
-    namespace: ECF
-    status: reserved
-    owner: dea-metaframework
-    layer: MetaFramework
-    canonical_meaning: Enterprise lifecycle dimension defined by ECF.
-  - name: ECF Context
-    namespace: ConceptModel
-    status: canonical
-    owner: dea-concepts-model
-    layer: Concepts Model
-    canonical_meaning: Domain + Stage context for an enterprise concept.
-  - name: Concept
-    namespace: ConceptModel
-    status: canonical
-    owner: dea-concepts-model
-    layer: Concepts Model
-    canonical_meaning: A defined unit of meaning.
-  - name: Concept Area
-    namespace: ConceptModel
-    status: canonical
-    owner: dea-concepts-model
-    layer: Concepts Model
-    canonical_meaning: Thematic organization of concepts.
-  - name: Concept Profile
-    namespace: ConceptModel
-    status: canonical
-    owner: dea-concepts-model
-    layer: Concepts Model
-    canonical_meaning: Purposeful composition of concepts and relationships.
-  - name: Concept Classification
-    namespace: ConceptModel
-    status: canonical
-    owner: dea-concepts-model
-    layer: Concepts Model
-    canonical_meaning: Mechanism for categorizing concepts.
-  - name: Entity
-    namespace: Metamodel
-    status: canonical
-    owner: dea-metamodel
-    layer: Metamodel
-    canonical_meaning: Formal information-model construct.
-  - name: EntitySpec
-    namespace: Metamodel
-    status: canonical
-    owner: dea-metamodel
-    layer: Metamodel
-    canonical_meaning: Specification of an entity type.
-  - name: Relationship
-    namespace: Metamodel
-    status: canonical
-    owner: dea-metamodel
-    layer: Metamodel
-    canonical_meaning: Formal association between information constructs.
-  - name: Catalog
-    namespace: Catalog
-    status: canonical
-    owner: dea-catalog-repositories
-    layer: Catalog Layer
-    canonical_meaning: Curated reusable collection of semantic artifacts.
-
-# ---------------------------------------------------------------------------
-# Conceptual relationship verbs (CR-CM-000A §9)
-# ---------------------------------------------------------------------------
-conceptual_relationships:
-  - id: has-ecf-context
-    source: Concept
-    target: ECF Context
-    note: Contextualizes a concept against the ECF coordinate system.
-  - id: uses-domain
-    source: ECF Context
-    target: ECF Domain
-  - id: uses-stage
-    source: ECF Context
-    target: ECF Stage
-  - id: belongs-to
-    source: Concept
-    target: Concept Area
-    note: Many-to-many — a concept may belong to multiple Concept Areas.
-  - id: includes
-    source: Concept Profile
-    target: Concept
-    note: Profiles are compositional, not hierarchical.
-  - id: includes
-    source: Concept Profile
-    target: Concept Relationship
-  - id: maps-to
-    source: Concept
-    target: Metamodel EntitySpec
-    note: >-
-      Deliberately distinct from is-a / specializes / inherits-from:
-      conceptual classification does NOT automatically imply metamodel
-      inheritance. A metamodel mapping is a separate decision
-      (CR-CM-000A §9, §10).
-
-# ---------------------------------------------------------------------------
-# Prohibited semantics (CR-CM-000A §10)
-# ---------------------------------------------------------------------------
-prohibited:
-  - id: generic-domain-attribute
-    pattern: "concept: { domain: <name> }"
-    rule: >-
-      No concept may carry a bare `domain:` attribute unless the value is
-      an actual canonical ECF Domain. Thematic grouping uses
-      conceptAreas, not domain.
-  - id: concept-area-as-ecf-domain
-    pattern: "Operations Concept Area = Operations ECF Domain"
-    rule: >-
-      No equivalence between a Concept Area and an ECF Domain may be
-      assumed (CR-CM-000 AC-5/AC-6).
-  - id: profile-as-domain
-    pattern: "Agentic Enterprise Domain"
-    rule: >-
-      A conceptual perspective is a Concept Profile, never a Domain.
-  - id: implicit-metamodel-type
-    pattern: "Concept X -> automatically XxxYyy : Capability"
-    rule: >-
-      A concept never becomes a metamodel entity type without a separate
-      metamodel mapping decision via maps-to.
-
-# ---------------------------------------------------------------------------
-# Initial Concept Areas (CR-CM-000A §11) — organizational scaffolding,
-# not a permanent ontology; may evolve as the Concepts Model matures.
-# ---------------------------------------------------------------------------
-initial_concept_areas:
-  - Enterprise
-  - Operations
-  - Intelligence
-  - Execution
-  - Control
-  - Scenario
-  - Value
-  - Measurement
-  - Systems
-
-# ---------------------------------------------------------------------------
-# Mandated dea-concepts-model repository structure (CR-CM-000A §15/§16).
-# CR-CM-001 creates the repository; it MUST use concept-areas/, not
-# domains/.
-# ---------------------------------------------------------------------------
-planned_repository:
-  name: dea-concepts-model
-  established_by: CR-CM-001
-  required_layout:
-    - README.md
-    - GOVERNANCE.md
-    - governance/terminology-registry.yaml
-    - concept-areas/
-    - profiles/
-    - concepts/
-    - relationships/
-    - mappings/ecf/
-    - models/terminology-alignment.puml
-  forbidden_paths:
-    - domains/
-
-
-# ---------------------------------------------------------------------------
-# Artifact boundaries (CR-CM-000 §Purpose)
-# ---------------------------------------------------------------------------
-artifacts:
-  - id: enterprise-concept-framework
-    name: Enterprise Concept Framework
-    home: technehub-labs/dea-metaframework
-    role: >-
-      The 7x7 axiom-derived matrix (M = D x S). Owner of the reserved terms
-      Domain and Stage. Lives above the metamodel; catalogs and capabilities
-      carry ecfCoordinates: (Domain, Stage) referencing it.
-  - id: opendea-concepts-model
-    name: OpenDEA Concepts Model
-    home: technehub-labs/dea-metamodel (forthcoming sub-tree)
-    role: >-
-      The semantic-dimension concept model. Owns Concept Area, Concept
-      Profile, Concept Classification, and ECF Context. The first canonical
-      Concepts Model ships only after this registry (AC-7).
-  - id: opendea-foundational-metamodel
-    name: OpenDEA Foundational Metamodel
-    home: technehub-labs/dea-metamodel (metamodel/, specification/)
-    role: >-
-      The frozen OpenDEA 1.0 core + profiles. Consumes terminology; never
-      redefines reserved terms.
-  - id: catalogs
-    name: Catalogs
-    home: dea-catalog-* repositories
-    role: >-
-      Instance-level catalog repositories. Reference ECF coordinates and
-      Concepts Model groupings; never introduce local re-definitions of
-      governed terms.
-  - id: profiles
-    name: Profiles
-    home: technehub-labs/dea-metamodel (metamodel/profiles/)
-    role: >-
-      Specialised extensions of the Foundational Metamodel. Extend, never
-      redefine (O001-O009); terminology rules apply unchanged.
-
-# ---------------------------------------------------------------------------
-# Reserved terms — owned by the Enterprise Concept Framework
-# (CR-CM-000 §Primary decision, AC-1, AC-2)
-# ---------------------------------------------------------------------------
-reserved_terms:
-  - term: Domain
-    owner: enterprise-concept-framework
-    qualified_form: ECF Domain
-    definition: >-
-      One of the seven axiom-derived rows of the ECF foundation matrix
-      (Governance & Existence, Supply & Resources, People & Organization,
-      Customer & Demand, Product & Offering, Operations & Delivery,
-      Finance & Value). Answers "what does the enterprise do?"
-    usage_rule: >-
-      Every use MUST be either explicitly "ECF Domain" or
-      namespace-qualified (e.g. ecf:Domain). No Concepts Model artifact may
-      use Domain as a generic thematic grouping (AC-1, AC-2).
-  - term: Stage
-    owner: enterprise-concept-framework
-    qualified_form: ECF Stage
-    definition: >-
-      One of the seven lifecycle columns of the ECF foundation matrix
-      (Conceive, Design, Build, Activate, Operate, Improve, Retire).
-      Answers "how does the work evolve?"
-    usage_rule: >-
-      Every use MUST be either explicitly "ECF Stage" or
-      namespace-qualified (e.g. ecf:Stage).
-
-# ---------------------------------------------------------------------------
-# Concepts Model terms — introduced by CR-CM-000
-# ---------------------------------------------------------------------------
-concepts_model_terms:
-  - term: Concept Area
-    id: concept-area
-    owner: opendea-concepts-model
-    definition: >-
-      A thematic grouping of concepts within the Concepts Model.
-      A concept MAY belong to multiple Concept Areas (AC-3).
-    constraints:
-      membership: many-to-many      # AC-3
-      distinct_from: ecf-domain     # AC-5
-      one_to_one_mapping_with_ecf_domain: false   # AC-6
-  - term: Concept Profile
-    id: concept-profile
-    owner: opendea-concepts-model
-    definition: >-
-      A purposeful selection and relationship view of concepts addressing
-      a particular problem, capability, architecture or transformation
-      perspective (CR-CM-000A §5). A profile INCLUDES concepts and concept
-      relationships and may REFERENCE ECF Contexts; it is compositional,
-      never hierarchical.
-    constraints:
-      membership: many-to-many
-      compositional: true
-      hierarchical: false
-  - term: Concept Classification
-    id: concept-classification
-    owner: opendea-concepts-model
-    definition: >-
-      The mechanism for categorizing concepts — the assignment of a
-      concept to one or more classification targets (Concept Areas,
-      Concept Profiles) within the Concepts Model.
-    constraints:
-      membership: many-to-many
-  - term: ECF Context
-    id: ecf-context
-    owner: opendea-concepts-model
-    definition: >-
-      An optional association between a concept and the ECF coordinate
-      system, identifying the applicable ECF Domain + ECF Stage pair
-      (CR-CM-000A §6). A concept MAY carry zero or more ECF Contexts
-      (AC-4). An ECF Context is an association, not an identity: it never
-      implies that a Concept Area IS an ECF Domain (AC-5, AC-6), and a
-      concept never carries a bare `domain:` attribute (CR-CM-000A §10).
-    constraints:
-      cardinality: zero-or-more     # AC-4
-      distinct_from: ecf-domain     # AC-5
-      one_to_one_mapping_with_ecf_domain: false   # AC-6
-
-# ---------------------------------------------------------------------------
-# Rules (CR-CM-000 §Acceptance criteria, one rule per criterion)
-# ---------------------------------------------------------------------------
-rules:
-  - id: CM-TERM-001
-    criterion: AC-1
-    statement: >-
-      No Concepts Model artifact uses Domain as a generic thematic grouping.
-  - id: CM-TERM-002
-    criterion: AC-2
-    statement: >-
-      Every use of Domain is explicitly either ECF Domain or
-      namespace-qualified.
-  - id: CM-TERM-003
-    criterion: AC-3
-    statement: Concepts may belong to multiple Concept Areas.
-  - id: CM-TERM-004
-    criterion: AC-4
-    statement: Concepts may have zero or more ECF Contexts.
-  - id: CM-TERM-005
-    criterion: AC-5
-    statement: Concept Area and ECF Domain are modeled as different concepts.
-  - id: CM-TERM-006
-    criterion: AC-6
-    statement: >-
-      No automatic one-to-one mapping is assumed between Concept Area and
-      ECF Domain.
-  - id: CM-TERM-007
-    criterion: AC-7
-    statement: >-
-      The terminology registry is introduced before the first canonical
-      Concepts Model.
+  canonical_home:
+    repository: technehub-labs/dea-concepts-model
+    path: governance/terminology-registry.yaml
+    version: 1.1.0
+  migration: >-
+    Content migrated byte-exactly to the canonical home by CR-CM-001.
+    This copy — the canonical interim registry under CR-CM-000A §14 until
+    the Concepts Model repository existed — is downgraded to a pointer.
+    All registry governance (terms, conceptual relationship verbs,
+    prohibited semantics, initial Concept Areas, artifact boundaries, and
+    acceptance-criterion rules) is maintained in the canonical home only.

@@ -4,6 +4,55 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-08 Phase 4: ImprovementObjective & governance (CR-AM-08 close)
+
+Final implementation phase of CR-AM-08. Specification and metamodel
+remain **1.0.0**; additive schema + worked example + governance doc, no
+canonical version bump. After this PR lands, **CR-AM-08 is closed**:
+the interpretation layer is complete from AssessmentResult through
+ImprovementObjective, with the seam to the value-CR explicitly
+governed.
+
+### Added — ImprovementObjective schema + worked objective
+- **`assessment-models/vocabulary/improvement-objective-priorities.yaml`**
+  — 4 priorities: `deferred`, `scheduled`, `active`, `monitoring`.
+- **`assessment-models/schemas/improvement-objective.schema.json`** —
+  the governed seam from assessment interpretation to the value-CR
+  (CR-AM-08 §9). Required `id, version, status, target_state, evidence,
+  priority, lineage`; `target_state` accepts numeric scores (e.g.
+  `75 percent`) or maturity-level identifiers (e.g. `L4`); `evidence`
+  cites AssessmentInsights and AssessmentGaps by id + version;
+  `additionalProperties: false` throughout — TRANSFORM-side keys
+  (`project`, `initiative`, `investment`, `roadmap`, `business_case`,
+  `budget`, `kpi_target`, `value_realisation`, `program`) are
+  structurally refused.
+- **`assessment-models/objectives/examples/automation-coverage-above-median.yaml`**
+  — the worked objective that closes the Phase 1/2/3 chain: the
+  benchmark-gap insight and assessment gap motivate a target of 75%
+  automation coverage at priority `active`, with no initiative,
+  project, program, investment, roadmap, or value figure attached —
+  those belong to the value-CR, not the assessment metamodel.
+- **`assessment-models/governance/insights.md`** — Phase 4 governance
+  doc: three types never conflated (AssessmentInsight /
+  AssessmentGap / ImprovementObjective), evidence as the only
+  authority, confidence ≠ significance as independent axes, generation
+  methods with AI never the authority, gap reference semantics
+  explicit, objective = intent (action = value-CR), and a CR-AM-08
+  acceptance checklist.
+
+### Added — conformance tests
+- **17 conformance tests**
+  (`assessment-models/tests/conformance/test_improvement_objective.py`)
+  — schema integrity + worked example + mandatory-field refusal;
+  priority vocabulary parity; worked-chain closure (every cited
+  AssessmentInsight + AssessmentGap resolves to a landed Phase 1/2/3
+  artifact); `lineage` mirrors `evidence`; target state within natural
+  magnitude (above cohort median, at/below cohort Q3); seam guards
+  (TRANSFORM-side keys structurally refused even at the
+  evidence-citation level; CR-AM-06/07 frozen surfaces untouched).
+- **CI** — new `validate-improvement-objective-against-schema` job;
+  `validate-yaml` glob extended to `objectives/examples/`.
+
 ## [Unreleased] — CR-AM-08 Phase 3: AssessmentGap
 
 Third implementation phase of CR-AM-08. Specification and metamodel

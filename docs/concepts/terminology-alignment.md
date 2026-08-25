@@ -5,7 +5,10 @@
 > Concept Classification, and ECF Context. The two vocabularies are related
 > by association, never by identity.** Source:
 > [CR-CM-000](../../change-requests/CR-CM-000.md). Machine-readable registry:
-> [`vocabulary/terminology-registry.yaml`](../../vocabulary/terminology-registry.yaml).
+> [`vocabulary/terminology-registry.yaml`](../../vocabulary/terminology-registry.yaml)
+> (interim mirror — canonical home since CR-CM-001:
+> [`technehub-labs/dea-concepts-model`](https://github.com/technehub-labs/dea-concepts-model)
+> `governance/terminology-registry.yaml`).
 > Conformance: `tests/conformance/test_015_terminology_registry.py`.
 
 ## 1. The problem

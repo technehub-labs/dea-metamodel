@@ -4,6 +4,18 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — Registry canonical-home pointer (CR-CM-001 follow-up)
+
+### Changed
+- `vocabulary/terminology-registry.yaml` now declares itself the
+  **interim mirror**: the canonical home is
+  `technehub-labs/dea-concepts-model:governance/terminology-registry.yaml`
+  (CR-CM-000A §14, realised by CR-CM-001). Governed term content is
+  identical; `status: canonical` and `planned_repository` are retained
+  so the test_015 conformance suite is unaffected.
+- `docs/concepts/terminology-alignment.md` KB note points at the
+  canonical home.
+
 ## [Unreleased] — CR-AM-07 Phase 4: Integration & governance
 
 Final implementation phase of CR-AM-07. Specification and metamodel

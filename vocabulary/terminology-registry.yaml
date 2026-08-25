@@ -1,5 +1,13 @@
 # Terminology Registry — CR-CM-000
 #
+# INTERIM MIRROR — the canonical home of this registry is
+# technehub-labs/dea-concepts-model:governance/terminology-registry.yaml
+# (CR-CM-000A §14, realised by CR-CM-001). This copy is retained for the
+# dea-metamodel conformance suite (test_015) and for consumers pinned to
+# this path; the governed term content (name/namespace/status/owner) is
+# identical to the canonical copy, which governs. Any evolution lands
+# there first and is mirrored here by CR.
+#
 # The authoritative semantic-boundary registry for the DEA ecosystem. It
 # reserves terms for the Enterprise Concept Framework (ECF) and introduces
 # the Concepts Model vocabulary BEFORE the first canonical Concepts Model
@@ -19,13 +27,13 @@ registry:
     Establish semantic boundaries between the Enterprise Concept Framework,
     the OpenDEA Concepts Model, the OpenDEA Foundational Metamodel, the
     Catalogs, and the Profiles.
-  planned_home: >-
-    CR-CM-000A §14 designates governance/terminology-registry.yaml in the
-    forthcoming dea-concepts-model repository as the long-term canonical
-    home. Until CR-CM-001 creates that repository, THIS registry
-    (dea-metamodel/vocabulary/terminology-registry.yaml) is the canonical
-    interim registry; the CR-CM-001 migration must preserve the
-    name/namespace/status/owner term shape exactly.
+  canonical_home: >-
+    governance/terminology-registry.yaml in
+    technehub-labs/dea-concepts-model — the long-term canonical home
+    designated by CR-CM-000A §14 and realised by CR-CM-001. THIS file
+    (dea-metamodel/vocabulary/terminology-registry.yaml) is the retained
+    interim mirror: governed term content identical to the canonical
+    copy, which governs; mirrored back by CR when the registry evolves.
 
 # ---------------------------------------------------------------------------
 # Canonical term registry (CR-CM-000A §14 minimum shape + §7 vocabulary table)

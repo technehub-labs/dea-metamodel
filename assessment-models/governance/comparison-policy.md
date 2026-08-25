@@ -97,3 +97,71 @@ remains parked. This policy fixes the hand-off contract:
 - **Never handed off:** raw eligibility state (CR-AM-06 surface),
   imputed data, and any ranking that has not passed the minimum-sample
   gate.
+
+## Deferred scope from the as-authored proposal (decision record)
+
+The original CR-AM-07 proposal carried a wider statistical surface than
+the four landed phases. Each item below was consciously deferred; the
+landed comparison fixes the smallest canonical surface that answers
+"how do we compare it?" reproducibly, and every deferred item is
+additive — none requires breaking existing comparison artifacts. This
+section preserves the reasoning so the deferred work is not re-debated
+from scratch.
+
+1. **Percentile is relative position, never absolute attainment.** An
+   82nd percentile among 27 admitted results describes standing within
+   that population — it does not mean the subject's absolute maturity
+   is 82%. Reports and consumers must never render a percentile as a
+   percentage of attainment.
+2. **Measurement scale constrains permissible statistics.** Nominal
+   axes support distribution counts only. Ordinal axes (maturity
+   levels are ordinal: Level 4 is not "twice" Level 2) support median,
+   quartiles, rank, and distribution — not mean, standard deviation,
+   or z-score. Interval/ratio axes support the full arithmetic set.
+   The landed schema computes numeric distribution statistics over the
+   declared comparison axis; per-axis scale enforcement is deferred
+   (the comparability key already declares the scoring model, so the
+   enforcement point exists when this lands).
+3. **Score and maturity are benchmarked separately.** Maturity levels
+   must never be converted into arbitrary continuous numbers to enable
+   statistics. A maturity comparison is an ordinal distribution over
+   levels; a score comparison is numeric. The landed model already
+   prohibits mixed-axis comparison (one cohort, one declared axis);
+   the ordinal-distribution rendering for maturity axes is deferred.
+4. **Metric direction is explicit.** Rank 1 is not universally "best":
+   incident-resolution-time inverts automation-coverage semantics. The
+   landed ranking rules fix ordinal mechanics (competition/dense, ties
+   share standing) but not semantic direction. A governed direction
+   vocabulary (higher-is-better / lower-is-better) plus semantic
+   interpretation is deferred to a benchmark-metric registry.
+5. **Gap analysis complements position.** Percentile says *where* a
+   subject stands; a gap says *by how much* — absolute and relative
+   difference against a reference (median, mean, quartile boundary,
+   cohort threshold). Deferred: gaps are the first derivative the
+   insight layer consumes (CR-AM-08), and the derivation metadata
+   already carries everything needed to compute them reproducibly.
+6. **Confidence accompanies every comparison.** A percentile over a
+   weak population must not look authoritative. Landed: the
+   minimum-sample gate is the floor (refusal, never silent emission)
+   and derivation metadata exposes `n` and exclusions. Richer
+   confidence reporting — source coverage, eligibility coverage,
+   explicit limitation flags — is deferred.
+7. **Multi-cohort participation is per-cohort comparisons, never
+   result mutation.** The same AssessmentResult may participate in
+   several governed cohorts (global, regional, tier). Each
+   participation produces a separate BenchmarkComparison bound to that
+   cohort's snapshot — never mutable benchmark attributes on the
+   AssessmentResult. The landed schema already enforces this shape.
+8. **Versioned benchmark metrics.** Reproducibility today rests on the
+   declared percentile method, ranking rule, cohort version/snapshot,
+   membership hash, and reproducibility hash. A full versioned
+   BenchmarkMetric registry (input type, calculation, direction,
+   applicability, interpretation) is deferred until multiple metric
+   families exist; when introduced it must slot into derivation
+   metadata additively (policy rule 8).
+
+**Where deferred items land:** gap analysis, confidence reporting,
+metric direction, and ordinal-scale enforcement are candidates for
+CR-AM-08 or a CR-AM-07 extension phase; the benchmark-metric registry
+is its own CR when needed. Nothing here re-opens CR-AM-06 eligibility
+or the landed comparison schema.

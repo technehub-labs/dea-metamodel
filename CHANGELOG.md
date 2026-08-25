@@ -39,6 +39,25 @@ bump.
 - `change-requests/CR-AM-07.md` status → Implemented (all four phases).
 - `change-requests/README.md` CR-AM-07 row → Implemented.
 
+## [Unreleased] — CR-AM-07 documentation: authored-scope decision record
+
+Documentation-only follow-up to CR-AM-07. Specification and metamodel
+remain **1.0.0**; no schema, runtime, or example changes.
+
+### Added — documentation
+- **`assessment-models/governance/comparison-policy.md`** — new
+  "Deferred scope from the as-authored proposal (decision record)"
+  section: preserves the eight statistical-semantics decisions from the
+  original CR-AM-07 proposal that the four landed phases consciously
+  narrowed (percentile ≠ absolute attainment, measurement-scale
+  constraints, score-vs-maturity separation, metric direction, gap
+  analysis, comparison confidence, multi-cohort participation,
+  versioned benchmark metrics), with rationale and where each deferred
+  item lands (CR-AM-08, extension phase, or a future metric-registry
+  CR).
+- `assessment-models/README.md` governance-tree annotation updated to
+  point at the decision record.
+
 ## [Unreleased] — CR-AM-07 Phase 3: Percentile & ranking
 
 Third implementation phase of CR-AM-07. Specification and metamodel

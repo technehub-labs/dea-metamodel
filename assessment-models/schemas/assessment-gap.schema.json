@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-gap.schema.json",
+  "title": "OpenDEA Assessment Gap",
+  "description": "A structured comparison between a current state and an explicit reference (CR-AM-08 §7). Gap types are never conflated: target-gap (vs declared target), benchmark-gap (vs cohort reference from a BenchmarkComparison), trend-gap (vs the subject's own previous state), threshold-gap (vs a governed threshold), coverage-gap (assessed vs required scope) are different statements even when the numbers coincide. A gap is derived evidence-interpretation — it prescribes no action (CR-AM-08 §9). Cross-field consistency (reference kind ↔ gap type, difference arithmetic) is enforced by the conformance suite.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "type",
+    "subject",
+    "current",
+    "reference",
+    "difference",
+    "lineage"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "type": {
+      "description": "Controlled vocabulary: assessment-models/vocabulary/gap-types.yaml (CR-AM-08 §7).",
+      "enum": [
+        "target-gap",
+        "benchmark-gap",
+        "trend-gap",
+        "threshold-gap",
+        "coverage-gap"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "description": "What the gap is about — at least one governed reference.",
+      "properties": {
+        "capability": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "scenario": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        { "required": ["capability"] },
+        { "required": ["measure"] },
+        { "required": ["scenario"] }
+      ],
+      "additionalProperties": false
+    },
+    "current": {
+      "type": "object",
+      "description": "The subject's current state on the gap axis. Numeric scores and maturity-level identifiers are both valid values — the unit disambiguates.",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": {
+          "description": "Numeric (e.g. 58) or level identifier (e.g. 'L3').",
+          "anyOf": [
+            { "type": "number" },
+            { "type": "string", "minLength": 1 }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unit of the axis, e.g. 'percent', 'maturity-level', 'count'."
+        }
+      },
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "description": "The explicit reference side of the gap. `kind` must agree with the gap type (conformance-enforced): target-gap→target, benchmark-gap→cohort-*, trend-gap→previous-state, threshold-gap→threshold, coverage-gap→required-scope.",
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {
+          "enum": [
+            "target",
+            "cohort-median",
+            "cohort-mean",
+            "cohort-quartile",
+            "previous-state",
+            "threshold",
+            "required-scope"
+          ]
+        },
+        "value": {
+          "anyOf": [
+            { "type": "number" },
+            { "type": "string", "minLength": 1 }
+          ]
+        },
+        "source": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The artifact the reference value comes from — mandatory for benchmark-gap (the BenchmarkComparison) and trend-gap (the previous AssessmentResult); conformance-enforced."
+        }
+      },
+      "additionalProperties": false
+    },
+    "difference": {
+      "type": "object",
+      "description": "The quantified gap. Sign convention: absolute = current − reference (negative = below reference). Conformance asserts arithmetic and direction consistency when both sides are numeric.",
+      "required": ["absolute", "direction"],
+      "properties": {
+        "absolute": {
+          "type": "number",
+          "description": "current − reference, in the axis unit (or level steps for maturity levels)."
+        },
+        "relative_percent": {
+          "type": "number",
+          "description": "Optional relative difference as a percentage of the reference value."
+        },
+        "direction": {
+          "enum": ["above", "below", "at"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Derivation lineage: the evidence artifacts the gap is computed from, the insights that identified it (when any), and the derivation timestamp.",
+      "required": ["sources", "generated_at"],
+      "properties": {
+        "sources": {
+          "type": "object",
+          "properties": {
+            "assessment_results": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            },
+            "assessment_views": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            },
+            "benchmark_comparisons": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            }
+          },
+          "anyOf": [
+            { "required": ["assessment_results"] },
+            { "required": ["assessment_views"] },
+            { "required": ["benchmark_comparisons"] }
+          ],
+          "additionalProperties": false
+        },
+        "identified_by": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1,
+          "description": "AssessmentInsight references that identified this gap."
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,47 @@
+# Example — AssessmentGap (benchmark-gap, CR-AM-08 Phase 3)
+# The gap companion of the Phase 1/2 worked insight: automation coverage
+# 58% vs the cohort median 72% from the CR-AM-07 worked comparison.
+# Reference kind cohort-median + source citation is mandatory for
+# benchmark-gap (conformance-enforced).
+
+id: dea:gap-telecom-sa-2026-automation-coverage-benchmark
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Automation coverage — benchmark gap
+status: stable
+
+type: benchmark-gap
+
+subject:
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+
+current:
+  value: 58
+  unit: percent
+
+reference:
+  kind: cohort-median
+  value: 72
+  source:
+    id: dea:comparison-telecom-service-assurance-2026-v1
+    version: "1.0.0"
+
+difference:
+  absolute: -14
+  relative_percent: -19.4
+  direction: below
+
+lineage:
+  sources:
+    benchmark_comparisons:
+      - id: dea:comparison-telecom-service-assurance-2026-v1
+        version: "1.0.0"
+  identified_by:
+    - id: dea:insight-telecom-sa-2026-automation-coverage-gap
+      version: "1.0.0"
+  generated_at: "2026-08-25T00:00:00Z"

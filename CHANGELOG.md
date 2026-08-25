@@ -4,6 +4,45 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-08 Phase 3: AssessmentGap
+
+Third implementation phase of CR-AM-08. Specification and metamodel
+remain **1.0.0**; additive schema + vocabularies + examples, no
+canonical version bump.
+
+### Added — AssessmentGap schema + gap-type vocabulary + worked examples
+- **`assessment-models/vocabulary/gap-types.yaml`** — five explicit
+  reference semantics: target-gap, benchmark-gap, trend-gap,
+  threshold-gap, coverage-gap. Same numbers, different meanings: a gap
+  number without a reference type is not canonical (CR-AM-08 §7).
+- **`assessment-models/schemas/assessment-gap.schema.json`** — the
+  governed gap shape: required `id, version, status, type, subject,
+  current, reference, difference, lineage`; `reference.kind` enum
+  drives the never-conflate rule; `reference.source` mandatory for
+  benchmark-gap and trend-gap (citation discipline); `difference`
+  carries absolute (= current − reference) + optional relative_percent
+  + direction (above/below/at). `additionalProperties: false` —
+  TRANSFORM vocabulary structurally refused.
+- **Three worked examples** under `assessment-models/gaps/examples/` —
+  one per primary family: `benchmark-gap-automation-coverage.yaml`
+  (cites the CR-AM-07 comparison and the Phase 1/2 worked insight),
+  `target-gap-automation-maturity.yaml` (current L3 vs declared L4 on
+  the same capability), `trend-gap-automation-maturity.yaml`
+  (L2 → L3, sources both states in lineage).
+- **18 conformance tests**
+  (`assessment-models/tests/conformance/test_assessment_gap.py`) —
+  schema integrity, three-example landing check, every example
+  validates, mandatory-field refusal, never-conflate guard (every
+  example's `reference.kind` permitted for its declared type), source
+  required for benchmark/trend gaps, difference arithmetic +
+  direction consistency (current − reference = absolute; direction
+  matches sign), cross-artifact lineage consistency (benchmark-gap
+  cites landed comparison + insight; trend-gap sources include the
+  previous-state result), and boundary guards (no TRANSFORM
+  vocabulary; frozen CR-AM-06/07 surfaces untouched).
+- **CI** — new `validate-assessment-gap-against-schema` job;
+  `validate-yaml` glob extended to `gaps/examples/`.
+
 ## [Unreleased] — CR-AM-08 Phase 2: InsightRule & derivation
 
 Second implementation phase of CR-AM-08. Specification and metamodel

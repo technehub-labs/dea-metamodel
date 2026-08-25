@@ -1,0 +1,42 @@
+# Gap Type Vocabulary
+# Controlled vocabulary for AssessmentGap.type.
+# Source: CR-AM-08 §7 (three gap types, never conflated — reference type
+# is explicit).
+#
+# Same numbers, different meanings: current L3 vs target L4, vs peer
+# median L4, vs previous L2 are three different statements. The gap type
+# fixes which one is being made; "gap = 1" without a reference type is
+# not canonical.
+
+vocabulary: gap-types
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of gap reference semantics for an AssessmentGap. The
+  type determines what the reference side of the comparison means and
+  which reference.shape is required.
+
+values:
+  - id: target-gap
+    description: >
+      Current state vs a declared target state (target maturity level,
+      target score, target measure value). Answers: how far from where
+      we intend to be?
+  - id: benchmark-gap
+    description: >
+      Current state vs a cohort reference from a BenchmarkComparison
+      (cohort median, mean, or quartile boundary). Answers: how far from
+      comparable peers? The reference must cite its BenchmarkComparison.
+  - id: trend-gap
+    description: >
+      Current state vs the subject's own previous state. Answers: how
+      have we moved? Reference is a prior AssessmentResult for the same
+      subject.
+  - id: threshold-gap
+    description: >
+      Current state vs a governed threshold that is neither a target nor
+      a cohort statistic (e.g. a compliance floor).
+  - id: coverage-gap
+    description: >
+      Assessed scope vs required scope — the evidence base itself is
+      incomplete. Reference is the required scope declaration.

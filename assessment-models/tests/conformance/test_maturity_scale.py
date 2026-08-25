@@ -67,9 +67,14 @@ def load_json(rel_path: str):
 def _validator(schema_path: str):
     schema = load_json(schema_path)
     common = load_json("assessment-models/schemas/common.schema.json")
+    # Pre-load every schema that may be referenced via $ref so
+    # RefResolver never tries to fetch them over HTTP. CI runs the
+    # whole suite via `python -m unittest discover` with no network,
+    # and a 404 on any $ref aborts the whole run.
     store = {
         "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json": common,
         "common.schema.json": common,
+        "maturity-level.schema.json": load_json(LEVEL_SCHEMA_PATH),
     }
     resolver = RefResolver(base_uri="", referrer=schema, store=store)
     return Draft202012Validator(schema, resolver=resolver)

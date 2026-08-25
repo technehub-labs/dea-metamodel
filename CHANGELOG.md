@@ -4,6 +4,33 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-09 proposal: Maturity Scale, Progression & Conformance
+
+Proposal-only PR. Specification and metamodel remain **1.0.0**; no
+schema, runtime, or example changes.
+
+### Added — specification
+- **`change-requests/CR-AM-09.md`** — the spec for model-owned maturity
+  scales. The metamodel standardizes HOW maturity scales are
+  represented; each maturity model defines WHAT maturity means:
+  `MaturityScale` (2..* levels; identifiers structural, semantics
+  explicit; `levelCount` derived), `MaturityLevel` (id + ordinal + name
+  + definition; characteristics and criterion-level expectations),
+  `ProgressionModel` (topology ≠ function — linear/exponential/
+  logarithmic/stepwise/threshold/custom over linear/branching/gated/
+  state-based/custom), native model-owned evaluation and scoring (no
+  universal 0–100), `ProgressScoringBand` (numeric, non-numeric, and
+  multi-dimensional families), `LevelResolutionRule` (a score never
+  implies a level without the model's resolution logic;
+  highest-conformant-level expressible), explicit `LevelConformance`,
+  and immutable benchmark-locked `MaturityScaleBaseline` with mandatory
+  historical reproducibility. Supersedes the earlier composable-maturity
+  CR-AM-09 concept; boundaries vs CR-014/CR-MM-01 (content migration),
+  CR-AM-04/05A/06/07, and CR-AM-10 (reuse — future). Four-phase plan;
+  Phase 1 fixed as scale + level-semantics vocabulary and schema only.
+- `change-requests/README.md` — CR-AM-09 row (status: Proposed).
+- `README.md` — rationale-table row for CR-AM-09.
+
 ## [Unreleased] — CR-AM-08 proposal: Assessment Insights & Decision Support
 
 Proposal-only PR. Specification and metamodel remain **1.0.0**; no

@@ -4,6 +4,30 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-10 proposal: Maturity Component Composition & Reuse
+
+Proposal-only landing for CR-AM-10 (child of the CR-AM-01 umbrella).
+Specification and metamodel remain **1.0.0**; no runtime, schema, or
+example changes — docs only.
+
+### Added — CR-AM-10 specification
+- **`change-requests/CR-AM-10.md`** — Maturity Component Composition &
+  Reuse: versioned MaturityComponent packages (dimension / criterion /
+  level-expectation / evidence-requirement), explicit reference kinds
+  (`import` / `extend` / `override` — no silent inheritance), acyclic
+  ChildModelReference composition resolving only through the composite's
+  own CR-AM-09 scale, explicit collision reconciliation, and composite
+  baselines that lock the resolved reference set. Driving use case: the
+  Digital Transformation composite maturity model. Four-phase
+  implementation roadmap; Phase 1 fixed as component identity +
+  reference model.
+- `change-requests/README.md` — CR-AM-10 row (status: Proposed).
+
+### Fixed — stale status rows
+- `change-requests/README.md` — CR-AM-08 and CR-AM-09 rows updated from
+  "Proposed" to "Implemented (all four phases; additive, no canonical
+  version bump)"; both closed on main via PRs #135–#138 and #139–#142.
+
 ## [Unreleased] — CR-AM-09 Phase 4: Baseline locking & migration (CR-AM-09 close)
 
 Final implementation phase of CR-AM-09. Specification and metamodel

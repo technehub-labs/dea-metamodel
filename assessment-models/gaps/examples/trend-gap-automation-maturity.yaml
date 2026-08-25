@@ -1,0 +1,40 @@
+# Example — AssessmentGap (trend-gap, CR-AM-08 Phase 3)
+# The subject's own movement: previous assessment L2 → current L3.
+# Reference kind previous-state cites the prior AssessmentResult.
+
+id: dea:gap-telecom-sa-automation-maturity-trend
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Automation maturity — trend gap
+status: stable
+
+type: trend-gap
+
+subject:
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+
+current:
+  value: "L3"
+  unit: maturity-level
+
+reference:
+  kind: previous-state
+  value: "L2"
+  source:
+    id: dea:result-org-low-service-assurance-2025
+    version: "1.0.0"
+
+difference:
+  absolute: 1
+  direction: above
+
+lineage:
+  sources:
+    assessment_results:
+      - id: dea:result-org-low-service-assurance-2026
+        version: "1.0.0"
+      - id: dea:result-org-low-service-assurance-2025
+        version: "1.0.0"
+  generated_at: "2026-08-25T00:00:00Z"

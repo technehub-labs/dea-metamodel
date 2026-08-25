@@ -1,0 +1,39 @@
+# Example — AssessmentGap (target-gap, CR-AM-08 Phase 3)
+# Current maturity L3 vs declared target L4 on the same capability.
+# Same numbers as a benchmark-gap would show, different meaning —
+# the reference here is the organisation's own target, not the cohort.
+
+id: dea:gap-telecom-sa-2026-automation-maturity-target
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Automation maturity — target gap
+status: stable
+
+type: target-gap
+
+subject:
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+
+current:
+  value: "L3"
+  unit: maturity-level
+
+reference:
+  kind: target
+  value: "L4"
+
+difference:
+  absolute: -1
+  direction: below
+
+lineage:
+  sources:
+    assessment_results:
+      - id: dea:result-org-low-service-assurance-2026
+        version: "1.0.0"
+  identified_by:
+    - id: dea:insight-telecom-sa-2026-automation-coverage-gap
+      version: "1.0.0"
+  generated_at: "2026-08-25T00:00:00Z"

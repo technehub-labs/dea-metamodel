@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-component.schema.json",
+  "title": "OpenDEA Maturity Component",
+  "description": "A versioned, independently-governed package of reusable maturity content (CR-AM-10 §3). A MaturityComponent is published by one maturity model and consumed by others exclusively through typed, versioned ComponentReferences — a component is never inlined into a consumer; the reference IS the reuse. Kinds: dimension-package / criterion-package / level-expectation-package / evidence-requirement-package (vocabulary/component-kinds.yaml). Content entries reference the publishing model's own structure/evaluation artefacts (CR-AM-05A dimensions, criteria, level expectations, evidence requirements) by id:version. Phase 1 scope: component identity + publication metadata only; consumption semantics live in component-reference.schema.json.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "metamodel_version",
+    "name",
+    "kind",
+    "published_by",
+    "status",
+    "content"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "dimension-package",
+        "criterion-package",
+        "level-expectation-package",
+        "evidence-requirement-package"
+      ],
+      "description": "What the package contains. Controlled vocabulary: vocabulary/component-kinds.yaml. The kind determines which artefact type the content references must point at."
+    },
+    "published_by": {
+      "$ref": "common.schema.json#/$defs/modelReference",
+      "description": "The maturity model that publishes and governs this component. The publishing model is the component's authority; consumers never fork the content."
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Lifecycle status (e.g. draft / beta / stable / deprecated). Component deprecation follows the CR-AM-10 Phase 3 supersede semantics."
+    },
+    "owner": {
+      "type": "string",
+      "description": "Accountable owner (CR-MM-01.1 governance field)."
+    },
+    "steward": {
+      "type": "string",
+      "description": "Accountable steward (CR-MM-01.1 governance field)."
+    },
+    "effective_date": {
+      "type": "string",
+      "description": "ISO date from which this component version is effective."
+    },
+    "review_date": {
+      "type": "string",
+      "description": "ISO date by which this component version is due for review."
+    },
+    "content": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      },
+      "description": "Versioned references into the publishing model's own artefacts (dimensions, criteria, level expectations, evidence requirements — matching the component kind). A component carries no inline maturity content: every entry is an id:version pointer."
+    },
+    "lineage": {
+      "$ref": "common.schema.json#/$defs/lineage"
+    }
+  },
+  "additionalProperties": false
+}

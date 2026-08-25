@@ -1,0 +1,24 @@
+# Maturity Component Registry
+# The catalogue of published, reusable maturity components (CR-AM-10 §3).
+# Uniqueness guard: (component id, version) pairs are unique across the
+# registry — enforced by tests and CI. A component is published here
+# before any model may reference it.
+
+registry:
+  id: dea:registry-maturity-components
+  name: OpenDEA Maturity Component Registry
+  version: "1.0.0"
+  metamodel_version: "1.0.0"
+  status: beta
+  description: >
+    Resolution authority for published MaturityComponents. Consumers
+    reference components by id:version through ComponentReferences
+    (import / extend / override). Registration is prerequisite to
+    consumption: an unregistered component id is a conformance error.
+
+  components:
+    - id: dea:component-operations-service-dimensions
+      version: "1.0.0"
+      kind: dimension-package
+      published_by: dea:maturity-operations
+      path: maturity/component-examples/operations-service-dimensions.yaml

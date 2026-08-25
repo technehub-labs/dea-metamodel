@@ -1,0 +1,20 @@
+# Component Reference — Digital Transformation overrides one dimension
+# Worked example (CR-AM-10 Phase 1): the Digital Transformation
+# composite consumes the same Operations package but declares an
+# override — the incident-response dimension is replaced by a
+# DT-specific customer-availability dimension, with the mandatory
+# rationale. Overrides are the highest-drift-risk kind; the schema
+# refuses an override without replaces + rationale.
+
+id: dea:ref-dt-overrides-incident-response
+component:
+  id: dea:component-operations-service-dimensions
+  version: "1.0.0"
+kind: override
+replaces:
+  - id: dea:dimension-operations-incident-response
+    version: "1.0.0"
+rationale: >
+  Digital Transformation measures customer-facing availability, not
+  internal incident-response mechanics; the DT-specific
+  customer-availability dimension carries that semantics.

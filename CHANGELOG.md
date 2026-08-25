@@ -4,6 +4,48 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-10 Phase 1: Component identity & reference model
+
+First implementation phase of CR-AM-10 (Maturity Component Composition &
+Reuse). Specification and metamodel remain **1.0.0**; additive schemas +
+vocabularies + registry + worked examples, no canonical version bump.
+
+### Added — MaturityComponent + ComponentReference
+- **`assessment-models/schemas/maturity-component.schema.json`** — the
+  versioned, independently-governed reuse package (CR-AM-10 §3):
+  required `id, version, metamodel_version, name, kind, published_by,
+  status, content`; content entries are id:version pointers into the
+  publishing model's own artefacts (never inline content);
+  CR-MM-01.1 governance fields (owner/steward/effective/review dates).
+- **`assessment-models/schemas/component-reference.schema.json`** — the
+  consumer-side typed reference (CR-AM-10 §4): mandatory `kind`
+  (`import` / `extend` / `override`), id:version-pinned component,
+  conditional payloads (import carries none; extend requires additions;
+  override requires replaces + rationale). A kindless reference is
+  refused — no silent inheritance.
+- **`assessment-models/vocabulary/component-kinds.yaml`** +
+  **`reference-kinds.yaml`** — controlled vocabularies (4 component
+  kinds, 3 reference kinds).
+- **`assessment-models/maturity/components/registry.yaml`** — the
+  component registry; (id, version) uniqueness + registration-before-
+  consumption guards.
+- **`assessment-models/maturity/component-examples/`** — worked examples:
+  Operations publishes `operations-service-dimensions.yaml`
+  (dimension-package); Digital Transformation consumes it via
+  `dt-imports-operations-dimensions.yaml` (import) and
+  `dt-overrides-incident-response.yaml` (override with rationale).
+
+### Added — conformance + CI
+- **`assessment-models/tests/conformance/test_maturity_composition.py`** —
+  19 tests: schema integrity, vocabulary/schema enum drift guards,
+  worked-example validation, and boundary guards (kindless refused,
+  import-with-payload refused, override-without-rationale refused,
+  versionless component pin refused, registry uniqueness, registration
+  coverage).
+- **CI job `validate-maturity-components`** in
+  `ci-assessment-models.yml` — example validation + registry guards +
+  vocabulary alignment, executed on every PR.
+
 ## [Unreleased] — CR-AM-10 proposal: Maturity Component Composition & Reuse
 
 Proposal-only landing for CR-AM-10 (child of the CR-AM-01 umbrella).

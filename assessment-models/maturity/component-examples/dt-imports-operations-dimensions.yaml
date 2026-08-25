@@ -1,0 +1,12 @@
+# Component Reference — Digital Transformation imports Operations dimensions
+# Worked example (CR-AM-10 Phase 1): the Digital Transformation
+# composite model consumes the Operations service-management dimension
+# package verbatim. kind = import carries NO payload — no additions,
+# no replaces, no rationale. The component is pinned by id:version;
+# composition never tracks a moving target.
+
+id: dea:ref-dt-imports-operations-service-dimensions
+component:
+  id: dea:component-operations-service-dimensions
+  version: "1.0.0"
+kind: import

@@ -1,0 +1,32 @@
+# Maturity Component — Operations service-management dimension package
+# Worked example (CR-AM-10 Phase 1): the Operations maturity model
+# publishes its service-management dimensions as a reusable,
+# versioned component. Content entries are id:version pointers into
+# the publishing model's own CR-AM-05A dimension artefacts — a
+# component carries no inline maturity content.
+
+id: dea:component-operations-service-dimensions
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Operations service-management dimension package
+description: >
+  The service-management dimension cluster of the Operations maturity
+  model, published for reuse. Composite models (e.g. Digital
+  Transformation) consume this package by reference rather than copying
+  the dimensions.
+kind: dimension-package
+published_by:
+  id: dea:maturity-operations
+status: stable
+owner: Operations Lead
+steward: Operations Lead
+effective_date: 2026-08-25
+review_date: 2027-02-25
+
+content:
+  - id: dea:dimension-operations-service-reliability
+    version: "1.0.0"
+  - id: dea:dimension-operations-incident-response
+    version: "1.0.0"
+  - id: dea:dimension-operations-service-levels
+    version: "1.0.0"

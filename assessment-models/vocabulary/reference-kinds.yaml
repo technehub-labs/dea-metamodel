@@ -1,0 +1,29 @@
+# Component Reference Kind Vocabulary
+# Controlled vocabulary for ComponentReference.kind.
+# Source: CR-AM-10 §4 (reference kinds — no silent inheritance).
+
+vocabulary: reference-kinds
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of consumption modes for a ComponentReference. Every
+  reference declares exactly one kind; a reference without a kind is
+  refused by the schema. There is no implicit fourth kind.
+
+values:
+  - id: import
+    description: >
+      Consume the component exactly as published at the pinned version.
+      The consumer carries no payload (no additions, no replaces, no
+      rationale) — the schema refuses any. Verbatim reuse.
+  - id: extend
+    description: >
+      Consume the component and add consumer-local items via the
+      additions payload. The published component is unchanged;
+      additions are visibly the consumer's own content.
+  - id: override
+    description: >
+      Consume the component with declared replacements: every override
+      names what it replaces (replaces payload) and why (rationale).
+      Overrides are the highest-drift-risk kind and are surfaced in
+      conformance reports.

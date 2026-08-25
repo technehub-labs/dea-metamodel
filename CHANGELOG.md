@@ -4,6 +4,64 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-09 Phase 1: Maturity scale & level semantics
+
+First implementation phase of CR-AM-09 (proposal merged as PR #133).
+Specification and metamodel remain **1.0.0**; additive schema +
+vocabularies + worked scale examples, no canonical version bump.
+
+### Added — MaturityScale + MaturityLevel + 3 progression vocabularies
+- **`assessment-models/schemas/maturity-level.schema.json`** — the
+  model-owned level shape (CR-AM-09 §8–§11): required `id, ordinal,
+  name, definition`; optional `short_description, characteristics,
+  expected_practices, expected_capabilities, expected_behaviours,
+  evidence_expectations, conformance_description`. Identifier is
+  structural; name and definition carry the model's semantics.
+- **`assessment-models/schemas/maturity-scale.schema.json`** — the
+  governed scale shape (CR-AM-09 §3–§7): required `id, version, name,
+  levels, ordering, progression`; `levels` requires ≥ 2 entries; the
+  scale declares its progression contract (topology + function as
+  independent axes — the maturity-v2 effort-coefficient insight
+  formalised at the schema level); `conformance` declares the
+  per-result outcome vocabulary (5 statuses) and the
+  `highest_conformant_level_resolution` flag (CR-AM-09 §26).
+- **Three controlled vocabularies** — `progression-topologies.yaml`
+  (linear / branching / gated / state-based / custom),
+  `progression-functions.yaml` (linear / exponential / logarithmic /
+  stepwise / threshold / custom), `conformance-statuses.yaml`
+  (conformant / partially-conformant / non-conformant / indeterminate
+  / not-assessable). Schema enums ≡ vocabulary YAMLs, asserted both
+  directions.
+- **Three worked scale examples** under
+  `assessment-models/maturity/scale-examples/` — 5-level
+  autonomous-operations (canonical naming, linear topology with
+  exponential function — Test 1 + Test 6 of CR-AM-09 §35), 6-level
+  linear-exponential (Test 2 — proves the metamodel supports 6+
+  levels), and a 5-level alternate-naming proactive-operations scale
+  that breaks the autonomous-operations naming pattern (Test 3 — proves
+  no canonical level naming is imposed). The conformance suite asserts
+  the latter introduces distinguishing terminology and never reproduces
+  the autonomous-operations naming pattern entirely.
+- **`assessment-models/governance/maturity-scales.md`** — Phase 1
+  governance doc: identity rule (model, scale, level), topology ≠
+  function independence, levels carry explicit semantics, scoring
+  bands/resolution/baseline locking deferred to Phases 3/4 (schema
+  carries no pre-emption vocabulary), explicit conformance outcomes,
+  Phase 1 acceptance checklist, boundaries vs CR-014/CR-MM-01,
+  CR-AM-04/05A/06/07, CR-AM-10.
+- **22 conformance tests**
+  (`assessment-models/tests/conformance/test_maturity_scale.py`) —
+  schema integrity + ≥ 2 levels enforcement + ordinals unique and
+  ascending, level schema validation, three-way vocabulary parity
+  (schema ↔ YAML), topology/function independence, spec tests 1/2/3/6
+  from CR-AM-09 §35, identity rule (L0 in scale A ≠ L0 in scale B even
+  at the same ordinal), `highest_conformant_level_resolution`
+  expressible, conformance-status vocabulary complete, and boundary
+  guards (scale schema carries no scoring-band or resolution-rule
+  vocabulary — Phase 3 additive discipline).
+- **CI** — new `validate-maturity-scale-against-schema` job;
+  `validate-yaml` glob extended to `maturity/scale-examples/`.
+
 ## [Unreleased] — CR-AM-08 Phase 4: ImprovementObjective & governance (CR-AM-08 close)
 
 Final implementation phase of CR-AM-08. Specification and metamodel

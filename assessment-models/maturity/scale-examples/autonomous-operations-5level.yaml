@@ -1,0 +1,83 @@
+# Maturity Scale — autonomous-operations-maturity v1.0.0 (5-level)
+# Worked example 1 — the canonical 5-level model.
+# Topology: linear. Function: exponential (superlinear effort, the
+# maturity-v2 effort-coefficient insight, formalised at the schema level).
+# Different-naming examples accompany this one to prove the metamodel
+# does not impose a universal five-level shape.
+
+id: dea:scale-autonomous-operations-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Autonomous Operations Maturity Scale (5-level)
+description: >
+  Worked maturity scale for the autonomous-operations maturity model.
+  Five levels with structural L-0…L-4 identifiers, explicit semantics,
+  linear topology with exponential progression (later levels cost
+  disproportionately more than earlier ones — the maturity-v2 effort
+  insight).
+status: stable
+
+levels:
+  - id: L-0
+    ordinal: 0
+    name: Absent
+    definition: >
+      Capability is not established; no recurring practice or owner.
+    short_description: Not established
+    characteristics:
+      - No documented practice.
+      - No assigned accountability.
+  - id: L-1
+    ordinal: 1
+    name: Initial
+    definition: >
+      Capability exists in isolated form; success depends on individuals.
+    characteristics:
+      - Person-dependent execution.
+      - Informal knowledge transfer.
+  - id: L-2
+    ordinal: 2
+    name: Defined
+    definition: >
+      Capability is documented, agreed, and consistently applied within
+      the assessed scope.
+    characteristics:
+      - Shared vocabulary and documented processes.
+      - Governance assigned but inconsistently applied.
+  - id: L-3
+    ordinal: 3
+    name: Automated
+    definition: >
+      Defined activities are systematically automated; tooling enforces
+      the practice.
+    characteristics:
+      - Tooling-integrated governance.
+      - Decision support embedded in operational systems.
+  - id: L-4
+    ordinal: 4
+    name: Autonomous
+    definition: >
+      Capability operates autonomously within defined governance
+      constraints; humans intervene only on exception.
+    characteristics:
+      - Decisions executed without routine human intervention.
+      - Governance constraints enforced automatically.
+      - Operational feedback incorporated into execution.
+
+ordering: ascending
+
+progression:
+  topology: linear
+  function: exponential
+  transition_rules:
+    - "L-3 requires that L-2 documentation is in canonical form."
+    - "L-4 requires an L-3 governance automation test to be passing."
+
+conformance:
+  statuses:
+    - conformant
+    - partially-conformant
+    - non-conformant
+    - indeterminate
+    - not-assessable
+  highest_conformant_level_resolution: true

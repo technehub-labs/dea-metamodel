@@ -1,0 +1,41 @@
+# Progression Function Vocabulary
+# Controlled vocabulary for MaturityScale.progression.function.
+# Source: CR-AM-09 §16 (function describes how progression behaves
+# relative to the underlying scoring or capability progression — distinct
+# from topology, §17).
+
+vocabulary: progression-functions
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of progression-rate behaviours. Function may combine
+  freely with topology: a linear-topology model may have an
+  exponential function (the maturity-v2 effort-coefficient insight).
+  Effort encoding is a model-side metadata field; the function itself
+  declares the rate shape.
+
+values:
+  - id: linear
+    description: >
+      Progression requires roughly equal effort per level.
+  - id: exponential
+    description: >
+      Progression requires superlinear effort per level
+      (superlinear effort, sublinear marginal value).
+  - id: logarithmic
+    description: >
+      Progression requires sublinear effort per level (early levels
+      cost disproportionately).
+  - id: stepwise
+    description: >
+      Each level is a fixed effort step independent of its position;
+      no smooth interpolation.
+  - id: threshold
+    description: >
+      Levels are reached by satisfying thresholds, not by accumulating
+      continuous progress; intermediate scoring values map to the nearest
+      level boundary.
+  - id: custom
+    description: >
+      Model-defined function; the custom contract is described in
+      `progression.custom_definition`.

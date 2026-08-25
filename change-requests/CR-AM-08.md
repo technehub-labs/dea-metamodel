@@ -3,7 +3,9 @@ CR-AM-08 — Assessment Insights & Decision Support
 Status: Proposed
 Predecessors: CR-AM-02 → CR-AM-03 → CR-AM-04 → CR-AM-05 → CR-AM-06 → CR-AM-07
 Umbrella: CR-AM-01 (Assessment Metamodel Evolution)
-Siblings: CR-AM-09 (Assessment-to-Value & Outcome Traceability — future)
+Siblings: a future Assessment-to-Value & Outcome Traceability CR
+  (numbering TBD — CR-AM-09 is Maturity Scale, Progression &
+  Conformance Architecture)
 Primary objective: Define the canonical model for answering “what does the
 evidence tell us?” — governed insights, structured gaps, and improvement
 objectives derived from assessment results, views, and benchmark
@@ -182,7 +184,8 @@ benefit realization, roadmaps — all deliberately excluded (§9). A
 lightweight DecisionContext reference (priority, horizon, constraints)
 may accompany an objective; it is a reference point, not an enterprise
 decision model. Intended business outcomes may be named by reference;
-the value-realization model is CR-AM-09 territory.
+the value-realization model is the future value-traceability CR's
+  territory.
 
 ⸻
 
@@ -195,7 +198,7 @@ the value-realization model is CR-AM-09 territory.
 | CR-AM-06 | Eligibility is consumed, never redefined. Frozen surface stays frozen. |
 | CR-AM-07 | Comparisons are immutable analytical facts; insights derive from them. The comparison-policy hand-off contract (consume standings/distribution/derivation; own all narrative vocabulary; never receive raw eligibility state) binds this CR. |
 | CR-012 | Signals/observations interpret live runtime state; insights interpret assessment evidence. Different evidence base, different lifecycle, no shared artifacts. |
-| CR-AM-09 (future) | Value/outcome traceability consumes improvement objectives; CR-AM-08 does not model value realization. |
+| Value traceability (future CR) | Value/outcome traceability consumes improvement objectives; CR-AM-08 does not model value realization. |
 
 ⸻
 
@@ -254,7 +257,7 @@ Each phase is one PR.
   (target/benchmark/trend), conformance tests.
 - Phase 4 — ImprovementObjective + governance. objective schema,
   decision-context reference shape, objectives examples,
-  governance/insights.md (insight policy + CR-AM-09 hand-off),
+  governance/insights.md (insight policy + value-CR hand-off),
   CHANGELOG + docs.
 
 ⸻

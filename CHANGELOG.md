@@ -26,7 +26,9 @@ schema, runtime, or example changes.
   CR-AM-07 comparison-policy hand-off contract and picks up the
   deferred-scope items designated there (gap analysis, comparison
   confidence, metric direction). Boundaries table vs CR-AM-04/05/06/07,
-  CR-012, and future CR-AM-09. Four-phase plan; Phase 1 fixed as
+  CR-012, and the future value-traceability CR (deliberately
+  de-numbered: CR-AM-09 is Maturity Scale, Progression & Conformance
+  Architecture). Four-phase plan; Phase 1 fixed as
   vocabulary + schema only.
 - `change-requests/README.md` — CR-AM-08 row (status: Proposed).
 - `README.md` — rationale-table row for CR-AM-08.

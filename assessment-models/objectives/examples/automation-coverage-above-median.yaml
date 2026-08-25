@@ -1,0 +1,57 @@
+# Example — ImprovementObjective (CR-AM-08 Phase 4)
+# The hand-off closing the Phase 1/2/3 worked chain: the below-median
+# benchmark-gap on automation coverage is now an ImprovementObjective
+# targeting 75% automation coverage at priority active — with no
+# initiative, project, program, investment, roadmap, or value figure
+# attached (those belong to the value-CR, not the assessment metamodel).
+
+id: dea:objective-telecom-sa-2026-automation-coverage
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Raise automation coverage above peer median
+description: >
+  Move automation coverage from the current 58% (subject standing,
+  percentile 0 in a 6-member comparator) to at least 75% — closing
+  the Phase 1/2/3 worked gap on the telecom-service-assurance-2026
+  benchmark cohort. The objective carries only what the assessment
+  metamodel owns: target state, citation, and priority. Initiative
+  scoping (project, program, investment, roadmap, value realisation)
+  is the value-CR's responsibility.
+status: stable
+
+priority: active
+
+subject:
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+
+target_state:
+  value: 75
+  unit: percent
+
+rationale: >
+  Closing the benchmark gap on automation coverage lifts the cohort
+  percentile above the below-median band and unblocks the maturity
+  progression to L4.
+
+evidence:
+  insights:
+    - id: dea:insight-telecom-sa-2026-automation-coverage-gap
+      version: "1.0.0"
+  gaps:
+    - id: dea:gap-telecom-sa-2026-automation-coverage-benchmark
+      version: "1.0.0"
+
+lineage:
+  sources:
+    insights:
+      - id: dea:insight-telecom-sa-2026-automation-coverage-gap
+        version: "1.0.0"
+    gaps:
+      - id: dea:gap-telecom-sa-2026-automation-coverage-benchmark
+        version: "1.0.0"
+  declared_at: "2026-08-25T00:00:00Z"

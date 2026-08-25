@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/improvement-objective.schema.json",
+  "title": "OpenDEA Improvement Objective",
+  "description": "A governed hand-off from assessment interpretation to the value-CR (CR-AM-08 §9). An ImprovementObjective summarises an intent for the organisation to act on an identified gap — it does not prescribe the action itself. Initiatives, projects, programs, investments, roadmaps, and value realisation belong to TRANSFORM and are deliberately excluded here. The objective is the seam: it carries the evidence citation, the target state, and the priority — and the value-CR (future, unnumbered) consumes these without ambiguity. Phase 4 schema: required id, version, status, target_state, evidence, priority, lineage; optional links to the AssessmentInsights and AssessmentGaps that motivated the objective.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "target_state",
+    "evidence",
+    "priority",
+    "lineage"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "priority": {
+      "description": "Controlled vocabulary: assessment-models/vocabulary/improvement-objective-priorities.yaml.",
+      "enum": ["deferred", "scheduled", "active", "monitoring"]
+    },
+    "subject": {
+      "type": "object",
+      "description": "What the objective is about.",
+      "properties": {
+        "capability": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "scenario": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        }
+      },
+      "anyOf": [
+        { "required": ["capability"] },
+        { "required": ["measure"] },
+        { "required": ["scenario"] }
+      ],
+      "additionalProperties": false
+    },
+    "target_state": {
+      "type": "object",
+      "description": "The desired state. Numeric scores (e.g. {value: 75, unit: 'percent'}) and maturity-level identifiers (e.g. {value: 'L4', unit: 'maturity-level'}) are both valid; the unit disambiguates.",
+      "required": ["value", "unit"],
+      "properties": {
+        "value": {
+          "anyOf": [
+            { "type": "number" },
+            { "type": "string", "minLength": 1 }
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Human-readable why (not what) — kept short; the evidence below carries the full citation."
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Every AssessmentInsight and AssessmentGap that motivated this objective — citation discipline, never free-floating intent.",
+      "properties": {
+        "insights": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1
+        },
+        "gaps": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1
+        }
+      },
+      "anyOf": [
+        { "required": ["insights"] },
+        { "required": ["gaps"] }
+      ],
+      "additionalProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Derivation lineage: evidence artifacts with id + version (mirrors evidence block), and declaration timestamp.",
+      "required": ["sources", "declared_at"],
+      "properties": {
+        "sources": {
+          "type": "object",
+          "properties": {
+            "insights": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            },
+            "gaps": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            }
+          },
+          "anyOf": [
+            { "required": ["insights"] },
+            { "required": ["gaps"] }
+          ],
+          "additionalProperties": false
+        },
+        "declared_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

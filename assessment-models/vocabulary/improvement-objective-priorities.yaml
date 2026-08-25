@@ -1,0 +1,28 @@
+# Improvement Objective Priority Vocabulary
+# Controlled vocabulary for ImprovementObjective.priority.
+# Source: CR-AM-08 §9 (objective != action; objectives declare priority
+# for the value-CR to consume, never start a TRANSFORM).
+
+vocabulary: improvement-objective-priorities
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of priorities for an ImprovementObjective. Priority
+  expresses the urgency of organisational attention, not the scale of
+  any later initiative — the value-CR consumes these and assigns
+  initiative scope on its own contract.
+
+values:
+  - id: deferred
+    description: Tracked but not scheduled; evidence preserved for review.
+  - id: scheduled
+    description: >
+      Targeted for the next planning cycle; not yet resourced.
+  - id: active
+    description: >
+      In active planning; the value-CR owns any initiative / project /
+      program / investment that emerges from it.
+  - id: monitoring
+    description: >
+      Closed as an objective; the underlying evidence is still being
+      observed for re-emergence.

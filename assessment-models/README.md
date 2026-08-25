@@ -78,6 +78,7 @@ assessment-models/
 │   ├── views.md                               ← CR-AM-05 view & aggregation policy
 │   ├── benchmark-eligibility.md               ← CR-AM-06 eligibility & cohort policy
 │   ├── comparison-policy.md                   ← CR-AM-07 comparison policy + CR-AM-08 hand-off + deferred-scope decision record
+│   ├── insights.md                            ← CR-AM-08 Phase 4 governance (three types + seam to value-CR)
 │   ├── hierarchical-instruments.md            ← CR-AM-05A dimension/instrument policy
 │   └── lifecycle.md                           ← seven lifecycle states + retired ≠ deleted
 │
@@ -119,16 +120,19 @@ assessment-models/
 │       ├── benchmark-gap-automation-coverage.yaml ← Phase 3 worked benchmark-gap (cohort-median)
 │       ├── target-gap-automation-maturity.yaml   ← Phase 3 worked target-gap (L3 → L4)
 │       └── trend-gap-automation-maturity.yaml    ← Phase 3 worked trend-gap (L2 → L3)
-```
+│
+├── objectives/                                ← CR-AM-08 Phase 4 improvement objectives (seam to value-CR)
+│   └── examples/
+│       └── automation-coverage-above-median.yaml ← Phase 4 worked objective (closes the Phase 1/2/3 chain)
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
 (CR-AM-06), `benchmark-comparison.schema.json` (CR-AM-07),
-`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` (CR-AM-08 Phases 1–3), and the CR-AM-05A
+`assessment-insight.schema.json` + `insight-rule.schema.json` + `assessment-gap.schema.json` + `improvement-objective.schema.json` (CR-AM-08 Phases 1–4), and the CR-AM-05A
 instrument layer: `dimension.schema.json`
 (recursive hierarchy — no SubDimension class), `criterion.schema.json`,
 `indicator.schema.json`, `question.schema.json`,
 `response-specification.schema.json`, and `assessment-item.schema.json`
-— 25 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
+— 26 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
 the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
 2 criteria, 6 questions, instrument v1.0, result lineage).
 

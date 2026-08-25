@@ -43,7 +43,7 @@ assessment-models/
 │   ├── compatibility.schema.json
 │   └── relationship.schema.json
 │
-├── vocabulary/                                 ← 12 controlled vocabularies
+├── vocabulary/                                 ← 18 controlled vocabularies
 │   ├── assessment-types.yaml
 │   ├── relationship-types.yaml                ← 17 types + legacy aliases
 │   ├── lifecycle-status.yaml                  ← 7 states incl. retired
@@ -55,7 +55,13 @@ assessment-models/
 │   ├── eligibility-reasons.yaml               ← CR-AM-06: 13 machine-actionable reason codes
 │   ├── dimension-status.yaml                  ← CR-AM-05A: 4 dimension lifecycle states
 │   ├── question-status.yaml                   ← CR-AM-05A: 4 question lifecycle states
-│   └── response-type.yaml                     ← CR-AM-05A: 12 response types
+│   ├── response-type.yaml                     ← CR-AM-05A: 12 response types
+│   ├── percentile-methods.yaml                ← CR-AM-07: inclusive / exclusive
+│   ├── ranking-rules.yaml                     ← CR-AM-07: competition / dense
+│   ├── comparison-exclusion-reasons.yaml      ← CR-AM-07: excluded-member reason codes
+│   ├── insight-types.yaml                     ← CR-AM-08: 11 insight types (no domain-specific types)
+│   ├── significance-levels.yaml               ← CR-AM-08: 5 levels, independent of confidence
+│   └── insight-generation-methods.yaml        ← CR-AM-08: rule / analyst / algorithm / ai-assisted
 │
 ├── examples/                                   ← 5 canonical YAML examples
 │   ├── legacy-technology-instrument.yaml      ← current-style + migration-layer interpretation
@@ -96,17 +102,25 @@ assessment-models/
 ├── benchmark/                                  ← CR-AM-06 benchmark eligibility & cohorts
 │   ├── cohort-examples/
 │   │   └── telecom-service-assurance-2026.yaml ← §6 worked cohort
-│   └── eligibility-examples/
-│       ├── eligible-result.yaml               ← §11 valid determination shape
-│       └── not-comparable-result.yaml         ← §11 invalid determination shape
+│   ├── eligibility-examples/
+│   │   ├── eligible-result.yaml               ← §11 valid determination shape
+│   │   └── not-comparable-result.yaml         ← §11 invalid determination shape
+│   └── comparison-examples/
+│       └── telecom-service-assurance-2026-comparison.yaml ← CR-AM-07 worked comparison (27 members, tie at 70)
+│
+├── insights/                                   ← CR-AM-08 assessment insights
+│   └── examples/
+│       └── telecom-sa-2026-automation-coverage-gap.yaml ← Phase 1 worked insight (benchmark-gap, rule-generated)
 ```
 
 The `schemas/` tree additionally contains `benchmark-cohort.schema.json`
-(CR-AM-06) and the CR-AM-05A instrument layer: `dimension.schema.json`
+(CR-AM-06), `benchmark-comparison.schema.json` (CR-AM-07),
+`assessment-insight.schema.json` (CR-AM-08 Phase 1), and the CR-AM-05A
+instrument layer: `dimension.schema.json`
 (recursive hierarchy — no SubDimension class), `criterion.schema.json`,
 `indicator.schema.json`, `question.schema.json`,
 `response-specification.schema.json`, and `assessment-item.schema.json`
-— 19 schemas total. `examples/hierarchical-maturity-assessment.yaml` is
+— 23 schema files total (including `common.schema.json`). `examples/hierarchical-maturity-assessment.yaml` is
 the CR-AM-05A worked example (3-level dimension hierarchy, 2 capabilities,
 2 criteria, 6 questions, instrument v1.0, result lineage).
 

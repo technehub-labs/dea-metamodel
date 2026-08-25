@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/assessment-insight.schema.json",
+  "title": "OpenDEA Assessment Insight",
+  "description": "A governed, evidence-bound interpretation derived across assessment evidence (CR-AM-08 §3). An AssessmentInsight answers 'what does the evidence tell us?' over AssessmentResults, AssessmentViews, and BenchmarkComparisons. It is an interpretation, never a fact: the cited evidence remains authoritative, and an insight must never assert more than its evidence supports (CR-AM-08 §3, §6). Insight is distinct from Finding (an observation on one result, CR-AM-04) and prescribes no actions (CR-AM-08 §9 — the TRANSFORM stage stays outside the assessment metamodel). This schema defines the insight shape only — InsightRule and rule-driven derivation are Phase 2 concerns.",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "status",
+    "type",
+    "subject",
+    "evidence",
+    "interpretation",
+    "confidence",
+    "generation",
+    "lineage"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier"
+    },
+    "version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "metamodel_version": {
+      "$ref": "common.schema.json#/$defs/version"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycleStatus"
+    },
+    "type": {
+      "description": "Controlled vocabulary: assessment-models/vocabulary/insight-types.yaml (CR-AM-08 §4). No domain-specific types.",
+      "enum": [
+        "strength",
+        "weakness",
+        "gap",
+        "risk",
+        "opportunity",
+        "trend",
+        "anomaly",
+        "benchmark-gap",
+        "maturity-gap",
+        "coverage-gap",
+        "confidence-warning"
+      ]
+    },
+    "subject": {
+      "type": "object",
+      "description": "What the insight is about. At least one reference is required; all references are modelReferences to governed artifacts (capability, measure, scenario, ...).",
+      "properties": {
+        "capability": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "measure": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "scenario": {
+          "$ref": "common.schema.json#/$defs/modelReference"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        { "required": ["capability"] },
+        { "required": ["measure"] },
+        { "required": ["scenario"] }
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "description": "The evidence supporting this insight (CR-AM-08 §6 — mandatory). At least one source artifact is required; an insight without evidence is refused. Every artifact referenced here must also appear in lineage.",
+      "properties": {
+        "assessment_results": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1
+        },
+        "assessment_views": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1
+        },
+        "benchmark_comparisons": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+          "minItems": 1
+        }
+      },
+      "anyOf": [
+        { "required": ["assessment_results"] },
+        { "required": ["assessment_views"] },
+        { "required": ["benchmark_comparisons"] }
+      ],
+      "additionalProperties": false
+    },
+    "interpretation": {
+      "type": "object",
+      "description": "The interpreted statement. Must not assert more than the evidence supports (CR-AM-08 §7 of the as-authored proposal).",
+      "required": ["statement"],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "confidence": {
+      "type": "object",
+      "description": "How well the evidence supports the statement (CR-AM-08 §5). Confidence never exceeds what evidence coverage justifies; limitations are explicit.",
+      "required": ["level"],
+      "properties": {
+        "level": {
+          "enum": ["low", "medium", "high"]
+        },
+        "evidence_coverage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Percentage of the intended evidence base actually covered."
+        },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Explicit limitations, e.g. small-cohort-size, incomplete-capability-assessment."
+        }
+      },
+      "additionalProperties": false
+    },
+    "significance": {
+      "type": "object",
+      "description": "How much the statement matters (CR-AM-08 §5) — independent of confidence. Controlled vocabulary: assessment-models/vocabulary/significance-levels.yaml.",
+      "required": ["level"],
+      "properties": {
+        "level": {
+          "enum": ["low", "moderate", "material", "high", "critical"]
+        },
+        "rationale": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "generation": {
+      "type": "object",
+      "description": "How this insight was produced (CR-AM-08 §6). Controlled vocabulary: assessment-models/vocabulary/insight-generation-methods.yaml. The method is audit metadata; the evidence remains the authority — AI-assisted text is interpretation, never fact.",
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "enum": ["rule", "analyst", "algorithm", "ai-assisted"]
+        },
+        "generator": {
+          "type": "string",
+          "description": "Tool, model, or person that produced the interpretation (e.g. 'opendea-insight-engine 0.1.0', 'gpt-x analyst draft')."
+        }
+      },
+      "additionalProperties": false
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Full derivation lineage (CR-AM-08 §6): every source artifact, the insight rule + version when rule-generated, and generation timestamp. An insight without complete lineage is not canonical.",
+      "required": ["sources", "generated_at"],
+      "properties": {
+        "sources": {
+          "type": "object",
+          "description": "Mirrors evidence: every cited artifact with id + version.",
+          "properties": {
+            "assessment_results": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            },
+            "assessment_views": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            },
+            "benchmark_comparisons": {
+              "type": "array",
+              "items": { "$ref": "common.schema.json#/$defs/modelReference" },
+              "minItems": 1
+            }
+          },
+          "anyOf": [
+            { "required": ["assessment_results"] },
+            { "required": ["assessment_views"] },
+            { "required": ["benchmark_comparisons"] }
+          ],
+          "additionalProperties": false
+        },
+        "insight_rule": {
+          "$ref": "common.schema.json#/$defs/modelReference",
+          "description": "The InsightRule (id + version) that produced this insight, when generation.method = rule. The InsightRule schema itself lands in Phase 2."
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

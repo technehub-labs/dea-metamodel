@@ -1,0 +1,68 @@
+# Example — AssessmentInsight (CR-AM-08 Phase 1)
+# A benchmark-gap insight derived from the CR-AM-07 worked comparison
+# (telecom-service-assurance-2026). Illustrates the CR-AM-08 contract:
+# evidence is mandatory, confidence is independent of significance, the
+# generation method is declared, and lineage carries every source
+# artifact with id + version.
+#
+# Numbers follow the as-authored CR-AM-08 §27 scenario shape: a member
+# scoring 58 against a cohort median of 72 stands materially below the
+# comparable population. (The landed comparison example's org-a stands
+# at 82 / 88.5th percentile; this insight concerns the low-standing
+# member of the same cohort — insights interpret the whole comparison,
+# not only the headline subject.)
+
+id: dea:insight-telecom-sa-2026-automation-coverage-gap
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Automation coverage materially below cohort median
+status: stable
+
+type: benchmark-gap
+
+subject:
+  capability:
+    id: closed-loop-automation
+    version: "1.0.0"
+  measure:
+    id: automation-coverage
+    version: "1.0.0"
+  description: >
+    Automation coverage standing of the low-percentile member within the
+    telecom-service-assurance-2026 benchmark cohort.
+
+evidence:
+  benchmark_comparisons:
+    - id: dea:comparison-telecom-service-assurance-2026-v1
+      version: "1.0.0"
+
+interpretation:
+  statement: >
+    Automation coverage (58%) is materially below the comparable
+    benchmark population (cohort median 72%, subject percentile 34).
+
+confidence:
+  level: high
+  evidence_coverage: 100
+  limitations: []
+
+significance:
+  level: high
+  rationale: >
+    Closed-loop automation coverage is a primary lever for the assessed
+    service-assurance scenario; a 14-point median gap constrains the
+    scenario's maturity progression.
+
+generation:
+  method: rule
+  generator: opendea-insight-derivation (manual Phase 1 authoring)
+
+lineage:
+  sources:
+    benchmark_comparisons:
+      - id: dea:comparison-telecom-service-assurance-2026-v1
+        version: "1.0.0"
+  insight_rule:
+    id: dea:rule-benchmark-below-median
+    version: "1.0.0"
+  generated_at: "2026-08-25T00:00:00Z"

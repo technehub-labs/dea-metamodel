@@ -1,0 +1,34 @@
+# Insight Generation Method Vocabulary
+# Controlled vocabulary for AssessmentInsight.generation.method.
+# Source: CR-AM-08 §6 (generation method is declared; AI never the
+# authority).
+#
+# Whatever the method, the cited evidence remains the authoritative
+# fact. An ai-assisted interpretation is an interpretation of evidence,
+# never a new fact.
+
+vocabulary: insight-generation-methods
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of generation methods for an AssessmentInsight. The
+  method is metadata for audit; it never changes the authority of the
+  underlying evidence.
+
+values:
+  - id: rule
+    description: >
+      Derived by an InsightRule (CR-AM-08 §6) applied to evidence.
+      Reproducible: same evidence + same rule version → same insight.
+  - id: analyst
+    description: Produced by a human analyst interpreting the evidence.
+  - id: algorithm
+    description: >
+      Produced by a deterministic algorithm other than a governed
+      InsightRule (e.g. statistical outlier detection).
+  - id: ai-assisted
+    description: >
+      Narrative/interpretation produced with AI assistance over the
+      cited evidence. The AI-generated text is an interpretation, never
+      the underlying fact; lineage to evidence and rule (if any) is
+      mandatory.

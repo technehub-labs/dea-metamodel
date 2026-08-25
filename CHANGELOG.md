@@ -4,6 +4,52 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-08 Phase 1: Insight vocabulary & schema
+
+First implementation phase of CR-AM-08 (proposal merged as PR #132).
+Specification and metamodel remain **1.0.0**; additive schema +
+vocabularies + example, no canonical version bump.
+
+### Added — AssessmentInsight schema + vocabularies
+- **`assessment-models/schemas/assessment-insight.schema.json`** —
+  governed, evidence-bound interpretation shape (CR-AM-08 §3): required
+  `id, version, status, type, subject, evidence, interpretation,
+  confidence, generation, lineage`. Evidence is mandatory and must cite
+  ≥1 source artifact (results / views / comparisons); confidence
+  (low/medium/high + optional coverage % + explicit limitations) is
+  independent of significance; generation method is declared; lineage
+  carries every cited artifact + the InsightRule reference when
+  rule-generated + timestamp. `additionalProperties: false` throughout —
+  TRANSFORM vocabulary (project/initiative/investment/recommendation/…)
+  is structurally refused (CR-AM-08 §9).
+- **Vocabularies** — `insight-types.yaml` (11 types; no domain-specific
+  types), `significance-levels.yaml` (5 levels, independent axis),
+  `insight-generation-methods.yaml` (rule / analyst / algorithm /
+  ai-assisted — AI never the authority).
+- **Worked example** —
+  `assessment-models/insights/examples/telecom-sa-2026-automation-coverage-gap.yaml`
+  — a benchmark-gap insight over the CR-AM-07 worked comparison
+  (as-authored CR-AM-08 §27 scenario shape: 58% vs cohort median 72%).
+- **19 conformance tests**
+  (`assessment-models/tests/conformance/test_assessment_insight.py`) —
+  schema integrity, worked-example validation, evidence/lineage/
+  interpretation mandatory-refusal cases, vocabulary↔enum parity both
+  directions (×3 vocabularies), boundary guards (no TRANSFORM vocabulary
+  in the schema; CR-AM-06/07 frozen surfaces untouched; comparison
+  schema gains no insight terms), confidence≠significance axis
+  independence, and cross-artifact consistency (example cites the landed
+  comparison; lineage mirrors evidence; rule-generated insights carry
+  rule id + version).
+- **CI** — new `validate-insight-against-schema` job;
+  `validate-yaml` glob extended to `insights/examples/`.
+
+### Fixed — README tree drift
+- `assessment-models/README.md` tree annotation repaired for CR-AM-07
+  landings (percentile-methods / ranking-rules /
+  comparison-exclusion-reasons vocab rows, comparison-examples tree
+  entry) and extended for CR-AM-08 Phase 1; schema-file total corrected
+  to 23.
+
 ## [Unreleased] — CR-AM-09 proposal: Maturity Scale, Progression & Conformance
 
 Proposal-only PR. Specification and metamodel remain **1.0.0**; no

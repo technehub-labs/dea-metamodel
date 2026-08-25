@@ -1,0 +1,36 @@
+# Significance Level Vocabulary
+# Controlled vocabulary for AssessmentInsight.significance.level.
+# Source: CR-AM-08 §5 (significance is independent of confidence).
+#
+# Significance expresses how much an insight matters; confidence
+# expresses how well the evidence supports it. The two axes are
+# independent by design: high confidence + low significance (a certain
+# but immaterial gap) and low confidence + high significance (a
+# strategically important but under-evidenced concern) are both
+# legitimate, decision-relevant states.
+
+vocabulary: significance-levels
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of significance levels for an AssessmentInsight —
+  strategic materiality of the interpreted finding, independent of
+  evidential confidence.
+
+values:
+  - id: low
+    description: Immaterial to decision-making; informational only.
+  - id: moderate
+    description: Worth tracking; unlikely to drive prioritisation alone.
+  - id: material
+    description: >
+      Material to capability or operating decisions within the assessed
+      scope.
+  - id: high
+    description: >
+      Strategically significant; expected to shape improvement
+      objectives.
+  - id: critical
+    description: >
+      Existential or blocking; demands executive attention regardless of
+      confidence level.

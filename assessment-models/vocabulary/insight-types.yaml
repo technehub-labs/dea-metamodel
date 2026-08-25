@@ -1,0 +1,60 @@
+# Insight Type Vocabulary
+# Controlled vocabulary for AssessmentInsight.type.
+# Source: CR-AM-08 §4 (insight types).
+#
+# Domain-specific insight types (e.g. "ai-readiness-insight") are
+# deliberately excluded — they are derived through domain models later,
+# not added to the canonical vocabulary (CR-AM-08 §4).
+
+vocabulary: insight-types
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of insight types an AssessmentInsight may declare. An
+  insight is an interpretation derived across assessment evidence — never
+  an observation attached to one result (that is a Finding, CR-AM-04) and
+  never a prescribed action (excluded, CR-AM-08 §9).
+
+values:
+  - id: strength
+    description: >
+      Evidence indicates a capability or measure is a relative strength
+      (e.g. materially above a reference or target).
+  - id: weakness
+    description: >
+      Evidence indicates a capability or measure is a relative weakness.
+  - id: gap
+    description: >
+      Evidence indicates a generic shortfall against a reference; prefer
+      the specific gap types below when the reference is known.
+  - id: risk
+    description: >
+      Evidence indicates a potential adverse future state.
+  - id: opportunity
+    description: >
+      Evidence indicates a potential beneficial future state.
+  - id: trend
+    description: >
+      Evidence indicates directional movement across assessments or
+      cohort snapshots over time.
+  - id: anomaly
+    description: >
+      Evidence deviates materially from expectation or population
+      behaviour.
+  - id: benchmark-gap
+    description: >
+      The subject stands materially away from the cohort reference in a
+      BenchmarkComparison (CR-AM-07 hand-off).
+  - id: maturity-gap
+    description: >
+      The subject's maturity level stands away from a target or
+      reference maturity level.
+  - id: coverage-gap
+    description: >
+      Assessed scope is incomplete against the required scope; evidence
+      coverage itself is the gap.
+  - id: confidence-warning
+    description: >
+      The evidence base is too weak to support firm interpretation
+      (e.g. small cohort, low coverage); accompanies or suppresses other
+      insights.

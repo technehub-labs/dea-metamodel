@@ -4,6 +4,49 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-08 Phase 2: InsightRule & derivation
+
+Second implementation phase of CR-AM-08. Specification and metamodel
+remain **1.0.0**; additive schema + runtime module, no canonical version
+bump.
+
+### Added — InsightRule schema + derivation runtime
+- **`assessment-models/schemas/insight-rule.schema.json`** — the
+  governed mechanism that turns evidence into insight (CR-AM-08 §6):
+  `condition` (evidence channel + metric + operator + threshold),
+  `result` (insight type + significance + interpretation template with
+  `{value}`/`{threshold}`/`{peer_position}`/`{median}`/`{n}`
+  placeholders), and the `confidence` contract (level +
+  `minimum_population` + limitations). Phase 2 evidence channel:
+  `benchmark_comparisons` (metrics percentile / rank / score).
+- **`assessment-models/insights/rules/benchmark-below-median.yaml`** —
+  the canonical worked rule; closes the Phase 1 worked insight's
+  `lineage.insight_rule` reference (id + version + result type asserted
+  by conformance).
+- **`runtime/insights/`** — `rules.py` (structural validation with
+  governed constant sets ≡ vocabulary YAMLs ≡ schema enums; invalid
+  rules refused with every violation listed) and `derive.py`
+  (`derive_insight` applies a rule to a BenchmarkComparison for a
+  subject member). Derivation contract: reproducible (same comparison +
+  rule version + subject → same insight), evidence fidelity (cites
+  exactly the comparison derived from — never invents or widens
+  evidence), confidence enforcement (population below the rule's
+  `minimum_population` → downgrade to `low` + `small-cohort-size`),
+  no match → no insight (never a fabricated negative statement), and
+  ghost subjects (no standing) refused.
+- **20 conformance tests**
+  (`assessment-models/tests/conformance/test_insight_rule.py`) — schema
+  integrity, worked-rule validation (schema + runtime), three-way
+  vocabulary parity (YAML ↔ schema enum ↔ runtime constants), derivation
+  through the real CR-AM-07 composer (schema-valid insight output,
+  reproducibility, evidence fidelity, lineage rule identity, template
+  substitution, confidence downgrade/hold, ghost-subject refusal,
+  subject measure from the comparison axis), Phase-1 reference closure,
+  and boundary guards (no TRANSFORM vocabulary; frozen CR-AM-06/07
+  surfaces untouched).
+- **CI** — new `validate-insight-rule-against-schema` job;
+  `validate-yaml` glob extended to `insights/rules/`.
+
 ## [Unreleased] — CR-AM-08 Phase 1: Insight vocabulary & schema
 
 First implementation phase of CR-AM-08 (proposal merged as PR #132).

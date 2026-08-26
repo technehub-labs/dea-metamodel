@@ -1425,6 +1425,14 @@ jobs:
                               errors.append(f'{rel}: claimed by both {claimed[rel]} and {fid}')
                           claimed[rel] = fid
 
+          # Logical layout (CR-AM-11 Phase 2 slice 2, Option C): every mapped physical path exists
+          layout = suite.get('logical_layout') or {}
+          if not layout:
+              errors.append('logical_layout block missing from contract-suite.yaml')
+          for logical, physical in layout.items():
+              if not (root / physical).exists():
+                  errors.append(f'logical_layout: {logical} -> {physical}: path does not exist')
+
           # Completeness: every schema in assessment-models/schemas/ is claimed by exactly one family
           on_disk = {str(p) for p in (root / 'assessment-models/schemas').glob('*.schema.json')}
           unclaimed = on_disk - set(claimed)

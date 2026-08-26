@@ -22,6 +22,20 @@ notes: >-
   versioned together with the suite (CR-AM-11 Annex A versioning note);
   independent per-family versioning is a contract-publication ADR decision.
 
+# CR-AM-11 Phase 2 slice 2 (Option C decision): the CR-AM-11 §5 layout is the
+# LOGICAL contract architecture. Physical files stay in place; this block maps
+# each logical location to its physical path. Companion human-readable
+# document: contracts/logical-layout.md. CI asserts every physical path exists.
+logical_layout:
+  metamodel: metamodel/dea-metamodel.yaml
+  contracts: assessment-models/contracts/
+  schemas: assessment-models/schemas/
+  vocabularies: assessment-models/vocabulary/
+  validation: assessment-models/tests/
+  reference_instance: assessment-models/
+  examples: assessment-models/examples/
+  governance_docs: assessment-models/governance/
+
 families:
 
   - id: assessment-contract

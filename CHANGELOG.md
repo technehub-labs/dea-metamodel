@@ -4,6 +4,26 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 Phase 2 (slice 2): Logical layout publication
+
+Second Phase 2 slice of CR-AM-11. Decision (Option C, user-directed): the
+CR-AM-11 §5 repository layout is the **logical** contract architecture,
+carried by the manifest and a map document — zero files move. Specification
+and metamodel remain **1.0.0**.
+
+### Added
+- **`assessment-models/contracts/logical-layout.md`** — the logical → physical
+  map for the §5 layout, with the decision rationale (21 schemas reference
+  `common.schema.json` via sibling-relative `$ref`s; physical relocation cost
+  is all-rewrite, no behavioural gain) and the rule that physical extraction,
+  if ever revisited, is a new CR.
+- **`logical_layout` block in `contracts/contract-suite.yaml`** — the
+  machine-readable form of the map; every physical path asserted to exist by CI.
+
+### Changed — CI
+- `validate-contract-suite` job extended: fails if `logical_layout` is missing
+  or any mapped physical path does not resolve (negative-tested locally).
+
 ## [Unreleased] — CR-AM-11 Phase 2 (slice 1): Contract suite publication
 
 First Phase 2 slice of CR-AM-11 (Federated Assessment Model Ecosystem).

@@ -4,6 +4,24 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 proposal: Federated Assessment Model Ecosystem
+
+Architectural proposal landing (docs-only; no schema, runtime, or vocabulary
+changes). Specification and metamodel remain **1.0.0**.
+
+### Added — Change request
+- **`change-requests/CR-AM-11.md`** — Federated Assessment Model Ecosystem:
+  revives the Assessment-Models organization as the ecosystem authority
+  (assessment-registry + assessment-ci + maturity-components +
+  independently-versioned model/tool repositories) consuming versioned OpenDEA
+  contracts from dea-metamodel, which remains the canonical engineering
+  authority. Establishes the three-level CI model (local / contract-conformance
+  / ecosystem), immutable version references, the contract inventory (Annex A),
+  the contract-extraction & sub-tree-reduction pre-step (Phase 2), the initial
+  legacy classification of the six existing org repositories (Phase 0), and the
+  phased implementation sequence (Phases 0–6). Umbrella: CR-AM-01; depends on
+  CR-AM-09/10; supersedes the retired dual-authority attempt (CR-014).
+
 ## [Unreleased] — CR-AM-10 Phase 1: Component identity & reference model
 
 First implementation phase of CR-AM-10 (Maturity Component Composition &

@@ -4,6 +4,35 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 Phase 2 (slice 1): Contract suite publication
+
+First Phase 2 slice of CR-AM-11 (Federated Assessment Model Ecosystem).
+Specification and metamodel remain **1.0.0**; additive publication manifest +
+CI guard + governance doc, no canonical version bump.
+
+### Added — Contract suite
+- **`assessment-models/contracts/contract-suite.yaml`** — the machine-readable
+  publication of the six CR-AM-11 §16 contract families
+  (assessment / maturity-model / maturity-scale / scoring / conformance /
+  benchmark), each mapped to its landed artifacts per the Annex A inventory.
+  All 34 schemas claimed by exactly one family.
+- **`assessment-models/governance/contract-publication.md`** — the consumption
+  contract: §15 handshake shape, immutable-pin rules, §17 compatibility
+  declarations, versioning note, and the extraction boundary (physical
+  relocation of contract artifacts lands as separate Phase 2 PRs; the manifest
+  is the anti-drift guard for the extraction itself).
+
+### Added — CI
+- **`validate-contract-suite`** job in `ci-assessment-models.yml`: suite
+  identity/version, exactly the six §16 families (attributed guard), every
+  artifact path resolves, every schema Draft 2020-12, and complete
+  schemas/ coverage (an unmapped schema fails CI).
+
+### Fixed — docs drift
+- `assessment-models/README.md` directory tree referenced a non-existent
+  in-subtree `.github/workflows/ci.yml`; now points at the real repo-root
+  `ci-assessment-models.yml`. Tree also gains the `contracts/` entry.
+
 ## [Unreleased] — CR-AM-11 proposal: Federated Assessment Model Ecosystem
 
 Architectural proposal landing (docs-only; no schema, runtime, or vocabulary

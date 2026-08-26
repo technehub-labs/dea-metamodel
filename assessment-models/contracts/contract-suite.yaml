@@ -1,0 +1,133 @@
+# CR-AM-11 Phase 2 — OpenDEA Assessment Contract Suite
+#
+# The machine-readable publication of the six canonical contract families
+# (CR-AM-11 section 16), mapped to their landed artifacts per Annex A.
+# Consumers (Assessment-Models org repos) declare conformance to a family
+# id + version via the contract handshake (section 15) and pin an immutable
+# dea-metamodel release (section 12).
+#
+# This manifest PUBLISHES the contracts at their current canonical locations
+# inside assessment-models/. The physical extraction/relocation of contract
+# artifacts (section 5 target layout) is a separate Phase 2 pre-step landing
+# as its own PRs; this manifest's paths are updated by those PRs, and CI
+# (validate-contract-suite) fails if any path does not resolve.
+id: opendea-assessment-contract-suite
+version: 1.0.0
+status: published
+publisher:
+  organization: technehub-labs
+  repository: dea-metamodel
+notes: >-
+  Initial publication. Families are independently identifiable but currently
+  versioned together with the suite (CR-AM-11 Annex A versioning note);
+  independent per-family versioning is a contract-publication ADR decision.
+
+families:
+
+  - id: assessment-contract
+    version: "1.0"
+    summary: >-
+      Core assessment model: instruments, executions, results, items,
+      questions, response specifications, views, and result-side analytics
+      (insights, gaps, improvement objectives).
+    schemas:
+      - assessment-models/schemas/assessment-model.schema.json
+      - assessment-models/schemas/assessment-instrument.schema.json
+      - assessment-models/schemas/assessment-execution.schema.json
+      - assessment-models/schemas/assessment-result.schema.json
+      - assessment-models/schemas/assessment-item.schema.json
+      - assessment-models/schemas/question.schema.json
+      - assessment-models/schemas/response-specification.schema.json
+      - assessment-models/schemas/capability.schema.json
+      - assessment-models/schemas/scenario.schema.json
+      - assessment-models/schemas/measure.schema.json
+      - assessment-models/schemas/evidence.schema.json
+      - assessment-models/schemas/assessment-view.schema.json
+      - assessment-models/schemas/assessment-insight.schema.json
+      - assessment-models/schemas/insight-rule.schema.json
+      - assessment-models/schemas/assessment-gap.schema.json
+      - assessment-models/schemas/improvement-objective.schema.json
+    governance:
+      - assessment-models/governance/result-lineage.md
+      - assessment-models/governance/maturity-interpretation.md
+      - assessment-models/governance/views.md
+      - assessment-models/governance/insights.md
+      - assessment-models/governance/hierarchical-instruments.md
+      - assessment-models/governance/lifecycle.md
+
+  - id: maturity-model-contract
+    version: "1.0"
+    summary: >-
+      Maturity model structure and composition: reusable versioned component
+      packages and kinded component references (import / extend / override —
+      no silent inheritance, CR-AM-10).
+    schemas:
+      - assessment-models/schemas/maturity-component.schema.json
+      - assessment-models/schemas/component-reference.schema.json
+      - assessment-models/schemas/dimension.schema.json
+      - assessment-models/schemas/criterion.schema.json
+      - assessment-models/schemas/indicator.schema.json
+    artifacts:
+      - assessment-models/maturity/components/registry.yaml
+
+  - id: maturity-scale-contract
+    version: "1.0"
+    summary: >-
+      Model-owned maturity scales (CR-AM-09): level sets, progression,
+      resolution rules, scoring bands, and immutable benchmark-locked
+      baselines. Ships the canonical v2 band instance (Emergent / Structured /
+      Systematic / Adaptive / Self-Optimising; non-linear 20/25/25/18/12;
+      per-level effort multipliers).
+    schemas:
+      - assessment-models/schemas/maturity-scale.schema.json
+      - assessment-models/schemas/maturity-level.schema.json
+      - assessment-models/schemas/level-resolution-rule.schema.json
+      - assessment-models/schemas/progress-scoring-band.schema.json
+      - assessment-models/schemas/maturity-scale-baseline.schema.json
+    artifacts:
+      - assessment-models/maturity/maturity-bands-v2.yaml
+      - assessment-models/maturity/v2-to-v1-legacy-name-map.yaml
+    governance:
+      - assessment-models/governance/maturity-scales.md
+
+  - id: scoring-contract
+    version: "1.0"
+    summary: >-
+      Scoring, evaluation and aggregation: pluggable scoring models,
+      maturity evaluation, aggregation methods, and the validated v2 band
+      arithmetic worked example.
+    schemas:
+      - assessment-models/schemas/scoring-model.schema.json
+      - assessment-models/schemas/maturity-evaluation-model.schema.json
+      - assessment-models/schemas/aggregation-model.schema.json
+
+  - id: conformance-contract
+    version: "1.0"
+    summary: >-
+      Conformance and interoperability foundations: shared $defs
+      (identifier, version, modelReference), compatibility declarations
+      (six axes), and typed relationships.
+    schemas:
+      - assessment-models/schemas/common.schema.json
+      - assessment-models/schemas/compatibility.schema.json
+      - assessment-models/schemas/relationship.schema.json
+    governance:
+      - assessment-models/governance/versioning.md
+      - assessment-models/governance/compatibility.md
+    artifacts:
+      - assessment-models/vocabulary/
+
+  - id: benchmark-contract
+    version: "1.0"
+    summary: >-
+      Benchmark eligibility and comparative benchmarking: cohorts,
+      eligibility states and reason codes, percentile/ranking rules, and
+      comparison exclusion policy.
+    schemas:
+      - assessment-models/schemas/benchmark-cohort.schema.json
+      - assessment-models/schemas/benchmark-comparison.schema.json
+    governance:
+      - assessment-models/governance/benchmark-eligibility.md
+      - assessment-models/governance/comparison-policy.md
+    artifacts:
+      - assessment-models/benchmark/

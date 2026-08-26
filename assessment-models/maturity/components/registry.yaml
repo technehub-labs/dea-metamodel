@@ -22,3 +22,30 @@ registry:
       kind: dimension-package
       published_by: dea:maturity-operations
       path: maturity/component-examples/operations-service-dimensions.yaml
+
+    # CR-AM-11 Phase 5 — four composite dimensions published back to the
+    # registry from the Digital Transformation composite model (CR-AM-11
+    # §31 first-model candidate, merged as assessment-models/
+    # maturity-model-digital-transformation PR #1). The DT model's
+    # extend/override kinds remain consumer-scoped (CR-AM-10 §4); these
+    # entries are the canonical baseline imports for other consumers.
+    - id: dea:component-digital-culture
+      version: "1.0.0"
+      kind: dimension-package
+      published_by: dea:maturity-model-digital-transformation
+      path: maturity/component-examples/digital-culture.yaml
+    - id: dea:component-technology-adoption
+      version: "1.0.0"
+      kind: dimension-package
+      published_by: dea:maturity-model-digital-transformation
+      path: maturity/component-examples/technology-adoption.yaml
+    - id: dea:component-operations-modernization
+      version: "1.0.0"
+      kind: dimension-package
+      published_by: dea:maturity-model-digital-transformation
+      path: maturity/component-examples/operations-modernization.yaml
+    - id: dea:component-services-delivery
+      version: "1.0.0"
+      kind: dimension-package
+      published_by: dea:maturity-model-digital-transformation
+      path: maturity/component-examples/services-delivery.yaml

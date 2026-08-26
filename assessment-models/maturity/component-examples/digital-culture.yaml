@@ -1,0 +1,36 @@
+# Maturity Component — Digital culture dimension package
+# Published for reuse (CR-AM-10 §3). First canonical entry: the Digital
+# Transformation composite model exposes its digital-culture dimension
+# cluster as a reusable component. Composite models consume this package
+# by reference rather than copying the dimensions.
+#
+# This is the canonical entry — composite-model extensions (CR-AM-10
+# §4 kind=extend or override) remain consumer-scoped; consumers may add
+# their own dimensions on top.
+
+id: dea:component-digital-culture
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Digital culture dimension package
+description: >-
+  The digital-culture dimension cluster of the Digital Transformation
+  composite maturity model, published for reuse. Three dimensions:
+  leadership sponsorship, shared DT vocabulary, and safe-to-fail
+  experimentation. Composite models consume this package by reference
+  rather than copying the dimensions.
+kind: dimension-package
+published_by:
+  id: dea:maturity-model-digital-transformation
+status: stable
+owner: Digital Transformation Lead
+steward: Digital Transformation Lead
+effective_date: 2026-08-26
+review_date: 2027-02-26
+
+content:
+  - id: dea:dimension-digital-culture-leadership
+    version: "1.0.0"
+  - id: dea:dimension-digital-culture-vocabulary
+    version: "1.0.0"
+  - id: dea:dimension-digital-culture-experimentation
+    version: "1.0.0"

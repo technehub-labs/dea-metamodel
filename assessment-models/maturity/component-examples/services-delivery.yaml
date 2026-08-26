@@ -1,0 +1,29 @@
+# Maturity Component — Services delivery dimension package
+# Published for reuse (CR-AM-10 §3). The Digital Transformation composite
+# model's services-delivery dimension cluster. The composite model
+# overrides the canonical cadence dimension with platform-engineering
+# (consumer-scoped per CR-AM-10 §4 kind=override). This entry exposes
+# the canonical baseline.
+
+id: dea:component-services-delivery
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Services delivery dimension package
+description: >-
+  The services-delivery dimension cluster of the Digital Transformation
+  composite maturity model, published for reuse. The canonical baseline
+  exposes delivery-cadence; the DT model overrides this with platform-
+  engineering (consumer-scoped per CR-AM-10 §4 kind=override). Other
+  consumers may import the canonical baseline unchanged.
+kind: dimension-package
+published_by:
+  id: dea:maturity-model-digital-transformation
+status: stable
+owner: Digital Transformation Lead
+steward: Digital Transformation Lead
+effective_date: 2026-08-26
+review_date: 2027-02-26
+
+content:
+  - id: dea:dimension-services-delivery-cadence
+    version: "1.0.0"

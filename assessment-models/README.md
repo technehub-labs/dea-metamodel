@@ -20,7 +20,7 @@ assessment-models/
 ├── CHANGELOG.md                               ← version history of this sub-tree
 ├── LICENSE                                     ← MIT
 ├── .gitignore
-├── .github/workflows/ci.yml                   ← CI validation
+├── .github/workflows/ci-assessment-models.yml  ← CI validation (repo-root .github/workflows/)
 │
 ├── change-requests/
 │   ├── CR-AM-01-supplement-metamodel-v1.md     ← the supplementary CR (canonical, md5 c0f086be...)
@@ -113,6 +113,9 @@ assessment-models/
 
 ├── aggregation/                                ← CR-AM-05 AggregationModel contract
 │   └── examples/capability-score.yaml         ← canonical AggregationModel example
+
+├── contracts/                                ← CR-AM-11 Phase 2 contract suite publication
+│   └── contract-suite.yaml                  ← six contract families → landed artifacts (CI-validated)
 
 ├── benchmark/                                  ← CR-AM-06 benchmark eligibility & cohorts
 │   ├── cohort-examples/

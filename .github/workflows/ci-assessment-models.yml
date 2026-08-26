@@ -1363,3 +1363,82 @@ jobs:
       - name: Run CR-AM-07 Phase 4 comparison report conformance suite
         run: |
           python -m unittest -v assessment-models.tests.conformance.test_comparison_report
+
+  # CR-AM-11 Phase 2 — contract suite publication.
+  validate-contract-suite:
+    name: Validate contract suite manifest (CR-AM-11 Phase 2)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pyyaml + jsonschema
+        run: pip install pyyaml jsonschema
+      - name: Validate contract-suite.yaml
+        run: |
+          python -c "
+          import json, re, sys
+          from pathlib import Path
+          import yaml
+          from jsonschema import Draft202012Validator
+
+          root = Path('.')
+          suite = yaml.safe_load((root / 'assessment-models/contracts/contract-suite.yaml').read_text())
+          errors = []
+
+          # Suite identity + version format
+          if suite.get('id') != 'opendea-assessment-contract-suite':
+              errors.append(f\"suite id drifted: {suite.get('id')!r}\")
+          if not re.match(r'^\d+\.\d+\.\d+$', str(suite.get('version', ''))):
+              errors.append(f\"suite version not SemVer: {suite.get('version')!r}\")
+
+          # Exactly the six CR-AM-11 section-16 families (was 6 at Phase 2 publication)
+          expected = {'assessment-contract', 'maturity-model-contract', 'maturity-scale-contract',
+                      'scoring-contract', 'conformance-contract', 'benchmark-contract'}
+          fams = suite.get('families') or []
+          ids = [f.get('id') for f in fams]
+          if len(ids) != len(set(ids)):
+              errors.append('duplicate family ids')
+          if set(ids) != expected:
+              errors.append(f'family set drifted (CR-AM-11 section 16): {sorted(set(ids) ^ expected)}')
+
+          # Every artifact path resolves; schemas parse as Draft 2020-12
+          claimed = {}
+          for fam in fams:
+              fid = fam.get('id')
+              if not re.match(r'^\d+\.\d+(-\.\d+)?$', str(fam.get('version', ''))):
+                  errors.append(f'{fid}: version not of form X.Y[.Z]: {fam.get(\"version\")!r}')
+              for section in ('schemas', 'governance', 'artifacts'):
+                  for rel in fam.get(section) or []:
+                      p = root / rel
+                      if not p.exists():
+                          errors.append(f'{fid}: {section}: path does not exist: {rel}')
+                          continue
+                      if rel.endswith('.schema.json'):
+                          doc = json.loads(p.read_text())
+                          if doc.get('\$schema', '') != 'https://json-schema.org/draft/2020-12/schema':
+                              errors.append(f'{fid}: {rel}: not Draft 2020-12')
+                          if rel in claimed:
+                              errors.append(f'{rel}: claimed by both {claimed[rel]} and {fid}')
+                          claimed[rel] = fid
+
+          # Completeness: every schema in assessment-models/schemas/ is claimed by exactly one family
+          on_disk = {str(p) for p in (root / 'assessment-models/schemas').glob('*.schema.json')}
+          unclaimed = on_disk - set(claimed)
+          phantom = set(claimed) - on_disk
+          if unclaimed:
+              errors.append(f'schemas not claimed by any family: {sorted(unclaimed)}')
+          if phantom:
+              errors.append(f'claimed schemas missing on disk: {sorted(phantom)}')
+
+          if errors:
+              print('FAIL —', len(errors), 'error(s)')
+              for e in errors:
+                  print(' -', e)
+              sys.exit(1)
+          print(f'OK — contract suite v{suite[\"version\"]}: {len(fams)} families, '
+                f'{len(claimed)} schemas claimed (complete coverage), all paths resolve')
+          "

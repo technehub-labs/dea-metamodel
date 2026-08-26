@@ -878,12 +878,13 @@ Legacy Catalog
 
 Migration shall occur only after the new architecture has been validated.
 
-Superseded proposal closure: the open maturity-scoring-v2 proposal PR on
-dea-catalog-maturity-models (docs/maturity-scoring-v2-proposal) is superseded by
-the canonical CR-AM-09 scale machinery already landed in dea-metamodel. It shall
-be closed with a pointer to the canonical scale contract as part of Phase 0
-housekeeping (the repository is currently unarchived; if it is re-archived, the
-closure must happen before archiving, since archived repos are read-only).
+Superseded proposal record: the maturity-scoring-v2 proposal PR on
+dea-catalog-maturity-models (docs/maturity-scoring-v2-proposal, merged
+2026-08-21) is superseded by the canonical CR-AM-09 scale machinery already
+landed in dea-metamodel. Phase 0 records the repository as Legacy with the
+superseded status noted in the classification table; the merged proposal remains
+as historical content and is a Phase 6 migration input, not a candidate for
+closure or rewrite.
 
 ⸻
 

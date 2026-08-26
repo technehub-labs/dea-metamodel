@@ -35,6 +35,19 @@ FIVE_LEVEL_SCALE_PATH = (
     "assessment-models/maturity/scale-examples/"
     "autonomous-operations-5level.yaml"
 )
+# CR-AM-11 Phase 3 — the OpenDEA Enterprise Architecture reference instance.
+OPENDEA_EA_EVAL_PATH = (
+    "assessment-models/maturity/evaluation-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
+OPENDEA_EA_EVAL_SCALE_PATH = (
+    "assessment-models/maturity/scale-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
+OPENDEA_EA_BASELINE_PATH = (
+    "assessment-models/maturity/baseline-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
 
 
 def _preserve_timestamp_strings(loader, node):
@@ -159,6 +172,31 @@ class WorkedEvaluationValidationTest(unittest.TestCase):
         scale = load_yaml(SCALE_EXAMPLE_PATH)
         self.assertEqual(scale["id"], doc["scale"]["id"])
         self.assertEqual(scale["version"], doc["scale"]["version"])
+
+    def test_opendea_ea_reference_evaluation_validates(self):
+        """CR-AM-11 §6/§24 — the OpenDEA EA reference instance evaluation
+        model must validate against maturity-evaluation-model schema and
+        reference its own scale (id+version). Native 0-100 weighted-mean
+        scoring with six criteria; per-level expectations cover L-0..L-4."""
+        doc = load_yaml(OPENDEA_EA_EVAL_PATH)
+        errors = list(_validator(EVAL_SCHEMA_PATH).iter_errors(doc))
+        self.assertEqual([], [f"{list(e.path)}: {e.message}" for e in errors],
+                         "opendea-ea evaluation must validate")
+        scale = load_yaml(OPENDEA_EA_EVAL_SCALE_PATH)
+        self.assertEqual(scale["id"], doc["scale"]["id"])
+        self.assertEqual(scale["version"], doc["scale"]["version"])
+        # Weighted native 0-100 domain
+        domain = doc["scoring"]["domain"]
+        self.assertEqual("numeric-0-100", domain["kind"])
+        self.assertEqual(0, domain["minimum"])
+        self.assertEqual(100, domain["maximum"])
+        # Six criteria each carrying per-level expectations for all five levels
+        scale_level_ids = {l["id"] for l in scale["levels"]}
+        self.assertGreaterEqual(len(doc["criteria"]), 6)
+        for c in doc["criteria"]:
+            level_ids = {e["level"] for e in c["level_expectations"]}
+            self.assertEqual(scale_level_ids, level_ids,
+                             f"criterion {c['id']} must cover every scale level")
 
 
 class CriterionLevelExpectationTest(unittest.TestCase):

@@ -1,0 +1,196 @@
+# Maturity Evaluation Model — opendea-enterprise-architecture v1.0.0
+# Reference Instance 2 — CR-AM-11 Phase 3.
+# The evaluation contract for the OpenDEA EA adoption reference instance.
+# Native scoring: weighted 0–100 domain. Each criterion carries per-level
+# expectations referencing the L-0…L-4 scale from
+# scale-examples/opendea-enterprise-architecture.yaml.
+#
+# This is the scoring/evaluation layer the scale's conformance contract
+# resolves through: an organisation is conformant at level X when its
+# weighted criterion scores AND evidence expectations AND per-level
+# expectations all reach X simultaneously (the CR-AM-09 multi-dimensional
+# resolution semantics).
+
+id: dea:evaluation-opendea-enterprise-architecture-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: OpenDEA Enterprise Architecture Evaluation Model
+description: >-
+  Model-owned evaluation contract for the opendea-enterprise-architecture
+  reference instance. Weighted aggregation over a 0–100 native domain with
+  six criteria, each carrying per-level expectations against the
+  L-0…L-4 scale. Per-level effort_multiplier values (1.0× / 1.5× / 2.5×
+  / 4.0× / 6.0×) are applied to the aggregated score to produce the
+  effort-adjusted value (the maturity-v2 diminishing-returns insight).
+status: stable
+
+scale:
+  id: dea:scale-opendea-enterprise-architecture-v1
+  version: "1.0.0"
+
+scoring:
+  mechanism: weighted
+  domain:
+    kind: numeric-0-100
+    minimum: 0
+    maximum: 100
+  aggregation_rule: >-
+    Weighted mean over the six criteria's native 0-100 scores, with declared
+    weights: framework-documentation 0.20, modelling-coverage 0.20,
+    governance-cadence 0.20, tooling-integration 0.15, drift-and-conformance
+    0.15, ecosystem-contribution 0.10. The result is then banded through
+    the maturity resolution rule (see maturity-baseline-examples/opendea-
+    enterprise-architecture.yaml). Per-level effort_multiplier from the
+    scale's progression contract is applied to the aggregated value to
+    produce the effort-adjusted value reported in AssessmentResults.
+
+level_resolution_inputs:
+  - criterion-scores
+  - mandatory-criteria
+  - evidence-confidence
+  - effort-multiplier
+
+criteria:
+  - id: framework-documentation
+    name: Framework documentation
+    description: >-
+      Has the org documented OpenDEA as its EA metamodel with explicit
+      version pinning? Is the framework document current and referenced?
+    mandatory: true
+    evidence_requirements:
+      - Current EA framework document naming OpenDEA with version pin.
+      - Architecture principles referencing OpenDEA entity types.
+    level_expectations:
+      - level: L-0
+        expectation: No EA framework document exists.
+      - level: L-1
+        expectation: One architect's design notes mention OpenDEA informally.
+      - level: L-2
+        expectation: Framework document names OpenDEA as chosen metamodel,
+          pin a version, and is referenced from architecture decisions.
+      - level: L-3
+        expectation: Framework document is reviewed quarterly against
+          dea-metamodel releases; drift CI flags new releases.
+      - level: L-4
+        expectation: Framework document evolves the org's own assessment
+          practice; org contributes documentation back upstream.
+
+  - id: modelling-coverage
+    name: Modelling coverage
+    description: >-
+      What fraction of the org's architectural domains have authoritative
+      OpenDEA YAML models maintained as part of definition-of-done?
+    mandatory: true
+    evidence_requirements:
+      - Canonical OpenDEA YAML covering >= 3 architectural domains.
+      - Coverage report showing % of in-scope domains modelled.
+    level_expectations:
+      - level: L-0
+        expectation: No OpenDEA models in the org's repositories.
+      - level: L-1
+        expectation: Pilot models exist but are personal/out-of-tree.
+      - level: L-2
+        expectation: Canonical model covers >= 3 architectural domains.
+      - level: L-3
+        expectation: Canonical model covers most domains; maintenance is
+          part of definition-of-done; coverage is reported quarterly.
+      - level: L-4
+        expectation: Models are self-improving (usage telemetry feeds
+          schema-level refinements); coverage is published as a benchmark.
+
+  - id: governance-cadence
+    name: Governance cadence
+    description: >-
+      Is there an active architecture review board that references
+      OpenDEA entity types in decisions, with a documented cadence?
+    mandatory: false
+    evidence_requirements:
+      - Architecture review meeting cadence and minutes referencing OpenDEA.
+      - Decision records (ADRs) carrying modelReferences to OpenDEA entities.
+    level_expectations:
+      - level: L-0
+        expectation: No review board exists.
+      - level: L-1
+        expectation: Ad-hoc review by interested architects.
+      - level: L-2
+        expectation: Review board exists; meets on a fixed cadence; uses
+          OpenDEA terminology in decisions.
+      - level: L-3
+        expectation: Review board enforces conformance with the metamodel's
+          compatibility contract; decisions carry modelReference citations.
+      - level: L-4
+        expectation: Review board proposes schema-level changes upstream
+          via formal change requests.
+
+  - id: tooling-integration
+    name: Tooling integration
+    description: >-
+      Does the org's architecture tooling import OpenDEA schemas as the
+      canonical contract, with conformance CI gating model promotion?
+    mandatory: false
+    evidence_requirements:
+      - Tooling configuration showing OpenDEA schema import.
+      - Conformance CI logs blocking invalid models.
+    level_expectations:
+      - level: L-0
+        expectation: Tooling does not use OpenDEA.
+      - level: L-1
+        expectation: Tooling has loaded OpenDEA YAML locally for one user.
+      - level: L-2
+        expectation: Tooling loads OpenDEA schemas but does not enforce.
+      - level: L-3
+        expectation: Conformance CI runs on every architecture PR; failures
+          block promotion.
+      - level: L-4
+        expectation: Tooling auto-suggests schema-level improvements
+          from model diffs against the latest dea-metamodel release.
+
+  - id: drift-and-conformance
+    name: Drift & conformance measurement
+    description: >-
+      Does the org measure conformance against the metamodel's
+      compatibility contract on a fixed cadence?
+    mandatory: false
+    evidence_requirements:
+      - Compatibility declaration published at least quarterly.
+      - Drift detection cron output (issues opened on consumer pin drift).
+    level_expectations:
+      - level: L-0
+        expectation: No measurement.
+      - level: L-1
+        expectation: One-off manual review.
+      - level: L-2
+        expectation: Compatibility declared in a static document;
+          refreshed when dea-metamodel releases.
+      - level: L-3
+        expectation: Drift cron runs; issues opened on consumer drift;
+          resolution is tracked.
+      - level: L-4
+        expectation: Conformance trends are part of the org's EA KPIs;
+          published externally.
+
+  - id: ecosystem-contribution
+    name: Ecosystem contribution
+    description: >-
+      Does the org contribute back to the OpenDEA ecosystem — through
+      schema change requests, registered models, baseline benchmarks,
+      or mentorship?
+    mandatory: false
+    evidence_requirements:
+      - Schema-level change requests accepted upstream.
+      - Models registered in Assessment-Models/assessment-registry.
+      - Maturity Scale Baselines published for benchmark years.
+    level_expectations:
+      - level: L-0
+        expectation: No contribution.
+      - level: L-1
+        expectation: Issues raised informally.
+      - level: L-2
+        expectation: First schema-level change request submitted.
+      - level: L-3
+        expectation: First contribution accepted upstream; first model
+          registered in the ecosystem.
+      - level: L-4
+        expectation: Org mentors other organisations through the
+          Assessment-Models ecosystem; baselines locked for historical
+          reproducibility.

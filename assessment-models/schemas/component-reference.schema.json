@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/component-reference.schema.json",
+  "title": "OpenDEA Component Reference",
+  "description": "The consumer-side typed, versioned reference through which a maturity model reuses a published MaturityComponent (CR-AM-10 §4). Every reference declares a kind (controlled vocabulary: vocabulary/reference-kinds.yaml): import (consume exactly as published at the pinned version; no consumer-local payload permitted), extend (consume and add consumer-local items; the published component is unchanged), or override (consume with declared replacements — every override names what it replaces and why). A reference without a kind is refused: there is no fourth, implicit kind, and no silent inheritance. The component is always pinned by id AND version — composition never tracks a moving target.",
+  "type": "object",
+  "required": [
+    "component",
+    "kind"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/identifier",
+      "description": "Optional identifier for the reference itself, used when reconciliation rules or baselines need to cite the reference."
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/identifier"
+        },
+        "version": {
+          "$ref": "common.schema.json#/$defs/version"
+        }
+      },
+      "additionalProperties": false,
+      "description": "The pinned component being referenced. Version is mandatory (stricter than common modelReference): composition always resolves against an immutable component version."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "import",
+        "extend",
+        "override"
+      ],
+      "description": "How the consumer uses the component. import: verbatim, no payload. extend: consumer-local additions. override: declared replacements with rationale."
+    },
+    "additions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      },
+      "description": "Consumer-local items added on top of the component. Permitted only when kind = extend; mandatory for extend."
+    },
+    "replaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "common.schema.json#/$defs/modelReference"
+      },
+      "description": "Component content entries the consumer declares replaced. Permitted only when kind = override; mandatory for override."
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Why the override exists. Mandatory when kind = override; overrides are the highest-drift-risk kind and are surfaced in conformance reports."
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "import"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "additions"
+              ]
+            },
+            {
+              "required": [
+                "replaces"
+              ]
+            },
+            {
+              "required": [
+                "rationale"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "extend"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "additions"
+        ],
+        "not": {
+          "required": [
+            "replaces"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "override"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "then": {
+        "required": [
+          "replaces",
+          "rationale"
+        ]
+      }
+    }
+  ]
+}

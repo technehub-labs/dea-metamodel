@@ -1,0 +1,34 @@
+# Maturity Component Kind Vocabulary
+# Controlled vocabulary for MaturityComponent.kind.
+# Source: CR-AM-10 §3 (component identity & reference model).
+
+vocabulary: component-kinds
+version: "1.0.0"
+metamodel_version: "1.0.0"
+description: >
+  The closed set of reusable maturity content packages. A component's
+  kind determines which artefact type its content references point at
+  inside the publishing model. New kinds require a CR; consumers select
+  from this set only.
+
+values:
+  - id: dimension-package
+    description: >
+      A package of CR-AM-05A Dimensions (with their sub-dimension
+      hierarchy). Content references point at dimension artefacts in
+      the publishing model.
+  - id: criterion-package
+    description: >
+      A package of CR-AM-05A Criteria — the semantic bridge between
+      evidence and maturity. Content references point at criterion
+      artefacts in the publishing model.
+  - id: level-expectation-package
+    description: >
+      A package of CriterionLevelExpectations (CR-AM-09 §4): how each
+      criterion manifests at each level of the publishing model's own
+      scale. Expectations travel with the publisher's level semantics;
+      consumers never reinterpret them against their own scale.
+  - id: evidence-requirement-package
+    description: >
+      A package of evidence requirements. Content references point at
+      evidence-requirement artefacts in the publishing model.

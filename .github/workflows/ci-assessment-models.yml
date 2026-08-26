@@ -468,6 +468,95 @@ jobs:
           sys.exit(1 if errors else 0)
           "
 
+  validate-maturity-components:
+    name: Validate maturity component + reference examples (CR-AM-10 Phase 1)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install jsonschema + pyyaml
+        run: pip install jsonschema pyyaml
+      - name: Validate
+        run: |
+          python -c "
+          import json, yaml, sys
+          from jsonschema import Draft202012Validator, RefResolver
+
+          yaml.SafeLoader.add_constructor(
+              'tag:yaml.org,2002:timestamp',
+              lambda loader, node: loader.construct_scalar(node))
+
+          with open('assessment-models/schemas/common.schema.json') as fh:
+              common = json.load(fh)
+          with open('assessment-models/schemas/maturity-component.schema.json') as fh:
+              comp_schema = json.load(fh)
+          with open('assessment-models/schemas/component-reference.schema.json') as fh:
+              ref_schema = json.load(fh)
+
+          store = {
+              'https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/common.schema.json': common,
+              'common.schema.json': common,
+          }
+          comp_validator = Draft202012Validator(
+              comp_schema, resolver=RefResolver(base_uri='', referrer=comp_schema, store=store))
+          ref_validator = Draft202012Validator(
+              ref_schema, resolver=RefResolver(base_uri='', referrer=ref_schema, store=store))
+
+          import glob
+          errors = 0
+          for ex in sorted(glob.glob('assessment-models/maturity/component-examples/*.yaml')):
+              with open(ex) as fh:
+                  doc = yaml.safe_load(fh)
+              validator = comp_validator if 'content' in doc else ref_validator
+              errs = sorted(validator.iter_errors(doc), key=lambda e: e.path)
+              if errs:
+                  errors += 1
+                  print(f'FAIL {ex}:')
+                  for e in errs:
+                      print(f'  path={list(e.path)}: {e.message}')
+              else:
+                  print(f'OK  {ex}')
+
+          # Registry guards: unique (id, version); registered files exist;
+          # every component example registered.
+          with open('assessment-models/maturity/components/registry.yaml') as fh:
+              registry = yaml.safe_load(fh)['registry']
+          pairs = [(c['id'], c['version']) for c in registry['components']]
+          if len(pairs) != len(set(pairs)):
+              errors += 1
+              print('FAIL registry: duplicate (id, version) pair')
+          import os
+          registered = {c['id'] for c in registry['components']}
+          for c in registry['components']:
+              p = os.path.join('assessment-models', c['path'])
+              if not os.path.exists(p):
+                  errors += 1
+                  print(f'FAIL registry: missing file {p}')
+          for ex in sorted(glob.glob('assessment-models/maturity/component-examples/*.yaml')):
+              with open(ex) as fh:
+                  doc = yaml.safe_load(fh)
+              if 'content' in doc and doc['id'] not in registered:
+                  errors += 1
+                  print(f'FAIL registry: component {doc[\"id\"]} in {ex} not registered')
+
+          # Vocabulary/schema enum alignment (drift guards)
+          with open('assessment-models/vocabulary/component-kinds.yaml') as fh:
+              ck = {v['id'] for v in yaml.safe_load(fh)['values']}
+          with open('assessment-models/vocabulary/reference-kinds.yaml') as fh:
+              rk = {v['id'] for v in yaml.safe_load(fh)['values']}
+          if set(comp_schema['properties']['kind']['enum']) != ck:
+              errors += 1
+              print('FAIL component-kinds vocabulary != schema enum')
+          if set(ref_schema['properties']['kind']['enum']) != rk:
+              errors += 1
+              print('FAIL reference-kinds vocabulary != schema enum')
+
+          sys.exit(1 if errors else 0)
+          "
+
   validate-maturity-evaluation-against-schema:
     name: Validate maturity evaluation example against schema (CR-AM-09 Phase 2)
     runs-on: ubuntu-latest

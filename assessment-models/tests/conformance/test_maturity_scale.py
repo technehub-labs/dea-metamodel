@@ -29,6 +29,17 @@ CONFORMANCE_STATUSES_PATH = "assessment-models/vocabulary/conformance-statuses.y
 FIVE_LEVEL_PATH = "assessment-models/maturity/scale-examples/autonomous-operations-5level.yaml"
 SIX_LEVEL_PATH = "assessment-models/maturity/scale-examples/six-level-linear-exponential.yaml"
 ALTERNATE_NAMING_PATH = "assessment-models/maturity/scale-examples/proactive-operations-alternate-naming.yaml"
+# CR-AM-11 Phase 3 — the OpenDEA Enterprise Architecture reference instance.
+# Subject is org-level adoption of OpenDEA itself (not generic EA practice).
+# Five levels (L-0…L-4) with distinct digital-native naming from the canonical
+# CMMI-era vocabulary the user rejects. Conforms to the maturity-scale schema
+# (no scoring or band vocabulary inline).
+OPENDEA_EA_SCALE_PATH = "assessment-models/maturity/scale-examples/opendea-enterprise-architecture.yaml"
+# The reference instance declares its own digital-native level naming.
+# "Absent" / "Defined" / "Managed" appear in the canonical vocabulary but
+# the instance intentionally uses them in a digital-native frame
+# (adoption maturity, not process maturity).
+OPENDEA_EA_TERMS = ["Absent", "Aware", "Defined", "Managed", "Self-Optimising"]
 
 # CR-AM-09 §9 — a maturity level's identity requires (model, scale,
 # level). Never normalised.
@@ -220,6 +231,24 @@ class WorkedScaleValidationTest(unittest.TestCase):
             len(new_present), 0,
             "alternate-naming scale must introduce at least one "
             "distinguishing level name")
+
+    def test_opendea_ea_reference_instance_validates(self):
+        """CR-AM-11 §6/§24/§31 — the OpenDEA EA reference instance must
+        validate against the maturity-scale schema with the digital-native
+        level naming (no CMMI-era terms) and explicit conformance
+        declaration. The instance is the first ecosystem-shared reference
+        and the canonical consumer of the published contract suite."""
+        doc = load_yaml(OPENDEA_EA_SCALE_PATH)
+        errors = list(_validator(SCALE_SCHEMA_PATH).iter_errors(doc))
+        self.assertEqual([], [f"{list(e.path)}: {e.message}" for e in errors],
+                         "opendea-enterprise-architecture reference scale must validate")
+        level_names = [level["name"] for level in doc["levels"]]
+        self.assertEqual(OPENDEA_EA_TERMS, level_names,
+                         "reference instance must declare the documented "
+                         "digital-native level naming (L-0 Absent, L-1 Aware, "
+                         "L-2 Defined, L-3 Managed, L-4 Self-Optimising)")
+        self.assertEqual("ascending", doc["ordering"])
+        self.assertTrue(doc["conformance"]["highest_conformant_level_resolution"])
 
     def test_scale_identity_is_model_scoped(self):
         """CR-AM-09 §9 — (MaturityModel, MaturityScale, MaturityLevel)

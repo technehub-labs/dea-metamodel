@@ -1,0 +1,212 @@
+# Maturity Scale — opendea-enterprise-architecture v1.0.0 (5-level)
+# Reference Instance 1 — CR-AM-11 Phase 3.
+# The canonical maturity scale for assessing an enterprise's USE and ADOPTION
+# of the OpenDEA metamodel itself (CR-AM-11 §6, §24). Five levels with
+# structural L-0…L-4 identifiers, explicit semantics, linear topology with
+# exponential progression (later levels cost disproportionately more than
+# earlier ones — the maturity-v2 effort-coefficient insight).
+#
+# Domain: OpenDEA adoption in an enterprise architecture practice. Subject
+# of the assessment is NOT a generic EA practice (that is the v2-beta
+# `enterprise-architecture` model); it is specifically how far the org
+# has adopted OpenDEA itself — definitions live in the EA instance, values
+# come from the org's own EA evidence.
+
+id: dea:scale-opendea-enterprise-architecture-v1
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: OpenDEA Enterprise Architecture Adoption Scale (5-level)
+description: >-
+  Reference maturity scale for the opendea-enterprise-architecture
+  assessment model. Five-level progression: L-0 Absent → L-1 Aware →
+  L-2 Defined → L-3 Managed → L-4 Self-Optimising. Linear topology;
+  exponential progression (effort_multiplier 1.0× / 1.5× / 2.5× / 4.0× /
+  6.0×) so that the maturity-v2 diminishing-returns insight is honoured
+  per level.
+status: stable
+
+levels:
+  - id: L-0
+    ordinal: 0
+    name: Absent
+    definition: >-
+      OpenDEA is not known or used within the enterprise architecture
+      practice. The team may have heard of the metamodel; no artefacts
+      reference its concepts and no governance exists.
+    short_description: OpenDEA not present in the EA practice
+    characteristics:
+      - EA team relies on framework-of-the-day or bespoke taxonomies.
+      - No mention of OpenDEA in EA documentation or tooling.
+      - No team member has engaged with technehub-labs/dea-metamodel.
+    expected_practices:
+      - Architecture descriptions in PowerPoint, Confluence, or vendor
+        catalogues with no shared ontology.
+    expected_behaviours:
+      - EA members do not refer to metamodel concepts in meetings.
+      - New architectures are framed against proprietary vocabularies.
+
+  - id: L-1
+    ordinal: 1
+    name: Aware
+    definition: >-
+      The EA team knows OpenDEA exists and a few individuals reference
+      it informally, but there is no shared practice or governance.
+      Adoption is person-dependent.
+    short_description: OpenDEA known to a few, used sporadically
+    characteristics:
+      - One or two architects have read OpenDEA documentation and use
+        its terminology in design notes.
+      - No enterprise-wide modelling effort uses OpenDEA.
+      - References are personal; no team-wide vocabulary.
+    expected_practices:
+      - Architects occasionally cite OpenDEA entity types when
+        describing concepts to peers.
+      - Some pilots have loaded OpenDEA YAML into a viewer locally.
+    expected_behaviours:
+      - Adoption is driven by individual curiosity rather than policy.
+      - When the champions leave, practice dissipates.
+
+  - id: L-2
+    ordinal: 2
+    name: Defined
+    definition: >-
+      OpenDEA is the documented EA framework for the enterprise. The
+      team has a shared vocabulary, written principles, and at least
+      one canonical model artefact (a partial enterprise model in
+      OpenDEA YAML). Governance is assigned but inconsistently applied.
+    short_description: OpenDEA documented and partially adopted
+    characteristics:
+      - The EA framework document names OpenDEA as the chosen
+        metamodel with explicit version pinning.
+      - A core enterprise model has been authored in OpenDEA YAML
+        covering at least three architectural domains.
+      - An architecture review board exists and references OpenDEA
+        entity types in its decisions.
+    expected_practices:
+      - Every new architecture proposal is reviewed against OpenDEA
+        entity types (Actor, ApplicationComponent, BusinessService,
+        Technology, etc.) before sign-off.
+      - A central model repository holds the canonical OpenDEA YAML.
+      - Schema and vocabulary updates from technehub-labs/dea-metamodel
+        are tracked in a backlog.
+    expected_behaviours:
+      - Teams follow the framework when reminded.
+      - Under delivery pressure, some projects bypass the framework.
+
+  - id: L-3
+    ordinal: 3
+    name: Managed
+    definition: >-
+      OpenDEA is the operational EA framework for the enterprise.
+      Adoption is enforced through tooling, governance is active, and
+      the team measures conformance against the metamodel's
+      compatibility contract. Practice is repeatable and reviewable.
+    short_description: OpenDEA actively governed and measured
+    characteristics:
+      - Architecture tooling imports OpenDEA schemas as the canonical
+        contract; new models must validate against them.
+      - Conformance CI runs on every architecture PR; failures block
+        promotion.
+      - The enterprise model covers most architectural domains and is
+        maintained as part of definition-of-done.
+      - Compatibility declarations (six axes) are produced quarterly
+        and reviewed by leadership.
+    expected_practices:
+      - Every architectural change carries a modelReference citing the
+        precise OpenDEA entity and version (CR-AM-04 result lineage
+        contract).
+      - Drift detection cron checks every consumer repo's pin against
+        the latest dea-metamodel release; issues are opened on drift.
+      - The EA practice has a published set of assessment instruments
+        conforming to the assessment contract.
+    expected_behaviours:
+      - Framework bypass is rare and triggers explicit governance
+        escalation.
+      - Architects propose schema-level changes upstream via formal
+        change requests.
+
+  - id: L-4
+    ordinal: 4
+    name: Self-Optimising
+    definition: >-
+      The EA team uses OpenDEA as a self-improving system: maturity
+      itself is measured, benchmark baselines are locked for historical
+      reproducibility, and the team contributes back to
+      technehub-labs/dea-metamodel. The framework is self-sustaining
+      and mentors other organisations.
+    short_description: OpenDEA self-improving and ecosystem-active
+    characteristics:
+      - The organisation has published Maturity Scale Baselines
+        (CR-AM-09 Phase 4) for at least two annual benchmarks; each
+        baseline is immutable and content-hashed for reproducibility.
+      - At least one schema-level contribution has been accepted
+        upstream into technehub-labs/dea-metamodel via a change
+        request.
+      - The team mentors other organisations through the Assessment-
+        Models ecosystem (independent maturity models, components,
+        tools).
+      - The Assessment Registry records at least one model the org has
+        contributed to the ecosystem.
+    expected_practices:
+      - Practice evolution is documented in maturity-interpretation
+        governance and feeds back into the EA framework document.
+      - Benchmark cohort comparisons are produced annually using the
+        CR-AM-07 comparison contract.
+      - The org participates in the dea-metamodel CI discussions on
+        schema changes.
+    expected_behaviours:
+      - Other organisations cite the team's practice as a reference.
+      - The EA practice self-identifies opportunities for ecosystem
+        contributions as part of its annual planning.
+
+progression:
+  topology: linear
+  function: exponential
+  transition_rules:
+    - Forward-only; no level skipping (the maturity-v2 diminishing-
+      returns insight — reaching L-4 is intentionally costly).
+    - Exit from a level requires the documented exit criteria AND
+      evidence expectations from the corresponding criterion's level
+      expectations (evaluation model).
+
+conformance:
+  statuses:
+    - conformant
+    - partially-conformant
+    - non-conformant
+    - indeterminate
+    - not-assessable
+  highest_conformant_level_resolution: true
+
+# Reference instance notes (CR-AM-11 §24):
+#
+# Per-level effort_multiplier values used in scoring and reporting:
+#   L-0: 1.0×, L-1: 1.5×, L-2: 2.5×, L-3: 4.0×, L-4: 6.0×
+# These values encode the maturity-v2 diminishing-returns insight
+# (later levels cost disproportionately more than earlier ones) and
+# are consumed by the model's evaluation/scoring layer (see
+# evaluation-examples/opendea-enterprise-architecture.yaml). They are
+# NOT part of the maturity-scale schema; they are a model-level
+# parameter that lives with the evaluation model.
+#
+# The L-0…L-4 ordinal mapping to the canonical v2 band instance
+# (Emergent / Structured / Systematic / Adaptive / Self-Optimising)
+# lives in maturity-baseline-examples/opendea-enterprise-architecture.yaml
+# — Phase 3 of the maturity-v2 migration plan.
+ordering: ascending
+
+# Reference instance notes (CR-AM-11 §24):
+#
+# Per-level effort_multiplier values used in scoring and reporting:
+#   L-0: 1.0x, L-1: 1.5x, L-2: 2.5x, L-3: 4.0x, L-4: 6.0x
+# These values encode the maturity-v2 diminishing-returns insight
+# (later levels cost disproportionately more than earlier ones) and
+# are consumed by the model's evaluation/scoring layer (see
+# evaluation-examples/opendea-enterprise-architecture.yaml). They are
+# NOT part of the maturity-scale schema; they are a model-level
+# parameter that lives with the evaluation model.
+#
+# The L-0...L-4 ordinal mapping to the canonical v2 band instance
+# (Emergent / Structured / Systematic / Adaptive / Self-Optimising)
+# lives in maturity/baseline-examples/opendea-enterprise-architecture.yaml
+# — the maturity-v2 migration Phase 3.

@@ -1,0 +1,123 @@
+# Maturity Scale Baseline — opendea-enterprise-architecture, locked for Benchmark 2026
+# Reference Instance 3 — CR-AM-11 Phase 3.
+# Immutable snapshot of the effective scale contract for the
+# opendea-enterprise-architecture assessment model: the levels + progression
+# + band_set + resolution_rule + evaluation_model references, frozen at
+# lock time. content_hash is sha256 over the canonical JSON of the
+# snapshot block — the reproducibility anchor.
+#
+# Given "Benchmark 2026", the exact model/version/scale/levels/progression/
+# bands/resolution are reconstructable from this document alone, without
+# depending on today's scale version.
+
+id: dea:baseline-opendea-enterprise-architecture-benchmark-2026
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: OpenDEA Enterprise Architecture Scale Baseline — Benchmark 2026
+description: >-
+  Locked baseline of the opendea-enterprise-architecture maturity scale
+  for the Benchmark 2026 assessment contract. Every participant is
+  evaluated under exactly this contract; model evolution produces a new
+  baseline version, never an edit. First ecosystem participant is the
+  Assessment-Models maturity-model-digital-transformation Phase 4 first
+  model candidate (CR-AM-11 §30).
+status: stable
+
+benchmark:
+  id: dea:benchmark-2026
+  version: "1.0.0"
+
+scale:
+  id: dea:scale-opendea-enterprise-architecture-v1
+  version: "1.0.0"
+
+locked_at: "2026-08-26T00:00:00Z"
+locked_by: phase-3-reference-instance
+
+content_hash: "sha256:dc082054ab81bfae36d2f4bf71dd8a4fb9a961502732ba628179d73be5606c2a"
+
+snapshot:
+  levels:
+    - id: L-0
+      ordinal: 0
+      name: Absent
+      definition: >-
+        OpenDEA is not known or used within the enterprise architecture
+        practice. The team may have heard of the metamodel; no artefacts
+        reference its concepts and no governance exists.
+    - id: L-1
+      ordinal: 1
+      name: Aware
+      definition: >-
+        The EA team knows OpenDEA exists and a few individuals reference
+        it informally, but there is no shared practice or governance.
+        Adoption is person-dependent.
+    - id: L-2
+      ordinal: 2
+      name: Defined
+      definition: >-
+        OpenDEA is the documented EA framework for the enterprise. The
+        team has a shared vocabulary, written principles, and at least
+        one canonical model artefact (a partial enterprise model in
+        OpenDEA YAML). Governance is assigned but inconsistently applied.
+    - id: L-3
+      ordinal: 3
+      name: Managed
+      definition: >-
+        OpenDEA is the operational EA framework for the enterprise.
+        Adoption is enforced through tooling, governance is active, and
+        the team measures conformance against the metamodel's
+        compatibility contract. Practice is repeatable and reviewable.
+    - id: L-4
+      ordinal: 4
+      name: Self-Optimising
+      definition: >-
+        The EA team uses OpenDEA as a self-improving system: maturity
+        itself is measured, benchmark baselines are locked for historical
+        reproducibility, and the team contributes back to
+        technehub-labs/dea-metamodel. The framework is self-sustaining
+        and mentors other organisations.
+
+  progression:
+    topology: linear
+    function: exponential
+    transition_rules:
+      - Forward-only; no level skipping (the maturity-v2 diminishing-
+        returns insight — reaching L-4 is intentionally costly).
+      - Exit from a level requires the documented exit criteria AND
+        evidence expectations from the corresponding criterion's level
+        expectations (evaluation model).
+
+  band_set:
+    id: dea:maturity-bands-v2
+    version: "1.0.0"
+
+  resolution_rule:
+    id: dea:resolution-opendea-enterprise-architecture-v1
+    version: "1.0.0"
+
+  evaluation_model:
+    id: dea:evaluation-opendea-enterprise-architecture-v1
+    version: "1.0.0"
+
+# Notes on the contract surface (CR-AM-11 §6 / §24):
+#
+# This baseline is the first ecosystem-shared baseline of the
+# opendea-enterprise-architecture reference instance. Future benchmarks
+# (2027, 2028, ...) freeze a new version of this file. The Assessment
+# Registry records which baseline version is active for each
+# participating organisation's benchmark year.
+#
+# Level-to-v2-band mapping (the canonical Emergent / Structured /
+# Systematic / Adaptive / Self-Optimising instance with non-linear
+# 20/25/25/18/12 bands) is consumed via band_set
+# (dea:maturity-bands-v2 v1.0.0). Per-level effort_multiplier values
+# (1.0x / 1.5x / 2.5x / 4.0x / 6.0x) live with the evaluation model
+# (dea:evaluation-opendea-enterprise-architecture-v1) — they are a
+# model-level parameter, not a baseline-level one.
+#
+# The baseline is referenced (immutably) from the Phase 4 first-model
+# candidate (maturity-model-digital-transformation) via the contract
+# handshake (CR-AM-11 §15) — its Level 2 CI resolves the handshake
+# against the published contract suite and validates conformance at
+# the pinned dea-metamodel release.

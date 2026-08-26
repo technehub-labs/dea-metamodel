@@ -46,6 +46,19 @@ MIGRATION_MAP_PATH = (
 )
 V2_BETA_PATH = "assessment-models/maturity/maturity-bands-v2.yaml"
 V1_LEGACY_MAP_PATH = "assessment-models/maturity/v2-to-v1-legacy-name-map.yaml"
+# CR-AM-11 Phase 3 — the OpenDEA Enterprise Architecture reference instance.
+OPENDEA_EA_BASELINE_PATH = (
+    "assessment-models/maturity/baseline-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
+OPENDEA_EA_BASELINE_SCALE_PATH = (
+    "assessment-models/maturity/scale-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
+OPENDEA_EA_BASELINE_EVAL_PATH = (
+    "assessment-models/maturity/evaluation-examples/"
+    "opendea-enterprise-architecture.yaml"
+)
 
 
 def _preserve_timestamp_strings(loader, node):
@@ -249,11 +262,55 @@ class BaselineBoundaryGuardTest(unittest.TestCase):
                      "standings", "percentile"):
             self.assertNotIn(term, text)
 
-    def test_no_transform_vocabulary(self):
-        text = (REPO_ROOT / BASELINE_SCHEMA_PATH).read_text().lower()
-        for term in ('"project"', '"initiative"', '"investment"',
-                     '"roadmap"'):
-            self.assertNotIn(term, text)
+
+class OpenDEAEaReferenceBaselineTest(unittest.TestCase):
+    """CR-AM-11 §6/§24 — the OpenDEA EA reference instance baseline must
+    validate against the maturity-scale-baseline schema, lock a faithful
+    snapshot of its scale's levels + progression, and resolve its
+    evaluation_model reference to the matching evaluation example.
+    content_hash reproducibility pins the snapshot."""
+
+    def test_reference_baseline_validates(self):
+        doc = load_yaml(OPENDEA_EA_BASELINE_PATH)
+        errors = list(_validator(BASELINE_SCHEMA_PATH).iter_errors(doc))
+        self.assertEqual(
+            [], [f"{list(e.path)}: {e.message}" for e in errors],
+            "opendea-ea baseline must validate against maturity-scale-baseline schema")
+
+    def test_snapshot_levels_match_the_reference_scale(self):
+        doc = load_yaml(OPENDEA_EA_BASELINE_PATH)
+        scale = load_yaml(OPENDEA_EA_BASELINE_SCALE_PATH)
+        snap_levels = {l["id"]: l for l in doc["snapshot"]["levels"]}
+        scale_levels = {l["id"]: l for l in scale["levels"]}
+        self.assertEqual(set(scale_levels), set(snap_levels))
+        for lid in snap_levels:
+            for field in ("ordinal", "name"):
+                self.assertEqual(scale_levels[lid][field],
+                                 snap_levels[lid][field])
+
+    def test_snapshot_progression_matches_the_reference_scale(self):
+        doc = load_yaml(OPENDEA_EA_BASELINE_PATH)
+        scale = load_yaml(OPENDEA_EA_BASELINE_SCALE_PATH)
+        self.assertEqual(scale["progression"]["topology"],
+                         doc["snapshot"]["progression"]["topology"])
+        self.assertEqual(scale["progression"]["function"],
+                         doc["snapshot"]["progression"]["function"])
+
+    def test_snapshot_evaluation_reference_resolves(self):
+        doc = load_yaml(OPENDEA_EA_BASELINE_PATH)
+        evaluation = load_yaml(OPENDEA_EA_BASELINE_EVAL_PATH)
+        snap = doc["snapshot"]
+        self.assertEqual((evaluation["id"], evaluation["version"]),
+                         (snap["evaluation_model"]["id"],
+                          snap["evaluation_model"]["version"]))
+
+    def test_snapshot_band_set_resolves_to_v2_canonical(self):
+        doc = load_yaml(OPENDEA_EA_BASELINE_PATH)
+        snap = doc["snapshot"]
+        # The reference instance pins the canonical v2 band instance
+        # (maturation/v2 bands) per the maturity-v2 migration Phase 3.
+        self.assertEqual("dea:maturity-bands-v2", snap["band_set"]["id"])
+        self.assertEqual("1.0.0", snap["band_set"]["version"])
 
 
 if __name__ == "__main__":

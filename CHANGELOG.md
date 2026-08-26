@@ -4,6 +4,42 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 Phase 3: OpenDEA EA reference instance
+
+Third Phase slice of CR-AM-11. The OpenDEA Enterprise Architecture
+reference assessment instance — the first ecosystem participant and the
+canonical consumer of the published contract suite. Specification and
+metamodel remain **1.0.0**.
+
+### Added — Reference instance (CR-AM-11 §6/§24/§31)
+- **`assessment-models/maturity/scale-examples/opendea-enterprise-architecture.yaml`**
+  — 5-level model-owned scale (L-0 Absent → L-1 Aware → L-2 Defined →
+  L-3 Managed → L-4 Self-Optimising) with linear topology, exponential
+  progression, per-level `effort_multiplier` (1.0x / 1.5x / 2.5x / 4.0x /
+  6.0x) documented at the model level, and digital-native naming
+  (no CMMI-era vocabulary).
+- **`assessment-models/maturity/evaluation-examples/opendea-enterprise-architecture.yaml`**
+  — weighted 0–100 native-domain evaluation model with 6 criteria
+  (framework-documentation, modelling-coverage, governance-cadence,
+  tooling-integration, drift-and-conformance, ecosystem-contribution);
+  each criterion carries per-level expectations covering L-0…L-4.
+- **`assessment-models/maturity/baseline-examples/opendea-enterprise-architecture.yaml`**
+  — Benchmark 2026 baseline; sha256-locked content_hash reproduces the
+  snapshot block (levels + progression + ordering + conformance). References
+  the canonical v2 band instance (dea:maturity-bands-v2 v1.0.0) and the
+  matching evaluation_model.
+- **`assessment-models/governance/reference-instance-opendea-ea.md`** —
+  documentation: architecture, conformance declaration per the six §16
+  contract families, and Phase 3 exit criterion (a real instance
+  demonstrating the maturity architecture).
+
+### Added — Conformance tests
+- `test_maturity_scale.py::WorkedScaleValidationTest::test_opendea_ea_reference_instance_validates`
+- `test_maturity_evaluation.py::WorkedEvaluationValidationTest::test_opendea_ea_reference_evaluation_validates`
+- `test_maturity_baseline.py::OpenDEAEaReferenceBaselineTest` (5 new tests)
+
+All maturity suites green locally (69/69).
+
 ## [Unreleased] — CR-AM-11 Phase 2 (slice 2): Logical layout publication
 
 Second Phase 2 slice of CR-AM-11. Decision (Option C, user-directed): the

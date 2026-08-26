@@ -4,6 +4,37 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 Phase 5: Composite dimensions published to the component registry
+
+Fifth Phase slice of CR-AM-11. The four composite dimensions referenced
+by the Digital Transformation composite model (CR-AM-11 §31 first-model
+candidate, merged PR #1) are now published as canonical registry entries
+for other consumers to import. Specification and metamodel remain **1.0.0**.
+
+### Added — Component registry
+Four new `dimension-package` entries in
+`assessment-models/maturity/components/registry.yaml`:
+
+- **`dea:component-digital-culture`** v1.0.0 — leadership sponsorship, shared DT vocabulary, safe-to-fail experimentation
+- **`dea:component-technology-adoption`** v1.0.0 — reference architecture, automation coverage
+- **`dea:component-operations-modernization`** v1.0.0 — service-reliability, incident-response (the DT model adds two composite-specific dimensions consumer-scoped via kind=extend)
+- **`dea:component-services-delivery`** v1.0.0 — delivery-cadence baseline (the DT model overrides this with platform-engineering consumer-scoped via kind=override)
+
+Each component lands as its own YAML in
+`assessment-models/maturity/component-examples/`, following the existing
+`dimension-package` shape (id + version + kind + published_by + content:
+id:version pointers to the model's dimension artefacts).
+
+### Consumer-scoping (CR-AM-10 §4)
+The DT model's `extend` (operations-modernization) and `override`
+(services-delivery) kinds remain **consumer-scoped** — they do not
+modify the canonical registry entries. Other consumers importing the
+canonical entries get the baseline unchanged.
+
+### Verification
+- Registry YAML: 5 components, unique (id, version) pairs, all paths resolve, all parse
+- `test_maturity_composition`: 19/19 green
+
 ## [Unreleased] — CR-AM-11 Phase 3: OpenDEA EA reference instance
 
 Third Phase slice of CR-AM-11. The OpenDEA Enterprise Architecture

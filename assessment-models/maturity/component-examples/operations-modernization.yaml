@@ -1,0 +1,31 @@
+# Maturity Component — Operations modernization dimension package
+# Published for reuse (CR-AM-10 §3). The Digital Transformation composite
+# model's operations-modernization dimension cluster. The composite model
+# also carries two consumer-scoped additions (dt-instrumentation-coverage,
+# dt-observability-budget, kind=extend) — those live in the consumer's
+# model.yaml, not here. This entry is the canonical baseline.
+
+id: dea:component-operations-modernization
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Operations modernization dimension package
+description: >-
+  The operations-modernization dimension cluster of the Digital
+  Transformation composite maturity model, published for reuse. Two
+  canonical dimensions: service-reliability and incident-response. The
+  DT model extends this baseline with two composite-specific dimensions
+  (consumer-scoped per CR-AM-10 §4 kind=extend).
+kind: dimension-package
+published_by:
+  id: dea:maturity-model-digital-transformation
+status: stable
+owner: Digital Transformation Lead
+steward: Digital Transformation Lead
+effective_date: 2026-08-26
+review_date: 2027-02-26
+
+content:
+  - id: dea:dimension-operations-service-reliability
+    version: "1.0.0"
+  - id: dea:dimension-operations-incident-response
+    version: "1.0.0"

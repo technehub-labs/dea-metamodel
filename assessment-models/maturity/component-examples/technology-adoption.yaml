@@ -1,0 +1,28 @@
+# Maturity Component — Technology adoption dimension package
+# Published for reuse (CR-AM-10 §3). The Digital Transformation composite
+# model's technology-adoption dimension cluster: reference architecture
+# and automation coverage.
+
+id: dea:component-technology-adoption
+version: "1.0.0"
+metamodel_version: "1.0.0"
+name: Technology adoption dimension package
+description: >-
+  The technology-adoption dimension cluster of the Digital Transformation
+  composite maturity model, published for reuse. Two dimensions: reference
+  architecture and automation coverage. Composite models consume this
+  package by reference.
+kind: dimension-package
+published_by:
+  id: dea:maturity-model-digital-transformation
+status: stable
+owner: Digital Transformation Lead
+steward: Digital Transformation Lead
+effective_date: 2026-08-26
+review_date: 2027-02-26
+
+content:
+  - id: dea:dimension-technology-reference-architecture
+    version: "1.0.0"
+  - id: dea:dimension-technology-automation-coverage
+    version: "1.0.0"

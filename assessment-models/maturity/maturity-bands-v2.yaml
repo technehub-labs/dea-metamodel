@@ -1,10 +1,16 @@
 # Maturity Scoring v2 — Canonical Band Definitions
-# Source: CR-AM-01 supplement + archived proposal docs/maturity-scoring-v2-proposal
 # Lands here as the canonical v2 scheme, alongside v1 (which remains canonical until promotion)
 
 schema_version: "2.0.0"
 metamodel_version: "1.0.0"
-status: beta           # advisory; promotion to stable at Phase D
+status: beta
+id: dea:maturity-bands-v2
+version: "1.0.0"
+# CR-AM-11 §26 supersession: legacy v1-alpha assets are superseded by this
+# canonical v2 band instance. Consumers importing legacy catalog content
+# (Assessment-Models/dea-catalog-maturity-models) must migrate to the v2
+# scheme per assessment-models/governance/legacy-migration-plan.md.
+#           # advisory; promotion to stable at Phase D
 owner:                Chief Architect       # CR-MM-01.1
 steward:              Chief Architect       # CR-MM-01.1
 effective_date:       2026-08-20            # CR-MM-01.1

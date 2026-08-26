@@ -36,6 +36,23 @@ logical_layout:
   examples: assessment-models/examples/
   governance_docs: assessment-models/governance/
 
+# CR-AM-11 Phase 6 — legacy handling. Assets recorded in
+# Assessment-Models/assessment-registry with `status: legacy` are
+# exempt from the six section-16 contract families by design — they
+# predate the v2 maturity architecture (CR-AM-09 section 17) and are
+# migrated per assessment-models/governance/legacy-migration-plan.md.
+# Consumers must check `status` and route to the canonical replacement
+# (documented in the migration plan). The fold-v2-in vs freeze-as-legacy
+# decision is deferred to CR-AM-01 Release 1.
+legacy_handling:
+  statuses_exempt_from_suite:
+    - legacy
+    - deprecated
+    - superseded
+  consumer_required_check: status
+  migration_plan_reference: assessment-models/governance/legacy-migration-plan.md
+  decision_authority: CR-AM-01-Release-1
+
 families:
 
   - id: assessment-contract

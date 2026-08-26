@@ -4,6 +4,46 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased] — CR-AM-11 Phase 6: Legacy catalog migration plan
+
+Sixth and final Phase slice of CR-AM-11. The legacy v1-alpha maturity
+catalog (Assessment-Models/dea-catalog-maturity-models) is recorded as
+`status: legacy` in the assessment-registry; the migration plan shape is
+documented; the fold-v2-in vs freeze-as-legacy decision itself is deferred
+to CR-AM-01 Release 1 per CR-AM-11 §26 closing-action record. Specification
+and metamodel remain **1.0.0**.
+
+### Added — Migration plan
+- **`assessment-models/governance/legacy-migration-plan.md`** — the
+  migration plan shape. Covers scope, both Plan A (fold v2 in) and
+  Plan B (freeze as legacy), what's already in place (Phases 0–5
+  footprint), and the Release-1 decision checklist.
+- **`assessment-models/maturity/maturity-bands-v2.yaml`** — gains
+  `id: dea:maturity-bands-v2` and `version: "1.0.0"` so future baseline
+  registrations can reference it as a `modelReference` (this also
+  unblocks a future CR-AM-09 §17 baseline test that wants to look it up
+  by id rather than by file path).
+- **`assessment-models/contracts/contract-suite.yaml`** — new
+  `legacy_handling` block recording that `status: legacy`,
+  `status: deprecated`, and `status: superseded` registry records are
+  exempt from the six §16 contract families by design. Consumers must
+  check `status` and route to the canonical replacement per the
+  migration plan.
+
+### Cross-repo PRs (partnered with this PR)
+- `Assessment-Models/dea-catalog-maturity-models` PR #3 — adds
+  `MIGRATION.md` pointing at the canonical plan; status remains legacy;
+  catalog stays read-only at the Phase 1 commit pin.
+- `Assessment-Models/assessment-registry` PR #2 — the legacy catalog
+  record's `notes` now references the canonical migration plan.
+
+### Verification
+- `contract-suite.yaml` (Phase 2 slice 1 logic): `OK — contract suite
+  1.0.0: 6 families, 34 schemas claimed (complete), all paths resolve,
+  legacy_handling present`
+- `assessment-registry` validator: `OK — 2 registration record(s) valid`
+- `maturity-bands-v2.yaml` parses with id+version
+
 ## [Unreleased] — CR-AM-11 Phase 5: Composite dimensions published to the component registry
 
 Fifth Phase slice of CR-AM-11. The four composite dimensions referenced

@@ -81,6 +81,10 @@ relationships:
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Concept
+  - dea:Capability
+  - dea:SystemCapability
+  - dea:InfrastructureCapability
+  - dea:AIAugmentedCapability
   target:
   - dea:Actor
   - dea:ArchitecturePattern
@@ -91,6 +95,7 @@ relationships:
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Concept
+  - dea:Capability
   inverse: dea:generalizes
   status: normative
   lifecycle: proposed

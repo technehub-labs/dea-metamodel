@@ -11,10 +11,18 @@ entities:
   abstract: false
   definition: A performer of enterprise processes — human, team, system, or AI agent.
   lifecycle: scaffold
+- id: dea:Capability
+  name: Capability
+  abstract: true
+  definition: An attributable, contextualized potential of an Entity to accomplish a defined kind of effect, grounded in capacity
+    and ability within a defined context. Aligned 1:1 with wsf:Capability (ADR-015; WSF ADR-WSF-07). Abstract root of all
+    capability kinds.
+  lifecycle: planned
 - id: dea:BusinessCapability
   name: Business Capability
   abstract: false
-  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates.
+  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates. Specializes dea:Capability
+    (ADR-015).
   lifecycle: planned
 - id: dea:FinancialResource
   name: Financial Resource

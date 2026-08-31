@@ -604,12 +604,35 @@ entities:
   membership:
     kind: profile
     profile: dea:business
+- id: dea:Capability
+  name: Capability
+  legacy_ids:
+  - Capability
+  definition: 'An attributable, contextualized potential of an Entity to accomplish a defined kind of effect, grounded in capacity
+    and ability within a defined context. Aligned 1:1 with wsf:Capability (ADR-015; WSF ADR-WSF-07). Abstract root of all
+    capability kinds; kinds are specializations per WSF ADR-WSF-04 and live in profiles (ADR-002).'
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: planned
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:BusinessCapability
   name: Business Capability
   legacy_ids:
   - dea:entity-capability
-  - Capability
-  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates.
+  definition: 'An ability the business possesses or requires to deliver value. Maps to ECF coordinates. Specializes dea:Capability
+    (ADR-015): contributes to a business outcome, owned by the business, mapped to ECF coordinates.'
   layer: L3
   dimension: null
   building_block: L3-value-delivery
@@ -626,6 +649,70 @@ entities:
   membership:
     kind: core
     profile: null
+- id: dea:SystemCapability
+  name: System Capability
+  legacy_ids: []
+  definition: 'A capability whose bearer is a system or application and which enables a system function. Specializes dea:Capability
+    (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: KYC Identity Verification.'
+  layer: L5
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:technology
+- id: dea:InfrastructureCapability
+  name: Infrastructure Capability
+  legacy_ids: []
+  definition: 'A capability whose bearer is infrastructure and which enables platform or runtime services. Specializes
+    dea:Capability (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: Data Encryption-at-Rest.'
+  layer: L5
+  dimension: null
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:technology
+- id: dea:AIAugmentedCapability
+  name: AI-Augmented Capability
+  legacy_ids: []
+  definition: 'A capability whose realisation depends on a model or agent. Specializes dea:Capability (ADR-015; ADR-WSF-04):
+    parent meaning plus realisation constraint; subject to the AI & Automation Governance dimension. Example: Algorithmic
+    Credit Scoring.'
+  layer: null
+  dimension: ai-automation-governance
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ChangeInitiative
   name: Change Initiative
   legacy_ids:
@@ -3153,6 +3240,10 @@ relationships:
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:Concept
+    - dea:Capability
+    - dea:SystemCapability
+    - dea:InfrastructureCapability
+    - dea:AIAugmentedCapability
   target:
     types:
     - dea:Actor
@@ -3164,6 +3255,7 @@ relationships:
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:Concept
+    - dea:Capability
   cardinality:
     source: 0..*
     target: 0..1

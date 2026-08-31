@@ -265,6 +265,17 @@ entities:
   membership:
     kind: profile
     profile: dea:business
+- id: dea:Capability
+  name: Capability
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: planned
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:BusinessCapability
   name: Business Capability
   layer: L3
@@ -276,6 +287,39 @@ entities:
   membership:
     kind: core
     profile: null
+- id: dea:SystemCapability
+  name: System Capability
+  layer: L5
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:technology
+- id: dea:InfrastructureCapability
+  name: Infrastructure Capability
+  layer: L5
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:technology
+- id: dea:AIAugmentedCapability
+  name: AI-Augmented Capability
+  layer: null
+  dimension: ai-automation-governance
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:ai
 - id: dea:ChangeInitiative
   name: Change Initiative
   layer: L3

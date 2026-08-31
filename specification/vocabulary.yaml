@@ -207,11 +207,50 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:Capability
+  name: Capability
+  canonical_name: Capability
+  definition: An attributable, contextualized potential of an Entity to accomplish a defined kind of effect, grounded in capacity
+    and ability within a defined context. Aligned 1:1 with wsf:Capability (ADR-015; WSF ADR-WSF-07). Abstract root of all
+    capability kinds; kinds are specializations per WSF ADR-WSF-04 and live in profiles (ADR-002).
+  semantic_category: core
+  abstract: true
+  status: normative
+  version: 1.0.0
 - id: dea:BusinessCapability
   name: Business Capability
   canonical_name: BusinessCapability
-  definition: An ability the business possesses or requires to deliver value. Maps to ECF coordinates.
+  definition: 'An ability the business possesses or requires to deliver value. Maps to ECF coordinates. Specializes dea:Capability
+    (ADR-015): contributes to a business outcome, owned by the business, mapped to ECF coordinates.'
   semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:SystemCapability
+  name: System Capability
+  canonical_name: SystemCapability
+  definition: 'A capability whose bearer is a system or application and which enables a system function. Specializes dea:Capability
+    (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: KYC Identity Verification.'
+  semantic_category: dea:technology
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:InfrastructureCapability
+  name: Infrastructure Capability
+  canonical_name: InfrastructureCapability
+  definition: 'A capability whose bearer is infrastructure and which enables platform or runtime services. Specializes dea:Capability
+    (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: Data Encryption-at-Rest.'
+  semantic_category: dea:technology
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:AIAugmentedCapability
+  name: AI-Augmented Capability
+  canonical_name: AI-AugmentedCapability
+  definition: 'A capability whose realisation depends on a model or agent. Specializes dea:Capability (ADR-015; ADR-WSF-04):
+    parent meaning plus realisation constraint; subject to the AI & Automation Governance dimension. Example: Algorithmic
+    Credit Scoring.'
+  semantic_category: dea:ai
   abstract: false
   status: normative
   version: 1.0.0

@@ -23,6 +23,8 @@ class Capability(Entity):
     external_references: Optional[list[str]] = None
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     capability_type: Literal['business', 'technical', 'hybrid']
-    """Nature of the capability."""
+    """Nature of the capability. DEPRECATED (ADR-015): capability kind is expressed by the entity type via specialization of dea:Capability (dea:BusinessCapability, dea:SystemCapability, dea:InfrastructureCapability, dea:AIAugmentedCapability), not by this string. Retained for backwards compatibility; existing values remain valid."""
+    capability_layer: Optional[Literal['strategic', 'operational', 'support']] = None
+    """Abstraction level of the capability (ADR-015 section 5): strategic, operational, or support. Governed enumeration attribute; orthogonal to kind (entity type) and to ECF coordinates."""
     domain: Optional[str] = None
     """Business domain this capability belongs to."""

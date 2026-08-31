@@ -13,6 +13,7 @@ profile:
   - dea:AIMLModel
   - dea:ModelDeployment
   - dea:ModelFeedbackSignal
+  - dea:AIAugmentedCapability
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).

@@ -4,6 +4,43 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased]: CR-016: Capability classification implementation
+
+Implements ADR-015: capability kinds are specializations of an abstract
+root, not classifier entities, ECF coordinates, or compound typing.
+
+### Added: Capability root and kinds
+- **`dea:Capability`**: new abstract Core entity, aligned 1:1 with
+  `wsf:Capability` (ADR-WSF-07). The only Core addition; concrete anchor
+  count unchanged (CR-8 freeze holds).
+- **`dea:SystemCapability`**, **`dea:InfrastructureCapability`**
+  (technology profile) and **`dea:AIAugmentedCapability`** (ai profile):
+  kind specializations per ADR-WSF-04 (parent meaning plus additional
+  constraint).
+- **`Capability.capability_layer`**: governed enumeration
+  (`strategic | operational | support`) in `schemas/entities/capability.json`,
+  registered in `metamodel/vocabularies/classifications.yaml` (E005).
+- **`mappings/wsf/mapping.yaml`**: WSF federation mapping with explicit
+  confidence/lossiness: `dea:Capability` ↔ `wsf:Capability` (EXACT),
+  `dea:BusinessCapability` ↔ `odea:BusinessCapability` (EXACT), kind
+  specializations (HIGH/PARTIAL; kind flattens to context on the WSF side).
+
+### Changed: BusinessCapability specialization
+- `dea:BusinessCapability` now declares `Specializes dea:Capability`; the
+  generic legacy alias `Capability` migrates to the root;
+  `dea:entity-capability` remains.
+- `dea:specializes` source/target type lists extended in
+  `metamodel/dea-metamodel.yaml` (registry regenerated in sync).
+
+### Deprecated: capability_type
+- `Capability.capability_type` (business/technical/hybrid) deprecated in
+  the schema: kind is now the entity type. Values preserved for backwards
+  compatibility; catalog migration guidance deferred to a catalog-side CR.
+
+### Regenerated
+- `metamodel/registry/entities.yaml`, `metamodel/registry/relationships.yaml`,
+  `pydantic/`, `specification/`, `metamodel-puml/metamodel-v2.puml`.
+
 ## [Unreleased] — CR-AM-11 Phase 6: Legacy catalog migration plan
 
 Sixth and final Phase slice of CR-AM-11. The legacy v1-alpha maturity

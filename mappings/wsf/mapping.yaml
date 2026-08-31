@@ -1,0 +1,27 @@
+# OpenDEA to WSF mapping (ADR-015; CR-016)
+#
+# OpenDEA semantic identity remains authoritative. Where semantics differ, the
+# difference is documented; equivalence is never pretended. A mapping never
+# implies metamodel adoption (CR-11W).
+version: 1.0.0
+standard: WSF 0.1.0 (World-Semantic-Foundation/wsf)
+direction: federation-mapping
+mappings:
+- {opendea: dea:Capability, wsf: wsf:Capability, note: "exact 1:1; both are disposition-grounded potentials of an Entity (ADR-WSF-07)"}
+- {opendea: dea:BusinessCapability, wsf: odea:BusinessCapability, note: "exact; the WSF side is already published as a specialization of wsf:Capability in wsf/concepts/capability.md"}
+- {opendea: dea:SystemCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with bearer constraint (system)"}
+- {opendea: dea:InfrastructureCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with bearer constraint (infrastructure)"}
+- {opendea: dea:AIAugmentedCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with realisation constraint (model or agent dependent)"}
+confidence_lossiness:
+- {opendea: dea:Capability, wsf: wsf:Capability, confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:BusinessCapability, wsf: odea:BusinessCapability, confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:SystemCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
+   note: "WSF carries the bearer constraint as context on the assertion rather than as a concept type; the kind distinction flattens on the WSF side."}
+- {opendea: dea:InfrastructureCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
+   note: "Same flattening as SystemCapability."}
+- {opendea: dea:AIAugmentedCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
+   note: "Same flattening as SystemCapability; AI governance dimension has no WSF counterpart yet."}
+relationship_notes:
+- "dea:specializes between capability kinds and dea:Capability corresponds to WSF concept specialization per ADR-WSF-04 (parent meaning plus additional semantic constraint)."
+- "dea:Capability.layer (strategic/operational/support) has no WSF counterpart; it is an OpenDEA attribute axis and does not map."
+- "ECF coordinates on capability instances are classification metadata and do not map to WSF concept identity; on the WSF side the equivalent notion is context (ADR-WSF-14)."

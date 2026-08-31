@@ -12,6 +12,8 @@ profile:
   - dea:InfrastructureComponent
   - dea:Technology
   - dea:TechnologyRadarEntry
+  - dea:SystemCapability
+  - dea:InfrastructureCapability
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).

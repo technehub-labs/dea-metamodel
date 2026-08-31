@@ -2,9 +2,9 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 142
+  entities: 146
   relationships: 104
-  core_entities: 18
+  core_entities: 19
   profiles: 10
 entities:
 - id: dea:Entity
@@ -175,12 +175,40 @@ entities:
   status: normative
   lifecycle: existing
   source_cr: CR-4
+- id: dea:Capability
+  name: Capability
+  semantic_category: core
+  abstract: true
+  status: normative
+  lifecycle: planned
+  source_cr: CR-4
 - id: dea:BusinessCapability
   name: Business Capability
   semantic_category: core
   abstract: false
   status: normative
   lifecycle: planned
+  source_cr: CR-4
+- id: dea:SystemCapability
+  name: System Capability
+  semantic_category: dea:technology
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:InfrastructureCapability
+  name: Infrastructure Capability
+  semantic_category: dea:technology
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:AIAugmentedCapability
+  name: AI-Augmented Capability
+  semantic_category: dea:ai
+  abstract: false
+  status: normative
+  lifecycle: proposed
   source_cr: CR-4
 - id: dea:ChangeInitiative
   name: Change Initiative

@@ -1,6 +1,6 @@
 # OpenDEA Concept Catalogue (generated)
 
-Version 1.0.0 — 142 concepts. Source: `metamodel/dea-metamodel.yaml`.
+Version 1.0.0 — 146 concepts. Source: `metamodel/dea-metamodel.yaml`.
 
 | Concept | Category | Abstract | Definition |
 |---|---|---|---|
@@ -28,7 +28,11 @@ Version 1.0.0 — 142 concepts. Source: `metamodel/dea-metamodel.yaml`.
 | `dea:BusinessObject` | dea:business | no | A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix. |
 | `dea:BusinessProcess` | dea:business | no | A structured set of activities that produces a defined outcome. |
 | `dea:BusinessService` | dea:business | no | A service exposed to the business or to external consumers. Composite of capabilities, realised by solution components. |
-| `dea:BusinessCapability` | core | no | An ability the business possesses or requires to deliver value. Maps to ECF coordinates. |
+| `dea:Capability` | core | yes | An attributable, contextualized potential of an Entity to accomplish a defined kind of effect, grounded in capacity and ability within a defined context. Aligned 1:1 with wsf:Capability (ADR-015; WSF ADR-WSF-07). Abstract root of all capability kinds; kinds are specializations per WSF ADR-WSF-04 and live in profiles (ADR-002). |
+| `dea:BusinessCapability` | core | no | An ability the business possesses or requires to deliver value. Maps to ECF coordinates. Specializes dea:Capability (ADR-015): contributes to a business outcome, owned by the business, mapped to ECF coordinates. |
+| `dea:SystemCapability` | dea:technology | no | A capability whose bearer is a system or application and which enables a system function. Specializes dea:Capability (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: KYC Identity Verification. |
+| `dea:InfrastructureCapability` | dea:technology | no | A capability whose bearer is infrastructure and which enables platform or runtime services. Specializes dea:Capability (ADR-015; ADR-WSF-04): parent meaning plus bearer constraint. Example: Data Encryption-at-Rest. |
+| `dea:AIAugmentedCapability` | dea:ai | no | A capability whose realisation depends on a model or agent. Specializes dea:Capability (ADR-015; ADR-WSF-04): parent meaning plus realisation constraint; subject to the AI & Automation Governance dimension. Example: Algorithmic Credit Scoring. |
 | `dea:ChangeInitiative` | dea:business | no | A deliberate effort to shift Skills, Roles, or culture within an Organizational Unit, typically funded by an Investment Initiative. |
 | `dea:FinancialResource` | core | no | Liquid or near-liquid economic value the enterprise holds (accounts, instruments, funding lines). Catalog instances include cash, credit facilities, and similar. |
 | `dea:IntangibleResource` | core | no | Legally protected non-physical economic value (patents, trademarks, brand equity, licenses). Catalog instances include a specific trademark registration or license. |

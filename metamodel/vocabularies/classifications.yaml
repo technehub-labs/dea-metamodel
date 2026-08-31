@@ -93,6 +93,13 @@ classifications:
     - business
     - technical
     - hybrid
+  Capability.capability_layer:
+    entity: Capability
+    property: capability_layer
+    values:
+    - strategic
+    - operational
+    - support
   ChangeInitiative.change_scope:
     entity: ChangeInitiative
     property: change_scope

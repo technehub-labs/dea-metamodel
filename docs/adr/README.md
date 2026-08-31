@@ -35,6 +35,7 @@ replaced; keep the original intact for the historical record.
 | [ADR-012](ADR-012-dmm-opendea-relationship.md) | DMM / OpenDEA relationship | Diagnostic instrument vs semantic substrate; closed loop |
 | [ADR-013](ADR-013-core-non-accumulation.md) | Core non-accumulation | Adapters absorb external complexity; the Core does not accumulate concepts |
 | [ADR-014](ADR-014-intelligence-loop-architecture.md) | Intelligence loop architecture | Five bounded layers (Observation → Signal → Pattern → Loop → ActionProposal); 8 binding rules for the composition layer that closes the CR-10 §P loop |
+| [ADR-015](ADR-015-capability-classification-by-specialization.md) | Capability classification by specialization | Abstract `dea:Capability` root; kinds as ADR-WSF-04 specializations in profiles; layer as attribute; ECF remains metadata; WSF federation mapping |
 
 ## Status
 

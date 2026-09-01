@@ -54,3 +54,12 @@ Depends on: <prior CRs>
 
 The semantic expansion freeze held through CR-003 (closed v0.8.0). New entity types now
 enter via the CR process; CR-004 consolidates the core ontology.
+
+## ECF Conformance Gate (CR-ECF-CG series)
+
+Cross-repo tranche landing in `dea-metaframework` (the contract anchor) and cross-referenced here. Implementation lands in dependency order on subsequent acceptance.
+
+| CR | Title | Status | Notes |
+|----|-------|--------|-------|
+| [CR-ECF-CG-001](CR-ECF-CG-001.md) | ECF Conformance Gate Definition | Landed (xref: dea-metaframework PR #9) | The umbrella: five layers, four states, gate conditions, evidence, principle. |
+| CR-ECF-CG-002 | Metamodel Conformance | Proposed (this PR) | ECF Profile crosswalk + structural findings (canonical kebab-case enums duplicated in two entity schemas; process/capability have no ECF fields by design). |

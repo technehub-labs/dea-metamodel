@@ -1,0 +1,162 @@
+{
+  "report_version": "0.1.0",
+  "compiled_at": "2026-09-02",
+  "contract_version": "1.0.0",
+  "framework": "EnterpriseConceptFramework",
+  "profile": "dea:ecf@1.0.0",
+  "overall": "PASS",
+  "invariants": {
+    "I1_domain_identity": {
+      "verdict": "PASS",
+      "evidence": "canonical Domain enum has 7 values; capability catalog references resolve to all of them."
+    },
+    "I2_stage_identity": {
+      "verdict": "PASS",
+      "evidence": "canonical Stage enum has 7 values; capability catalog references resolve to all of them."
+    },
+    "I3_coordinate_identity": {
+      "verdict": "PASS",
+      "evidence": "each (Domain, Stage) pair maps to one identifier; 49-space derivable (7 x 7)."
+    },
+    "I4_coordinate_cardinality": {
+      "verdict": "PASS",
+      "evidence": "7 x 7 = 49 coordinates; derivable from canonical sets."
+    },
+    "I5_contextualization": {
+      "verdict": "PASS",
+      "evidence": "capability and process catalogs use ecfConformance as a separate field; do not redefine Domain or Stage."
+    },
+    "I6_identity_preservation": {
+      "verdict": "PASS",
+      "evidence": "capability ids (dea:capability-...) are independent of any ECF Coordinate; 26 entries with no coordinate-driven identity."
+    },
+    "I7_no_cell_population": {
+      "verdict": "PASS",
+      "evidence": "capability catalog references 27 of 49 canonical coordinates; 22 legitimately unreferenced (held-unmapped documented for CAND-019)."
+    },
+    "I8_terminology": {
+      "verdict": "PASS",
+      "evidence": "Enterprise Concept Framework (full expansion) consistent across all landed CRs (CG-001..006)."
+    },
+    "I9_identifier_resolution": {
+      "verdict": "PASS",
+      "evidence": "all capability identifiers match the canonical lowerCamelCase pattern."
+    },
+    "I10_version_compatibility": {
+      "verdict": "PASS",
+      "evidence": "all consumers declare contractVersion=1.0.0."
+    }
+  },
+  "matrix": {
+    "matrix_version": "0.1.0",
+    "contractVersion": "1.0.0",
+    "compiled_at": "2026-09-01",
+    "framework": "EnterpriseConceptFramework",
+    "profile": "dea:ecf@1.0.0",
+    "invariants": {
+      "I1_domain_identity": "PASS; all consumer references resolve to canonical PascalCase enum values",
+      "I2_stage_identity": "PASS; same",
+      "I3_coordinate_identity": "PASS; same (Domain, Stage) ordered pair resolves to one coordinate",
+      "I4_coordinate_cardinality": "PASS; 7 x 7 = 49 coordinates derivable from canonical sets",
+      "I5_contextualization": "PASS; capability + process catalogs use ecfConformance as a separate field, not by redefining Domain/Stage",
+      "I6_identity_preservation": "PASS; capability id (dea:capability-...) is independent of any ECF Coordinate",
+      "I7_no_cell_population": "PASS; held_unmapped state is documented (N-006); 1 capability legitimately unmapped",
+      "I8_terminology": "PASS; Enterprise Concept Framework (full expansion) consistent across all CRs and schemas",
+      "I9_identifier_resolution": "PASS; capability identifiers (ecf:governanceExistence.conceive etc.) match canonical lowerCamelCase pattern",
+      "I10_version_compatibility": "PASS; all consumers declare contractVersion=1.0.0"
+    },
+    "repositories": {
+      "dea-metamodel": {
+        "status": "conformant-with-extension",
+        "profile": "dea:ecf@1.0.0",
+        "contractVersion": "1.0.0",
+        "findings": {
+          "profile_mechanism": "dea:core@1.0.0 (canonical anchor)",
+          "conformance_profile_added": "dea:ecf@1.0.0",
+          "structural_findings": {
+            "F1": "business-object + organizational-unit restate the canonical kebab-case Domain/Stage enums (fix-on-implementation)",
+            "F2": "process + capability entity schemas have no ECF fields by design (orthogonal axis vs process_intent / capability_layer)",
+            "F3": "ECF semantic reservations live in dea-concepts-model (canonical home); this repo vocabulary-registry is a pointer (CR-CM-001)"
+          }
+        }
+      },
+      "dea-catalog-business-capabilities": {
+        "status": "conformant-with-extension",
+        "profile": "dea:ecf@1.0.0",
+        "contractVersion": "1.0.0",
+        "entries": {
+          "entries_total": 26,
+          "entries_with_conformance_block": 26,
+          "mapped": 25,
+          "held_unmapped": 1,
+          "distinct_coordinates_referenced": [
+            "ecf:customerDemand.conceive",
+            "ecf:customerDemand.improve",
+            "ecf:customerDemand.operate",
+            "ecf:customerDemand.retire",
+            "ecf:financeValue.conceive",
+            "ecf:financeValue.operate",
+            "ecf:governanceExistence.activate",
+            "ecf:governanceExistence.conceive",
+            "ecf:governanceExistence.design",
+            "ecf:governanceExistence.improve",
+            "ecf:governanceExistence.operate",
+            "ecf:operationsDelivery.improve",
+            "ecf:operationsDelivery.operate",
+            "ecf:peopleOrganization.build",
+            "ecf:peopleOrganization.design",
+            "ecf:peopleOrganization.improve",
+            "ecf:peopleOrganization.operate",
+            "ecf:productOffering.build",
+            "ecf:productOffering.conceive",
+            "ecf:productOffering.design",
+            "ecf:productOffering.improve",
+            "ecf:productOffering.retire",
+            "ecf:supplyResources.activate",
+            "ecf:supplyResources.build",
+            "ecf:supplyResources.improve",
+            "ecf:supplyResources.operate",
+            "ecf:supplyResources.retire"
+          ],
+          "distinct_coordinates_count": 27
+        },
+        "extensions": [
+          "kebab-case-domain-vocabulary",
+          "multiple-contextual-coordinates",
+          "held-unmapped"
+        ]
+      },
+      "dea-catalog-processes": {
+        "status": "conformant-with-extension",
+        "profile": "dea:ecf@1.0.0",
+        "contractVersion": "1.0.0",
+        "entries": {
+          "entries_total": 0,
+          "schema_supports_conformance": true,
+          "phase": "Phase 2 deferred; schema-level declaration only"
+        },
+        "extensions": [
+          "process-context (ECF Coordinate interpretation)",
+          "l0-l4-decomposition (catalog-governed)",
+          "process-audience (single-axis; not an ECF Coordinate)"
+        ],
+        "governance_decisions": [
+          "CG-004 \u00a710: process_audience is NOT an ECF Coordinate"
+        ]
+      }
+    },
+    "coordinate_coverage": {
+      "total_coordinates": 49,
+      "coordinates_referenced_by_capability_catalog": 27,
+      "coordinates_unreferenced": 22,
+      "note": "per CG-005 Invariant 7, unreferenced coordinates are legitimate; the catalog is not required to populate all 49"
+    }
+  },
+  "counts": {
+    "capability_entries": 26,
+    "process_entries": 0,
+    "canonical_domains": 7,
+    "canonical_stages": 7,
+    "canonical_coordinates": 49
+  }
+}

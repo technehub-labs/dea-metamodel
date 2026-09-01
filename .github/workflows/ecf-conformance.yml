@@ -1,0 +1,55 @@
+name: ecf-conformance
+
+# CR-ECF-CG-006 wires this workflow into the canonical enforcement surface.
+# Cross-repo drift detection + report build on every PR.
+# Companion to validate-entries (consumer side) and validate (metamodel side).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install conformance dependencies
+        run: pip install pyyaml
+
+      - name: Clone sibling repos (read-only consumer reads for cross-repo matrix)
+        run: |
+          git clone --depth 1 https://github.com/technehub-labs/dea-metaframework.git /tmp/dea-metaframework || echo "skip: metaframework clone not permitted in this runner"
+          git clone --depth 1 https://github.com/technehub-labs/dea-catalog-business-capabilities.git /tmp/dea-catalog-business-capabilities || echo "skip: capabilities clone not permitted in this runner"
+          git clone --depth 1 https://github.com/technehub-labs/dea-catalog-processes.git /tmp/dea-catalog-processes || echo "skip: processes clone not permitted in this runner"
+
+      - name: Build the consolidated conformance report
+        env:
+          ECF_FRAMEWORK_ROOT: /tmp/dea-metaframework
+          ECF_CAPABILITIES_ROOT: /tmp/dea-catalog-business-capabilities
+          ECF_PROCESSES_ROOT: /tmp/dea-catalog-processes
+          ECF_CATALOG_ROOTS: "/tmp/dea-catalog-business-capabilities:/tmp/dea-catalog-processes"
+        run: python3 scripts/build_conformance_report.py
+
+      - name: Run the drift detector
+        env:
+          ECF_FRAMEWORK_ROOT: /tmp/dea-metaframework
+          ECF_CATALOG_ROOTS: "/tmp/dea-catalog-business-capabilities:/tmp/dea-catalog-processes"
+        run: python3 scripts/detect_drift.py --strict
+
+      - name: Upload conformance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ecf-conformance-report
+          path: |
+            conformance/CONFORMANCE-REPORT-v0.1.md
+            conformance/conformance-report.json
+          retention-days: 30

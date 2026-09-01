@@ -63,3 +63,5 @@ Cross-repo tranche landing in `dea-metaframework` (the contract anchor) and cros
 |----|-------|--------|-------|
 | [CR-ECF-CG-001](CR-ECF-CG-001.md) | ECF Conformance Gate Definition | Landed (xref: dea-metaframework PR #9) | The umbrella: five layers, four states, gate conditions, evidence, principle. |
 | CR-ECF-CG-002 | Metamodel Conformance | Proposed (this PR) | ECF Profile crosswalk + structural findings (canonical kebab-case enums duplicated in two entity schemas; process/capability have no ECF fields by design). |
+| [CR-ECF-CG-005](CR-ECF-CG-005.md) | Cross-Repository Conformance | Proposed (this PR) | The cross-repo matrix: 10 invariants, drift detection, conformance manifest. Companion to CG-006. |
+| [CR-ECF-CG-006](CR-ECF-CG-006.md) | Automated Conformance Enforcement | Proposed (this PR) | The CI half: validation pipeline, mandatory failure conditions, PR behavior, evidence retention. Ships with CG-005. |

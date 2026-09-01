@@ -2420,7 +2420,7 @@
     {
       "id": "dea:benchmarked-against",
       "name": "Benchmarked Against",
-      "definition": "The source is compared against the target reference, standard, or peer.",
+      "definition": "The source is compared against the target reference, standard, or peer. Extended by CR-5 §28: AssessmentResult vs BenchmarkReference (a benchmark is never a result, A011).",
       "category": "assessment",
       "direction": "source-to-target",
       "cardinality": {
@@ -2584,6 +2584,656 @@
         "target": "0..*"
       },
       "inverse": "dea:contributed-to-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:assesses",
+      "name": "Assesses",
+      "definition": "The source assessment construct evaluates the target subject against a framework (CR-5 §4/§10/§23). DMM dimensions assess DEA concepts rather than replacing them.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:assessed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:conducted-under",
+      "name": "Conducted Under",
+      "definition": "An Assessment is conducted under exactly one AssessmentFramework (CR-5 §5; A001).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:governs-assessment",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:defines",
+      "name": "Defines",
+      "definition": "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:defined-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:quantifies",
+      "name": "Quantifies",
+      "definition": "A Measure quantifies an Indicator or Observation (CR-5 §9/§27): Observation → Measure in the result chain.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:quantified-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:derives-from",
+      "name": "Derives From",
+      "definition": "The source is derived from the target: Score from Measure (CR-5 §11), AssessmentGap from current result and target (CR-5 §30), BenchmarkReference from Benchmark (CR-5 §28). Derived objects are never authoritative source data.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:feeds",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:evaluated-by",
+      "name": "Evaluated By",
+      "definition": "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:evaluates",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:maps-onto",
+      "name": "Maps Onto",
+      "definition": "A ScoringRule, MaturityMappingRule or MaturityRule maps values onto MaturityLevels or Scales (CR-5 §11/§25): the framework defines the score→maturity transformation.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:mapped-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:attains",
+      "name": "Attains",
+      "definition": "An AssessmentResult attains a MaturityLevel, or an AssessmentTarget sets one as goal (CR-5 §13). Maturity is attributed through results, never stored on the architectural entity (A008).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:attained-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:addressed-by",
+      "name": "Addressed By",
+      "definition": "An AssessmentGap is addressed by a Change or ChangeInitiative (CR-5 §31): Assessment → Current State → Gap → Required Change → Target Architecture → Outcome.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:addresses",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:scoped-by",
+      "name": "Scoped By",
+      "definition": "An Assessment or AssessmentSubject is bounded by an explicit AssessmentScope (CR-5 §15).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:scopes",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:refers-to",
+      "name": "Refers To",
+      "definition": "Generic reference from an assessment-layer object to a DEA entity (CR-5 §14/§15/§16): subjects and scopes reference actual enterprise entities rather than free-text labels.",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:referenced-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:originates-from",
+      "name": "Originates From",
+      "definition": "Evidence, EvidenceArtifacts, Measures and Observations originate from a declared EvidenceSource (CR-5 §16/§19 provenance).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:origin-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:valid-during",
+      "name": "Valid During",
+      "definition": "The source holds or is captured over the target TemporalInterval (CR-6 §9/§14/§19/§30). Valid time is distinct from transaction, observation, planned and effective time (§5).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:validity-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:contains",
+      "name": "Contains",
+      "definition": "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:contained-in",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:from-state",
+      "name": "From State",
+      "definition": "The source transition, lifecycle transition or delta starts from the target state (CR-6 §14/§32).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:origin-of-transition",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:to-state",
+      "name": "To State",
+      "definition": "The source transition, lifecycle transition or delta arrives at the target state (CR-6 §14/§32).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:destination-of-transition",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:caused-by",
+      "name": "Caused By",
+      "definition": "A Transition between architecture states is caused by a Change (CR-6 §14). Planned transitions caused by planned changes are never actual architecture (§16).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:causes",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:introduces",
+      "name": "Introduces",
+      "definition": "A Change introduces a new architecture element into a state (CR-6 §15).",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:introduced-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:removes",
+      "name": "Removes",
+      "definition": "A Change removes an architecture element from a state (CR-6 §15). History is preserved: removal is an event with temporal bounds, never a silent delete (§17).",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:removed-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:modifies",
+      "name": "Modifies",
+      "definition": "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects.",
+      "category": "transformation",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:modified-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:in-state",
+      "name": "In State",
+      "definition": "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:state-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:records",
+      "name": "Records",
+      "definition": "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture.",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:recorded-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:captures",
+      "name": "Captures",
+      "definition": "An ArchitectureSnapshot captures an ArchitectureState at a point in time (CR-6 §30).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:captured-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:may-become",
+      "name": "May Become",
+      "definition": "An ArchitectureSnapshot may be formally adopted as a BaselineState (CR-6 §31). Snapshot ≠ Baseline until adopted.",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:adopted-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:version-of",
+      "name": "Version Of",
+      "definition": "A Version identifies one identity-evolution step of the target entity (CR-6 §19/§20). Distinct from lifecycle state and from supersession.",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:has-version",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:precedes",
+      "name": "Precedes",
+      "definition": "A Version precedes the next Version in an entity's identity evolution (CR-6 §19). Version chains are acyclic (T008).",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:follows",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:motivates",
+      "name": "Motivates",
+      "definition": "An Intent motivates an Objective (CR-7 §4); objectives may decompose further. Composition is supported without a forced universal hierarchy.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:motivated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:seeks",
+      "name": "Seeks",
+      "definition": "An Intent or Objective seeks an Outcome (CR-7 §4/§6). Objective = intended; Outcome = actual.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:sought-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:constrained-by",
+      "name": "Constrained By",
+      "definition": "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:constrains",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:authorizes",
+      "name": "Authorizes",
+      "definition": "A Decision, Authority or GovernanceBody authorizes or directs a Change or Action (CR-7 §12/§35; G001). The decision authorizes the change; it does not constitute it (G003).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:authorized-by-decision",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:performed-by",
+      "name": "Performed By",
+      "definition": "An Action is performed by an Actor or Agent (CR-7 §65): 'Agent Action' is Action + performed-by Agent, never a separate AgentAction type.",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:performs",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:informed-by",
+      "name": "Informed By",
+      "definition": "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:informs-decision",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:delegates",
+      "name": "Delegates",
+      "definition": "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:delegated-to",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:grants",
+      "name": "Grants",
+      "definition": "A Delegation or Authority grants rights to an Actor or Agent (CR-7 §18/§19).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:granted-to",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:authorized-by",
+      "name": "Authorized By",
+      "definition": "The source acts or decides under the target Authority or Delegation (CR-7 §18; G006/G010). Autonomous action must stay within delegated authority.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:authorizes-party",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:approves",
+      "name": "Approves",
+      "definition": "A GovernanceBody, Actor or Approval approves a Decision, Change or Action (CR-7 §25/§35).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:approved-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:establishes",
+      "name": "Establishes",
+      "definition": "A GovernanceBody establishes a Policy or PolicyRule (CR-7 §35).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:established-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:consults",
+      "name": "Consults",
+      "definition": "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:consulted-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:mitigates",
+      "name": "Mitigates",
+      "definition": "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:mitigated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:escalates-to",
+      "name": "Escalates To",
+      "definition": "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:escalated-from",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:evaluates",
+      "name": "Evaluates",
+      "definition": "A PolicyEvaluation evaluates a Policy/PolicyRule against an Action or Agent (CR-7 §38), producing a PolicyDecision (permit/deny/escalate).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:evaluated-by-policy",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:has-skill",
+      "name": "Has Skill",
+      "definition": "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:skill-of",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:invokes",
+      "name": "Invokes",
+      "definition": "A Tool, Orchestrator or AgentSkill invokes a Service, API, Task or Agent (CR-7 §30/§46).",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:invoked-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:coordinates",
+      "name": "Coordinates",
+      "definition": "An Orchestrator coordinates Agents, Workflows, Tasks and Services toward a goal (CR-7 §46/§50).",
+      "category": "execution",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:coordinated-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:enforces",
+      "name": "Enforces",
+      "definition": "A Controller enforces Policies, PolicyRules or Constraints on execution (CR-7 §46).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:enforced-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:permits",
+      "name": "Permits",
+      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:permitted-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:prohibits",
+      "name": "Prohibits",
+      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:prohibited-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:requires-approval",
+      "name": "Requires Approval",
+      "definition": "An Action, Tool use or Skill invocation requires an Approval or HumanOversight gate before or after execution (CR-7 §24/§25).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:approval-for",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:has-oversight",
+      "name": "Has Oversight",
+      "definition": "An Agent or AgenticSystem operates under a HumanOversight pattern (CR-7 §25; G011).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:oversees",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:accesses",
+      "name": "Accesses",
+      "definition": "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates.",
+      "category": "serving",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:accessed-by",
       "lifecycle": "active"
     }
   ]

@@ -17,8 +17,9 @@ invariants:
     of any ECF Coordinate
   I7_no_cell_population: PASS; held_unmapped state is documented (N-006); 1 capability
     legitimately unmapped
-  I8_terminology: PASS; Enterprise Concept Framework (full expansion) consistent
-    across all CRs and schemas
+  I8_terminology: PASS; Enterprise Concept Framework (singular canonical
+    expansion; CORRECT_TERM in scripts/detect_drift.py) consistent across
+    all CRs and schemas
   I9_identifier_resolution: PASS; capability identifiers (ecf:governanceExistence.conceive
     etc.) match canonical lowerCamelCase pattern
   I10_version_compatibility: PASS; all consumers declare contractVersion=1.0.0

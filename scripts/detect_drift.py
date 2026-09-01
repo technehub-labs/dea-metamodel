@@ -9,8 +9,10 @@ Detects:
   - local ECF enumerations (kebab-case values where canonical PascalCase
     should be used in canonical references);
   - invalid identifiers (the canonical lowerCamelCase pattern is broken);
-  - terminology drift (e.g., "Enterprise Composition Framework" or other
-    expansions appearing instead of "Enterprise Concept Framework");
+  - terminology drift (e.g., "Enterprise Composition Framework",
+    "Enterprise Concepts Framework", or "Enterprise Conceptual Framework"
+    appearing instead of the canonical "Enterprise Concept Framework"
+    singular expansion);
   - incompatible schema changes (a schema is added or removed without a
     corresponding CR index row);
   - undocumented extensions (an extension block appears that is not
@@ -62,7 +64,14 @@ STAGE_ID = {
 }
 ID_PATTERN = re.compile(r'^ecf:[a-z][a-zA-Z0-9]*\.[a-z][a-zA-Z0-9]*$')
 CORRECT_TERM = 'Enterprise Concept Framework'
-WRONG_TERMS = ['Enterprise Composition Framework', 'Enterprise Conceptual Framework']
+# Singular 'Concept' is the only canonical expansion (CR-MM-02 amendment;
+# user directive 2026-09-02). Both 'Composition' and the plural 'Concepts'
+# forms are drift.
+WRONG_TERMS = [
+    'Enterprise Composition Framework',
+    'Enterprise Concepts Framework',
+    'Enterprise Conceptual Framework',
+]
 
 # Catalog roots to scan (CG-005 §4 matrix).
 # Default: local workspace clones. CI overrides via ECF_CATALOG_ROOTS env

@@ -642,9 +642,9 @@ entities:
   class_alias: CAP
   catalog_repo: dea-catalog-business-capabilities
   artifacts:
-    json_schema: schemas/entities/capability.json
+    json_schema: schemas/entities/business-capability.json
     sqlite_table: capabilities
-    pydantic_model: pydantic/capability.py
+    pydantic_model: pydantic/business_capability.py
     ts_interface: typescript/src/interfaces.ts
   membership:
     kind: core

@@ -56,8 +56,8 @@ Run `build_conformance_report.py` and read `CONFORMANCE-REPORT-v0.1.md` for the 
 
 ## Enforcement
 
-CG-006 wires the drift detector + report builder into CI. The metamodel-side enforcement workflow runs both scripts on every PR. Consumer-repo CI hooks (to be added in CG-006 implementation PR #2) run the same scripts in their own pipelines.
+CG-006 wires the drift detector + report builder into CI. The metamodel-side enforcement workflow (`.github/workflows/ecf-conformance.yml`) runs both scripts on every PR. Consumer-repo CI hooks ship as `ecf-conformance-consumer.yml` in `dea-catalog-business-capabilities` and `dea-catalog-processes`; each clones the metamodel + framework and runs the drift detector against itself as the consumer under test.
 
-## Out-of-scope flags
+## Resolved drift
 
-- `dea-catalog-business-capabilities/README.md` and `docs/FOUNDATIONS.md` mention "Enterprise Composition Framework" (a non-canonical expansion). Pre-existing user content; not introduced by this PR. Recorded as a soft drift warning.
+- ~~`dea-catalog-business-capabilities/README.md` and `docs/FOUNDATIONS.md` mention "Enterprise Composition Framework"~~: fixed (PR #36, 2026-09-02). Singular "Enterprise Concept Framework" is now the canonical expansion; detector's `WRONG_TERMS` includes "Composition", "Concepts" (plural), and "Conceptual" forms.

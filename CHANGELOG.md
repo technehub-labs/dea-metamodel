@@ -41,6 +41,29 @@ root, not classifier entities, ECF coordinates, or compound typing.
 - `metamodel/registry/entities.yaml`, `metamodel/registry/relationships.yaml`,
   `pydantic/`, `specification/`, `metamodel-puml/metamodel-v2.puml`.
 
+## [Unreleased] — CR-MM-02 completion: artifact pointers (follow-up to PR #159)
+
+Closes the artifact-pointer gap left when PR #159 (schema hygiene) shipped
+without updating `metamodel/dea-metamodel.yaml`. Three findings (U1, U2, U3)
+were addressed in PR #159; this follow-up wires the metamodel yaml to the
+specialization schema so the artifact block resolves correctly.
+
+### Changed: dea:BusinessCapability artifact pointers
+- `metamodel/dea-metamodel.yaml`: `dea:BusinessCapability.artifacts.json_schema`
+  now resolves to `schemas/entities/business-capability.json` (was
+  `schemas/entities/capability.json`).
+- `metamodel/dea-metamodel.yaml`: `dea:BusinessCapability.artifacts.pydantic_model`
+  now resolves to `pydantic/business_capability.py` (was `pydantic/capability.py`).
+- `sqlite_table` (`capabilities`) and `ts_interface` (`typescript/src/interfaces.ts`)
+  unchanged; the existing table mapping and TypeScript surface continue to apply.
+
+### Notes
+- No new schema or pydantic files in this PR; they shipped with PR #159.
+- No consumer change; `dea-catalog-business-capabilities` already conforms
+  via CR-DEA-BC-03 (catalog-side narrowing + the new specialization schema).
+- `change-requests/README.md` CR-MM-02 row updated to reflect implementation
+  status (PR #159 schema hygiene + artifact-pointers follow-up).
+
 ## [Unreleased] — CR-AM-11 Phase 6: Legacy catalog migration plan
 
 Sixth and final Phase slice of CR-AM-11. The legacy v1-alpha maturity

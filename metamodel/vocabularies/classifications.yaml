@@ -100,6 +100,17 @@ classifications:
     - strategic
     - operational
     - support
+  Business Capability.capability_layer:
+    entity: Business Capability
+    property: capability_layer
+    values:
+    - strategic
+    - operational
+    - support
+    rationale: Specialization of Capability (CR-MM-02 / ADR-015). The entity
+      type ('Business Capability' per the schema title; vocabulary registry
+      key matches) carries the kind that the deprecated capability_type
+      string used to carry. capability_layer is inherited unchanged.
   ChangeInitiative.change_scope:
     entity: ChangeInitiative
     property: change_scope

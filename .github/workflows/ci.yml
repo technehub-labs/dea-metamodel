@@ -60,7 +60,7 @@ jobs:
           import sys, glob, py_compile
           sys.path.insert(0, '.')
           for f in glob.glob('*.py'): py_compile.compile(f, doraise=True)
-          import metric, ecosystem_actor, value_exchange, collaboration_agreement, business_function
+          import metric, ecosystem_actor, value_exchange, collaboration_agreement, business_function, business_capability
           print('pydantic scaffold compiles and imports cleanly')
           "
 

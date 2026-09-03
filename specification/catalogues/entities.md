@@ -1,6 +1,6 @@
 # OpenDEA Concept Catalogue (generated)
 
-Version 1.0.0 — 146 concepts. Source: `metamodel/dea-metamodel.yaml`.
+Version 1.0.0 — 147 concepts. Source: `metamodel/dea-metamodel.yaml`.
 
 | Concept | Category | Abstract | Definition |
 |---|---|---|---|
@@ -26,7 +26,8 @@ Version 1.0.0 — 146 concepts. Source: `metamodel/dea-metamodel.yaml`.
 | `dea:Actor` | core | no | A performer of enterprise processes — human, team, system, or AI agent. |
 | `dea:BusinessFunction` | dea:business | no | A grouping of business capabilities by organisational function; owned by an organizational unit. |
 | `dea:BusinessObject` | dea:business | no | A real-world entity of interest to the business (e.g. Customer, Order). The atom of the ECF matrix. |
-| `dea:BusinessProcess` | dea:business | no | A structured set of activities that produces a defined outcome. |
+| `dea:Process` | core | yes | A structural organization of activities into a meaningful temporal/causal pattern, grounded in the WSF Process discipline (wsf:Process; WSF Foundational Semantic Synthesis §6; Tier-3 derived construct). Abstract root of all Process kinds; kinds are specializations per WSF ADR-WSF-04 and live in the Core (for the first kind) or in profiles (for non-first kinds). Federation mapping `dea:Process` ↔ `wsf:Process` (ALIGNED; per WSF ADR-WSF-07 precedent used by `dea:Capability` ↔ `wsf:Capability`). |
+| `dea:BusinessProcess` | dea:business | no | A structured set of activities that produces a defined outcome. Specializes dea:Process (CR-MM-PROC-01; ADR-015 precedent; WSF ADR-WSF-04). Supports Business Architecture and Business Operations use cases. Sub-classifications (operational / support / management via the catalog's `process_intent` field) are catalog-internal, not kernel entities. |
 | `dea:BusinessService` | dea:business | no | A service exposed to the business or to external consumers. Composite of capabilities, realised by solution components. |
 | `dea:Capability` | core | yes | An attributable, contextualized potential of an Entity to accomplish a defined kind of effect, grounded in capacity and ability within a defined context. Aligned 1:1 with wsf:Capability (ADR-015; WSF ADR-WSF-07). Abstract root of all capability kinds; kinds are specializations per WSF ADR-WSF-04 and live in profiles (ADR-002). |
 | `dea:BusinessCapability` | core | no | An ability the business possesses or requires to deliver value. Maps to ECF coordinates. Specializes dea:Capability (ADR-015): contributes to a business outcome, owned by the business, mapped to ECF coordinates. |

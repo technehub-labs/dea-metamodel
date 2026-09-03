@@ -36,6 +36,7 @@
 - [Observation](#observation)
 - [Outcome](#outcome)
 - [Policy](#policy)
+- [Process](#process)
 - [Profile](#profile)
 - [Relationship](#relationship)
 - [Scenario](#scenario)
@@ -134,6 +135,30 @@ It is NOT a Service, Application or Actor. A Capability is *realized-by*
 Services, *supported-by* Applications, *owned-by* Organizations, and
 *assessed-by* Assessments. Capability does not carry maturity scores —
 those live on AssessmentResult (rule A008).
+
+## Process
+
+A structural organization of activities into a meaningful temporal/
+causal pattern — the OpenDEA Process kernel (CR-MM-PROC-01; abstract
+Core anchor; mirrors the Capability kernel). Aligned 1:1 with
+`wsf:Process` (WSF Foundational Semantic Synthesis §6; Tier-3 derived
+construct; WSF ADR-WSF-07).
+
+`dea:Process` is **abstract** (not directly instantiated). Concrete
+Process kinds are specializations of this kernel per WSF ADR-WSF-04:
+
+- `dea:BusinessProcess` — Core specialization; Business context.
+  Supports Business Architecture and Business Operations.
+- (Future) `dea:OperationalProcess` — operations context.
+- (Future) `dea:EngineeringProcess` — engineering context.
+
+It is NOT an Activity occurrence (Activity is the actual doing;
+Process is the structural organization of activities). It is NOT a
+Workflow (Workflow is the executable/coordination structure, which
+WSF treats as representational). Sub-classifications of
+`dea:BusinessProcess` (operational / support / management, carried
+by the catalog's `process_intent` field) are catalog-internal and do
+not promote to kernel entities.
 
 ## Concept Area
 

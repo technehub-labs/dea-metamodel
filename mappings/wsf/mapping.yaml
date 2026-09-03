@@ -12,16 +12,23 @@ mappings:
 - {opendea: dea:SystemCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with bearer constraint (system)"}
 - {opendea: dea:InfrastructureCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with bearer constraint (infrastructure)"}
 - {opendea: dea:AIAugmentedCapability, wsf: wsf:Capability, note: "narrower: an OpenDEA kind specialization; maps to wsf:Capability with realisation constraint (model or agent dependent)"}
+- {opendea: dea:Process, wsf: wsf:Process, note: "exact 1:1; structural activity organization (WSF Foundational Semantic Synthesis §6; Tier-3 derived construct); mirrors the dea:Capability ↔ wsf:Capability alignment"}
+- {opendea: dea:BusinessProcess, wsf: odea:BusinessProcess, note: "exact; the WSF side is a specialization of wsf:Process in the same template as odea:BusinessCapability ↔ wsf:Capability; OpenDEA Business context"}
 confidence_lossiness:
 - {opendea: dea:Capability, wsf: wsf:Capability, confidence: EXACT, lossiness: LOSSLESS}
 - {opendea: dea:BusinessCapability, wsf: odea:BusinessCapability, confidence: EXACT, lossiness: LOSSLESS}
 - {opendea: dea:SystemCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
-   note: "WSF carries the bearer constraint as context on the assertion rather than as a concept type; the kind distinction flattens on the WSF side."}
+  note: "WSF carries the bearer constraint as context on the assertion rather than as a concept type; the kind distinction flattens on the WSF side."}
 - {opendea: dea:InfrastructureCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
-   note: "Same flattening as SystemCapability."}
+  note: "Same flattening as SystemCapability."}
 - {opendea: dea:AIAugmentedCapability, wsf: wsf:Capability, confidence: HIGH, lossiness: PARTIAL,
-   note: "Same flattening as SystemCapability; AI governance dimension has no WSF counterpart yet."}
+  note: "Same flattening as SystemCapability; AI governance dimension has no WSF counterpart yet."}
+- {opendea: dea:Process, wsf: wsf:Process, confidence: EXACT, lossiness: LOSSLESS}
+- {opendea: dea:BusinessProcess, wsf: odea:BusinessProcess, confidence: EXACT, lossiness: LOSSLESS,
+  note: "The Business context context (Business) is a context specialization of the Process kernel; mirrors the BusinessCapability mapping."}
 relationship_notes:
 - "dea:specializes between capability kinds and dea:Capability corresponds to WSF concept specialization per ADR-WSF-04 (parent meaning plus additional semantic constraint)."
+- "dea:specializes between process kinds (e.g. dea:BusinessProcess) and dea:Process corresponds to WSF concept specialization per ADR-WSF-04 (parent meaning plus additional context constraint)."
 - "dea:Capability.layer (strategic/operational/support) has no WSF counterpart; it is an OpenDEA attribute axis and does not map."
+- "dea:Process sub-classifications (operational/support/management via catalog's process_intent) are catalog-internal; they do not promote to WSF concepts. The Process kernel itself maps to wsf:Process exactly."
 - "ECF coordinates on capability instances are classification metadata and do not map to WSF concept identity; on the WSF side the equivalent notion is context (ADR-WSF-14)."

@@ -4,6 +4,58 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased]: CR-MM-PROC-01: Process Kernel + Business Process Specialization
+
+Introduces the OpenDEA Process kernel + specializations discipline,
+mirroring the established Capability kernel + specialization template
+(CR-016, ADR-015). No canonical version bump.
+
+### Added
+- **`dea:Process`** (abstract Core anchor): structural activity
+  organization; aligned 1:1 with WSF `wsf:Process` (WSF Foundational
+  Semantic Synthesis §6; Tier-3 derived construct).
+- **`dea:specializes` registry extension**: `dea:Process` is now
+  accepted as a source and target type for the specialization
+  relationship (mirrors the `dea:Capability` precedent).
+- **Federation mapping** (`mappings/wsf/mapping.yaml`):
+  `dea:Process ↔ wsf:Process` (EXACT; LOSSLESS);
+  `dea:BusinessProcess ↔ odea:BusinessProcess` (EXACT; LOSSLESS).
+- **Glossary entry** (`docs/glossary.md`): the Process kernel
+  with the WSF discipline citation, the specialization template,
+  and the Activity / Workflow distinction.
+
+### Changed
+- **`dea:BusinessProcess`** reclassified from a flat kernel to the
+  **first Core specialization** of `dea:Process`:
+  - `legacy_ids` cleared (`[dea:entity-process, Process]` migrates
+    to `dea:Process.legacy_ids`; per WSF authority the legacy
+    belongs to the kernel, not the Business specialization).
+  - `definition` extended with the WSF/ADR-015 specialization
+    lineage ("Specializes `dea:Process` (CR-MM-PROC-01; ADR-015
+    precedent; WSF ADR-WSF-04)").
+- All other `dea:BusinessProcess` fields (`layer`, `dimension`,
+  `building_block`, `class_alias`, `catalog_repo`, `artifacts`,
+  `membership`) are unchanged.
+
+### Preserved (no change)
+- `schemas/entities/process.json` (the BusinessProcess instance
+  schema) is unchanged. The schema title `"Process"` is misleading
+  post-this-CR and will be updated to `"Business Process"` in the
+  catalog-side CR (CR-BP-SPEC-BP-01).
+- All existing references to `dea:BusinessProcess` in any catalog
+  or downstream artifact are preserved; the kernel introduction is
+  additive.
+- The CR-016 `dea:Capability` / `dea:BusinessCapability` template
+  is the precedent; this CR applies it to Process.
+
+### Dependencies
+- **Required by**: `CR-BP-SPEC-BP-01` (catalog-side re-anchoring
+  of `dea-catalog-processes`; the catalog's metamodel pointer
+  will declare both `dea:Process` and `dea:BusinessProcess`).
+- **Triggers**: `CR-AR-FMWK-01` (root-model sync on
+  `dea-architecture-framework`; required for the catalog's
+  `validate-allocation` workflow).
+
 ## [Unreleased]: CR-MM-ECF-01: ECF Profile Conformance Sweep
 
 Closes matrix findings F1/F2/F3 for `dea-metamodel`. No canonical version bump

@@ -243,6 +243,17 @@ entities:
   membership:
     kind: profile
     profile: dea:business
+- id: dea:Process
+  name: Process
+  layer: null
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: planned
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:BusinessProcess
   name: Business Process
   layer: L3

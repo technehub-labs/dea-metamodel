@@ -2,9 +2,9 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 146
+  entities: 147
   relationships: 104
-  core_entities: 19
+  core_entities: 20
   profiles: 10
 entities:
 - id: dea:Entity
@@ -160,6 +160,13 @@ entities:
   abstract: false
   status: normative
   lifecycle: scaffold
+  source_cr: CR-4
+- id: dea:Process
+  name: Process
+  semantic_category: core
+  abstract: true
+  status: normative
+  lifecycle: planned
   source_cr: CR-4
 - id: dea:BusinessProcess
   name: Business Process

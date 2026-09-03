@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.5.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.6.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -153,6 +153,10 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
+    entity "Process" as PRC {
+        + id : string
+        + name : string
+    }
     entity "Resource" as RES {
         + id : string
         + name : string
@@ -266,6 +270,7 @@ package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
 }
 
 ' --- SPECIALIZATION (entity.specializes) ---
+BP --|> PRC
 FR --|> RES
 INR --|> RES
 PHR --|> RES
@@ -345,6 +350,6 @@ IA -- AC : "consumed by [0..N:0..N]"
 KA .. AC : "captured from [0..N:0..N]"
 KA .. TNT : "informs [0..N:0..N]"
 
-' Generated 70 relationship edges, 6 specialization edges
+' Generated 70 relationship edges, 7 specialization edges
 
 @enduml

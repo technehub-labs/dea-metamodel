@@ -1,6 +1,6 @@
 # ECF Conformance Report v0.1
 
-Compiled: 2026-09-02.
+Compiled: 2026-09-03.
 Contract version: 1.0.0 (CR-ECF-001..005 series).
 Profile: dea:ecf@1.0.0.
 Framework: EnterpriseConceptFramework.
@@ -24,7 +24,7 @@ Framework: EnterpriseConceptFramework.
 
 | Repository | Status | Profile | Entries | Extensions |
 |---|---|---|---|---|
-| dea-metamodel | conformant-with-extension | dea:ecf@1.0.0 | - | (none) |
+| dea-metamodel | conformant | dea:ecf@1.0.0 | - | (none) |
 | dea-catalog-business-capabilities | conformant-with-extension | dea:ecf@1.0.0 | 26 | kebab-case-domain-vocabulary, multiple-contextual-coordinates, held-unmapped |
 | dea-catalog-processes | conformant-with-extension | dea:ecf@1.0.0 | True | process-context (ECF Coordinate interpretation), l0-l4-decomposition (catalog-governed), process-audience (single-axis; not an ECF Coordinate) |
 

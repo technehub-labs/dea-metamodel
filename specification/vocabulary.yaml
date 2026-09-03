@@ -190,10 +190,24 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:Process
+  name: Process
+  canonical_name: Process
+  definition: A structural organization of activities into a meaningful temporal/causal pattern, grounded in the WSF Process
+    discipline (wsf:Process; WSF Foundational Semantic Synthesis §6; Tier-3 derived construct). Abstract root of all Process
+    kinds; kinds are specializations per WSF ADR-WSF-04 and live in the Core (for the first kind) or in profiles (for non-first
+    kinds). Federation mapping `dea:Process` ↔ `wsf:Process` (ALIGNED; per WSF ADR-WSF-07 precedent used by `dea:Capability`
+    ↔ `wsf:Capability`).
+  semantic_category: core
+  abstract: true
+  status: normative
+  version: 1.0.0
 - id: dea:BusinessProcess
   name: Business Process
   canonical_name: BusinessProcess
-  definition: A structured set of activities that produces a defined outcome.
+  definition: A structured set of activities that produces a defined outcome. Specializes dea:Process (CR-MM-PROC-01; ADR-015
+    precedent; WSF ADR-WSF-04). Supports Business Architecture and Business Operations use cases. Sub-classifications (operational
+    / support / management via the catalog's `process_intent` field) are catalog-internal, not kernel entities.
   semantic_category: dea:business
   abstract: false
   status: normative

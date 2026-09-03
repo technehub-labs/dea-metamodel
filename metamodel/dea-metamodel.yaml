@@ -559,12 +559,45 @@ entities:
   membership:
     kind: profile
     profile: dea:business
-- id: dea:BusinessProcess
-  name: Business Process
+- id: dea:Process
+  name: Process
   legacy_ids:
   - dea:entity-process
   - Process
-  definition: A structured set of activities that produces a defined outcome.
+  definition: 'A structural organization of activities into a meaningful
+    temporal/causal pattern, grounded in the WSF Process discipline
+    (wsf:Process; WSF Foundational Semantic Synthesis §6; Tier-3
+    derived construct). Abstract root of all Process kinds; kinds
+    are specializations per WSF ADR-WSF-04 and live in the Core
+    (for the first kind) or in profiles (for non-first kinds).
+    Federation mapping `dea:Process` ↔ `wsf:Process` (ALIGNED;
+    per WSF ADR-WSF-07 precedent used by `dea:Capability` ↔
+    `wsf:Capability`).'
+  layer: null
+  dimension: null
+  building_block: null
+  abstract: true
+  status: normative
+  lifecycle: planned
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: null
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:BusinessProcess
+  name: Business Process
+  legacy_ids: []
+  definition: 'A structured set of activities that produces a defined outcome.
+    Specializes dea:Process (CR-MM-PROC-01; ADR-015 precedent; WSF
+    ADR-WSF-04). Supports Business Architecture and Business
+    Operations use cases. Sub-classifications (operational /
+    support / management via the catalog''s `process_intent` field)
+    are catalog-internal, not kernel entities.'
   layer: L3
   dimension: null
   building_block: L3-value-delivery
@@ -3244,6 +3277,7 @@ relationships:
     - dea:SystemCapability
     - dea:InfrastructureCapability
     - dea:AIAugmentedCapability
+    - dea:Process
   target:
     types:
     - dea:Actor
@@ -3256,6 +3290,7 @@ relationships:
     - dea:BusinessService
     - dea:Concept
     - dea:Capability
+    - dea:Process
   cardinality:
     source: 0..*
     target: 0..1

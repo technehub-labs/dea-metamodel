@@ -1,6 +1,6 @@
 {
   "report_version": "0.1.0",
-  "compiled_at": "2026-09-02",
+  "compiled_at": "2026-09-03",
   "contract_version": "1.0.0",
   "framework": "EnterpriseConceptFramework",
   "profile": "dea:ecf@1.0.0",
@@ -48,9 +48,9 @@
     }
   },
   "matrix": {
-    "matrix_version": "0.1.0",
+    "matrix_version": "0.2.0",
     "contractVersion": "1.0.0",
-    "compiled_at": "2026-09-01",
+    "compiled_at": "2026-09-03",
     "framework": "EnterpriseConceptFramework",
     "profile": "dea:ecf@1.0.0",
     "invariants": {
@@ -61,22 +61,22 @@
       "I5_contextualization": "PASS; capability + process catalogs use ecfConformance as a separate field, not by redefining Domain/Stage",
       "I6_identity_preservation": "PASS; capability id (dea:capability-...) is independent of any ECF Coordinate",
       "I7_no_cell_population": "PASS; held_unmapped state is documented (N-006); 1 capability legitimately unmapped",
-      "I8_terminology": "PASS; Enterprise Concept Framework (full expansion) consistent across all CRs and schemas",
+      "I8_terminology": "PASS; Enterprise Concept Framework (singular canonical expansion; CORRECT_TERM in scripts/detect_drift.py) consistent across all CRs and schemas",
       "I9_identifier_resolution": "PASS; capability identifiers (ecf:governanceExistence.conceive etc.) match canonical lowerCamelCase pattern",
       "I10_version_compatibility": "PASS; all consumers declare contractVersion=1.0.0"
     },
     "repositories": {
       "dea-metamodel": {
-        "status": "conformant-with-extension",
+        "status": "conformant",
         "profile": "dea:ecf@1.0.0",
         "contractVersion": "1.0.0",
         "findings": {
           "profile_mechanism": "dea:core@1.0.0 (canonical anchor)",
           "conformance_profile_added": "dea:ecf@1.0.0",
           "structural_findings": {
-            "F1": "business-object + organizational-unit restate the canonical kebab-case Domain/Stage enums (fix-on-implementation)",
-            "F2": "process + capability entity schemas have no ECF fields by design (orthogonal axis vs process_intent / capability_layer)",
-            "F3": "ECF semantic reservations live in dea-concepts-model (canonical home); this repo vocabulary-registry is a pointer (CR-CM-001)"
+            "F1": "PASS; kebab-case restatement in business-object + organizational-unit resolved 1:1 to canonical PascalCase via the normative mapping table in docs/ecf-profile.md \u00a73.1; enforced by scripts/validate_ecf_kebab_restatement.py in CI (CR-MM-ECF-01 \u00a73).",
+            "F2": "PASS; capability + process entity schemas deliberately omit ECF fields (orthogonal axis vs capability_layer / process_intent); by-design absence governed in docs/ecf-profile.md \u00a74 (CR-MM-ECF-01 \u00a74).",
+            "F3": "PASS; vocabulary/terminology-registry.yaml pointer preserved per CR-CM-000A \u00a714; canonical home cited in docs/ecf-profile.md \u00a75 (CR-MM-ECF-01 \u00a75)."
           }
         }
       },

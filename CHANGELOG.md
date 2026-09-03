@@ -4,6 +4,44 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased]: CR-MM-ECF-01: ECF Profile Conformance Sweep
+
+Closes matrix findings F1/F2/F3 for `dea-metamodel`. No canonical version bump
+(conformance-evidence + governance sweep; no schema data migration).
+
+### Added
+- **`scripts/validate_ecf_kebab_restatement.py`** (stdlib only; CR-MM-ECF-01 §3).
+  Proves every kebab-case value in the `ecf_domain` / `ecf_stage` enums of
+  `schemas/entities/business-object.json` and
+  `schemas/entities/organizational-unit.json` resolves 1:1 to the canonical
+  PascalCase enum in `dea-metaframework`. Ships a built-in broken-schema
+  self-test.
+- **`docs/ecf-profile.md`** (CR-MM-ECF-01 §6). Authority chain, F1 normative
+  mapping table, F2 by-design absence rationale, F3 terminology pointer,
+  conformance evidence links.
+- **`.github/workflows/ci.yml` step**: "Validate ECF kebab-case restatement
+  (CR-MM-ECF-01)" runs after JSON schema validation on every push/PR.
+
+### Changed
+- **`conformance/matrix.yaml`** bumped to `0.2.0`; `compiled_at: 2026-09-03`.
+  `dea-metamodel` status: `conformant-with-extension` → `conformant`.
+- **`conformance/CONFORMANCE-REPORT-v0.1.md`** regenerated via
+  `scripts/build_conformance_report.py`. Overall verdict: PASS.
+- **`change-requests/README.md`**: status row added for CR-MM-ECF-01.
+- **F1 closed**: kebab-case restatement validated by the new validator.
+- **F2 closed**: by-design absence governed in `docs/ecf-profile.md` §4.
+- **F3 closed**: terminology pointer preserved; canonical home cited.
+
+### Preserved (no change)
+- `schemas/entities/business-object.json` and
+  `schemas/entities/organizational-unit.json`: kebab-case enums retained (no
+  consumer migration required).
+- `schemas/entities/capability.json` and `schemas/entities/process.json`: no
+  ECF fields added (F2 by-design).
+- `vocabulary/terminology-registry.yaml`: pointer preserved per CR-CM-000A §14.
+- `metamodel.yaml`, `metamodel/dea-metamodel.yaml`, schemas, viewer,
+  pydantic, sqlite projection: no data-shape changes.
+
 ## [Unreleased]: CR-016: Capability classification implementation
 
 Implements ADR-015: capability kinds are specializations of an abstract

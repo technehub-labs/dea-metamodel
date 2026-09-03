@@ -1,6 +1,8 @@
-matrix_version: 0.1.0
+matrix_version: 0.2.0
 contractVersion: 1.0.0
-compiled_at: '2026-09-01'
+compiled_at: '2026-09-03'
+# CR-MM-ECF-01 closes F1/F2/F3 to PASS for `dea-metamodel`; matrix_version
+# bumped to 0.2.0 to reflect the structural finding resolutions.
 framework: EnterpriseConceptFramework
 profile: dea:ecf@1.0.0
 invariants:
@@ -25,19 +27,23 @@ invariants:
   I10_version_compatibility: PASS; all consumers declare contractVersion=1.0.0
 repositories:
   dea-metamodel:
-    status: conformant-with-extension
+    status: conformant
     profile: dea:ecf@1.0.0
     contractVersion: 1.0.0
     findings:
       profile_mechanism: dea:core@1.0.0 (canonical anchor)
       conformance_profile_added: dea:ecf@1.0.0
       structural_findings:
-        F1: business-object + organizational-unit restate the canonical kebab-case
-          Domain/Stage enums (fix-on-implementation)
-        F2: process + capability entity schemas have no ECF fields by design (orthogonal
-          axis vs process_intent / capability_layer)
-        F3: ECF semantic reservations live in dea-concepts-model (canonical home);
-          this repo vocabulary-registry is a pointer (CR-CM-001)
+        F1: PASS; kebab-case restatement in business-object + organizational-unit
+          resolved 1:1 to canonical PascalCase via the normative mapping table
+          in docs/ecf-profile.md §3.1; enforced by scripts/validate_ecf_kebab_restatement.py
+          in CI (CR-MM-ECF-01 §3).
+        F2: PASS; capability + process entity schemas deliberately omit ECF
+          fields (orthogonal axis vs capability_layer / process_intent); by-design
+          absence governed in docs/ecf-profile.md §4 (CR-MM-ECF-01 §4).
+        F3: PASS; vocabulary/terminology-registry.yaml pointer preserved per
+          CR-CM-000A §14; canonical home cited in docs/ecf-profile.md §5
+          (CR-MM-ECF-01 §5).
   dea-catalog-business-capabilities:
     status: conformant-with-extension
     profile: dea:ecf@1.0.0

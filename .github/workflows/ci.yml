@@ -35,6 +35,14 @@ jobs:
       - name: Validate all JSON schemas
         run: python3 .github/scripts/validate_json_schemas.py
 
+      - name: Clone dea-metaframework (read-only; canonical ECF schemas for CR-MM-ECF-01 validator)
+        # Closes matrix finding F1 for `dea-metamodel`. The canonical
+        # PascalCase enum lives in dea-metaframework/schemas/; this clone
+        # is read-only and matched against the existing ecf-conformance.yml
+        # workflow pattern.
+        run: |
+          git clone --depth 1 https://github.com/technehub-labs/dea-metaframework.git /tmp/dea-metaframework || echo "skip: metaframework clone not permitted in this runner"
+
       - name: Validate ECF kebab-case restatement (CR-MM-ECF-01)
         # Closes matrix finding F1 for `dea-metamodel`. Proves every kebab-case
         # value in the ecf_domain / ecf_stage enums of business-object.json and
@@ -42,7 +50,7 @@ jobs:
         # enum in `dea-metaframework`. Stdlib only; runs the validator's
         # built-in self-test as well.
         env:
-          ECF_FRAMEWORK_ROOT: ${{ github.workspace }}/dea-metaframework
+          ECF_FRAMEWORK_ROOT: /tmp/dea-metaframework
         run: python3 scripts/validate_ecf_kebab_restatement.py
 
       - name: Parse all Turtle files

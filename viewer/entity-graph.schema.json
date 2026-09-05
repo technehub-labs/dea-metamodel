@@ -23,6 +23,33 @@
           "name": { "type": "string" },
           "qualifier": { "type": "string" },
           "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "catalog_summary": {
+            "type": "object",
+            "description": "Live CATALOG.yaml summary for this entity's catalog_repo (CR-CATALOG-STRUCT-07b). Populated at build time from each conformant adopter's CATALOG.yaml via the cross-repo consumer. Absent for entities whose catalog_repo is null or not a known conformant adopter.",
+            "required": [
+              "entity_count",
+              "canonical",
+              "candidates",
+              "retired",
+              "research_files",
+              "metamodel_version",
+              "abbreviation",
+              "catalog_name",
+              "generated_at"
+            ],
+            "properties": {
+              "entity_count": { "type": "integer", "minimum": 0 },
+              "canonical": { "type": "integer", "minimum": 0 },
+              "candidates": { "type": "integer", "minimum": 0 },
+              "retired": { "type": "integer", "minimum": 0 },
+              "research_files": { "type": "integer", "minimum": 0 },
+              "latest_modified": { "type": ["string", "null"], "format": "date" },
+              "metamodel_version": { "type": "string" },
+              "abbreviation": { "type": "string" },
+              "catalog_name": { "type": "string" },
+              "generated_at": { "type": "string", "format": "date-time" }
+            }
+          },
           "dark_color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
         }
       }
@@ -54,6 +81,33 @@
           "building_block_name": { "type": "string" },
           "dimension": { "type": "string" },
           "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "catalog_summary": {
+            "type": "object",
+            "description": "Live CATALOG.yaml summary for this entity's catalog_repo (CR-CATALOG-STRUCT-07b). Populated at build time from each conformant adopter's CATALOG.yaml via the cross-repo consumer. Absent for entities whose catalog_repo is null or not a known conformant adopter.",
+            "required": [
+              "entity_count",
+              "canonical",
+              "candidates",
+              "retired",
+              "research_files",
+              "metamodel_version",
+              "abbreviation",
+              "catalog_name",
+              "generated_at"
+            ],
+            "properties": {
+              "entity_count": { "type": "integer", "minimum": 0 },
+              "canonical": { "type": "integer", "minimum": 0 },
+              "candidates": { "type": "integer", "minimum": 0 },
+              "retired": { "type": "integer", "minimum": 0 },
+              "research_files": { "type": "integer", "minimum": 0 },
+              "latest_modified": { "type": ["string", "null"], "format": "date" },
+              "metamodel_version": { "type": "string" },
+              "abbreviation": { "type": "string" },
+              "catalog_name": { "type": "string" },
+              "generated_at": { "type": "string", "format": "date-time" }
+            }
+          },
           "catalog_repo": { "type": ["string", "null"], "pattern": "^[a-z0-9-]+$" },
           "repo_url": { "type": ["string", "null"], "format": "uri" },
           "status": { "type": "string", "enum": ["proposed", "planned", "scaffold", "existing", "deprecated", "retired"] },

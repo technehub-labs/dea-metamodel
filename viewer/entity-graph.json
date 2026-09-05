@@ -3,7 +3,7 @@
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
   "opendeam_model_pin": "v0.6.0",
-  "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
+  "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived). As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a known conformant adopter carries a `catalog_summary` field with the latest CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), latest_modified date, metamodel_version, and abbreviation; populated at build time from the cross-repo consumer (vendored at .github/scripts/cross_repo_consumer/).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
   "layers": [
@@ -460,7 +460,7 @@
       "display_name": "Business Process",
       "catalog_repo": "dea-catalog-processes",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-processes",
-      "status": "scaffold",
+      "status": "existing",
       "description": "The OpenDEAM Business Process specialization (CR-MM-PROC-01; CR-BP-SPEC-BP-01). A structured set of activities that produces a defined outcome in the Business context. Sub-classifications (operational / support / management, carried by the catalog's process_intent field) are catalog-internal; they do not promote to root-model entities.\n",
       "layer": "L3",
       "layer_name": "Business Operating Model",
@@ -471,7 +471,19 @@
       "measured_by": [
         "MTR"
       ],
-      "entity_role": "content"
+      "entity_role": "content",
+      "catalog_summary": {
+        "entity_count": 2,
+        "canonical": 2,
+        "candidates": 0,
+        "retired": 0,
+        "research_files": 5,
+        "latest_modified": "2026-09-05",
+        "metamodel_version": "1.0.0",
+        "abbreviation": "BP",
+        "catalog_name": "Business Process",
+        "generated_at": "2026-09-05T12:59:30Z"
+      }
     },
     {
       "entity_id": "dea:entity-business-service",
@@ -514,6 +526,18 @@
       "membership": {
         "kind": "core",
         "profile": null
+      },
+      "catalog_summary": {
+        "entity_count": 26,
+        "canonical": 26,
+        "candidates": 0,
+        "retired": 0,
+        "research_files": 3,
+        "latest_modified": "2026-09-05",
+        "metamodel_version": "1.0.0",
+        "abbreviation": "BC",
+        "catalog_name": "Business Capability",
+        "generated_at": "2026-09-05T12:59:30Z"
       }
     },
     {

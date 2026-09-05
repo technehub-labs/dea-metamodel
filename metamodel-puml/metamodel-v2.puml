@@ -118,7 +118,7 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
-    ' (scaffold)
+    ' (existing)
     entity "Business Process" as BP {
         + id : string
         + name : string

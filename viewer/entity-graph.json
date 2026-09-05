@@ -2,7 +2,7 @@
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.5.0",
+  "opendeam_model_pin": "v0.6.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -455,25 +455,23 @@
       }
     },
     {
-      "entity_id": "dea:entity-process",
+      "entity_id": "dea:entity-business-process",
       "class_alias": "BP",
       "display_name": "Business Process",
       "catalog_repo": "dea-catalog-processes",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-processes",
       "status": "scaffold",
-      "description": "A structured set of activities that produces a defined outcome.",
+      "description": "The OpenDEAM Business Process specialization (CR-MM-PROC-01; CR-BP-SPEC-BP-01). A structured set of activities that produces a defined outcome in the Business context. Sub-classifications (operational / support / management, carried by the catalog's process_intent field) are catalog-internal; they do not promote to root-model entities.\n",
       "layer": "L3",
       "layer_name": "Business Operating Model",
       "building_block": "L3-value-delivery",
       "building_block_name": "Value Delivery",
       "color": "#38BDF8",
+      "specializes": "PRC",
       "measured_by": [
         "MTR"
       ],
-      "membership": {
-        "kind": "profile",
-        "profile": "dea:business"
-      }
+      "entity_role": "content"
     },
     {
       "entity_id": "dea:entity-business-service",
@@ -609,6 +607,31 @@
       "color": "#38BDF8",
       "specializes": "RES",
       "entity_role": "content",
+      "membership": {
+        "kind": "core",
+        "profile": null
+      }
+    },
+    {
+      "entity_id": "dea:entity-process",
+      "class_alias": "PRC",
+      "display_name": "Process",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "The OpenDEAM Process kernel (CR-MM-PROC-01; abstract; aligned with WSF wsf:Process). Structural organization of activities into a meaningful temporal/causal pattern. Specializations carry the context (Business, Operational, Engineering).\n",
+      "layer": "L3",
+      "layer_name": "Business Operating Model",
+      "building_block": "L3-value-delivery",
+      "building_block_name": "Value Delivery",
+      "color": "#38BDF8",
+      "abstract": true,
+      "realized_in_layers": [
+        "L3"
+      ],
+      "discriminator": "process-kernel",
+      "entity_role": "content",
+      "completeness_contract": "Any T2 catalog specializing Process must declare its context (Business, Operational, Engineering, etc.) via `specializes:` on its metamodel pointer; the kernel itself is not directly allocated to a layer. (CR-AR-FMWK-01; mirrors ADR-0005 D3 Resource template.)\n",
       "membership": {
         "kind": "core",
         "profile": null

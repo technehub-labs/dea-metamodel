@@ -24,6 +24,7 @@ sorted by (layer, class_alias), relationships in model order.
 """
 import argparse
 import json
+import os
 import sys
 import urllib.request
 from pathlib import Path
@@ -35,6 +36,15 @@ OUT = BASE / "viewer" / "entity-graph.json"
 CROSSWALK = BASE / "metamodel" / "migration" / "relationship-crosswalk.yaml"
 REGISTRY = BASE / "metamodel" / "registry" / "relationships.yaml"
 MODEL_REPO = "technehub-labs/dea-architecture-framework"
+
+# Ensure the scripts/ directory is on sys.path so the vendored
+# cross_repo_consumer package and the catalog_summary_builder helper
+# are importable. This mirrors the vendoring strategy used elsewhere
+# in dea-metamodel tooling (e.g. .github/scripts/ is invoked as a
+# script, not a package).
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+if str(_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS_DIR))
 
 # style is DEPRECATED (ADR-0002 D4) — derived from rel_type for T3
 # back-compat only. Viewers should render from rel_type directly.
@@ -224,10 +234,16 @@ def main() -> int:
         "opendeam_model_pin": pin or f"v{version}",
         "description": (
             "Entity-to-repo mapping for the interactive metamodel viewer, generated from the "
-            "OpenDEAM root model (dea-architecture-framework). Do not edit manually — regenerate "
+            "OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate "
             "with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), "
             "measurement is an orthogonal dimension: dimension entities carry `dimension` instead "
-            "of `layer`, and relationships carry rel_type + cardinality (style is derived)."
+            "of `layer`, and relationships carry rel_type + cardinality (style is derived). "
+            "As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a "
+            "known conformant adopter carries a `catalog_summary` field with the latest "
+            "CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), "
+            "latest_modified date, metamodel_version, and abbreviation; populated at build "
+            "time from the cross-repo consumer (vendored at "
+            ".github/scripts/cross_repo_consumer/)."
         ),
         "viewer_route": "/metamodel/",
         "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -254,6 +270,39 @@ def main() -> int:
             if not r.get("virtual")
         ],
     }
+
+    # CR-CATALOG-STRUCT-07b: embed catalog_summary per entity whose
+    # catalog_repo matches a known conformant adopter. The summary is
+    # built at generation time from CATALOG.yaml via the cross-repo
+    # consumer (vendored at .github/scripts/cross_repo_consumer/). The
+    # viewer reads entity-graph.json and surfaces catalog_summary in
+    # the entity detail panel.
+    try:
+        from catalog_summary_builder import (
+            attach_catalog_summaries,
+            build_catalog_summaries,
+        )
+
+        cache_dir_env = os.environ.get("CATALOG_SUMMARY_CACHE")
+        offline_env = os.environ.get("CATALOG_SUMMARY_OFFLINE", "").lower() in (
+            "1", "true", "yes",
+        )
+        summaries = build_catalog_summaries(
+            cache_dir=Path(cache_dir_env) if cache_dir_env else None,
+            offline=offline_env or cache_dir_env is not None,
+            timeout_s=15.0,
+        )
+        attached = attach_catalog_summaries(graph, summaries)
+        print(
+            f"  catalog_summary: attached to {attached} of "
+            f"{len(graph_entities)} entities "
+            f"({len(summaries)} adopters fetched)"
+        )
+    except Exception as exc:  # noqa: BLE001
+        # Per the §9 contract the consumer MUST be tolerant: missing
+        # catalogs are shown as "no data" in the viewer, not as a hard
+        # failure. Log and continue.
+        print(f"  catalog_summary: skipped ({type(exc).__name__}: {exc})")
 
     OUT.write_text(json.dumps(graph, indent=2, ensure_ascii=False) + "\n")
     print(f"Wrote {OUT} — {len(graph_layers)} layers, {len(graph_dims)} dimensions, "

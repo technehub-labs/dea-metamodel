@@ -81,12 +81,12 @@
       "type": "string",
       "enum": [
         "governance-existence",
-        "supply-resources",
+        "strategy-direction",
         "people-organization",
-        "customer-demand",
-        "product-offering",
-        "operations-delivery",
-        "finance-value"
+        "party-relationship",
+        "product-value",
+        "operations-enablement",
+        "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."
     },

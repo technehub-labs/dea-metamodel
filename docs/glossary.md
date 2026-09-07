@@ -227,9 +227,9 @@ Concept Area IS an ECF Domain.
 ## ECF Domain
 
 One of the seven axiom-derived rows of the Enterprise Concept Framework
-foundation matrix (Governance & Existence, Supply & Resources, People &
-Organization, Customer & Demand, Product & Offering, Operations &
-Delivery, Finance & Value) — answers *"what does the enterprise do?"*
+foundation matrix (Governance & Existence, Strategy & Direction, People &
+Organization, Party & Relationship, Product & Value, Operations &
+Delivery, Finance & Accounting) — answers *"what does the enterprise do?"*
 (CR-CM-000; ECF home: `technehub-labs/dea-metaframework`).
 
 The bare word **Domain** is reserved to the ECF: every use must be

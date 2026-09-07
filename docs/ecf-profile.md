@@ -56,12 +56,12 @@ Updates require a new CR.
 | kebab-case (in-schema) | PascalCase (canonical, in `dea-metaframework`) | lowerCamelCase (identifier suffix) |
 |---|---|---|
 | `governance-existence` | `GovernanceAndExistence` | `governanceExistence` |
-| `supply-resources` | `SupplyAndResources` | `supplyResources` |
+| `strategy-direction` | `StrategyAndDirection` | `strategyDirection` |
 | `people-organization` | `PeopleAndOrganization` | `peopleOrganization` |
-| `customer-demand` | `CustomerAndDemand` | `customerDemand` |
-| `product-offering` | `ProductAndOffering` | `productOffering` |
-| `operations-delivery` | `OperationsAndDelivery` | `operationsDelivery` |
-| `finance-value` | `FinanceAndValue` | `financeValue` |
+| `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
+| `product-value` | `ProductAndValue` | `productValue` |
+| `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |
+| `finance-accounting` | `FinanceAndAccounting` | `financeAccounting` |
 
 Stage mapping (kebab-case is identical to lowerCamelCase for all
 seven Stages):

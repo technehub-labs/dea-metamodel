@@ -37,7 +37,7 @@ fix the terminology first, then build on it.
 ## 3. Reserved terms (ECF)
 
 - **Domain → ECF Domain.** One of the seven axiom-derived rows of the
-  foundation matrix (Governance & Existence … Finance & Value). Answers
+  foundation matrix (Governance & Existence … Finance & Accounting). Answers
   *"what does the enterprise do?"*
 - **Stage → ECF Stage.** One of the seven lifecycle columns (Conceive …
   Retire). Answers *"how does the work evolve?"*

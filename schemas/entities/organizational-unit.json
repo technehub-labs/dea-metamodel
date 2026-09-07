@@ -110,12 +110,12 @@
       "type": "string",
       "enum": [
         "governance-existence",
-        "supply-resources",
+        "strategy-direction",
         "people-organization",
-        "customer-demand",
-        "product-offering",
-        "operations-delivery",
-        "finance-value"
+        "party-relationship",
+        "product-value",
+        "operations-enablement",
+        "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework domain this unit primarily serves. Optional — units that span domains (e.g. COO office) may leave this unset or set a 'multi' marker via tags."
     },

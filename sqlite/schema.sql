@@ -96,7 +96,7 @@ CREATE TABLE processes (
     process_audience    TEXT NOT NULL CHECK(process_audience IN (
                             'governance-existence',
                             'strategy-direction',
-                            'people-organization',
+                            'agency-organization',
                             'party-relationship',
                             'product-value',
                             'operations-enablement',
@@ -119,7 +119,7 @@ CREATE TABLE business_objects (
     ecf_domain          TEXT NOT NULL CHECK(ecf_domain IN (
                             'governance-existence',
                             'strategy-direction',
-                            'people-organization',
+                            'agency-organization',
                             'party-relationship',
                             'product-value',
                             'operations-enablement',
@@ -154,7 +154,7 @@ CREATE TABLE organizational_units (
     ecf_domain          TEXT CHECK(ecf_domain IN (
                             'governance-existence',
                             'strategy-direction',
-                            'people-organization',
+                            'agency-organization',
                             'party-relationship',
                             'product-value',
                             'operations-enablement',

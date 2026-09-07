@@ -62,7 +62,7 @@ classifications:
     values:
     - governance-existence
     - strategy-direction
-    - people-organization
+    - agency-organization
     - party-relationship
     - product-value
     - operations-enablement
@@ -325,7 +325,7 @@ classifications:
     values:
     - governance-existence
     - strategy-direction
-    - people-organization
+    - agency-organization
     - party-relationship
     - product-value
     - operations-enablement
@@ -354,7 +354,7 @@ classifications:
     values:
     - governance-existence
     - strategy-direction
-    - people-organization
+    - agency-organization
     - party-relationship
     - product-value
     - operations-enablement

@@ -78,7 +78,7 @@ restating schemas:
 |---|---|---|
 | `governance-existence` | `GovernanceAndExistence` | `governanceExistence` |
 | `strategy-direction` | `StrategyAndDirection` | `strategyDirection` |
-| `people-organization` | `PeopleAndOrganization` | `peopleOrganization` |
+| `agency-organization` | `AgencyAndOrganization` | `agencyOrganization` |
 | `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
 | `product-value` | `ProductAndValue` | `productValue` |
 | `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |
@@ -252,7 +252,7 @@ were renamed and one was replaced:
 |------------------|------------------|
 | `governance-existence` | `governance-existence` (unchanged) |
 | `supply-resources` | `strategy-direction` |
-| `people-organization` | `people-organization` (unchanged) |
+| `agency-organization` | `agency-organization` (unchanged) |
 | `customer-demand` | `party-relationship` |
 | `product-offering` | `product-value` |
 | `operations-delivery` | `operations-enablement` |
@@ -309,3 +309,38 @@ this is the right CR to carry the v2.3.0 update.
 - `scripts/detect_drift.py`: surfaces expected downstream drift in
   `dea-catalog-processes` and `dea-catalog-business-capabilities` (the
   follow-up per-repo migration PRs).
+
+## 12. v2.4.0 migration (2026-09-07)
+
+CR-MM-ECF-02 is the v2.4.0 migration carrier (see
+`change-requests/CR-MM-ECF-02.md`). ECF Domain 3 is renamed from
+`PeopleAndOrganization` (v2.3.0) to `AgencyAndOrganization` (v2.4.0),
+driven by the Substrate Independence Stress Test
+(`technehub-labs/dea-metaframework` ADR-ECF-002 §5; CR-ECF-007).
+
+### 12.1 What changed
+
+The kebab-case restatement values in the entity schemas are updated to the
+v2.4.0 set: `people-organization` -> `agency-organization`. The PascalCase
+enum in `dea-metaframework` v2.4.0 is the source of truth
+(`AgencyAndOrganization`). The other six Domains are unchanged.
+
+Same artifacts re-keyed as in section 11: the 3 entity schemas, the sqlite
+schema + regenerated db, the pydantic Literal, the typescript type alias,
+the detector `DOMAIN_ID` map, the validator `DOMAIN_KEBAB_TO_PASCAL`
+mapping, the controlled vocabulary, and the docs files.
+
+### 12.2 Verification
+
+- `scripts/validate_ecf_kebab_restatement.py`: **PASS** (kebab-case values
+  resolve 1:1 to the v2.4.0 canonical PascalCase enum).
+- `scripts/validate_ecf_kebab_restatement.py --self-test`: **PASS**.
+- `tests/conformance/`: **133/133 pass**.
+- `tests/runtime/`: **290/290 pass**.
+
+### 12.3 Backward compatibility
+
+`technehub-labs/dea-metaframework` v2.4.0 preserves the deprecated
+identifiers in `tools/ecf_coordinates.py:DOMAIN_ALIASES` for at least 2
+release cycles. Downstream consumers that have not yet migrated MAY
+resolve the alias and use the canonical value.

@@ -4,6 +4,22 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [2.4.0-migration] - 2026-09-07
+
+CR-MM-ECF-02 implementation: ECF domain enum migration to the v2.4.0
+canonical Domain set (carried by `technehub-labs/dea-metaframework` v2.4.0;
+CR-ECF-007 + ADR-ECF-002). One of seven Domains renamed: Domain 3
+`PeopleAndOrganization` -> `AgencyAndOrganization` (kebab-case
+`people-organization` -> `agency-organization`), driven by the Substrate
+Independence Stress Test. The metamodel profile preserves the kebab-case
+restatement per CR-MM-ECF-01 §3.1 and updates the kebab-case value to the
+v2.4.0 set. The other six Domains are unchanged. No content redistribution
+required (CR-ECF-007 §6.3).
+
+Files: 3 entity schemas, 1 sqlite schema + regenerated db, 1 pydantic
+Literal, 1 typescript type alias, 1 detector map, 1 validator mapping
+table, 1 controlled vocabulary, 5 docs files, 2 CR records.
+
 ## [2.3.0-migration] - 2026-09-07
 
 CR-MM-ECF-01 implementation: ECF domain enum migration to the v2.3.0
@@ -25,7 +41,7 @@ post-gate downstream reconciliation programme (CR-MM-ECF-01).
   |---|------------------|------------------|
   | 1 | `governance-existence` | `governance-existence` (unchanged) |
   | 2 | `supply-resources` | `strategy-direction` |
-  | 3 | `people-organization` | `people-organization` (unchanged) |
+  | 3 | `agency-organization` | `agency-organization` (unchanged) |
   | 4 | `customer-demand` | `party-relationship` |
   | 5 | `product-offering` | `product-value` |
   | 6 | `operations-delivery` | `operations-enablement` |

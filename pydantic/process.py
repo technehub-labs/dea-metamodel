@@ -24,7 +24,7 @@ class Process(Entity):
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     process_intent: Literal['operational', 'support', 'management']
     """The process's role in the enterprise. 'operational' executes defined recurring work; 'support' enables other processes without producing the primary output; 'management' decides, plans, allocates, or governs. See docs/process-type-taxonomy.md for boundary rules."""
-    process_audience: Literal['governance-existence', 'strategy-direction', 'people-organization', 'party-relationship', 'product-value', 'operations-enablement', 'finance-accounting']
+    process_audience: Literal['governance-existence', 'strategy-direction', 'agency-organization', 'party-relationship', 'product-value', 'operations-enablement', 'finance-accounting']
     """The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."""
     trigger: Optional[str] = None
     """What initiates this process."""

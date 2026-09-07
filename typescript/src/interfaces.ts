@@ -210,7 +210,7 @@ export type ProcessIntent = 'operational' | 'support' | 'management';
 export type ProcessAudience =
   | 'governance-existence'
   | 'strategy-direction'
-  | 'people-organization'
+  | 'agency-organization'
   | 'party-relationship'
   | 'product-value'
   | 'operations-enablement'
@@ -241,7 +241,7 @@ export interface Process extends BaseEntity {
 export type EcfDomain =
   | 'governance-existence'
   | 'strategy-direction'
-  | 'people-organization'
+  | 'agency-organization'
   | 'party-relationship'
   | 'product-value'
   | 'operations-enablement'

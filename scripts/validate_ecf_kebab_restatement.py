@@ -12,7 +12,7 @@ Domain:
     kebab-case -> PascalCase -> lowerCamelCase (identifier suffix)
     governance-existence   -> GovernanceAndExistence   -> governanceExistence
     strategy-direction     -> StrategyAndDirection     -> strategyDirection
-    people-organization    -> PeopleAndOrganization    -> peopleOrganization
+    agency-organization    -> AgencyAndOrganization    -> agencyOrganization
     party-relationship     -> PartyAndRelationship     -> partyRelationship
     product-value          -> ProductAndValue          -> productValue
     operations-enablement  -> OperationsAndEnablement  -> operationsEnablement
@@ -80,7 +80,7 @@ RESTATING_SCHEMAS = (
 DOMAIN_KEBAB_TO_PASCAL = {
     "governance-existence": "GovernanceAndExistence",
     "strategy-direction": "StrategyAndDirection",
-    "people-organization": "PeopleAndOrganization",
+    "agency-organization": "AgencyAndOrganization",
     "party-relationship": "PartyAndRelationship",
     "product-value": "ProductAndValue",
     "operations-enablement": "OperationsAndEnablement",

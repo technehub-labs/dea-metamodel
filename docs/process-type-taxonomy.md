@@ -58,7 +58,7 @@ from the grounding axiom:
 |---|---|---|
 | `governance-existence` | 1 | The precondition of boundedness — what defines the entity, what rules apply. |
 | `strategy-direction` | 2 | The substrate the enterprise persists on — physical or virtual assets and capacity. |
-| `people-organization` | 3 | The humans who perform every capability and the structure that organizes them. |
+| `agency-organization` | 3 | The humans who perform every capability and the structure that organizes them. |
 | `party-relationship` | 4 | The people whose need the entity meets, and the demand they generate. |
 | `product-value` | 5 | The catalog of what the enterprise offers — design, packaging, release, retirement. |
 | `operations-enablement` | 6 | The engine that turns an offering into a delivered outcome. |
@@ -148,8 +148,8 @@ clean.
 | Provide internal IT helpdesk | `support` | `strategy-direction` |
 | Set annual corporate budget | `management` | `finance-accounting` |
 | File GDPR DPIA to regulator | `management` | `governance-existence` |
-| Operate internal payroll | `operational` | `people-organization` |
-| Conduct annual performance review | `management` | `people-organization` |
+| Operate internal payroll | `operational` | `agency-organization` |
+| Conduct annual performance review | `management` | `agency-organization` |
 | Quarterly board governance review | `management` | `governance-existence` |
 
 ---

@@ -57,7 +57,7 @@ Updates require a new CR.
 |---|---|---|
 | `governance-existence` | `GovernanceAndExistence` | `governanceExistence` |
 | `strategy-direction` | `StrategyAndDirection` | `strategyDirection` |
-| `people-organization` | `PeopleAndOrganization` | `peopleOrganization` |
+| `agency-organization` | `AgencyAndOrganization` | `agencyOrganization` |
 | `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
 | `product-value` | `ProductAndValue` | `productValue` |
 | `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |

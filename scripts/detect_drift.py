@@ -47,7 +47,7 @@ COORD_SCHEMA = FWK / 'schemas' / 'ecf-coordinate.schema.json'
 DOMAIN_ID = {
     'GovernanceAndExistence': 'governanceExistence',
     'StrategyAndDirection': 'strategyDirection',
-    'PeopleAndOrganization': 'peopleOrganization',
+    'AgencyAndOrganization': 'agencyOrganization',
     'PartyAndRelationship': 'partyRelationship',
     'ProductAndValue': 'productValue',
     'OperationsAndEnablement': 'operationsEnablement',

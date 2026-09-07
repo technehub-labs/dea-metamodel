@@ -209,12 +209,12 @@ export type ProcessIntent = 'operational' | 'support' | 'management';
 
 export type ProcessAudience =
   | 'governance-existence'
-  | 'supply-resources'
+  | 'strategy-direction'
   | 'people-organization'
-  | 'customer-demand'
-  | 'product-offering'
-  | 'operations-delivery'
-  | 'finance-value';
+  | 'party-relationship'
+  | 'product-value'
+  | 'operations-enablement'
+  | 'finance-accounting';
 
 export interface Process extends BaseEntity {
   type: 'Process';
@@ -240,12 +240,12 @@ export interface Process extends BaseEntity {
 // technehub-labs/dea-catalog-business-objects.
 export type EcfDomain =
   | 'governance-existence'
-  | 'supply-resources'
+  | 'strategy-direction'
   | 'people-organization'
-  | 'customer-demand'
-  | 'product-offering'
-  | 'operations-delivery'
-  | 'finance-value';
+  | 'party-relationship'
+  | 'product-value'
+  | 'operations-enablement'
+  | 'finance-accounting';
 
 export type EcfStage =
   | 'conceive'

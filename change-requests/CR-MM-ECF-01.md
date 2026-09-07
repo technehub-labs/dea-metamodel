@@ -4,15 +4,15 @@
 |---|---|
 | **CR** | CR-MM-ECF-01 |
 | **Title** | ECF Profile Conformance Sweep |
-| **Status** | Proposed |
+| **Status** | Implemented (PR #161); v2.3.0 migration (PR #TBD) |
 | **Type** | ECF Profile Conformance |
 | **Scope** | `technehub-labs/dea-metamodel` |
 | **Predecessor** | CR-ECF-005 (ECF Conformance Gate; merged PR #8) |
-| **Depends On** | CR-ECF-001..005 (all merged) |
+| **Depends On** | CR-ECF-001..005 (all merged); CR-ECF-006 (v2.3.0 domain restructure) |
 | **Sequencing** | post-gate downstream reconciliation, first in sequence |
 | **Resolves** | matrix findings F1, F2, F3 |
 | **Author** | Coder (for eaojnr) |
-| **Date** | 2026-09-03 |
+| **Date** | 2026-09-03 (proposal); 2026-09-07 (v2.3.0 migration) |
 
 ## 1. Change Request
 
@@ -77,12 +77,12 @@ restating schemas:
 | kebab-case (in-schema) | PascalCase (canonical, in `dea-metaframework`) | lowerCamelCase (identifier suffix) |
 |---|---|---|
 | `governance-existence` | `GovernanceAndExistence` | `governanceExistence` |
-| `supply-resources` | `SupplyAndResources` | `supplyResources` |
+| `strategy-direction` | `StrategyAndDirection` | `strategyDirection` |
 | `people-organization` | `PeopleAndOrganization` | `peopleOrganization` |
-| `customer-demand` | `CustomerAndDemand` | `customerDemand` |
-| `product-offering` | `ProductAndOffering` | `productOffering` |
-| `operations-delivery` | `OperationsAndDelivery` | `operationsDelivery` |
-| `finance-value` | `FinanceAndValue` | `financeValue` |
+| `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
+| `product-value` | `ProductAndValue` | `productValue` |
+| `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |
+| `finance-accounting` | `FinanceAndAccounting` | `financeAccounting` |
 
 Stage mapping (kebab-case is the same as PascalCase lowerCamelCase for
 all seven Stages; the validator proves the Stage enum values resolve
@@ -242,3 +242,70 @@ New file `docs/ecf-profile.md`:
   The contract lives in `dea-metaframework` and is unchanged.
 - Re-architecting `capability.json` / `process.json` to add ECF
   fields. The by-design absence (F2) is the governed outcome.
+## 11. v2.3.0 migration (2026-09-07)
+
+When the `dea-metaframework` v2.3.0 release landed
+(CR-ECF-006 + ADR-ECF-001), five of the seven canonical ECF Domains
+were renamed and one was replaced:
+
+| Before (v2.2.0) | After (v2.3.0) |
+|------------------|------------------|
+| `governance-existence` | `governance-existence` (unchanged) |
+| `supply-resources` | `strategy-direction` |
+| `people-organization` | `people-organization` (unchanged) |
+| `customer-demand` | `party-relationship` |
+| `product-offering` | `product-value` |
+| `operations-delivery` | `operations-enablement` |
+| `finance-value` | `finance-accounting` |
+
+This CR's F1 closure (the kebab-case restatement validated by
+`scripts/validate_ecf_kebab_restatement.py`) is the *only* place in
+`dea-metamodel` that holds the canonical Domain identifier set, so
+this is the right CR to carry the v2.3.0 update.
+
+### 11.1 What changed in this repo
+
+- `DOMAIN_KEBAB_TO_PASCAL` in `scripts/validate_ecf_kebab_restatement.py`
+- `ecf_domain` enums in `schemas/entities/business-object.json` and
+  `schemas/entities/organizational-unit.json`
+- `process_audience` enum in `schemas/entities/process.json` (the only
+  place the by-design F2 absence gives way to a real audience
+  classification)
+- The three `CHECK` constraints in `sqlite/schema.sql` (on `processes`,
+  `business_objects`, `organizational_units`) and the regenerated
+  `sqlite/dea-metamodel.db`
+- `process_audience: Literal[...]` in `pydantic/process.py`
+- The three controlled-vocabulary enums in
+  `metamodel/vocabularies/classifications.yaml` (`BusinessObject.ecf_domain`,
+  `OrganizationalUnit.ecf_domain`, `Process.process_audience`)
+- `DOMAIN_ID` in `scripts/detect_drift.py`
+- The `EcfDomain` and `ProcessAudience` type aliases in
+  `typescript/src/interfaces.ts`
+- All narrative references in `docs/concepts/terminology-alignment.md`,
+  `docs/ecf-profile.md`, `docs/glossary.md`,
+  `docs/process-type-taxonomy.md`
+
+### 11.2 What did NOT change
+
+- The `F2 by-design absence` for `capability.json` (Capability uses
+  `capability_layer`; orthogonal axis) — unchanged.
+- The `F2 by-design absence` for `capability.json` and `process.json`
+  is recorded in `docs/ecf-profile.md`. The `process_audience` field
+  on `Process` is a *catalog-internal* axis, not the ECF Domain axis;
+  the v2.3.0 rename of the Domain set happens to also be the rename of
+  the process_audience values because the two are axiom-derived from
+  the same source.
+
+### 11.3 Verification
+
+- `scripts/validate_ecf_kebab_restatement.py`: **PASS** (every kebab-case
+  value in the restating schemas resolves 1:1 to the v2.3.0 canonical
+  PascalCase enum in `dea-metaframework`).
+- `scripts/validate_ecf_kebab_restatement.py --self-test`: **PASS**.
+- `tests/conformance/`: **133/133 pass** (E005 classification-vocabularies
+  confirms `Process.process_audience` enum matches the controlled
+  vocabulary in `classifications.yaml`).
+- `tests/runtime/`: **290/290 pass**.
+- `scripts/detect_drift.py`: surfaces expected downstream drift in
+  `dea-catalog-processes` and `dea-catalog-business-capabilities` (the
+  follow-up per-repo migration PRs).

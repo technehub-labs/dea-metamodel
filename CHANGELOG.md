@@ -4,6 +4,64 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [2.3.0-migration] - 2026-09-07
+
+CR-MM-ECF-01 implementation: ECF domain enum migration to the v2.3.0
+canonical Domain set (carried by `technehub-labs/dea-metaframework` v2.3.0;
+CR-ECF-006 + ADR-ECF-001). Five of seven Domains renamed; one Domain
+replaced (Supply & Resources -> Strategy & Direction). The metamodel
+profile preserves the kebab-case restatement per CR-MM-ECF-01 §3.1
+but updates the kebab-case values to the v2.3.0 set.
+
+This is a non-canonical-version migration; the metamodel's own semver
+(v3.0.0-alpha) is unchanged. It is the first consumer of the
+post-gate downstream reconciliation programme (CR-MM-ECF-01).
+
+### Changed
+
+- **Kebab-case Domain restatement (CR-MM-ECF-01 §3.1, v2.3.0):**
+
+  | # | Before (v2.2.0) | After (v2.3.0) |
+  |---|------------------|------------------|
+  | 1 | `governance-existence` | `governance-existence` (unchanged) |
+  | 2 | `supply-resources` | `strategy-direction` |
+  | 3 | `people-organization` | `people-organization` (unchanged) |
+  | 4 | `customer-demand` | `party-relationship` |
+  | 5 | `product-offering` | `product-value` |
+  | 6 | `operations-delivery` | `operations-enablement` |
+  | 7 | `finance-value` | `finance-accounting` |
+
+- `schemas/entities/business-object.json`: `ecf_domain` enum updated to the v2.3.0 kebab-case set.
+- `schemas/entities/organizational-unit.json`: `ecf_domain` enum updated to the v2.3.0 kebab-case set.
+- `schemas/entities/process.json`: `process_audience` enum updated to the v2.3.0 kebab-case set.
+- `scripts/validate_ecf_kebab_restatement.py`: `DOMAIN_KEBAB_TO_PASCAL` mapping table updated; the broken-schema self-test fixture updated to use the new v2.3.0 values.
+- `sqlite/schema.sql`: the three `process_audience`, `ecf_domain` CHECK constraints (on `processes`, `business_objects`, `organizational_units`) updated to the v2.3.0 kebab-case set.
+- `sqlite/dea-metamodel.db`: regenerated from the updated `schema.sql` (clean rebuild via the Python `sqlite3` module; the schema-only dry-run in CI was already validating the source of truth).
+- `pydantic/process.py`: `process_audience: Literal[...]` updated to the v2.3.0 kebab-case set.
+- `metamodel/vocabularies/classifications.yaml`: the three controlled-vocabulary enums (`BusinessObject.ecf_domain`, `OrganizationalUnit.ecf_domain`, `Process.process_audience`) updated to the v2.3.0 kebab-case set.
+- `scripts/detect_drift.py`: `DOMAIN_ID` PascalCase-to-lowerCamelCase mapping updated to the v2.3.0 set.
+- `typescript/src/interfaces.ts`: both the `EcfDomain` type alias and the `ProcessAudience` type alias updated to the v2.3.0 kebab-case set.
+- `change-requests/CR-MM-ECF-01.md`: the proposal's domain mapping table (§3.1) and the references throughout updated to the v2.3.0 set. CR status flips to **Merged** with this PR.
+- `docs/concepts/terminology-alignment.md`, `docs/ecf-profile.md`, `docs/glossary.md`, `docs/process-type-taxonomy.md`: every reference to the old Domain names and identifiers updated; the audience-table in `process-type-taxonomy.md` rewritten to the v2.3.0 mapping (including the v1->v2 migration table).
+
+### Verification
+
+- `scripts/validate_ecf_kebab_restatement.py`: **PASS** (every kebab-case value in `business-object.json` and `organizational-unit.json` resolves 1:1 to the v2.3.0 canonical PascalCase enum).
+- `scripts/validate_ecf_kebab_restatement.py --self-test`: **PASS** (built-in broken-schema self-test detects the v2.3.0 rogue-domain and missing-Domains cases).
+- `tests/conformance/`: **133/133 pass** (E005 classification-vocabularies test confirms `Process.process_audience` enum in `process.json` matches the controlled vocabulary in `classifications.yaml`).
+- `tests/runtime/`: **290/290 pass** (no regression in the runtime ontology scenario/provenance/interop tests).
+- `scripts/detect_drift.py`: correctly surfaces downstream drift in `dea-catalog-processes` and `dea-catalog-business-capabilities` (old v2.2.0 identifiers detected in their entity YAMLs); these are the per-repo migration PRs that follow this one.
+
+### Downstream impact (NOT in this PR; separate per-repo migration PRs)
+
+The same kebab-case rename propagates to:
+
+- `dea-catalog-processes` (43+ files; carrier: CR-BP-ECF-01)
+- `dea-catalog-business-capabilities` (51+ files; carrier: CR-BC-ECF-01)
+- `dea-catalog-stakeholders`, `dea-catalog-actors`, `dea-catalog-digital-business-service-factory` (per-repo migration)
+
+Until those land, the `detect_drift.py` output is expected to surface their old identifiers.
+
 ## [Unreleased]: CR-MM-PROC-01: Process Kernel + Business Process Specialization
 
 Introduces the OpenDEA Process kernel + specializations discipline,

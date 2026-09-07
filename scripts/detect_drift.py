@@ -46,12 +46,12 @@ COORD_SCHEMA = FWK / 'schemas' / 'ecf-coordinate.schema.json'
 # changes this mapping, update this table.
 DOMAIN_ID = {
     'GovernanceAndExistence': 'governanceExistence',
-    'SupplyAndResources': 'supplyResources',
+    'StrategyAndDirection': 'strategyDirection',
     'PeopleAndOrganization': 'peopleOrganization',
-    'CustomerAndDemand': 'customerDemand',
-    'ProductAndOffering': 'productOffering',
-    'OperationsAndDelivery': 'operationsDelivery',
-    'FinanceAndValue': 'financeValue',
+    'PartyAndRelationship': 'partyRelationship',
+    'ProductAndValue': 'productValue',
+    'OperationsAndEnablement': 'operationsEnablement',
+    'FinanceAndAccounting': 'financeAccounting',
 }
 STAGE_ID = {
     'Conceive': 'conceive',

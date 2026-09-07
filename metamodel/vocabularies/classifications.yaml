@@ -61,12 +61,12 @@ classifications:
     property: ecf_domain
     values:
     - governance-existence
-    - supply-resources
+    - strategy-direction
     - people-organization
-    - customer-demand
-    - product-offering
-    - operations-delivery
-    - finance-value
+    - party-relationship
+    - product-value
+    - operations-enablement
+    - finance-accounting
   BusinessObject.ecf_stage:
     entity: BusinessObject
     property: ecf_stage
@@ -324,12 +324,12 @@ classifications:
     property: ecf_domain
     values:
     - governance-existence
-    - supply-resources
+    - strategy-direction
     - people-organization
-    - customer-demand
-    - product-offering
-    - operations-delivery
-    - finance-value
+    - party-relationship
+    - product-value
+    - operations-enablement
+    - finance-accounting
   OrganizationalUnit.ecf_stage:
     entity: OrganizationalUnit
     property: ecf_stage
@@ -353,12 +353,12 @@ classifications:
     property: process_audience
     values:
     - governance-existence
-    - supply-resources
+    - strategy-direction
     - people-organization
-    - customer-demand
-    - product-offering
-    - operations-delivery
-    - finance-value
+    - party-relationship
+    - product-value
+    - operations-enablement
+    - finance-accounting
   Resource.resource_kind:
     entity: Resource
     property: resource_kind

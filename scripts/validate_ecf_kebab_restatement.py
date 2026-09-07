@@ -6,17 +6,17 @@ value used in the `ecf_domain` and `ecf_stage` enums of
 `schemas/entities/organizational-unit.json` resolves 1:1 to a canonical
 PascalCase value in `dea-metaframework/schemas/ecf-{domain,stage}.schema.json`.
 
-Resolution rules (normative per CR-MM-ECF-01 §3.1):
+Resolution rules (normative per CR-MM-ECF-01 §3.1, v2.3.0):
 
 Domain:
     kebab-case -> PascalCase -> lowerCamelCase (identifier suffix)
-    governance-existence -> GovernanceAndExistence -> governanceExistence
-    supply-resources    -> SupplyAndResources       -> supplyResources
-    people-organization -> PeopleAndOrganization     -> peopleOrganization
-    customer-demand     -> CustomerAndDemand         -> customerDemand
-    product-offering    -> ProductAndOffering        -> productOffering
-    operations-delivery -> OperationsAndDelivery    -> operationsDelivery
-    finance-value       -> FinanceAndValue           -> financeValue
+    governance-existence   -> GovernanceAndExistence   -> governanceExistence
+    strategy-direction     -> StrategyAndDirection     -> strategyDirection
+    people-organization    -> PeopleAndOrganization    -> peopleOrganization
+    party-relationship     -> PartyAndRelationship     -> partyRelationship
+    product-value          -> ProductAndValue          -> productValue
+    operations-enablement  -> OperationsAndEnablement  -> operationsEnablement
+    finance-accounting     -> FinanceAndAccounting     -> financeAccounting
 
 Stage:
     kebab-case == PascalCase (lowerCamelCase is the same word for all seven).
@@ -74,17 +74,17 @@ RESTATING_SCHEMAS = (
     REPO / "schemas" / "entities" / "organizational-unit.json",
 )
 
-# Normative kebab-case -> PascalCase mapping (CR-MM-ECF-01 §3.1).
+# Normative kebab-case -> PascalCase mapping (CR-MM-ECF-01 §3.1, v2.3.0).
 # Lower-case keys so lookups are case-insensitive against the kebab-case
 # values found in JSON enums.
 DOMAIN_KEBAB_TO_PASCAL = {
     "governance-existence": "GovernanceAndExistence",
-    "supply-resources": "SupplyAndResources",
+    "strategy-direction": "StrategyAndDirection",
     "people-organization": "PeopleAndOrganization",
-    "customer-demand": "CustomerAndDemand",
-    "product-offering": "ProductAndOffering",
-    "operations-delivery": "OperationsAndDelivery",
-    "finance-value": "FinanceAndValue",
+    "party-relationship": "PartyAndRelationship",
+    "product-value": "ProductAndValue",
+    "operations-enablement": "OperationsAndEnablement",
+    "finance-accounting": "FinanceAndAccounting",
 }
 
 STAGE_KEBAB_TO_PASCAL = {
@@ -231,9 +231,9 @@ def run_self_test() -> tuple[bool, list[str]]:
                 "type": "string",
                 "enum": [
                     "governance-existence",
-                    "supply-resources",
+                    "strategy-direction",
                     # intentionally missing several canonical domains
-                    "finance-value",
+                    "finance-accounting",
                     # intentionally introduces a non-canonical value
                     "rogue-domain",
                 ],

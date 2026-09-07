@@ -93,12 +93,12 @@
       "type": "string",
       "enum": [
         "governance-existence",
-        "supply-resources",
+        "strategy-direction",
         "people-organization",
-        "customer-demand",
-        "product-offering",
-        "operations-delivery",
-        "finance-value"
+        "party-relationship",
+        "product-value",
+        "operations-enablement",
+        "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework domain that this object primarily belongs to. Axiom-derived — see technehub-labs/dea-metaframework REPORT.md §2."
     },

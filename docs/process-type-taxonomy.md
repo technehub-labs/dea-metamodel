@@ -57,12 +57,12 @@ from the grounding axiom:
 | Value | Domain | Definition |
 |---|---|---|
 | `governance-existence` | 1 | The precondition of boundedness — what defines the entity, what rules apply. |
-| `supply-resources` | 2 | The substrate the enterprise persists on — physical or virtual assets and capacity. |
+| `strategy-direction` | 2 | The substrate the enterprise persists on — physical or virtual assets and capacity. |
 | `people-organization` | 3 | The humans who perform every capability and the structure that organizes them. |
-| `customer-demand` | 4 | The people whose need the entity meets, and the demand they generate. |
-| `product-offering` | 5 | The catalog of what the enterprise offers — design, packaging, release, retirement. |
-| `operations-delivery` | 6 | The engine that turns an offering into a delivered outcome. |
-| `finance-value` | 7 | The measurement of value created, consumed, and retained. |
+| `party-relationship` | 4 | The people whose need the entity meets, and the demand they generate. |
+| `product-value` | 5 | The catalog of what the enterprise offers — design, packaging, release, retirement. |
+| `operations-enablement` | 6 | The engine that turns an offering into a delivered outcome. |
+| `finance-accounting` | 7 | The measurement of value created, consumed, and retained. |
 
 **Boundary rule:** assign the domain whose work the process most
 advances. A single process has exactly one primary audience.
@@ -74,8 +74,8 @@ community / board) are **not** the right axis for process audience.
 The same stakeholder can participate in processes whose primary
 audience differs:
 
-- A channel partner can be `customer-demand` (they help acquire
-  customers) or `product-offering` (they co-shape what is offered),
+- A channel partner can be `party-relationship` (they help acquire
+  customers) or `product-value` (they co-shape what is offered),
   depending on the process.
 - A regulator is `governance-existence` — they participate in a
   governance activity, not in a regulator service.
@@ -121,7 +121,7 @@ follows (best-effort, requires manual review):
 
 | v1 value | Likely v2 mapping |
 |---|---|
-| `business` | `process_intent`: depends on the work — typically `operational`. `process_audience`: typically `customer-demand`, `partner-facing` work → `customer-demand` or `product-offering`, `supplier-facing` work → `supply-resources`. |
+| `business` | `process_intent`: depends on the work — typically `operational`. `process_audience`: typically `party-relationship`, `partner-facing` work → `party-relationship` or `product-value`, `supplier-facing` work → `strategy-direction`. |
 | `operational` | `process_intent`: `operational`. `process_audience`: depends on whose work. |
 | `support` | `process_intent`: `support`. `process_audience`: depends. |
 | `management` | `process_intent`: `management`. `process_audience`: depends. |
@@ -136,17 +136,17 @@ clean.
 
 | Process | `process_intent` | `process_audience` |
 |---|---|---|
-| Acquire customer via digital channel | `operational` | `customer-demand` |
-| Quarterly customer-success review | `management` | `customer-demand` |
-| Provide customer onboarding training | `support` | `customer-demand` |
-| Onboard alliance partner under revenue-share | `operational` | `product-offering` |
-| Operate channel-partner portal | `operational` | `customer-demand` |
-| Source new logistics vendor | `operational` | `supply-resources` |
-| Annual supplier performance review | `management` | `supply-resources` |
-| Procure cloud capacity from hyperscaler | `operational` | `supply-resources` |
-| Run nightly batch reconciliation | `operational` | `operations-delivery` |
-| Provide internal IT helpdesk | `support` | `supply-resources` |
-| Set annual corporate budget | `management` | `finance-value` |
+| Acquire customer via digital channel | `operational` | `party-relationship` |
+| Quarterly customer-success review | `management` | `party-relationship` |
+| Provide customer onboarding training | `support` | `party-relationship` |
+| Onboard alliance partner under revenue-share | `operational` | `product-value` |
+| Operate channel-partner portal | `operational` | `party-relationship` |
+| Source new logistics vendor | `operational` | `strategy-direction` |
+| Annual supplier performance review | `management` | `strategy-direction` |
+| Procure cloud capacity from hyperscaler | `operational` | `strategy-direction` |
+| Run nightly batch reconciliation | `operational` | `operations-enablement` |
+| Provide internal IT helpdesk | `support` | `strategy-direction` |
+| Set annual corporate budget | `management` | `finance-accounting` |
 | File GDPR DPIA to regulator | `management` | `governance-existence` |
 | Operate internal payroll | `operational` | `people-organization` |
 | Conduct annual performance review | `management` | `people-organization` |

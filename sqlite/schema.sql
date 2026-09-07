@@ -94,8 +94,14 @@ CREATE TABLE processes (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     process_intent      TEXT NOT NULL CHECK(process_intent IN ('operational','support','management')),
     process_audience    TEXT NOT NULL CHECK(process_audience IN (
-                            'governance-existence','supply-resources','people-organization',
-                            'customer-demand','product-offering','operations-delivery','finance-value')),
+                            'governance-existence',
+                            'strategy-direction',
+                            'people-organization',
+                            'party-relationship',
+                            'product-value',
+                            'operations-enablement',
+                            'finance-accounting'
+                            )),
     trigger             TEXT,
     outcome             TEXT
 );
@@ -111,8 +117,14 @@ CREATE TABLE business_objects (
     object_class        TEXT NOT NULL,
     object_subclass     TEXT,
     ecf_domain          TEXT NOT NULL CHECK(ecf_domain IN (
-                            'governance-existence','supply-resources','people-organization',
-                            'customer-demand','product-offering','operations-delivery','finance-value')),
+                            'governance-existence',
+                            'strategy-direction',
+                            'people-organization',
+                            'party-relationship',
+                            'product-value',
+                            'operations-enablement',
+                            'finance-accounting'
+                            )),
     ecf_stage           TEXT NOT NULL CHECK(ecf_stage IN (
                             'conceive','design','build','activate','operate','improve','retire')),
     current_state       TEXT,
@@ -140,8 +152,14 @@ CREATE TABLE organizational_units (
     ou_lifecycle        TEXT NOT NULL CHECK(ou_lifecycle IN (
                             'permanent','temporary','ad-hoc','sunsetting')),
     ecf_domain          TEXT CHECK(ecf_domain IN (
-                            'governance-existence','supply-resources','people-organization',
-                            'customer-demand','product-offering','operations-delivery','finance-value')),
+                            'governance-existence',
+                            'strategy-direction',
+                            'people-organization',
+                            'party-relationship',
+                            'product-value',
+                            'operations-enablement',
+                            'finance-accounting'
+                            )),
     ecf_stage           TEXT CHECK(ecf_stage IN (
                             'conceive','design','build','activate','operate','improve','retire')),
     cost_center         TEXT,

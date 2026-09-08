@@ -50,7 +50,7 @@ DOMAIN_ID = {
     'AgencyAndOrganization': 'agencyOrganization',
     'PartyAndRelationship': 'partyRelationship',
     'ProductAndValue': 'productValue',
-    'OperationsAndEnablement': 'operationsEnablement',
+    'EnablementAndOperations': 'enablementAndOperations',
     'FinanceAndAccounting': 'financeAccounting',
 }
 STAGE_ID = {

@@ -61,7 +61,7 @@ from the grounding axiom:
 | `agency-organization` | 3 | The humans who perform every capability and the structure that organizes them. |
 | `party-relationship` | 4 | The people whose need the entity meets, and the demand they generate. |
 | `product-value` | 5 | The catalog of what the enterprise offers — design, packaging, release, retirement. |
-| `operations-enablement` | 6 | The engine that turns an offering into a delivered outcome. |
+| `enablement-operations` | 6 | The engine that turns an offering into a delivered outcome. |
 | `finance-accounting` | 7 | The measurement of value created, consumed, and retained. |
 
 **Boundary rule:** assign the domain whose work the process most
@@ -144,7 +144,7 @@ clean.
 | Source new logistics vendor | `operational` | `strategy-direction` |
 | Annual supplier performance review | `management` | `strategy-direction` |
 | Procure cloud capacity from hyperscaler | `operational` | `strategy-direction` |
-| Run nightly batch reconciliation | `operational` | `operations-enablement` |
+| Run nightly batch reconciliation | `operational` | `enablement-operations` |
 | Provide internal IT helpdesk | `support` | `strategy-direction` |
 | Set annual corporate budget | `management` | `finance-accounting` |
 | File GDPR DPIA to regulator | `management` | `governance-existence` |

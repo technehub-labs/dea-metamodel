@@ -85,7 +85,7 @@
         "agency-organization",
         "party-relationship",
         "product-value",
-        "operations-enablement",
+        "enablement-operations",
         "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."

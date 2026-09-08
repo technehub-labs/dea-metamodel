@@ -15,7 +15,7 @@ Domain:
     agency-organization    -> AgencyAndOrganization    -> agencyOrganization
     party-relationship     -> PartyAndRelationship     -> partyRelationship
     product-value          -> ProductAndValue          -> productValue
-    operations-enablement  -> OperationsAndEnablement  -> operationsEnablement
+    enablement-operations  -> EnablementAndOperations  -> enablementAndOperations
     finance-accounting     -> FinanceAndAccounting     -> financeAccounting
 
 Stage:
@@ -83,7 +83,7 @@ DOMAIN_KEBAB_TO_PASCAL = {
     "agency-organization": "AgencyAndOrganization",
     "party-relationship": "PartyAndRelationship",
     "product-value": "ProductAndValue",
-    "operations-enablement": "OperationsAndEnablement",
+    "enablement-operations": "EnablementAndOperations",
     "finance-accounting": "FinanceAndAccounting",
 }
 

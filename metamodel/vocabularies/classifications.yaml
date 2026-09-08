@@ -65,7 +65,7 @@ classifications:
     - agency-organization
     - party-relationship
     - product-value
-    - operations-enablement
+    - enablement-operations
     - finance-accounting
   BusinessObject.ecf_stage:
     entity: BusinessObject
@@ -328,7 +328,7 @@ classifications:
     - agency-organization
     - party-relationship
     - product-value
-    - operations-enablement
+    - enablement-operations
     - finance-accounting
   OrganizationalUnit.ecf_stage:
     entity: OrganizationalUnit
@@ -357,7 +357,7 @@ classifications:
     - agency-organization
     - party-relationship
     - product-value
-    - operations-enablement
+    - enablement-operations
     - finance-accounting
   Resource.resource_kind:
     entity: Resource

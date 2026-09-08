@@ -99,7 +99,7 @@ CREATE TABLE processes (
                             'agency-organization',
                             'party-relationship',
                             'product-value',
-                            'operations-enablement',
+                            'enablement-operations',
                             'finance-accounting'
                             )),
     trigger             TEXT,
@@ -122,7 +122,7 @@ CREATE TABLE business_objects (
                             'agency-organization',
                             'party-relationship',
                             'product-value',
-                            'operations-enablement',
+                            'enablement-operations',
                             'finance-accounting'
                             )),
     ecf_stage           TEXT NOT NULL CHECK(ecf_stage IN (
@@ -157,7 +157,7 @@ CREATE TABLE organizational_units (
                             'agency-organization',
                             'party-relationship',
                             'product-value',
-                            'operations-enablement',
+                            'enablement-operations',
                             'finance-accounting'
                             )),
     ecf_stage           TEXT CHECK(ecf_stage IN (

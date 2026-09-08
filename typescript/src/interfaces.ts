@@ -213,7 +213,7 @@ export type ProcessAudience =
   | 'agency-organization'
   | 'party-relationship'
   | 'product-value'
-  | 'operations-enablement'
+  | 'enablement-operations'
   | 'finance-accounting';
 
 export interface Process extends BaseEntity {
@@ -244,7 +244,7 @@ export type EcfDomain =
   | 'agency-organization'
   | 'party-relationship'
   | 'product-value'
-  | 'operations-enablement'
+  | 'enablement-operations'
   | 'finance-accounting';
 
 export type EcfStage =

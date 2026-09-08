@@ -101,6 +101,35 @@ def canonical_stages() -> set[str]:
 def canonical_id_space() -> set[str]:
     return {f"ecf:{DOMAIN_ID[d]}.{STAGE_ID[s]}" for d in canonical_domains() for s in canonical_stages()}
 
+
+# Deprecated-form alias resolver (CR-ECF-008 / ADR-ECF-003). Mirrors
+# the alias map in dea-metaframework:tools/ecf_coordinates.py:DOMAIN_ALIASES
+# for the detector's local needs. After the catalog cascade is complete
+# (CR-MM-ECF-03 downstream CRs), this resolver may be removed.
+DEPRECATED_DOMAIN_ALIASES = {
+    'OperationsAndEnablement': 'EnablementAndOperations',
+}
+DEPRECATED_DOMAIN_ID_ALIASES = {
+    'operationsEnablement': 'enablementAndOperations',
+}
+
+def resolve_domain(d: str | None) -> str | None:
+    if d is None:
+        return d
+    return DEPRECATED_DOMAIN_ALIASES.get(d, d)
+
+def resolve_identifier(ident: str | None) -> str | None:
+    if ident is None:
+        return ident
+    # Replace the lowerCamelCase identifier suffix after `ecf:` if it's a deprecated form.
+    if ident.startswith('ecf:'):
+        rest = ident[len('ecf:'):]
+        if '.' in rest:
+            head, tail = rest.split('.', 1)
+            new_head = DEPRECATED_DOMAIN_ID_ALIASES.get(head, head)
+            return f'ecf:{new_head}.{tail}'
+    return ident
+
 def main():
     strict = '--strict' in sys.argv
     findings: list[tuple[str, str, str]] = []  # (severity, repo, message)
@@ -161,20 +190,26 @@ def main():
                 # assertions.
                 if ref.get('kind') != 'coordinate':
                     continue
-                d = ref.get('domain'); s = ref.get('stage'); ident = ref.get('identifier') or ''
-                if d not in canonical_domains_set:
-                    hard.append(('FAIL', root.name, f"{fp}: canonical reference domain '{d}' not in canonical enum"))
+                d_raw = ref.get('domain'); s = ref.get('stage'); ident_raw = ref.get('identifier') or ''
+                # Alias-resolve deprecated v2.4.0 forms to v2.5.0 canonical
+                # (CR-ECF-008 / ADR-ECF-003). The catalog cascade migrates
+                # entity files; this resolver validates pre-cascade catalogs.
+                d = resolve_domain(d_raw)
+                ident = resolve_identifier(ident_raw) or ''
+                if d is not None and d not in canonical_domains_set:
+                    hard.append(('FAIL', root.name, f"{fp}: canonical reference domain '{d_raw}' not in canonical enum"))
                 if s not in canonical_stages_set:
                     hard.append(('FAIL', root.name, f"{fp}: canonical reference stage '{s}' not in canonical enum"))
                 if not ID_PATTERN.match(ident):
-                    hard.append(('FAIL', root.name, f"{fp}: identifier '{ident}' does not match canonical lowerCamelCase pattern"))
+                    hard.append(('FAIL', root.name, f"{fp}: identifier '{ident_raw}' does not match canonical lowerCamelCase pattern"))
                 elif ident not in canonical_ids:
-                    hard.append(('FAIL', root.name, f"{fp}: identifier '{ident}' not in canonical 49-space"))
+                    hard.append(('FAIL', root.name, f"{fp}: identifier '{ident_raw}' not in canonical 49-space"))
                 # Identifier ↔ (domain, stage) cross-check (CG-005 Invariant 3).
+                # Use the alias-resolved (d, ident) so deprecated forms check OK.
                 if ident.startswith('ecf:') and d in DOMAIN_ID and s in STAGE_ID:
                     expected = f"ecf:{DOMAIN_ID[d]}.{STAGE_ID[s]}"
                     if ident != expected:
-                        hard.append(('FAIL', root.name, f"{fp}: identifier '{ident}' does not match (domain={d}, stage={s}); expected '{expected}'"))
+                        hard.append(('FAIL', root.name, f"{fp}: identifier '{ident_raw}' does not match (domain={d_raw}, stage={s}); expected '{expected}'"))
 
     # Terminology drift (CG-005 Invariant 8): grep the consumer repos for
     # incorrect expansions.

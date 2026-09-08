@@ -4,6 +4,14 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [2.5.0-migration] - 2026-09-08
+
+CR-MM-ECF-03 implementation: ECF domain enum migration to the v2.5.0 canonical Domain set (carried by `technehub-labs/dea-metaframework` v2.5.0; CR-ECF-008 + ADR-ECF-003). One of seven Domains renamed: Domain 6 `OperationsAndEnablement` → `EnablementAndOperations` (kebab-case `operations-enablement` → `enablement-operations`; lowerCamelCase `operationsEnablement` → `enablementAndOperations`; Python identifier `operations_enablement` → `enablement_and_operations`), driven by the Domain/Stage Orthogonality Stress Test. The metamodel profile preserves the kebab-case restatement per CR-MM-ECF-01 §3.1 and updates the kebab-case value to the new canonical form. Backward-compat aliases preserved in `dea-metaframework:tools/ecf_coordinates.py:DOMAIN_ALIASES` for at least 2 release cycles. The metamodel's catalog ID abbreviation `oe` is unchanged (stable; not re-keyed).
+
+**Files touched**: 14 files + 1 new CR carrier + 1 CHANGELOG section. See `change-requests/CR-MM-ECF-03.md` for the full mapping table and validation evidence.
+
+**Unchanged**: Domain number (6), matrix position (row 6), semantic anchor (`Execution`), axiomatic grounding ("persists" + "exchanging value"), domain scope, lifecycle applicability, seven-Domain partition, seven lifecycle Stages, Stage 5 name (`Operate`), and the `ECF = Domain × Stage = 49 coordinates` construction.
+
 ## [2.4.0-migration] - 2026-09-07
 
 CR-MM-ECF-02 implementation: ECF domain enum migration to the v2.4.0
@@ -44,7 +52,7 @@ post-gate downstream reconciliation programme (CR-MM-ECF-01).
   | 3 | `agency-organization` | `agency-organization` (unchanged) |
   | 4 | `customer-demand` | `party-relationship` |
   | 5 | `product-offering` | `product-value` |
-  | 6 | `operations-delivery` | `operations-enablement` |
+  | 6 | `operations-delivery` | `enablement-operations` |
   | 7 | `finance-value` | `finance-accounting` |
 
 - `schemas/entities/business-object.json`: `ecf_domain` enum updated to the v2.3.0 kebab-case set.

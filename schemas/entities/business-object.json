@@ -97,7 +97,7 @@
         "agency-organization",
         "party-relationship",
         "product-value",
-        "operations-enablement",
+        "enablement-operations",
         "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework domain that this object primarily belongs to. Axiom-derived — see technehub-labs/dea-metaframework REPORT.md §2."

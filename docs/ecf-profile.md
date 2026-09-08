@@ -60,7 +60,7 @@ Updates require a new CR.
 | `agency-organization` | `AgencyAndOrganization` | `agencyOrganization` |
 | `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
 | `product-value` | `ProductAndValue` | `productValue` |
-| `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |
+| `enablement-operations` | `EnablementAndOperations` | `enablementAndOperations` |
 | `finance-accounting` | `FinanceAndAccounting` | `financeAccounting` |
 
 Stage mapping (kebab-case is identical to lowerCamelCase for all

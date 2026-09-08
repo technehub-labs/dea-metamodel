@@ -114,7 +114,7 @@
         "agency-organization",
         "party-relationship",
         "product-value",
-        "operations-enablement",
+        "enablement-operations",
         "finance-accounting"
       ],
       "description": "The Enterprise Concept Framework domain this unit primarily serves. Optional — units that span domains (e.g. COO office) may leave this unset or set a 'multi' marker via tags."

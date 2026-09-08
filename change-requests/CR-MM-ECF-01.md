@@ -81,7 +81,7 @@ restating schemas:
 | `agency-organization` | `AgencyAndOrganization` | `agencyOrganization` |
 | `party-relationship` | `PartyAndRelationship` | `partyRelationship` |
 | `product-value` | `ProductAndValue` | `productValue` |
-| `operations-enablement` | `OperationsAndEnablement` | `operationsEnablement` |
+| `enablement-operations` | `EnablementAndOperations` | `enablementAndOperations` |
 | `finance-accounting` | `FinanceAndAccounting` | `financeAccounting` |
 
 Stage mapping (kebab-case is the same as PascalCase lowerCamelCase for
@@ -255,7 +255,7 @@ were renamed and one was replaced:
 | `agency-organization` | `agency-organization` (unchanged) |
 | `customer-demand` | `party-relationship` |
 | `product-offering` | `product-value` |
-| `operations-delivery` | `operations-enablement` |
+| `operations-delivery` | `enablement-operations` |
 | `finance-value` | `finance-accounting` |
 
 This CR's F1 closure (the kebab-case restatement validated by
@@ -344,3 +344,52 @@ mapping, the controlled vocabulary, and the docs files.
 identifiers in `tools/ecf_coordinates.py:DOMAIN_ALIASES` for at least 2
 release cycles. Downstream consumers that have not yet migrated MAY
 resolve the alias and use the canonical value.
+
+## 13. v2.5.0 migration — Domain 6 rename (`OperationsAndEnablement` -> `EnablementAndOperations`)
+
+CR-MM-ECF-03 (2026-09-08): Domain 6 of the canonical seven-Domain ECF
+set is renamed from `OperationsAndEnablement` (v2.4.0) to
+`EnablementAndOperations` (v2.5.0), driven by the Domain/Stage
+Orthogonality Stress Test
+(`technehub-labs/dea-metaframework` ADR-ECF-003 §5; CR-ECF-008).
+
+### 13.1 What changed
+
+The kebab-case restatement values in the entity schemas are updated to
+the v2.5.0 set: `operations-enablement` -> `enablement-operations`.
+The PascalCase enum in `dea-metaframework` v2.5.0 is the source of
+truth (`EnablementAndOperations`). The other six Domains are
+unchanged.
+
+Same artifacts re-keyed as in section 11: the 3 entity schemas, the
+sqlite schema + regenerated db, the pydantic Literal, the typescript
+type alias, the detector `DOMAIN_ID` map, the validator
+`DOMAIN_KEBAB_TO_PASCAL` mapping, the controlled vocabulary, and the
+docs files.
+
+### 13.2 Verification
+
+- `scripts/validate_ecf_kebab_restatement.py`: **PASS** (kebab-case
+  values resolve 1:1 to the v2.5.0 canonical PascalCase enum).
+- `scripts/validate_ecf_kebab_restatement.py --self-test`: **PASS**.
+- `tests/conformance/`: **133/133 pass**.
+- `tests/runtime/`: **290/290 pass**.
+
+### 13.3 Backward compatibility
+
+`technehub-labs/dea-metaframework` v2.5.0 preserves the deprecated
+identifiers in `tools/ecf_coordinates.py:DOMAIN_ALIASES` for at least
+2 release cycles (the alias map covers all five deprecated forms:
+`OperationsAndEnablement`, `operationsAndEnablement`,
+`operations-enablement`, `Operations & Enablement`,
+`operations_and_enablement`). Downstream consumers that have not yet
+migrated MAY resolve the alias and use the canonical value.
+
+### 13.4 Rationale
+
+Domain 6 is renamed so that the leading noun (`Enablement`) is
+lexically distinct from any of the seven lifecycle Stage names. The
+previous name shared a Latin root with Stage 5 (`Operate`), obscuring
+the orthogonality that the ECF requires between the Domain axis and
+the Stage axis. See ADR-ECF-003 §5 for the lexical collision
+analysis.

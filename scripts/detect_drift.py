@@ -44,6 +44,15 @@ COORD_SCHEMA = FWK / 'schemas' / 'ecf-coordinate.schema.json'
 # Derived from the actual catalog use; matching the dea-metaframework
 # schema's lowerCamelCase identifier pattern. If dea-metaframework ever
 # changes this mapping, update this table.
+#
+# DEPRECATED KEYS (CR-ECF-008 / ADR-ECF-003): the previous names are
+# retained here during the v2.5.0 migration window so the drift detector
+# can validate consumer catalogs that have not yet migrated. After the
+# catalog cascade (CR-MM-ECF-03 downstream CRs) is complete, the
+# deprecated entries may be removed in a follow-up cleanup CR. The
+# alias resolver lives in dea-metaframework:tools/ecf_coordinates.py
+# :DOMAIN_ALIASES; this table mirrors the canonical values for the
+# detector's local needs.
 DOMAIN_ID = {
     'GovernanceAndExistence': 'governanceExistence',
     'StrategyAndDirection': 'strategyDirection',
@@ -51,6 +60,8 @@ DOMAIN_ID = {
     'PartyAndRelationship': 'partyRelationship',
     'ProductAndValue': 'productValue',
     'EnablementAndOperations': 'enablementAndOperations',
+    # DEPRECATED v2.4.0 form; remove after catalog cascade completes.
+    'OperationsAndEnablement': 'enablementAndOperations',
     'FinanceAndAccounting': 'financeAccounting',
 }
 STAGE_ID = {

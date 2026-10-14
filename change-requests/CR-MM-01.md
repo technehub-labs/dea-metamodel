@@ -6,7 +6,7 @@
 | **Title** | Maturity v2 Phase B: author `v2-beta/` maturity model YAML files for the five canonical maturity domains, with `legacy_name` aliases |
 | **Status** | Proposed |
 | **Date** | 2026-08-21 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Version** | additive (no canonical `VERSION` bump — sub-tree is `2.0.0-beta` of its own scope; v1-alpha stays canonical until Phase D) |
 | **Depends on** | CR-AM-01 (umbrella), CR-014 (Phase A landed the bands + legacy-name map), CR-015 (assessment-profile ↔ sub-tree cross-reference just landed) |
 | **Scope** | A `v2-beta/` directory inside `assessment-models/maturity/` containing one YAML per canonical maturity domain (EA Capability, Modernization, Technology, Operations, Services Delivery). Each `v2-beta/<filename>` mirrors the corresponding `v1-alpha/<filename>` from the archived `Assessment-Models/dea-catalog-maturity-models` repo, preserving every `characteristic`, `exit_criterion`, and `evidence` byte-identically, while rewriting the four scoring fields per level and adding a new `effort_multiplier`. Plus a CI validator that asserts v2-beta semantics (canonical-band alignment, legacy_name round-trip, content-field presence). Plus a `change-requests/CR-MM-01.md` file, a maturity README §6 entry, a CHANGELOG `[Unreleased]` note. |

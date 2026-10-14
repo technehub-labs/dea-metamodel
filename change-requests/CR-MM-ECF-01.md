@@ -11,7 +11,7 @@
 | **Depends On** | CR-ECF-001..005 (all merged); CR-ECF-006 (v2.3.0 domain restructure) |
 | **Sequencing** | post-gate downstream reconciliation, first in sequence |
 | **Resolves** | matrix findings F1, F2, F3 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Date** | 2026-09-03 (proposal); 2026-09-07 (v2.3.0 migration) |
 
 ## 1. Change Request

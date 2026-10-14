@@ -6,7 +6,7 @@
 | **Title** | Reconcile `schemas/entities/capability.json` with ADR-015: drop the deprecated `capability_type` requirement, resolve the undefined required `maturity_level`, and consider a Business Capability specialization schema |
 | **Status** | Proposed |
 | **Date** | 2026-09-01 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Version** | Schema patch; version handling deferred to metamodel governance (the schema change removes a requirement, which is breaking for strict consumers) |
 | **Depends on** | ADR-015 (capability classification reconciliation) |
 | **Scope** | `schemas/entities/capability.json` only; optionally a new `schemas/entities/business-capability.json`. No metamodel semantics change; no consumer change. |

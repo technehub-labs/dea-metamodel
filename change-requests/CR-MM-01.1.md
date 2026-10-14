@@ -6,7 +6,7 @@
 | **Title** | Register `scored-by-v2-bands` in the controlled vocabulary + add CR-AM-01 §42 governance fields (`steward`/`effective_date`/`review_date`) to v2-beta maturity models and Phase A registry artefacts |
 | **Status** | Proposed |
 | **Date** | 2026-08-21 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Version** | additive (no canonical `VERSION` bump; no schema, governance-policy, or model-content changes) |
 | **Depends on** | CR-MM-01 (which landed the v2-beta maturity models), CR-AM-01 §41 (controlled relationship vocabulary) + §42 (every-model governance fields), CR-014 (Phase A registry artefacts) |
 | **Scope** | Two small metadata-only changes that close two gaps surfaced by the post-CR-MM-01 / CR-AM-01 compliance audit (2026-08-21): (a) one entry added to `assessment-models/vocabulary/relationship-types.yaml` registering the new `scored-by-v2-bands` relationship type used by all 5 v2-beta YAMLs; (b) `steward`, `effective_date`, `review_date` added to all 5 v2-beta maturity YAMLs and to the 2 Phase A registry artefacts. Plus a new CI validator that asserts every `relationship_type:` value in maturity+v2-beta+examples is registered in the vocabulary (fail-fast on this gap class in the future). |

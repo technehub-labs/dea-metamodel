@@ -1,0 +1,39 @@
+name: validate-authorship
+
+# CR-BP-118b / CR-BP-118: Authorship Cardinal Rule (R1, R2) gate.
+# Runs the per-repo authorship gate (AUT-001..003) against the live
+# tree on every push and PR. The gate enforces:
+#   AUT-001: any authorship-bearing field must not contain a denylist
+#            value (Coder, Agent, Hermes, Claude, GPT, Cline, OpenAI,
+#            MiniMax, MiniMax-M3).
+#   AUT-002: any authorship-bearing field with an empty value fires.
+#   AUT-003: any authorship-bearing field with a value not in the
+#            allowlist {Emmanuel A. Otchere, TechNeHub Labs} fires
+#            (advisory under non-strict, blocking under --strict).
+# Per-repo registry: reconciliation/authorship-fields.yaml.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  authorship:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Run Authorship Cardinal Rule gate (CR-BP-118; AUT-001..003)
+        run: |
+          python3 scripts/check_authorship.py --strict
+
+      - name: Run authorship gate unit tests
+        if: always()
+        run: |
+          python3 -m pip install --quiet pytest
+          python3 -m pytest tests/test_check_authorship.py -q

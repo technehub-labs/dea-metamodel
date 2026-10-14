@@ -9,7 +9,7 @@
 | **Repository** | technehub-labs/dea-metamodel |
 | **Implements** | CR-ECF-CG-001 |
 | **Depends On** | CR-ECF-005, CR-ECF-CG-001 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Date** | 2026-09-01 |
 
 ## 1. Purpose

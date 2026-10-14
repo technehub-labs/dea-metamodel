@@ -4,6 +4,27 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows
 `docs/versioning.md`.
 
+## [Unreleased]
+
+### CR-MM-04: Authorship Cardinal Rule (R1, R2) - Org-Wide Propagation Slice
+
+User directive 2026-10-13: "no `Coder` / `Agent` / agent or tool names in any
+authorship field of any published artifact". The CR-BP-118 cardinal rules (R1
+and R2) are propagated to this repo. New blocking gate
+`scripts/check_authorship.py` (CR-BP-118 / AUT-001..003), data-driven from
+`reconciliation/authorship-fields.yaml` (allowlist
+`{Emmanuel A. Otchere, TechNeHub Labs}`; denylist
+`{Coder, Agent, Hermes, Claude, GPT, Cline, OpenAI, MiniMax, MiniMax-M3}`).
+A retroactive sweep rewrites every authorship-metadata hit in the repo: 13
+files, 13 textual replacements. 0 entity content changes; 0 id changes; 0
+cross-reference changes. The metamodel repo's CR docs use TWO styles for the
+Owner/Author field: the standard bold-key form (`**Owner**:` /
+`**Author**:`) and a legacy bare-key form (`Owner:` without bold; used in
+CR-MM-ECF-02 and CR-MM-ECF-03). The registry enumerates both shapes. CI
+wiring: new workflow `.github/workflows/validate-authorship.yml` runs the
+gate in `--strict` mode on every push and PR. 21/21 `test_check_authorship`
+pass. Carrier: `change-requests/CR-MM-04-authorship-cardinal-rule.md`.
+
 ## [2.5.0-migration] - 2026-09-08
 
 CR-MM-ECF-03 implementation: ECF domain enum migration to the v2.5.0 canonical Domain set (carried by `technehub-labs/dea-metaframework` v2.5.0; CR-ECF-008 + ADR-ECF-003). One of seven Domains renamed: Domain 6 `OperationsAndEnablement` → `EnablementAndOperations` (kebab-case `operations-enablement` → `enablement-operations`; lowerCamelCase `operationsEnablement` → `enablementAndOperations`; Python identifier `operations_enablement` → `enablement_and_operations`), driven by the Domain/Stage Orthogonality Stress Test. The metamodel profile preserves the kebab-case restatement per CR-MM-ECF-01 §3.1 and updates the kebab-case value to the new canonical form. Backward-compat aliases preserved in `dea-metaframework:tools/ecf_coordinates.py:DOMAIN_ALIASES` for at least 2 release cycles. The metamodel's catalog ID abbreviation `oe` is unchanged (stable; not re-keyed).

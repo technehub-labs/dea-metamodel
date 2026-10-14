@@ -1,0 +1,42 @@
+# Cardinal authorship-field registry (CR-BP-118b; this repo's slice).
+# Adding a new field here is a CR-level change; do not edit casually.
+# The dea-metamodel repo's CR docs use TWO styles for the Owner/Author
+# field: the standard **Owner**: / **Author**: (bold) form, and a
+# legacy bare Owner: / Author: form (used in CR-MM-ECF-02 and
+# CR-MM-ECF-03). Both shapes are scoped; the gate's field extractor
+# handles each via the registry.
+
+fields:
+  # Standard CR-doc metadata (bold-key form). Same as 118a.
+  - path: "**Owner**"                # CR doc metadata
+    file_glob: "change-requests/CR-*.md"
+    kind: "metadata"
+  - path: "**Author**"               # CR doc metadata
+    file_glob: "change-requests/CR-*.md"
+    kind: "metadata"
+
+  # Legacy CR-doc metadata (bare-key form). Metamodel-specific:
+  # CR-MM-ECF-02 and CR-MM-ECF-03 carry the Owner field without bold
+  # markers (legacy CR template that predates the org-wide bold-key
+  # convention). The bare-key form is registered here so the gate
+  # enforces R1 on these files too.
+  - path: "Owner"                    # legacy CR doc metadata
+    file_glob: "change-requests/CR-*.md"
+    kind: "metadata"
+
+allowlist:
+  - "Emmanuel A. Otchere"
+  - "TechNeHub Labs"
+
+# Agent / tool names that may never appear in an authorship-bearing field.
+# `eaojnr` is allowed as a historical record (user handle alone, no agent prefix).
+denylist:
+  - "Coder"
+  - "Agent"
+  - "Hermes"
+  - "Claude"
+  - "GPT"
+  - "Cline"
+  - "OpenAI"
+  - "MiniMax"
+  - "MiniMax-M3"

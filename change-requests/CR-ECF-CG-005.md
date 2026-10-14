@@ -9,7 +9,7 @@
 | **Scope** | ECF-consuming OpenDEA repositories |
 | **Implements** | CR-ECF-CG-001 |
 | **Depends On** | CR-ECF-CG-002, CR-ECF-CG-003, CR-ECF-CG-004 |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Date** | 2026-09-01 |
 
 This is what turns the four individual validations into an actual gate across the ecosystem.

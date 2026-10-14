@@ -2,7 +2,7 @@
 
 Status: Accepted
 Layer: Metamodel
-Owner: Coder (for eaojnr)
+Owner: Emmanuel A. Otchere
 Depends on: CR-ECF-008 (governed by ADR-ECF-003); CR-MM-ECF-02 (the v2.4.0 migration carrier)
 Companion to: CR-BP-23 (dea-catalog-processes); CR-BC-ECF-03 (dea-catalog-business-capabilities); CR-BO-02 (dea-catalog-business-objects); CR-OU-02 (dea-catalog-organizational-units)
 Date: 2026-09-08

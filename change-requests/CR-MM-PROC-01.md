@@ -9,7 +9,7 @@
 | **Scope** | `technehub-labs/dea-metamodel` |
 | **Predecessor** | CR-016 (Capability kernel + specializations precedent); ADR-015; ADR-WSF-04; ADR-WSF-07; CR-BP-01 (catalog-side, superseded premise; see §15) |
 | **Authority** | WSF (`World-Semantic-Foundation` local; not yet on GitHub). WSF `Process` is a Tier-3 derived construct — structural activity organization. |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Date** | 2026-09-03 |
 
 ## 1. Change Request

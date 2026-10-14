@@ -8,7 +8,7 @@
 | **Type** | CI / Validation |
 | **Implements** | CR-ECF-CG-005 |
 | **Scope** | ECF-consuming repositories |
-| **Author** | Coder (for eaojnr) |
+| **Author** | Emmanuel A. Otchere |
 | **Date** | 2026-09-01 |
 
 I would add one final CR rather than leaving the gate as a manual review.

@@ -8,6 +8,7 @@ current one ships.
 
 | CR | Focus | Primary outcome | Status |
 |---|---|---|---|
+| [CR-MM-ECF-04](CR-MM-ECF-04-entity-system-cross-reference.md) | Entity System Cross-Reference (Metamodel) | **Proposed (this PR)** | Metamodel cross-reference slice of the General Entity System institutionalisation (cross-repo cascade T7). The Metamodel repo is a metamodel (entity-type definitions) repo; it does not contain entity records and does NOT adopt the entity-system gate. This PR records the cross-reference to `dea-governance` (DEA-ID-000 + CR-012) and enumerates the Metamodel repo's commitments to the General Entity System standard. D-004 clean. 118a/b/c authorship gates remain CONFORMANT. Follow-on: T8 legacy ID reconciliation. |
 | [CR-001](CR-001.md) | Canonical Model & Semantic Governance | One authoritative metamodel and controlled versioning | Implemented (v0.6.0) |
 | [CR-002](CR-002.md) | Relationship Semantics | Authoritative, typed relationship model | Implemented (v0.7.0) |
 | [CR-003](CR-003.md) | Entity/Relationship Normalization | Removed duplicated relationship state; clean entity boundaries | Implemented (v0.8.0) |

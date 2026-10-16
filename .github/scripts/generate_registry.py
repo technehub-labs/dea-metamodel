@@ -3,7 +3,7 @@
 
 The registries are derived artifacts: entity inventory (id, classification,
 membership) and relationship inventory (id, endpoints, inverse). Semantics live
-only in metamodel/dea-metamodel.yaml — this script must never add, drop or
+only in metamodel/dea-metamodel.yaml; this script must never add, drop or
 reorder content, only project it.
 
 Run: python3 .github/scripts/generate_registry.py
@@ -19,9 +19,9 @@ MANIFEST = BASE / "metamodel" / "manifest.yaml"
 OUT_ENT = BASE / "metamodel" / "registry" / "entities.yaml"
 OUT_REL = BASE / "metamodel" / "registry" / "relationships.yaml"
 
-ENT_HEADER = ("# Entity Registry (CR-1.5/CR-4) — authoritative inventory, "
+ENT_HEADER = ("# Entity Registry (CR-1.5/CR-4); authoritative inventory, "
               "generated from metamodel/dea-metamodel.yaml\n")
-REL_HEADER = ("# Relationship Registry — authoritative inventory, generated from metamodel/dea-metamodel.yaml\n"
+REL_HEADER = ("# Relationship Registry; authoritative inventory, generated from metamodel/dea-metamodel.yaml\n"
               "# CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)\n")
 
 

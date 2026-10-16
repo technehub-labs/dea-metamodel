@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/information-system-function.json",
+  "metamodel_version": "1.0.0",
+  "title": "InformationSystemFunction",
+  "description": "A defined unit of functional behaviour performed by an information system or one of its components to process information, execute logic, respond to events, or produce an intended system outcome. Specialises Core dea:Behavior per the kernel+specialization template (CR-MM-PROC-01 precedent for Process/BusinessProcess; CR-016 precedent for Capability/BusinessCapability). Supersedes the deprecated dea:SystemFunction per D-1 disposition 2026-10-16. Catalog: technehub-labs/dea-catalog-system-functions (legacy identifier dea:entity-system-function; see CR-AR-FMWK-04 for the OpenDEAM-to-metamodel identifier map).",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:information-system-function-identity-verification"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "InformationSystemFunction"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ],
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "is_part_of": {
+      "type": "string",
+      "description": "Parent information system function that composes this function (per CR-017 §4.1: dea:composes is_part_of).",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    },
+    "enabled_by_components": {
+      "type": "array",
+      "description": "Application, integration, or information system components that execute this function (per CR-017 §4.1: dea:executes target list extension).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "realizes_capability": {
+      "type": "string",
+      "description": "Business capability realised by this information system function (per CR-017 §4.1: dea:realizes with InformationSystemFunction as source).",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    },
+    "enables_process": {
+      "type": "array",
+      "description": "Business processes enabled by this information system function (per CR-017 §4.1: dea:enables).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "consumes_data": {
+      "type": "array",
+      "description": "Data entities consumed by this information system function (per CR-017 §4.1: dea:consumes DataEntity).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "produces_data": {
+      "type": "array",
+      "description": "Data entities produced by this information system function (per CR-017 §4.1: dea:produces DataEntity).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "consumes_events": {
+      "type": "array",
+      "description": "Events consumed by this information system function (per CR-017 §4.1: dea:consumes Event).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "produces_events": {
+      "type": "array",
+      "description": "Events produced by this information system function (per CR-017 §4.1: dea:produces Event).",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

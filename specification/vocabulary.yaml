@@ -1,4 +1,4 @@
-# CR-8 §5 canonical OpenDEA vocabulary — GENERATED, do not edit
+# CR-8 §5 canonical OpenDEA vocabulary; GENERATED, do not edit
 vocabulary_version: 1.0.0
 namespace: https://technehub-labs.github.io/dea-metamodel/
 prefix: dea
@@ -14,7 +14,7 @@ concepts:
 - id: dea:CollaborationAgreement
   name: Collaboration Agreement
   canonical_name: CollaborationAgreement
-  definition: Terms governing cooperation with an ecosystem actor — cooperative or mandated.
+  definition: Terms governing cooperation with an ecosystem actor; cooperative or mandated.
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
@@ -22,7 +22,7 @@ concepts:
 - id: dea:EcosystemActor
   name: Ecosystem Actor
   canonical_name: EcosystemActor
-  definition: External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner.
+  definition: External party that actively exchanges value with the enterprise; supplier, customer, regulator, partner.
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
@@ -56,7 +56,7 @@ concepts:
 - id: dea:ValueExchange
   name: Value Exchange
   canonical_name: ValueExchange
-  definition: A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound.
+  definition: A flow of value between the enterprise and an ecosystem actor; information, goods, or funds; inbound or outbound.
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
@@ -98,7 +98,7 @@ concepts:
   name: Guardrail
   canonical_name: Guardrail
   definition: 'An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory
-    | automated-warn | automated-block | platform-enforced) — modeling policy-as-code / platform-guardrail practice rather
+    | automated-warn | automated-block | platform-enforced); modeling policy-as-code / platform-guardrail practice rather
     than a static compliance document someone checks against manually.
 
     '
@@ -169,7 +169,7 @@ concepts:
 - id: dea:Actor
   name: Actor
   canonical_name: Actor
-  definition: A performer of enterprise processes — human, team, system, or AI agent.
+  definition: A performer of enterprise processes; human, team, system, or AI agent.
   semantic_category: core
   abstract: false
   status: normative
@@ -401,8 +401,8 @@ concepts:
 - id: dea:InformationAsset
   name: Information Asset
   canonical_name: InformationAsset
-  definition: Data given context and form for a specific consuming purpose (a report, dashboard, invoice) — distinct from
-    the raw Data Entity it's contextualized from.
+  definition: Data given context and form for a specific consuming purpose (a report, dashboard, invoice); distinct from the
+    raw Data Entity it's contextualized from.
   semantic_category: dea:data
   abstract: false
   status: normative
@@ -418,7 +418,7 @@ concepts:
 - id: dea:KnowledgeAsset
   name: Knowledge Asset
   canonical_name: KnowledgeAsset
-  definition: Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3),
+  definition: Applied know-how made explicit and durable, existing independent of any one Actor; distinct from Skill (L3),
     which an Actor personally possesses.
   semantic_category: dea:data
   abstract: false
@@ -482,13 +482,31 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
-- id: dea:SystemFunction
-  name: System Function
-  canonical_name: SystemFunction
-  definition: A functional capability exposed by a single application or system.
+- id: dea:InformationSystemFunction
+  name: Information System Function
+  canonical_name: InformationSystemFunction
+  definition: 'A defined unit of functional behaviour performed by an information system or one of its components to process
+    information, execute logic, respond to events, or produce an intended system outcome. Specialises Core dea:Behavior per
+    CR-MM-PROC-01 template and dea:Capability per CR-016 / ADR-015. Supersedes dea:SystemFunction (D-1 disposition 2026-10-16);
+    disambiguates "system" by anchoring to information systems and prevents the capability-possessed conflation of the legacy
+    entity. OpenDEAM identifier dea:entity-system-function resolves to this entity via the cross-reference map owned by CR-AR-FMWK-04.
+    EGV-004 identity continuity: every reference to dea:entity-system-function continues to resolve after regeneration; legacy
+    catalog references remain reachable. Cited template precedents: CR-016 (dea:Capability / dea:BusinessCapability kernel+specialization),
+    CR-MM-PROC-01 (dea:Process / dea:BusinessProcess kernel+specialization).'
   semantic_category: dea:digital
   abstract: false
   status: normative
+  version: 1.0.0
+- id: dea:SystemFunction
+  name: System Function
+  canonical_name: SystemFunction
+  definition: DEPRECATED 2026-10-16 (CR-018 supersession; D-1 disposition). Retained for EGV-004 identity continuity. Use
+    dea:InformationSystemFunction for new models. The legacy entity remains readable for existing references and migration;
+    new model authoring MUST use dea:InformationSystemFunction. The original capability-oriented definition is preserved here
+    as historical record; the legacy catalog dea-catalog-system-functions retains its identity via dea:entity-system-function.
+  semantic_category: dea:digital
+  abstract: false
+  status: deprecated
   version: 1.0.0
 - id: dea:Technology
   name: Technology
@@ -503,7 +521,7 @@ concepts:
   canonical_name: Concept
   definition: 'A canonical, definable unit of meaning (business term or classification node) that other entities link to via
     defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not
-    a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.
+    a static glossary document. No longer allocated to a layer/building_block; belongs to orthogonal_allocators.semantic-dimension.
 
     '
   semantic_category: dea:data
@@ -514,7 +532,7 @@ concepts:
   name: Performance Metric
   canonical_name: PerformanceMetric
   definition: 'A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance
-    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0 — belongs to orthogonal_allocators.measurement-dimension
+    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0; belongs to orthogonal_allocators.measurement-dimension
     instead (ADR-0002 D1).
 
     '
@@ -616,7 +634,7 @@ concepts:
   name: Assessment
   canonical_name: Assessment
   definition: A structured evaluation of one or more subjects against an assessment framework at a defined point or period
-    in time (CR-5 §4). The evaluation event — never an attribute of the subject.
+    in time (CR-5 §4). The evaluation event; never an attribute of the subject.
   semantic_category: dea:assessment
   abstract: false
   status: normative
@@ -624,7 +642,7 @@ concepts:
 - id: dea:AssessmentFramework
   name: Assessment Framework
   canonical_name: AssessmentFramework
-  definition: The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity
+  definition: The external methodology used to conduct an assessment; its dimensions, criteria, indicators, scoring, maturity
     model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA
     Core (CR-5 §33).
   semantic_category: dea:assessment
@@ -643,7 +661,7 @@ concepts:
 - id: dea:AssessmentCriterion
   name: Assessment Criterion
   canonical_name: AssessmentCriterion
-  definition: Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5
+  definition: Defines what is evaluated within a dimension; id, name, definition, applicability and evaluation guidance (CR-5
     §7). A criterion never contains the result of an evaluation.
   semantic_category: dea:assessment
   abstract: false
@@ -670,7 +688,7 @@ concepts:
 - id: dea:Measure
   name: Measure
   canonical_name: Measure
-  definition: A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is
+  definition: A quantifiable observation of an indicator; value, unit, observation time and source (CR-5 §9). The unit is
     referenced, never encoded into the entity name.
   semantic_category: dea:assessment
   abstract: false
@@ -688,7 +706,7 @@ concepts:
 - id: dea:Scale
   name: Scale
   canonical_name: Scale
-  definition: A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal
+  definition: A declared ordered value space for scores and measures (CR-5 Phase 2; A004); e.g. a 0..1 ratio or a 1..5 ordinal
     range.
   semantic_category: dea:assessment
   abstract: false
@@ -697,7 +715,7 @@ concepts:
 - id: dea:Unit
   name: Unit
   canonical_name: Unit
-  definition: A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count.
+  definition: A standard quantity in which a measure is expressed (CR-5 §9/Phase 2); percent, ratio, months, currency, count.
     Referenced by measures; never embedded in names.
   semantic_category: dea:assessment
   abstract: false
@@ -716,7 +734,7 @@ concepts:
 - id: dea:AssessmentSubject
   name: Assessment Subject
   canonical_name: AssessmentSubject
-  definition: The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity
+  definition: The thing being evaluated; a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity
     to be assessed at different organizational scopes.
   semantic_category: dea:assessment
   abstract: false
@@ -735,7 +753,7 @@ concepts:
   name: Assessment Target
   canonical_name: AssessmentTarget
   definition: A desired future value or maturity level for a subject and criterion, with target date, rationale and approver
-    (CR-5 §21). Targets live in the assessment layer — never on the architectural entity.
+    (CR-5 §21). Targets live in the assessment layer; never on the architectural entity.
   semantic_category: dea:assessment
   abstract: false
   status: normative
@@ -763,7 +781,7 @@ concepts:
   name: Maturity Level
   canonical_name: MaturityLevel
   definition: A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005);
-    results attain levels — entities never carry them intrinsically (A008).
+    results attain levels; entities never carry them intrinsically (A008).
   semantic_category: dea:assessment
   abstract: false
   status: normative
@@ -798,7 +816,7 @@ concepts:
 - id: dea:ScoringRule
   name: Scoring Rule
   canonical_name: ScoringRule
-  definition: Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines
+  definition: Declares how measures become scores within a framework (CR-5 §11/§25). The framework; not the ontology; defines
     the transformation.
   semantic_category: dea:assessment
   abstract: false
@@ -817,7 +835,7 @@ concepts:
   name: Evidence
   canonical_name: Evidence
   definition: 'First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit
-    report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence
+    report, process observation, system log, API measurement or control test; with provenance, validity and confidence. Evidence
     supports a result; it is not the result (CR-5 §17).'
   semantic_category: dea:assessment
   abstract: false
@@ -862,7 +880,7 @@ concepts:
   name: Benchmark Reference
   canonical_name: BenchmarkReference
   definition: 'A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile.
-    Compared against results via benchmarked-against — never treated as a result (A011).'
+    Compared against results via benchmarked-against; never treated as a result (A011).'
   semantic_category: dea:assessment
   abstract: false
   status: normative
@@ -900,8 +918,8 @@ concepts:
   name: LifecycleState
   canonical_name: LifecycleState
   definition: 'An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity
-    type or profile — never blindly uniform — and is distinct from maturity level (§8): an Application can be Active while
-    its Capability is assessed at Level 3.'
+    type or profile; never blindly uniform; and is distinct from maturity level (§8): an Application can be Active while its
+    Capability is assessed at Level 3.'
   semantic_category: dea:lifecycle
   abstract: false
   status: normative
@@ -910,7 +928,7 @@ concepts:
   name: LifecycleEvent
   canonical_name: LifecycleEvent
   definition: 'An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified,
-    suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source — the raw
+    suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source; the raw
     material of architectural history (§17).'
   semantic_category: dea:lifecycle
   abstract: false
@@ -947,7 +965,7 @@ concepts:
 - id: dea:BaselineState
   name: BaselineState
   canonical_name: BaselineState
-  definition: A formally adopted reference state of the architecture (CR-6 §10) — a declared snapshot, not 'whatever the model
+  definition: A formally adopted reference state of the architecture (CR-6 §10); a declared snapshot, not 'whatever the model
     happens to contain'. A snapshot may become a baseline (§31); they are not the same thing.
   semantic_category: dea:lifecycle
   abstract: false
@@ -975,7 +993,7 @@ concepts:
   name: TransitionState
   canonical_name: TransitionState
   definition: 'An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current
-    → Transition 1 → … → Target, never in one jump.'
+    → Transition 1 → ... → Target, never in one jump.'
   semantic_category: dea:lifecycle
   abstract: false
   status: normative
@@ -983,9 +1001,9 @@ concepts:
 - id: dea:Scenario
   name: Scenario
   canonical_name: Scenario
-  definition: A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) — e.g. cloud-first vs
-    hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the
-    authoritative architecture (T007).
+  definition: A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25); e.g. cloud-first vs hybrid
+    vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative
+    architecture (T007).
   semantic_category: dea:lifecycle
   abstract: false
   status: normative
@@ -994,7 +1012,7 @@ concepts:
   name: ScenarioState
   canonical_name: ScenarioState
   definition: A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside
-    the scenario container — they are never inserted into CurrentState (T007).
+    the scenario container; they are never inserted into CurrentState (T007).
   semantic_category: dea:lifecycle
   abstract: false
   status: normative
@@ -1011,7 +1029,7 @@ concepts:
 - id: dea:ArchitectureSnapshot
   name: ArchitectureSnapshot
   canonical_name: ArchitectureSnapshot
-  definition: A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting,
+  definition: A captured representation of the architecture at a point in time (CR-6 §30); for audits, regulatory reporting,
     maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through
     explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31).
   semantic_category: dea:lifecycle
@@ -1022,8 +1040,8 @@ concepts:
   name: ArchitectureDelta
   canonical_name: ArchitectureDelta
   definition: 'The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified
-    elements and relationship changes. The native answer to ''what must change to move from here to there?'' — the bridge
-    between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored.'
+    elements and relationship changes. The native answer to ''what must change to move from here to there?''; the bridge between
+    DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored.'
   semantic_category: dea:lifecycle
   abstract: false
   status: normative
@@ -1041,7 +1059,7 @@ concepts:
 - id: dea:Intent
   name: Intent
   canonical_name: Intent
-  definition: 'The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) — e.g. improve
+  definition: 'The desired direction or purpose behind an architectural or organizational decision (CR-7 §3); e.g. improve
     customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective,
     Objective is measured, Outcome is what actually happened (§6).'
   semantic_category: dea:governance
@@ -1070,7 +1088,7 @@ concepts:
 - id: dea:PolicyRule
   name: PolicyRule
   canonical_name: PolicyRule
-  definition: An atomic, evaluable rule within a Policy (CR-7 §7/§38) — the unit policy enforcement evaluates.
+  definition: An atomic, evaluable rule within a Policy (CR-7 §7/§38); the unit policy enforcement evaluates.
   semantic_category: dea:governance
   abstract: false
   status: normative
@@ -1087,7 +1105,7 @@ concepts:
 - id: dea:PolicyDecision
   name: PolicyDecision
   canonical_name: PolicyDecision
-  definition: The outcome of a policy evaluation — e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same
+  definition: The outcome of a policy evaluation; e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same
     as an enterprise Decision ('deploy Agent A'); the two are kept separate.
   semantic_category: dea:governance
   abstract: false
@@ -1173,7 +1191,7 @@ concepts:
   definition: 'An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions,
     and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than ''AI model''
     (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision
-    mechanism, actions and observability. An Agent is a participant in the enterprise semantic system — not its center (§1).'
+    mechanism, actions and observability. An Agent is a participant in the enterprise semantic system; not its center (§1).'
   semantic_category: dea:agentic
   abstract: false
   status: normative
@@ -1183,7 +1201,7 @@ concepts:
   canonical_name: AgentProfile
   definition: 'The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies,
     authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner
-    and lifecycle — placed inside the DEA semantic model rather than an isolated template.'
+    and lifecycle; placed inside the DEA semantic model rather than an isolated template.'
   semantic_category: dea:agentic
   abstract: false
   status: normative
@@ -1221,7 +1239,7 @@ concepts:
   name: Orchestrator
   canonical_name: Orchestrator
   definition: Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent
-    (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) — the three are never collapsed
+    (bounded cognitive/action role) and Controller (enforces execution/state/control conditions); the three are never collapsed
     (§46).
   semantic_category: dea:agentic
   abstract: false
@@ -1264,7 +1282,7 @@ concepts:
 - id: dea:AutonomyPolicy
   name: AutonomyPolicy
   canonical_name: AutonomyPolicy
-  definition: The policy governing how much autonomy an Agent may exercise (CR-7 §23) — the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement
+  definition: The policy governing how much autonomy an Agent may exercise (CR-7 §23); the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement
     rather than hard-coding a scale.
   semantic_category: dea:agentic
   abstract: false
@@ -1283,7 +1301,7 @@ concepts:
   name: HumanOversight
   canonical_name: HumanOversight
   definition: 'First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception,
-    continuous supervision — materially different governance patterns.'
+    continuous supervision; materially different governance patterns.'
   semantic_category: dea:agentic
   abstract: false
   status: normative
@@ -1319,7 +1337,7 @@ concepts:
   name: AgentOpportunity
   canonical_name: AgentOpportunity
   definition: 'A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability,
-    potential agent, expected value, risk, readiness, recommended autonomy. Derived — never an architectural entity assumed
+    potential agent, expected value, risk, readiness, recommended autonomy. Derived; never an architectural entity assumed
     to exist in the target architecture. Links DMM assessment to agentic transformation (§55).'
   semantic_category: dea:agentic
   abstract: false

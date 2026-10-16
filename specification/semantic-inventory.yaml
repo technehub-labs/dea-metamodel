@@ -1,8 +1,8 @@
-# CR-8.1/8.2 semantic inventory + reconciliation — GENERATED, do not edit
+# CR-8.1/8.2 semantic inventory + reconciliation; GENERATED, do not edit
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 147
+  entities: 148
   relationships: 104
   core_entities: 20
   profiles: 10
@@ -392,11 +392,18 @@ entities:
   status: normative
   lifecycle: planned
   source_cr: CR-4
+- id: dea:InformationSystemFunction
+  name: Information System Function
+  semantic_category: dea:digital
+  abstract: false
+  status: normative
+  lifecycle: planned
+  source_cr: CR-4
 - id: dea:SystemFunction
   name: System Function
   semantic_category: dea:digital
   abstract: false
-  status: normative
+  status: deprecated
   lifecycle: planned
   source_cr: CR-4
 - id: dea:Technology
@@ -1694,4 +1701,4 @@ reconciliation:
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: duplicate-name
   subject: none
-  resolution: clean — no duplicate canonical names (CR-8.2)
+  resolution: clean; no duplicate canonical names (CR-8.2)

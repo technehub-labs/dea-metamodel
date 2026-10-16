@@ -12,12 +12,12 @@ This document is the architectural pointer for the Information Systems subgraph 
 
 ## 1. The four concepts
 
-| Concept | Canonical name | Layer | Profile | Owns |
-|---|---|---|---|---|
-| Behaviour performed by an information system | `dea:InformationSystemFunction` | L5 | dea:digital | CR-018 |
-| Architectural constituent of an information system | `dea:InformationSystemComponent` | L5 | dea:digital | CR-019 |
-| Service provided by an information system | `dea:InformationSystemService` | L5 | dea:digital | CR-020 |
-| Interaction boundary through which systems exchange | `dea:IntegrationInterface` | L5 | dea:digital | CR-021 |
+| Concept | Canonical name | Layer | Profile | Owns | Implementation status |
+|---|---|---|---|---|---|
+| Behaviour performed by an information system | `dea:InformationSystemFunction` | L5 | dea:digital | CR-018 | **Implemented in CR-018** (PR open); legacy `dea:SystemFunction` retains `status: deprecated` per EGV-004 |
+| Architectural constituent of an information system | `dea:InformationSystemComponent` | L5 | dea:digital | CR-019 | Pending; `dea:SolutionComponent` abstract flip + Application/Integration specialisation rewire |
+| Service provided by an information system | `dea:InformationSystemService` | L5 | dea:digital | CR-020 | Pending; Core `dea:Service` specialisation; `dea:PlatformService` reconciliation per D-3 |
+| Interaction boundary through which systems exchange | `dea:IntegrationInterface` | L5 | dea:digital | CR-021 | Pending; API reconciliation per D-4 (audit-then-specifies) |
 
 `dea:SystemFunction`, `dea:ApplicationComponent`, `dea:IntegrationComponent`, `dea:InfrastructureComponent`, `dea:PlatformService`, and `dea:API` are reconciled with the four concepts in CR-018 through CR-021. No duplicate identity is introduced without an explicit migration record.
 

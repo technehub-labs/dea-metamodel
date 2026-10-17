@@ -6,17 +6,18 @@ profile:
   status: draft
   depends_on:
   - dea:core
-  scope: Solution/application/integration components, platform services, APIs, system functions, events, patterns, blueprints.
+  scope: Solution/application/integration components, platform services, APIs, information system functions, events, patterns, blueprints.
   entities:
   - dea:API
   - dea:ApplicationComponent
   - dea:ArchitecturePattern
   - dea:Blueprint
   - dea:Event
+  - dea:InformationSystemFunction
   - dea:IntegrationComponent
   - dea:PlatformService
   - dea:SolutionComponent
-  - dea:SystemFunction
+  - dea:SystemFunction  # DEPRECATED 2026-10-16 per CR-018 / D-1. Retained for EGV-004 identity continuity.
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.
   - Profiles MUST NOT redefine Core semantics (CR-4 §29).

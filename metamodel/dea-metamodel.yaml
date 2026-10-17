@@ -1,4 +1,4 @@
-# DEA Metamodel — NORMATIVE SOURCE (CR-1)
+# DEA Metamodel; NORMATIVE SOURCE (CR-1)
 # This file is the single authoritative semantic definition of the OpenDEA metamodel.
 # All schemas, database structures, viewer graphs, documentation diagrams and other
 # representations MUST be generated from or validated against this specification.
@@ -68,7 +68,7 @@ dimensions:
   kind: cross-cutting concept graph (not a layer, not a static glossary)
 - id: temporal-dimension
   name: Temporal & Lifecycle Dimension
-  kind: cross-cutting temporal overlay (CR-6 — time is orthogonal to layers, like measurement)
+  kind: cross-cutting temporal overlay (CR-6; time is orthogonal to layers, like measurement)
 entities:
 - id: dea:Entity
   name: Entity
@@ -97,7 +97,7 @@ entities:
   legacy_ids:
   - dea:entity-collaboration-agreement
   - CollaborationAgreement
-  definition: Terms governing cooperation with an ecosystem actor — cooperative or mandated.
+  definition: Terms governing cooperation with an ecosystem actor; cooperative or mandated.
   layer: L1
   dimension: null
   building_block: L1-agreements
@@ -120,7 +120,7 @@ entities:
   legacy_ids:
   - dea:entity-ecosystem-actor
   - EcosystemActor
-  definition: External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner.
+  definition: External party that actively exchanges value with the enterprise; supplier, customer, regulator, partner.
   layer: L1
   dimension: null
   building_block: L1-external-parties
@@ -208,7 +208,7 @@ entities:
   legacy_ids:
   - dea:entity-value-exchange
   - ValueExchange
-  definition: A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound.
+  definition: A flow of value between the enterprise and an ecosystem actor; information, goods, or funds; inbound or outbound.
   layer: L1
   dimension: null
   building_block: L1-value-flows
@@ -266,7 +266,7 @@ entities:
     sqlite_table: blueprints
     pydantic_model: pydantic/blueprint.py
     ts_interface: typescript/src/interfaces.ts
-  migration_note: Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns
+  migration_note: Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5); now explicitly composed of Architecture Patterns
     rather than standing alone.
   membership:
     kind: profile
@@ -318,7 +318,7 @@ entities:
   legacy_ids:
   - dea:entity-guardrail
   definition: 'An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory
-    | automated-warn | automated-block | platform-enforced) — modeling policy-as-code / platform-guardrail practice rather
+    | automated-warn | automated-block | platform-enforced); modeling policy-as-code / platform-guardrail practice rather
     than a static compliance document someone checks against manually.
 
     '
@@ -335,7 +335,7 @@ entities:
     sqlite_table: guardrails
     pydantic_model: pydantic/guardrail.py
     ts_interface: typescript/src/interfaces.ts
-  migration_note: Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements
+  migration_note: Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4); now governs Technology/Solution Component and implements
     Control, closing the gap where Technology claimed to be "governed via Standards" with no such relationship existing.
   membership:
     kind: profile
@@ -466,7 +466,7 @@ entities:
     sqlite_table: tenets
     pydantic_model: pydantic/tenet.py
     ts_interface: typescript/src/interfaces.ts
-  migration_note: Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather
+  migration_note: Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3); a non-binding belief that informs Guardrails, rather
     than a standalone documentation-catalog entry.
   membership:
     kind: profile
@@ -498,7 +498,7 @@ entities:
   name: Actor
   legacy_ids:
   - dea:entity-actor
-  definition: A performer of enterprise processes — human, team, system, or AI agent.
+  definition: A performer of enterprise processes; human, team, system, or AI agent.
   layer: L3
   dimension: null
   building_block: L3-work-organization
@@ -1082,7 +1082,7 @@ entities:
   legacy_ids:
   - dea:entity-information-asset
   - InformationAsset
-  definition: Data given context and form for a specific consuming purpose (a report, dashboard, invoice) — distinct from
+  definition: Data given context and form for a specific consuming purpose (a report, dashboard, invoice); distinct from
     the raw Data Entity it's contextualized from.
   layer: L4
   dimension: null
@@ -1126,7 +1126,7 @@ entities:
   legacy_ids:
   - dea:entity-knowledge-asset
   - KnowledgeAsset
-  definition: Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3),
+  definition: Applied know-how made explicit and durable, existing independent of any one Actor; distinct from Skill (L3),
     which an Actor personally possesses.
   layer: L4
   dimension: null
@@ -1298,16 +1298,50 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
-- id: dea:SystemFunction
-  name: System Function
+- id: dea:InformationSystemFunction
+  name: Information System Function
   legacy_ids:
   - dea:entity-system-function
-  definition: A functional capability exposed by a single application or system.
+  supersedes:
+  - dea:SystemFunction
+  definition: 'A defined unit of functional behaviour performed by an information system or one of its components to process
+    information, execute logic, respond to events, or produce an intended system outcome. Specialises Core dea:Behavior per CR-MM-PROC-01
+    template and dea:Capability per CR-016 / ADR-015. Supersedes dea:SystemFunction (D-1 disposition 2026-10-16); disambiguates "system"
+    by anchoring to information systems and prevents the capability-possessed conflation of the legacy entity. OpenDEAM identifier
+    dea:entity-system-function resolves to this entity via the cross-reference map owned by CR-AR-FMWK-04. EGV-004 identity continuity:
+    every reference to dea:entity-system-function continues to resolve after regeneration; legacy catalog references remain reachable.
+    Cited template precedents: CR-016 (dea:Capability / dea:BusinessCapability kernel+specialization), CR-MM-PROC-01
+    (dea:Process / dea:BusinessProcess kernel+specialization).'
   layer: L5
   dimension: null
   building_block: L5-systems
   abstract: false
   status: normative
+  lifecycle: planned
+  class_alias: ISF
+  catalog_repo: dea-catalog-system-functions
+  artifacts:
+    json_schema: schemas/entities/information-system-function.json
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
+- id: dea:SystemFunction
+  name: System Function
+  legacy_ids:
+  - dea:entity-system-function
+  definition: 'DEPRECATED 2026-10-16 (CR-018 supersession; D-1 disposition). Retained for EGV-004 identity continuity. Use dea:InformationSystemFunction
+    for new models. The legacy entity remains readable for existing references and migration; new model authoring MUST use
+    dea:InformationSystemFunction. The original capability-oriented definition is preserved here as historical record; the legacy
+    catalog dea-catalog-system-functions retains its identity via dea:entity-system-function.'
+
+  layer: L5
+  dimension: null
+  building_block: L5-systems
+  abstract: false
+  status: deprecated
   lifecycle: planned
   class_alias: SF
   catalog_repo: dea-catalog-system-functions
@@ -1346,7 +1380,7 @@ entities:
   - dea:entity-concept
   definition: 'A canonical, definable unit of meaning (business term or classification node) that other entities link to via
     defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not
-    a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.
+    a static glossary document. No longer allocated to a layer/building_block; belongs to orthogonal_allocators.semantic-dimension.
 
     '
   layer: null
@@ -1371,7 +1405,7 @@ entities:
   - dea:entity-metric
   - Metric
   definition: 'A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance
-    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0 — belongs to orthogonal_allocators.measurement-dimension
+    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0; belongs to orthogonal_allocators.measurement-dimension
     instead (ADR-0002 D1).
 
     '
@@ -1604,7 +1638,7 @@ entities:
 - id: dea:Assessment
   name: Assessment
   legacy_ids: []
-  definition: "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject."
+  definition: "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event; never an attribute of the subject."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1624,7 +1658,7 @@ entities:
 - id: dea:AssessmentFramework
   name: Assessment Framework
   legacy_ids: []
-  definition: "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)."
+  definition: "The external methodology used to conduct an assessment; its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1664,7 +1698,7 @@ entities:
 - id: dea:AssessmentCriterion
   name: Assessment Criterion
   legacy_ids: []
-  definition: "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation."
+  definition: "Defines what is evaluated within a dimension; id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1724,7 +1758,7 @@ entities:
 - id: dea:Measure
   name: Measure
   legacy_ids: []
-  definition: "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name."
+  definition: "A quantifiable observation of an indicator; value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1764,7 +1798,7 @@ entities:
 - id: dea:Scale
   name: Scale
   legacy_ids: []
-  definition: "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range."
+  definition: "A declared ordered value space for scores and measures (CR-5 Phase 2; A004); e.g. a 0..1 ratio or a 1..5 ordinal range."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1784,7 +1818,7 @@ entities:
 - id: dea:Unit
   name: Unit
   legacy_ids: []
-  definition: "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names."
+  definition: "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2); percent, ratio, months, currency, count. Referenced by measures; never embedded in names."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1824,7 +1858,7 @@ entities:
 - id: dea:AssessmentSubject
   name: Assessment Subject
   legacy_ids: []
-  definition: "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes."
+  definition: "The thing being evaluated; a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1864,7 +1898,7 @@ entities:
 - id: dea:AssessmentTarget
   name: Assessment Target
   legacy_ids: []
-  definition: "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity."
+  definition: "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer; never on the architectural entity."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -1924,7 +1958,7 @@ entities:
 - id: dea:MaturityLevel
   name: Maturity Level
   legacy_ids: []
-  definition: "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)."
+  definition: "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels; entities never carry them intrinsically (A008)."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -2004,7 +2038,7 @@ entities:
 - id: dea:ScoringRule
   name: Scoring Rule
   legacy_ids: []
-  definition: "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation."
+  definition: "Declares how measures become scores within a framework (CR-5 §11/§25). The framework; not the ontology; defines the transformation."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -2044,7 +2078,7 @@ entities:
 - id: dea:Evidence
   name: Evidence
   legacy_ids: []
-  definition: "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)."
+  definition: "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test; with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -2144,7 +2178,7 @@ entities:
 - id: dea:BenchmarkReference
   name: Benchmark Reference
   legacy_ids: []
-  definition: "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)."
+  definition: "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against; never treated as a result (A011)."
   layer: null
   dimension: measurement-dimension
   building_block: null
@@ -2224,7 +2258,7 @@ entities:
 - id: dea:LifecycleState
   name: LifecycleState
   legacy_ids: []
-  definition: "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile — never blindly uniform — and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3."
+  definition: "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile; never blindly uniform; and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2244,7 +2278,7 @@ entities:
 - id: dea:LifecycleEvent
   name: LifecycleEvent
   legacy_ids: []
-  definition: "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source — the raw material of architectural history (§17)."
+  definition: "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source; the raw material of architectural history (§17)."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2324,7 +2358,7 @@ entities:
 - id: dea:BaselineState
   name: BaselineState
   legacy_ids: []
-  definition: "A formally adopted reference state of the architecture (CR-6 §10) — a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing."
+  definition: "A formally adopted reference state of the architecture (CR-6 §10); a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2384,7 +2418,7 @@ entities:
 - id: dea:TransitionState
   name: TransitionState
   legacy_ids: []
-  definition: "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → … → Target, never in one jump."
+  definition: "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → ... → Target, never in one jump."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2404,7 +2438,7 @@ entities:
 - id: dea:Scenario
   name: Scenario
   legacy_ids: []
-  definition: "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) — e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)."
+  definition: "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25); e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2424,7 +2458,7 @@ entities:
 - id: dea:ScenarioState
   name: ScenarioState
   legacy_ids: []
-  definition: "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container — they are never inserted into CurrentState (T007)."
+  definition: "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container; they are never inserted into CurrentState (T007)."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2464,7 +2498,7 @@ entities:
 - id: dea:ArchitectureSnapshot
   name: ArchitectureSnapshot
   legacy_ids: []
-  definition: "A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)."
+  definition: "A captured representation of the architecture at a point in time (CR-6 §30); for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2484,7 +2518,7 @@ entities:
 - id: dea:ArchitectureDelta
   name: ArchitectureDelta
   legacy_ids: []
-  definition: "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?' — the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored."
+  definition: "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?'; the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored."
   layer: null
   dimension: temporal-dimension
   building_block: null
@@ -2524,7 +2558,7 @@ entities:
 - id: dea:Intent
   name: Intent
   legacy_ids: []
-  definition: "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) — e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)."
+  definition: "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3); e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -2584,7 +2618,7 @@ entities:
 - id: dea:PolicyRule
   name: PolicyRule
   legacy_ids: []
-  definition: "An atomic, evaluable rule within a Policy (CR-7 §7/§38) — the unit policy enforcement evaluates."
+  definition: "An atomic, evaluable rule within a Policy (CR-7 §7/§38); the unit policy enforcement evaluates."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -2624,7 +2658,7 @@ entities:
 - id: dea:PolicyDecision
   name: PolicyDecision
   legacy_ids: []
-  definition: "The outcome of a policy evaluation — e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate."
+  definition: "The outcome of a policy evaluation; e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -2804,7 +2838,7 @@ entities:
 - id: dea:Agent
   name: Agent
   legacy_ids: []
-  definition: "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system — not its center (§1)."
+  definition: "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system; not its center (§1)."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -2824,7 +2858,7 @@ entities:
 - id: dea:AgentProfile
   name: AgentProfile
   legacy_ids: []
-  definition: "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle — placed inside the DEA semantic model rather than an isolated template."
+  definition: "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle; placed inside the DEA semantic model rather than an isolated template."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -2904,7 +2938,7 @@ entities:
 - id: dea:Orchestrator
   name: Orchestrator
   legacy_ids: []
-  definition: "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) — the three are never collapsed (§46)."
+  definition: "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions); the three are never collapsed (§46)."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -3004,7 +3038,7 @@ entities:
 - id: dea:AutonomyPolicy
   name: AutonomyPolicy
   legacy_ids: []
-  definition: "The policy governing how much autonomy an Agent may exercise (CR-7 §23) — the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale."
+  definition: "The policy governing how much autonomy an Agent may exercise (CR-7 §23); the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -3044,7 +3078,7 @@ entities:
 - id: dea:HumanOversight
   name: HumanOversight
   legacy_ids: []
-  definition: "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision — materially different governance patterns."
+  definition: "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision; materially different governance patterns."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -3124,7 +3158,7 @@ entities:
 - id: dea:AgentOpportunity
   name: AgentOpportunity
   legacy_ids: []
-  definition: "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived — never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)."
+  definition: "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived; never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)."
   layer: null
   dimension: ai-automation-governance
   building_block: null
@@ -3274,6 +3308,7 @@ relationships:
     - dea:BusinessService
     - dea:Concept
     - dea:Capability
+    - dea:InformationSystemFunction
     - dea:SystemCapability
     - dea:InfrastructureCapability
     - dea:AIAugmentedCapability
@@ -3283,6 +3318,7 @@ relationships:
     - dea:Actor
     - dea:ArchitecturePattern
     - dea:ArchitectureState
+    - dea:Behavior
     - dea:TemporalEvent
     - dea:TemporalState
     - dea:BusinessCapability
@@ -3326,7 +3362,7 @@ relationships:
   - instance of
 - id: dea:part-of
   name: Part Of
-  definition: Inverse view of composes. Never stored as an independent relationship (section 8). [VIRTUAL inverse view — never
+  definition: Inverse view of composes. Never stored as an independent relationship (section 8). [VIRTUAL inverse view; never
     stored]
   category: structural
   direction: source-to-target
@@ -3359,6 +3395,7 @@ relationships:
     - dea:Change
     - dea:Behavior
     - dea:BusinessProcess
+    - dea:InformationSystemFunction
     - dea:InfrastructureComponent
     - dea:IntegrationComponent
     - dea:SolutionComponent
@@ -3767,7 +3804,7 @@ relationships:
   - provides
 - id: dea:uses
   name: Uses
-  definition: The source consumes the target service or resource as offered (usage, not depletion — contrast consumes).
+  definition: The source consumes the target service or resource as offered (usage, not depletion; contrast consumes).
   category: serving
   direction: source-to-target
   source:
@@ -3868,11 +3905,13 @@ relationships:
     types:
     - dea:AIMLModel
     - dea:ApplicationComponent
+    - dea:InformationSystemFunction
     - dea:SystemFunction
   target:
     types:
     - dea:BusinessFunction
     - dea:BusinessProcess
+    - dea:InformationSystemFunction
   cardinality:
     source: 0..*
     target: 0..*
@@ -3894,11 +3933,13 @@ relationships:
     types:
     - dea:ApplicationComponent
     - dea:BusinessProcess
+    - dea:InformationSystemFunction
     - dea:SystemFunction
   target:
     types:
     - dea:BusinessProcess
     - dea:BusinessService
+    - dea:InformationSystemFunction
     - dea:SystemFunction
   cardinality:
     source: 0..*
@@ -4043,7 +4084,7 @@ relationships:
   - protects
 - id: dea:owns
   name: Owns
-  definition: The source holds ownership of the target — accountability for its lifecycle and value.
+  definition: The source holds ownership of the target; accountability for its lifecycle and value.
   category: governance
   direction: source-to-target
   source:
@@ -4202,7 +4243,7 @@ relationships:
 - id: dea:informs
   name: Informs
   definition: The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak
-    influence — section 17).
+    influence; section 17).
   category: information
   direction: source-to-target
   source:
@@ -4870,7 +4911,7 @@ relationships:
   lifecycle: active
 - id: dea:defines
   name: Defines
-  definition: "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules."
+  definition: "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12); dimensions, criteria, indicators, levels, scales and rules."
   category: assessment
   direction: source-to-target
   source:
@@ -4953,7 +4994,7 @@ relationships:
   lifecycle: active
 - id: dea:evaluated-by
   name: Evaluated By
-  definition: "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology."
+  definition: "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009); arithmetic is never hard-coded into the ontology."
   category: assessment
   direction: source-to-target
   source:
@@ -5142,7 +5183,7 @@ relationships:
   lifecycle: active
 - id: dea:contains
   name: Contains
-  definition: "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes)."
+  definition: "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state; not structural composition (contrast dea:composes)."
   category: structural
   direction: source-to-target
   source:
@@ -5297,7 +5338,7 @@ relationships:
   lifecycle: active
 - id: dea:modifies
   name: Modifies
-  definition: "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects."
+  definition: "A Change modifies an architecture element in place (CR-6 §15); more specific than the broad dea:affects."
   category: transformation
   direction: source-to-target
   source:
@@ -5319,7 +5360,7 @@ relationships:
   lifecycle: active
 - id: dea:in-state
   name: In State
-  definition: "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005)."
+  definition: "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027; never overwritten (T005)."
   category: temporal
   direction: source-to-target
   source:
@@ -5340,7 +5381,7 @@ relationships:
   lifecycle: active
 - id: dea:records
   name: Records
-  definition: "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture."
+  definition: "A LifecycleEvent records something that happened to the target entity (CR-6 §28); the auditable lifecycle history of the architecture."
   category: temporal
   direction: source-to-target
   source:
@@ -5489,7 +5530,7 @@ relationships:
   lifecycle: active
 - id: dea:constrained-by
   name: Constrained By
-  definition: "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9)."
+  definition: "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits; the two are not conflated (§9)."
   category: governance
   direction: source-to-target
   source:
@@ -5567,7 +5608,7 @@ relationships:
   lifecycle: active
 - id: dea:informed-by
   name: Informed By
-  definition: "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type."
+  definition: "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002); reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type."
   category: traceability
   direction: source-to-target
   source:
@@ -5589,7 +5630,7 @@ relationships:
   lifecycle: active
 - id: dea:delegates
   name: Delegates
-  definition: "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)."
+  definition: "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51); the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)."
   category: governance
   direction: source-to-target
   source:
@@ -5708,7 +5749,7 @@ relationships:
   lifecycle: active
 - id: dea:consults
   name: Consults
-  definition: "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational."
+  definition: "The source consults the target in a decision or action context (CR-7 §37); the 'C' in RACI-style semantics without making RACI itself foundational."
   category: traceability
   direction: source-to-target
   source:
@@ -5732,7 +5773,7 @@ relationships:
   lifecycle: active
 - id: dea:mitigates
   name: Mitigates
-  definition: "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition."
+  definition: "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk; mitigation is the control-bearing disposition."
   category: governance
   direction: source-to-target
   source:
@@ -5755,7 +5796,7 @@ relationships:
   lifecycle: active
 - id: dea:escalates-to
   name: Escalates To
-  definition: "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely."
+  definition: "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011); escalate or fail safely."
   category: governance
   direction: source-to-target
   source:
@@ -5803,7 +5844,7 @@ relationships:
   lifecycle: active
 - id: dea:has-skill
   name: Has Skill
-  definition: "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014)."
+  definition: "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability; a skill may implement or contribute to one (G014)."
   category: structural
   direction: source-to-target
   source:
@@ -5897,7 +5938,7 @@ relationships:
   lifecycle: active
 - id: dea:permits
   name: Permits
-  definition: "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary."
+  definition: "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014); the positive half of the agent action boundary."
   category: governance
   direction: source-to-target
   source:
@@ -5922,7 +5963,7 @@ relationships:
   lifecycle: active
 - id: dea:prohibits
   name: Prohibits
-  definition: "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary."
+  definition: "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24); the negative half of the agent action boundary."
   category: governance
   direction: source-to-target
   source:
@@ -5993,7 +6034,7 @@ relationships:
   lifecycle: active
 - id: dea:accesses
   name: Accesses
-  definition: "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates."
+  definition: "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33); reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates."
   category: serving
   direction: source-to-target
   source:

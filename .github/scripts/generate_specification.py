@@ -81,7 +81,7 @@ def main():
                              "resolution": "documented: single canonical direction (CR-2 R002), inverse is query alias only"})
     if not any(f["kind"] == "duplicate-name" for f in findings):
         findings.append({"kind": "duplicate-name", "subject": "none",
-                         "resolution": "clean — no duplicate canonical names (CR-8.2)"})
+                         "resolution": "clean; no duplicate canonical names (CR-8.2)"})
 
     inventory = {
         "inventory_version": version,
@@ -94,7 +94,7 @@ def main():
         "reconciliation": findings,
     }
     (SPEC / "semantic-inventory.yaml").write_text(
-        "# CR-8.1/8.2 semantic inventory + reconciliation — GENERATED, do not edit\n"
+        "# CR-8.1/8.2 semantic inventory + reconciliation; GENERATED, do not edit\n"
         + yaml.dump(inventory, sort_keys=False, allow_unicode=True, width=120))
 
     # ---------- CR-8 §5 canonical vocabulary ----------
@@ -111,12 +111,12 @@ def main():
         } for e, e2 in zip(entities, inv_entities)],
     }
     (SPEC / "vocabulary.yaml").write_text(
-        "# CR-8 §5 canonical OpenDEA vocabulary — GENERATED, do not edit\n"
+        "# CR-8 §5 canonical OpenDEA vocabulary; GENERATED, do not edit\n"
         + yaml.dump(vocab, sort_keys=False, allow_unicode=True, width=120))
 
     # ---------- §49 catalogues ----------
     ent_md = ["# OpenDEA Concept Catalogue (generated)", "",
-              f"Version {version} — {len(entities)} concepts. Source: `metamodel/dea-metamodel.yaml`.", "",
+              f"Version {version}; {len(entities)} concepts. Source: `metamodel/dea-metamodel.yaml`.", "",
               "| Concept | Category | Abstract | Definition |", "|---|---|---|---|"]
     for e, e2 in zip(entities, inv_entities):
         d = (e.get("definition", "") or "").replace("|", "\\|").replace("\n", " ")
@@ -124,7 +124,7 @@ def main():
     (SPEC / "catalogues" / "entities.md").write_text("\n".join(ent_md) + "\n")
 
     rel_md = ["# OpenDEA Relationship Catalogue (generated)", "",
-              f"Version {version} — {len(rels)} relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.", "",
+              f"Version {version}; {len(rels)} relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.", "",
               "| Relationship | Category | Inverse | Temporal | Definition |", "|---|---|---|---|---|"]
     for r in rels:
         d = (r.get("definition", "") or "").replace("|", "\\|").replace("\n", " ")

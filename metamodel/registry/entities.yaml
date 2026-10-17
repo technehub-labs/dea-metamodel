@@ -1,4 +1,4 @@
-# Entity Registry (CR-1.5/CR-4) — authoritative inventory, generated from metamodel/dea-metamodel.yaml
+# Entity Registry (CR-1.5/CR-4); authoritative inventory, generated from metamodel/dea-metamodel.yaml
 registry_version: 1.0.0
 entities:
 - id: dea:Entity
@@ -606,12 +606,23 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
+- id: dea:InformationSystemFunction
+  name: Information System Function
+  layer: L5
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: planned
+  catalog_repo: dea-catalog-system-functions
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:SystemFunction
   name: System Function
   layer: L5
   dimension: null
   abstract: false
-  status: normative
+  status: deprecated
   lifecycle: planned
   catalog_repo: dea-catalog-system-functions
   membership:

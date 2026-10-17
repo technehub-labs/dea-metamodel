@@ -103,3 +103,14 @@ The four Information Systems concepts connect to the broader OpenDEA profiles th
 - Parent-channel card on board 9 (github-technelabs): programme umbrella
 - Per-channel skill at `~/.hermes/profiles/coder/skills/dea-is-semantic-arch-kanban-discipline/SKILL.md`
 - Snapshot doc at `~/.hermes/profiles/coder/kanban/dea-metamodel-is-snapshot-2026-10-16.md`
+
+## 8. Closure (CR-022)
+
+All four entity CRs (CR-018..CR-021) are now normative on `main`. The metamodel artifact and conformance closure lands in **CR-022**, the final metamodel-side CR of Path Y. Closure documents:
+
+- `docs/is-semantic-architecture/migration-id-map.yaml`
+- `docs/is-semantic-architecture/conformance-test-catalogue.yaml`
+- `docs/is-semantic-architecture/closed-vocabulary-profile.yaml`
+- `docs/is-semantic-architecture/opendeam-identifier-map.yaml` (stub for CR-AR-FMWK-04)
+
+The downstream cascade gates on CR-022: `CR-AR-FMWK-04` (OpenDEAM extension), `CR-IS-CAT-01..04` (catalog renames + new catalogs), and `CR-013 (dea-governance)` (portfolio adoption as the closure gate).

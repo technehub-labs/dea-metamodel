@@ -1,6 +1,6 @@
-"""MaturityMappingRule — generated from schemas/entities/maturity-mapping-rule.json.
+"""MaturityMappingRule  :  generated from schemas/entities/maturity-mapping-rule.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

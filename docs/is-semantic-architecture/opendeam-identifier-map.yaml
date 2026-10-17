@@ -1,0 +1,80 @@
+# IS Semantic Architecture :: OpenDEAM-to-Metamodel Identifier Map
+# CR-022 closure artefact. STUB consumed by CR-AR-FMWK-04 (the OpenDEAM
+# allocation + relationship integration CR). The map is a starting point
+# for the OpenDEAM-to-metamodel identifier cross-reference; CR-AR-FMWK-04
+# owns the canonical version.
+#
+# Format: open_deam_id  ->  metamodel_canonical_id  [CR, notes]
+
+mappings:
+  # CR-018 (D-1): System Function reconciliation
+  - open_deam: "dea:entity-system-function"
+    metamodel: "dea:InformationSystemFunction"
+    cr: "CR-018"
+    disposition: "D-1"
+    note: "EGV-004 identity continuity; the legacy entity dea:SystemFunction retains status deprecated and lifecycle planned for the migration window"
+
+  # CR-019 (D-2): Component hierarchy reconciliation
+  - open_deam: "dea:entity-solution-component"
+    metamodel: "dea:SolutionComponent"
+    cr: "CR-019"
+    disposition: "D-2"
+    note: "abstract reconciled to true"
+
+  - open_deam: "dea:entity-application-component"
+    metamodel: "dea:ApplicationComponent"
+    cr: "CR-019"
+    disposition: "D-2"
+    note: "specializes dea:InformationSystemComponent; component_type discriminator retained for EGV-004"
+
+  - open_deam: "dea:entity-integration-component"
+    metamodel: "dea:IntegrationComponent"
+    cr: "CR-019"
+    disposition: "D-2"
+    note: "specializes dea:InformationSystemComponent; component_type discriminator retained for EGV-004"
+
+  - open_deam: "dea:entity-infrastructure-component"
+    metamodel: "dea:InfrastructureComponent"
+    cr: "CR-019"
+    disposition: "D-2"
+    note: "DRIFT-4 placement decision; direct child of dea:SolutionComponent"
+
+  - open_deam: "dea:entity-information-system-component"
+    metamodel: "dea:InformationSystemComponent"
+    cr: "CR-019"
+    disposition: "D-2"
+    note: "new abstract kind; cannot be instantiated; concrete specializations are APC and IGC"
+
+  # CR-020 (D-3): Service reconciliation
+  - open_deam: "dea:entity-platform-service"
+    metamodel: "dea:PlatformService"
+    cr: "CR-020"
+    disposition: "D-3"
+    note: "conditional specialisation; when genuine software-platform service, specializes dea:InformationSystemService"
+
+  - open_deam: "dea:entity-information-system-service"
+    metamodel: "dea:InformationSystemService"
+    cr: "CR-020"
+    disposition: "D-3"
+    note: "new entity; specializes Core dea:Service"
+
+  # CR-021 (D-4): API / Integration Interface reconciliation
+  - open_deam: "dea:entity-api"
+    metamodel: "dea:API"
+    cr: "CR-021"
+    disposition: "D-4"
+    note: "contract entity; sources dea:specifies targeting dea:IntegrationInterface"
+
+  - open_deam: "dea:entity-integration-interface"
+    metamodel: "dea:IntegrationInterface"
+    cr: "CR-021"
+    disposition: "D-4"
+    note: "new entity; interaction boundary; targeted by dea:specifies from dea:API"
+
+# Notes for CR-AR-FMWK-04
+notes:
+  - "The map covers entity identifiers only; relationship identifier maps are owned by CR-AR-FMWK-04 itself."
+  - "The OpenDEAM-to-metamodel inverse map (metamodel d-prefixed ids to open_deam d-prefixed ids) is not provided here; it is owned by CR-AR-FMWK-04."
+  - "The map does not include catalogue-level identifiers; those are owned by CR-IS-CAT-01..04."
+  - "The map does not include layer and building_block allocations; those are owned by CR-AR-FMWK-04."
+  - "CR-022 closure: the map is a stub for CR-AR-FMWK-04 to consume. The canonical OpenDEAM-to-metamodel identifier map is owned by CR-AR-FMWK-04. This stub documents the per-CR resolution as of the IS Semantic Architecture programme closure on 2026-10-16."

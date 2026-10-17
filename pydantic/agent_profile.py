@@ -1,6 +1,6 @@
-"""AgentProfile — generated from schemas/entities/agent-profile.json.
+"""AgentProfile  :  generated from schemas/entities/agent-profile.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

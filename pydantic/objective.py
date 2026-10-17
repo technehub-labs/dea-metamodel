@@ -1,6 +1,6 @@
-"""Objective — generated from schemas/entities/objective.json.
+"""Objective  :  generated from schemas/entities/objective.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

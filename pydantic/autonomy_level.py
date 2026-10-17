@@ -1,6 +1,6 @@
-"""AutonomyLevel — generated from schemas/entities/autonomy-level.json.
+"""AutonomyLevel  :  generated from schemas/entities/autonomy-level.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

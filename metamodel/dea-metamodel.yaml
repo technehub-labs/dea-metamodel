@@ -1212,9 +1212,9 @@ entities:
   catalog_repo: dea-catalog-application-components
   artifacts:
     json_schema: schemas/entities/information-system-component.json
-    sqlite_table: null
-    pydantic_model: null
-    ts_interface: null
+    sqlite_table: information_system_components
+    pydantic_model: pydantic/information_system_component.py
+    ts_interface: typescript/src/interfaces.ts
   membership:
     kind: profile
     profile: dea:digital
@@ -1268,9 +1268,9 @@ entities:
   catalog_repo: dea-catalog-api-contracts
   artifacts:
     json_schema: schemas/entities/integration-interface.json
-    sqlite_table: null
-    pydantic_model: null
-    ts_interface: null
+    sqlite_table: integration_interfaces
+    pydantic_model: pydantic/integration_interface.py
+    ts_interface: typescript/src/interfaces.ts
   membership:
     kind: profile
     profile: dea:digital
@@ -1379,9 +1379,9 @@ entities:
   catalog_repo: dea-catalog-platform-services
   artifacts:
     json_schema: schemas/entities/information-system-service.json
-    sqlite_table: null
-    pydantic_model: null
-    ts_interface: null
+    sqlite_table: information_system_services
+    pydantic_model: pydantic/information_system_service.py
+    ts_interface: typescript/src/interfaces.ts
   membership:
     kind: profile
     profile: dea:digital
@@ -1426,7 +1426,9 @@ entities:
     dea:entity-system-function resolves to this entity via the cross-reference map owned by CR-AR-FMWK-04. EGV-004 identity continuity:
     every reference to dea:entity-system-function continues to resolve after regeneration; legacy catalog references remain reachable.
     Cited template precedents: CR-016 (dea:Capability / dea:BusinessCapability kernel+specialization), CR-MM-PROC-01
-    (dea:Process / dea:BusinessProcess kernel+specialization).'
+    (dea:Process / dea:BusinessProcess kernel+specialization), CR-019 (abstract kind flip on dea:SolutionComponent), CR-020 (Core
+    dea:Service / dea:InformationSystemService), CR-021 (interaction boundary separation). Catalog ownership: the
+    dea-catalog-information-system-functions repository (rename target of dea-catalog-system-functions per CR-IS-CAT-01).'
   layer: L5
   dimension: null
   building_block: L5-systems
@@ -1437,9 +1439,9 @@ entities:
   catalog_repo: dea-catalog-system-functions
   artifacts:
     json_schema: schemas/entities/information-system-function.json
-    sqlite_table: null
-    pydantic_model: null
-    ts_interface: null
+    sqlite_table: information_system_functions
+    pydantic_model: pydantic/information_system_function.py
+    ts_interface: typescript/src/interfaces.ts
   membership:
     kind: profile
     profile: dea:digital

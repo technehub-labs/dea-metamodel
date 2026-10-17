@@ -1,6 +1,6 @@
-"""BenchmarkReference — generated from schemas/entities/benchmark-reference.json.
+"""BenchmarkReference  :  generated from schemas/entities/benchmark-reference.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

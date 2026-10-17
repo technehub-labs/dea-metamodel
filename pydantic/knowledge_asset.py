@@ -1,6 +1,6 @@
-"""KnowledgeAsset — generated from schemas/entities/knowledge-asset.json.
+"""KnowledgeAsset  :  generated from schemas/entities/knowledge-asset.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

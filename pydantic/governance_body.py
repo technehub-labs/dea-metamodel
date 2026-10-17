@@ -1,6 +1,6 @@
-"""GovernanceBody — generated from schemas/entities/governance-body.json.
+"""GovernanceBody  :  generated from schemas/entities/governance-body.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

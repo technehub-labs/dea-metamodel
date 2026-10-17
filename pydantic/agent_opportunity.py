@@ -1,6 +1,6 @@
-"""AgentOpportunity — generated from schemas/entities/agent-opportunity.json.
+"""AgentOpportunity  :  generated from schemas/entities/agent-opportunity.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

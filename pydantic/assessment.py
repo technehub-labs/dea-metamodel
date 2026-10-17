@@ -1,6 +1,6 @@
-"""Assessment — generated from schemas/entities/assessment.json.
+"""Assessment  :  generated from schemas/entities/assessment.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

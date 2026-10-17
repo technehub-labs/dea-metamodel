@@ -1,6 +1,6 @@
-"""AssessmentDimension — generated from schemas/entities/assessment-dimension.json.
+"""AssessmentDimension  :  generated from schemas/entities/assessment-dimension.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

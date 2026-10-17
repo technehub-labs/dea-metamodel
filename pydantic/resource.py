@@ -1,6 +1,6 @@
-"""Resource — generated from schemas/entities/resource.json.
+"""Resource  :  generated from schemas/entities/resource.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

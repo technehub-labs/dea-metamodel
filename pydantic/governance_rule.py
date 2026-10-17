@@ -1,6 +1,6 @@
-"""GovernanceRule — generated from schemas/entities/governance-rule.json.
+"""GovernanceRule  :  generated from schemas/entities/governance-rule.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

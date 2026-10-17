@@ -1,6 +1,6 @@
-"""BaselineState — generated from schemas/entities/baseline-state.json.
+"""BaselineState  :  generated from schemas/entities/baseline-state.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

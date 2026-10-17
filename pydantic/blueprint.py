@@ -1,6 +1,6 @@
-"""Blueprint — generated from schemas/entities/blueprint.json.
+"""Blueprint  :  generated from schemas/entities/blueprint.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

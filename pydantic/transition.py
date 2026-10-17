@@ -1,6 +1,6 @@
-"""Transition — generated from schemas/entities/transition.json.
+"""Transition  :  generated from schemas/entities/transition.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

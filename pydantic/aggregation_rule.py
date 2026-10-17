@@ -1,6 +1,6 @@
-"""AggregationRule — generated from schemas/entities/aggregation-rule.json.
+"""AggregationRule  :  generated from schemas/entities/aggregation-rule.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

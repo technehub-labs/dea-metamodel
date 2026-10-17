@@ -1,6 +1,6 @@
-"""Regulation — generated from schemas/entities/regulation.json.
+"""Regulation  :  generated from schemas/entities/regulation.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

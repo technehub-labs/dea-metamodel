@@ -1,0 +1,56 @@
+# IS Semantic Architecture :: Migration ID Map
+# CR-022 closure artefact. Maps legacy identifiers to canonical metamodel
+# entity ids, preserving EGV-004 (Identity Continuity) across the IS
+# Semantic Architecture programme (CR-017..CR-022).
+#
+# Format: legacy_id  ->  canonical_entity_id  [disposition note]
+# A legacy identifier continues to resolve to the canonical entity it
+# previously referenced, even after the canonical entity's definition,
+# specialisation, or status changes.
+
+# CR-018 (D-1 disposition 2026-10-16)
+- legacy: "dea:entity-system-function"
+  canonical: "dea:InformationSystemFunction"
+  note: "superseded by dea:InformationSystemFunction; legacy entry dea:SystemFunction retains status deprecated and lifecycle planned"
+
+- legacy: "dea:SystemFunction"
+  canonical: "dea:InformationSystemFunction"
+  note: "superseded; dea:SystemFunction retains status deprecated for EGV-004 identity continuity; lifecycle planned"
+
+# CR-019 (D-2 disposition 2026-10-16)
+- legacy: "dea:entity-solution-component"
+  canonical: "dea:SolutionComponent"
+  note: "legacy; abstract status reconciled false to true in CR-019"
+
+- legacy: "dea:entity-application-component"
+  canonical: "dea:ApplicationComponent"
+  note: "legacy; definition updated to record the new ISC specialisation; component_type discriminator retained"
+
+- legacy: "dea:entity-integration-component"
+  canonical: "dea:IntegrationComponent"
+  note: "legacy; definition updated to record the new ISC specialisation; component_type discriminator retained"
+
+- legacy: "dea:entity-infrastructure-component"
+  canonical: "dea:InfrastructureComponent"
+  note: "legacy; placement decision DRIFT-4 records direct child of dea:SolutionComponent, not sub-kind of dea:InformationSystemComponent"
+
+# CR-020 (D-3 disposition 2026-10-16)
+- legacy: "dea:entity-platform-service"
+  canonical: "dea:PlatformService"
+  note: "legacy; definition updated to record D-3 conditional specialisation; when genuine software-platform service, specialises dea:InformationSystemService; non-IS infrastructure offerings stay under Core dea:Service per the catalog-ownership register in CR-013 (dea-governance)"
+
+# CR-021 (D-4 disposition 2026-10-16)
+- legacy: "dea:entity-api"
+  canonical: "dea:API"
+  note: "legacy; definition updated to record D-4 audit-then-specifies posture; the new dea:specifies relationship (CR-021 section 3.1) targets dea:IntegrationInterface; dea:API remains a contract entity, distinct from the interaction boundary"
+
+# DRIFT-4 (InfrastructureComponent placement)
+- legacy: "dea:entity-infrastructure-component"
+  canonical: "dea:InfrastructureComponent"
+  note: "DRIFT-4 placement decision recorded; no migration needed; the entity retains its identity and direct child-of-solution-component placement"
+
+# Future mappings (out of scope; parked for downstream catalog CRs)
+# legacy "dea:catalog-system-functions" -> canonical "dea-catalog-information-system-functions" (renamed per CR-IS-CAT-01)
+# legacy "dea:catalog-application-components" -> canonical "dea-catalog-information-system-components" (renamed per CR-IS-CAT-02)
+# legacy "dea:catalog-platform-services" -> canonical "dea-catalog-information-system-services" (split per CR-IS-CAT-03)
+# legacy "dea:catalog-api-contracts" -> canonical "dea-catalog-information-system-integration-interfaces" (extended per CR-IS-CAT-04)

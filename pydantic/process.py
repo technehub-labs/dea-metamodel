@@ -1,6 +1,6 @@
-"""Process — generated from schemas/entities/process.json.
+"""Process  :  generated from schemas/entities/process.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

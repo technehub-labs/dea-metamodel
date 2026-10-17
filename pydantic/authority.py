@@ -1,6 +1,6 @@
-"""Authority — generated from schemas/entities/authority.json.
+"""Authority  :  generated from schemas/entities/authority.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

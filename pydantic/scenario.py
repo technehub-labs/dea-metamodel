@@ -1,6 +1,6 @@
-"""Scenario — generated from schemas/entities/scenario.json.
+"""Scenario  :  generated from schemas/entities/scenario.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,0 +1,200 @@
+# IS Semantic Architecture :: Closed-Vocabulary Profile
+# CR-022 closure artefact. The closed vocabulary of entity ids, relationship
+# ids, and category values introduced or affected by the IS Semantic
+# Architecture programme (CR-017..CR-022). The profile is consumed by
+# validators and downstream catalog CRs.
+
+profile:
+  id: "dea:is-semantic-architecture"
+  programme: "Information Systems Semantic Architecture"
+  parent: "dea:digital"
+  cr: "CR-022"
+  effective: "2026-10-16"
+
+entities:
+  introduced:
+    - id: "dea:InformationSystemFunction"
+      cr: "CR-018"
+      disposition: "D-1"
+      class_alias: "ISF"
+      profile: "dea:digital"
+      layer: "L5"
+      building_block: "L5-systems"
+      abstract: false
+      specializes: "dea:Behavior"
+      superseded: "dea:SystemFunction"
+      legacy_ids:
+        - "dea:entity-system-function"
+      artifacts:
+        json_schema: "schemas/entities/information-system-function.json"
+        sqlite_table: "information_system_functions"
+        pydantic_model: "pydantic/information_system_function.py"
+        ts_interface: "typescript/src/interfaces.ts"
+
+    - id: "dea:InformationSystemComponent"
+      cr: "CR-019"
+      disposition: "D-2"
+      class_alias: "ISC"
+      profile: "dea:digital"
+      layer: "L5"
+      building_block: "L5-systems"
+      abstract: true
+      specializes: "dea:SolutionComponent"
+      legacy_ids:
+        - "dea:entity-information-system-component"
+      artifacts:
+        json_schema: "schemas/entities/information-system-component.json"
+        sqlite_table: "information_system_components"
+        pydantic_model: "pydantic/information_system_component.py"
+        ts_interface: "typescript/src/interfaces.ts"
+
+    - id: "dea:InformationSystemService"
+      cr: "CR-020"
+      disposition: "D-3"
+      class_alias: "ISS"
+      profile: "dea:digital"
+      layer: "L5"
+      building_block: "L5-integration"
+      abstract: false
+      specializes: "dea:Service"
+      legacy_ids:
+        - "dea:entity-information-system-service"
+      artifacts:
+        json_schema: "schemas/entities/information-system-service.json"
+        sqlite_table: "information_system_services"
+        pydantic_model: "pydantic/information_system_service.py"
+        ts_interface: "typescript/src/interfaces.ts"
+
+    - id: "dea:IntegrationInterface"
+      cr: "CR-021"
+      disposition: "D-4"
+      class_alias: "II"
+      profile: "dea:digital"
+      layer: "L5"
+      building_block: "L5-integration"
+      abstract: false
+      specializes: null
+      legacy_ids:
+        - "dea:entity-integration-interface"
+      artifacts:
+        json_schema: "schemas/entities/integration-interface.json"
+        sqlite_table: "integration_interfaces"
+        pydantic_model: "pydantic/integration_interface.py"
+        ts_interface: "typescript/src/interfaces.ts"
+
+  reconciled:
+    - id: "dea:SystemFunction"
+      cr: "CR-018"
+      disposition: "D-1"
+      status: "deprecated"
+      lifecycle: "planned"
+      note: "retained for EGV-004 identity continuity; superseded by dea:InformationSystemFunction"
+
+    - id: "dea:SolutionComponent"
+      cr: "CR-019"
+      disposition: "D-2"
+      abstract: true
+      note: "abstract status reconciled from false to true; existing identity preserved"
+
+    - id: "dea:ApplicationComponent"
+      cr: "CR-019"
+      disposition: "D-2"
+      specializes_after: "dea:InformationSystemComponent"
+      note: "component_type discriminator retained on the concrete entry for EGV-004 identity continuity"
+
+    - id: "dea:IntegrationComponent"
+      cr: "CR-019"
+      disposition: "D-2"
+      specializes_after: "dea:InformationSystemComponent"
+      note: "component_type discriminator retained on the concrete entry for EGV-004 identity continuity"
+
+    - id: "dea:InfrastructureComponent"
+      cr: "CR-019"
+      disposition: "D-2"
+      specializes: "dea:SolutionComponent"
+      note: "DRIFT-4: direct child of dea:SolutionComponent (broader than the IS concern)"
+
+    - id: "dea:PlatformService"
+      cr: "CR-020"
+      disposition: "D-3"
+      specializes_after: "dea:InformationSystemService"
+      note: "conditional specialisation (when genuine software-platform service)"
+
+    - id: "dea:API"
+      cr: "CR-021"
+      disposition: "D-4"
+      note: "audit-then-specifies posture; sources the new dea:specifies relationship targeting dea:IntegrationInterface"
+
+relationships:
+  introduced:
+    - id: "dea:specifies"
+      cr: "CR-021"
+      disposition: "D-4"
+      category: "contract"
+      direction: "source-to-target"
+      source: "dea:API"
+      target: "dea:IntegrationInterface"
+      inverse: "dea:specified-by"
+      note: "new category 'contract' (category M) introduced in CR-021; CATEGORIES controlled vocabulary expanded in tests/conformance/test_008_relationship_rules.py"
+
+  extended:
+    # CR-018
+    - "dea:specializes.source += dea:InformationSystemFunction and dea:InformationSystemComponent"
+    - "dea:specializes.target += dea:Behavior"
+    - "dea:executes.source += dea:InformationSystemFunction and dea:InformationSystemComponent"
+    - "dea:executes.target += dea:InformationSystemFunction"
+    - "dea:orchestrates.source += dea:InformationSystemFunction"
+    - "dea:orchestrates.target += dea:InformationSystemFunction"
+    - "dea:realizes.source += dea:InformationSystemFunction"
+    # CR-019
+    - "dea:specializes.source += dea:ApplicationComponent and dea:IntegrationComponent"
+    - "dea:realizes.source += dea:InformationSystemComponent"
+    - "dea:depends-on.source += dea:InformationSystemComponent"
+    - "dea:depends-on.target += dea:InformationSystemComponent"
+    - "dea:composes.source += dea:InformationSystemComponent"
+    - "dea:composes.target += dea:InformationSystemComponent"
+    # CR-020
+    - "dea:provides.target += dea:InformationSystemService"
+    - "dea:provides.source += dea:InformationSystemService"
+    - "dea:uses.source += dea:InformationSystemComponent"
+    - "dea:uses.target += dea:InformationSystemService"
+    - "dea:specializes.source += dea:InformationSystemService"
+    # CR-021
+    - "dea:exposes.target += dea:IntegrationInterface"
+    - "dea:exposes.source += dea:InformationSystemService"
+    - "dea:uses.target += dea:IntegrationInterface"
+
+categories:
+  introduced:
+    - id: "contract"
+      ordinal: "M"
+      cr: "CR-021"
+      added_to: "tests/conformance/test_008_relationship_rules.py CATEGORIES set"
+      definition: "contract-specifies semantics (dea:specifies; API contract specifies interface)"
+  pre_existing:
+    - structural
+    - realization
+    - dependency
+    - flow
+    - serving
+    - execution
+    - governance
+    - information
+    - assessment
+    - transformation
+    - traceability
+    - temporal
+
+vocabulary_constraints:
+  preferred: "kebab-case"
+  type_constraints:
+    entity_id: "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+    relationship_id: "^[a-z][a-z0-9-]*:[a-z0-9-]+$"
+  type_aliases:
+    InformationSystemFunction: [ISF]
+    InformationSystemComponent: [ISC]
+    InformationSystemService: [ISS]
+    IntegrationInterface: [II]
+  deprecation_signals:
+    status: "deprecated"
+    lifecycle: "planned"

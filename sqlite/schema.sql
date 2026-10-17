@@ -16,6 +16,8 @@ CREATE TABLE entities (
         'Tenet','ArchitecturePattern','Guardrail','Blueprint',
         'Capability','Process','BusinessService','SolutionComponent',
         'ApplicationComponent','InfrastructureComponent','IntegrationComponent',
+        'InformationSystemFunction','InformationSystemComponent',
+        'InformationSystemService','IntegrationInterface',
         'Technology','Metric','Concept'
     )),
     name            TEXT NOT NULL,
@@ -38,7 +40,7 @@ CREATE INDEX idx_entities_tags       ON entities(tags);
 -- Entity extension tables (type-specific fields)
 -- ═══════════════════════════════════════════════════════════
 
--- Tenets (v0.4.0 — renamed from principles, ADR-0004 D3)
+-- Tenets (v0.4.0 : renamed from principles, ADR-0004 D3)
 CREATE TABLE tenets (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     statement       TEXT NOT NULL,
@@ -58,7 +60,7 @@ CREATE TABLE architecture_patterns (
     maturity             TEXT CHECK(maturity IN ('emerging','established','canonical','deprecated'))
 );
 
--- Guardrails (v0.4.0 — renamed from standards, ADR-0004 D4; adds enforcement)
+-- Guardrails (v0.4.0 : renamed from standards, ADR-0004 D4; adds enforcement)
 CREATE TABLE guardrails (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     enforcement     TEXT NOT NULL CHECK(enforcement IN ('advisory','automated-warn','automated-block','platform-enforced')),
@@ -68,7 +70,7 @@ CREATE TABLE guardrails (
     coverage        TEXT                           -- JSON array
 );
 
--- Blueprints (v0.4.0 — renamed from reference_models, ADR-0004 D5)
+-- Blueprints (v0.4.0 : renamed from reference_models, ADR-0004 D5)
 CREATE TABLE blueprints (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     domain              TEXT,
@@ -78,7 +80,7 @@ CREATE TABLE blueprints (
 );
 
 -- Capabilities
--- CR-003 (CR-3B): maturity_level removed — intrinsic maturity on architectural
+-- CR-003 (CR-3B): maturity_level removed : intrinsic maturity on architectural
 -- entities is an anti-pattern; maturity moves to the Assessment model (CR-5).
 CREATE TABLE capabilities (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
@@ -195,7 +197,7 @@ CREATE TABLE metrics (
     frequency           TEXT CHECK(frequency IN ('realtime','hourly','daily','weekly','monthly','quarterly'))
 );
 
--- Concepts (v0.4.0 — merged from glossary_terms + taxonomy_nodes, ADR-0004 D2)
+-- Concepts (v0.4.0 : merged from glossary_terms + taxonomy_nodes, ADR-0004 D2)
 CREATE TABLE concepts (
     entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     definition      TEXT NOT NULL,
@@ -260,7 +262,11 @@ CREATE TABLE relationships (
         'migrates-to',
         'maps-to',
         'traces-to',
-        'supports'
+        'supports',
+        -- v1.0.0 (CR-022 closure): new relationship type introduced in the IS
+        -- Semantic Architecture programme (CR-017..CR-021). See
+        -- metamodel/dea-metamodel.yaml relationships[].id for canonical kebab-case ids.
+        'specifies'
     )),
     -- CR-002 §6/§20: instance metadata
     status          TEXT NOT NULL DEFAULT 'active' CHECK(status IN ('proposed','active','deprecated','retired')),

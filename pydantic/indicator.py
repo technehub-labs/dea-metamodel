@@ -1,6 +1,6 @@
-"""Indicator — generated from schemas/entities/indicator.json.
+"""Indicator  :  generated from schemas/entities/indicator.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

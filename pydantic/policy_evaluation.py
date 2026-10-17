@@ -1,6 +1,6 @@
-"""PolicyEvaluation — generated from schemas/entities/policy-evaluation.json.
+"""PolicyEvaluation  :  generated from schemas/entities/policy-evaluation.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

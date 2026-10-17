@@ -1,6 +1,6 @@
-"""Change — generated from schemas/entities/change.json.
+"""Change  :  generated from schemas/entities/change.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

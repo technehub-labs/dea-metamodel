@@ -1,6 +1,6 @@
-"""Business Capability — generated from schemas/entities/business-capability.json.
+"""Business Capability  :  generated from schemas/entities/business-capability.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

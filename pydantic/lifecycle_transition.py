@@ -1,6 +1,6 @@
-"""LifecycleTransition — generated from schemas/entities/lifecycle-transition.json.
+"""LifecycleTransition  :  generated from schemas/entities/lifecycle-transition.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,6 +1,6 @@
-"""Escalation — generated from schemas/entities/escalation.json.
+"""Escalation  :  generated from schemas/entities/escalation.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

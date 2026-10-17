@@ -1,6 +1,6 @@
-"""HumanOversight — generated from schemas/entities/human-oversight.json.
+"""HumanOversight  :  generated from schemas/entities/human-oversight.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

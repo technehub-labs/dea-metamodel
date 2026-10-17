@@ -1,6 +1,6 @@
-"""MaturityModel — generated from schemas/entities/maturity-model.json.
+"""MaturityModel  :  generated from schemas/entities/maturity-model.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

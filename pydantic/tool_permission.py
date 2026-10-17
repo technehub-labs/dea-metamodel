@@ -1,6 +1,6 @@
-"""ToolPermission — generated from schemas/entities/tool-permission.json.
+"""ToolPermission  :  generated from schemas/entities/tool-permission.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

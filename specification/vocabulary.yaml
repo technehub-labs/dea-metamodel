@@ -332,12 +332,12 @@ concepts:
 - id: dea:SolutionComponent
   name: Solution Component
   canonical_name: SolutionComponent
-  definition: 'Abstract parent of ApplicationComponent, InfrastructureComponent, IntegrationComponent (discriminated union
-    by component_type). Concrete subclasses are allocated to L5; see specializes on APC/IFC/IGC below. (ADR-0002 D3)
-
-    '
+  definition: Abstract parent of ApplicationComponent, InfrastructureComponent, IntegrationComponent, and the new InformationSystemComponent
+    (introduced in CR-019; the abstract kind that ApplicationComponent and IntegrationComponent specialise). Concrete subclasses
+    are allocated to L5; see specializes on APC / IGC / ISC below. (ADR-0002 D3; abstract status reconciled in CR-019; D-2
+    disposition 2026-10-16.)
   semantic_category: dea:digital
-  abstract: false
+  abstract: true
   status: normative
   version: 1.0.0
 - id: dea:Skill
@@ -442,10 +442,30 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:InformationSystemComponent
+  name: Information System Component
+  canonical_name: InformationSystemComponent
+  definition: 'An identifiable architectural constituent of an information system that encapsulates a defined responsibility,
+    structure or execution boundary and participates in the composition or operation of that information system. Abstract
+    (D-2 disposition 2026-10-16; CR-019): the kind that the concrete ApplicationComponent and IntegrationComponent specialise.
+    Specialises dea:SolutionComponent (the parent abstract kind per ADR-0002 D3). Cited template precedents: CR-016 (dea:Capability
+    kernel+specialization), CR-MM-PROC-01 (dea:Process kernel+specialization), CR-MM-04 (authorship cardinal rule), CR-AR-FMWK-03
+    (architecture cross-reference). Layer L5; building_block L5-systems; profile dea:digital. Catalog ownership: the dea-catalog-information-system-components
+    repository (rename target of dea-catalog-application-components per CR-IS-CAT-02).'
+  semantic_category: dea:digital
+  abstract: true
+  status: normative
+  version: 1.0.0
 - id: dea:ApplicationComponent
   name: Application Component
   canonical_name: ApplicationComponent
-  definition: A deployable unit of an application system. SubClass of SolutionComponent with component_type='application'.
+  definition: 'A deployable unit of an application system. Specialises dea:InformationSystemComponent (CR-019; the abstract
+    Digital Profile kind introduced for the Information Systems programme; D-2 disposition). Component_type discriminator
+    remains ''application'' for catalog instances; the discriminator is retained for EGV-004 identity continuity and for catalog
+    search/filter use cases that predate the abstract ISC introduction. Application components are concrete specialisations
+    of ISC; they execute information system functions, may provide information system services, and may expose integration
+    interfaces. EGV-004 identity continuity: existing dea:entity-application-component references continue to resolve after
+    regeneration.'
   semantic_category: dea:digital
   abstract: false
   status: normative
@@ -461,7 +481,14 @@ concepts:
 - id: dea:InfrastructureComponent
   name: Infrastructure Component
   canonical_name: InfrastructureComponent
-  definition: An IaC-managed resource that hosts solution components. SubClass of SolutionComponent with component_type='infrastructure'.
+  definition: 'An IaC-managed resource that hosts solution components. Specialises dea:SolutionComponent with component_type=''infrastructure''.
+    Per CR-019 placement decision (DRIFT-4): InfrastructureComponent remains a direct specialisation of dea:SolutionComponent
+    rather than a sub-kind of dea:InformationSystemComponent. Rationale: the IaC-managed resource class is broader than the
+    information-system concern; a future L0 cloud-infrastructure resource may specialise InfrastructureComponent without itself
+    being an information system. EGV-004 identity continuity: existing dea:entity-infrastructure-component references continue
+    to resolve after regeneration. The infrastructure hosting role is captured via dea:hosts (existing relationship; see dea:hosts
+    in the relationship vocabulary) and via the dea:depends-on relationship (an ApplicationComponent or InformationSystemComponent
+    depends on an InfrastructureComponent to host it).'
   semantic_category: dea:technology
   abstract: false
   status: normative
@@ -469,7 +496,11 @@ concepts:
 - id: dea:IntegrationComponent
   name: Integration Component
   canonical_name: IntegrationComponent
-  definition: A component that bridges systems via APIs, queues, file transfers. SubClass of SolutionComponent with component_type='integration'.
+  definition: 'A component that bridges systems via APIs, queues, file transfers. Specialises dea:InformationSystemComponent
+    (CR-019; D-2 disposition). Component_type discriminator remains ''integration'' for catalog instances; EGV-004 identity
+    continuity. Integration components are concrete specialisations of ISC; they execute information system functions, may
+    provide integration services, and may expose integration interfaces. EGV-004 identity continuity: existing dea:entity-integration-component
+    references continue to resolve after regeneration.'
   semantic_category: dea:digital
   abstract: false
   status: normative

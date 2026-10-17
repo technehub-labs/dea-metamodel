@@ -13,8 +13,9 @@ profile:
   - dea:ArchitecturePattern
   - dea:Blueprint
   - dea:Event
+  - dea:InformationSystemComponent  # CR-019; abstract kind that ApplicationComponent and IntegrationComponent specialise (D-2 disposition)
   - dea:InformationSystemFunction
-  - dea:IntegrationComponent
+  - dea:IntegrationComponent  # now specialises dea:InformationSystemComponent (CR-019)
   - dea:PlatformService
   - dea:SolutionComponent
   - dea:SystemFunction  # DEPRECATED 2026-10-16 per CR-018 / D-1. Retained for EGV-004 identity continuity.

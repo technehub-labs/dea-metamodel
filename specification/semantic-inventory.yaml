@@ -2,7 +2,7 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 148
+  entities: 149
   relationships: 104
   core_entities: 20
   profiles: 10
@@ -269,7 +269,7 @@ entities:
 - id: dea:SolutionComponent
   name: Solution Component
   semantic_category: dea:digital
-  abstract: false
+  abstract: true
   status: normative
   lifecycle: existing
   source_cr: CR-4
@@ -356,6 +356,13 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
+  source_cr: CR-4
+- id: dea:InformationSystemComponent
+  name: Information System Component
+  semantic_category: dea:digital
+  abstract: true
+  status: normative
+  lifecycle: planned
   source_cr: CR-4
 - id: dea:ApplicationComponent
   name: Application Component

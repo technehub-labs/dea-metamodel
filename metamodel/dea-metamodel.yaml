@@ -908,14 +908,14 @@ entities:
   legacy_ids:
   - dea:entity-solution-component
   - SolutionComponent
-  definition: 'Abstract parent of ApplicationComponent, InfrastructureComponent, IntegrationComponent (discriminated union
-    by component_type). Concrete subclasses are allocated to L5; see specializes on APC/IFC/IGC below. (ADR-0002 D3)
-
-    '
+  definition: 'Abstract parent of ApplicationComponent, InfrastructureComponent, IntegrationComponent, and the new
+    InformationSystemComponent (introduced in CR-019; the abstract kind that ApplicationComponent and IntegrationComponent
+    specialise). Concrete subclasses are allocated to L5; see specializes on APC / IGC / ISC below. (ADR-0002 D3; abstract
+    status reconciled in CR-019; D-2 disposition 2026-10-16.)'
   layer: L3
   dimension: null
   building_block: L3-service-offerings
-  abstract: false
+  abstract: true
   status: normative
   lifecycle: existing
   class_alias: SC
@@ -1190,12 +1190,45 @@ entities:
   membership:
     kind: profile
     profile: dea:ai
+- id: dea:InformationSystemComponent
+  name: Information System Component
+  legacy_ids:
+  - dea:entity-information-system-component
+  definition: 'An identifiable architectural constituent of an information system that encapsulates a defined responsibility,
+    structure or execution boundary and participates in the composition or operation of that information system. Abstract
+    (D-2 disposition 2026-10-16; CR-019): the kind that the concrete ApplicationComponent and IntegrationComponent specialise.
+    Specialises dea:SolutionComponent (the parent abstract kind per ADR-0002 D3). Cited template precedents: CR-016
+    (dea:Capability kernel+specialization), CR-MM-PROC-01 (dea:Process kernel+specialization), CR-MM-04 (authorship cardinal
+    rule), CR-AR-FMWK-03 (architecture cross-reference). Layer L5; building_block L5-systems; profile dea:digital. Catalog
+    ownership: the dea-catalog-information-system-components repository (rename target of
+    dea-catalog-application-components per CR-IS-CAT-02).'
+  layer: L5
+  dimension: null
+  building_block: L5-systems
+  abstract: true
+  status: normative
+  lifecycle: planned
+  class_alias: ISC
+  catalog_repo: dea-catalog-application-components
+  artifacts:
+    json_schema: schemas/entities/information-system-component.json
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:ApplicationComponent
   name: Application Component
   legacy_ids:
   - dea:entity-application-component
   - ApplicationComponent
-  definition: A deployable unit of an application system. SubClass of SolutionComponent with component_type='application'.
+  definition: 'A deployable unit of an application system. Specialises dea:InformationSystemComponent (CR-019; the abstract
+    Digital Profile kind introduced for the Information Systems programme; D-2 disposition). Component_type discriminator
+    remains ''application'' for catalog instances; the discriminator is retained for EGV-004 identity continuity and for catalog
+    search/filter use cases that predate the abstract ISC introduction. Application components are concrete specialisations
+    of ISC; they execute information system functions, may provide information system services, and may expose integration interfaces.
+    EGV-004 identity continuity: existing dea:entity-application-component references continue to resolve after regeneration.'
   layer: L5
   dimension: null
   building_block: L5-systems
@@ -1238,7 +1271,14 @@ entities:
   legacy_ids:
   - dea:entity-infrastructure-component
   - InfrastructureComponent
-  definition: An IaC-managed resource that hosts solution components. SubClass of SolutionComponent with component_type='infrastructure'.
+  definition: 'An IaC-managed resource that hosts solution components. Specialises dea:SolutionComponent with
+    component_type=''infrastructure''. Per CR-019 placement decision (DRIFT-4): InfrastructureComponent remains a direct
+    specialisation of dea:SolutionComponent rather than a sub-kind of dea:InformationSystemComponent. Rationale: the IaC-managed
+    resource class is broader than the information-system concern; a future L0 cloud-infrastructure resource may specialise
+    InfrastructureComponent without itself being an information system. EGV-004 identity continuity: existing
+    dea:entity-infrastructure-component references continue to resolve after regeneration. The infrastructure hosting role is
+    captured via dea:hosts (existing relationship; see dea:hosts in the relationship vocabulary) and via the dea:depends-on
+    relationship (an ApplicationComponent or InformationSystemComponent depends on an InfrastructureComponent to host it).'
   layer: L5
   dimension: null
   building_block: L5-infrastructure
@@ -1260,7 +1300,11 @@ entities:
   legacy_ids:
   - dea:entity-integration-component
   - IntegrationComponent
-  definition: A component that bridges systems via APIs, queues, file transfers. SubClass of SolutionComponent with component_type='integration'.
+  definition: 'A component that bridges systems via APIs, queues, file transfers. Specialises dea:InformationSystemComponent
+    (CR-019; D-2 disposition). Component_type discriminator remains ''integration'' for catalog instances; EGV-004 identity
+    continuity. Integration components are concrete specialisations of ISC; they execute information system functions, may
+    provide integration services, and may expose integration interfaces. EGV-004 identity continuity: existing
+    dea:entity-integration-component references continue to resolve after regeneration.'
   layer: L5
   dimension: null
   building_block: L5-integration
@@ -3214,6 +3258,7 @@ relationships:
     - dea:BusinessProcess
     - dea:Concept
     - dea:DataProduct
+    - dea:InformationSystemComponent
     - dea:Organization
     - dea:OrganizationalUnit
     - dea:SolutionComponent
@@ -3237,6 +3282,7 @@ relationships:
     - dea:BusinessProcess
     - dea:Concept
     - dea:DataEntity
+    - dea:InformationSystemComponent
     - dea:OrganizationalUnit
     - dea:SolutionComponent
     - dea:SystemFunction
@@ -3308,6 +3354,7 @@ relationships:
     - dea:BusinessService
     - dea:Concept
     - dea:Capability
+    - dea:InformationSystemComponent
     - dea:InformationSystemFunction
     - dea:SystemCapability
     - dea:InfrastructureCapability
@@ -3395,6 +3442,7 @@ relationships:
     - dea:Change
     - dea:Behavior
     - dea:BusinessProcess
+    - dea:InformationSystemComponent
     - dea:InformationSystemFunction
     - dea:InfrastructureComponent
     - dea:IntegrationComponent
@@ -3487,6 +3535,7 @@ relationships:
     - dea:Change
     - dea:BusinessProcess
     - dea:BusinessService
+    - dea:InformationSystemComponent
     - dea:IntegrationComponent
     - dea:PlatformService
     - dea:Service
@@ -3498,6 +3547,7 @@ relationships:
     - dea:Change
     - dea:ApplicationComponent
     - dea:BusinessService
+    - dea:InformationSystemComponent
     - dea:InfrastructureComponent
     - dea:PlatformService
     - dea:Service
@@ -3782,6 +3832,7 @@ relationships:
     - dea:Actor
     - dea:ApplicationComponent
     - dea:EcosystemPlatform
+    - dea:InformationSystemComponent
     - dea:PlatformService
     - dea:Service
     - dea:SolutionComponent
@@ -3848,6 +3899,7 @@ relationships:
     - dea:ApplicationComponent
     - dea:BusinessService
     - dea:DataProduct
+    - dea:InformationSystemComponent
   target:
     types:
     - dea:BusinessObject
@@ -3905,6 +3957,7 @@ relationships:
     types:
     - dea:AIMLModel
     - dea:ApplicationComponent
+    - dea:InformationSystemComponent
     - dea:InformationSystemFunction
     - dea:SystemFunction
   target:

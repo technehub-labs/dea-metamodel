@@ -412,7 +412,7 @@ entities:
   name: Solution Component
   layer: L3
   dimension: null
-  abstract: false
+  abstract: true
   status: normative
   lifecycle: existing
   catalog_repo: dea-catalog-digital-business-service-factory
@@ -551,6 +551,17 @@ entities:
   membership:
     kind: profile
     profile: dea:ai
+- id: dea:InformationSystemComponent
+  name: Information System Component
+  layer: L5
+  dimension: null
+  abstract: true
+  status: normative
+  lifecycle: planned
+  catalog_repo: dea-catalog-application-components
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:ApplicationComponent
   name: Application Component
   layer: L5

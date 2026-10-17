@@ -1245,11 +1245,47 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
+- id: dea:IntegrationInterface
+  name: Integration Interface
+  legacy_ids:
+  - dea:entity-integration-interface
+  definition: 'A defined interaction boundary between an information system (or one of its components) and one or
+    more internal or external consumers or providers, specifying the means, protocols, interaction patterns and
+    contractual constraints through which information or functionality is exchanged. Per CR-021 (D-4 disposition
+    2026-10-16): the entity is the interaction boundary, distinct from the API contract that may specify it.
+    Cited template precedents: CR-016 (dea:Capability kernel+specialization), CR-MM-PROC-01 (dea:Process
+    kernel+specialization), CR-018 (dea:Behavior / dea:InformationSystemFunction), CR-019 (dea:SolutionComponent /
+    dea:InformationSystemComponent abstract reconciliation), CR-020 (dea:Service / dea:InformationSystemService).
+    Layer L5; building_block L5-integration; profile dea:digital. Catalog ownership: the
+    dea-catalog-information-system-integration-interfaces repository (new per CR-IS-CAT-04).'
+  layer: L5
+  dimension: null
+  building_block: L5-integration
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: II
+  catalog_repo: dea-catalog-api-contracts
+  artifacts:
+    json_schema: schemas/entities/integration-interface.json
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:API
   name: API
   legacy_ids:
   - dea:entity-api
-  definition: A contract defining the request/response shape of a service interface.
+  definition: 'A contract defining the request/response shape of a service interface. Per CR-021 (D-4 disposition
+    2026-10-16): audit-then-specifies posture. The existing relationship vocabulary was audited in CR-021 §3.1;
+    no existing relationship has the exact semantic "API contract specifies an interaction boundary". The
+    canonical entry therefore sources the new dea:specifies relationship with target dea:IntegrationInterface.
+    dea:API remains a contract entity; the interaction boundary it specifies is a separate Digital Profile
+    entity (dea:IntegrationInterface). EGV-004 identity continuity: existing dea:entity-api references
+    continue to resolve after regeneration. Cited template precedent: CR-019 (the abstract kind flip on
+    dea:SolutionComponent; mirrored here for the API / interface separation).'
   layer: L5
   dimension: null
   building_block: L5-integration
@@ -3913,6 +3949,7 @@ relationships:
     - dea:BusinessService
     - dea:DigitalIdentity
     - dea:InformationSystemService
+    - dea:IntegrationInterface
     - dea:PlatformService
     - dea:Service
   cardinality:
@@ -3940,12 +3977,14 @@ relationships:
     - dea:BusinessService
     - dea:DataProduct
     - dea:InformationSystemComponent
+    - dea:InformationSystemService
   target:
     types:
     - dea:BusinessObject
     - dea:BusinessService
     - dea:DataEntity
     - dea:DataProduct
+    - dea:IntegrationInterface
   cardinality:
     source: 0..*
     target: 0..*
@@ -3959,6 +3998,34 @@ relationships:
   supersedes:
   - exposed via
   - exposes
+- id: dea:specifies
+  name: Specifies
+  definition: 'A contract, specification, or formal definition that defines the interaction semantics of the
+    target entity. Per CR-021 (D-4 disposition 2026-10-16; audit-then-specifies posture): the existing
+    relationship vocabulary was audited in CR-021 §3.1 (covering dea:exposes, dea:uses, dea:provides,
+    dea:serves, dea:realizes, dea:implements, dea:supports, dea:governs, dea:describes). No existing
+    relationship has the exact semantic "API contract specifies an interaction boundary". This relationship
+    is therefore introduced in CR-021 with the bounded source (dea:API) and target (dea:IntegrationInterface).
+    Direction: source-to-target. Inverse: dea:specified-by. The relationship does not create, own, or execute
+    the target; it formally defines the interaction contract that the target implements.'
+  category: contract
+  direction: source-to-target
+  source:
+    types:
+    - dea:API
+  target:
+    types:
+    - dea:IntegrationInterface
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:specified-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: optional
+  status: normative
+  lifecycle: active
 - id: dea:performs
   name: Performs
   definition: The source actor or organizational unit carries out the target process or function (section 12).

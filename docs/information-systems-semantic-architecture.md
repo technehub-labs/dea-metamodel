@@ -17,7 +17,7 @@ This document is the architectural pointer for the Information Systems subgraph 
 | Behaviour performed by an information system | `dea:InformationSystemFunction` | L5 | dea:digital | CR-018 | Implemented in CR-018 (PR #171 merged); legacy `dea:SystemFunction` retains `status: deprecated` per EGV-004 |
 | Architectural constituent of an information system | `dea:InformationSystemComponent` | L5 | dea:digital | CR-019 | **Implemented in CR-019** (PR open); abstract kind that ApplicationComponent and IntegrationComponent specialise; `dea:SolutionComponent.abstract` reconciled to true (D-2) |
 | Service provided by an information system | `dea:InformationSystemService` | L5 | dea:digital | CR-020 | **Implemented in CR-020** (PR open); specialises Core `dea:Service`; reconciles `dea:PlatformService` per D-3 (conditional specialisation: when genuine software-platform service) |
-| Interaction boundary through which systems exchange | `dea:IntegrationInterface` | L5 | dea:digital | CR-021 | Pending; API reconciliation per D-4 (audit-then-specifies) |
+| Interaction boundary through which systems exchange | `dea:IntegrationInterface` | L5 | dea:digital | CR-021 | **Implemented in CR-021** (PR open); new relationship `dea:specifies` introduced (category `contract`; source `dea:API`; target `dea:IntegrationInterface`; inverse `dea:specified-by`); `dea:API` reconciled per D-4 audit-then-specifies |
 
 `dea:SystemFunction`, `dea:ApplicationComponent`, `dea:IntegrationComponent`, `dea:InfrastructureComponent`, `dea:PlatformService`, and `dea:API` are reconciled with the four concepts in CR-018 through CR-021. No duplicate identity is introduced without an explicit migration record.
 

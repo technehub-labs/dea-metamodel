@@ -17,6 +17,7 @@ relationships:
   - dea:BusinessProcess
   - dea:Concept
   - dea:DataProduct
+  - dea:InformationSystemComponent
   - dea:Organization
   - dea:OrganizationalUnit
   - dea:SolutionComponent
@@ -39,6 +40,7 @@ relationships:
   - dea:BusinessProcess
   - dea:Concept
   - dea:DataEntity
+  - dea:InformationSystemComponent
   - dea:OrganizationalUnit
   - dea:SolutionComponent
   - dea:SystemFunction
@@ -82,6 +84,7 @@ relationships:
   - dea:BusinessService
   - dea:Concept
   - dea:Capability
+  - dea:InformationSystemComponent
   - dea:InformationSystemFunction
   - dea:SystemCapability
   - dea:InfrastructureCapability
@@ -131,6 +134,7 @@ relationships:
   - dea:Change
   - dea:Behavior
   - dea:BusinessProcess
+  - dea:InformationSystemComponent
   - dea:InformationSystemFunction
   - dea:InfrastructureComponent
   - dea:IntegrationComponent
@@ -181,6 +185,7 @@ relationships:
   - dea:Change
   - dea:BusinessProcess
   - dea:BusinessService
+  - dea:InformationSystemComponent
   - dea:IntegrationComponent
   - dea:PlatformService
   - dea:Service
@@ -191,6 +196,7 @@ relationships:
   - dea:Change
   - dea:ApplicationComponent
   - dea:BusinessService
+  - dea:InformationSystemComponent
   - dea:InfrastructureComponent
   - dea:PlatformService
   - dea:Service
@@ -355,6 +361,7 @@ relationships:
   - dea:Actor
   - dea:ApplicationComponent
   - dea:EcosystemPlatform
+  - dea:InformationSystemComponent
   - dea:PlatformService
   - dea:Service
   - dea:SolutionComponent
@@ -394,6 +401,7 @@ relationships:
   - dea:ApplicationComponent
   - dea:BusinessService
   - dea:DataProduct
+  - dea:InformationSystemComponent
   target:
   - dea:BusinessObject
   - dea:BusinessService
@@ -424,6 +432,7 @@ relationships:
   source:
   - dea:AIMLModel
   - dea:ApplicationComponent
+  - dea:InformationSystemComponent
   - dea:InformationSystemFunction
   - dea:SystemFunction
   target:

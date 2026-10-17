@@ -14,8 +14,8 @@ This document is the architectural pointer for the Information Systems subgraph 
 
 | Concept | Canonical name | Layer | Profile | Owns | Implementation status |
 |---|---|---|---|---|---|
-| Behaviour performed by an information system | `dea:InformationSystemFunction` | L5 | dea:digital | CR-018 | **Implemented in CR-018** (PR open); legacy `dea:SystemFunction` retains `status: deprecated` per EGV-004 |
-| Architectural constituent of an information system | `dea:InformationSystemComponent` | L5 | dea:digital | CR-019 | Pending; `dea:SolutionComponent` abstract flip + Application/Integration specialisation rewire |
+| Behaviour performed by an information system | `dea:InformationSystemFunction` | L5 | dea:digital | CR-018 | Implemented in CR-018 (PR #171 merged); legacy `dea:SystemFunction` retains `status: deprecated` per EGV-004 |
+| Architectural constituent of an information system | `dea:InformationSystemComponent` | L5 | dea:digital | CR-019 | **Implemented in CR-019** (PR open); abstract kind that ApplicationComponent and IntegrationComponent specialise; `dea:SolutionComponent.abstract` reconciled to true (D-2) |
 | Service provided by an information system | `dea:InformationSystemService` | L5 | dea:digital | CR-020 | Pending; Core `dea:Service` specialisation; `dea:PlatformService` reconciliation per D-3 |
 | Interaction boundary through which systems exchange | `dea:IntegrationInterface` | L5 | dea:digital | CR-021 | Pending; API reconciliation per D-4 (audit-then-specifies) |
 

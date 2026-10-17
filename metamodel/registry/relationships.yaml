@@ -86,6 +86,7 @@ relationships:
   - dea:Capability
   - dea:InformationSystemComponent
   - dea:InformationSystemFunction
+  - dea:InformationSystemService
   - dea:SystemCapability
   - dea:InfrastructureCapability
   - dea:AIAugmentedCapability
@@ -362,6 +363,7 @@ relationships:
   - dea:ApplicationComponent
   - dea:EcosystemPlatform
   - dea:InformationSystemComponent
+  - dea:InformationSystemService
   - dea:PlatformService
   - dea:Service
   - dea:SolutionComponent
@@ -369,6 +371,7 @@ relationships:
   - dea:API
   - dea:BusinessCapability
   - dea:BusinessService
+  - dea:InformationSystemService
   inverse: dea:provided-by
   status: normative
   lifecycle: active
@@ -381,6 +384,7 @@ relationships:
   - dea:Orchestrator
   - dea:ApplicationComponent
   - dea:BusinessProcess
+  - dea:InformationSystemComponent
   - dea:JourneyTouchpoint
   - dea:SolutionComponent
   target:
@@ -388,6 +392,7 @@ relationships:
   - dea:Tool
   - dea:BusinessService
   - dea:DigitalIdentity
+  - dea:InformationSystemService
   - dea:PlatformService
   - dea:Service
   inverse: dea:used-by

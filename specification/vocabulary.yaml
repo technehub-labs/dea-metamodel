@@ -505,10 +505,30 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:InformationSystemService
+  name: Information System Service
+  canonical_name: InformationSystemService
+  definition: 'A service provided by an information system or a software platform to a consumer, expressed as a contract about
+    the exchange of capability, functionality or data. Specialises Core dea:Service (per CR-MM-PROC-01 / CR-016 kernel+specialization
+    template; D-3 disposition 2026-10-16). Cited template precedents: CR-016 (dea:Capability kernel+specialization), CR-MM-PROC-01
+    (dea:Process kernel+specialization), CR-018 (dea:Behavior / dea:InformationSystemFunction kernel+specialization), CR-019
+    (dea:SolutionComponent / dea:InformationSystemComponent abstract reconciliation). The service contract is operationalised
+    through integration interfaces (deferred to CR-021). Layer L5; building_block L5-integration; profile dea:digital. Catalog
+    ownership: the dea-catalog-information-system-services repository (new repository per CR-IS-CAT-03).'
+  semantic_category: dea:digital
+  abstract: false
+  status: normative
+  version: 1.0.0
 - id: dea:PlatformService
   name: Platform Service
   canonical_name: PlatformService
-  definition: A shared infrastructure or runtime service consumed by multiple application components.
+  definition: 'A shared infrastructure or runtime service consumed by multiple application components. Per CR-020 (D-3 disposition
+    2026-10-16): when the record is genuinely a software-platform service (i.e., a service offered by an information system
+    or software platform to consumers), the canonical record specialises dea:InformationSystemService. Non-information-system
+    infrastructure offerings (for example, a generic cloud infrastructure primitive that is not itself an information system)
+    stay under Core dea:Service and are recorded via the catalog-ownership register; they do NOT instantiate dea:PlatformService.
+    EGV-004 identity continuity: existing dea:entity-platform-service references continue to resolve after regeneration. Cited
+    template precedent: CR-019 (the abstract kind flip on dea:SolutionComponent; mirrored here for the service hierarchy).'
   semantic_category: dea:digital
   abstract: false
   status: normative

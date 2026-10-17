@@ -15,8 +15,9 @@ profile:
   - dea:Event
   - dea:InformationSystemComponent  # CR-019; abstract kind that ApplicationComponent and IntegrationComponent specialise (D-2 disposition)
   - dea:InformationSystemFunction
+  - dea:InformationSystemService   # CR-020; specialises Core dea:Service (D-3 disposition)
   - dea:IntegrationComponent  # now specialises dea:InformationSystemComponent (CR-019)
-  - dea:PlatformService
+  - dea:PlatformService        # CR-020 D-3: when genuinely an IS service, specialises dea:InformationSystemService
   - dea:SolutionComponent
   - dea:SystemFunction  # DEPRECATED 2026-10-16 per CR-018 / D-1. Retained for EGV-004 identity continuity.
   rules:

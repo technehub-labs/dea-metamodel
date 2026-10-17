@@ -2,7 +2,7 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 149
+  entities: 150
   relationships: 104
   core_entities: 20
   profiles: 10
@@ -387,6 +387,13 @@ entities:
   source_cr: CR-4
 - id: dea:IntegrationComponent
   name: Integration Component
+  semantic_category: dea:digital
+  abstract: false
+  status: normative
+  lifecycle: planned
+  source_cr: CR-4
+- id: dea:InformationSystemService
+  name: Information System Service
   semantic_category: dea:digital
   abstract: false
   status: normative

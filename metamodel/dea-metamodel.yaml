@@ -1321,11 +1321,46 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
+- id: dea:InformationSystemService
+  name: Information System Service
+  legacy_ids:
+  - dea:entity-information-system-service
+  definition: 'A service provided by an information system or a software platform to a consumer, expressed as a contract
+    about the exchange of capability, functionality or data. Specialises Core dea:Service (per CR-MM-PROC-01 / CR-016
+    kernel+specialization template; D-3 disposition 2026-10-16). Cited template precedents: CR-016 (dea:Capability
+    kernel+specialization), CR-MM-PROC-01 (dea:Process kernel+specialization), CR-018 (dea:Behavior / dea:InformationSystemFunction
+    kernel+specialization), CR-019 (dea:SolutionComponent / dea:InformationSystemComponent abstract reconciliation). The
+    service contract is operationalised through integration interfaces (deferred to CR-021). Layer L5; building_block
+    L5-integration; profile dea:digital. Catalog ownership: the dea-catalog-information-system-services repository
+    (new repository per CR-IS-CAT-03).'
+  layer: L5
+  dimension: null
+  building_block: L5-integration
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: ISS
+  catalog_repo: dea-catalog-platform-services
+  artifacts:
+    json_schema: schemas/entities/information-system-service.json
+    sqlite_table: null
+    pydantic_model: null
+    ts_interface: null
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:PlatformService
   name: Platform Service
   legacy_ids:
   - dea:entity-platform-service
-  definition: A shared infrastructure or runtime service consumed by multiple application components.
+  definition: 'A shared infrastructure or runtime service consumed by multiple application components. Per
+    CR-020 (D-3 disposition 2026-10-16): when the record is genuinely a software-platform service (i.e., a service
+    offered by an information system or software platform to consumers), the canonical record specialises
+    dea:InformationSystemService. Non-information-system infrastructure offerings (for example, a generic cloud
+    infrastructure primitive that is not itself an information system) stay under Core dea:Service and are recorded
+    via the catalog-ownership register; they do NOT instantiate dea:PlatformService. EGV-004 identity continuity:
+    existing dea:entity-platform-service references continue to resolve after regeneration. Cited template
+    precedent: CR-019 (the abstract kind flip on dea:SolutionComponent; mirrored here for the service hierarchy).'
   layer: L5
   dimension: null
   building_block: L5-infrastructure
@@ -3356,6 +3391,7 @@ relationships:
     - dea:Capability
     - dea:InformationSystemComponent
     - dea:InformationSystemFunction
+    - dea:InformationSystemService
     - dea:SystemCapability
     - dea:InfrastructureCapability
     - dea:AIAugmentedCapability
@@ -3833,6 +3869,7 @@ relationships:
     - dea:ApplicationComponent
     - dea:EcosystemPlatform
     - dea:InformationSystemComponent
+    - dea:InformationSystemService
     - dea:PlatformService
     - dea:Service
     - dea:SolutionComponent
@@ -3841,6 +3878,7 @@ relationships:
     - dea:API
     - dea:BusinessCapability
     - dea:BusinessService
+    - dea:InformationSystemService
   cardinality:
     source: 0..*
     target: 0..*
@@ -3865,6 +3903,7 @@ relationships:
     - dea:Orchestrator
     - dea:ApplicationComponent
     - dea:BusinessProcess
+    - dea:InformationSystemComponent
     - dea:JourneyTouchpoint
     - dea:SolutionComponent
   target:
@@ -3873,6 +3912,7 @@ relationships:
     - dea:Tool
     - dea:BusinessService
     - dea:DigitalIdentity
+    - dea:InformationSystemService
     - dea:PlatformService
     - dea:Service
   cardinality:

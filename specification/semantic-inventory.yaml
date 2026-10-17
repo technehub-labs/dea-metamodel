@@ -2,8 +2,8 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 150
-  relationships: 104
+  entities: 151
+  relationships: 105
   core_entities: 20
   profiles: 10
 entities:
@@ -366,6 +366,13 @@ entities:
   source_cr: CR-4
 - id: dea:ApplicationComponent
   name: Application Component
+  semantic_category: dea:digital
+  abstract: false
+  status: normative
+  lifecycle: planned
+  source_cr: CR-4
+- id: dea:IntegrationInterface
+  name: Integration Interface
   semantic_category: dea:digital
   abstract: false
   status: normative
@@ -1177,6 +1184,12 @@ relationships:
   category: serving
   inverse: dea:exposed-via
   temporal: true
+  status: normative
+- id: dea:specifies
+  name: Specifies
+  category: contract
+  inverse: dea:specified-by
+  temporal: false
   status: normative
 - id: dea:performs
   name: Performs

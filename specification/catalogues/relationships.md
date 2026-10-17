@@ -1,6 +1,6 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 104 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 105 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
@@ -24,6 +24,7 @@ Version 1.0.0; 104 relationship types. Canonical direction is source-to-target (
 | `dea:provides` | serving | `dea:provided-by` | yes | The source makes the target service or capability available to consumers. |
 | `dea:uses` | serving | `dea:used-by` | yes | The source consumes the target service or resource as offered (usage, not depletion; contrast consumes). |
 | `dea:exposes` | serving | `dea:exposed-via` | yes | The source presents the target as an accessible interface, product, or representation to consumers. |
+| `dea:specifies` | contract | `dea:specified-by` | no | A contract, specification, or formal definition that defines the interaction semantics of the target entity. Per CR-021 (D-4 disposition 2026-10-16; audit-then-specifies posture): the existing relationship vocabulary was audited in CR-021 §3.1 (covering dea:exposes, dea:uses, dea:provides, dea:serves, dea:realizes, dea:implements, dea:supports, dea:governs, dea:describes). No existing relationship has the exact semantic "API contract specifies an interaction boundary". This relationship is therefore introduced in CR-021 with the bounded source (dea:API) and target (dea:IntegrationInterface). Direction: source-to-target. Inverse: dea:specified-by. The relationship does not create, own, or execute the target; it formally defines the interaction contract that the target implements. |
 | `dea:performs` | execution | `dea:performed-by` | yes | The source actor or organizational unit carries out the target process or function (section 12). |
 | `dea:executes` | execution | `dea:executed-by` | yes | The source system function or component carries out the target process or activity automatically. |
 | `dea:orchestrates` | execution | `dea:orchestrated-by` | yes | The source coordinates the execution ordering and interaction of the targets. |

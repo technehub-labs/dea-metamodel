@@ -573,6 +573,17 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
+- id: dea:IntegrationInterface
+  name: Integration Interface
+  layer: L5
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: planned
+  catalog_repo: dea-catalog-api-contracts
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:API
   name: API
   layer: L5

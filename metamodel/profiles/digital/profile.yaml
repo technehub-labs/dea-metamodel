@@ -17,6 +17,7 @@ profile:
   - dea:InformationSystemFunction
   - dea:InformationSystemService   # CR-020; specialises Core dea:Service (D-3 disposition)
   - dea:IntegrationComponent  # now specialises dea:InformationSystemComponent (CR-019)
+  - dea:IntegrationInterface   # CR-021; interaction boundary (D-4 disposition; audit-then-specifies)
   - dea:PlatformService        # CR-020 D-3: when genuinely an IS service, specialises dea:InformationSystemService
   - dea:SolutionComponent
   - dea:SystemFunction  # DEPRECATED 2026-10-16 per CR-018 / D-1. Retained for EGV-004 identity continuity.

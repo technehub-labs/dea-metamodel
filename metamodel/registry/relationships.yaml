@@ -393,6 +393,7 @@ relationships:
   - dea:BusinessService
   - dea:DigitalIdentity
   - dea:InformationSystemService
+  - dea:IntegrationInterface
   - dea:PlatformService
   - dea:Service
   inverse: dea:used-by
@@ -407,12 +408,24 @@ relationships:
   - dea:BusinessService
   - dea:DataProduct
   - dea:InformationSystemComponent
+  - dea:InformationSystemService
   target:
   - dea:BusinessObject
   - dea:BusinessService
   - dea:DataEntity
   - dea:DataProduct
+  - dea:IntegrationInterface
   inverse: dea:exposed-via
+  status: normative
+  lifecycle: active
+- id: dea:specifies
+  name: Specifies
+  category: contract
+  source:
+  - dea:API
+  target:
+  - dea:IntegrationInterface
+  inverse: dea:specified-by
   status: normative
   lifecycle: active
 - id: dea:performs

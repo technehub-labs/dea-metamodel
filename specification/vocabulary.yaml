@@ -470,10 +470,31 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:IntegrationInterface
+  name: Integration Interface
+  canonical_name: IntegrationInterface
+  definition: 'A defined interaction boundary between an information system (or one of its components) and one or more internal
+    or external consumers or providers, specifying the means, protocols, interaction patterns and contractual constraints
+    through which information or functionality is exchanged. Per CR-021 (D-4 disposition 2026-10-16): the entity is the interaction
+    boundary, distinct from the API contract that may specify it. Cited template precedents: CR-016 (dea:Capability kernel+specialization),
+    CR-MM-PROC-01 (dea:Process kernel+specialization), CR-018 (dea:Behavior / dea:InformationSystemFunction), CR-019 (dea:SolutionComponent
+    / dea:InformationSystemComponent abstract reconciliation), CR-020 (dea:Service / dea:InformationSystemService). Layer
+    L5; building_block L5-integration; profile dea:digital. Catalog ownership: the dea-catalog-information-system-integration-interfaces
+    repository (new per CR-IS-CAT-04).'
+  semantic_category: dea:digital
+  abstract: false
+  status: normative
+  version: 1.0.0
 - id: dea:API
   name: API
   canonical_name: API
-  definition: A contract defining the request/response shape of a service interface.
+  definition: 'A contract defining the request/response shape of a service interface. Per CR-021 (D-4 disposition 2026-10-16):
+    audit-then-specifies posture. The existing relationship vocabulary was audited in CR-021 §3.1; no existing relationship
+    has the exact semantic "API contract specifies an interaction boundary". The canonical entry therefore sources the new
+    dea:specifies relationship with target dea:IntegrationInterface. dea:API remains a contract entity; the interaction boundary
+    it specifies is a separate Digital Profile entity (dea:IntegrationInterface). EGV-004 identity continuity: existing dea:entity-api
+    references continue to resolve after regeneration. Cited template precedent: CR-019 (the abstract kind flip on dea:SolutionComponent;
+    mirrored here for the API / interface separation).'
   semantic_category: dea:digital
   abstract: false
   status: normative

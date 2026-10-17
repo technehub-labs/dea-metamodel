@@ -606,6 +606,17 @@ entities:
   membership:
     kind: profile
     profile: dea:digital
+- id: dea:InformationSystemService
+  name: Information System Service
+  layer: L5
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: planned
+  catalog_repo: dea-catalog-platform-services
+  membership:
+    kind: profile
+    profile: dea:digital
 - id: dea:PlatformService
   name: Platform Service
   layer: L5

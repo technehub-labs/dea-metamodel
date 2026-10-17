@@ -1,12 +1,12 @@
-// DEA Metamodel — TypeScript Interfaces
+// DEA Metamodel : TypeScript Interfaces
 // Auto-generated from schemas/entities/*.json
-// Do not edit manually — regenerate with: npm run generate
+// Do not edit manually : regenerate with: npm run generate
 
 // Canonical metamodel version this artifact derives from (CR-001).
 export const METAMODEL_VERSION = '1.0.0';
 
-// v0.2.0 (ADR-0002): architecture layers L1–L5. Measurement is a
-// cross-cutting dimension, not a layer — Metrics carry scope_layers.
+// v0.2.0 (ADR-0002): architecture layers L1-L5. Measurement is a
+// cross-cutting dimension, not a layer : Metrics carry scope_layers.
 export type ArchitectureLayerId = 'L1' | 'L2' | 'L3' | 'L4' | 'L5';
 
 export type EntityStatus = 'draft' | 'candidate' | 'approved' | 'deprecated';
@@ -55,7 +55,7 @@ export interface BaseEntity {
 
 // ─── Entity Sub-types ───────────────────────────────────────
 
-// v1.0.0-alpha: Stakeholder (SH) — external/affected parties.
+// v1.0.0-alpha: Stakeholder (SH) : external/affected parties.
 // Mirrors schemas/entities/stakeholder.json. Catalog:
 // technehub-labs/dea-catalog-stakeholders.
 export type StakeholderType =
@@ -81,7 +81,7 @@ export interface Stakeholder extends BaseEntity {
   external_identifiers?: Record<string, string>;
 }
 
-// v1.0.0-alpha: Actor (AC) — internal performers.
+// v1.0.0-alpha: Actor (AC) : internal performers.
 // Mirrors schemas/entities/actor.json. Catalog:
 // technehub-labs/dea-catalog-actors.
 export type ActorType = 'human' | 'team' | 'system' | 'ai-agent' | 'hybrid';
@@ -149,7 +149,7 @@ export type GuardrailDomain =
   | 'governance';
 
 // v0.4.0 (ADR-0004 D4): renamed from Standard. Enforceable constraint with
-// an enforcement maturity ladder — policy-as-code, not a static document.
+// an enforcement maturity ladder : policy-as-code, not a static document.
 // Mirrors schemas/entities/guardrail.json. Catalog: technehub-labs/dea-catalog-guardrails.
 export type GuardrailEnforcement = 'advisory' | 'automated-warn' | 'automated-block' | 'platform-enforced';
 
@@ -235,7 +235,7 @@ export interface Process extends BaseEntity {
   kpis?: string[];
 }
 
-// v1.0.0-alpha: Business Object (BO) — atom of the ECF matrix.
+// v1.0.0-alpha: Business Object (BO) : atom of the ECF matrix.
 // Mirrors schemas/entities/business-object.json. Catalog:
 // technehub-labs/dea-catalog-business-objects.
 export type EcfDomain =
@@ -287,7 +287,7 @@ export interface BusinessObject extends BaseEntity {
   components_realizing?: string[];
 }
 
-// v1.0.0-alpha: Organizational Unit (OU) — owner of capabilities,
+// v1.0.0-alpha: Organizational Unit (OU) : owner of capabilities,
 // runner of processes, custodian of business objects. Mirrors
 // schemas/entities/organizational-unit.json. Catalog:
 // technehub-labs/dea-catalog-organizational-units.
@@ -413,6 +413,49 @@ export interface IntegrationComponent extends BaseEntity {
   direction: IntegrationDirection;
 }
 
+// v1.0.0 (CR-018, CR-019, CR-020, CR-021, CR-022): Information Systems
+// sub-tree introduced in the IS Semantic Architecture programme (ADR-ISA-000).
+// Mirrors schemas/entities/{information-system-function,information-system-
+// component,information-system-service,integration-interface}.json.
+// Catalog: technehub-labs/dea-catalog-information-system-{functions,
+// components,services,integration-interfaces} (renames + new repos owned by
+// CR-IS-CAT-01..04). CR-022 closure: artifacts.* paths populated.
+export interface InformationSystemFunction extends BaseEntity {
+  type: 'InformationSystemFunction';
+  classification?: string;
+  function_class?: string;
+  trigger?: string;
+  output_type?: string;
+}
+
+export interface InformationSystemComponent extends BaseEntity {
+  type: 'InformationSystemComponent';
+  component_responsibility?: string;
+  component_class?: string;
+}
+
+export interface InformationSystemService extends BaseEntity {
+  type: 'InformationSystemService';
+  service_purpose?: string;
+  service_class?: string;
+  consumer_context?: string;
+}
+
+export interface IntegrationInterface extends BaseEntity {
+  type: 'IntegrationInterface';
+  interface_purpose?: string;
+  interaction_pattern?:
+    | 'synchronous-request-response'
+    | 'asynchronous-message'
+    | 'publish-subscribe'
+    | 'event-stream'
+    | 'batch-file-transfer'
+    | 'shared-data-access'
+    | 'streaming'
+    | 'other';
+  protocol?: string;
+}
+
 // v1.0.0-alpha: Technology. Mirrors schemas/entities/technology.json.
 // Catalog: technehub-labs/dea-catalog-patterns.
 export type TechnologyCategory =
@@ -437,7 +480,7 @@ export interface Metric extends BaseEntity {
   metric_type: MetricType;
   unit: string;
   // v0.2.0 (ADR-0002 D1): Metric belongs to the cross-cutting Measurement
-  // Dimension — scope_layers declares which layers it may evaluate.
+  // Dimension : scope_layers declares which layers it may evaluate.
   scope_layers?: ArchitectureLayerId[];
   measurement_method?: string;
   baseline_value?: string | number;
@@ -453,7 +496,7 @@ export interface Metric extends BaseEntity {
 }
 
 // v0.4.0 (ADR-0004 D2): Concept merges GlossaryTerm + TaxonomyNode into a
-// single dimension entity of semantic-dimension — a queryable concept graph.
+// single dimension entity of semantic-dimension : a queryable concept graph.
 // Mirrors schemas/entities/concept.json. Catalog: technehub-labs/dea-catalog-concepts.
 export interface Concept extends BaseEntity {
   type: 'Concept';
@@ -468,7 +511,7 @@ export interface Concept extends BaseEntity {
 
 // ─── v0.2.0 entities (ADR-0002) ───────────────────────────
 
-// EcosystemActor (EA) — L1 External Parties. Active value-exchange party;
+// EcosystemActor (EA) : L1 External Parties. Active value-exchange party;
 // distinct from Stakeholder (affected/engaged, may be passive).
 // Mirrors schemas/entities/ecosystem-actor.json. Catalog repo TBD (planned).
 export type EcosystemActorKind =
@@ -481,7 +524,7 @@ export interface EcosystemActor extends BaseEntity {
   digital_identity_ref?: string;
 }
 
-// ValueExchange (VE) — L1 Value Flows.
+// ValueExchange (VE) : L1 Value Flows.
 // Mirrors schemas/entities/value-exchange.json. Catalog repo TBD (planned).
 export type ValueFlowType = 'information' | 'goods' | 'funds' | 'service';
 export type ValueFlowDirection = 'inbound' | 'outbound' | 'bidirectional';
@@ -495,7 +538,7 @@ export interface ValueExchange extends BaseEntity {
   payload_refs?: string[];
 }
 
-// CollaborationAgreement (CA) — L1 Agreements (moved from L2 by ADR-0002 D2).
+// CollaborationAgreement (CA) : L1 Agreements (moved from L2 by ADR-0002 D2).
 // Mirrors schemas/entities/collaboration-agreement.json. Catalog repo TBD (planned).
 export type AgreementKind = 'cooperative' | 'mandated';
 
@@ -508,7 +551,7 @@ export interface CollaborationAgreement extends BaseEntity {
   effective_to?: string;
 }
 
-// BusinessFunction (BF) — L3 Work Organization. Groups capabilities
+// BusinessFunction (BF) : L3 Work Organization. Groups capabilities
 // (CAP → BF), owned by an Organizational Unit (BF → OU, 1:1).
 // Mirrors schemas/entities/business-function.json. Catalog repo TBD (planned).
 export interface BusinessFunction extends BaseEntity {
@@ -519,7 +562,7 @@ export interface BusinessFunction extends BaseEntity {
 
 // ─── v0.3.0 entities (ADR-0003 comprehensiveness expansion) ──
 
-// EcosystemPlatform (EP) — L1 Ecosystem Platforms. Multi-sided standing
+// EcosystemPlatform (EP) : L1 Ecosystem Platforms. Multi-sided standing
 // structure for repeated exchange (marketplace, developer portal, partner
 // API program). Mirrors schemas/entities/ecosystem-platform.json.
 export type PlatformKind = 'marketplace' | 'developer-portal' | 'partner-api-program' | 'data-exchange';
@@ -529,7 +572,7 @@ export interface EcosystemPlatform extends BaseEntity {
   participant_count?: number;
 }
 
-// Risk (RSK) / Control (CTL) / Regulation (REG) — L2 Risk & Compliance.
+// Risk (RSK) / Control (CTL) / Regulation (REG) : L2 Risk & Compliance.
 export type RiskCategory = 'strategic' | 'operational' | 'regulatory' | 'technology' | 'financial' | 'reputational';
 export interface Risk extends BaseEntity {
   type: 'Risk';
@@ -549,7 +592,7 @@ export interface Regulation extends BaseEntity {
   mandates?: string[];
 }
 
-// Signal (SIG) / Experiment (EXP) / TechnologyRadarEntry (TRE) — L2 Innovation & Foresight.
+// Signal (SIG) / Experiment (EXP) / TechnologyRadarEntry (TRE) : L2 Innovation & Foresight.
 export interface Signal extends BaseEntity {
   type: 'Signal';
   signal_source: 'market' | 'technology' | 'regulatory' | 'competitor' | 'customer';
@@ -567,7 +610,7 @@ export interface TechnologyRadarEntry extends BaseEntity {
   graduates_to?: string;
 }
 
-// Skill (SKL) / Role (ROL) / ChangeInitiative (CHI) — L3 People, Skills & Culture.
+// Skill (SKL) / Role (ROL) / ChangeInitiative (CHI) : L3 People, Skills & Culture.
 export interface Skill extends BaseEntity {
   type: 'Skill';
   skill_domain?: string;
@@ -585,10 +628,10 @@ export interface ChangeInitiative extends BaseEntity {
   funded_by?: string;
 }
 
-// Resource (RES) — L3 Enterprise Resources (v0.5.0, ADR-0005 D3). ABSTRACT
+// Resource (RES) : L3 Enterprise Resources (v0.5.0, ADR-0005 D3). ABSTRACT
 // category root carrying a completeness_contract: specializing catalogs must
 // classify instances along exactly one dimension (liquidity / maintenance
-// regime / legal protection type). Repo-per-specialization — no shared
+// regime / legal protection type). Repo-per-specialization : no shared
 // catalog, no discriminator (unlike SolutionComponent).
 export interface Resource extends BaseEntity {
   type: 'Resource';
@@ -610,7 +653,7 @@ export interface IntangibleResource extends BaseEntity {
   protection_expiry?: string;
 }
 
-// ModelDeployment (MDP) / ModelFeedbackSignal (MFS) — L4 Model Operations.
+// ModelDeployment (MDP) / ModelFeedbackSignal (MFS) : L4 Model Operations.
 // Share dea-catalog-model-deployments, discriminated by deployment_kind /
 // signal_kind respectively (ADR-0002 D6).
 export interface ModelDeployment extends BaseEntity {
@@ -625,7 +668,7 @@ export interface ModelFeedbackSignal extends BaseEntity {
   derived_from?: string[];
 }
 
-// InformationAsset (IA) / KnowledgeAsset (KA) — L4 Information & Knowledge
+// InformationAsset (IA) / KnowledgeAsset (KA) : L4 Information & Knowledge
 // (v0.5.0, ADR-0005 D4). Completes Data->Information->Knowledge on the
 // digital plane. KA is distinct from Skill (L3): a Skill is possessed by a
 // person; a KnowledgeAsset survives the person leaving.
@@ -675,7 +718,11 @@ export type AnyEntity =
   | ModelDeployment
   | ModelFeedbackSignal
   | InformationAsset
-  | KnowledgeAsset;
+  | KnowledgeAsset
+  | InformationSystemFunction
+  | InformationSystemComponent
+  | InformationSystemService
+  | IntegrationInterface;
 
 // ─── Metamodel index ──────────────────────────────────────
 
@@ -716,6 +763,10 @@ export const ENTITY_TYPES = [
   'ModelFeedbackSignal',
   'InformationAsset',
   'KnowledgeAsset',
+  'InformationSystemFunction',
+  'InformationSystemComponent',
+  'InformationSystemService',
+  'IntegrationInterface',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [

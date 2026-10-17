@@ -1,6 +1,6 @@
-"""ChangeInitiative — generated from schemas/entities/change-initiative.json.
+"""ChangeInitiative  :  generated from schemas/entities/change-initiative.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

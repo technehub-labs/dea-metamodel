@@ -1,6 +1,6 @@
-"""BenchmarkPopulation — generated from schemas/entities/benchmark-population.json.
+"""BenchmarkPopulation  :  generated from schemas/entities/benchmark-population.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

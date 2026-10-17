@@ -1,6 +1,6 @@
-"""Tenet — generated from schemas/entities/tenet.json.
+"""Tenet  :  generated from schemas/entities/tenet.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

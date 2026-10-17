@@ -1,6 +1,6 @@
-"""Role — generated from schemas/entities/role.json.
+"""Role  :  generated from schemas/entities/role.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

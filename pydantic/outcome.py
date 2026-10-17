@@ -1,6 +1,6 @@
-"""Outcome — generated from schemas/entities/outcome.json.
+"""Outcome  :  generated from schemas/entities/outcome.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

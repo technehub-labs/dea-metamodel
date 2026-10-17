@@ -1,6 +1,6 @@
-"""DecisionCriterion — generated from schemas/entities/decision-criterion.json.
+"""DecisionCriterion  :  generated from schemas/entities/decision-criterion.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

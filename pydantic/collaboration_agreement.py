@@ -1,6 +1,6 @@
-"""Collaboration Agreement — generated from schemas/entities/collaboration-agreement.json.
+"""Collaboration Agreement  :  generated from schemas/entities/collaboration-agreement.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

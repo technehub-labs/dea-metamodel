@@ -1,6 +1,6 @@
-"""Intent — generated from schemas/entities/intent.json.
+"""Intent  :  generated from schemas/entities/intent.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

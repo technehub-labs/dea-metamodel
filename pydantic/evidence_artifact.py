@@ -1,6 +1,6 @@
-"""EvidenceArtifact — generated from schemas/entities/evidence-artifact.json.
+"""EvidenceArtifact  :  generated from schemas/entities/evidence-artifact.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

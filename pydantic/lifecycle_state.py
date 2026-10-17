@@ -1,6 +1,6 @@
-"""LifecycleState — generated from schemas/entities/lifecycle-state.json.
+"""LifecycleState  :  generated from schemas/entities/lifecycle-state.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

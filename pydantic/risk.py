@@ -1,6 +1,6 @@
-"""Risk — generated from schemas/entities/risk.json.
+"""Risk  :  generated from schemas/entities/risk.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

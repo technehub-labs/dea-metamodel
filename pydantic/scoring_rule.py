@@ -1,6 +1,6 @@
-"""ScoringRule — generated from schemas/entities/scoring-rule.json.
+"""ScoringRule  :  generated from schemas/entities/scoring-rule.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

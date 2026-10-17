@@ -1,6 +1,6 @@
-"""Technology — generated from schemas/entities/technology.json.
+"""Technology  :  generated from schemas/entities/technology.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

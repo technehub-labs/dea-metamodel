@@ -1,6 +1,6 @@
-"""Metric — generated from schemas/entities/metric.json.
+"""Metric  :  generated from schemas/entities/metric.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

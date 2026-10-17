@@ -1,6 +1,6 @@
-"""Score — generated from schemas/entities/score.json.
+"""Score  :  generated from schemas/entities/score.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

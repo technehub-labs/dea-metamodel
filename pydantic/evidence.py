@@ -1,6 +1,6 @@
-"""Evidence — generated from schemas/entities/evidence.json.
+"""Evidence  :  generated from schemas/entities/evidence.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

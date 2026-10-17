@@ -1,6 +1,6 @@
-"""SolutionComponent — generated from schemas/entities/solution-component.json.
+"""SolutionComponent  :  generated from schemas/entities/solution-component.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

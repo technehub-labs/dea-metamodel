@@ -1,6 +1,6 @@
-"""TemporalInterval — generated from schemas/entities/temporal-interval.json.
+"""TemporalInterval  :  generated from schemas/entities/temporal-interval.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

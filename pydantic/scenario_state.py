@@ -1,6 +1,6 @@
-"""ScenarioState — generated from schemas/entities/scenario-state.json.
+"""ScenarioState  :  generated from schemas/entities/scenario-state.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

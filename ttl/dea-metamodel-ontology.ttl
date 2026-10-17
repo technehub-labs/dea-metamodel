@@ -1,4 +1,4 @@
-# DEA Metamodel — OWL/RDF Turtle Serialization
+# DEA Metamodel : OWL/RDF Turtle Serialization
 # Version: 1.0.0
 # Derived from normative source: metamodel/dea-metamodel.yaml (CR-001).
 # Canonical RDF representation of the DEA metamodel ontology.
@@ -69,7 +69,7 @@ dea:Process a owl:Class ;
 dea:BusinessObject a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BusinessObject" ;
-    skos:definition "A real-world entity of interest to the business. The atom of the ECF matrix — every (domain, stage) cell contains the business objects currently in that lifecycle state." ;
+    skos:definition "A real-world entity of interest to the business. The atom of the ECF matrix : every (domain, stage) cell contains the business objects currently in that lifecycle state." ;
     dea:specification <schemas/entities/business-object.json> .
 
 dea:OrganizationalUnit a owl:Class ;
@@ -87,7 +87,7 @@ dea:Stakeholder a owl:Class ;
 dea:Actor a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Actor" ;
-    skos:definition "A performer of enterprise processes — human, team, system, or AI agent. Actors are internal performers; the Employees of the enterprise are modelled as Actors." ;
+    skos:definition "A performer of enterprise processes : human, team, system, or AI agent. Actors are internal performers; the Employees of the enterprise are modelled as Actors." ;
     dea:specification <schemas/entities/actor.json> .
 
 dea:BusinessService a owl:Class ;
@@ -142,19 +142,19 @@ dea:Relationship a owl:Class ;
 dea:EcosystemActor a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "EcosystemActor" ;
-    skos:definition "External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner (OpenDEAM v0.2.0, L1)." ;
+    skos:definition "External party that actively exchanges value with the enterprise : supplier, customer, regulator, partner (OpenDEAM v0.2.0, L1)." ;
     dea:specification <schemas/entities/ecosystem-actor.json> .
 
 dea:ValueExchange a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "ValueExchange" ;
-    skos:definition "A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound (OpenDEAM v0.2.0, L1)." ;
+    skos:definition "A flow of value between the enterprise and an ecosystem actor : information, goods, or funds; inbound or outbound (OpenDEAM v0.2.0, L1)." ;
     dea:specification <schemas/entities/value-exchange.json> .
 
 dea:CollaborationAgreement a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "CollaborationAgreement" ;
-    skos:definition "Terms governing cooperation with an ecosystem actor — cooperative or mandated (OpenDEAM v0.2.0, L1; moved from L2 by ADR-0002 D2)." ;
+    skos:definition "Terms governing cooperation with an ecosystem actor : cooperative or mandated (OpenDEAM v0.2.0, L1; moved from L2 by ADR-0002 D2)." ;
     dea:specification <schemas/entities/collaboration-agreement.json> .
 
 dea:BusinessFunction a owl:Class ;
@@ -341,6 +341,16 @@ dea:composes a owl:ObjectProperty ;
     dea:inverseOf "dea:part-of" ;
     a owl:TransitiveProperty .
 
+# CR-021 (D-4 disposition 2026-10-16; audit-then-specifies posture): the
+# existing relationship vocabulary was audited (CR-021 §3.1) and no existing
+# relationship has the exact semantic "API contract specifies an interaction
+# boundary". dea:specifies is therefore introduced as a new relationship.
+dea:specifies a owl:ObjectProperty ;
+    rdfs:label "Specifies" ;
+    skos:definition "A contract, specification, or formal definition that defines the interaction semantics of the target entity (CR-021 §3.1; audit-then-specifies). The relationship does not create, own, or execute the target; it formally defines the interaction contract that the target implements." ;
+    dea:category "contract" ;
+    dea:inverseOf "dea:specified-by" .
+
 dea:aggregates a owl:ObjectProperty ;
     rdfs:label "Aggregates" ;
     skos:definition "The target participates in the source but retains an independent lifecycle (aggregation, section 14)." ;
@@ -442,7 +452,7 @@ dea:provides a owl:ObjectProperty ;
 
 dea:uses a owl:ObjectProperty ;
     rdfs:label "Uses" ;
-    skos:definition "The source consumes the target service or resource as offered (usage, not depletion — contrast consumes)." ;
+    skos:definition "The source consumes the target service or resource as offered (usage, not depletion : contrast consumes)." ;
     dea:category "serving" ;
     dea:inverseOf "dea:used-by" .
 
@@ -496,7 +506,7 @@ dea:controls a owl:ObjectProperty ;
 
 dea:owns a owl:ObjectProperty ;
     rdfs:label "Owns" ;
-    skos:definition "The source holds ownership of the target — accountability for its lifecycle and value." ;
+    skos:definition "The source holds ownership of the target : accountability for its lifecycle and value." ;
     dea:category "governance" ;
     dea:inverseOf "dea:owned-by" .
 
@@ -526,7 +536,7 @@ dea:represents a owl:ObjectProperty ;
 
 dea:informs a owl:ObjectProperty ;
     rdfs:label "Informs" ;
-    skos:definition "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence — section 17)." ;
+    skos:definition "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence : section 17)." ;
     dea:category "information" ;
     dea:inverseOf "dea:informed-by" .
 
@@ -663,12 +673,12 @@ dea:contributesTo a owl:ObjectProperty ;
 dea:Assessment a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Assessment" ;
-    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject." .
+    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event : never an attribute of the subject." .
 
 dea:AssessmentFramework a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentFramework" ;
-    skos:definition "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
+    skos:definition "The external methodology used to conduct an assessment : its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
 
 dea:AssessmentDimension a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -678,7 +688,7 @@ dea:AssessmentDimension a owl:Class ;
 dea:AssessmentCriterion a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentCriterion" ;
-    skos:definition "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
+    skos:definition "Defines what is evaluated within a dimension : id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
 
 dea:Indicator a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -693,7 +703,7 @@ dea:Observation a owl:Class ;
 dea:Measure a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Measure" ;
-    skos:definition "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
+    skos:definition "A quantifiable observation of an indicator : value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
 
 dea:Score a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -703,12 +713,12 @@ dea:Score a owl:Class ;
 dea:Scale a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Scale" ;
-    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range." .
+    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) : e.g. a 0..1 ratio or a 1..5 ordinal range." .
 
 dea:Unit a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Unit" ;
-    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
+    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) : percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
 
 dea:AssessmentResult a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -718,7 +728,7 @@ dea:AssessmentResult a owl:Class ;
 dea:AssessmentSubject a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentSubject" ;
-    skos:definition "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
+    skos:definition "The thing being evaluated : a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
 
 dea:AssessmentScope a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -728,7 +738,7 @@ dea:AssessmentScope a owl:Class ;
 dea:AssessmentTarget a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentTarget" ;
-    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity." .
+    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer : never on the architectural entity." .
 
 dea:AssessmentGap a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -743,7 +753,7 @@ dea:MaturityModel a owl:Class ;
 dea:MaturityLevel a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "MaturityLevel" ;
-    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)." .
+    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels : entities never carry them intrinsically (A008)." .
 
 dea:MaturityScale a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -763,7 +773,7 @@ dea:AggregationRule a owl:Class ;
 dea:ScoringRule a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "ScoringRule" ;
-    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation." .
+    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework : not the ontology : defines the transformation." .
 
 dea:MaturityMappingRule a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -773,7 +783,7 @@ dea:MaturityMappingRule a owl:Class ;
 dea:Evidence a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Evidence" ;
-    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
+    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test : with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
 
 dea:EvidenceSource a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -798,7 +808,7 @@ dea:BenchmarkPopulation a owl:Class ;
 dea:BenchmarkReference a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BenchmarkReference" ;
-    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)." .
+    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against : never treated as a result (A011)." .
 
 # ═══ CR-5: Assessment profile object properties ═══
 
@@ -816,7 +826,7 @@ dea:conductedUnder a owl:ObjectProperty ;
 
 dea:defines a owl:ObjectProperty ;
     rdfs:label "Defines" ;
-    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules." ;
+    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) : dimensions, criteria, indicators, levels, scales and rules." ;
     dea:category "assessment" ;
     dea:inverseOf "dea:defined-by" .
 
@@ -834,7 +844,7 @@ dea:derivesFrom a owl:ObjectProperty ;
 
 dea:evaluatedBy a owl:ObjectProperty ;
     rdfs:label "Evaluated By" ;
-    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology." ;
+    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) : arithmetic is never hard-coded into the ontology." ;
     dea:category "assessment" ;
     dea:inverseOf "dea:evaluates" .
 
@@ -885,12 +895,12 @@ dea:originatesFrom a owl:ObjectProperty ;
 dea:Assessment a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Assessment" ;
-    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event — never an attribute of the subject." .
+    skos:definition "A structured evaluation of one or more subjects against an assessment framework at a defined point or period in time (CR-5 §4). The evaluation event : never an attribute of the subject." .
 
 dea:AssessmentFramework a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentFramework" ;
-    skos:definition "The external methodology used to conduct an assessment — its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
+    skos:definition "The external methodology used to conduct an assessment : its dimensions, criteria, indicators, scoring, maturity model and evidence requirements (CR-5 §5). External to the subject being assessed and versioned independently of OpenDEA Core (CR-5 §33)." .
 
 dea:AssessmentDimension a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -900,7 +910,7 @@ dea:AssessmentDimension a owl:Class ;
 dea:AssessmentCriterion a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentCriterion" ;
-    skos:definition "Defines what is evaluated within a dimension — id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
+    skos:definition "Defines what is evaluated within a dimension : id, name, definition, applicability and evaluation guidance (CR-5 §7). A criterion never contains the result of an evaluation." .
 
 dea:Indicator a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -915,7 +925,7 @@ dea:Observation a owl:Class ;
 dea:Measure a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Measure" ;
-    skos:definition "A quantifiable observation of an indicator — value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
+    skos:definition "A quantifiable observation of an indicator : value, unit, observation time and source (CR-5 §9). The unit is referenced, never encoded into the entity name." .
 
 dea:Score a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -925,12 +935,12 @@ dea:Score a owl:Class ;
 dea:Scale a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Scale" ;
-    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) — e.g. a 0..1 ratio or a 1..5 ordinal range." .
+    skos:definition "A declared ordered value space for scores and measures (CR-5 Phase 2; A004) : e.g. a 0..1 ratio or a 1..5 ordinal range." .
 
 dea:Unit a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Unit" ;
-    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) — percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
+    skos:definition "A standard quantity in which a measure is expressed (CR-5 §9/Phase 2) : percent, ratio, months, currency, count. Referenced by measures; never embedded in names." .
 
 dea:AssessmentResult a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -940,7 +950,7 @@ dea:AssessmentResult a owl:Class ;
 dea:AssessmentSubject a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentSubject" ;
-    skos:definition "The thing being evaluated — a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
+    skos:definition "The thing being evaluated : a reference to a DEA entity at an explicit scope (CR-5 §14). Allows the same entity to be assessed at different organizational scopes." .
 
 dea:AssessmentScope a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -950,7 +960,7 @@ dea:AssessmentScope a owl:Class ;
 dea:AssessmentTarget a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AssessmentTarget" ;
-    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer — never on the architectural entity." .
+    skos:definition "A desired future value or maturity level for a subject and criterion, with target date, rationale and approver (CR-5 §21). Targets live in the assessment layer : never on the architectural entity." .
 
 dea:AssessmentGap a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -965,7 +975,7 @@ dea:MaturityModel a owl:Class ;
 dea:MaturityLevel a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "MaturityLevel" ;
-    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels — entities never carry them intrinsically (A008)." .
+    skos:definition "A named, ordered position within a maturity model (CR-5 §12). Belongs to the referenced maturity model (A005); results attain levels : entities never carry them intrinsically (A008)." .
 
 dea:MaturityScale a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -985,7 +995,7 @@ dea:AggregationRule a owl:Class ;
 dea:ScoringRule a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "ScoringRule" ;
-    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework — not the ontology — defines the transformation." .
+    skos:definition "Declares how measures become scores within a framework (CR-5 §11/§25). The framework : not the ontology : defines the transformation." .
 
 dea:MaturityMappingRule a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -995,7 +1005,7 @@ dea:MaturityMappingRule a owl:Class ;
 dea:Evidence a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Evidence" ;
-    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test — with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
+    skos:definition "First-class support for an assessment result (CR-5 §16): document, inventory, interview, survey, metric, audit report, process observation, system log, API measurement or control test : with provenance, validity and confidence. Evidence supports a result; it is not the result (CR-5 §17)." .
 
 dea:EvidenceSource a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1020,7 +1030,7 @@ dea:BenchmarkPopulation a owl:Class ;
 dea:BenchmarkReference a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "BenchmarkReference" ;
-    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against — never treated as a result (A011)." .
+    skos:definition "A specific comparative value drawn from a benchmark population (CR-5 §28): industry level, peer median, percentile. Compared against results via benchmarked-against : never treated as a result (A011)." .
 
 # ═══ CR-5: Assessment profile object properties ═══
 
@@ -1038,7 +1048,7 @@ dea:conductedUnder a owl:ObjectProperty ;
 
 dea:defines a owl:ObjectProperty ;
     rdfs:label "Defines" ;
-    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules." ;
+    skos:definition "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) : dimensions, criteria, indicators, levels, scales and rules." ;
     dea:category "assessment" ;
     dea:inverseOf "dea:defined-by" .
 
@@ -1056,7 +1066,7 @@ dea:derivesFrom a owl:ObjectProperty ;
 
 dea:evaluatedBy a owl:ObjectProperty ;
     rdfs:label "Evaluated By" ;
-    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology." ;
+    skos:definition "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) : arithmetic is never hard-coded into the ontology." ;
     dea:category "assessment" ;
     dea:inverseOf "dea:evaluates" .
 
@@ -1127,12 +1137,12 @@ dea:TemporalState a owl:Class ;
 dea:LifecycleState a owl:Class ;
     rdfs:subClassOf dea:TemporalState ;
     rdfs:label "LifecycleState" ;
-    skos:definition "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile — never blindly uniform — and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3." .
+    skos:definition "An explicit operational state of a lifecycle-aware entity (CR-6 §7). Lifecycle state is defined by the entity type or profile : never blindly uniform : and is distinct from maturity level (§8): an Application can be Active while its Capability is assessed at Level 3." .
 
 dea:LifecycleEvent a owl:Class ;
     rdfs:subClassOf dea:TemporalEvent ;
     rdfs:label "LifecycleEvent" ;
-    skos:definition "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source — the raw material of architectural history (§17)." .
+    skos:definition "An auditable event that moves a subject through its lifecycle (CR-6 §28): created, approved, activated, modified, suspended, deprecated, retired, reactivated, superseded. Captures subject, timestamp, actor, reason and source : the raw material of architectural history (§17)." .
 
 dea:LifecycleTransition a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1152,7 +1162,7 @@ dea:ArchitectureState a owl:Class ;
 dea:BaselineState a owl:Class ;
     rdfs:subClassOf dea:ArchitectureState ;
     rdfs:label "BaselineState" ;
-    skos:definition "A formally adopted reference state of the architecture (CR-6 §10) — a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing." .
+    skos:definition "A formally adopted reference state of the architecture (CR-6 §10) : a declared snapshot, not 'whatever the model happens to contain'. A snapshot may become a baseline (§31); they are not the same thing." .
 
 dea:CurrentState a owl:Class ;
     rdfs:subClassOf dea:ArchitectureState ;
@@ -1167,17 +1177,17 @@ dea:TargetState a owl:Class ;
 dea:TransitionState a owl:Class ;
     rdfs:subClassOf dea:ArchitectureState ;
     rdfs:label "TransitionState" ;
-    skos:definition "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → … → Target, never in one jump." .
+    skos:definition "An intermediate architecture state between Current and Target (CR-6 §13): real transformation moves Current → Transition 1 → ... → Target, never in one jump." .
 
 dea:Scenario a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Scenario" ;
-    skos:definition "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) — e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)." .
+    skos:definition "A hypothetical architecture exploration under a defined set of assumptions (CR-6 §25) : e.g. cloud-first vs hybrid vs on-premise modernization. A scenario is not necessarily the approved target, and must never contaminate the authoritative architecture (T007)." .
 
 dea:ScenarioState a owl:Class ;
     rdfs:subClassOf dea:ArchitectureState ;
     rdfs:label "ScenarioState" ;
-    skos:definition "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container — they are never inserted into CurrentState (T007)." .
+    skos:definition "A hypothetical architecture state contained within a Scenario (CR-6 §25/§26). Scenario elements live inside the scenario container : they are never inserted into CurrentState (T007)." .
 
 dea:ScenarioAssumption a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1187,12 +1197,12 @@ dea:ScenarioAssumption a owl:Class ;
 dea:ArchitectureSnapshot a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "ArchitectureSnapshot" ;
-    skos:definition "A captured representation of the architecture at a point in time (CR-6 §30) — for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)." .
+    skos:definition "A captured representation of the architecture at a point in time (CR-6 §30) : for audits, regulatory reporting, maturity assessment, historical comparison and transformation governance. Approved snapshots are immutable except through explicit revision semantics (T010). A snapshot may become a baseline; it is not one by default (§31)." .
 
 dea:ArchitectureDelta a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "ArchitectureDelta" ;
-    skos:definition "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?' — the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored." .
+    skos:definition "The semantic difference between two architecture states (CR-6 §32): added, removed, modified, replaced, reclassified elements and relationship changes. The native answer to 'what must change to move from here to there?' : the bridge between DMM, target architecture, transformation and roadmaps (§33). Deltas are derived, never hand-authored." .
 
 dea:Version a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1209,7 +1219,7 @@ dea:validDuring a owl:ObjectProperty ;
 
 dea:contains a owl:ObjectProperty ;
     rdfs:label "Contains" ;
-    skos:definition "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes)." ;
+    skos:definition "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state : not structural composition (contrast dea:composes)." ;
     dea:category "structural" ;
     dea:inverseOf "dea:contained-in" .
 
@@ -1245,19 +1255,19 @@ dea:removes a owl:ObjectProperty ;
 
 dea:modifies a owl:ObjectProperty ;
     rdfs:label "Modifies" ;
-    skos:definition "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects." ;
+    skos:definition "A Change modifies an architecture element in place (CR-6 §15) : more specific than the broad dea:affects." ;
     dea:category "transformation" ;
     dea:inverseOf "dea:modified-by" .
 
 dea:inState a owl:ObjectProperty ;
     rdfs:label "In State" ;
-    skos:definition "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005)." ;
+    skos:definition "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 : never overwritten (T005)." ;
     dea:category "temporal" ;
     dea:inverseOf "dea:state-of" .
 
 dea:records a owl:ObjectProperty ;
     rdfs:label "Records" ;
-    skos:definition "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture." ;
+    skos:definition "A LifecycleEvent records something that happened to the target entity (CR-6 §28) : the auditable lifecycle history of the architecture." ;
     dea:category "temporal" ;
     dea:inverseOf "dea:recorded-by" .
 
@@ -1290,7 +1300,7 @@ dea:precedes a owl:ObjectProperty ;
 dea:Intent a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Intent" ;
-    skos:definition "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) — e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)." .
+    skos:definition "The desired direction or purpose behind an architectural or organizational decision (CR-7 §3) : e.g. improve customer experience, increase resilience, become AI-enabled. Intent is not a goal metric: Intent motivates Objective, Objective is measured, Outcome is what actually happened (§6)." .
 
 dea:Objective a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1305,7 +1315,7 @@ dea:Policy a owl:Class ;
 dea:PolicyRule a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "PolicyRule" ;
-    skos:definition "An atomic, evaluable rule within a Policy (CR-7 §7/§38) — the unit policy enforcement evaluates." .
+    skos:definition "An atomic, evaluable rule within a Policy (CR-7 §7/§38) : the unit policy enforcement evaluates." .
 
 dea:PolicyEvaluation a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1315,7 +1325,7 @@ dea:PolicyEvaluation a owl:Class ;
 dea:PolicyDecision a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "PolicyDecision" ;
-    skos:definition "The outcome of a policy evaluation — e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate." .
+    skos:definition "The outcome of a policy evaluation : e.g. 'Agent A is permitted to access Dataset X' (CR-7 §39). Not the same as an enterprise Decision ('deploy Agent A'); the two are kept separate." .
 
 dea:DecisionOption a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1360,12 +1370,12 @@ dea:Action a owl:Class ;
 dea:Agent a owl:Class ;
     rdfs:subClassOf dea:Actor ;
     rdfs:label "Agent" ;
-    skos:definition "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system — not its center (§1)." .
+    skos:definition "An autonomous or semi-autonomous actor capable of perceiving information, reasoning or evaluating conditions, and initiating or executing actions within a defined authority and policy boundary (CR-7 §20). Broader than 'AI model' (§21): an Agent has identity, purpose, capabilities, knowledge, tools, policies, authority, goals, state, memory, decision mechanism, actions and observability. An Agent is a participant in the enterprise semantic system : not its center (§1)." .
 
 dea:AgentProfile a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AgentProfile" ;
-    skos:definition "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle — placed inside the DEA semantic model rather than an isolated template." .
+    skos:definition "The formal profile of an Agent (CR-7 §22): purpose, objectives, capabilities, knowledge, models, tools, policies, authority, decision/action scope, autonomy level, human oversight, memory, state, inputs, outputs, risks, controls, owner and lifecycle : placed inside the DEA semantic model rather than an isolated template." .
 
 dea:AgentSkill a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1385,7 +1395,7 @@ dea:ToolPermission a owl:Class ;
 dea:Orchestrator a owl:Class ;
     rdfs:subClassOf dea:Actor ;
     rdfs:label "Orchestrator" ;
-    skos:definition "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) — the three are never collapsed (§46)." .
+    skos:definition "Coordinates multiple actors, agents, services and workflows toward a goal (CR-7 §46/§47). Distinct from Agent (bounded cognitive/action role) and Controller (enforces execution/state/control conditions) : the three are never collapsed (§46)." .
 
 dea:Controller a owl:Class ;
     rdfs:subClassOf dea:Actor ;
@@ -1410,7 +1420,7 @@ dea:Task a owl:Class ;
 dea:AutonomyPolicy a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AutonomyPolicy" ;
-    skos:definition "The policy governing how much autonomy an Agent may exercise (CR-7 §23) — the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale." .
+    skos:definition "The policy governing how much autonomy an Agent may exercise (CR-7 §23) : the metamodel models AutonomyPolicy/AutonomyLevel/HumanOversight/ApprovalRequirement rather than hard-coding a scale." .
 
 dea:AutonomyLevel a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1420,7 +1430,7 @@ dea:AutonomyLevel a owl:Class ;
 dea:HumanOversight a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "HumanOversight" ;
-    skos:definition "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision — materially different governance patterns." .
+    skos:definition "First-class human oversight of agent behavior (CR-7 §25): approve-before-action, review-after-action, intervene-on-exception, continuous supervision : materially different governance patterns." .
 
 dea:Approval a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -1440,12 +1450,39 @@ dea:AgenticSystem a owl:Class ;
 dea:AgentOpportunity a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "AgentOpportunity" ;
-    skos:definition "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived — never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)." .
+    skos:definition "A derived decision-support object identifying where an agent could create value (CR-7 §56): subject capability, potential agent, expected value, risk, readiness, recommended autonomy. Derived : never an architectural entity assumed to exist in the target architecture. Links DMM assessment to agentic transformation (§55)." .
 
 dea:Memory a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     rdfs:label "Memory" ;
     skos:definition "Information retained by or for an Agent (CR-7 §33). The DEA concern is governance, not AI implementation detail: what is retained, who controls it, how long, under what policy, who can access it." .
+
+# ═══ CR-17..CR-022: Information Systems Semantic Architecture programme ═══
+# ADR-ISA-000 foundation + six disposition decisions (D-1..D-6). The four
+# canonical Digital Profile entities (InformationSystemFunction,
+# InformationSystemComponent, InformationSystemService, IntegrationInterface)
+# are introduced here for the first time in the TTL ontology. The new
+# dea:specifies relationship (CR-021) is also declared.
+
+dea:InformationSystemFunction a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "InformationSystemFunction" ;
+    skos:definition "A defined unit of functional behaviour performed by an information system or one of its components to process information, execute logic, respond to events, or produce an intended system outcome. CR-018 (D-1 disposition 2026-10-16); supersedes dea:SystemFunction. Specialises Core dea:Behavior (per the kernel+specialization template; CR-016 + CR-MM-PROC-01 precedents)." .
+
+dea:InformationSystemComponent a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "InformationSystemComponent" ;
+    skos:definition "An identifiable architectural constituent of an information system that encapsulates a defined responsibility, structure or execution boundary and participates in the composition or operation of that information system. CR-019 (D-2 disposition 2026-10-16); abstract kind that ApplicationComponent and IntegrationComponent specialise. Specialises dea:SolutionComponent (the parent abstract kind per ADR-0002 D3)." .
+
+dea:InformationSystemService a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "InformationSystemService" ;
+    skos:definition "A service provided by an information system or a software platform to a consumer, expressed as a contract about the exchange of capability, functionality or data. CR-020 (D-3 disposition 2026-10-16); specialises Core dea:Service (per the kernel+specialization template)." .
+
+dea:IntegrationInterface a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "IntegrationInterface" ;
+    skos:definition "A defined interaction boundary between an information system (or one of its components) and one or more internal or external consumers or providers, specifying the means, protocols, interaction patterns and contractual constraints through which information or functionality is exchanged. CR-021 (D-4 disposition 2026-10-16); distinct from dea:API (the contract that may specify it)." .
 
 # ═══ CR-7: Governance & agentic profile object properties ═══
 
@@ -1463,7 +1500,7 @@ dea:seeks a owl:ObjectProperty ;
 
 dea:constrainedBy a owl:ObjectProperty ;
     rdfs:label "Constrained By" ;
-    skos:definition "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9)." ;
+    skos:definition "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits : the two are not conflated (§9)." ;
     dea:category "governance" ;
     dea:inverseOf "dea:constrains" .
 
@@ -1481,13 +1518,13 @@ dea:performedBy a owl:ObjectProperty ;
 
 dea:informedBy a owl:ObjectProperty ;
     rdfs:label "Informed By" ;
-    skos:definition "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type." ;
+    skos:definition "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) : reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type." ;
     dea:category "traceability" ;
     dea:inverseOf "dea:informs-decision" .
 
 dea:delegates a owl:ObjectProperty ;
     rdfs:label "Delegates" ;
-    skos:definition "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)." ;
+    skos:definition "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) : the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005)." ;
     dea:category "governance" ;
     dea:inverseOf "dea:delegated-to" .
 
@@ -1517,19 +1554,19 @@ dea:establishes a owl:ObjectProperty ;
 
 dea:consults a owl:ObjectProperty ;
     rdfs:label "Consults" ;
-    skos:definition "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational." ;
+    skos:definition "The source consults the target in a decision or action context (CR-7 §37) : the 'C' in RACI-style semantics without making RACI itself foundational." ;
     dea:category "traceability" ;
     dea:inverseOf "dea:consulted-by" .
 
 dea:mitigates a owl:ObjectProperty ;
     rdfs:label "Mitigates" ;
-    skos:definition "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition." ;
+    skos:definition "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk : mitigation is the control-bearing disposition." ;
     dea:category "governance" ;
     dea:inverseOf "dea:mitigated-by" .
 
 dea:escalatesTo a owl:ObjectProperty ;
     rdfs:label "Escalates To" ;
-    skos:definition "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely." ;
+    skos:definition "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) : escalate or fail safely." ;
     dea:category "governance" ;
     dea:inverseOf "dea:escalated-from" .
 
@@ -1541,7 +1578,7 @@ dea:evaluates a owl:ObjectProperty ;
 
 dea:hasSkill a owl:ObjectProperty ;
     rdfs:label "Has Skill" ;
-    skos:definition "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014)." ;
+    skos:definition "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability : a skill may implement or contribute to one (G014)." ;
     dea:category "structural" ;
     dea:inverseOf "dea:skill-of" .
 
@@ -1565,13 +1602,13 @@ dea:enforces a owl:ObjectProperty ;
 
 dea:permits a owl:ObjectProperty ;
     rdfs:label "Permits" ;
-    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary." ;
+    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) : the positive half of the agent action boundary." ;
     dea:category "governance" ;
     dea:inverseOf "dea:permitted-by" .
 
 dea:prohibits a owl:ObjectProperty ;
     rdfs:label "Prohibits" ;
-    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary." ;
+    skos:definition "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) : the negative half of the agent action boundary." ;
     dea:category "governance" ;
     dea:inverseOf "dea:prohibited-by" .
 
@@ -1589,6 +1626,6 @@ dea:hasOversight a owl:ObjectProperty ;
 
 dea:accesses a owl:ObjectProperty ;
     rdfs:label "Accesses" ;
-    skos:definition "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates." ;
+    skos:definition "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) : reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates." ;
     dea:category "serving" ;
     dea:inverseOf "dea:accessed-by" .

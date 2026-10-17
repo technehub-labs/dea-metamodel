@@ -1,6 +1,6 @@
-"""Skill — generated from schemas/entities/skill.json.
+"""Skill  :  generated from schemas/entities/skill.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,6 +1,6 @@
-"""DecisionOption — generated from schemas/entities/decision-option.json.
+"""DecisionOption  :  generated from schemas/entities/decision-option.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

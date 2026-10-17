@@ -1,0 +1,125 @@
+# IS Semantic Architecture :: Conformance Test Catalogue
+# CR-022 closure artefact. Positive and negative conformance tests for the
+# IS Semantic Architecture programme (CR-017..CR-022).
+#
+# These tests are the conformance catalogue the validators must satisfy.
+# They are the bridge between the canonical metamodel source and the
+# tests/conformance/ test suite.
+
+# Positive conformance tests
+positive:
+  - id: positive-001
+    description: "A System Function specialising Behavior."
+    cr: "CR-018"
+    example: "dea:InformationSystemFunction specializes dea:Behavior"
+    validated_by: "tests/conformance/test_001_entities_have_name_definition_layer_lifecycle.py"
+
+  - id: positive-002
+    description: "An Application Component executing a System Function."
+    cr: "CR-019"
+    example: "dea:ApplicationComponent executes dea:InformationSystemFunction"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-003
+    description: "A System Component providing an Information System Service."
+    cr: "CR-020"
+    example: "dea:InformationSystemComponent provides dea:InformationSystemService"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-004
+    description: "A Platform Service specialising Information System Service, where approved."
+    cr: "CR-020"
+    example: "dea:PlatformService specializes dea:InformationSystemService (conditional per D-3)"
+    validated_by: "tests/conformance/test_001_entities_have_name_definition_layer_lifecycle.py"
+
+  - id: positive-005
+    description: "A Business Service realized through an Information System Service."
+    cr: "CR-020"
+    example: "dea:BusinessService realizes dea:InformationSystemService"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-006
+    description: "An Integration Component exposing an Integration Interface."
+    cr: "CR-021"
+    example: "dea:IntegrationComponent exposes dea:IntegrationInterface"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-007
+    description: "An API specifying an Integration Interface."
+    cr: "CR-021"
+    example: "dea:API specifies dea:IntegrationInterface"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-008
+    description: "An Integration Interface exchanging an Event."
+    cr: "CR-021"
+    example: "dea:IntegrationInterface exchanges dea:Event"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: positive-009
+    description: "A component using an interface exposed by another component."
+    cr: "CR-019/CR-021"
+    example: "dea:InformationSystemComponent uses dea:IntegrationInterface"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+# Negative conformance tests
+negative:
+  - id: negative-001
+    description: "A System Function classified as a Business Capability without a valid semantic relationship."
+    cr: "CR-018"
+    counterexample: "dea:InformationSystemFunction specializes dea:BusinessCapability  (invalid; ISF specialises Core dea:Behavior, not BusinessCapability)"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: negative-002
+    description: "An API instantiated as an Integration Interface."
+    cr: "CR-021"
+    counterexample: "type=API in a context requiring type=IntegrationInterface"
+    validated_by: "JSON Schema (schemas/entities/integration-interface.json has type:const IntegrationInterface)"
+
+  - id: negative-003
+    description: "A Component represented as a Service."
+    cr: "CR-020"
+    counterexample: "type=InformationSystemComponent in a context requiring type=InformationSystemService"
+    validated_by: "JSON Schema (schemas/entities/information-system-service.json has type:const InformationSystemService)"
+
+  - id: negative-004
+    description: "An Information System Service represented as a System Function."
+    cr: "CR-018/CR-020"
+    counterexample: "type=InformationSystemService in a context requiring type=InformationSystemFunction"
+    validated_by: "JSON Schema (schemas/entities/information-system-function.json has type:const InformationSystemFunction)"
+
+  - id: negative-005
+    description: "An abstract SolutionComponent instantiated where prohibited."
+    cr: "CR-019"
+    counterexample: "dea:SolutionComponent.abstract is true; a record asserting type=SolutionComponent without a subclass is invalid"
+    validated_by: "tests/conformance/test_001_entities_have_name_definition_layer_lifecycle.py"
+
+  - id: negative-006
+    description: "A component executing an entity that is not an eligible System Function."
+    cr: "CR-019"
+    counterexample: "dea:InformationSystemComponent executes dea:Capability  (invalid; executes target must be an ISF or legacy SF)"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: negative-007
+    description: "An Integration Interface with an invalid API relationship."
+    cr: "CR-021"
+    counterexample: "dea:IntegrationInterface specifies dea:API  (invalid; specifies source must be dea:API, target must be dea:IntegrationInterface; reverse is out of scope)"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: negative-008
+    description: "An invalid specialization cycle."
+    cr: "CR-019"
+    counterexample: "dea:InformationSystemComponent specializes dea:ApplicationComponent  (invalid; APC specializes ISC, not the reverse)"
+    validated_by: "tests/conformance/test_001_entities_have_name_definition_layer_lifecycle.py (and explicit specialization validator; parked for a future CR)"
+
+  - id: negative-009
+    description: "A relationship whose source or target violates its declared constraints."
+    cr: "CR-019/CR-020/CR-021"
+    counterexample: "dea:Behavior executes dea:InformationSystemFunction  (invalid; Behavior is not a permitted source for executes)"
+    validated_by: "tests/conformance/test_008_relationship_rules.py::test_r010_endpoint_compatibility_checkable"
+
+  - id: negative-010
+    description: "A duplicate semantic identity for System Function."
+    cr: "CR-018"
+    counterexample: "a record referencing both dea:InformationSystemFunction and dea:SystemFunction for the same architectural concept  (invalid; legacy SF retains status deprecated; new ISF is canonical)"
+    validated_by: "tests/conformance/test_001_entities_have_name_definition_layer_lifecycle.py"

@@ -1,6 +1,6 @@
-"""AgenticSystem — generated from schemas/entities/agentic-system.json.
+"""AgenticSystem  :  generated from schemas/entities/agentic-system.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

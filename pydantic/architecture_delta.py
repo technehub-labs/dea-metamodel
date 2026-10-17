@@ -1,6 +1,6 @@
-"""ArchitectureDelta — generated from schemas/entities/architecture-delta.json.
+"""ArchitectureDelta  :  generated from schemas/entities/architecture-delta.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

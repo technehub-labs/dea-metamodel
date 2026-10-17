@@ -1,6 +1,6 @@
-"""TechnologyRadarEntry — generated from schemas/entities/technology-radar-entry.json.
+"""TechnologyRadarEntry  :  generated from schemas/entities/technology-radar-entry.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

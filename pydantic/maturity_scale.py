@@ -1,6 +1,6 @@
-"""MaturityScale — generated from schemas/entities/maturity-scale.json.
+"""MaturityScale  :  generated from schemas/entities/maturity-scale.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

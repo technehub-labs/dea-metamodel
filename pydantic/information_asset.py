@@ -1,6 +1,6 @@
-"""InformationAsset — generated from schemas/entities/information-asset.json.
+"""InformationAsset  :  generated from schemas/entities/information-asset.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

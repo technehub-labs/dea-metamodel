@@ -1,6 +1,6 @@
-"""Benchmark — generated from schemas/entities/benchmark.json.
+"""Benchmark  :  generated from schemas/entities/benchmark.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

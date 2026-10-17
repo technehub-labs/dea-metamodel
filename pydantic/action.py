@@ -1,6 +1,6 @@
-"""Action — generated from schemas/entities/action.json.
+"""Action  :  generated from schemas/entities/action.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

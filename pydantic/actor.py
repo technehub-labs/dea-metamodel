@@ -1,6 +1,6 @@
-"""Actor — generated from schemas/entities/actor.json.
+"""Actor  :  generated from schemas/entities/actor.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,6 +1,6 @@
-"""Delegation — generated from schemas/entities/delegation.json.
+"""Delegation  :  generated from schemas/entities/delegation.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,6 +1,6 @@
-"""Memory — generated from schemas/entities/memory.json.
+"""Memory  :  generated from schemas/entities/memory.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1,6 +1,6 @@
-"""TargetState — generated from schemas/entities/target-state.json.
+"""TargetState  :  generated from schemas/entities/target-state.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

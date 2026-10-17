@@ -1,6 +1,6 @@
-"""Requirement — generated from schemas/entities/requirement.json.
+"""Requirement  :  generated from schemas/entities/requirement.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

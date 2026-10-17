@@ -10,7 +10,7 @@ holds the shared BaseEntity. Class names derive from the JSON Schema filename
 changes. The emitted __init__.py stamps __metamodel_version__ from
 metamodel/manifest.yaml.
 
-Generation is deterministic — same schemas always produce byte-identical
+Generation is deterministic  :  same schemas always produce byte-identical
 output. CI verifies this (ci.yml regenerates and diffs).
 
 Run: python3 .github/scripts/generate_pydantic.py
@@ -28,16 +28,16 @@ OUT_DIR = BASE / "pydantic"
 INDEX = BASE / "metamodel" / "dea-metamodel.yaml"
 MANIFEST = BASE / "metamodel" / "manifest.yaml"
 
-HEADER = '''"""{title} — generated from schemas/entities/{schema_file}.
+HEADER = '''"""{title}  :  generated from schemas/entities/{schema_file}.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 '''
 
 BASE_PY = '''"""Abstract root for all DEA metamodel entities (generated).
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 from __future__ import annotations
@@ -123,7 +123,7 @@ def gen_module(name: str, schema_path: Path) -> str:
     lines.append("from __future__ import annotations\n")
     lines.append("from typing import Any, Literal, Optional\n")
     lines.append("from pydantic import Field\n")
-    # NOTE: top-level import (not relative) — this directory is named
+    # NOTE: top-level import (not relative)  :  this directory is named
     # `pydantic/` per metamodel.yaml, which shadows the pydantic library
     # when the REPO ROOT is on sys.path. Consumers must put the pydantic/
     # directory itself on sys.path and import these as top-level modules.
@@ -174,7 +174,7 @@ def main() -> int:
         name = class_name_from_schema(schema_path) if schema_path else \
             class_name_from_schema(Path(model_rel))
         if not schema_path or not schema_path.exists():
-            print(f"WARNING: {name}: schema {schema_rel} missing — generating stub", file=sys.stderr)
+            print(f"WARNING: {name}: schema {schema_rel} missing  :  generating stub", file=sys.stderr)
             content = HEADER.format(title=name, schema_file="(missing)") + \
                 "from .entity import Entity\n\n\nclass " + name + "(Entity):\n    pass\n"
         else:

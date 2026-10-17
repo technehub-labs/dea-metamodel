@@ -1,6 +1,6 @@
-"""ScenarioAssumption — generated from schemas/entities/scenario-assumption.json.
+"""ScenarioAssumption  :  generated from schemas/entities/scenario-assumption.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

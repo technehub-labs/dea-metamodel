@@ -1,6 +1,6 @@
-"""Workflow — generated from schemas/entities/workflow.json.
+"""Workflow  :  generated from schemas/entities/workflow.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

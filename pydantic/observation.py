@@ -1,6 +1,6 @@
-"""Observation — generated from schemas/entities/observation.json.
+"""Observation  :  generated from schemas/entities/observation.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

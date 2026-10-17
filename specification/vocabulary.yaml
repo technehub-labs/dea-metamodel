@@ -564,7 +564,9 @@ concepts:
     entity. OpenDEAM identifier dea:entity-system-function resolves to this entity via the cross-reference map owned by CR-AR-FMWK-04.
     EGV-004 identity continuity: every reference to dea:entity-system-function continues to resolve after regeneration; legacy
     catalog references remain reachable. Cited template precedents: CR-016 (dea:Capability / dea:BusinessCapability kernel+specialization),
-    CR-MM-PROC-01 (dea:Process / dea:BusinessProcess kernel+specialization).'
+    CR-MM-PROC-01 (dea:Process / dea:BusinessProcess kernel+specialization), CR-019 (abstract kind flip on dea:SolutionComponent),
+    CR-020 (Core dea:Service / dea:InformationSystemService), CR-021 (interaction boundary separation). Catalog ownership:
+    the dea-catalog-information-system-functions repository (rename target of dea-catalog-system-functions per CR-IS-CAT-01).'
   semantic_category: dea:digital
   abstract: false
   status: normative

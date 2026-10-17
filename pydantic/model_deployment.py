@@ -1,6 +1,6 @@
-"""ModelDeployment — generated from schemas/entities/model-deployment.json.
+"""ModelDeployment  :  generated from schemas/entities/model-deployment.json.
 
-Do not edit manually — regenerate with:
+Do not edit manually  :  regenerate with:
     python3 .github/scripts/generate_pydantic.py
 """
 

@@ -1521,9 +1521,21 @@ entities:
   legacy_ids:
   - dea:entity-metric
   - Metric
-  definition: 'A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance
-    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0; belongs to orthogonal_allocators.measurement-dimension
-    instead (ADR-0002 D1).
+  - CR-10J:scenario-metric
+  definition: 'A formally defined, reusable semantic specification that describes a measurable
+    property, characteristic, condition, quantity, rate, ratio, index, or other observable
+    aspect of a subject, including the semantic rules necessary to determine and interpret
+    its value. A Metric defines what is to be measured and the rules governing its determination.
+    It does not, by itself, represent a measurement execution or an observed result.
+    A Metric is foundational: it is reified across the measurement-dimension orthogonal
+    allocator (per ADR-0002 D1) and may be referenced from any OpenDEAM profile where
+    measurement is in scope. A Metric MUST have a stable identity independent of its
+    name; MUST have an unambiguous definition; MUST identify its subject concept; MUST
+    declare an appropriate measurement nature; MUST define or reference a compatible
+    unit or scale (numeric metrics); MUST have an explicit calculation definition (formula-based
+    metrics); MUST NOT force qualitative metrics into numeric measurement semantics;
+    MUST NOT contain individual observation values; and MUST NOT contain operational
+    measurement history. (CR-MET-001 binding CR-MET-000 reconciliation and ADR-MET-001.)
 
     '
   layer: null
@@ -1540,8 +1552,8 @@ entities:
     pydantic_model: pydantic/metric.py
     ts_interface: typescript/src/interfaces.ts
   membership:
-    kind: profile
-    profile: dea:assessment
+    kind: core
+    profile: null
 - id: dea:ArchitectureElement
   name: ArchitectureElement
   legacy_ids: []
@@ -1872,6 +1884,46 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:Measurement
+  name: Measurement
+  legacy_ids: []
+  definition: "The execution or application of a Metric to a particular subject, within a defined context, using an identified measurement method and applicable configuration. A Measurement carries the applies-metric reference to the Metric definition version applied, the measures-subject reference to the entity that was measured, the temporal context, the responsible party, and any configuration parameters necessary to reproduce the result. A Measurement MAY produce zero or more MeasurementObservations. (CR-MET-001 binding ADR-MET-002; full attribute set in CR-MET-003.)"
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: MMT
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/measurement.json
+    sqlite_table: measurements
+    pydantic_model: pydantic/measurement.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:MeasurementObservation
+  name: Measurement Observation
+  legacy_ids: []
+  definition: "The recorded result of a Measurement. Captures the resulting value, the unit, the temporal context of the value (when the value was obtained), the confidence (if applicable), and the provenance reference. A MeasurementObservation is a sibling of the existing assessment-side dea:Observation (CR-5 27). The two are distinct concepts on the assessment-vs-measurement axis and MUST NOT be merged, re-membershiped, or supersed-ed. (CR-MET-001 binding ADR-MET-002; user clarification 2026-10-18; full attribute set in CR-MET-003.)"
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: MOBS
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/measurement-observation.json
+    sqlite_table: measurement_observations
+    pydantic_model: pydantic/measurement_observation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
 - id: dea:Measure
   name: Measure
   legacy_ids: []

@@ -1,4 +1,4 @@
-# Classification vocabularies (CR-3B/N, E005) — controlled values for
+# Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
 version: 0.8.0
 classifications:
@@ -249,6 +249,34 @@ classifications:
   Metric.metric_type:
     entity: Metric
     property: metric_type
+    values:
+    - kpi
+    - health
+    - maturity
+    - performance
+    - adoption
+    - compliance
+    - risk
+  Metric.measurement_nature:
+    entity: Metric
+    property: measurement_nature
+    values:
+    - numeric
+    - ordinal
+    - nominal
+    - boolean
+    - composite
+  Metric.directionality:
+    entity: Metric
+    property: directionality
+    values:
+    - higher_is_better
+    - lower_is_better
+    - target_is_better
+    - nominal
+  Metric.legacy_metric_type:
+    entity: Metric
+    property: legacy_metric_type
     values:
     - kpi
     - health

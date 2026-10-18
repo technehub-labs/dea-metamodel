@@ -3,15 +3,15 @@
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/metric.json",
   "metamodel_version": "1.0.0",
   "title": "Metric",
-  "description": "A measured quantity used to evaluate outcomes against targets. OpenDEAM v0.2.0 (ADR-0002 D1): Metrics belong to the cross-cutting Measurement Dimension, not an architecture layer. scope_layers declares which layers the metric is permitted to evaluate; measurable entities reference metrics via measured_by.",
+  "description": "A formally defined, reusable semantic specification that describes a measurable property, characteristic, condition, quantity, rate, ratio, index, or other observable aspect of a subject, including the semantic rules necessary to determine and interpret its value. A Metric is foundational: reified across the measurement-dimension orthogonal allocator (ADR-0002 D1) and referenceable from any OpenDEAM profile. (CR-MET-001 binding CR-MET-000 reconciliation and ADR-MET-001.)",
   "type": "object",
   "required": [
     "id",
     "name",
     "type",
     "version",
-    "metric_type",
-    "unit"
+    "subject_concept",
+    "measurement_nature"
   ],
   "properties": {
     "id": {
@@ -68,35 +68,55 @@
         }
       }
     },
-    "metric_type": {
+    "subject_concept": {
+      "type": "string",
+      "description": "The type of phenomenon or property measured (CR-MET-001 binding). Normative: required, distinguishes a Metric by what it measures rather than by its MECE label.",
+      "examples": [
+        "dea:subject-revenue",
+        "dea:subject-customer-retention",
+        "dea:subject-availability"
+      ]
+    },
+    "measurement_nature": {
       "type": "string",
       "enum": [
-        "kpi",
-        "health",
-        "maturity",
-        "performance",
-        "adoption",
-        "compliance",
-        "risk"
+        "numeric",
+        "ordinal",
+        "nominal",
+        "boolean",
+        "composite"
       ],
-      "description": "Category of metric."
+      "description": "The data nature of the value produced by applying this Metric. Normative: required. CR-MET-001 binding."
+    },
+    "directionality": {
+      "type": "string",
+      "enum": [
+        "higher_is_better",
+        "lower_is_better",
+        "target_is_better",
+        "nominal"
+      ],
+      "description": "Desired interpretation of increasing or decreasing values. CR-MET-001 binding."
+    },
+    "calculation_definition": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Formula or computational definition. Required when measurement_nature is numeric and the value is computed; for ordinal/nominal/boolean values a textual rule suffices."
     },
     "unit": {
       "type": "string",
-      "description": "Measurement unit.",
+      "description": "Measurement unit (cross-reference to the unit registry per CR-MET-005). Optional: required only when measurement_nature is numeric. Examples: %, count, days, USD, ms.",
       "examples": [
-        [
-          "%",
-          "count",
-          "days",
-          "USD",
-          "ms"
-        ]
+        "%",
+        "count",
+        "days",
+        "USD",
+        "ms"
       ]
     },
     "measurement_method": {
       "type": "string",
-      "maxLength": 500,
+      "maxLength": 2000,
       "description": "How this metric is collected or calculated."
     },
     "baseline_value": {
@@ -161,6 +181,19 @@
         "pattern": "^L[0-9]+$"
       },
       "description": "Architecture layers this metric may evaluate (OpenDEAM v0.2.0 measurement-dimension scope)."
+    },
+    "legacy_metric_type": {
+      "type": "string",
+      "enum": [
+        "kpi",
+        "health",
+        "maturity",
+        "performance",
+        "adoption",
+        "compliance",
+        "risk"
+      ],
+      "description": "DEPRECATED. The pre-CR-MET-001 MECE taxonomy value. Preserved for one release cycle to allow migration of existing catalog records. New records MUST use the binding six-axis classification per CR-MET-002 / ADR-MET-003."
     }
   }
 }

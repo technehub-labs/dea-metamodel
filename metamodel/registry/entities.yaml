@@ -692,8 +692,8 @@ entities:
   lifecycle: existing
   catalog_repo: dea-catalog-metrics
   membership:
-    kind: profile
-    profile: dea:assessment
+    kind: core
+    profile: null
 - id: dea:ArchitectureElement
   name: ArchitectureElement
   layer: null
@@ -870,6 +870,28 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:Measurement
+  name: Measurement
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:MeasurementObservation
+  name: Measurement Observation
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
 - id: dea:Measure
   name: Measure
   layer: null

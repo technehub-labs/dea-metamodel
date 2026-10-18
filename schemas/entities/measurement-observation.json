@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/measurement-observation.json",
+  "metamodel_version": "1.0.0",
+  "title": "Measurement Observation",
+  "description": "The recorded result of a Measurement. A MeasurementObservation is a sibling of the existing assessment-side dea:Observation (CR-5 27) on the assessment-vs-measurement axis; the two are distinct concepts and MUST NOT be merged, re-membershiped, or supersed-ed. (CR-MET-001 binding ADR-MET-002; user clarification 2026-10-18; full attribute set in CR-MET-003 and CR-MET-011.)",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "produced_by",
+    "value"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "examples": [
+        "dea:measurement-observation-2026-12-31-api-adoption-rate-division-east"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "const": "MeasurementObservation"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "planned",
+        "active",
+        "deprecated",
+        "retired"
+      ]
+    },
+    "produced_by": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Reference to the dea:Measurement that produced this observation. Cardinality 1:0..1 (a MeasurementObservation is the result of one Measurement; a Measurement MAY produce zero or more observations)."
+    },
+    "value": {
+      "type": [
+        "number",
+        "string",
+        "boolean",
+        "object"
+      ],
+      "description": "The recorded value. Typed to support the four measurement_nature values from the parent Metric: numeric (number), ordinal (number or string), nominal (string), boolean (boolean), composite (object)."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Optional reference to the unit registry per CR-MET-005. Required when the parent Metric has measurement_nature: numeric.",
+      "examples": [
+        "%",
+        "count",
+        "days",
+        "USD",
+        "ms"
+      ]
+    },
+    "temporal": {
+      "type": "object",
+      "description": "Temporal context (when the value was obtained). Full specification in CR-MET-011.",
+      "additionalProperties": true
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Optional confidence value in the range 0..1."
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "../relationships/relationship-instance.json"
+      }
+    },
+    "metadata": {
+      "$ref": "entity.json#/properties/metadata"
+    }
+  }
+}

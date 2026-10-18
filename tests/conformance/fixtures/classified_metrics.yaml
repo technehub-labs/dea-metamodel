@@ -1,0 +1,126 @@
+# CR-MET-002 representative classified Metric fixtures (per user-supplied CR-MET-002 §7).
+# 6 representative classified Metric definitions. Consumed by
+# tests/conformance/test_022_metric_classification.py.
+version: 1.0.0
+classifications_version: 0.9.0
+metrics:
+  - id: dea:metric-customer-retention-rate
+    name: Customer Retention Rate
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-customer-retention
+    measurement_nature: numeric
+    subject_classification:
+      - dea:subject-customer
+    purpose_classification:
+      - performance_measurement
+    orientation_classification:
+      - lagging
+    scope_classification:
+      - enterprise
+    management_significance:
+      - kpi
+    description: >
+      The percentage of customers retained over a rolling twelve-month
+      period. Lagging performance measurement; enterprise scope; KPI.
+  - id: dea:metric-employee-engagement-score
+    name: Employee Engagement Score
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-employee-engagement
+    measurement_nature: ordinal
+    subject_classification:
+      - dea:subject-organizational
+    purpose_classification:
+      - diagnostic_measurement
+    orientation_classification:
+      - concurrent
+    scope_classification:
+      - organizational_unit
+    management_significance:
+      - general_metric
+    description: >
+      An ordinal score from a structured engagement survey; concurrent
+      diagnostic; organizational_unit scope.
+  - id: dea:metric-mean-time-to-recovery
+    name: Mean Time to Recovery
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-mean-time-to-recovery
+    measurement_nature: numeric
+    subject_classification:
+      - dea:subject-technology
+      - dea:subject-operational
+    purpose_classification:
+      - quality_measurement
+    orientation_classification:
+      - lagging
+    scope_classification:
+      - system_or_component
+    management_significance:
+      - kri
+    description: >
+      Mean time to recover from a service or system failure; lagging
+      quality measurement; system_or_component scope; KRI.
+      Multi-subject classification is the canonical example of the
+      "MAY have multiple subject classifications" rule (user-supplied
+      CR-MET-002 §5).
+  - id: dea:metric-data-completeness
+    name: Data Completeness
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-data-completeness
+    measurement_nature: numeric
+    subject_classification:
+      - dea:subject-data
+    purpose_classification:
+      - quality_measurement
+    orientation_classification:
+      - concurrent
+    scope_classification:
+      - business_domain
+    management_significance:
+      - kci
+    description: >
+      The percentage of required data attributes populated; concurrent
+      quality measurement; business_domain scope; KCI.
+  - id: dea:metric-strategic-objective-attainment
+    name: Strategic Objective Attainment
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-strategic-objective-attainment
+    measurement_nature: ordinal
+    subject_classification:
+      - dea:subject-strategic
+    purpose_classification:
+      - outcome_measurement
+    orientation_classification:
+      - lagging
+    scope_classification:
+      - enterprise
+    management_significance:
+      - kpi
+    description: >
+      The degree to which a strategic objective is attained; lagging
+      outcome measurement; enterprise scope; KPI.
+  - id: dea:metric-operational-capacity-utilization
+    name: Operational Capacity Utilization
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-operational-capacity-utilization
+    measurement_nature: numeric
+    subject_classification:
+      - dea:subject-operational
+    purpose_classification:
+      - efficiency_measurement
+    orientation_classification:
+      - concurrent
+    scope_classification:
+      - process
+    management_significance:
+      - general_metric
+    description: >
+      The ratio of used capacity to available capacity; concurrent
+      efficiency measurement; process scope; general_metric.
+      "process" refers to dea:BusinessProcess (line 592; L3); there is
+      no dea:Activity (per user reminder 2026-10-18).

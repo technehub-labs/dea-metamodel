@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.8.0
+version: 0.9.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -285,6 +285,74 @@ classifications:
     - adoption
     - compliance
     - risk
+  Metric.subject_classification:
+    entity: Metric
+    property: subject_classification
+    values:
+    - dea:subject-financial
+    - dea:subject-customer
+    - dea:subject-organizational
+    - dea:subject-operational
+    - dea:subject-technology
+    - dea:subject-data
+    - dea:subject-risk
+    - dea:subject-capability
+    - dea:subject-strategic
+    - dea:subject-sustainability
+  Metric.purpose_classification:
+    entity: Metric
+    property: purpose_classification
+    values:
+    - performance_measurement
+    - risk_monitoring
+    - compliance_monitoring
+    - quality_measurement
+    - efficiency_measurement
+    - effectiveness_measurement
+    - maturity_measurement
+    - outcome_measurement
+    - diagnostic_measurement
+    - predictive_measurement
+  Metric.orientation_classification:
+    entity: Metric
+    property: orientation_classification
+    values:
+    - leading
+    - lagging
+    - diagnostic
+    - concurrent
+  Indicator.kind:
+    entity: Indicator
+    property: kind
+    values:
+    - leading
+    - lagging
+    - diagnostic
+    - concurrent
+  Metric.scope_classification:
+    entity: Metric
+    property: scope_classification
+    values:
+    - enterprise
+    - business_domain
+    - business_unit
+    - organizational_unit
+    - value_stream
+    - capability
+    - process
+    - product_or_service
+    - system_or_component
+    - individual_subject
+  Metric.management_significance:
+    entity: Metric
+    property: management_significance
+    values:
+    - general_metric
+    - kpi
+    - kri
+    - kci
+    - sli
+    - other_governed_designation
   Metric.frequency:
     entity: Metric
     property: frequency

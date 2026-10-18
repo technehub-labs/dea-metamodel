@@ -7,10 +7,9 @@ profile:
   depends_on:
   - dea:core
   scope: Generic assessment and measurement ontology (CR-5 §3-§31). Assessment is a separate semantic
-    layer over the architecture graph — maturity is never an intrinsic property of DEA entities (A008).
+    layer over the architecture graph; maturity is never an intrinsic property of DEA entities (A008).
     DMMv5 and other frameworks plug in as profiles (dea:dmm) over this vocabulary.
   entities:
-  - dea:PerformanceMetric
   - dea:Assessment
   - dea:AssessmentFramework
   - dea:AssessmentDimension

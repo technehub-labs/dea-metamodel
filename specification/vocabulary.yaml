@@ -605,12 +605,19 @@ concepts:
 - id: dea:PerformanceMetric
   name: Performance Metric
   canonical_name: PerformanceMetric
-  definition: 'A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance
-    | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0; belongs to orthogonal_allocators.measurement-dimension
-    instead (ADR-0002 D1).
+  definition: 'A formally defined, reusable semantic specification that describes a measurable property, characteristic, condition,
+    quantity, rate, ratio, index, or other observable aspect of a subject, including the semantic rules necessary to determine
+    and interpret its value. A Metric defines what is to be measured and the rules governing its determination. It does not,
+    by itself, represent a measurement execution or an observed result. A Metric is foundational: it is reified across the
+    measurement-dimension orthogonal allocator (per ADR-0002 D1) and may be referenced from any OpenDEAM profile where measurement
+    is in scope. A Metric MUST have a stable identity independent of its name; MUST have an unambiguous definition; MUST identify
+    its subject concept; MUST declare an appropriate measurement nature; MUST define or reference a compatible unit or scale
+    (numeric metrics); MUST have an explicit calculation definition (formula-based metrics); MUST NOT force qualitative metrics
+    into numeric measurement semantics; MUST NOT contain individual observation values; and MUST NOT contain operational measurement
+    history. (CR-MET-001 binding CR-MET-000 reconciliation and ADR-MET-001.)
 
     '
-  semantic_category: dea:assessment
+  semantic_category: core
   abstract: false
   status: normative
   version: 1.0.0
@@ -756,6 +763,30 @@ concepts:
   definition: A raw measured or observed fact collected as input to assessment (CR-5 §27), e.g. '78% of applications have
     documented architecture'. Distinct from the derived result it may inform.
   semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:Measurement
+  name: Measurement
+  canonical_name: Measurement
+  definition: The execution or application of a Metric to a particular subject, within a defined context, using an identified
+    measurement method and applicable configuration. A Measurement carries the applies-metric reference to the Metric definition
+    version applied, the measures-subject reference to the entity that was measured, the temporal context, the responsible
+    party, and any configuration parameters necessary to reproduce the result. A Measurement MAY produce zero or more MeasurementObservations.
+    (CR-MET-001 binding ADR-MET-002; full attribute set in CR-MET-003.)
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:MeasurementObservation
+  name: Measurement Observation
+  canonical_name: MeasurementObservation
+  definition: The recorded result of a Measurement. Captures the resulting value, the unit, the temporal context of the value
+    (when the value was obtained), the confidence (if applicable), and the provenance reference. A MeasurementObservation
+    is a sibling of the existing assessment-side dea:Observation (CR-5 27). The two are distinct concepts on the assessment-vs-measurement
+    axis and MUST NOT be merged, re-membershiped, or supersed-ed. (CR-MET-001 binding ADR-MET-002; user clarification 2026-10-18;
+    full attribute set in CR-MET-003.)
+  semantic_category: core
   abstract: false
   status: normative
   version: 1.0.0

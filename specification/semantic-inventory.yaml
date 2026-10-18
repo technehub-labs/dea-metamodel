@@ -2,9 +2,9 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 151
+  entities: 153
   relationships: 105
-  core_entities: 20
+  core_entities: 23
   profiles: 10
 entities:
 - id: dea:Entity
@@ -443,11 +443,11 @@ entities:
   source_cr: CR-4
 - id: dea:PerformanceMetric
   name: Performance Metric
-  semantic_category: dea:assessment
+  semantic_category: core
   abstract: false
   status: normative
   lifecycle: existing
-  source_cr: CR-5
+  source_cr: CR-4
 - id: dea:ArchitectureElement
   name: ArchitectureElement
   semantic_category: core
@@ -560,6 +560,20 @@ entities:
   status: normative
   lifecycle: proposed
   source_cr: CR-5
+- id: dea:Measurement
+  name: Measurement
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:MeasurementObservation
+  name: Measurement Observation
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
 - id: dea:Measure
   name: Measure
   semantic_category: dea:assessment

@@ -1,6 +1,6 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 105 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 107 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
@@ -18,6 +18,8 @@ Version 1.0.0; 105 relationship types. Canonical direction is source-to-target (
 | `dea:constrains` | dependency | `dea:constrained-by` | yes | The source limits the permissible design or behaviour space of the target. |
 | `dea:flows-to` | flow | `dea:flows-from` | yes | Information, material, control, or value moves from the source to the target. |
 | `dea:produces` | flow | `dea:produced-by` | yes | The source creates or emits the target as an output. |
+| `dea:applies-metric` | flow | `dea:applied-by` | no | The Measurement (source) applies the Metric definition (target) version. Cardinality 1:1; every Measurement applies exactly one Metric definition version. The reference MAY include the semantic version (e.g. dea:metric-customer-retention-rate@1.0.0). |
+| `dea:measures-subject` | flow | `dea:measured-by` | no | The Measurement (source) targets the entity (target) that is being measured. Cardinality 1:1; every Measurement targets exactly one subject. The target list is the same as dea:measured-by's source list. CR-MET-003 declares the current 7-entity source list (matching the existing dea:measured-by source endpoint); CR-MET-007 widens this to 17 entity types per ADR-MET-004. |
 | `dea:consumes` | flow | `dea:consumed-by` | yes | The source takes the target as an input it uses up or processes. |
 | `dea:exchanges` | flow | `dea:exchanges` | yes | The source and target participate in a bidirectional exchange of value, data, or signals. |
 | `dea:serves` | serving | `dea:served-by` | yes | The source delivers value or service to the target party or channel. |

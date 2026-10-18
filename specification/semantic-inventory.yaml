@@ -3,7 +3,7 @@ inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
   entities: 153
-  relationships: 105
+  relationships: 107
   core_entities: 23
   profiles: 10
 entities:
@@ -1163,6 +1163,18 @@ relationships:
   inverse: dea:produced-by
   temporal: true
   status: normative
+- id: dea:applies-metric
+  name: Applies Metric
+  category: flow
+  inverse: dea:applied-by
+  temporal: false
+  status: normative
+- id: dea:measures-subject
+  name: Measures Subject
+  category: flow
+  inverse: dea:measured-by
+  temporal: false
+  status: normative
 - id: dea:consumes
   name: Consumes
   category: flow
@@ -1718,6 +1730,9 @@ reconciliation:
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: inverse-collides-with-canonical
   subject: dea:constrains <-> dea:constrained-by
+  resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
+- kind: inverse-collides-with-canonical
+  subject: dea:measures-subject <-> dea:measured-by
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: inverse-collides-with-canonical
   subject: dea:performs <-> dea:performed-by

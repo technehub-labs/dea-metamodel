@@ -5,8 +5,17 @@ import json
 
 from conftest import BASE
 
-# The single declared derived convenience property (Entity base schema).
-ALLOWED_CONVENIENCE = {"relationships"}
+# The single declared derived convenience property (Entity base schema)
+# plus the Measurement / MeasurementObservation relationship references
+# declared by CR-MET-003 (these ARE the relationship instance on the
+# entity; the registry relationship and the field reference the same
+# thing). Full audit-then-specifies per CR-MET-003 §4.3.1.
+ALLOWED_CONVENIENCE = {
+    "relationships",
+    "applies_metric",    # CR-MET-003: Measurement -> dea:PerformanceMetric
+    "measures_subject",  # CR-MET-003: Measurement -> dea:measured-by target
+    "produced_by",       # CR-MET-003: MeasurementObservation -> dea:Measurement
+}
 
 
 def test_no_undeclared_relationship_state(relationships):

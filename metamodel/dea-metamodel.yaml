@@ -3832,6 +3832,7 @@ relationships:
     - dea:BusinessProcess
     - dea:Experiment
     - dea:SystemFunction
+    - dea:Measurement
   target:
     types:
     - dea:AssessmentResult
@@ -3841,6 +3842,7 @@ relationships:
     - dea:Evidence
     - dea:InformationAsset
     - dea:Signal
+    - dea:MeasurementObservation
   cardinality:
     source: 0..*
     target: 0..*
@@ -3853,6 +3855,56 @@ relationships:
   lifecycle: active
   supersedes:
   - produces / consumes (split)
+- id: dea:applies-metric
+  name: Applies Metric
+  definition: The Measurement (source) applies the Metric definition (target) version. Cardinality 1:1; every Measurement applies exactly one Metric definition version. The reference MAY include the semantic version (e.g. dea:metric-customer-retention-rate@1.0.0).
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:Measurement
+  target:
+    types:
+    - dea:PerformanceMetric
+  cardinality:
+    source: '1'
+    target: '1'
+  inverse: dea:applied-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes: []
+- id: dea:measures-subject
+  name: Measures Subject
+  definition: The Measurement (source) targets the entity (target) that is being measured. Cardinality 1:1; every Measurement targets exactly one subject. The target list is the same as dea:measured-by's source list. CR-MET-003 declares the current 7-entity source list (matching the existing dea:measured-by source endpoint); CR-MET-007 widens this to 17 entity types per ADR-MET-004.
+  category: flow
+  direction: source-to-target
+  source:
+    types:
+    - dea:Measurement
+  target:
+    types:
+    - dea:AIMLModel
+    - dea:ApplicationComponent
+    - dea:BusinessCapability
+    - dea:BusinessProcess
+    - dea:BusinessService
+    - dea:Outcome
+    - dea:StrategicObjective
+  cardinality:
+    source: '1'
+    target: '1'
+  inverse: dea:measured-by
+  transitive: false
+  symmetric: false
+  temporal: false
+  provenance: required
+  status: normative
+  lifecycle: active
+  supersedes: []
 - id: dea:consumes
   name: Consumes
   definition: The source takes the target as an input it uses up or processes.

@@ -353,6 +353,28 @@ classifications:
     - kci
     - sli
     - other_governed_designation
+  Measurement.measurement_status:
+    entity: Measurement
+    property: measurement_status
+    values:
+    - planned
+    - initiated
+    - in_progress
+    - pending_validation
+    - validated
+    - completed
+    - failed
+    - cancelled
+    - rejected
+    - superseded
+  Measurement Observation.observation_status:
+    entity: Measurement Observation
+    property: observation_status
+    values:
+    - proposed
+    - active
+    - superseded
+    - retired
   Metric.frequency:
     entity: Metric
     property: frequency

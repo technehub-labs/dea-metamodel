@@ -1,0 +1,172 @@
+# CR-MET-003 representative Measurement and MeasurementObservation fixtures
+# (per user-supplied CR-MET-003 §7 example: Customer Retention Rate Q3 2026).
+# Consumed by tests/conformance/test_023_measurement_observation.py.
+version: 1.0.0
+measurements:
+  - id: dea:measurement-2026-q3-customer-retention
+    name: Customer Retention Rate Measurement Q3 2026
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-customer-retention-rate@1.0.0
+    measures_subject: dea:customer-segment-north-america-enterprise
+    measurement_method: calculated
+    measurement_time: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    measurement_source: dea:system-customer-data-platform
+    measurement_status: completed
+    configuration_reference: dea:config-customer-retention-v3
+    evidence_reference:
+      - dea:evidence-customer-records-2026-q3
+      - dea:evidence-calculation-output-2026-q3
+    context:
+      customer_population: north_america_enterprise
+      period: 2026-q3
+    description: >
+      Customer Retention Rate Q3 2026 measurement for the North America
+      Enterprise customer segment. Calculated from the customer data
+      platform. Reporting period 2026-07-01 to 2026-09-30.
+  - id: dea:measurement-2026-q3-employee-engagement
+    name: Employee Engagement Score Measurement Q3 2026
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-employee-engagement-score@1.0.0
+    measures_subject: dea:organizational-unit-global-engineering
+    measurement_method: manual
+    measurement_time: 2026-09-15T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    measurement_source: dea:system-engagement-survey
+    measurement_status: completed
+    evidence_reference:
+      - dea:evidence-engagement-survey-2026-q3
+    description: >
+      Employee Engagement Score Q3 2026 measurement for the Global
+      Engineering organizational unit. Manual survey.
+  - id: dea:measurement-2026-q3-mean-time-to-recovery
+    name: Mean Time to Recovery Measurement Q3 2026
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-mean-time-to-recovery@1.0.0
+    measures_subject: dea:information-system-component-checkout-service
+    measurement_method: automated
+    measurement_time: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    measurement_source: dea:system-incident-management
+    measurement_status: completed
+    description: >
+      Mean Time to Recovery Q3 2026 measurement for the Checkout
+      Service. Automated collection from the incident management
+      system.
+  - id: dea:measurement-2026-q3-data-completeness-failed
+    name: Data Completeness Measurement Q3 2026 (failed)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-data-completeness@1.0.0
+    measures_subject: dea:data-entity-customer-profile
+    measurement_method: automated
+    measurement_time: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    measurement_source: dea:system-data-quality-monitor
+    measurement_status: failed
+    description: >
+      Data Completeness Q3 2026 measurement for the Customer Profile
+      data entity. FAILED. This is the canonical "MAY produce zero
+      observations" case. No MeasurementObservation references this
+      Measurement in the produced_by field.
+
+measurement_observations:
+  - id: dea:measurement-observation-2026-q3-customer-retention
+    name: Customer Retention Rate Observation Q3 2026
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-customer-retention
+    value: 0.924
+    unit: ratio
+    observed_at: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: active
+    provenance_reference: dea:prov-customer-data-platform-2026-q3
+    evidence_reference:
+      - dea:evidence-customer-records-2026-q3
+    confidence: 0.95
+    description: >
+      Customer Retention Rate Q3 2026 observation. Value 92.4% (0.924
+      as a ratio). Active. This is the canonical numeric observation
+      case.
+  - id: dea:measurement-observation-2026-q3-employee-engagement-1
+    name: Employee Engagement Score Observation Q3 2026 (wave 1)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-employee-engagement
+    value: 4.2
+    unit: ordinal-1-5
+    observed_at: 2026-09-15T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: active
+    description: >
+      Employee Engagement Score Q3 2026 observation (wave 1). Value
+      4.2 on a 1-5 ordinal scale. Active.
+  - id: dea:measurement-observation-2026-q3-employee-engagement-2
+    name: Employee Engagement Score Observation Q3 2026 (wave 2)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-employee-engagement
+    value: 3.8
+    unit: ordinal-1-5
+    observed_at: 2026-09-15T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: active
+    description: >
+      Employee Engagement Score Q3 2026 observation (wave 2). Value
+      3.8 on a 1-5 ordinal scale. Active.
+  - id: dea:measurement-observation-2026-q3-mttr
+    name: Mean Time to Recovery Observation Q3 2026
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-mean-time-to-recovery
+    value: 142
+    unit: minutes
+    observed_at: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: active
+    description: >
+      Mean Time to Recovery Q3 2026 observation. Value 142 minutes.
+      Active.
+  - id: dea:measurement-observation-2026-q3-mttr-superseded
+    name: Mean Time to Recovery Observation Q3 2026 (superseded)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-mean-time-to-recovery
+    value: 158
+    unit: minutes
+    observed_at: 2026-09-15T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: superseded
+    description: >
+      Mean Time to Recovery Q3 2026 observation. Value 158 minutes.
+      SUPERSEDED. This is the canonical "supersession" case (per
+      user-supplied CR-MET-003 §8).
+  - id: dea:measurement-observation-2026-q3-data-completeness
+    name: Data Completeness Observation Q3 2026
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-data-completeness-success
+    value: 0.987
+    unit: ratio
+    observed_at: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    observation_status: active
+    description: >
+      Data Completeness Q3 2026 observation from a SEPARATE successful
+      measurement (the failed-measurement case above produced no
+      observations; this one is from a different successful
+      measurement). Value 98.7% (0.987 as a ratio). Active.

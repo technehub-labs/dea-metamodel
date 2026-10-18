@@ -292,6 +292,7 @@ relationships:
   - dea:BusinessProcess
   - dea:Experiment
   - dea:SystemFunction
+  - dea:Measurement
   target:
   - dea:AssessmentResult
   - dea:BusinessObject
@@ -300,7 +301,34 @@ relationships:
   - dea:Evidence
   - dea:InformationAsset
   - dea:Signal
+  - dea:MeasurementObservation
   inverse: dea:produced-by
+  status: normative
+  lifecycle: active
+- id: dea:applies-metric
+  name: Applies Metric
+  category: flow
+  source:
+  - dea:Measurement
+  target:
+  - dea:PerformanceMetric
+  inverse: dea:applied-by
+  status: normative
+  lifecycle: active
+- id: dea:measures-subject
+  name: Measures Subject
+  category: flow
+  source:
+  - dea:Measurement
+  target:
+  - dea:AIMLModel
+  - dea:ApplicationComponent
+  - dea:BusinessCapability
+  - dea:BusinessProcess
+  - dea:BusinessService
+  - dea:Outcome
+  - dea:StrategicObjective
+  inverse: dea:measured-by
   status: normative
   lifecycle: active
 - id: dea:consumes

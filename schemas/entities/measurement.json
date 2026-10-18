@@ -11,7 +11,10 @@
     "type",
     "version",
     "applies_metric",
-    "measures_subject"
+    "measures_subject",
+    "measurement_method",
+    "measurement_time",
+    "measurement_status"
   ],
   "properties": {
     "id": {
@@ -50,13 +53,70 @@
     },
     "applies_metric": {
       "type": "string",
-      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "description": "Reference to the dea:PerformanceMetric definition version applied. Cardinality 1:1 (every Measurement applies exactly one Metric). (CR-MET-001 binding ADR-MET-002 decision 6.)"
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+(@\\d+\\.\\d+\\.\\d+)?$",
+      "description": "Reference to the dea:PerformanceMetric definition version applied. Cardinality 1:1 (every Measurement applies exactly one Metric). The reference MAY include the semantic version (e.g. dea:metric-customer-retention-rate@1.0.0). (CR-MET-003 binding ADR-MET-002 decision 6.)"
     },
     "measures_subject": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "description": "Reference to the entity that was measured. Cardinality 1:1 (every Measurement targets one subject). Full source-list extension per CR-MET-007 / ADR-MET-004."
+      "description": "Reference to the entity that was measured. Cardinality 1:1 (every Measurement targets one subject). Current source list (7 entity types) matches the dea:measured-by source endpoint; CR-MET-007 widens to 17 per ADR-MET-004. (CR-MET-003 binding ADR-MET-002 decision 7.)"
+    },
+    "measurement_method": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Method applied to perform the measurement (CR-MET-003 binding). Required."
+    },
+    "measurement_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time of measurement execution or capture (CR-MET-003 binding). Required."
+    },
+    "reporting_period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start of the reporting period represented by the measurement. Conditional on the parent Metric having a reporting-period concept; full binding in CR-MET-006."
+    },
+    "reporting_period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End of the reporting period represented by the measurement. Conditional on the parent Metric having a reporting-period concept; full binding in CR-MET-006."
+    },
+    "measurement_source": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Data source or originating system. Recommended."
+    },
+    "measurement_status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "initiated",
+        "in_progress",
+        "pending_validation",
+        "validated",
+        "completed",
+        "failed",
+        "cancelled",
+        "rejected",
+        "superseded"
+      ],
+      "description": "Execution or record status (CR-MET-003 binding). The 10-value enum is the canonical Measurement lifecycle; CR-MET-004 refines it. Required."
+    },
+    "configuration_reference": {
+      "type": "string",
+      "description": "Versioned measurement configuration reference. Recommended."
+    },
+    "evidence_reference": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Supporting evidence references. Each reference is a string handle that the future governance / evidence CRs will resolve. Recommended."
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Free-form measurement context. Recommended."
     },
     "temporal": {
       "type": "object",

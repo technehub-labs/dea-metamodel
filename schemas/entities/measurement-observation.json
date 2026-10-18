@@ -11,7 +11,9 @@
     "type",
     "version",
     "produced_by",
-    "value"
+    "value",
+    "observed_at",
+    "observation_status"
   ],
   "properties": {
     "id": {
@@ -60,7 +62,58 @@
         "boolean",
         "object"
       ],
-      "description": "The recorded value. Typed to support the four measurement_nature values from the parent Metric: numeric (number), ordinal (number or string), nominal (string), boolean (boolean), composite (object)."
+      "description": "The recorded value. Typed to support the four measurement_nature values from the parent Metric: numeric (number), ordinal (number or string), nominal (string), boolean (boolean), composite (object). (CR-MET-003 binding CR-MET-001.)"
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time the value was observed (CR-MET-003 binding). Required."
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date",
+      "description": "Start of validity period. Conditional on observations that have a validity period concept."
+    },
+    "valid_to": {
+      "type": "string",
+      "format": "date",
+      "description": "End of validity period. Conditional on observations that have a validity period concept."
+    },
+    "reporting_period_start": {
+      "type": "string",
+      "format": "date",
+      "description": "Start of the reporting period represented by this observation. Recommended."
+    },
+    "reporting_period_end": {
+      "type": "string",
+      "format": "date",
+      "description": "End of the reporting period represented by this observation. Recommended."
+    },
+    "observation_quality": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Quality assessment (textual). Recommended."
+    },
+    "observation_status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "active",
+        "superseded",
+        "retired"
+      ],
+      "description": "Validity or supersession status (CR-MET-003 binding). Required. The 4-value enum covers proposed -> active -> superseded -> retired."
+    },
+    "provenance_reference": {
+      "type": "string",
+      "description": "Origin and lineage. Recommended. Full provenance model in CR-MET-011."
+    },
+    "evidence_reference": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Supporting evidence references. Recommended."
     },
     "unit": {
       "type": "string",

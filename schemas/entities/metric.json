@@ -88,6 +88,91 @@
       ],
       "description": "The data nature of the value produced by applying this Metric. Normative: required. CR-MET-001 binding."
     },
+    "subject_classification": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "dea:subject-financial",
+          "dea:subject-customer",
+          "dea:subject-organizational",
+          "dea:subject-operational",
+          "dea:subject-technology",
+          "dea:subject-data",
+          "dea:subject-risk",
+          "dea:subject-capability",
+          "dea:subject-strategic",
+          "dea:subject-sustainability"
+        ]
+      },
+      "description": "Measurement subject axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple subject classifications; a non-empty value is recommended for catalog discoverability."
+    },
+    "purpose_classification": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "performance_measurement",
+          "risk_monitoring",
+          "compliance_monitoring",
+          "quality_measurement",
+          "efficiency_measurement",
+          "effectiveness_measurement",
+          "maturity_measurement",
+          "outcome_measurement",
+          "diagnostic_measurement",
+          "predictive_measurement"
+        ]
+      },
+      "description": "Measurement purpose axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple purpose classifications."
+    },
+    "orientation_classification": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "leading",
+          "lagging",
+          "diagnostic",
+          "concurrent"
+        ]
+      },
+      "description": "Measurement orientation axis (CR-MET-002 binding ADR-MET-003). Mirrors Indicator.kind. A Metric MAY have multiple orientation classifications only where the definitions genuinely support them."
+    },
+    "scope_classification": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "enterprise",
+          "business_domain",
+          "business_unit",
+          "organizational_unit",
+          "value_stream",
+          "capability",
+          "process",
+          "product_or_service",
+          "system_or_component",
+          "individual_subject"
+        ]
+      },
+      "description": "Measurement scope axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple scope classifications. process refers to dea:BusinessProcess (line 592; L3); there is no dea:Activity (per user reminder 2026-10-18)."
+    },
+    "management_significance": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "general_metric",
+          "kpi",
+          "kri",
+          "kci",
+          "sli",
+          "other_governed_designation"
+        ]
+      },
+      "description": "Management significance axis (CR-MET-002 binding ADR-MET-003). Designations, not specializations. Full IndicatorDesignation entity in CR-MET-008."
+    },
     "directionality": {
       "type": "string",
       "enum": [

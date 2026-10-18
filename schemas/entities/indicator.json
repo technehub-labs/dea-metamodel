@@ -75,6 +75,16 @@
         "binary"
       ]
     },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "leading",
+        "lagging",
+        "diagnostic",
+        "concurrent"
+      ],
+      "description": "Indicator kind discriminator (CR-MET-002 binding ADR-MET-003 decision 6). Mirrors Metric.orientation_classification. A change of kind does not alter the Indicator identity."
+    },
     "relationships": {
       "type": "array",
       "description": "Derived convenience view (CR-1/CR-3): canonical relationship instances are authoritative.",

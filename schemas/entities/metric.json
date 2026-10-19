@@ -158,6 +158,218 @@
       },
       "description": "Measurement scope axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple scope classifications. process refers to dea:BusinessProcess (line 592; L3); there is no dea:Activity (per user reminder 2026-10-18)."
     },
+    "formula_definition": {
+      "type": "object",
+      "description": "The structured calculation definition (CR-MET-005 binding). 8-field object per user-supplied section 5.",
+      "required": [
+        "expression",
+        "inputs",
+        "unit_semantics",
+        "version"
+      ],
+      "properties": {
+        "formula_id": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string",
+          "maxLength": 4000
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "source_ref",
+              "measurement_nature"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "source_ref": {
+                "type": "string"
+              },
+              "measurement_nature": {
+                "type": "string",
+                "enum": [
+                  "numeric",
+                  "ordinal",
+                  "nominal",
+                  "boolean",
+                  "composite"
+                ]
+              }
+            }
+          }
+        },
+        "operators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "value_type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value_type": {
+                "type": "string"
+              },
+              "default_value": {}
+            }
+          }
+        },
+        "unit_semantics": {
+          "type": "object",
+          "required": [
+            "output_unit"
+          ],
+          "properties": {
+            "input_units": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "output_unit": {
+              "type": "string"
+            }
+          }
+        },
+        "validation_rules": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+$"
+        }
+      }
+    },
+    "composite_definition": {
+      "type": "object",
+      "description": "The structured Composite Metric definition (CR-MET-005 binding). 6-field object per user-supplied section 7. Required iff measurement_nature: composite.",
+      "required": [
+        "component_metrics",
+        "normalization_method",
+        "missing_component_treatment",
+        "aggregation_method",
+        "output_unit_or_scale"
+      ],
+      "properties": {
+        "component_metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "metric_ref",
+              "weight"
+            ],
+            "properties": {
+              "metric_ref": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "contribution_type": {
+                "type": "string",
+                "enum": [
+                  "linear",
+                  "multiplicative",
+                  "threshold",
+                  "custom"
+                ]
+              }
+            }
+          }
+        },
+        "normalization_method": {
+          "type": "string",
+          "enum": [
+            "none",
+            "min-max",
+            "z-score",
+            "rank",
+            "custom"
+          ]
+        },
+        "missing_component_treatment": {
+          "type": "string",
+          "enum": [
+            "fail",
+            "impute",
+            "reweight",
+            "zero",
+            "undefined"
+          ]
+        },
+        "aggregation_method": {
+          "type": "string",
+          "enum": [
+            "SUM",
+            "COUNT",
+            "MIN",
+            "MAX",
+            "MEAN",
+            "WEIGHTED_MEAN",
+            "MEDIAN",
+            "PERCENTILE",
+            "RATE",
+            "RATIO",
+            "DISTINCT_COUNT"
+          ]
+        },
+        "output_unit_or_scale": {
+          "type": "string"
+        },
+        "calculation_lineage": {
+          "type": "string",
+          "description": "Reference to the lineage record; the full lineage model is CR-MET-011."
+        }
+      }
+    },
+    "precision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 30,
+      "description": "Significant figures for the result (CR-MET-005 binding)."
+    },
+    "decimal_scale": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20,
+      "description": "Decimal places for the result (CR-MET-005 binding)."
+    },
+    "rounding_rule": {
+      "type": "string",
+      "enum": [
+        "half_up",
+        "half_even",
+        "half_down",
+        "truncate"
+      ],
+      "description": "Rounding rule for the result (CR-MET-005 binding). 4-value enum."
+    },
+    "null_value_semantics": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "How null/missing values are interpreted (CR-MET-005 binding). Examples: 'excluded_from_aggregation', 'treated_as_zero', 'propagates_null'."
+    },
     "management_significance": {
       "type": "array",
       "items": {

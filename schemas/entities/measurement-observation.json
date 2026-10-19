@@ -123,6 +123,22 @@
       "type": "string",
       "description": "Origin and lineage. Recommended. Full provenance model in CR-MET-011."
     },
+    "uncertainty_reference": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Reference to the measurement uncertainty (CR-MET-005 binding handle). Full uncertainty model is CR-MET-012."
+    },
+    "comparability_requirements": {
+      "type": "string",
+      "maxLength": 2000,
+      "description": "Comparability requirements for this observation (CR-MET-005 binding). Documents any conditions under which this observation is comparable to others (e.g. same Unit, same Scale, same reporting period, same population)."
+    },
+    "precision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 30,
+      "description": "Significant figures for the observed value (CR-MET-005 binding)."
+    },
     "evidence_reference": {
       "type": "array",
       "items": {

@@ -1,0 +1,218 @@
+# CR-MET-005 representative measurement-semantics fixtures.
+# 10 representative records: 3 Units, 3 Scales, 2 AggregationRules,
+# 2 Metrics (one with formula_definition, one with composite_definition).
+# Consumed by tests/conformance/test_025_measurement_semantics.py.
+version: 1.0.0
+units:
+  - id: dea:unit-minute
+    name: Minute
+    type: Unit
+    version: 1.0.0
+    symbol: min
+    canonical_symbol: min
+    quantity_kind: duration
+    dimensionality: time
+    ucum_code: min
+    conversion_to_base_factor: 60
+    conversion_to_base_offset: 0
+    description: >
+      Canonical Unit for time durations expressed in minutes. UCUM code
+      "min". Conversion to the SI base Unit (seconds) is factor=60.
+      Demonstrates the dimensional and conversion-to-base field set
+      per CR-MET-005 section 4.1.
+  - id: dea:unit-usd
+    name: United States Dollar
+    type: Unit
+    version: 1.0.0
+    symbol: USD
+    canonical_symbol: USD
+    quantity_kind: currency
+    dimensionality: currency
+    ucum_code: USD
+    description: >
+      Canonical Unit for currency expressed in US dollars. UCUM code
+      "USD". No conversion factor (currency is its own dimensional
+      category; cross-currency conversion requires an exchange rate
+      which is a runtime concern, not a Unit semantic). Demonstrates
+      the currency dimensionality.
+  - id: dea:unit-throughput-tps
+    name: Transactions per Second
+    type: Unit
+    version: 1.0.0
+    symbol: tps
+    canonical_symbol: tps
+    quantity_kind: rate
+    dimensionality: rate
+    composite_dimensions:
+      - dimensionality: count
+        exponent: 1
+      - dimensionality: time
+        exponent: -1
+    description: >
+      Canonical Unit for transactional throughput expressed in
+      transactions per second. Demonstrates the composite-dimension
+      field set: count^1 * time^-1. UCUM code "1/s" (normalized form).
+
+scales:
+  - id: dea:scale-maturity-1-5
+    name: Maturity Scale 1-5
+    type: Scale
+    version: 1.0.0
+    scale_type: ordinal
+    minimum: 1
+    maximum: 5
+    scale_values:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+    ordered: true
+    description: >
+      Five-point ordinal maturity scale. Demonstrates the ordinal scale
+      type with scale_values declared per CR-MET-005 section 3.2.
+  - id: dea:scale-risk-classification
+    name: Risk Classification
+    type: Scale
+    version: 1.0.0
+    scale_type: categorical
+    scale_values:
+      - low
+      - medium
+      - high
+    ordered: false
+    description: >
+      Three-level risk classification. Demonstrates the categorical
+      scale type (added in CR-MET-005) with scale_values and
+      ordered=false per CR-MET-005 section 3.2.
+  - id: dea:scale-pass-fail
+    name: Pass / Fail
+    type: Scale
+    version: 1.0.0
+    scale_type: boolean
+    scale_values:
+      - pass
+      - fail
+    ordered: false
+    description: >
+      Two-valued boolean scale. Demonstrates the boolean scale type
+      (added in CR-MET-005) with exactly two scale_values per the
+      CR-MET-005 section 3.2 invariant.
+
+aggregation_rules:
+  - id: dea:aggregation-rule-enterprise-weighted-mean
+    name: Enterprise Weighted Mean
+    type: AggregationRule
+    version: 1.0.0
+    rule_kind: weighted-average
+    operator: WEIGHTED_MEAN
+    weight_basis: numerator_denominator
+    expression: >
+      (sum_numerators / sum_denominators) where each unit contributes its
+      own numerator/denominator pair (e.g. customer-retention: retained /
+      eligible). This is the canonical preservation of
+      numerator-denominator semantics per CR-MET-005 section 3.3
+      (percentages MUST NOT be summed).
+    unit_semantics:
+      input_unit_ref: dea:unit-ratio
+      output_unit_ref: dea:unit-ratio
+    description: >
+      Aggregation rule for enterprise-level ratio Metrics. The
+      WEIGHTED_MEAN operator with weight_basis=numerator_denominator
+      preserves the semantics that make ratio aggregation
+      mathematically valid.
+  - id: dea:aggregation-rule-incident-count-sum
+    name: Incident Count Sum
+    type: AggregationRule
+    version: 1.0.0
+    rule_kind: rule-based
+    operator: SUM
+    expression: >
+      Sum of incident counts across disjoint populations.
+      Populations MUST be mutually exclusive for SUM to be valid
+      (CR-MET-005 section 3.3).
+    unit_semantics:
+      input_unit_ref: dea:unit-count
+      output_unit_ref: dea:unit-count
+    description: >
+      Aggregation rule for incident counts. SUM is valid only when
+      populations are mutually exclusive.
+
+metrics:
+  - id: dea:metric-mttr
+    name: Mean Time to Recovery
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-mean-time-to-recovery
+    measurement_nature: numeric
+    unit: dea:unit-minute
+    precision: 3
+    decimal_scale: 1
+    rounding_rule: half_up
+    null_value_semantics: excluded_from_aggregation
+    calculation_definition: >
+      MTTR = (sum_i RecoveryTime_i) / n; the arithmetic mean of
+      recovery times across n incidents.
+    formula_definition:
+      formula_id: dea:formula-mttr-arithmetic-mean
+      expression: MTTR = (sum_i RecoveryTime_i) / n
+      inputs:
+        - name: RecoveryTime_i
+          source_ref: dea:metric-recovery-time
+          measurement_nature: numeric
+      operators:
+        - sum
+        - divide
+      parameters:
+        - name: n
+          value_type: integer
+          default_value: 1
+      unit_semantics:
+        input_units:
+          - dea:unit-minute
+        output_unit: dea:unit-minute
+      validation_rules:
+        - result >= 0
+        - n > 0
+      version: 1.0.0
+    description: >
+      Demonstrates the formula_definition object: arithmetic mean
+      formula with explicit inputs, operators, parameters, and
+      unit_semantics per CR-MET-005 section 3.4.
+  - id: dea:metric-customer-experience-index
+    name: Customer Experience Index
+    type: Metric
+    version: 1.0.0
+    subject_concept: dea:subject-customer-experience
+    measurement_nature: composite
+    unit: dea:scale-maturity-1-5
+    precision: 2
+    decimal_scale: 1
+    rounding_rule: half_up
+    null_value_semantics: reweight
+    calculation_definition: >
+      Composite index over customer satisfaction, retention, and
+      effort-to-resolve Metrics, each weighted and normalized to a
+      1-5 maturity scale.
+    composite_definition:
+      component_metrics:
+        - metric_ref: dea:metric-customer-satisfaction
+          weight: 0.4
+          contribution_type: linear
+        - metric_ref: dea:metric-customer-retention-rate
+          weight: 0.4
+          contribution_type: linear
+        - metric_ref: dea:metric-customer-effort-to-resolve
+          weight: 0.2
+          contribution_type: linear
+      normalization_method: min-max
+      missing_component_treatment: reweight
+      aggregation_method: WEIGHTED_MEAN
+      output_unit_or_scale: dea:scale-maturity-1-5
+      calculation_lineage: dea:lineage-customer-experience-index-2026
+    description: >
+      Demonstrates the composite_definition object: 3 component
+      Metrics with weights summing to 1.0, normalized via min-max, with
+      reweight-on-missing semantics, aggregated via WEIGHTED_MEAN.
+      measurement_nature=composite triggers the composite_definition
+      cross-field invariant (CR-MET-005 section 3.5).

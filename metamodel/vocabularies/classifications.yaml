@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.10.0
+version: 0.11.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -373,6 +373,44 @@ classifications:
     - ai_estimated
     - independently_verified
     - human_verified
+  Unit.dimensionality:
+    entity: Unit
+    property: dimensionality
+    values:
+    - time
+    - length
+    - mass
+    - currency
+    - count
+    - temperature
+    - information_quantity
+    - rate
+    - ratio
+    - dimensionless_index
+    - composite
+  AggregationRule.operator:
+    entity: AggregationRule
+    property: operator
+    values:
+    - SUM
+    - COUNT
+    - MIN
+    - MAX
+    - MEAN
+    - WEIGHTED_MEAN
+    - MEDIAN
+    - PERCENTILE
+    - RATE
+    - RATIO
+    - DISTINCT_COUNT
+  Metric.rounding_rule:
+    entity: Metric
+    property: rounding_rule
+    values:
+    - half_up
+    - half_even
+    - half_down
+    - truncate
   Measurement.measurement_status:
     entity: Measurement
     property: measurement_status
@@ -656,7 +694,7 @@ classifications:
   Scale.scale_type:
     entity: Scale
     property: scale_type
-    values: [nominal, ordinal, interval, ratio]
+    values: [nominal, ordinal, interval, ratio, categorical, boolean]
   AssessmentResult.state_role:
     entity: AssessmentResult
     property: state_role

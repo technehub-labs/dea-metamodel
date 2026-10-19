@@ -76,6 +76,40 @@
         "rule-based"
       ]
     },
+    "operator": {
+      "type": "string",
+      "enum": [
+        "SUM",
+        "COUNT",
+        "MIN",
+        "MAX",
+        "MEAN",
+        "WEIGHTED_MEAN",
+        "MEDIAN",
+        "PERCENTILE",
+        "RATE",
+        "RATIO",
+        "DISTINCT_COUNT"
+      ],
+      "description": "The aggregation operator (CR-MET-005). 11-value enum per the user-supplied binding section 6."
+    },
+    "weight_basis": {
+      "type": "string",
+      "maxLength": 500,
+      "description": "Required when operator is WEIGHTED_MEAN; the basis for the weighting (e.g. 'numerator_denominator', 'population_size', 'time_period'). CR-MET-005 binding cross-field invariant."
+    },
+    "unit_semantics": {
+      "type": "object",
+      "description": "The input and output unit references for the aggregation (CR-MET-005).",
+      "properties": {
+        "input_unit_ref": {
+          "type": "string"
+        },
+        "output_unit_ref": {
+          "type": "string"
+        }
+      }
+    },
     "weights": {
       "type": "object",
       "description": "Optional criterion/dimension weight map."

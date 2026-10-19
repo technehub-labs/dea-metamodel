@@ -70,14 +70,28 @@
         "nominal",
         "ordinal",
         "interval",
-        "ratio"
-      ]
+        "ratio",
+        "categorical",
+        "boolean"
+      ],
+      "description": "The scale type (CR-5 Phase 2; CR-MET-005 binding extension). Categorical and boolean added in CR-MET-005 per the user-supplied binding; ordinal/categorical/boolean scales must not be treated as physical measurement units."
     },
     "minimum": {
       "type": "number"
     },
     "maximum": {
       "type": "number"
+    },
+    "scale_values": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "The allowed values for the scale (CR-MET-005). Required for scale_type: categorical, ordinal, and boolean (boolean MUST have exactly two entries). Optional for scale_type: nominal. For scale_type: interval and ratio, the numeric minimum/maximum apply."
+    },
+    "ordered": {
+      "type": "boolean",
+      "description": "Whether the scale is ordered (CR-MET-005). True for ordinal, interval, ratio; false for nominal, categorical, boolean (boolean is two-valued but not ordinal)."
     },
     "relationships": {
       "type": "array",

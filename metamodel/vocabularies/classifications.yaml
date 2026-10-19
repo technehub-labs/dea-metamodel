@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.9.0
+version: 0.10.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -353,6 +353,26 @@ classifications:
     - kci
     - sli
     - other_governed_designation
+  Measurement.execution_mode:
+    entity: Measurement
+    property: execution_mode
+    values:
+    - automated
+    - manual
+    - calculated
+    - aggregated
+    - external
+    - assessed
+    - simulated
+    - ai_assisted
+  Measurement Observation.verification_state:
+    entity: Measurement Observation
+    property: verification_state
+    values:
+    - unverified
+    - ai_estimated
+    - independently_verified
+    - human_verified
   Measurement.measurement_status:
     entity: Measurement
     property: measurement_status

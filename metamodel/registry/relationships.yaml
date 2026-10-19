@@ -872,6 +872,8 @@ relationships:
   - dea:Concept
   - dea:Guardrail
   - dea:Tenet
+  - dea:Measurement
+  - dea:MeasurementObservation
   target:
   - dea:ApplicationComponent
   - dea:ArchitecturePattern
@@ -881,6 +883,8 @@ relationships:
   - dea:Concept
   - dea:Guardrail
   - dea:Tenet
+  - dea:Measurement
+  - dea:MeasurementObservation
   inverse: dea:superseded-by
   status: normative
   lifecycle: proposed

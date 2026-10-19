@@ -1,0 +1,149 @@
+# Measurement lifecycle vocabulary (CR-MET-004); controlled values for the
+# Measurement lifecycle states, the execution modes, the legal state
+# transitions, the terminal states, and the retry/idempotency semantics.
+#
+# The metamodel declares the canonical vocabulary and the legal transitions.
+# The runtime owns the state transition execution (per CR-MET-004 section 7).
+# This artifact is pure data; it carries no executor, no scheduler, no queue.
+version: 1.0.0
+vocabulary: measurement-lifecycle
+description: 'CR-MET-004: canonical Measurement lifecycle vocabulary. States are bound to
+  the Measurement.measurement_status enum (CR-MET-003). Execution modes are bound to
+  the Measurement.execution_mode enum. Transitions are the legal state changes; the
+  runtime executes them, the metamodel declares them.'
+
+states:
+  - id: planned
+    definition: Measurement scheduled or expected.
+  - id: initiated
+    definition: Measurement process started.
+  - id: in_progress
+    definition: Measurement being performed.
+  - id: pending_validation
+    definition: Measurement result awaiting validation.
+  - id: validated
+    definition: Measurement result passed validation.
+  - id: completed
+    definition: Measurement successfully concluded.
+  - id: failed
+    definition: Measurement execution failed.
+  - id: cancelled
+    definition: Measurement cancelled.
+  - id: rejected
+    definition: Result rejected through validation.
+  - id: superseded
+    definition: Measurement replaced by a later or corrected record.
+
+terminal_states:
+  - cancelled
+  - superseded
+
+execution_modes:
+  - id: automated
+    definition: Measurement initiated and executed by a system.
+  - id: manual
+    definition: Measurement recorded by an authorized person.
+  - id: calculated
+    definition: Result derived through a defined formula.
+  - id: aggregated
+    definition: Result derived from multiple observations.
+  - id: external
+    definition: Measurement supplied by an external source.
+  - id: assessed
+    definition: Measurement derived from an assessment activity.
+  - id: simulated
+    definition: Measurement generated through a simulation.
+  - id: ai_assisted
+    definition: Measurement determination supported by an AI process.
+
+transitions:
+  - from: planned
+    to: initiated
+    guard: Trigger condition satisfied (scheduled or event-driven).
+  - from: planned
+    to: cancelled
+    guard: Cancelled before initiation.
+  - from: initiated
+    to: in_progress
+    guard: Execution begun.
+  - from: initiated
+    to: failed
+    guard: Execution could not begin (configuration or source unavailable).
+  - from: initiated
+    to: cancelled
+    guard: Cancelled after initiation but before execution.
+  - from: in_progress
+    to: pending_validation
+    guard: Determination produced a candidate result.
+  - from: in_progress
+    to: failed
+    guard: Execution error or unrecoverable source failure.
+  - from: in_progress
+    to: cancelled
+    guard: Cancelled during execution.
+  - from: pending_validation
+    to: validated
+    guard: All validation checks passed.
+  - from: pending_validation
+    to: rejected
+    guard: One or more validation checks failed (data-quality or business-rule failure).
+  - from: pending_validation
+    to: failed
+    guard: Validation infrastructure failure (not a data-quality rejection).
+  - from: validated
+    to: completed
+    guard: Observation recorded and published.
+  - from: validated
+    to: rejected
+    guard: Post-validation rejection (for example, publication authorization failure).
+  - from: completed
+    to: superseded
+    guard: A later or corrected record replaced this Measurement.
+  - from: failed
+    to: superseded
+    guard: A successful retry replaced this failed attempt.
+  - from: rejected
+    to: superseded
+    guard: A successful retry replaced this rejected attempt.
+
+verification_states:
+  - id: unverified
+    definition: The observation was produced without independent verification. Default for
+      any ai_assisted measurement.
+  - id: ai_estimated
+    definition: The observation is an AI-generated estimate, not an independently determined
+      value.
+  - id: independently_verified
+    definition: The observation was independently verified against source evidence after
+      production.
+  - id: human_verified
+    definition: The observation was verified by an authorized person against source evidence
+      after production.
+
+idempotency:
+  key_field: logical_measurement_event
+  rule_1: A retry of a logical measurement event MUST reuse the same logical_measurement_event
+    key on the retried Measurement.
+  rule_2: Two Measurements MUST NOT both hold the completed state with the same
+    logical_measurement_event key.
+  rule_3: A MeasurementObservation MUST NOT duplicate another observation for the same
+    logical_measurement_event key and the same produced_by Measurement.
+
+metamodel_runtime_boundary:
+  metamodel:
+    - Define the canonical lifecycle state vocabulary.
+    - Define the legal state transitions.
+    - Define the execution-mode classifications.
+    - Define the validation and rejection semantics.
+    - Define the correction and supersession semantics.
+    - Define the retry and idempotency requirements.
+    - Define the execution provenance information model.
+  runtime:
+    - Execute the measurement modes.
+    - Manage the state transition execution.
+    - Resolve the measurement configurations.
+    - Execute the calculations.
+    - Run the validation checks.
+    - Capture the lineage.
+    - Implement the retry mechanisms.
+    - Publish the results.

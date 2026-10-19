@@ -104,6 +104,21 @@
       ],
       "description": "Validity or supersession status (CR-MET-003 binding). Required. The 4-value enum covers proposed -> active -> superseded -> retired."
     },
+    "verification_state": {
+      "type": "string",
+      "enum": [
+        "unverified",
+        "ai_estimated",
+        "independently_verified",
+        "human_verified"
+      ],
+      "description": "Verification state of the observation value (CR-MET-004). An ai_assisted Measurement MUST NOT produce an independently_verified or human_verified observation unless an independent verification step occurred. An ai_estimated observation is NOT equivalent to a verified observation for reporting, aggregation, or comparison."
+    },
+    "supersedes_observation": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "Reference to the prior observation this observation corrects. The prior observation is retained with observation_status: superseded (CR-MET-004 correction semantics)."
+    },
     "provenance_reference": {
       "type": "string",
       "description": "Origin and lineage. Recommended. Full provenance model in CR-MET-011."

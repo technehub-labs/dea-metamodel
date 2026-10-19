@@ -4871,6 +4871,8 @@ relationships:
     - dea:Concept
     - dea:Guardrail
     - dea:Tenet
+    - dea:Measurement
+    - dea:MeasurementObservation
   target:
     types:
     - dea:ApplicationComponent
@@ -4881,6 +4883,8 @@ relationships:
     - dea:Concept
     - dea:Guardrail
     - dea:Tenet
+    - dea:Measurement
+    - dea:MeasurementObservation
   cardinality:
     source: 0..*
     target: 0..1

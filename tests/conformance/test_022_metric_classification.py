@@ -35,12 +35,22 @@ def _schemas():
 
 
 def test_classification_version_bumped():
-    """The classifications.yaml version MUST be 0.9.0 (CR-MET-002 binding)."""
+    """The classifications.yaml version MUST be at least 0.9.0 (CR-MET-002 binding).
+
+    Version-agnostic by design: later CRs in the programme (CR-MET-004 and
+    beyond) legitimately bump this version as they add controlled
+    vocabularies. This test asserts the CR-MET-002 baseline, not an exact
+    pin, so a later vocabulary addition does not break it.
+    """
     voc = yaml.safe_load(
         (BASE / "metamodel" / "vocabularies" / "classifications.yaml").read_text()
     )
-    assert voc["version"] == "0.9.0", \
-        f"CR-MET-002: classifications.yaml version must be 0.9.0 (got {voc['version']})"
+    version = str(voc["version"])
+    parts = version.split(".")
+    assert len(parts) == 3, \
+        f"CR-MET-002: classifications.yaml version must be semver (got {version!r})"
+    assert tuple(int(p) for p in parts) >= (0, 9, 0), \
+        f"CR-MET-002: classifications.yaml version must be at least 0.9.0 (got {version})"
 
 
 def test_metric_subject_classification_vocabulary_present():

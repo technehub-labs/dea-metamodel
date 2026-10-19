@@ -1,0 +1,296 @@
+# CR-MET-004 representative Measurement lifecycle fixtures.
+# 6 representative lifecycle records covering: completed, failed, rejected,
+# cancelled, ai_assisted, and superseded. Consumed by
+# tests/conformance/test_024_measurement_lifecycle.py.
+version: 1.0.0
+measurements:
+  - id: dea:measurement-2026-q3-customer-retention-completed
+    name: Customer Retention Rate Measurement Q3 2026 (completed)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-customer-retention-rate@1.0.0
+    measures_subject: dea:customer-segment-north-america-enterprise
+    measurement_method: calculated
+    execution_mode: calculated
+    measurement_time: 2026-10-01T00:00:00Z
+    reporting_period_start: 2026-07-01
+    reporting_period_end: 2026-09-30
+    measurement_source: dea:system-customer-data-platform
+    measurement_status: completed
+    logical_measurement_event: retention/north-america-enterprise/2026-q3
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-10-01T00:00:00Z
+        guard_satisfied: true
+        reason: Scheduled Q3 reporting trigger.
+      - from_state: initiated
+        to_state: in_progress
+        transitioned_at: 2026-10-01T00:00:05Z
+        guard_satisfied: true
+        reason: Execution begun; customer records acquired.
+      - from_state: in_progress
+        to_state: pending_validation
+        transitioned_at: 2026-10-01T00:00:45Z
+        guard_satisfied: true
+        reason: Retention calculation produced a candidate result.
+      - from_state: pending_validation
+        to_state: validated
+        transitioned_at: 2026-10-01T00:00:50Z
+        guard_satisfied: true
+        reason: All validation checks passed.
+      - from_state: validated
+        to_state: completed
+        transitioned_at: 2026-10-01T00:01:00Z
+        guard_satisfied: true
+        reason: Observation recorded and published.
+    description: >
+      Canonical completed lifecycle. Full transition chain planned ->
+      initiated -> in_progress -> pending_validation -> validated ->
+      completed. Execution mode: calculated.
+  - id: dea:measurement-2026-q3-mean-time-to-recovery-failed
+    name: Mean Time to Recovery Measurement Q3 2026 (failed)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-mean-time-to-recovery@1.0.0
+    measures_subject: dea:information-system-component-checkout-service
+    measurement_method: automated
+    execution_mode: automated
+    measurement_time: 2026-10-01T00:00:00Z
+    measurement_source: dea:system-incident-management
+    measurement_status: failed
+    logical_measurement_event: mttr/checkout-service/2026-q3
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-10-01T00:00:00Z
+        guard_satisfied: true
+        reason: Scheduled Q3 reporting trigger.
+      - from_state: initiated
+        to_state: in_progress
+        transitioned_at: 2026-10-01T00:00:10Z
+        guard_satisfied: true
+        reason: Execution begun.
+      - from_state: in_progress
+        to_state: failed
+        transitioned_at: 2026-10-01T00:02:00Z
+        guard_satisfied: true
+        reason: Unrecoverable source failure in the incident management system.
+    description: >
+      Canonical failed lifecycle. Execution error; no observation
+      produced. Execution mode: automated.
+  - id: dea:measurement-2026-q3-data-completeness-rejected
+    name: Data Completeness Measurement Q3 2026 (rejected)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-data-completeness@1.0.0
+    measures_subject: dea:data-entity-customer-profile
+    measurement_method: automated
+    execution_mode: automated
+    measurement_time: 2026-10-01T00:00:00Z
+    measurement_source: dea:system-data-quality-monitor
+    measurement_status: rejected
+    logical_measurement_event: data-completeness/customer-profile/2026-q3
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-10-01T00:00:00Z
+        guard_satisfied: true
+        reason: Scheduled Q3 reporting trigger.
+      - from_state: initiated
+        to_state: in_progress
+        transitioned_at: 2026-10-01T00:00:05Z
+        guard_satisfied: true
+        reason: Execution begun.
+      - from_state: in_progress
+        to_state: pending_validation
+        transitioned_at: 2026-10-01T00:00:30Z
+        guard_satisfied: true
+        reason: Completeness calculation produced a candidate result.
+      - from_state: pending_validation
+        to_state: rejected
+        transitioned_at: 2026-10-01T00:00:35Z
+        guard_satisfied: true
+        reason: Completeness check failed below the governed threshold.
+    description: >
+      Canonical rejected lifecycle. A data-quality rejection, which is
+      DISTINCT from the failed lifecycle (the result was produced but
+      did not pass the checks). Execution mode: automated.
+  - id: dea:measurement-2026-q4-customer-retention-cancelled
+    name: Customer Retention Rate Measurement Q4 2026 (cancelled)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-customer-retention-rate@1.0.0
+    measures_subject: dea:customer-segment-north-america-enterprise
+    measurement_method: manual
+    execution_mode: manual
+    measurement_time: 2026-12-28T00:00:00Z
+    measurement_source: dea:system-customer-data-platform
+    measurement_status: cancelled
+    logical_measurement_event: retention/north-america-enterprise/2026-q4
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-12-28T00:00:00Z
+        guard_satisfied: true
+        reason: Manual initiation by the reporting analyst.
+      - from_state: initiated
+        to_state: cancelled
+        transitioned_at: 2026-12-28T00:05:00Z
+        guard_satisfied: true
+        reason: Cancelled after initiation; source data was not available.
+    description: >
+      Canonical cancelled lifecycle. Cancelled after initiation but
+      before execution. Execution mode: manual.
+  - id: dea:measurement-2026-q3-employee-engagement-ai-assisted
+    name: Employee Engagement Score Measurement Q3 2026 (AI-assisted)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-employee-engagement-score@1.0.0
+    measures_subject: dea:organizational-unit-global-engineering
+    measurement_method: ai_assisted
+    execution_mode: ai_assisted
+    measurement_time: 2026-09-15T00:00:00Z
+    measurement_source: dea:system-engagement-survey
+    measurement_status: completed
+    logical_measurement_event: engagement/global-engineering/2026-q3
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-09-15T00:00:00Z
+        guard_satisfied: true
+        reason: Scheduled Q3 reporting trigger.
+      - from_state: initiated
+        to_state: in_progress
+        transitioned_at: 2026-09-15T00:00:20Z
+        guard_satisfied: true
+        reason: AI-assisted determination begun over the survey responses.
+      - from_state: in_progress
+        to_state: pending_validation
+        transitioned_at: 2026-09-15T00:03:00Z
+        guard_satisfied: true
+        reason: AI-assisted determination produced a candidate estimate.
+      - from_state: pending_validation
+        to_state: validated
+        transitioned_at: 2026-09-15T00:03:30Z
+        guard_satisfied: true
+        reason: Type, range and plausibility checks passed on the estimate.
+      - from_state: validated
+        to_state: completed
+        transitioned_at: 2026-09-15T00:04:00Z
+        guard_satisfied: true
+        reason: Observation recorded and published as an unverified estimate.
+    description: >
+      Canonical AI-assisted lifecycle. The produced observation carries
+      verification_state: ai_estimated. An AI-generated estimate is NOT
+      equivalent to an independently verified observation for reporting,
+      aggregation, or comparison. Execution mode: ai_assisted.
+  - id: dea:measurement-2026-q2-customer-retention-superseded
+    name: Customer Retention Rate Measurement Q2 2026 (superseded)
+    type: Measurement
+    version: 1.0.0
+    applies_metric: dea:metric-customer-retention-rate@1.0.0
+    measures_subject: dea:customer-segment-north-america-enterprise
+    measurement_method: calculated
+    execution_mode: calculated
+    measurement_time: 2026-07-01T00:00:00Z
+    reporting_period_start: 2026-04-01
+    reporting_period_end: 2026-06-30
+    measurement_source: dea:system-customer-data-platform
+    measurement_status: superseded
+    logical_measurement_event: retention/north-america-enterprise/2026-q2
+    state_transitions:
+      - from_state: planned
+        to_state: initiated
+        transitioned_at: 2026-07-01T00:00:00Z
+        guard_satisfied: true
+        reason: Scheduled Q2 reporting trigger.
+      - from_state: initiated
+        to_state: in_progress
+        transitioned_at: 2026-07-01T00:00:05Z
+        guard_satisfied: true
+        reason: Execution begun.
+      - from_state: in_progress
+        to_state: pending_validation
+        transitioned_at: 2026-07-01T00:00:45Z
+        guard_satisfied: true
+        reason: Retention calculation produced a candidate result.
+      - from_state: pending_validation
+        to_state: validated
+        transitioned_at: 2026-07-01T00:00:50Z
+        guard_satisfied: true
+        reason: All validation checks passed.
+      - from_state: validated
+        to_state: completed
+        transitioned_at: 2026-07-01T00:01:00Z
+        guard_satisfied: true
+        reason: Observation recorded and published.
+      - from_state: completed
+        to_state: superseded
+        transitioned_at: 2026-10-02T00:00:00Z
+        guard_satisfied: true
+        reason: Replaced by a corrected Q2 record after a source lineage defect was found.
+    description: >
+      Canonical superseded lifecycle. A completed Measurement whose
+      result was entirely corrected. The prior observation is retained
+      with observation_status: superseded; the replacement observation
+      carries the supersedes_observation reference. The Q2 measurement
+      was replaced by a corrected record, which is why its
+      logical_measurement_event key differs from the Q3 key.
+measurement_observations:
+  - id: dea:measurement-observation-2026-q3-customer-retention
+    name: Customer Retention Rate Observation Q3 2026
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-customer-retention-completed
+    value: 0.924
+    unit: ratio
+    observed_at: 2026-10-01T00:00:00Z
+    observation_status: active
+    verification_state: independently_verified
+    description: >
+      Completed-lifecycle observation. Independently verified against
+      the source records.
+  - id: dea:measurement-observation-2026-q3-employee-engagement-ai
+    name: Employee Engagement Score Observation Q3 2026 (AI-assisted)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q3-employee-engagement-ai-assisted
+    value: 4.1
+    unit: ordinal-1-5
+    observed_at: 2026-09-15T00:00:00Z
+    observation_status: active
+    verification_state: ai_estimated
+    description: >
+      AI-assisted observation. verification_state is ai_estimated, NOT
+      independently_verified and NOT human_verified. This preserves the
+      binding distinction between an AI-generated estimate and an
+      independently verified observation.
+  - id: dea:measurement-observation-2026-q2-customer-retention
+    name: Customer Retention Rate Observation Q2 2026 (superseded)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q2-customer-retention-superseded
+    value: 0.918
+    unit: ratio
+    observed_at: 2026-07-01T00:00:00Z
+    observation_status: superseded
+    verification_state: independently_verified
+    description: >
+      Corrected-out observation. Retained for historical traceability;
+      the replacement observation supersedes it.
+  - id: dea:measurement-observation-2026-q2-customer-retention-corrected
+    name: Customer Retention Rate Observation Q2 2026 (corrected)
+    type: MeasurementObservation
+    version: 1.0.0
+    produced_by: dea:measurement-2026-q2-customer-retention-superseded
+    value: 0.921
+    unit: ratio
+    observed_at: 2026-10-02T00:00:00Z
+    observation_status: active
+    verification_state: independently_verified
+    supersedes_observation: dea:measurement-observation-2026-q2-customer-retention
+    description: >
+      Correction observation. Carries the supersedes_observation
+      reference to the prior observation, which is retained with
+      observation_status: superseded.

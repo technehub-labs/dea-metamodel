@@ -14,7 +14,8 @@
     "measures_subject",
     "measurement_method",
     "measurement_time",
-    "measurement_status"
+    "measurement_status",
+    "execution_mode"
   ],
   "properties": {
     "id": {
@@ -100,7 +101,85 @@
         "rejected",
         "superseded"
       ],
-      "description": "Execution or record status (CR-MET-003 binding). The 10-value enum is the canonical Measurement lifecycle; CR-MET-004 refines it. Required."
+      "description": "Execution or record status (CR-MET-003 binding). The 10-value enum is the canonical Measurement lifecycle; CR-MET-004 binds the legal transitions between these states. Required."
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "automated",
+        "manual",
+        "calculated",
+        "aggregated",
+        "external",
+        "assessed",
+        "simulated",
+        "ai_assisted"
+      ],
+      "description": "Canonical execution mode classification (CR-MET-004). Execution classifications, not separate Measurement subclasses. Required."
+    },
+    "state_transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from_state",
+          "to_state",
+          "transitioned_at"
+        ],
+        "properties": {
+          "from_state": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "initiated",
+              "in_progress",
+              "pending_validation",
+              "validated",
+              "completed",
+              "failed",
+              "cancelled",
+              "rejected",
+              "superseded"
+            ]
+          },
+          "to_state": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "initiated",
+              "in_progress",
+              "pending_validation",
+              "validated",
+              "completed",
+              "failed",
+              "cancelled",
+              "rejected",
+              "superseded"
+            ]
+          },
+          "transitioned_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "guard_satisfied": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 1000
+          },
+          "transition_ref": {
+            "type": "string",
+            "description": "Reference to the dea:LifecycleTransition instance that declares this transition (entity_scope: dea:Measurement). Optional; the runtime may record the transition inline."
+          }
+        }
+      },
+      "description": "The declared lifecycle state transition record (CR-MET-004). The from_state and to_state pair MUST be a legal transition per metamodel/vocabularies/measurement-lifecycle.yaml. Recommended."
+    },
+    "logical_measurement_event": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Key identifying the logical measurement event (the same Metric applied to the same subject in the same reporting period). A retry of the same logical event MUST reuse the same key; two Measurements MUST NOT both be completed with the same key (CR-MET-004 idempotency semantics). Optional; required when a retry is possible."
     },
     "configuration_reference": {
       "type": "string",

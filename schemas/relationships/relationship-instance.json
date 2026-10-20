@@ -33,6 +33,7 @@
         "addressed-by",
         "affects",
         "aggregates",
+        "analyses-metric",
         "applies-metric",
         "applies-period",
         "applies-subject",
@@ -56,6 +57,7 @@
         "controls",
         "coordinates",
         "corrects",
+        "correlates",
         "curates",
         "defines",
         "delegates",
@@ -85,6 +87,7 @@
         "in-state",
         "informed-by",
         "informs",
+        "informs-decision",
         "instantiates",
         "interprets",
         "introduces",
@@ -134,6 +137,7 @@
         "supersedes",
         "supports",
         "targets",
+        "tests-hypothesis",
         "threatens",
         "to-state",
         "traces-to",
@@ -144,7 +148,7 @@
         "valid-during",
         "version-of"
       ],
-      "description": "CR-MET-011 adds has-provenance, corrects, and applies-period. Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
+      "description": "CR-MET-012 adds correlates, tests-hypothesis, analyses-metric, and informs-decision. CR-MET-011 adds has-provenance, corrects, and applies-period. Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
     },
     "direction": {
       "type": "string",

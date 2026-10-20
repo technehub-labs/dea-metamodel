@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dea-metamodel.org/schemas/entities/correlation.json",
+  "metamodel_version": "1.0.0",
+  "title": "Correlation",
+  "description": "A recorded statistical association between two measured phenomena, WITHOUT asserting causation (CR-MET-012 section 6, Q22c). Correlation and Causal Hypothesis are distinct first-class constructs and MUST NOT be collapsed. A correlation records what was observed to co-vary; a causal hypothesis records an asserted mechanism. The Metric capability provides the semantic references and provenance needed by analytical services; it is NOT a causal inference engine. CONFUSION_GUARD is REQUIRED and MUST be false: a record that asserts a causal claim from co-variation alone is a governance failure.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version",
+    "lifecycle_status",
+    "source_phenomenon_ref",
+    "target_phenomenon_ref",
+    "coefficient",
+    "method",
+    "sample_size",
+    "reporting_period_ref",
+    "confusion_guard"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^dea:[A-Z][a-zA-Z0-9-]*$"
+    },
+    "type": { "const": "Correlation" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+    },
+    "external_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["system", "identifier"],
+        "properties": {
+          "system": { "type": "string" },
+          "identifier": { "type": "string" }
+        }
+      }
+    },
+    "source_phenomenon_ref": {
+      "type": "string",
+      "description": "The first measured phenomenon in the association."
+    },
+    "target_phenomenon_ref": {
+      "type": "string",
+      "description": "The second measured phenomenon in the association."
+    },
+    "coefficient": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1,
+      "description": "The correlation coefficient in the range -1 to 1. A coefficient near 0 means no linear association; near 1 a strong positive association; near -1 a strong negative association."
+    },
+    "method": {
+      "type": "string",
+      "description": "The statistical method used (pearson, spearman, kendall, mutual_information, and so on). Required so the result is reproducible."
+    },
+    "sample_size": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "The number of paired observations the coefficient was computed from. A correlation computed from a small sample MUST declare it."
+    },
+    "reporting_period_ref": {
+      "type": "string",
+      "description": "The dea:ReportingPeriod over which the association was observed (CR-MET-011)."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "description": "The dea:MeasurementObservation records the coefficient was computed from.",
+      "items": { "type": "string" }
+    },
+    "confounder_candidates": {
+      "type": "array",
+      "description": "Candidate confounding variables identified. A correlation WITH declared confounders is more honest than one without; absence of confounders is not evidence of their absence.",
+      "items": { "type": "string" }
+    },
+    "confusion_guard": {
+      "type": "boolean",
+      "description": "MUST be false. This record asserts association ONLY. A correlation does not establish a causal mechanism. A dea:CausalHypothesis carries the asserted mechanism, separately, with explicit confidence."
+    },
+    "strength": {
+      "type": "string",
+      "enum": ["negligible", "weak", "moderate", "strong", "very_strong"],
+      "description": "A plain-language classification of the coefficient magnitude."
+    },
+    "directional_note": {
+      "type": ["string", "null"],
+      "description": "A note on direction of association. Association direction is NOT causal direction."
+    },
+    "provenance_reference": {
+      "type": ["string", "null"],
+      "description": "Reference to the dea:Provenance record (CR-MET-011 section 5) for the computation."
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

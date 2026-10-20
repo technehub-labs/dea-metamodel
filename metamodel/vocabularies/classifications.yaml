@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.15.0
+version: 0.16.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -966,4 +966,27 @@ classifications:
     entity: Provenance
     property: reproducibility_posture
     values: [reproducible, reproducible_with_retained_source, source_retained_not_reproducible, not_reproducible]
+
+  # CR-MET-012 section 3: the 6 complementary analytical capabilities.
+  AnalyticalResult.analytical_capability:
+    entity: AnalyticalResult
+    property: analytical_capability
+    values: [descriptive, diagnostic, predictive, prescriptive, comparative, scenario_simulation]
+  # CR-MET-012 section 7 (Q20b-prime): the 4 derived analytical result types.
+  # observation and decision are deliberately ABSENT: dea:MeasurementObservation
+  # and dea:Decision already exist as first-class entities with their own lifecycle.
+  AnalyticalResult.result_type:
+    entity: AnalyticalResult
+    property: result_type
+    values: [estimate, forecast, simulation_result, recommendation]
+  # CR-MET-012 section 6 (Q22c): how far a causal hypothesis has been tested.
+  CausalHypothesis.validation_state:
+    entity: CausalHypothesis
+    property: validation_state
+    values: [asserted, correlation_supported, experiment_running, validated, refuted]
+  # CR-MET-012 section 6: plain-language classification of a correlation coefficient.
+  Correlation.strength:
+    entity: Correlation
+    property: strength
+    values: [negligible, weak, moderate, strong, very_strong]
 

@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.12.0
+version: 0.13.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -480,6 +480,42 @@ classifications:
     - warning
     - critical
     - unknown
+  IndicatorDesignation.designation_type:
+    entity: IndicatorDesignation
+    property: designation_type
+    values:
+    - KPI
+    - KRI
+    - KCI
+    - SLI
+    - Operational
+  IndicatorDesignation.measurement_orientation:
+    entity: IndicatorDesignation
+    property: measurement_orientation
+    values:
+    - leading
+    - lagging
+    - neutral
+  IndicatorDesignation.reporting_frequency:
+    entity: IndicatorDesignation
+    property: reporting_frequency
+    values:
+    - real_time
+    - hourly
+    - daily
+    - weekly
+    - monthly
+    - quarterly
+    - semi_annual
+    - annual
+  IndicatorDesignation.approval_status:
+    entity: IndicatorDesignation
+    property: approval_status
+    values:
+    - draft
+    - proposed
+    - approved
+    - retired
   Measurement.measurement_status:
     entity: Measurement
     property: measurement_status

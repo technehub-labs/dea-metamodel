@@ -1723,3 +1723,13 @@ relationships:
   inverse: dea:supports-objective
   status: normative
   lifecycle: proposed
+- id: dea:has-designation
+  name: Has Designation
+  category: governance
+  source:
+  - dea:PerformanceMetric
+  target:
+  - dea:IndicatorDesignation
+  inverse: dea:designates
+  status: normative
+  lifecycle: proposed

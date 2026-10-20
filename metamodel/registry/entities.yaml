@@ -1728,3 +1728,14 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:IndicatorDesignation
+  name: Indicator Designation
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment

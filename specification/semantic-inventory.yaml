@@ -2,8 +2,8 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 157
-  relationships: 112
+  entities: 158
+  relationships: 113
   core_entities: 23
   profiles: 10
 entities:
@@ -1106,6 +1106,13 @@ entities:
   status: normative
   lifecycle: proposed
   source_cr: CR-5
+- id: dea:IndicatorDesignation
+  name: Indicator Designation
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-5
 relationships:
 - id: dea:composes
   name: Composes
@@ -1777,6 +1784,12 @@ relationships:
   name: Has Target
   category: governance
   inverse: dea:supports-objective
+  temporal: true
+  status: normative
+- id: dea:has-designation
+  name: Has Designation
+  category: governance
+  inverse: dea:designates
   temporal: true
   status: normative
 reconciliation:

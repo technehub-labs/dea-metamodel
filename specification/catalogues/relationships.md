@@ -1,6 +1,6 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 107 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 112 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
@@ -15,7 +15,7 @@ Version 1.0.0; 107 relationship types. Canonical direction is source-to-target (
 | `dea:depends-on` | dependency | `dea:depended-on-by` | yes | The source requires the target for some purpose, without containment or realization semantics (section 14). |
 | `dea:requires` | dependency | `dea:required-by` | yes | The source cannot fulfil its definition without the target (mandatory dependency). |
 | `dea:enables` | dependency | `dea:enabled-by` | yes | The source makes the target possible or materially more effective, without being required by it. |
-| `dea:constrains` | dependency | `dea:constrained-by` | yes | The source limits the permissible design or behaviour space of the target. |
+| `dea:constrains` | dependency | `dea:constrained-by` | yes | The source limits the permissible design or behaviour space of the target. CR-MET-006 extended source types with dea:Threshold (a Threshold constrains a Metric); extended target types with dea:PerformanceMetric. |
 | `dea:flows-to` | flow | `dea:flows-from` | yes | Information, material, control, or value moves from the source to the target. |
 | `dea:produces` | flow | `dea:produced-by` | yes | The source creates or emits the target as an output. |
 | `dea:applies-metric` | flow | `dea:applied-by` | no | The Measurement (source) applies the Metric definition (target) version. Cardinality 1:1; every Measurement applies exactly one Metric definition version. The reference MAY include the semantic version (e.g. dea:metric-customer-retention-rate@1.0.0). |
@@ -48,7 +48,7 @@ Version 1.0.0; 107 relationship types. Canonical direction is source-to-target (
 | `dea:assessed-by` | assessment | `dea:assesses` | yes | The source is evaluated by the target assessment instrument, experiment, or framework. |
 | `dea:measured-by` | assessment | `dea:measures` | yes | The source's performance, health, or maturity is quantified by the target metric. |
 | `dea:evidenced-by` | assessment | `dea:evidences` | yes | The source relationship or claim is supported by the target evidence artefact (section 6). |
-| `dea:benchmarked-against` | assessment | `dea:benchmark-of` | yes | The source is compared against the target reference, standard, or peer. Extended by CR-5 §28: AssessmentResult vs BenchmarkReference (a benchmark is never a result, A011). |
+| `dea:benchmarked-against` | assessment | `dea:benchmark-of` | yes | The source is compared against the target reference, standard, or peer. Extended by CR-5 section 28 (AssessmentResult vs BenchmarkReference; a benchmark is never a result, A011). CR-MET-006 extended source types with dea:PerformanceMetric (a Metric is benchmarked against a BenchmarkReference). |
 | `dea:transitions-to` | transformation | `dea:transitions-from` | yes | The source evolves into the target state, maturity, or technology over time (CR-6 will add temporal semantics). |
 | `dea:replaces` | transformation | `dea:replaced-by` | yes | The source takes over the function of the target, which is retired. |
 | `dea:supersedes` | transformation | `dea:superseded-by` | yes | The source version or concept supersedes the target in definition or governance. |
@@ -111,3 +111,8 @@ Version 1.0.0; 107 relationship types. Canonical direction is source-to-target (
 | `dea:requires-approval` | governance | `dea:approval-for` | no | An Action, Tool use or Skill invocation requires an Approval or HumanOversight gate before or after execution (CR-7 §24/§25). |
 | `dea:has-oversight` | governance | `dea:oversees` | no | An Agent or AgenticSystem operates under a HumanOversight pattern (CR-7 §25; G011). |
 | `dea:accesses` | serving | `dea:accessed-by` | no | An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33); reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates. |
+| `dea:references` | structural | `dea:referenced-by` | yes | The source references the target as a semantic anchor. CR-MET-006 binding: Baseline references the PerformanceMetric it is a Baseline FOR. Cardinality 1 (a Baseline is a reference value of exactly one Metric). |
+| `dea:applies-subject` | structural | `dea:subject-applied-by` | yes | The source applies to / concerns the target subject. CR-MET-006 binding: Baseline and PerformanceTarget apply to AssessmentSubject or Entity. |
+| `dea:specifies-target` | structural | `dea:has-target-specification` | yes | The PerformanceTarget specifies a desired target value for the PerformanceMetric. CR-MET-006 binding: cardinality 1 (a PerformanceTarget specifies exactly one Metric). |
+| `dea:interprets` | assessment | `dea:interpreted-by` | yes | The PerformanceInterpretation interprets the target Observation under defined criteria. CR-MET-006 binding: distinct from dea:assesses (assessment-side scoring); PerformanceInterpretation carries judgment of a measurement observation. Cardinality source 1..1 (an interpretation is one judgment); target 0..* (an observation MAY be interpreted multiple times). |
+| `dea:has-target` | governance | `dea:supports-objective` | yes | The StrategicObjective is supported by the PerformanceTarget. CR-MET-006 binding: a StrategicObjective MAY have multiple PerformanceTargets (one per scope/period). |

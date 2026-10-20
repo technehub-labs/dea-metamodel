@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.11.0
+version: 0.12.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -411,6 +411,75 @@ classifications:
     - half_even
     - half_down
     - truncate
+  Baseline.kind:
+    entity: Baseline
+    property: kind
+    values:
+    - historical
+    - initial
+    - strategic
+    - operational
+    - regulatory
+    - scenario_derived
+  Baseline.approval_status:
+    entity: Baseline
+    property: approval_status
+    values:
+    - draft
+    - proposed
+    - approved
+    - retired
+  PerformanceTarget.direction:
+    entity: PerformanceTarget
+    property: target_direction
+    values:
+    - increase
+    - decrease
+    - maintain
+    - bounded
+    - exact_match
+  PerformanceTarget.approval_status:
+    entity: PerformanceTarget
+    property: approval_status
+    values:
+    - draft
+    - proposed
+    - approved
+    - retired
+  Threshold.level:
+    entity: Threshold
+    property: threshold_level
+    values:
+    - critical
+    - warning
+    - acceptable
+    - optimal
+  Threshold.direction:
+    entity: Threshold
+    property: direction
+    values:
+    - higher_is_better
+    - lower_is_better
+    - bounded_optimum
+    - exact_match
+  PerformanceInterpretation.kind:
+    entity: PerformanceInterpretation
+    property: interpretation_kind
+    values:
+    - variance_evaluation
+    - threshold_evaluation
+    - benchmark_evaluation
+    - composite_judgment
+  PerformanceInterpretation.state:
+    entity: PerformanceInterpretation
+    property: interpretation_state
+    values:
+    - exceeds_target
+    - meets_target
+    - within_tolerance
+    - warning
+    - critical
+    - unknown
   Measurement.measurement_status:
     entity: Measurement
     property: measurement_status

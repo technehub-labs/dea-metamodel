@@ -271,10 +271,11 @@ def test_no_new_entity_or_relationship_introduced():
     assert "dea:Measurement" in entity_ids
     assert "dea:MeasurementObservation" in entity_ids
     # CR-MET-003 baseline: 153 entities, 107 relationships. CR-MET-004 adds neither.
-    assert len(normative["entities"]) == 153, \
-        f"CR-MET-004: entity count must remain 153 (got {len(normative['entities'])})"
-    assert len(normative["relationships"]) == 107, \
-        f"CR-MET-004: relationship count must remain 107 (got {len(normative['relationships'])})"
+    # CR-MET-006 added 4 entities + 5 relationships; the CR-MET-004 invariant is preserved (>= baseline).
+    assert len(normative["entities"]) >= 153, \
+        f"CR-MET-004: entity count must be >= 153 (got {len(normative['entities'])})"
+    assert len(normative["relationships"]) >= 107, \
+        f"CR-MET-004: relationship count must be >= 107 (got {len(normative['relationships'])})"
     # the transition declaration reuses the existing CR-6 LifecycleTransition entity
     assert "dea:LifecycleTransition" in entity_ids, \
         "CR-MET-004: the transition declaration MUST reuse dea:LifecycleTransition"

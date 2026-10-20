@@ -1,0 +1,286 @@
+# CR-MET-006 representative performance-evaluation fixtures.
+# 4 Baselines, 4 PerformanceTargets, 4 Thresholds, 4 PerformanceInterpretations.
+# Consumed by tests/conformance/test_026_performance_evaluation.py.
+version: 1.0.0
+baselines:
+  - id: dea:baseline-availability-2024-q4
+    name: System Availability Baseline Q4 2024
+    type: Baseline
+    version: 1.0.0
+    kind: historical
+    approval_status: approved
+    reference_metric_ref: dea:metric-system-availability
+    subject_ref: dea:subject-payment-processing-service
+    reference_value: 99.7
+    establishment_date: "2024-10-01"
+    applicable_period: dea:temporal-interval-2024-q4
+    organizational_scope:
+      - enterprise
+      - capability:payment_processing
+    measurement_methodology: 30-day rolling mean of hourly availability probes
+    source_evidence:
+      - dea:evidence-incident-ledger-2024-q4
+      - dea:evidence-monitoring-sla-report-2024-q4
+    description: >
+      Historical baseline for payment processing system availability,
+      established from Q4 2024 production data. Used as the
+      "previous state" reference for variance evaluation in 2025.
+  - id: dea:baseline-customer-retention-2024
+    name: Customer Retention Baseline 2024
+    type: Baseline
+    version: 1.0.0
+    kind: historical
+    approval_status: approved
+    reference_metric_ref: dea:metric-customer-retention-rate
+    subject_ref: dea:subject-retail-segment
+    reference_value: 0.84
+    establishment_date: "2025-01-15"
+    applicable_period: dea:temporal-interval-2024-fy
+    organizational_scope:
+      - business_unit:retail
+    source_evidence:
+      - dea:evidence-customer-cohort-2024
+    description: >
+      Historical baseline for retail customer retention at 84% in 2024.
+  - id: dea:baseline-incident-frequency-initial
+    name: Incident Frequency Initial Baseline
+    type: Baseline
+    version: 1.0.0
+    kind: initial
+    approval_status: approved
+    reference_metric_ref: dea:metric-incident-frequency
+    subject_ref: dea:subject-payment-processing-service
+    reference_value: 12.0
+    establishment_date: "2025-01-01"
+    applicable_period: dea:temporal-interval-2025-fy
+    organizational_scope: enterprise
+    source_evidence:
+      - dea:evidence-incident-management-system-baseline
+    description: >
+      Initial baseline for incident frequency at 12 incidents per
+      month at program inception. Used as the reference for the
+      2025 incident reduction initiative.
+  - id: dea:baseline-availability-regulatory-floor
+    name: Regulatory Availability Floor
+    type: Baseline
+    version: 1.0.0
+    kind: regulatory
+    approval_status: approved
+    reference_metric_ref: dea:metric-system-availability
+    subject_ref: dea:subject-payment-processing-service
+    reference_value: 99.5
+    establishment_date: "2025-01-01"
+    applicable_period: dea:temporal-interval-2025-fy
+    organizational_scope:
+      - enterprise
+    measurement_methodology: Regulatory compliance floor per PCI-DSS
+    source_evidence:
+      - dea:evidence-pci-dss-compliance-spec
+    description: >
+      Regulatory floor for system availability per PCI-DSS.
+      Distinct from the historical Q4 2024 baseline; both are valid
+      references for different evaluation questions.
+
+thresholds:
+  - id: dea:threshold-availability-critical
+    name: System Availability Critical Threshold
+    type: Threshold
+    version: 1.0.0
+    threshold_metric_ref: dea:metric-system-availability
+    threshold_value: 99.0
+    threshold_level: critical
+    direction: lower_is_better
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-sre-team
+    escalation_rule_ref: dea:escalation-rule-critical-incident
+    description: >
+      Critical threshold at 99.0% (below = critical). Requires
+      immediate intervention per the SRE escalation rule.
+  - id: dea:threshold-availability-warning
+    name: System Availability Warning Threshold
+    type: Threshold
+    version: 1.0.0
+    threshold_metric_ref: dea:metric-system-availability
+    threshold_value: 99.3
+    threshold_level: warning
+    direction: lower_is_better
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-sre-team
+    escalation_rule_ref: dea:escalation-rule-warning-alert
+    description: >
+      Warning threshold at 99.3% (below = warning). Triggers the
+      warning-level alert.
+  - id: dea:threshold-retention-target
+    name: Customer Retention Target Band
+    type: Threshold
+    version: 1.0.0
+    threshold_metric_ref: dea:metric-customer-retention-rate
+    threshold_value:
+      min: 0.85
+      max: 0.95
+    threshold_level: optimal
+    direction: bounded_optimum
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-retail-team
+    description: >
+      Optimal band for customer retention: 85% to 95%. Below the
+      band is acceptable but suboptimal; above the band is acceptable
+      but unusual (suggests the cohort is constrained).
+  - id: dea:threshold-incident-exact-match
+    name: Incident Count Regulatory Exact Match
+    type: Threshold
+    version: 1.0.0
+    threshold_metric_ref: dea:metric-incident-frequency
+    threshold_value: 0
+    threshold_level: optimal
+    direction: exact_match
+    effective_period: dea:temporal-interval-2025-q1
+    owner_ref: dea:actor-compliance-team
+    description: >
+      Regulatory exact-match threshold (zero incidents in the
+      reporting period). Demonstrates the exact_match direction.
+
+performance_targets:
+  - id: dea:performance-target-availability-2025
+    name: System Availability Target 2025
+    type: PerformanceTarget
+    version: 1.0.0
+    target_metric_ref: dea:metric-system-availability
+    target_subject_ref: dea:subject-payment-processing-service
+    target_scope:
+      - enterprise
+      - capability:payment_processing
+    target_value: 99.9
+    target_direction: increase
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-cto
+    associated_objective_ref: dea:strategic-objective-platform-resilience
+    approval_status: approved
+    supporting_rationale: >
+      Q4 2024 baseline of 99.7% is acceptable but not where we want
+      to land. The 2025 target raises the bar to 99.9% as part of
+      the platform resilience strategic objective.
+  - id: dea:performance-target-retention-band-2025
+    name: Customer Retention Target Band 2025
+    type: PerformanceTarget
+    version: 1.0.0
+    target_metric_ref: dea:metric-customer-retention-rate
+    target_subject_ref: dea:subject-retail-segment
+    target_scope:
+      - business_unit:retail
+    target_range:
+      min: 0.85
+      max: 0.90
+    target_direction: bounded
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-retail-vp
+    associated_objective_ref: dea:strategic-objective-retail-growth
+    approval_status: approved
+    supporting_rationale: >
+      2024 baseline was 84%; the 2025 target band raises this to
+      85-90%. Demonstrates target_range (mutually exclusive with
+      target_value).
+  - id: dea:performance-target-incident-decrease-2025
+    name: Incident Frequency Decrease Target 2025
+    type: PerformanceTarget
+    version: 1.0.0
+    target_metric_ref: dea:metric-incident-frequency
+    target_subject_ref: dea:subject-payment-processing-service
+    target_scope: enterprise
+    target_value: 6.0
+    target_direction: decrease
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-cto
+    associated_objective_ref: dea:strategic-objective-platform-resilience
+    approval_status: approved
+    supporting_rationale: >
+      Cut incident frequency from 12 to 6 per month (50% reduction).
+  - id: dea:performance-target-retention-maintain-2025
+    name: Customer Retention Maintenance Target 2025
+    type: PerformanceTarget
+    version: 1.0.0
+    target_metric_ref: dea:metric-customer-retention-rate
+    target_subject_ref: dea:subject-enterprise-segment
+    target_scope: enterprise
+    target_value: 0.88
+    target_direction: maintain
+    effective_period: dea:temporal-interval-2025-fy
+    owner_ref: dea:actor-ceo
+    associated_objective_ref: dea:strategic-objective-enterprise-stability
+    approval_status: approved
+    supporting_rationale: >
+      Enterprise segment already at 88% (above the 2024 baseline of
+      84%). Maintain at 88% rather than increase, to avoid
+      resource reallocation.
+
+performance_interpretations:
+  - id: dea:interpretation-availability-q1-2025-variance
+    name: Availability Q1 2025 vs Baseline
+    type: PerformanceInterpretation
+    version: 1.0.0
+    interpretation_kind: variance_evaluation
+    interpretation_state: meets_target
+    interprets_metric_ref: dea:metric-system-availability
+    interprets_observation_ref: dea:observation-availability-q1-2025
+    reference_used: dea:baseline-availability-2024-q4
+    absolute_variance: 0.1
+    relative_variance: 0.1
+    narrative: >
+      Q1 2025 availability of 99.8% is +0.1% above the Q4 2024
+      baseline (99.7%). Positive variance under higher_is_better
+      directionality.
+    evaluated_by_ref: dea:actor-analytics-team
+    evaluated_at: "2025-04-05T10:00:00Z"
+    description: >
+      Variance evaluation: observation 99.8% vs baseline 99.7%.
+  - id: dea:interpretation-availability-q1-2025-threshold
+    name: Availability Q1 2025 vs Critical Threshold
+    type: PerformanceInterpretation
+    version: 1.0.0
+    interpretation_kind: threshold_evaluation
+    interpretation_state: within_tolerance
+    interprets_metric_ref: dea:metric-system-availability
+    interprets_observation_ref: dea:observation-availability-q1-2025
+    reference_used: dea:threshold-availability-critical
+    narrative: >
+      Q1 2025 availability of 99.8% is above the critical threshold
+      (99.0%) and within the warning band (99.3-99.9%). No
+      intervention required.
+    evaluated_by_ref: dea:actor-monitoring-system
+    evaluated_at: "2025-04-05T10:00:00Z"
+    description: >
+      Threshold evaluation: observation above critical threshold.
+  - id: dea:interpretation-retention-vs-benchmark
+    name: Retention vs Industry Benchmark
+    type: PerformanceInterpretation
+    version: 1.0.0
+    interpretation_kind: benchmark_evaluation
+    interpretation_state: meets_target
+    interprets_metric_ref: dea:metric-customer-retention-rate
+    interprets_observation_ref: dea:observation-retention-q1-2025
+    reference_used: dea:benchmark-reference-retail-industry-median-2024
+    absolute_variance: 0.03
+    relative_variance: 3.7
+    narrative: >
+      Retail customer retention of 87% is +3% above the industry
+      median of 84%.
+    evaluated_by_ref: dea:actor-analytics-team
+    evaluated_at: "2025-04-10T14:00:00Z"
+    description: >
+      Benchmark evaluation: observation vs industry median.
+  - id: dea:interpretation-incident-critical
+    name: Incident Frequency Critical Threshold Violation
+    type: PerformanceInterpretation
+    version: 1.0.0
+    interpretation_kind: threshold_evaluation
+    interpretation_state: critical
+    interprets_metric_ref: dea:metric-incident-frequency
+    interprets_observation_ref: dea:observation-incident-frequency-q1-2025
+    reference_used: dea:threshold-availability-critical
+    narrative: >
+      Q1 2025 incident frequency exceeded the regulatory critical
+      threshold; escalation rule fired.
+    evaluated_by_ref: dea:actor-monitoring-system
+    evaluated_at: "2025-03-15T03:30:00Z"
+    description: >
+      Threshold evaluation: critical violation.

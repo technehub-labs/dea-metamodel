@@ -2,8 +2,8 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 153
-  relationships: 107
+  entities: 157
+  relationships: 112
   core_entities: 23
   profiles: 10
 entities:
@@ -1078,6 +1078,34 @@ entities:
   status: normative
   lifecycle: proposed
   source_cr: CR-7
+- id: dea:Baseline
+  name: Baseline
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-5
+- id: dea:PerformanceTarget
+  name: Performance Target
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-5
+- id: dea:Threshold
+  name: Threshold
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-5
+- id: dea:PerformanceInterpretation
+  name: Performance Interpretation
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-5
 relationships:
 - id: dea:composes
   name: Composes
@@ -1720,6 +1748,36 @@ relationships:
   category: serving
   inverse: dea:accessed-by
   temporal: false
+  status: normative
+- id: dea:references
+  name: References
+  category: structural
+  inverse: dea:referenced-by
+  temporal: true
+  status: normative
+- id: dea:applies-subject
+  name: Applies Subject
+  category: structural
+  inverse: dea:subject-applied-by
+  temporal: true
+  status: normative
+- id: dea:specifies-target
+  name: Specifies Target
+  category: structural
+  inverse: dea:has-target-specification
+  temporal: true
+  status: normative
+- id: dea:interprets
+  name: Interprets
+  category: assessment
+  inverse: dea:interpreted-by
+  temporal: true
+  status: normative
+- id: dea:has-target
+  name: Has Target
+  category: governance
+  inverse: dea:supports-objective
+  temporal: true
   status: normative
 reconciliation:
 - kind: inverse-collides-with-canonical

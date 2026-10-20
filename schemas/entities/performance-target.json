@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dea-metamodel.org/schemas/entities/performance-target.json",
+  "metamodel_version": "1.0.0",
+  "title": "PerformanceTarget",
+  "description": "A value-level desired measurement result (CR-MET-006). Sibling of AssessmentTarget (maturity-level, CR-5 section 21); the two target types coexist.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "lifecycle_status",
+    "target_metric_ref",
+    "target_subject_ref",
+    "target_scope",
+    "target_direction",
+    "effective_period",
+    "owner_ref",
+    "approval_status"
+  ],
+  "anyOf": [
+    { "required": ["target_value"] },
+    { "required": ["target_range"] }
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^dea:[A-Z][a-zA-Z0-9-]*$"
+    },
+    "name": { "type": "string" },
+    "type": { "const": "PerformanceTarget" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "metadata": { "type": "object" },
+    "target_metric_ref": {
+      "type": "string",
+      "description": "The PerformanceMetric id being targeted (relationship dea:specifies-target)."
+    },
+    "target_subject_ref": {
+      "type": "string",
+      "description": "The subject being targeted (relationship dea:applies-to)."
+    },
+    "target_scope": {
+      "description": "The scope (enterprise, business_domain, business_unit, capability, process, product_or_service, system). Aligns with Metric.scope_classification (CR-MET-002). String or array of strings.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "target_value": {
+      "type": "number",
+      "description": "The desired value (numeric). Mutually exclusive with target_range."
+    },
+    "target_range": {
+      "type": "object",
+      "description": "The desired range {min, max}. Mutually exclusive with target_value.",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    },
+    "target_direction": {
+      "type": "string",
+      "enum": [
+        "increase",
+        "decrease",
+        "maintain",
+        "bounded",
+        "exact_match"
+      ],
+      "description": "CR-MET-006 binding (PerformanceTarget.direction controlled vocabulary; 5 values)."
+    },
+    "effective_period": {
+      "type": "string",
+      "description": "Reference to a TemporalInterval."
+    },
+    "owner_ref": {
+      "type": "string",
+      "description": "Responsible owner (Actor ref)."
+    },
+    "associated_objective_ref": {
+      "type": "string",
+      "description": "The StrategicObjective or Outcome this Target supports. Relationship dea:has-target (StrategicObjective -> PerformanceTarget)."
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["draft", "proposed", "approved", "retired"],
+      "description": "CR-MET-006 binding (PerformanceTarget.approval_status controlled vocabulary; 4 values)."
+    },
+    "supporting_rationale": {
+      "type": "string",
+      "maxLength": 4000
+    }
+  }
+}

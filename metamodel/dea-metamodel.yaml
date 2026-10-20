@@ -69,6 +69,9 @@ dimensions:
 - id: temporal-dimension
   name: Temporal & Lifecycle Dimension
   kind: cross-cutting temporal overlay (CR-6; time is orthogonal to layers, like measurement)
+- id: provenance-dimension
+  name: Provenance & Lineage Dimension
+  kind: cross-cutting provenance overlay (CR-MET-011; how a result came to exist is orthogonal to layers, like measurement and time)
 entities:
 - id: dea:Entity
   name: Entity
@@ -3465,7 +3468,106 @@ entities:
     kind: profile
     profile: dea:assessment
 
+- id: dea:ReportingPeriod
+  name: Reporting Period
+  legacy_ids: []
+  definition: "The bounded interval a Measurement result represents, with an explicit period type and period semantics (CR-MET-011 section 4). Specializes dea:TemporalInterval via dea:specializes rather than duplicating it: the interval clocks are inherited from the CR-6 lineage; the period type and period semantics are the specialization payload. Supports instantaneous, point-in-time, fixed-duration, rolling, cumulative, event-based, and irregular periods."
+  layer: null
+  dimension: temporal-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/reporting-period.json
+    sqlite_table: reporting_periods
+    pydantic_model: pydantic/reporting_period.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Provenance
+  name: Provenance
+  legacy_ids: []
+  definition: "A first-class record of how a Measurement result came to exist, carrying the 11 provenance elements of CR-MET-011 section 5. Aligns with W3C PROV (https://www.w3.org/TR/prov-overview/): the Observation is the PROV entity, the collection and calculation steps are PROV activities, and the responsible-party concept carries the accountable party. Reuses dea:Evidence, dea:EvidenceSource, and dea:EvidenceArtifact (CR-5 section 16) rather than duplicating evidence semantics."
+  layer: null
+  dimension: provenance-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/provenance.json
+    sqlite_table: provenances
+    pydantic_model: pydantic/provenance.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+
 relationships:
+- id: dea:has-provenance
+  name: Has Provenance
+  definition: "The source carries the target as its provenance record, recording how the source came to exist (CR-MET-011 section 5). One Provenance per Observation: provenance is a 1:1 fact about a single result, not a shared reusable assertion."
+  category: traceability
+  direction: source-to-target
+  inverse: dea:has-provenance-inverse
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "1"
+  source:
+    types: [dea:MeasurementObservation, dea:Measurement, dea:PerformanceMetric]
+  target:
+    types: [dea:Provenance]
+- id: dea:corrects
+  name: Corrects
+  definition: "The source is a corrected restatement of the target, which was found to be erroneous. Distinct from dea:supersedes (section 7, Q19a): a correction asserts the original was WRONG, whereas a supersession asserts a NEWER authoritative value exists for the same period. Both may target the same Observation. A correction MUST NOT silently overwrite the original value."
+  category: traceability
+  direction: source-to-target
+  inverse: dea:corrected-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "0..*"
+  source:
+    types: [dea:MeasurementObservation]
+  target:
+    types: [dea:MeasurementObservation]
+- id: dea:applies-period
+  name: Applies Period
+  definition: "The source reports on the target reporting period. Establishes the bounded interval a result represents, distinct from when the result was produced (the measurement time dimension) and when it was published (the publication time dimension). CR-MET-011 section 3: these are distinct facts and MUST NOT be collapsed into one timestamp."
+  category: temporal
+  direction: source-to-target
+  inverse: dea:applies-period-inverse
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "1"
+  source:
+    types: [dea:Measurement, dea:MeasurementObservation, dea:Baseline, dea:PerformanceTarget, dea:Threshold, dea:PerformanceInterpretation, dea:IndicatorDesignation]
+  target:
+    types: [dea:ReportingPeriod]
+
 - id: dea:composes
   name: Composes
   definition: The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14).
@@ -3563,6 +3665,7 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:ReportingPeriod
     - dea:Agent
     - dea:ArchitecturePattern
     - dea:Controller
@@ -3589,6 +3692,7 @@ relationships:
     - dea:Process
   target:
     types:
+    - dea:TemporalInterval
     - dea:Actor
     - dea:ArchitecturePattern
     - dea:ArchitectureState

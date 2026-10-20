@@ -2,6 +2,44 @@
 # CR-002: single canonical relationship ontology (categories A-K, CR-2 section 4)
 registry_version: 1.0.0
 relationships:
+- id: dea:has-provenance
+  name: Has Provenance
+  category: traceability
+  source:
+  - dea:MeasurementObservation
+  - dea:Measurement
+  - dea:PerformanceMetric
+  target:
+  - dea:Provenance
+  inverse: dea:has-provenance-inverse
+  status: normative
+  lifecycle: proposed
+- id: dea:corrects
+  name: Corrects
+  category: traceability
+  source:
+  - dea:MeasurementObservation
+  target:
+  - dea:MeasurementObservation
+  inverse: dea:corrected-by
+  status: normative
+  lifecycle: proposed
+- id: dea:applies-period
+  name: Applies Period
+  category: temporal
+  source:
+  - dea:Measurement
+  - dea:MeasurementObservation
+  - dea:Baseline
+  - dea:PerformanceTarget
+  - dea:Threshold
+  - dea:PerformanceInterpretation
+  - dea:IndicatorDesignation
+  target:
+  - dea:ReportingPeriod
+  inverse: dea:applies-period-inverse
+  status: normative
+  lifecycle: proposed
 - id: dea:composes
   name: Composes
   category: structural
@@ -67,6 +105,7 @@ relationships:
   name: Specializes
   category: structural
   source:
+  - dea:ReportingPeriod
   - dea:Agent
   - dea:ArchitecturePattern
   - dea:Controller
@@ -92,6 +131,7 @@ relationships:
   - dea:AIAugmentedCapability
   - dea:Process
   target:
+  - dea:TemporalInterval
   - dea:Actor
   - dea:ArchitecturePattern
   - dea:ArchitectureState

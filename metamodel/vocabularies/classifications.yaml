@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.14.0
+version: 0.15.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -939,4 +939,31 @@ classifications:
     entity: MetricChange
     property: change_severity
     values: [cosmetic, additive, substantive, semantic_breaking]
+
+  # CR-MET-011 section 4: the 7 supported reporting-period shapes.
+  ReportingPeriod.period_type:
+    entity: ReportingPeriod
+    property: period_type
+    values: [instantaneous, point_in_time, fixed_duration, rolling, cumulative, event_based, irregular]
+  # CR-MET-011 section 4: the basis on which a period is measured.
+  ReportingPeriod.period_semantics:
+    entity: ReportingPeriod
+    property: period_semantics
+    values: [calendar, fiscal, rolling, event_based, custom]
+  # CR-MET-011 section 7 (Q19): the 5 record states of an Observation.
+  Measurement Observation.record_state:
+    entity: Measurement Observation
+    property: record_state
+    values: [original, corrected, superseded, invalid, retracted]
+  # CR-MET-011 section 3: the 7 temporal dimensions. The vocabulary names the
+  # dimensions; it MUST NOT be collapsed into a single timestamp.
+  Provenance.temporal_dimension:
+    entity: Provenance
+    property: temporal_dimension
+    values: [observed_at, measured_at, reporting_period, valid_time, transaction_time, effective_time, publication_time]
+  # CR-MET-011 section 6: reproducibility posture of a recorded result.
+  Provenance.reproducibility_posture:
+    entity: Provenance
+    property: reproducibility_posture
+    values: [reproducible, reproducible_with_retained_source, source_retained_not_reproducible, not_reproducible]
 

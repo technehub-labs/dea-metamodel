@@ -1516,3 +1516,25 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:ReportingPeriod
+  name: Reporting Period
+  canonical_name: ReportingPeriod
+  definition: 'The bounded interval a Measurement result represents, with an explicit period type and period semantics (CR-MET-011
+    section 4). Specializes dea:TemporalInterval via dea:specializes rather than duplicating it: the interval clocks are inherited
+    from the CR-6 lineage; the period type and period semantics are the specialization payload. Supports instantaneous, point-in-time,
+    fixed-duration, rolling, cumulative, event-based, and irregular periods.'
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:Provenance
+  name: Provenance
+  canonical_name: Provenance
+  definition: 'A first-class record of how a Measurement result came to exist, carrying the 11 provenance elements of CR-MET-011
+    section 5. Aligns with W3C PROV (https://www.w3.org/TR/prov-overview/): the Observation is the PROV entity, the collection
+    and calculation steps are PROV activities, and the responsible-party concept carries the accountable party. Reuses dea:Evidence,
+    dea:EvidenceSource, and dea:EvidenceArtifact (CR-5 section 16) rather than duplicating evidence semantics.'
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0

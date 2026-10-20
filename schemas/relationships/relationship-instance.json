@@ -34,6 +34,7 @@
         "affects",
         "aggregates",
         "applies-metric",
+        "applies-period",
         "applies-subject",
         "approves",
         "assessed-by",
@@ -54,6 +55,7 @@
         "contributes-to",
         "controls",
         "coordinates",
+        "corrects",
         "curates",
         "defines",
         "delegates",
@@ -76,6 +78,7 @@
         "grants",
         "has-designation",
         "has-oversight",
+        "has-provenance",
         "has-skill",
         "has-target",
         "implements",
@@ -141,7 +144,7 @@
         "valid-during",
         "version-of"
       ],
-      "description": "Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
+      "description": "CR-MET-011 adds has-provenance, corrects, and applies-period. Canonical relationship type (registry id without dea: prefix). Deprecated pre-0.7.0 types are rejected; migrate via metamodel/migration/relationship-crosswalk.yaml."
     },
     "direction": {
       "type": "string",
@@ -149,11 +152,11 @@
         "source-to-target"
       ],
       "default": "source-to-target",
-      "description": "Canonical direction is always source-to-target (CR-2 \u00a77). Inverse views are generated, never stored (\u00a78)."
+      "description": "Canonical direction is always source-to-target (CR-2 §7). Inverse views are generated, never stored (§8)."
     },
     "mapping": {
       "type": "object",
-      "description": "Required when relationship_type is 'maps-to' (CR-2 \u00a79).",
+      "description": "Required when relationship_type is 'maps-to' (CR-2 §9).",
       "properties": {
         "kind": {
           "type": "string",
@@ -171,7 +174,7 @@
     "effective_from": {
       "type": "string",
       "format": "date",
-      "description": "Start of temporal validity (\u00a76)."
+      "description": "Start of temporal validity (§6)."
     },
     "effective_to": {
       "type": "string",
@@ -187,17 +190,17 @@
         "deprecated",
         "retired"
       ],
-      "description": "CR-6 \u00a722: relationship lifecycle state. A planned edge must never be read as a current edge."
+      "description": "CR-6 §22: relationship lifecycle state. A planned edge must never be read as a current edge."
     },
     "confidence": {
       "type": "number",
       "minimum": 0,
       "maximum": 1,
-      "description": "Confidence or strength (\u00a76)."
+      "description": "Confidence or strength (§6)."
     },
     "asserted_by": {
       "type": "string",
-      "description": "Person, team, or agent asserting this relationship (\u00a721/\u00a722)."
+      "description": "Person, team, or agent asserting this relationship (§21/§22)."
     },
     "rationale": {
       "type": "string",
@@ -210,7 +213,7 @@
     },
     "provenance": {
       "type": "object",
-      "description": "Structured provenance (\u00a721). AI-asserted relationships must set provenance.agent_id and verification_status (\u00a722).",
+      "description": "Structured provenance (§21). AI-asserted relationships must set provenance.agent_id and verification_status (§22).",
       "properties": {
         "type": {
           "type": "string",
@@ -241,7 +244,7 @@
         },
         "agent_id": {
           "type": "string",
-          "description": "AI agent identifier (\u00a722)."
+          "description": "AI agent identifier (§22)."
         },
         "verification_status": {
           "type": "string",
@@ -267,22 +270,22 @@
     "bidirectional": {
       "type": "boolean",
       "deprecated": true,
-      "description": "DEPRECATED (CR-002 \u00a77/\u00a78): direction is canonical; inverses are generated views."
+      "description": "DEPRECATED (CR-002 §7/§8): direction is canonical; inverses are generated views."
     },
     "valid_from": {
       "type": "string",
       "format": "date-time",
-      "description": "CR-6 \u00a721: start of this relationship's valid time. T004: must not be active outside endpoint validity where endpoint existence is required."
+      "description": "CR-6 §21: start of this relationship's valid time. T004: must not be active outside endpoint validity where endpoint existence is required."
     },
     "valid_to": {
       "type": "string",
       "format": "date-time",
-      "description": "CR-6 \u00a721: end of this relationship's valid time."
+      "description": "CR-6 §21: end of this relationship's valid time."
     },
     "recorded_at": {
       "type": "string",
       "format": "date-time",
-      "description": "CR-6 \u00a75: transaction time \u2014 when the model learned of this relationship."
+      "description": "CR-6 §5: transaction time; when the model learned of this relationship."
     }
   }
 }

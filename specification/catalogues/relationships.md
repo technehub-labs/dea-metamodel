@@ -1,9 +1,12 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 113 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 116 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
+| `dea:has-provenance` | traceability | `dea:has-provenance-inverse` | yes | The source carries the target as its provenance record, recording how the source came to exist (CR-MET-011 section 5). One Provenance per Observation: provenance is a 1:1 fact about a single result, not a shared reusable assertion. |
+| `dea:corrects` | traceability | `dea:corrected-by` | yes | The source is a corrected restatement of the target, which was found to be erroneous. Distinct from dea:supersedes (section 7, Q19a): a correction asserts the original was WRONG, whereas a supersession asserts a NEWER authoritative value exists for the same period. Both may target the same Observation. A correction MUST NOT silently overwrite the original value. |
+| `dea:applies-period` | temporal | `dea:applies-period-inverse` | yes | The source reports on the target reporting period. Establishes the bounded interval a result represents, distinct from when the result was produced (the measurement time dimension) and when it was published (the publication time dimension). CR-MET-011 section 3: these are distinct facts and MUST NOT be collapsed into one timestamp. |
 | `dea:composes` | structural | `dea:part-of` | yes | The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14). |
 | `dea:aggregates` | structural | `dea:aggregated-in` | yes | The target participates in the source but retains an independent lifecycle (aggregation, section 14). |
 | `dea:specializes` | structural | `dea:generalizes` | no | The source is a more specific form of the target (generalization/specialization hierarchy). |

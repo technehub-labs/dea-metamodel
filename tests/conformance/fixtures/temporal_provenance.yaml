@@ -1,0 +1,491 @@
+# CR-MET-011 fixture: temporal semantics, provenance, and correction/supersession.
+# Exercises the 7 temporal dimensions (section 3), the 7 reporting-period shapes
+# (section 4), the 11 provenance elements (section 5), historical reconstruction
+# (section 6), and the 5 record states with the corrects/supersedes distinction
+# (section 7, Q19a).
+---
+# CR-MET-011 section 4: one ReportingPeriod per supported period shape.
+reporting_periods:
+- id: dea:ReportingPeriod-availability-continuous
+  type: ReportingPeriod
+  name: Continuous Availability Window
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: rolling
+  period_semantics: rolling
+  period_start: null
+  period_end: null
+  anchor_reference: dea:Epoch-2026-01-01
+  window_size: 30d
+  interval_count: null
+  calendar_reference: null
+  fiscal_year_ref: null
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-platform-engineering
+
+- id: dea:ReportingPeriod-revenue-quarterly
+  type: ReportingPeriod
+  name: Quarterly Revenue Period
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: fixed_duration
+  period_semantics: fiscal
+  period_start: "2026-01-01T00:00:00Z"
+  period_end: "2026-04-01T00:00:00Z"
+  anchor_reference: null
+  window_size: null
+  interval_count: null
+  calendar_reference: dea:FiscalCalendar-corp-2026
+  fiscal_year_ref: dea:FiscalYear-2026
+  effective_from: "2025-12-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-corporate
+
+- id: dea:ReportingPeriod-turnover-instant
+  type: ReportingPeriod
+  name: Instantaneous Turnover Snapshot
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: instantaneous
+  period_semantics: calendar
+  period_start: null
+  period_end: null
+  anchor_reference: null
+  window_size: null
+  interval_count: null
+  calendar_reference: dea:FiscalCalendar-corp-2026
+  fiscal_year_ref: dea:FiscalYear-2026
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-corporate
+
+- id: dea:ReportingPeriod-headcount-cumulative
+  type: ReportingPeriod
+  name: Cumulative Headcount Period
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: cumulative
+  period_semantics: fiscal
+  period_start: "2026-01-01T00:00:00Z"
+  period_end: "2027-01-01T00:00:00Z"
+  anchor_reference: null
+  window_size: null
+  interval_count: null
+  calendar_reference: dea:FiscalCalendar-corp-2026
+  fiscal_year_ref: dea:FiscalYear-2026
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-corporate
+
+- id: dea:ReportingPeriod-incident-event-based
+  type: ReportingPeriod
+  name: Per-Incident Recovery Period
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: event_based
+  period_semantics: event_based
+  period_start: null
+  period_end: null
+  anchor_reference: dea:Event-incident-2026-0042
+  window_size: null
+  interval_count: null
+  calendar_reference: null
+  fiscal_year_ref: null
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-platform-engineering
+
+- id: dea:ReportingPeriod-attrition-irregular
+  type: ReportingPeriod
+  name: Irregular Attrition Window
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: irregular
+  period_semantics: custom
+  period_start: "2026-01-01T00:00:00Z"
+  period_end: "2026-03-15T00:00:00Z"
+  anchor_reference: null
+  window_size: null
+  interval_count: 4
+  calendar_reference: null
+  fiscal_year_ref: null
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-corporate
+
+- id: dea:ReportingPeriod-adoption-point-in-time
+  type: ReportingPeriod
+  name: Point-in-Time Adoption Snapshot
+  version: 1.0.0
+  lifecycle_status: active
+  period_type: point_in_time
+  period_semantics: calendar
+  period_start: null
+  period_end: null
+  anchor_reference: null
+  window_size: null
+  interval_count: null
+  calendar_reference: dea:FiscalCalendar-corp-2026
+  fiscal_year_ref: null
+  effective_from: "2026-01-01T00:00:00Z"
+  effective_to: null
+  organizational_scope_ref: dea:OrganizationalUnit-corporate
+
+# CR-MET-011 section 5: the 11 provenance elements.
+provenances:
+- id: dea:Provenance-turnover-q1-original
+  type: Provenance
+  name: Turnover Q1 Original Provenance
+  version: 1.0.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-hr-workday
+  source_record_ref: dea:DataEntity-worker-employment-snapshot
+  collection_activity: dea:BusinessProcess-extract-hr-records
+  calculation_activity: dea:Measurement-turnover-q1
+  transformation_chain:
+  - step: 1
+    description: Deduplicate worker records on the primary identity key.
+    transform_ref: dea:Transformation-dedupe-workers
+  - step: 2
+    description: Exclude contractors and fixed-term workers from the population.
+    transform_ref: dea:Transformation-filter-worker-population
+  responsible_party_ref: dea:Actor-hr-analytics-lead
+  configuration_ref: dea:Configuration-turnover-v2
+  formula_version_ref: dea:formula-turnover-rate@1.2.0
+  metric_version_ref: dea:metric-employee-turnover-rate@1.0.0
+  evidence_refs:
+  - dea:EvidenceArtifact-turnover-q1-extract
+  timestamps:
+    observed_at: "2026-03-31T23:59:59Z"
+    measured_at: "2026-04-01T06:00:00Z"
+    recorded_at: "2026-04-01T06:05:00Z"
+    published_at: "2026-04-08T09:00:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    reporting_period_ref: dea:ReportingPeriod-turnover-instant
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-31T23:59:59Z"
+  reproducibility:
+    reproducible: true
+    reproduction_notes: The retained extract artifact reproduces the value exactly.
+    retention_class: retention-financial-7y
+
+- id: dea:Provenance-turnover-q1-corrected
+  type: Provenance
+  name: Turnover Q1 Corrected Provenance
+  version: 1.1.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-hr-workday
+  source_record_ref: dea:DataEntity-worker-employment-snapshot-corrected
+  collection_activity: dea:BusinessProcess-extract-hr-records
+  calculation_activity: dea:Measurement-turnover-q1-corrected
+  transformation_chain:
+  - step: 1
+    description: Deduplicate worker records on the primary identity key.
+    transform_ref: dea:Transformation-dedupe-workers
+  - step: 2
+    description: Include fixed-term workers whose contracts ended mid-quarter.
+    transform_ref: dea:Transformation-filter-worker-population-corrected
+  responsible_party_ref: dea:Actor-hr-analytics-lead
+  configuration_ref: dea:Configuration-turnover-v2
+  formula_version_ref: dea:formula-turnover-rate@1.2.0
+  metric_version_ref: dea:metric-employee-turnover-rate@1.0.0
+  evidence_refs:
+  - dea:EvidenceArtifact-turnover-q1-corrected-extract
+  timestamps:
+    observed_at: "2026-03-31T23:59:59Z"
+    measured_at: "2026-04-09T06:00:00Z"
+    recorded_at: "2026-04-09T06:05:00Z"
+    published_at: "2026-04-15T09:00:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    reporting_period_ref: dea:ReportingPeriod-turnover-instant
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-31T23:59:59Z"
+  reproducibility:
+    reproducible: true
+    reproduction_notes: The corrected extract artifact reproduces the value exactly.
+    retention_class: retention-financial-7y
+- id: dea:Provenance-availability-30d-restated
+  type: Provenance
+  name: Availability 30 Day Restated Provenance
+  version: 2.1.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-apm-pipeline
+  source_record_ref: dea:DataEntity-synthetic-check-intervals-backfilled
+  collection_activity: dea:BusinessProcess-recollect-synthetic-checks
+  calculation_activity: dea:Measurement-availability-30d-restated
+  transformation_chain:
+  - step: 1
+    description: Apply the corrected window boundary to the backfilled synthetic check interval data.
+    transform_ref: dea:Transformation-roll-synthetic-checks-corrected
+  responsible_party_ref: dea:Actor-sre-oncall-lead
+  configuration_ref: dea:Configuration-availability-v3
+  formula_version_ref: dea:formula-system-availability@2.0.0
+  metric_version_ref: dea:metric-system-availability@2.0.0
+  evidence_refs:
+  - dea:EvidenceArtifact-availability-30d-restated-report
+  timestamps:
+    observed_at: "2026-03-31T00:00:00Z"
+    measured_at: "2026-04-01T08:05:00Z"
+    recorded_at: "2026-04-01T08:06:00Z"
+    published_at: "2026-04-01T09:00:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: null
+    reporting_period_ref: dea:ReportingPeriod-availability-continuous
+    valid_from: "2026-01-31T00:00:00Z"
+    valid_to: "2026-03-31T00:00:00Z"
+  reproducibility:
+    reproducible: true
+    reproduction_notes: Backfilled synthetic check interval data is retained for 13 months.
+    retention_class: retention-operational-13m
+- id: dea:Provenance-attrition-retracted
+  type: Provenance
+  name: Attrition Retracted Provenance
+  version: 1.0.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-hr-workday
+  source_record_ref: dea:DataEntity-worker-employment-snapshot
+  collection_activity: dea:BusinessProcess-extract-hr-records
+  calculation_activity: dea:Measurement-attrition-irregular
+  transformation_chain:
+  - step: 1
+    description: Aggregate departures across 4 irregular sub-intervals.
+    transform_ref: dea:Transformation-aggregate-irregular-intervals
+  responsible_party_ref: dea:Actor-hr-analytics-lead
+  configuration_ref: dea:Configuration-attrition-v1
+  formula_version_ref: dea:formula-attrition-rate@1.0.0
+  metric_version_ref: dea:metric-attrition-rate@1.0.0
+  evidence_refs:
+  - dea:EvidenceArtifact-attrition-q1-extract
+  timestamps:
+    observed_at: "2026-03-15T00:00:00Z"
+    measured_at: "2026-04-01T06:00:00Z"
+    recorded_at: "2026-04-01T06:05:00Z"
+    published_at: "2026-04-08T09:00:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    reporting_period_ref: dea:ReportingPeriod-attrition-irregular
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-15T00:00:00Z"
+  reproducibility:
+    reproducible: true
+    reproduction_notes: The retained extract artifact reproduces the value exactly.
+    retention_class: retention-financial-7y
+- id: dea:Provenance-availability-30d-original
+  type: Provenance
+  name: Availability 30 Day Original Provenance
+  version: 1.0.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-apm-pipeline
+  source_record_ref: dea:DataEntity-synthetic-check-intervals
+  collection_activity: dea:BusinessProcess-collect-synthetic-checks
+  calculation_activity: dea:Measurement-availability-30d
+  transformation_chain:
+  - step: 1
+    description: Aggregate 5 minute synthetic check results to a 30 day rolling window.
+    transform_ref: dea:Transformation-roll-synthetic-checks
+  responsible_party_ref: dea:Actor-sre-oncall-lead
+  configuration_ref: dea:Configuration-availability-v3
+  formula_version_ref: dea:formula-system-availability@2.0.0
+  metric_version_ref: dea:metric-system-availability@2.0.0
+  evidence_refs:
+  - dea:EvidenceArtifact-availability-30d-report
+  timestamps:
+    observed_at: "2026-03-31T00:00:00Z"
+    measured_at: "2026-03-31T00:05:00Z"
+    recorded_at: "2026-03-31T00:06:00Z"
+    published_at: "2026-04-01T08:00:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: null
+    reporting_period_ref: dea:ReportingPeriod-availability-continuous
+    valid_from: "2026-01-31T00:00:00Z"
+    valid_to: "2026-03-31T00:00:00Z"
+  reproducibility:
+    reproducible: true
+    reproduction_notes: Synthetic check interval data is retained for 13 months.
+    retention_class: retention-operational-13m
+
+- id: dea:Provenance-legacy-revenue
+  type: Provenance
+  name: Legacy Revenue Provenance
+  version: 1.0.0
+  lifecycle_status: active
+  source_ref: dea:EvidenceSource-legacy-erp
+  source_record_ref: dea:DataEntity-erp-invoice-lines
+  collection_activity: dea:BusinessProcess-nightly-erp-extract
+  calculation_activity: dea:Measurement-revenue-q4
+  transformation_chain:
+  - step: 1
+    description: Consolidate invoice lines to the parent order.
+    transform_ref: dea:Transformation-consolidate-orders
+  responsible_party_ref: dea:Actor-legacy-erp-operator
+  configuration_ref: dea:Configuration-revenue-v1
+  formula_version_ref: dea:formula-gross-revenue@0.9.0
+  metric_version_ref: dea:metric-gross-revenue@0.9.0
+  evidence_refs:
+  - dea:EvidenceArtifact-legacy-erp-run-log
+  timestamps:
+    observed_at: "2024-12-31T23:59:59Z"
+    measured_at: "2025-01-02T02:00:00Z"
+    recorded_at: "2025-01-02T02:10:00Z"
+    published_at: "2025-01-15T12:00:00Z"
+    effective_from: "2024-01-01T00:00:00Z"
+    effective_to: "2024-12-31T23:59:59Z"
+    reporting_period_ref: dea:ReportingPeriod-revenue-quarterly
+    valid_from: "2024-10-01T00:00:00Z"
+    valid_to: "2024-12-31T23:59:59Z"
+  reproducibility:
+    reproducible: false
+    reproduction_notes: The legacy ERP instance was decommissioned; source data is not retained.
+    retention_class: retention-none
+
+# CR-MET-011 section 7 (Q19a): the 5 record states and the corrects/supersedes
+# distinction. The key architectural decision: a correction asserts the target was
+# ERRONEOUS; a supersession asserts a NEWER AUTHORITATIVE value exists for the same
+# period. The original value is never overwritten.
+observations:
+- id: dea:Observation-turnover-2026q1-original
+  type: MeasurementObservation
+  name: Turnover Q1 Original
+  version: 1.0.0
+  lifecycle_status: active
+  value: 0.12
+  record_state: original
+  observation_status: superseded
+  verification_state: independently_verified
+  provenance_reference: dea:Provenance-turnover-q1-original
+  corrects_observation_ref: null
+  correction_reason: null
+  supersedes_observation_reason: null
+  temporal:
+    observed_at: "2026-03-31T23:59:59Z"
+    measured_at: "2026-04-01T06:00:00Z"
+    reporting_period_ref: dea:ReportingPeriod-turnover-instant
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-31T23:59:59Z"
+    recorded_at: "2026-04-01T06:05:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    published_at: "2026-04-08T09:00:00Z"
+
+- id: dea:Observation-turnover-2026q1-corrected
+  type: MeasurementObservation
+  name: Turnover Q1 Corrected
+  version: 1.1.0
+  lifecycle_status: active
+  value: 0.094
+  record_state: corrected
+  observation_status: active
+  verification_state: independently_verified
+  provenance_reference: dea:Provenance-turnover-q1-corrected
+  corrects_observation_ref: dea:Observation-turnover-2026q1-original
+  correction_reason: The original population filter omitted fixed-term workers whose contracts ended mid-quarter.
+  supersedes_observation_reason: null
+  temporal:
+    observed_at: "2026-03-31T23:59:59Z"
+    measured_at: "2026-04-09T06:00:00Z"
+    reporting_period_ref: dea:ReportingPeriod-turnover-instant
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-31T23:59:59Z"
+    recorded_at: "2026-04-09T06:05:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    published_at: "2026-04-15T09:00:00Z"
+
+- id: dea:Observation-availability-2026-03-31-original
+  type: MeasurementObservation
+  name: Availability 31 March Original
+  version: 1.0.0
+  lifecycle_status: active
+  value: 0.9971
+  record_state: superseded
+  observation_status: superseded
+  verification_state: human_verified
+  provenance_reference: dea:Provenance-availability-30d-original
+  corrects_observation_ref: null
+  correction_reason: null
+  supersedes_observation_reason: A backfilled synthetic check corrected the window boundary; the earlier reading understated availability.
+  temporal:
+    observed_at: "2026-03-31T00:00:00Z"
+    measured_at: "2026-03-31T00:05:00Z"
+    reporting_period_ref: dea:ReportingPeriod-availability-continuous
+    valid_from: "2026-01-31T00:00:00Z"
+    valid_to: "2026-03-31T00:00:00Z"
+    recorded_at: "2026-03-31T00:06:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: null
+    published_at: "2026-04-01T08:00:00Z"
+
+- id: dea:Observation-availability-2026-03-31-restated
+  type: MeasurementObservation
+  name: Availability 31 March Restated
+  version: 1.1.0
+  lifecycle_status: active
+  value: 0.9989
+  record_state: original
+  observation_status: active
+  verification_state: human_verified
+  provenance_reference: dea:Provenance-availability-30d-restated
+  corrects_observation_ref: null
+  correction_reason: null
+  supersedes_observation_reason: null
+  temporal:
+    observed_at: "2026-03-31T00:00:00Z"
+    measured_at: "2026-04-01T08:05:00Z"
+    reporting_period_ref: dea:ReportingPeriod-availability-continuous
+    valid_from: "2026-01-31T00:00:00Z"
+    valid_to: "2026-03-31T00:00:00Z"
+    recorded_at: "2026-04-01T08:06:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: null
+    published_at: "2026-04-01T09:00:00Z"
+
+- id: dea:Observation-revenue-2024q4-invalid
+  type: MeasurementObservation
+  name: Revenue Q4 2024 Invalid
+  version: 0.9.0
+  lifecycle_status: active
+  value: 18400000
+  record_state: invalid
+  observation_status: retired
+  verification_state: unverified
+  provenance_reference: dea:Provenance-legacy-revenue
+  corrects_observation_ref: null
+  correction_reason: null
+  supersedes_observation_reason: null
+  temporal:
+    observed_at: "2024-12-31T23:59:59Z"
+    measured_at: "2025-01-02T02:00:00Z"
+    reporting_period_ref: dea:ReportingPeriod-revenue-quarterly
+    valid_from: "2024-10-01T00:00:00Z"
+    valid_to: "2024-12-31T23:59:59Z"
+    recorded_at: "2025-01-02T02:10:00Z"
+    effective_from: "2024-01-01T00:00:00Z"
+    effective_to: "2024-12-31T23:59:59Z"
+    published_at: "2025-01-15T12:00:00Z"
+
+- id: dea:Observation-attrition-2026q1-retracted
+  type: MeasurementObservation
+  name: Attrition Q1 Retracted
+  version: 1.0.0
+  lifecycle_status: active
+  value: 0.081
+  record_state: retracted
+  observation_status: retired
+  verification_state: unverified
+  provenance_reference: dea:Provenance-attrition-retracted
+  corrects_observation_ref: null
+  correction_reason: null
+  supersedes_observation_reason: null
+  temporal:
+    observed_at: "2026-03-15T00:00:00Z"
+    measured_at: "2026-04-01T06:00:00Z"
+    reporting_period_ref: dea:ReportingPeriod-attrition-irregular
+    valid_from: "2026-01-01T00:00:00Z"
+    valid_to: "2026-03-15T00:00:00Z"
+    recorded_at: "2026-04-01T06:05:00Z"
+    effective_from: "2026-01-01T00:00:00Z"
+    effective_to: "2026-12-31T23:59:59Z"
+    published_at: "2026-04-08T09:00:00Z"

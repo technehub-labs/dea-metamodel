@@ -122,11 +122,12 @@
     "supersedes_observation": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
-      "description": "Reference to the prior observation this observation corrects. The prior observation is retained with observation_status: superseded (CR-MET-004 correction semantics)."
+      "description": "DEPRECATED. CR-MET-011 Q19a separates the two semantics: this field historically conflated correction (the prior Observation was erroneous) with supersession (a newer authoritative Observation replaced it). New records MUST use corrects_observation_ref for correction and the dea:supersedes relationship for supersession. Retained for one release cycle for backward compatibility."
     },
     "provenance_reference": {
       "type": "string",
-      "description": "Origin and lineage. Recommended. Full provenance model in CR-MET-011."
+      "pattern": "^[a-z][a-z0-9-]*:[a-z0-9-]+$",
+      "description": "CR-MET-011 section 5: reference to the dea:Provenance record for this Observation. 1:1. REQUIRED for any Observation that is published or relied upon. Carries the 11 provenance elements: source, source record, collection activity, calculation activity, transformation chain, responsible party, configuration, formula version, metric version, evidence, and the distinct temporal dimensions."
     },
     "uncertainty_reference": {
       "type": "string",
@@ -164,8 +165,36 @@
     },
     "temporal": {
       "type": "object",
-      "description": "Temporal context (when the value was obtained). Full specification in CR-MET-011.",
-      "additionalProperties": true
+      "description": "CR-MET-011 section 3 (Q17b): the 7 temporal dimensions on one nested object. The dimensions MUST NOT be collapsed into one timestamp; each is a distinct fact. Observed at is when the value was observed; measured at is when the measurement was performed; reporting period is the interval the result represents (a dea:ReportingPeriod reference); valid from and valid to are the period during which the result applies; recorded at is when the information entered the system (transaction time); effective from and effective to are when the governing definition or configuration became applicable; published at is when the result became available to consumers.",
+      "required": ["observed_at", "recorded_at"],
+      "properties": {
+        "observed_at": { "type": "string", "description": "Observation time: when the value was observed." },
+        "measured_at": { "type": ["string", "null"], "description": "Measurement time: when the measurement was performed. Distinct from observed_at." },
+        "reporting_period_ref": { "type": ["string", "null"], "description": "Reference to the dea:ReportingPeriod the result represents." },
+        "valid_from": { "type": ["string", "null"], "description": "Valid time: from when the result applies." },
+        "valid_to": { "type": ["string", "null"], "description": "Valid time: until when the result applies." },
+        "recorded_at": { "type": "string", "description": "Transaction time: when the information was recorded in the system." },
+        "effective_from": { "type": ["string", "null"], "description": "Effective time: when the definition or configuration became applicable." },
+        "effective_to": { "type": ["string", "null"], "description": "Effective time: when the definition or configuration ceased to apply." },
+        "published_at": { "type": ["string", "null"], "description": "Publication time: when the result became available to consumers." }
+      }
+    },
+    "record_state": {
+      "type": "string",
+      "enum": ["original", "corrected", "superseded", "invalid", "retracted"],
+      "description": "CR-MET-011 section 7 (Q19): the 5 record states. original is the first recorded result. corrected is a revised result that replaces an erroneous original. superseded is replaced by a newer authoritative Observation for the same period. invalid is marked as not to be used. retracted is withdrawn from publication. A correction MUST NOT silently overwrite the original value."
+    },
+    "correction_reason": {
+      "type": ["string", "null"],
+      "description": "CR-MET-011 section 7: the reason a corrected Observation differs from the original. REQUIRED when record_state is corrected; MUST be null otherwise."
+    },
+    "corrects_observation_ref": {
+      "type": ["string", "null"],
+      "description": "CR-MET-011 section 7 (dea:corrects): the original Observation this record restates. REQUIRED when record_state is corrected; MUST be null otherwise."
+    },
+    "supersedes_observation_reason": {
+      "type": ["string", "null"],
+      "description": "CR-MET-011 section 7 (dea:supersedes): why a newer authoritative Observation replaces this one for the same reporting period. REQUIRED when record_state is superseded; MUST be null otherwise."
     },
     "confidence": {
       "type": "number",

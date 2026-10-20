@@ -2,9 +2,9 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 158
-  relationships: 113
-  core_entities: 23
+  entities: 160
+  relationships: 116
+  core_entities: 25
   profiles: 10
 entities:
 - id: dea:Entity
@@ -1113,7 +1113,39 @@ entities:
   status: normative
   lifecycle: proposed
   source_cr: CR-5
+- id: dea:ReportingPeriod
+  name: Reporting Period
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:Provenance
+  name: Provenance
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
 relationships:
+- id: dea:has-provenance
+  name: Has Provenance
+  category: traceability
+  inverse: dea:has-provenance-inverse
+  temporal: true
+  status: normative
+- id: dea:corrects
+  name: Corrects
+  category: traceability
+  inverse: dea:corrected-by
+  temporal: true
+  status: normative
+- id: dea:applies-period
+  name: Applies Period
+  category: temporal
+  inverse: dea:applies-period-inverse
+  temporal: true
+  status: normative
 - id: dea:composes
   name: Composes
   category: structural

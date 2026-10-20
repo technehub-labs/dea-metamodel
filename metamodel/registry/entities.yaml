@@ -1739,3 +1739,25 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:ReportingPeriod
+  name: Reporting Period
+  layer: null
+  dimension: temporal-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Provenance
+  name: Provenance
+  layer: null
+  dimension: provenance-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null

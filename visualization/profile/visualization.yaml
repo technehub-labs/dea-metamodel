@@ -43,6 +43,6 @@ edge_styles:
   derived:   {stroke: dotted, label_prefix: "inferred:", note: "CR-8 §38: inferred edges are visually distinct and never authoritative"}
 layout_hints:
   primary_grouping: membership          # core | profile/<id>
-  overlay_dimensions: [measurement-dimension, temporal-dimension, ai-automation-governance, semantic-dimension]
+  overlay_dimensions: [measurement-dimension, temporal-dimension, ai-automation-governance, semantic-dimension, provenance-dimension]
   state_overlay: [baseline, current, target, transition, scenario]   # CR-6 §24 viewer contract
 consumers: [web-viewer, cli, ide, graph-database, api, bi-dashboard, architecture-repository, ai-agent]

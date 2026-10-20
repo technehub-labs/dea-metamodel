@@ -111,13 +111,42 @@ def test_e010_deprecated_entities_blocked(entities):
 
 
 def test_cr3r_lifecycle_vocabulary():
+    """Base vocabulary remains the metamodel-level default; CR-MET-010 (Q15a-prime)
+    declares the Metric governance lifecycle as a specialization rather than widening
+    the base vocabulary. The invariant is subset containment, not equality: a schema
+    enum MUST be a subset of base union the refinement values of the specializations
+    declared for that schema."""
     voc = yaml.safe_load((BASE / "metamodel" / "vocabularies" / "lifecycle.yaml").read_text())
-    vals = {v["id"] for v in voc["values"]}
-    assert vals == {"proposed", "planned", "active", "deprecated", "retired"}
+    base = {v["id"] for v in voc["values"]}
+    assert base == {"proposed", "planned", "active", "deprecated", "retired"}, \
+        f"CR-MET-010: base vocabulary must not be widened (got {base})"
+
+    # Refinement values are declared per-specialization with an explicit applies_to list
+    refinements_by_entity = {}
+    for spec in voc.get("specializations", {}).values():
+        for e in spec.get("applies_to", []):
+            refinements_by_entity.setdefault(e, set()).update(
+                v["id"] for v in spec.get("refinement_values", [])
+            )
+
+    allowed = base | {v for vals in refinements_by_entity.values() for v in vals}
     for name, schema in _schemas().items():
         spec = schema.get("properties", {}).get("lifecycle_status")
         assert spec, f"{name}: missing lifecycle_status"
-        assert set(spec["enum"]) == vals, f"{name}: lifecycle_status enum diverges from vocabulary"
+        enum = set(spec["enum"])
+        assert enum <= allowed, f"{name}: lifecycle_status enum declares undeclared lifecycle value(s)"
+        # Specialization scope is declared against entity names; resolve the
+        # entity name from the schema title (CR-3R identity, not the file stem).
+        # Titles are normalized by stripping separators so that a display title
+        # such as "Measurement Observation" resolves to MeasurementObservation.
+        entity_name = (schema.get("title") or "").replace(" ", "").replace("-", "")
+        if entity_name in refinements_by_entity:
+            # A specialized schema MUST NOT admit lifecycle values outside its own scope
+            scoped = base | refinements_by_entity[entity_name]
+            assert enum <= scoped, f"{name}: lifecycle_status enum exceeds its specialization scope"
+        else:
+            # A non-specialized schema MUST stay on the base vocabulary only
+            assert enum <= base, f"{name}: non-specialized schema admits refinement lifecycle value(s)"
 
 
 def test_cr3b_no_intrinsic_maturity():

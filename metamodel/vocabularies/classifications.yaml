@@ -1,6 +1,6 @@
 # Classification vocabularies (CR-3B/N, E005); controlled values for
 # classification properties. Schemas must match these values exactly.
-version: 0.13.0
+version: 0.14.0
 classifications:
   Actor.actor_type:
     entity: Actor
@@ -880,4 +880,63 @@ classifications:
     entity: Memory
     property: memory_kind
     values: [working, persistent, episodic, semantic]
+
+  # CR-MET-010 (Q16a) governance object split: four independent governance concerns.
+  MetricGovernance.governance_object:
+    entity: MetricGovernance
+    property: governance_object
+    values: [definition, measurement, observation, indicator]
+  # CR-MET-010 section 4: eight governance roles.
+  MetricGovernance.governance_role:
+    entity: MetricGovernance
+    property: governance_role
+    values:
+    - metric_owner
+    - metric_steward
+    - measurement_owner
+    - data_owner
+    - data_steward
+    - indicator_owner
+    - governance_authority
+    - metamodel_authority
+  # CR-MET-010 section 6: ten reusable quality dimensions.
+  MetricQuality.quality_dimension:
+    entity: MetricQuality
+    property: quality_dimension
+    values:
+    - semantic_clarity
+    - completeness
+    - consistency
+    - validity
+    - accuracy
+    - timeliness
+    - reliability
+    - comparability
+    - traceability
+    - governance
+  # CR-MET-010 section 6: quality assessment verdicts.
+  MetricQuality.quality_verdict:
+    entity: MetricQuality
+    property: quality_verdict
+    values: [not_assessed, adequate, needs_improvement, inadequate]
+  # CR-MET-010 section 7: three conformance levels.
+  MetricConformance.conformance_level:
+    entity: MetricConformance
+    property: conformance_level
+    values: [structural, semantic, governance]
+  # CR-MET-010 section 7: conformance verdict per level.
+  MetricConformance.conformance_verdict:
+    entity: MetricConformance
+    property: conformance_verdict
+    values: [conformant, non_conformant, not_assessed]
+  # CR-MET-010 section 8: semantic-change assessment outcomes.
+  MetricChange.semantic_change_disposition:
+    entity: MetricChange
+    property: semantic_change_disposition
+    values: [revise_in_place, new_version, new_identity, deprecate, replace]
+  # CR-MET-010 section 8: change-impact severity classification.
+  MetricChange.change_severity:
+    entity: MetricChange
+    property: change_severity
+    values: [cosmetic, additive, substantive, semantic_breaking]
 

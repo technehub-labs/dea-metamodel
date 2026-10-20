@@ -45,9 +45,14 @@
         "planned",
         "active",
         "deprecated",
-        "retired"
+        "retired",
+        "under_review",
+        "approved",
+        "published",
+        "under_revision",
+        "suspended"
       ],
-      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml."
+      "description": "CR-3R: lifecycle state from metamodel/vocabularies/lifecycle.yaml. The five CR-MET-010 refinement states (under_review, approved, published, under_revision, suspended) are declared for Metric governance per Q15a."
     },
     "external_references": {
       "type": "array",
@@ -491,6 +496,112 @@
         "risk"
       ],
       "description": "DEPRECATED. The pre-CR-MET-001 MECE taxonomy value. Preserved for one release cycle to allow migration of existing catalog records. New records MUST use the binding six-axis classification per CR-MET-002 / ADR-MET-003."
+    },
+    "governance": {
+      "type": "object",
+      "description": "CR-MET-010 section 4 governance role accountability. One individual may fulfil multiple roles, but accountability MUST remain explicit.",
+      "properties": {
+        "governance_object": {
+          "type": "string",
+          "enum": ["definition", "measurement", "observation", "indicator"],
+          "description": "CR-MET-010 Q16a: the four independent governance concerns. This record carries definition governance; measurement, observation, and indicator governance attach to their respective entities."
+        },
+        "metric_owner_ref": {
+          "type": "string",
+          "description": "Accountable for the Metric business meaning and continued relevance (CR-MET-010 section 4)."
+        },
+        "metric_steward_ref": {
+          "type": "string",
+          "description": "Maintains definition quality and semantic consistency (CR-MET-010 section 4)."
+        },
+        "measurement_owner_ref": {
+          "type": "string",
+          "description": "Accountable for measurement execution (CR-MET-010 section 4)."
+        },
+        "data_owner_ref": {
+          "type": "string",
+          "description": "Accountable for authoritative source data (CR-MET-010 section 4)."
+        },
+        "indicator_owner_ref": {
+          "type": "string",
+          "description": "Accountable for KPI/KRI/KCI usage (CR-MET-010 section 4)."
+        },
+        "governance_authority_ref": {
+          "type": "string",
+          "description": "Establishes policies and resolves governance exceptions (CR-MET-010 section 4)."
+        },
+        "metamodel_authority_ref": {
+          "type": "string",
+          "description": "Controls canonical semantic definitions (CR-MET-010 section 4)."
+        },
+        "approval_status": {
+          "type": "string",
+          "enum": ["not_submitted", "under_review", "approved", "rejected", "approved_with_conditions"],
+          "description": "Definition-governance approval state (CR-MET-010 section 7 Level 3)."
+        },
+        "approved_by_ref": { "type": "string" },
+        "approved_at": { "type": "string", "format": "date" }
+      }
+    },
+    "quality_dimensions": {
+      "type": "array",
+      "description": "CR-MET-010 section 6: the ten reusable quality dimensions evaluated for this Metric definition. Definition quality MUST be distinguished from individual Observation quality.",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "verdict"],
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": ["semantic_clarity", "completeness", "consistency", "validity", "accuracy", "timeliness", "reliability", "comparability", "traceability", "governance"]
+          },
+          "verdict": {
+            "type": "string",
+            "enum": ["not_assessed", "adequate", "needs_improvement", "inadequate"]
+          },
+          "rationale": { "type": "string" },
+          "assessed_by_ref": { "type": "string" },
+          "assessed_at": { "type": "string", "format": "date" }
+        }
+      }
+    },
+    "conformance": {
+      "type": "object",
+      "description": "CR-MET-010 section 7: three conformance levels. Level 1 structural (schema, required attributes, identity, references, data types). Level 2 semantic (unambiguous definition, valid classification, appropriate unit or scale, valid formula semantics, subject concept, relationships). Level 3 governance (owner, steward, approval status, lifecycle compliance, source documentation, evidence, versioning, change traceability).",
+      "properties": {
+        "structural": {
+          "type": "object",
+          "properties": {
+            "verdict": {
+              "type": "string",
+              "enum": ["conformant", "non_conformant", "not_assessed"]
+            },
+            "findings": { "type": "array", "items": { "type": "string" } },
+            "assessed_at": { "type": "string", "format": "date" }
+          }
+        },
+        "semantic": {
+          "type": "object",
+          "properties": {
+            "verdict": {
+              "type": "string",
+              "enum": ["conformant", "non_conformant", "not_assessed"]
+            },
+            "findings": { "type": "array", "items": { "type": "string" } },
+            "assessed_at": { "type": "string", "format": "date" }
+          }
+        },
+        "governance": {
+          "type": "object",
+          "properties": {
+            "verdict": {
+              "type": "string",
+              "enum": ["conformant", "non_conformant", "not_assessed"]
+            },
+            "findings": { "type": "array", "items": { "type": "string" } },
+            "assessed_at": { "type": "string", "format": "date" }
+          }
+        }
+      }
     }
   }
 }

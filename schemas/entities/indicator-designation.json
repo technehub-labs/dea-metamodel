@@ -31,7 +31,8 @@
     "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "lifecycle_status": {
       "type": "string",
-      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+      "enum": ["proposed", "planned", "active", "deprecated", "retired", "under_review", "approved", "published", "under_revision", "suspended"],
+      "description": "CR-MET-010 Q15a-prime: the five governance refinement states are declared for this entity by the metric-governance lifecycle specialization."
     },
     "external_references": {
       "type": "array",

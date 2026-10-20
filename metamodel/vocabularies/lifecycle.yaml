@@ -1,7 +1,12 @@
-# Lifecycle vocabulary (CR-3R) — controlled values for lifecycle_status
+# Lifecycle vocabulary (CR-3R); controlled values for lifecycle_status
 vocabulary: lifecycle-status
-version: 0.8.0
-description: 'CR-3R: centralized lifecycle vocabulary for architectural entities.'
+version: 0.9.0
+description: 'CR-3R: centralized lifecycle vocabulary for architectural entities. CR-MET-010 (Q15a-prime) declares the Metric governance lifecycle as a declared specialization over this base vocabulary.'
+# The base vocabulary is the metamodel-level default. It is deliberately NOT
+# widened by CR-MET-010: adding the five governance refinement values here would
+# force every one of the 134 entity schemas to admit governance states it has no
+# governance process for (ADR-013 anti-accumulation). The refinement states are
+# declared below as an explicit specialization instead.
 values:
 - id: proposed
   definition: Suggested but not yet approved.
@@ -13,5 +18,40 @@ values:
   definition: Still readable; must not be used in new models.
 - id: retired
   definition: No longer in use; historical record only.
-notes: 'Entity-specific lifecycles may specialize (e.g. ArchitectureDecision: proposed -> approved -> superseded); specializations
-  declare their mapping here in future CRs.'
+# CR-MET-010 section 5; declared specialization (Q15a-prime).
+specializations:
+  metric-governance:
+    description: >
+      The Metric governance lifecycle. Declared as a specialization over the base
+      vocabulary rather than a widening of it, so that only the four
+      Metric-governed entity schemas opt in. Applies to Metric, Measurement,
+      MeasurementObservation, and IndicatorDesignation.
+    applies_to: [Metric, Measurement, MeasurementObservation, IndicatorDesignation]
+    refinement_values:
+    - id: under_review
+      definition: Submitted for review; not yet approved.
+    - id: approved
+      definition: Reviewed and approved; not yet published to consumers.
+    - id: published
+      definition: Published to consumers; not yet in operational use.
+    - id: under_revision
+      definition: >
+        Under active revision; the prior version remains authoritative until the
+        revision is approved.
+    - id: suspended
+      definition: Temporarily withdrawn from use; may be reinstated without a new identity.
+    chain: [proposed, under_review, approved, published, active]
+    branches:
+      active: [under_revision, suspended, deprecated]
+    terminal: [deprecated, retired]
+    notes: >
+      deprecated and retired are base vocabulary values and are therefore already
+      reachable. A deprecated Metric MUST NOT be silently deleted when historical
+      Observations reference it (CR-MET-010 section 5).
+notes: >
+  Entity-specific lifecycles may specialize; specializations declare their mapping
+  here. CR-MET-010 section 5 declares the first such specialization
+  (metric-governance) over the base vocabulary. The conformance invariant is that a
+  schema lifecycle_status enum MUST be a subset of the base vocabulary union the
+  refinement values of every specialization declared for that schema; a schema MUST
+  NOT introduce an undeclared lifecycle value.

@@ -325,11 +325,20 @@ relationships:
   target:
   - dea:AIMLModel
   - dea:ApplicationComponent
+  - dea:AssessmentDimension
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
+  - dea:Control
+  - dea:DataEntity
+  - dea:MaturityModel
+  - dea:OrganizationalUnit
   - dea:Outcome
+  - dea:Policy
+  - dea:Risk
+  - dea:Service
   - dea:StrategicObjective
+  - dea:ValueStream
   inverse: dea:measured-by
   status: normative
   lifecycle: active
@@ -786,11 +795,20 @@ relationships:
   source:
   - dea:AIMLModel
   - dea:ApplicationComponent
+  - dea:AssessmentDimension
   - dea:BusinessCapability
   - dea:BusinessProcess
   - dea:BusinessService
+  - dea:Control
+  - dea:DataEntity
+  - dea:MaturityModel
+  - dea:OrganizationalUnit
   - dea:Outcome
+  - dea:Policy
+  - dea:Risk
+  - dea:Service
   - dea:StrategicObjective
+  - dea:ValueStream
   target:
   - dea:PerformanceMetric
   inverse: dea:measures
@@ -1667,6 +1685,7 @@ relationships:
   source:
   - dea:Baseline
   - dea:PerformanceTarget
+  - dea:PerformanceMetric
   target:
   - dea:Entity
   - dea:AssessmentSubject

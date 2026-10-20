@@ -1,0 +1,374 @@
+# CR-MET-012 fixture: measurement analytics and decision-intelligence integration.
+# Exercises the 6 analytical capabilities (section 3), the information-type
+# separation (section 7, Q20b-prime), the aggregation rules inherited from
+# CR-MET-005 (Q21a), and the correlation / causal-hypothesis distinction
+# (section 6, Q22c).
+#
+# The 5 end-to-end reference scenarios from the user-supplied section 11 are
+# encoded as scenario_records at the foot of this fixture.
+---
+analytical_results:
+- id: dea:AnalyticalResult-strategic-objective-attainment-2026q1
+  type: AnalyticalResult
+  name: Strategic Objective Attainment Q1 2026
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: estimate
+  analytical_capability: descriptive
+  subject_ref: dea:metric-strategic-objective-attainment
+  value: 0.68
+  unit: dea:unit-ratio-percent
+  reporting_period_ref: dea:ReportingPeriod-2026q1
+  horizon_ref: null
+  evidence_refs:
+  - dea:Observation-strategic-objective-attainment-2026q1
+  - dea:Observation-capability-performance-2026q1
+  provenance_reference: dea:Provenance-strategic-objective-2026q1
+  confidence: 0.82
+  uncertainty: null
+  model_ref: null
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-strategic-objective-weighted
+  alternative_considered: []
+  responsible_party_ref: dea:Actor-strategy-office-lead
+  scenario: A
+- id: dea:AnalyticalResult-capability-rollup-2026q1
+  type: AnalyticalResult
+  name: Enterprise Capability Performance Rollup Q1 2026
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: estimate
+  analytical_capability: comparative
+  subject_ref: dea:metric-capability-performance-score
+  value: 0.71
+  unit: dea:unit-ratio-index
+  reporting_period_ref: dea:ReportingPeriod-2026q1
+  horizon_ref: null
+  evidence_refs:
+  - dea:Observation-capability-performance-2026q1
+  - dea:Observation-capability-performance-customer-2026q1
+  - dea:Observation-capability-performance-operations-2026q1
+  provenance_reference: dea:Provenance-capability-rollup-2026q1
+  confidence: 0.77
+  uncertainty: null
+  model_ref: null
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-capability-weighted
+  alternative_considered: []
+  responsible_party_ref: dea:Actor-performance-analytics-lead
+  scenario: A
+- id: dea:AnalyticalResult-cycle-time-root-cause
+  type: AnalyticalResult
+  name: Process Cycle Time Contributing Factor Analysis
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: estimate
+  analytical_capability: diagnostic
+  subject_ref: dea:metric-process-cycle-time
+  value: 0.42
+  unit: dea:unit-ratio-percent
+  reporting_period_ref: dea:ReportingPeriod-2026q1
+  horizon_ref: null
+  evidence_refs:
+  - dea:Observation-process-cycle-time-2026q1
+  - dea:Observation-variance-cycle-time-2026q1
+  - dea:Correlation-system-load-to-failure
+  provenance_reference: dea:Provenance-cycle-time-root-cause
+  confidence: 0.66
+  uncertainty:
+    interval_low: 0.35
+    interval_high: 0.54
+    method: shapley_decomposition
+    assumptions:
+    - The observed variance is attributable to the measured stage-level factors.
+  model_ref: dea:AIMLModel-factor-attribution-v1
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-cycle-time-mean
+  alternative_considered: []
+  responsible_party_ref: dea:Actor-operations-director
+  scenario: C
+- id: dea:AnalyticalResult-process-cycle-intervention
+  type: AnalyticalResult
+  name: Process Cycle Time Intervention Recommendation
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: recommendation
+  analytical_capability: prescriptive
+  subject_ref: dea:metric-process-cycle-time
+  value: null
+  unit: null
+  reporting_period_ref: dea:ReportingPeriod-2026q1
+  horizon_ref: null
+  evidence_refs:
+  - dea:Observation-process-cycle-time-2026q1
+  - dea:Observation-variance-cycle-time-2026q1
+  provenance_reference: dea:Provenance-process-cycle-2026q1
+  confidence: 0.61
+  uncertainty:
+    interval_low: 0.44
+    interval_high: 0.78
+    method: bootstrap_resampling
+    assumptions:
+    - The current process baseline remains valid through the intervention period.
+  model_ref: null
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-cycle-time-mean
+  alternative_considered:
+  - option: Automate the approval step
+    rationale: Highest modelled reduction in cycle time.
+    rejected_because: null
+  - option: Add a second reviewer
+    rationale: Cheap to implement.
+    rejected_because: Increases cycle time rather than reducing it.
+  - option: Raise the cycle-time target
+    rationale: Immediately clears the threshold.
+    rejected_because: Changes the measure rather than the process; a governance failure.
+  responsible_party_ref: dea:Actor-operations-director
+  scenario: C
+- id: dea:AnalyticalResult-capacity-demand-forecast
+  type: AnalyticalResult
+  name: Capacity Demand Forecast 2026q3
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: forecast
+  analytical_capability: predictive
+  subject_ref: dea:metric-capacity-demand
+  value: 1.24
+  unit: dea:unit-ratio-index
+  reporting_period_ref: dea:ReportingPeriod-2026q2
+  horizon_ref: dea:ReportingPeriod-2026q3
+  evidence_refs:
+  - dea:Observation-capacity-demand-2025q3
+  - dea:Observation-capacity-demand-2026q1
+  - dea:Observation-capacity-demand-2026q2
+  provenance_reference: dea:Provenance-capacity-demand-forecast
+  confidence: 0.74
+  uncertainty:
+    interval_low: 1.08
+    interval_high: 1.47
+    method: ensemble_time_series
+    assumptions:
+    - Historical seasonal pattern persists into Q3.
+    - No material change to the demand-generating process.
+  model_ref: dea:AIMLModel-demand-forecaster-v4
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-quarterly-mean
+  alternative_considered: []
+  responsible_party_ref: dea:Actor-capacity-planning-lead
+  scenario: C
+- id: dea:AnalyticalResult-risk-exposure-forecast
+  type: AnalyticalResult
+  name: Risk Exposure Forecast 2026h2
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: forecast
+  analytical_capability: predictive
+  subject_ref: dea:metric-risk-exposure-index
+  value: 0.73
+  unit: dea:unit-ratio-index
+  reporting_period_ref: dea:ReportingPeriod-2026h1
+  horizon_ref: dea:ReportingPeriod-2026h2
+  evidence_refs:
+  - dea:Observation-risk-exposure-2026q1
+  - dea:Observation-control-effectiveness-2026q1
+  provenance_reference: dea:Provenance-risk-exposure-forecast
+  confidence: 0.58
+  uncertainty:
+    interval_low: 0.41
+    interval_high: 0.92
+    method: monte_carlo_simulation
+    assumptions:
+    - Control remediation completes on the approved schedule.
+  model_ref: dea:AIMLModel-risk-forecaster-v2
+  scenario_ref: null
+  aggregation_rule_ref: dea:AggregationRule-risk-exposure-weighted
+  alternative_considered: []
+  responsible_party_ref: dea:Actor-risk-officer
+  scenario: D
+- id: dea:AnalyticalResult-benefits-realization-simulation
+  type: AnalyticalResult
+  name: Transformation Benefits Simulation Scenario B
+  version: 1.0.0
+  lifecycle_status: active
+  result_type: simulation_result
+  analytical_capability: scenario_simulation
+  subject_ref: dea:metric-benefits-realization-rate
+  value: 0.81
+  unit: dea:unit-ratio-percent
+  reporting_period_ref: dea:ReportingPeriod-2026q1
+  horizon_ref: dea:ReportingPeriod-2027q1
+  evidence_refs:
+  - dea:Observation-benefits-baseline-2025q4
+  - dea:Observation-benefits-q1-2026
+  provenance_reference: dea:Provenance-benefits-simulation
+  confidence: 0.49
+  uncertainty:
+    interval_low: 0.31
+    interval_high: 0.95
+    method: scenario_simulation
+    assumptions:
+    - All three initiatives deliver at the planned rate.
+    - No unplanned organizational disruption.
+  model_ref: dea:AIMLModel-transformation-simulator-v1
+  scenario_ref: dea:Scenario-transformation-accelerated
+  aggregation_rule_ref: dea:AggregationRule-benefits-weighted
+  alternative_considered:
+  - option: Baseline delivery pace
+    rationale: The comparator scenario.
+    rejected_because: null
+  - option: Accelerated delivery pace
+    rationale: The modelled scenario.
+    rejected_because: null
+  responsible_party_ref: dea:Actor-transformation-office-lead
+  scenario: E
+
+correlations:
+- id: dea:Correlation-engagement-to-satisfaction
+  type: Correlation
+  name: Employee Engagement to Customer Satisfaction
+  version: 1.0.0
+  lifecycle_status: active
+  source_phenomenon_ref: dea:metric-employee-engagement-score
+  target_phenomenon_ref: dea:metric-customer-satisfaction
+  coefficient: 0.63
+  method: spearman
+  sample_size: 24
+  reporting_period_ref: dea:ReportingPeriod-2024q1-2026q1
+  evidence_refs:
+  - dea:Observation-engagement-2024q1
+  - dea:Observation-satisfaction-2024q1
+  - dea:Observation-engagement-2026q1
+  - dea:Observation-satisfaction-2026q1
+  confounder_candidates:
+  - dea:metric-headcount-churn-rate
+  - dea:metric-market-sentiment-index
+  confusion_guard: false
+  strength: strong
+  directional_note: Engagement and satisfaction move together. This does NOT establish that raising engagement raises satisfaction.
+  provenance_reference: dea:Provenance-engagement-correlation
+  scenario: D
+- id: dea:Correlation-system-load-to-failure
+  type: Correlation
+  name: System Load to Incident Frequency
+  version: 1.0.0
+  lifecycle_status: active
+  source_phenomenon_ref: dea:metric-system-load-factor
+  target_phenomenon_ref: dea:metric-incident-frequency
+  coefficient: 0.81
+  method: pearson
+  sample_size: 180
+  reporting_period_ref: dea:ReportingPeriod-2025q1-2026q1
+  evidence_refs:
+  - dea:Observation-load-factor-2025q1
+  - dea:Observation-incident-frequency-2025q1
+  confounder_candidates:
+  - dea:metric-release-frequency
+  - dea:metric-pending-patch-count
+  confusion_guard: false
+  strength: very_strong
+  directional_note: Load and incident frequency co-vary. The deployment cadence confounder is not controlled for.
+  provenance_reference: dea:Provenance-load-correlation
+  scenario: C
+
+causal_hypotheses:
+- id: dea:CausalHypothesis-engagement-drives-satisfaction
+  type: CausalHypothesis
+  name: Engagement Drives Satisfaction
+  version: 1.0.0
+  lifecycle_status: active
+  cause_ref: dea:metric-employee-engagement-score
+  effect_ref: dea:metric-customer-satisfaction
+  mechanism: Higher employee engagement improves service interaction quality, which raises customer satisfaction scores.
+  confidence: 0.34
+  uncertainty:
+    unmeasured_mediators:
+    - dea:metric-service-interaction-quality
+    alternative_mechanisms:
+    - A shared third factor (market sentiment) raises both engagement and satisfaction.
+    - Higher customer satisfaction raises employee engagement (reverse direction).
+    inference_method: none_yet
+  validation_state: correlation_supported
+  supporting_correlation_refs:
+  - dea:Correlation-engagement-to-satisfaction
+  counter_evidence:
+  - observation: Two quarters show satisfaction rising while engagement falls.
+    implication: Inconsistent with a strong positive mechanism; may indicate a lag or a reverse causal direction.
+  falsification_test: A controlled engagement intervention in one business unit with a holdout group, measuring satisfaction over four quarters.
+  responsible_party_ref: dea:Actor-hr-analytics-lead
+  scenario: D
+- id: dea:CausalHypothesis-load-drives-failure
+  type: CausalHypothesis
+  name: System Load Drives Incident Frequency
+  version: 1.0.0
+  lifecycle_status: active
+  cause_ref: dea:metric-system-load-factor
+  effect_ref: dea:metric-incident-frequency
+  mechanism: Sustained load above the saturation threshold exhausts connection pools and raises the failure rate.
+  confidence: 0.71
+  uncertainty:
+    unmeasured_mediators:
+    - dea:metric-connection-pool-saturation
+    alternative_mechanisms:
+    - A deployment burst raises both load and incident count.
+    inference_method: threshold_analysis
+  validation_state: experiment_running
+  supporting_correlation_refs:
+  - dea:Correlation-system-load-to-failure
+  counter_evidence:
+  - observation: Incidents continued at the prior rate during a two-week load plateau.
+    implication: The threshold may sit higher than the observed plateau.
+  falsification_test: A controlled load-ceiling change in a non-production replica, holding deployment cadence constant.
+  responsible_party_ref: dea:Actor-sre-lead
+  scenario: C
+
+scenario_records:
+- scenario: A
+  name: Strategic performance management
+  chain:
+  - dea:StrategicObjective-2026-growth
+  - dea:metric-strategic-objective-attainment
+  - dea:Observation-strategic-objective-attainment-2026q1
+  - dea:AssessmentResult-strategic-review-2026q1
+  - dea:Decision-investment-reallocation-2026q1
+  required_evidence_cited: true
+- scenario: B
+  name: Digital maturity improvement
+  chain:
+  - dea:AssessmentDimension-dmm-operational
+  - dea:metric-dmm-operational-score
+  - dea:Observation-dmm-operational-2026q1
+  - dea:AssessmentResult-dmm-2026q1
+  - dea:ChangeInitiative-dmm-operational-improvement
+  - dea:metric-capability-performance-score
+  required_evidence_cited: true
+- scenario: C
+  name: Operational optimization
+  chain:
+  - dea:BusinessProcess-order-to-cash
+  - dea:metric-process-cycle-time
+  - dea:Observation-process-cycle-time-2026q1
+  - dea:PerformanceInterpretation-cycle-time-variance
+  - dea:AnalyticalResult-process-cycle-intervention
+  - dea:ChangeInitiative-cycle-time-improvement
+  required_evidence_cited: true
+- scenario: D
+  name: Enterprise risk intelligence
+  chain:
+  - dea:Risk-third-party-dependency
+  - dea:metric-risk-exposure-index
+  - dea:Observation-risk-exposure-2026q1
+  - dea:Threshold-risk-exposure-critical
+  - dea:AssessmentResult-risk-review-2026q1
+  - dea:Decision-risk-mitigation-2026q1
+  required_evidence_cited: true
+- scenario: E
+  name: Transformation benefits realization
+  chain:
+  - dea:ChangeInitiative-customer-360
+  - dea:Outcome-customer-360-value
+  - dea:Baseline-benefits-2025q4
+  - dea:PerformanceTarget-benefits-2027
+  - dea:Observation-benefits-q1-2026
+  - dea:PerformanceInterpretation-benefits-q1
+  - dea:Decision-benefits-investment-2026
+  required_evidence_cited: true

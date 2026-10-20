@@ -1538,3 +1538,40 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:AnalyticalResult
+  name: Analytical Result
+  canonical_name: AnalyticalResult
+  definition: 'A derived analytical output produced from measurement evidence: an Estimate, Forecast, Simulation Result, or
+    Recommendation (CR-MET-012 section 7, Q20b-prime). Deliberately EXCLUDES Observation (dea:MeasurementObservation, CR-MET-001)
+    and Decision (dea:Decision, CR-4 section 13): both already exist as first-class entities with their own lifecycle, so
+    absorbing them as result_type values would destroy identity and conflate an authorized management choice with a derived
+    analytical output. The 4 result types share a common provenance, quality, and confidence model; the result_type discriminator
+    preserves the user-supplied section 7 distinction. An AnalyticalResult NEVER publishes as an equivalent measurement fact
+    to an Observation.'
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:Correlation
+  name: Correlation
+  canonical_name: Correlation
+  definition: 'A recorded statistical association between two measured phenomena, WITHOUT asserting causation (CR-MET-012
+    section 6, Q22c). Correlation and Causal Hypothesis are distinct first-class constructs: a correlation records what was
+    observed to co-vary; a causal hypothesis records an asserted mechanism that a correlation does not establish. The Metric
+    capability provides the semantic references and provenance needed by analytical services; it is NOT a causal inference
+    engine.'
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:CausalHypothesis
+  name: Causal Hypothesis
+  canonical_name: CausalHypothesis
+  definition: 'An asserted causal mechanism between two measured phenomena, recorded with explicit confidence and uncertainty
+    and DISTINCT from the observed Correlation (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation;
+    a correlation is an observation. The two MUST NOT be collapsed: a strong correlation is not evidence of causation, and
+    asserting a mechanism from co-variation alone is a governance failure.'
+  semantic_category: core
+  abstract: false
+  status: normative
+  version: 1.0.0

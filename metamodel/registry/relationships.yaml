@@ -40,6 +40,56 @@ relationships:
   inverse: dea:applies-period-inverse
   status: normative
   lifecycle: proposed
+- id: dea:correlates
+  name: Correlates
+  category: information
+  source:
+  - dea:PerformanceMetric
+  - dea:MeasurementObservation
+  - dea:Correlation
+  target:
+  - dea:PerformanceMetric
+  - dea:MeasurementObservation
+  - dea:Correlation
+  inverse: dea:correlates
+  status: normative
+  lifecycle: proposed
+- id: dea:tests-hypothesis
+  name: Tests Hypothesis
+  category: information
+  source:
+  - dea:Correlation
+  - dea:AnalyticalResult
+  target:
+  - dea:CausalHypothesis
+  inverse: dea:tested-by
+  status: normative
+  lifecycle: proposed
+- id: dea:analyses-metric
+  name: Analyses Metric
+  category: realization
+  source:
+  - dea:AnalyticalResult
+  target:
+  - dea:PerformanceMetric
+  - dea:MeasurementObservation
+  - dea:Baseline
+  - dea:PerformanceTarget
+  - dea:Threshold
+  inverse: dea:analysed-by
+  status: normative
+  lifecycle: proposed
+- id: dea:informs-decision
+  name: Informs Decision
+  category: governance
+  source:
+  - dea:AnalyticalResult
+  - dea:PerformanceInterpretation
+  target:
+  - dea:Decision
+  inverse: dea:informed-by
+  status: normative
+  lifecycle: proposed
 - id: dea:composes
   name: Composes
   category: structural
@@ -1127,12 +1177,14 @@ relationships:
   name: Derives From
   category: assessment
   source:
+  - dea:AnalyticalResult
   - dea:AgentOpportunity
   - dea:AssessmentGap
   - dea:Benchmark
   - dea:BenchmarkReference
   - dea:Score
   target:
+  - dea:MeasurementObservation
   - dea:AssessmentResult
   - dea:AssessmentTarget
   - dea:Benchmark

@@ -2,9 +2,9 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 160
-  relationships: 116
-  core_entities: 25
+  entities: 163
+  relationships: 120
+  core_entities: 28
   profiles: 10
 entities:
 - id: dea:Entity
@@ -1127,6 +1127,27 @@ entities:
   status: normative
   lifecycle: proposed
   source_cr: CR-4
+- id: dea:AnalyticalResult
+  name: Analytical Result
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:Correlation
+  name: Correlation
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
+- id: dea:CausalHypothesis
+  name: Causal Hypothesis
+  semantic_category: core
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  source_cr: CR-4
 relationships:
 - id: dea:has-provenance
   name: Has Provenance
@@ -1144,6 +1165,30 @@ relationships:
   name: Applies Period
   category: temporal
   inverse: dea:applies-period-inverse
+  temporal: true
+  status: normative
+- id: dea:correlates
+  name: Correlates
+  category: information
+  inverse: dea:correlates
+  temporal: true
+  status: normative
+- id: dea:tests-hypothesis
+  name: Tests Hypothesis
+  category: information
+  inverse: dea:tested-by
+  temporal: true
+  status: normative
+- id: dea:analyses-metric
+  name: Analyses Metric
+  category: realization
+  inverse: dea:analysed-by
+  temporal: true
+  status: normative
+- id: dea:informs-decision
+  name: Informs Decision
+  category: governance
+  inverse: dea:informed-by
   temporal: true
   status: normative
 - id: dea:composes
@@ -1826,6 +1871,9 @@ relationships:
   status: normative
 reconciliation:
 - kind: inverse-collides-with-canonical
+  subject: dea:informs-decision <-> dea:informed-by
+  resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
+- kind: inverse-collides-with-canonical
   subject: dea:composes <-> dea:part-of
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: inverse-collides-with-canonical
@@ -1857,6 +1905,9 @@ reconciliation:
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: inverse-collides-with-canonical
   subject: dea:performed-by <-> dea:performs
+  resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
+- kind: inverse-collides-with-canonical
+  subject: dea:informed-by <-> dea:informs-decision
   resolution: 'documented: single canonical direction (CR-2 R002), inverse is query alias only'
 - kind: duplicate-name
   subject: none

@@ -1,12 +1,16 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 116 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 120 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
 | `dea:has-provenance` | traceability | `dea:has-provenance-inverse` | yes | The source carries the target as its provenance record, recording how the source came to exist (CR-MET-011 section 5). One Provenance per Observation: provenance is a 1:1 fact about a single result, not a shared reusable assertion. |
 | `dea:corrects` | traceability | `dea:corrected-by` | yes | The source is a corrected restatement of the target, which was found to be erroneous. Distinct from dea:supersedes (section 7, Q19a): a correction asserts the original was WRONG, whereas a supersession asserts a NEWER authoritative value exists for the same period. Both may target the same Observation. A correction MUST NOT silently overwrite the original value. |
 | `dea:applies-period` | temporal | `dea:applies-period-inverse` | yes | The source reports on the target reporting period. Establishes the bounded interval a result represents, distinct from when the result was produced (the measurement time dimension) and when it was published (the publication time dimension). CR-MET-011 section 3: these are distinct facts and MUST NOT be collapsed into one timestamp. |
+| `dea:correlates` | information | `dea:correlates` | yes | The source phenomenon is statistically associated with the target phenomenon, WITHOUT asserting causation (CR-MET-012 section 6, Q22c). Symmetric: correlation has no direction. A correlation does NOT establish a causal mechanism; a dea:CausalHypothesis asserts a mechanism that this relationship does not. |
+| `dea:tests-hypothesis` | information | `dea:tested-by` | yes | The source Correlation is the evidence used to test the target Causal Hypothesis (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation; the correlation is the observation that may or may not support it. Testing a hypothesis with a correlation does not establish it: a strong correlation is not evidence of causation. |
+| `dea:analyses-metric` | realization | `dea:analysed-by` | yes | The source analytical service produced the target AnalyticalResult from the target Metric and its Observations as evidence (CR-MET-012 section 4). The analytical service is an architectural role realized by a runtime engine; the metamodel records the semantic dependency, not the engine. |
+| `dea:informs-decision` | governance | `dea:informed-by` | yes | The source AnalyticalResult was used as input to the target Decision (CR-MET-012 section 6). A Recommendation informs a Decision; it does not become one. The distinction is binding: an analytical output is a derived artifact, an authorized management choice is a governance act with an accountable authority. |
 | `dea:composes` | structural | `dea:part-of` | yes | The target is structurally part of the source and normally has a dependent lifecycle (composition, section 14). |
 | `dea:aggregates` | structural | `dea:aggregated-in` | yes | The target participates in the source but retains an independent lifecycle (aggregation, section 14). |
 | `dea:specializes` | structural | `dea:generalizes` | no | The source is a more specific form of the target (generalization/specialization hierarchy). |

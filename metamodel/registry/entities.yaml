@@ -1761,3 +1761,36 @@ entities:
   membership:
     kind: core
     profile: null
+- id: dea:AnalyticalResult
+  name: Analytical Result
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:Correlation
+  name: Correlation
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null
+- id: dea:CausalHypothesis
+  name: Causal Hypothesis
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: core
+    profile: null

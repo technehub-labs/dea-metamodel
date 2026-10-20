@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dea-metamodel.org/schemas/entities/causal-hypothesis.json",
+  "metamodel_version": "1.0.0",
+  "title": "CausalHypothesis",
+  "description": "An asserted causal mechanism between two measured phenomena, recorded with explicit confidence and uncertainty and DISTINCT from the observed dea:Correlation (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation; a correlation is an observation. The two MUST NOT be collapsed: a strong correlation is not evidence of causation, and asserting a mechanism from co-variation alone is a governance failure. validation_state records whether the hypothesis has been tested, not merely asserted.",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "name",
+    "version",
+    "lifecycle_status",
+    "cause_ref",
+    "effect_ref",
+    "mechanism",
+    "confidence",
+    "validation_state"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^dea:[A-Z][a-zA-Z0-9-]*$"
+    },
+    "type": { "const": "CausalHypothesis" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+    },
+    "external_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["system", "identifier"],
+        "properties": {
+          "system": { "type": "string" },
+          "identifier": { "type": "string" }
+        }
+      }
+    },
+    "cause_ref": {
+      "type": "string",
+      "description": "The asserted cause. The direction is what distinguishes a hypothesis from a correlation."
+    },
+    "effect_ref": {
+      "type": "string",
+      "description": "The asserted effect of the cause."
+    },
+    "mechanism": {
+      "type": "string",
+      "description": "The asserted causal pathway. A hypothesis without a stated mechanism is an assertion, not a hypothesis."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Declared confidence in the asserted mechanism, distinct from the strength of any supporting correlation."
+    },
+    "uncertainty": {
+      "type": ["object", "null"],
+      "description": "Explicit uncertainty: unmeasured mediators, plausible alternative mechanisms, and known limits of the inference.",
+      "properties": {
+        "unmeasured_mediators": { "type": "array", "items": { "type": "string" } },
+        "alternative_mechanisms": { "type": "array", "items": { "type": "string" } },
+        "inference_method": { "type": ["string", "null"] }
+      }
+    },
+    "validation_state": {
+      "type": "string",
+      "enum": ["asserted", "correlation_supported", "experiment_running", "validated", "refuted"],
+      "description": "How far the hypothesis has been tested. asserted means nobody has tested it; correlation_supported means a co-variation was observed, which is weaker than validated; validated requires an experimental or quasi-experimental basis; refuted means the mechanism was tested and did not hold."
+    },
+    "supporting_correlation_refs": {
+      "type": "array",
+      "description": "The dea:Correlation records that were observed in support. Supporting correlations are evidence, not proof.",
+      "items": { "type": "string" }
+    },
+    "counter_evidence": {
+      "type": "array",
+      "description": "Evidence AGAINST the hypothesis. A hypothesis with no recorded counter-evidence is either trivially true or not honestly recorded.",
+      "items": {
+        "type": "object",
+        "required": ["observation", "implication"],
+        "properties": {
+          "observation": { "type": "string" },
+          "implication": { "type": "string" }
+        }
+      }
+    },
+    "falsification_test": {
+      "type": ["string", "null"],
+      "description": "The test that would refute the hypothesis. A hypothesis with no falsification test is not testable."
+    },
+    "responsible_party_ref": {
+      "type": ["string", "null"],
+      "description": "The accountable party for the hypothesis assertion."
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "../relationships/relationship-instance.json" }
+    },
+    "metadata": { "$ref": "entity.json#/properties/metadata" }
+  }
+}

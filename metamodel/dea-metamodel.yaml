@@ -3509,6 +3509,67 @@ entities:
     kind: core
     profile: null
 
+- id: dea:AnalyticalResult
+  name: Analytical Result
+  legacy_ids: []
+  definition: "A derived analytical output produced from measurement evidence: an Estimate, Forecast, Simulation Result, or Recommendation (CR-MET-012 section 7, Q20b-prime). Deliberately EXCLUDES Observation (dea:MeasurementObservation, CR-MET-001) and Decision (dea:Decision, CR-4 section 13): both already exist as first-class entities with their own lifecycle, so absorbing them as result_type values would destroy identity and conflate an authorized management choice with a derived analytical output. The 4 result types share a common provenance, quality, and confidence model; the result_type discriminator preserves the user-supplied section 7 distinction. An AnalyticalResult NEVER publishes as an equivalent measurement fact to an Observation."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/analytical-result.json
+    sqlite_table: analytical_results
+    pydantic_model: pydantic/analytical_result.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:Correlation
+  name: Correlation
+  legacy_ids: []
+  definition: "A recorded statistical association between two measured phenomena, WITHOUT asserting causation (CR-MET-012 section 6, Q22c). Correlation and Causal Hypothesis are distinct first-class constructs: a correlation records what was observed to co-vary; a causal hypothesis records an asserted mechanism that a correlation does not establish. The Metric capability provides the semantic references and provenance needed by analytical services; it is NOT a causal inference engine."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/correlation.json
+    sqlite_table: correlations
+    pydantic_model: pydantic/correlation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+- id: dea:CausalHypothesis
+  name: Causal Hypothesis
+  legacy_ids: []
+  definition: "An asserted causal mechanism between two measured phenomena, recorded with explicit confidence and uncertainty and DISTINCT from the observed Correlation (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation; a correlation is an observation. The two MUST NOT be collapsed: a strong correlation is not evidence of causation, and asserting a mechanism from co-variation alone is a governance failure."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/causal-hypothesis.json
+    sqlite_table: causal_hypotheses
+    pydantic_model: pydantic/causal_hypothesis.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: core
+    profile: null
+
 relationships:
 - id: dea:has-provenance
   name: Has Provenance
@@ -3567,6 +3628,83 @@ relationships:
     types: [dea:Measurement, dea:MeasurementObservation, dea:Baseline, dea:PerformanceTarget, dea:Threshold, dea:PerformanceInterpretation, dea:IndicatorDesignation]
   target:
     types: [dea:ReportingPeriod]
+
+- id: dea:correlates
+  name: Correlates
+  definition: "The source phenomenon is statistically associated with the target phenomenon, WITHOUT asserting causation (CR-MET-012 section 6, Q22c). Symmetric: correlation has no direction. A correlation does NOT establish a causal mechanism; a dea:CausalHypothesis asserts a mechanism that this relationship does not."
+  category: information
+  direction: source-to-target
+  inverse: dea:correlates
+  transitive: false
+  symmetric: true
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "0..*"
+  source:
+    types: [dea:PerformanceMetric, dea:MeasurementObservation, dea:Correlation]
+  target:
+    types: [dea:PerformanceMetric, dea:MeasurementObservation, dea:Correlation]
+- id: dea:tests-hypothesis
+  name: Tests Hypothesis
+  definition: "The source Correlation is the evidence used to test the target Causal Hypothesis (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation; the correlation is the observation that may or may not support it. Testing a hypothesis with a correlation does not establish it: a strong correlation is not evidence of causation."
+  category: information
+  direction: source-to-target
+  inverse: dea:tested-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "0..*"
+  source:
+    types: [dea:Correlation, dea:AnalyticalResult]
+  target:
+    types: [dea:CausalHypothesis]
+- id: dea:analyses-metric
+  name: Analyses Metric
+  definition: "The source analytical service produced the target AnalyticalResult from the target Metric and its Observations as evidence (CR-MET-012 section 4). The analytical service is an architectural role realized by a runtime engine; the metamodel records the semantic dependency, not the engine."
+  category: realization
+  direction: source-to-target
+  inverse: dea:analysed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "0..*"
+  source:
+    types: [dea:AnalyticalResult]
+  target:
+    types: [dea:PerformanceMetric, dea:MeasurementObservation, dea:Baseline, dea:PerformanceTarget, dea:Threshold]
+- id: dea:informs-decision
+  name: Informs Decision
+  definition: "The source AnalyticalResult was used as input to the target Decision (CR-MET-012 section 6). A Recommendation informs a Decision; it does not become one. The distinction is binding: an analytical output is a derived artifact, an authorized management choice is a governance act with an accountable authority."
+  category: governance
+  direction: source-to-target
+  inverse: dea:informed-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+  cardinality:
+    source: "0..*"
+    target: "0..*"
+  source:
+    types: [dea:AnalyticalResult, dea:PerformanceInterpretation]
+  target:
+    types: [dea:Decision]
 
 - id: dea:composes
   name: Composes
@@ -5466,6 +5604,7 @@ relationships:
   direction: source-to-target
   source:
     types:
+    - dea:AnalyticalResult
     - dea:AgentOpportunity
     - dea:AssessmentGap
     - dea:Benchmark
@@ -5473,6 +5612,7 @@ relationships:
     - dea:Score
   target:
     types:
+    - dea:MeasurementObservation
     - dea:AssessmentResult
     - dea:AssessmentTarget
     - dea:Benchmark

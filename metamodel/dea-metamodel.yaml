@@ -3962,7 +3962,7 @@ relationships:
   supersedes: []
 - id: dea:measures-subject
   name: Measures Subject
-  definition: The Measurement (source) targets the entity (target) that is being measured. Cardinality 1:1; every Measurement targets exactly one subject. The target list is the same as dea:measured-by's source list. CR-MET-003 declares the current 7-entity source list (matching the existing dea:measured-by source endpoint); CR-MET-007 widens this to 17 entity types per ADR-MET-004.
+  definition: "The Measurement (source) targets the entity (target) that is being measured. Cardinality 1:1; every Measurement targets exactly one subject. The target list is the same as dea:measured-by's source list. CR-MET-003 declared the original 7-entity target list; CR-MET-007 extends it to 16 entity types (matching the extended dea:measured-by source list): AssessmentDimension, Control, DataEntity, MaturityModel, OrganizationalUnit, Policy, Risk, Service, ValueStream."
   category: flow
   direction: source-to-target
   source:
@@ -3972,11 +3972,20 @@ relationships:
     types:
     - dea:AIMLModel
     - dea:ApplicationComponent
+    - dea:AssessmentDimension
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
+    - dea:Control
+    - dea:DataEntity
+    - dea:MaturityModel
+    - dea:OrganizationalUnit
     - dea:Outcome
+    - dea:Policy
+    - dea:Risk
+    - dea:Service
     - dea:StrategicObjective
+    - dea:ValueStream
   cardinality:
     source: '1'
     target: '1'
@@ -4798,18 +4807,27 @@ relationships:
   - evaluated via
 - id: dea:measured-by
   name: Measured By
-  definition: The source's performance, health, or maturity is quantified by the target metric.
+  definition: "The source's performance, health, or maturity is quantified by the target metric. CR-MET-007 extended source types from 7 to 16 (added: AssessmentDimension, Control, DataEntity, MaturityModel, OrganizationalUnit, Policy, Risk, Service, ValueStream) covering user-supplied cross-domain integration domains (Strategy, Organization, Business architecture, Value architecture, Product and service, Information architecture, Technology architecture, Governance, Transformation, Maturity). Deferred entities that do not exist yet (Strategy, Initiative, Function, ValueStage, CustomerSegment, Journey, Experience, Product, ServiceOffering, InformationObject, InformationSystem, Infrastructure, TransformationInitiative) to future per-domain CRs."
   category: assessment
   direction: source-to-target
   source:
     types:
     - dea:AIMLModel
     - dea:ApplicationComponent
+    - dea:AssessmentDimension
     - dea:BusinessCapability
     - dea:BusinessProcess
     - dea:BusinessService
+    - dea:Control
+    - dea:DataEntity
+    - dea:MaturityModel
+    - dea:OrganizationalUnit
     - dea:Outcome
+    - dea:Policy
+    - dea:Risk
+    - dea:Service
     - dea:StrategicObjective
+    - dea:ValueStream
   target:
     types:
     - dea:PerformanceMetric
@@ -6434,13 +6452,14 @@ relationships:
   lifecycle: proposed
 - id: dea:applies-subject
   name: Applies Subject
-  definition: "The source applies to / concerns the target subject. CR-MET-006 binding: Baseline and PerformanceTarget apply to AssessmentSubject or Entity."
+  definition: "The source applies to or concerns the target subject. CR-MET-006 introduced this for Baseline and PerformanceTarget. CR-MET-007 extended source types with dea:PerformanceMetric (a Metric's design-time intended applicability to a subject, distinct from the runtime measurement via dea:measures-subject). Cardinality source 0..* (a Metric may declare applicability to multiple subjects), target 1 (each declaration targets exactly one subject). Relationship renamed from dea:applies-to to dea:applies-subject to avoid collision with pre-existing applies_to properties in maturity-rule.json and policy-rule.json."
   category: structural
   direction: source-to-target
   source:
     types:
       - dea:Baseline
       - dea:PerformanceTarget
+      - dea:PerformanceMetric
   target:
     types:
       - dea:Entity

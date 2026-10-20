@@ -1,0 +1,107 @@
+# CR-MET-007 representative cross-domain metric fixtures.
+# 10 fixture pairs (one per user-supplied section 8 example) demonstrating
+# the cross-domain relationship architecture.
+# Consumed by tests/conformance/test_027_cross_domain_metrics.py.
+version: 1.0.0
+
+# Each fixture represents a relationship instance of the appropriate type
+# (dea:measured-by, dea:assessed-by, dea:has-target).
+relationships:
+
+  # 1. Metric measuring a Business Capability
+  - id: rel-metric-capability-process-efficiency
+    source_id: dea:capability-payment-processing
+    target_id: dea:metric-process-efficiency
+    relationship_type: measured-by
+    description: Process Efficiency metric measures Payment Processing capability
+    effective_from: "2025-01-01"
+
+  # 2. Metric measuring a Business Process
+  - id: rel-metric-process-cycle-time
+    source_id: dea:process-payment-intake
+    target_id: dea:metric-cycle-time
+    relationship_type: measured-by
+    description: Cycle Time metric measures Payment Intake process
+    effective_from: "2025-01-01"
+
+  # 3. Metric measuring a Value Stream
+  - id: rel-metric-valuestream-lead-to-cash
+    source_id: dea:value-stream-lead-to-cash
+    target_id: dea:metric-lead-to-cash-cycle-time
+    relationship_type: measured-by
+    description: Lead-to-Cash Cycle Time metric measures the Lead-to-Cash Value Stream
+    effective_from: "2025-01-01"
+
+  # 4. Metric supporting a Strategic Objective (via PerformanceTarget -> StrategicObjective)
+  - id: rel-objective-target-resilience
+    source_id: dea:strategic-objective-platform-resilience
+    target_id: dea:performance-target-availability-2025
+    relationship_type: has-target
+    description: Strategic Objective Platform Resilience is supported by PerformanceTarget for 2025 availability
+    effective_from: "2025-01-01"
+
+  # 5. Metric monitoring a Risk
+  - id: rel-metric-risk-incident-frequency
+    source_id: dea:risk-payment-outage
+    target_id: dea:metric-incident-frequency
+    relationship_type: measured-by
+    description: Incident Frequency metric monitors the Payment Outage risk
+    effective_from: "2025-01-01"
+
+  # 6. Metric evaluating a Control
+  - id: rel-metric-control-effectiveness
+    source_id: dea:control-segregation-of-duties
+    target_id: dea:metric-control-effectiveness
+    relationship_type: measured-by
+    description: Control Effectiveness metric evaluates Segregation of Duties control
+    effective_from: "2025-01-01"
+
+  # 7. Metric supporting a DMM Assessment
+  - id: rel-metric-assessment-dmm
+    source_id: dea:assessment-dmm-2025-q1
+    target_id: dea:metric-data-quality
+    relationship_type: assessed-by
+    description: Data Quality metric supplies evidence to the DMM 2025-Q1 Assessment
+    effective_from: "2025-01-01"
+
+  # 8. Metric measuring Data Quality (Data Entity subject)
+  - id: rel-metric-dataentity-completeness
+    source_id: dea:data-entity-customer-master
+    target_id: dea:metric-data-completeness
+    relationship_type: measured-by
+    description: Data Completeness metric measures Customer Master data entity
+    effective_from: "2025-01-01"
+
+  # 9. Metric measuring Technology Reliability
+  - id: rel-metric-component-availability
+    source_id: dea:application-component-payment-gateway
+    target_id: dea:metric-system-availability
+    relationship_type: measured-by
+    description: System Availability metric measures Payment Gateway component
+    effective_from: "2025-01-01"
+
+  # 10. Metric evaluating a Transformation Outcome
+  - id: rel-metric-outcome-benefits-realization
+    source_id: dea:outcome-platform-modernization-benefits
+    target_id: dea:metric-benefits-realization-rate
+    relationship_type: measured-by
+    description: Benefits Realization Rate metric evaluates Platform Modernization outcome
+    effective_from: "2025-01-01"
+
+  # Bonus: Metric design-time applicability (CR-MET-007 Q9a)
+  # Demonstrates dea:applies-subject extension to dea:PerformanceMetric
+  - id: rel-metric-applies-subject-service
+    source_id: dea:metric-system-availability
+    target_id: dea:subject-payment-processing-service
+    relationship_type: applies-subject
+    description: System Availability metric declares design-time applicability to Payment Processing service
+    effective_from: "2025-01-01"
+
+  # Bonus: Measurement runtime subject (CR-MET-007 §4 cross-domain extension)
+  # Demonstrates dea:measures-subject extension with new target types
+  - id: rel-measurement-runtime-subject
+    source_id: dea:measurement-availability-2025-q1
+    target_id: dea:value-stream-lead-to-cash
+    relationship_type: measures-subject
+    description: 2025-Q1 availability Measurement targets the Lead-to-Cash value stream (demonstrating dea:measures-subject extension to non-BusinessProcess target)
+    effective_from: "2025-01-01"

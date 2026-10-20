@@ -138,13 +138,16 @@ def test_dea_measures_subject_in_registry():
     assert rel["source"]["types"] == ["dea:Measurement"], \
         f"CR-MET-003: dea:measures-subject source must be [dea:Measurement] (got {rel['source']['types']})"
     target = set(rel["target"]["types"])
-    expected_7 = {
-        "dea:AIMLModel", "dea:ApplicationComponent", "dea:BusinessCapability",
-        "dea:BusinessProcess", "dea:BusinessService", "dea:Outcome",
-        "dea:StrategicObjective",
+    # CR-MET-003 declared the 7-type target list; CR-MET-007 extended it to 16 types.
+    expected_16 = {
+        "dea:AIMLModel", "dea:ApplicationComponent", "dea:AssessmentDimension",
+        "dea:BusinessCapability", "dea:BusinessProcess", "dea:BusinessService",
+        "dea:Control", "dea:DataEntity", "dea:MaturityModel", "dea:OrganizationalUnit",
+        "dea:Outcome", "dea:Policy", "dea:Risk", "dea:Service", "dea:StrategicObjective",
+        "dea:ValueStream",
     }
-    assert target == expected_7, \
-        f"CR-MET-003: dea:measures-subject target must be the 7-type source list (got {sorted(target)})"
+    assert target == expected_16, \
+        f"CR-MET-003 (with CR-MET-007 extension): dea:measures-subject target must be the 16-type list (got {sorted(target)})"
     assert str(rel["cardinality"]["source"]) == "1"
     assert str(rel["cardinality"]["target"]) == "1"
 

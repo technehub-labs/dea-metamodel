@@ -1457,3 +1457,49 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:Baseline
+  name: Baseline
+  canonical_name: Baseline
+  definition: 'A reference measurement or established starting condition against which change, improvement, or deterioration
+    can be evaluated (CR-MET-006 binding). 9 binding attributes per user-supplied section 4: reference_metric_ref, subject_ref,
+    reference_value, establishment_date, applicable_period, organizational_scope, measurement_methodology, source_evidence,
+    version, approval_status. Baseline.kind captures the historical/initial/strategic/operational/regulatory/scenario_derived
+    distinction.'
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:PerformanceTarget
+  name: Performance Target
+  canonical_name: PerformanceTarget
+  definition: A value-level desired measurement result (CR-MET-006 binding). Sibling of dea:AssessmentTarget (maturity-level,
+    CR-5 section 21); the two target types coexist and neither subsumes the other. PerformanceTarget carries target_value
+    or target_range, target_direction, effective_period, owner_ref, associated_objective_ref, approval_status, supporting_rationale.
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:Threshold
+  name: Threshold
+  canonical_name: Threshold
+  definition: A directional boundary used to classify or trigger an evaluation (CR-MET-006 binding). 4 directional models
+    (higher_is_better, lower_is_better, bounded_optimum, exact_match) and 4 levels (critical, warning, acceptable, optimal)
+    per user-supplied section 6. A Metric MAY have multiple Thresholds (one per level); the threshold_level discriminator
+    distinguishes them.
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0
+- id: dea:PerformanceInterpretation
+  name: Performance Interpretation
+  canonical_name: PerformanceInterpretation
+  definition: 'The meaning assigned to a result under defined criteria (CR-MET-006 binding). Carries interpretation_kind (variance_evaluation,
+    threshold_evaluation, benchmark_evaluation, composite_judgment), interpretation_state (exceeds_target, meets_target, within_tolerance,
+    warning, critical, unknown), reference_used, absolute_variance, relative_variance, narrative. Sibling of dea:AssessmentResult
+    (which carries score); PerformanceInterpretation carries judgment. CR-MET-006 binding disposition: Variance itself is
+    a derived view (no entity); PerformanceInterpretation is the auditable record of how the variance/threshold/benchmark
+    was interpreted.'
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0

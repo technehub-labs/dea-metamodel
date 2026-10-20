@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dea-metamodel.org/schemas/entities/baseline.json",
+  "metamodel_version": "1.0.0",
+  "metamodel_version": "1.0.0",
+  "title": "Baseline",
+  "description": "A reference measurement or established starting condition against which change, improvement, or deterioration can be evaluated (CR-MET-006).",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "lifecycle_status",
+    "reference_metric_ref",
+    "subject_ref",
+    "reference_value",
+    "establishment_date",
+    "applicable_period",
+    "organizational_scope",
+    "version",
+    "approval_status",
+    "kind"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^dea:[A-Z][a-zA-Z0-9-]*$"
+    },
+    "name": { "type": "string" },
+    "type": { "const": "Baseline" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "metadata": { "type": "object" },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "historical",
+        "initial",
+        "strategic",
+        "operational",
+        "regulatory",
+        "scenario_derived"
+      ],
+      "description": "CR-MET-006 binding (Baseline.kind controlled vocabulary; 6 values)."
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["draft", "proposed", "approved", "retired"],
+      "description": "CR-MET-006 binding (Baseline.approval_status controlled vocabulary; 4 values)."
+    },
+    "reference_metric_ref": {
+      "type": "string",
+      "description": "The PerformanceMetric id this Baseline is a reference for (relationship dea:references)."
+    },
+    "subject_ref": {
+      "type": "string",
+      "description": "The subject the Baseline concerns (relationship dea:applies-to; target is Entity or AssessmentSubject)."
+    },
+    "reference_value": {
+      "description": "The reference value or observation summary. Numeric for ratio/interval Metrics; ordinal for ordinal Metrics; categorical for categorical Metrics."
+    },
+    "establishment_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "applicable_period": {
+      "type": "string",
+      "description": "Reference to a TemporalInterval; CR-MET-006 binding."
+    },
+    "organizational_scope": {
+      "description": "The organizational scope (enterprise, business_domain, business_unit, capability, process, product_or_service, system). String or array of strings.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "measurement_methodology": { "type": "string" },
+    "source_evidence": {
+      "description": "Source and evidence supporting the Baseline. String or array of strings/references.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "supersedes_baselines": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Previous Baseline ids this Baseline supersedes (relationship dea:supersedes, extended in CR-MET-004)."
+    }
+  }
+}

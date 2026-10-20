@@ -254,6 +254,7 @@ relationships:
   - dea:Guardrail
   - dea:Regulation
   - dea:Requirement
+  - dea:Threshold
   target:
   - dea:ApplicationComponent
   - dea:ArchitectureElement
@@ -261,6 +262,7 @@ relationships:
   - dea:BusinessService
   - dea:SolutionComponent
   - dea:Technology
+  - dea:PerformanceMetric
   inverse: dea:constrained-by
   status: normative
   lifecycle: proposed
@@ -815,6 +817,7 @@ relationships:
   - dea:BusinessProcess
   - dea:BusinessService
   - dea:Technology
+  - dea:PerformanceMetric
   target:
   - dea:BenchmarkReference
   - dea:BusinessCapability
@@ -1648,3 +1651,56 @@ relationships:
   inverse: dea:accessed-by
   status: normative
   lifecycle: active
+- id: dea:references
+  name: References
+  category: structural
+  source:
+  - dea:Baseline
+  target:
+  - dea:PerformanceMetric
+  inverse: dea:referenced-by
+  status: normative
+  lifecycle: proposed
+- id: dea:applies-subject
+  name: Applies Subject
+  category: structural
+  source:
+  - dea:Baseline
+  - dea:PerformanceTarget
+  target:
+  - dea:Entity
+  - dea:AssessmentSubject
+  inverse: dea:subject-applied-by
+  status: normative
+  lifecycle: proposed
+- id: dea:specifies-target
+  name: Specifies Target
+  category: structural
+  source:
+  - dea:PerformanceTarget
+  target:
+  - dea:PerformanceMetric
+  inverse: dea:has-target-specification
+  status: normative
+  lifecycle: proposed
+- id: dea:interprets
+  name: Interprets
+  category: assessment
+  source:
+  - dea:PerformanceInterpretation
+  target:
+  - dea:MeasurementObservation
+  - dea:Observation
+  inverse: dea:interpreted-by
+  status: normative
+  lifecycle: proposed
+- id: dea:has-target
+  name: Has Target
+  category: governance
+  source:
+  - dea:StrategicObjective
+  target:
+  - dea:PerformanceTarget
+  inverse: dea:supports-objective
+  status: normative
+  lifecycle: proposed

@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dea-metamodel.org/schemas/entities/threshold.json",
+  "metamodel_version": "1.0.0",
+  "title": "Threshold",
+  "description": "A directional boundary used to classify or trigger an evaluation (CR-MET-006). 4 directional models (higher_is_better, lower_is_better, bounded_optimum, exact_match) and 4 levels (critical, warning, acceptable, optimal) per user-supplied section 6.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "type",
+    "version",
+    "lifecycle_status",
+    "threshold_metric_ref",
+    "threshold_value",
+    "threshold_level",
+    "direction",
+    "effective_period"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^dea:[A-Z][a-zA-Z0-9-]*$"
+    },
+    "name": { "type": "string" },
+    "type": { "const": "Threshold" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": ["proposed", "planned", "active", "deprecated", "retired"]
+    },
+    "external_references": {
+      "type": "array",
+      "description": "CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004).",
+      "items": {
+        "type": "object",
+        "required": [
+          "system",
+          "identifier"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "identifier": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "metadata": { "type": "object" },
+    "threshold_metric_ref": {
+      "type": "string",
+      "description": "The PerformanceMetric id being constrained (relationship dea:constrains, extended in CR-MET-006)."
+    },
+    "threshold_value": {
+      "description": "The boundary value(s). A number for single-direction thresholds (higher_is_better, lower_is_better, exact_match); an object {min, max} for bounded_optimum.",
+      "oneOf": [
+        { "type": "number" },
+        {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "type": "number" },
+            "max": { "type": "number" }
+          }
+        }
+      ]
+    },
+    "threshold_level": {
+      "type": "string",
+      "enum": ["critical", "warning", "acceptable", "optimal"],
+      "description": "CR-MET-006 binding (Threshold.level controlled vocabulary; 4 values). A Metric MAY have multiple Thresholds (one per level)."
+    },
+    "direction": {
+      "type": "string",
+      "enum": [
+        "higher_is_better",
+        "lower_is_better",
+        "bounded_optimum",
+        "exact_match"
+      ],
+      "description": "CR-MET-006 binding (Threshold.direction controlled vocabulary; 4 values)."
+    },
+    "effective_period": {
+      "type": "string",
+      "description": "Reference to a TemporalInterval."
+    },
+    "owner_ref": {
+      "type": "string",
+      "description": "Responsible owner (Actor ref)."
+    },
+    "escalation_rule_ref": {
+      "type": "string",
+      "description": "Reference to an escalation rule (e.g. notification policy, runbook)."
+    }
+  }
+}

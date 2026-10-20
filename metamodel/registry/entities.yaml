@@ -1684,3 +1684,47 @@ entities:
   membership:
     kind: profile
     profile: dea:agentic
+- id: dea:Baseline
+  name: Baseline
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:PerformanceTarget
+  name: Performance Target
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Threshold
+  name: Threshold
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:PerformanceInterpretation
+  name: Performance Interpretation
+  layer: null
+  dimension: measurement-dimension
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  catalog_repo: null
+  membership:
+    kind: profile
+    profile: dea:assessment

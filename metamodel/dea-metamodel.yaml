@@ -3364,6 +3364,87 @@ entities:
   membership:
     kind: profile
     profile: dea:agentic
+- id: dea:Baseline
+  name: Baseline
+  legacy_ids: []
+  definition: "A reference measurement or established starting condition against which change, improvement, or deterioration can be evaluated (CR-MET-006 binding). 9 binding attributes per user-supplied section 4: reference_metric_ref, subject_ref, reference_value, establishment_date, applicable_period, organizational_scope, measurement_methodology, source_evidence, version, approval_status. Baseline.kind captures the historical/initial/strategic/operational/regulatory/scenario_derived distinction."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/baseline.json
+    sqlite_table: baselines
+    pydantic_model: pydantic/baseline.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:PerformanceTarget
+  name: Performance Target
+  legacy_ids: []
+  definition: "A value-level desired measurement result (CR-MET-006 binding). Sibling of dea:AssessmentTarget (maturity-level, CR-5 section 21); the two target types coexist and neither subsumes the other. PerformanceTarget carries target_value or target_range, target_direction, effective_period, owner_ref, associated_objective_ref, approval_status, supporting_rationale."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/performance-target.json
+    sqlite_table: performance_targets
+    pydantic_model: pydantic/performance_target.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:Threshold
+  name: Threshold
+  legacy_ids: []
+  definition: "A directional boundary used to classify or trigger an evaluation (CR-MET-006 binding). 4 directional models (higher_is_better, lower_is_better, bounded_optimum, exact_match) and 4 levels (critical, warning, acceptable, optimal) per user-supplied section 6. A Metric MAY have multiple Thresholds (one per level); the threshold_level discriminator distinguishes them."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/threshold.json
+    sqlite_table: thresholds
+    pydantic_model: pydantic/threshold.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+- id: dea:PerformanceInterpretation
+  name: Performance Interpretation
+  legacy_ids: []
+  definition: "The meaning assigned to a result under defined criteria (CR-MET-006 binding). Carries interpretation_kind (variance_evaluation, threshold_evaluation, benchmark_evaluation, composite_judgment), interpretation_state (exceeds_target, meets_target, within_tolerance, warning, critical, unknown), reference_used, absolute_variance, relative_variance, narrative. Sibling of dea:AssessmentResult (which carries score); PerformanceInterpretation carries judgment. CR-MET-006 binding disposition: Variance itself is a derived view (no entity); PerformanceInterpretation is the auditable record of how the variance/threshold/benchmark was interpreted."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/performance-interpretation.json
+    sqlite_table: performance_interpretations
+    pydantic_model: pydantic/performance_interpretation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
+
 relationships:
 - id: dea:composes
   name: Composes
@@ -3759,7 +3840,7 @@ relationships:
   - enables
 - id: dea:constrains
   name: Constrains
-  definition: The source limits the permissible design or behaviour space of the target.
+  definition: The source limits the permissible design or behaviour space of the target. CR-MET-006 extended source types with dea:Threshold (a Threshold constrains a Metric); extended target types with dea:PerformanceMetric.
   category: dependency
   direction: source-to-target
   source:
@@ -3769,6 +3850,7 @@ relationships:
     - dea:Guardrail
     - dea:Regulation
     - dea:Requirement
+    - dea:Threshold
   target:
     types:
     - dea:ApplicationComponent
@@ -3777,6 +3859,7 @@ relationships:
     - dea:BusinessService
     - dea:SolutionComponent
     - dea:Technology
+    - dea:PerformanceMetric
   cardinality:
     source: 0..*
     target: 0..*
@@ -4769,7 +4852,7 @@ relationships:
   lifecycle: proposed
 - id: dea:benchmarked-against
   name: Benchmarked Against
-  definition: "The source is compared against the target reference, standard, or peer. Extended by CR-5 §28: AssessmentResult vs BenchmarkReference (a benchmark is never a result, A011)."
+  definition: "The source is compared against the target reference, standard, or peer. Extended by CR-5 section 28 (AssessmentResult vs BenchmarkReference; a benchmark is never a result, A011). CR-MET-006 extended source types with dea:PerformanceMetric (a Metric is benchmarked against a BenchmarkReference)."
   category: assessment
   direction: source-to-target
   source:
@@ -4779,6 +4862,7 @@ relationships:
     - dea:BusinessProcess
     - dea:BusinessService
     - dea:Technology
+    - dea:PerformanceMetric
   target:
     types:
     - dea:BenchmarkReference
@@ -6326,3 +6410,112 @@ relationships:
   provenance: optional
   status: normative
   lifecycle: active
+
+- id: dea:references
+  name: References
+  definition: "The source references the target as a semantic anchor. CR-MET-006 binding: Baseline references the PerformanceMetric it is a Baseline FOR. Cardinality 1 (a Baseline is a reference value of exactly one Metric)."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+      - dea:Baseline
+  target:
+    types:
+      - dea:PerformanceMetric
+  cardinality:
+    source: "1"
+    target: "1"
+  inverse: dea:referenced-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:applies-subject
+  name: Applies Subject
+  definition: "The source applies to / concerns the target subject. CR-MET-006 binding: Baseline and PerformanceTarget apply to AssessmentSubject or Entity."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+      - dea:Baseline
+      - dea:PerformanceTarget
+  target:
+    types:
+      - dea:Entity
+      - dea:AssessmentSubject
+  cardinality:
+    source: 0..*
+    target: "1"
+  inverse: dea:subject-applied-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:specifies-target
+  name: Specifies Target
+  definition: "The PerformanceTarget specifies a desired target value for the PerformanceMetric. CR-MET-006 binding: cardinality 1 (a PerformanceTarget specifies exactly one Metric)."
+  category: structural
+  direction: source-to-target
+  source:
+    types:
+      - dea:PerformanceTarget
+  target:
+    types:
+      - dea:PerformanceMetric
+  cardinality:
+    source: "1"
+    target: "1"
+  inverse: dea:has-target-specification
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:interprets
+  name: Interprets
+  definition: "The PerformanceInterpretation interprets the target Observation under defined criteria. CR-MET-006 binding: distinct from dea:assesses (assessment-side scoring); PerformanceInterpretation carries judgment of a measurement observation. Cardinality source 1..1 (an interpretation is one judgment); target 0..* (an observation MAY be interpreted multiple times)."
+  category: assessment
+  direction: source-to-target
+  source:
+    types:
+      - dea:PerformanceInterpretation
+  target:
+    types:
+      - dea:MeasurementObservation
+      - dea:Observation
+  cardinality:
+    source: "1"
+    target: 0..*
+  inverse: dea:interpreted-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+- id: dea:has-target
+  name: Has Target
+  definition: "The StrategicObjective is supported by the PerformanceTarget. CR-MET-006 binding: a StrategicObjective MAY have multiple PerformanceTargets (one per scope/period)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+      - dea:StrategicObjective
+  target:
+    types:
+      - dea:PerformanceTarget
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:supports-objective
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed

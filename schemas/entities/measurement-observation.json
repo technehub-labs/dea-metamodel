@@ -47,7 +47,12 @@
         "planned",
         "active",
         "deprecated",
-        "retired"
+        "retired",
+        "under_review",
+        "approved",
+        "published",
+        "under_revision",
+        "suspended"
       ]
     },
     "produced_by": {

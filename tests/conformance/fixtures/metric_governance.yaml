@@ -1,0 +1,344 @@
+# CR-MET-010 fixture: Metric governance conformance records.
+# Exercises the three conformance levels (CR-MET-010 section 7), the ten quality
+# dimensions (section 6), the eight governance roles (section 4), the four governance
+# objects (Q16a), and the semantic-change assessment process (section 8).
+---
+# Fully conformant Metric: passes Levels 1, 2, and 3.
+metrics:
+- id: dea:metric-governed-net-revenue-yield
+  name: Governed Net Revenue Yield
+  type: Metric
+  version: 2.1.0
+  subject_concept: dea:subject-revenue-yield
+  measurement_nature: numeric
+  subject_classification: [dea:subject-financial]
+  purpose_classification: [outcome_measurement]
+  orientation_classification: [lagging]
+  scope_classification: [enterprise]
+  directionality: higher_is_better
+  unit: dea:unit-ratio-percent
+  lifecycle_status: active
+  governance:
+    governance_object: definition
+    metric_owner_ref: dea:actor-cfo
+    metric_steward_ref: dea:actor-performance-analytics-lead
+    measurement_owner_ref: dea:actor-finops-lead
+    data_owner_ref: dea:actor-data-owner-customer-360
+    indicator_owner_ref: dea:actor-ceo
+    governance_authority_ref: dea:actor-board-audit-committee
+    metamodel_authority_ref: dea:actor-metamodel-council
+    approval_status: approved
+    approved_by_ref: dea:actor-board-audit-committee
+    approved_at: "2026-01-15"
+  quality_dimensions:
+  - dimension: semantic_clarity
+    verdict: adequate
+    rationale: The definition states the numerator and denominator explicitly.
+    assessed_by_ref: dea:actor-performance-analytics-lead
+    assessed_at: "2026-01-15"
+  - dimension: completeness
+    verdict: adequate
+    rationale: All binding attributes are present.
+    assessed_by_ref: dea:actor-performance-analytics-lead
+    assessed_at: "2026-01-15"
+  - dimension: consistency
+    verdict: adequate
+    rationale: No duplicate definition exists in the catalog.
+    assessed_by_ref: dea:actor-metamodel-council
+    assessed_at: "2026-01-15"
+  - dimension: validity
+    verdict: adequate
+    rationale: The ratio is dimensionless and bounded 0 to 100.
+    assessed_by_ref: dea:actor-finops-lead
+    assessed_at: "2026-01-15"
+  - dimension: accuracy
+    verdict: adequate
+    rationale: The measurement reflects the intended financial subject.
+    assessed_by_ref: dea:actor-finops-lead
+    assessed_at: "2026-01-15"
+  - dimension: timeliness
+    verdict: adequate
+    rationale: Reported quarterly within 30 days of period end.
+    assessed_by_ref: dea:actor-data-owner-customer-360
+    assessed_at: "2026-01-15"
+  - dimension: reliability
+    verdict: adequate
+    rationale: The calculation is reproducible from the documented inputs.
+    assessed_by_ref: dea:actor-performance-analytics-lead
+    assessed_at: "2026-01-15"
+  - dimension: comparability
+    verdict: adequate
+    rationale: Restated on segment reclassification.
+    assessed_by_ref: dea:actor-metamodel-council
+    assessed_at: "2026-01-15"
+  - dimension: traceability
+    verdict: adequate
+    rationale: Source lineage and formula version are recorded.
+    assessed_by_ref: dea:actor-data-owner-customer-360
+    assessed_at: "2026-01-15"
+  - dimension: governance
+    verdict: adequate
+    rationale: Owner, steward, and approval are established.
+    assessed_by_ref: dea:actor-board-audit-committee
+    assessed_at: "2026-01-15"
+  conformance:
+    structural:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-01-15"
+    semantic:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-01-15"
+    governance:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-01-15"
+
+- id: dea:metric-governed-process-throughput
+  name: Governed Process Throughput
+  type: Metric
+  version: 1.0.0
+  subject_concept: dea:subject-throughput
+  measurement_nature: numeric
+  subject_classification: [dea:subject-operational]
+  purpose_classification: [efficiency_measurement]
+  orientation_classification: [diagnostic]
+  scope_classification: [process]
+  directionality: higher_is_better
+  unit: dea:unit-count-per-period
+  lifecycle_status: published
+  governance:
+    governance_object: measurement
+    measurement_owner_ref: dea:actor-operations-director
+    data_owner_ref: dea:actor-data-owner-process-telemetry
+    governance_authority_ref: dea:actor-board-audit-committee
+    metamodel_authority_ref: dea:actor-metamodel-council
+    approval_status: approved
+    approved_by_ref: dea:actor-operations-director
+    approved_at: "2026-02-01"
+  quality_dimensions:
+  - dimension: semantic_clarity
+    verdict: adequate
+    rationale: The counted unit is unambiguous.
+    assessed_by_ref: dea:actor-operations-director
+    assessed_at: "2026-02-01"
+  - dimension: completeness
+    verdict: needs_improvement
+    rationale: The steward role is not yet assigned.
+    assessed_by_ref: dea:actor-operations-director
+    assessed_at: "2026-02-01"
+  - dimension: governance
+    verdict: needs_improvement
+    rationale: The indicator owner is not yet assigned.
+    assessed_by_ref: dea:actor-operations-director
+    assessed_at: "2026-02-01"
+  conformance:
+    structural:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-02-01"
+    semantic:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-02-01"
+    governance:
+      verdict: non_conformant
+      findings:
+      - Missing metric_owner_ref
+      - Missing metric_steward_ref
+      - Missing indicator_owner_ref
+      assessed_at: "2026-02-01"
+
+- id: dea:metric-governed-incident-recovery
+  name: Governed Incident Recovery Time
+  type: Metric
+  version: 1.0.0
+  subject_concept: dea:subject-recovery-time
+  measurement_nature: numeric
+  subject_classification: [dea:subject-technology]
+  purpose_classification: [diagnostic_measurement]
+  orientation_classification: [lagging]
+  scope_classification: [system_or_component]
+  directionality: lower_is_better
+  unit: dea:unit-minute
+  lifecycle_status: under_revision
+  governance:
+    governance_object: observation
+    metric_owner_ref: dea:actor-head-of-engineering
+    metric_steward_ref: dea:actor-sre-lead
+    measurement_owner_ref: dea:actor-sre-lead
+    data_owner_ref: dea:actor-data-owner-incident-telemetry
+    indicator_owner_ref: dea:actor-cto
+    governance_authority_ref: dea:actor-board-audit-committee
+    metamodel_authority_ref: dea:actor-metamodel-council
+    approval_status: approved
+    approved_by_ref: dea:actor-cto
+    approved_at: "2026-03-10"
+  quality_dimensions:
+  - dimension: semantic_clarity
+    verdict: adequate
+    rationale: The recovery window is stated explicitly.
+    assessed_by_ref: dea:actor-sre-lead
+    assessed_at: "2026-03-10"
+  - dimension: accuracy
+    verdict: inadequate
+    rationale: Detection latency is excluded from the recovery window.
+    assessed_by_ref: dea:actor-sre-lead
+    assessed_at: "2026-03-10"
+  - dimension: governance
+    verdict: needs_improvement
+    rationale: The revision is not yet approved.
+    assessed_by_ref: dea:actor-cto
+    assessed_at: "2026-03-10"
+  conformance:
+    structural:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-03-10"
+    semantic:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-03-10"
+    governance:
+      verdict: non_conformant
+      findings:
+      - Lifecycle is under_revision without a superseding approved version
+      assessed_at: "2026-03-10"
+
+- id: dea:metric-governed-deprecated-completion-rate
+  name: Governed Deprecated Completion Rate
+  type: Metric
+  version: 1.0.0
+  subject_concept: dea:subject-completion
+  measurement_nature: numeric
+  subject_classification: [dea:subject-operational]
+  purpose_classification: [performance_measurement]
+  orientation_classification: [lagging]
+  scope_classification: [business_unit]
+  directionality: higher_is_better
+  unit: dea:unit-ratio-percent
+  lifecycle_status: deprecated
+  governance:
+    governance_object: definition
+    metric_owner_ref: dea:actor-pmo-lead
+    metric_steward_ref: dea:actor-performance-analytics-lead
+    governance_authority_ref: dea:actor-board-audit-committee
+    metamodel_authority_ref: dea:actor-metamodel-council
+    approval_status: approved
+    approved_by_ref: dea:actor-pmo-lead
+    approved_at: "2025-06-01"
+  quality_dimensions:
+  - dimension: governance
+    verdict: adequate
+    rationale: The Metric is deprecated but retained for historical Observations.
+    assessed_by_ref: dea:actor-pmo-lead
+    assessed_at: "2025-06-01"
+  conformance:
+    structural:
+      verdict: conformant
+      findings: []
+      assessed_at: "2025-06-01"
+    semantic:
+      verdict: conformant
+      findings: []
+      assessed_at: "2025-06-01"
+    governance:
+      verdict: conformant
+      findings: []
+      assessed_at: "2025-06-01"
+
+- id: dea:metric-governed-suspended-adoption
+  name: Governed Suspended Adoption Rate
+  type: Metric
+  version: 0.9.0
+  subject_concept: dea:subject-adoption
+  measurement_nature: numeric
+  subject_classification: [dea:subject-operational]
+  purpose_classification: [effectiveness_measurement]
+  orientation_classification: [leading]
+  scope_classification: [enterprise]
+  directionality: higher_is_better
+  unit: dea:unit-ratio-percent
+  lifecycle_status: suspended
+  governance:
+    governance_object: indicator
+    metric_owner_ref: dea:actor-change-adoption-lead
+    metric_steward_ref: dea:actor-performance-analytics-lead
+    indicator_owner_ref: dea:actor-ccio
+    governance_authority_ref: dea:actor-board-audit-committee
+    metamodel_authority_ref: dea:actor-metamodel-council
+    approval_status: approved_with_conditions
+    approved_by_ref: dea:actor-ccio
+    approved_at: "2026-04-05"
+  quality_dimensions:
+  - dimension: timeliness
+    verdict: needs_improvement
+    rationale: Reporting is paused pending source remediation.
+    assessed_by_ref: dea:actor-change-adoption-lead
+    assessed_at: "2026-04-05"
+  conformance:
+    structural:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-04-05"
+    semantic:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-04-05"
+    governance:
+      verdict: conformant
+      findings: []
+      assessed_at: "2026-04-05"
+
+# CR-MET-010 section 8: the semantic-change assessment process. Each entry records
+# the changed attribute, the severity classification, and the disposition.
+changes:
+- metric_ref: dea:metric-governed-net-revenue-yield
+  changed_attribute: description
+  from_value: Net revenue divided by total revenue.
+  to_value: Net revenue divided by total revenue, excluding pass-through.
+  change_severity: cosmetic
+  semantic_change_disposition: revise_in_place
+  new_identity_required: false
+  rationale: Wording clarification; the calculation is unchanged.
+
+- metric_ref: dea:metric-governed-net-revenue-yield
+  changed_attribute: unit_ref
+  from_value: dea:unit-ratio-percent
+  to_value: dea:unit-ratio
+  change_severity: substantive
+  semantic_change_disposition: new_version
+  new_identity_required: false
+  rationale: The output scale changed; a minor version bump is required.
+
+- metric_ref: dea:metric-governed-process-throughput
+  changed_attribute: subject_concept
+  from_value: dea:subject-throughput
+  to_value: dea:subject-cycle-time
+  change_severity: semantic_breaking
+  semantic_change_disposition: new_identity
+  new_identity_required: true
+  rationale: >
+    The measured phenomenon changed; representing this as a version bump would
+    disguise a semantic break behind a cosmetic update (CR-MET-010 section 8).
+
+- metric_ref: dea:metric-governed-incident-recovery
+  changed_attribute: formula_definition.expression
+  from_value: MTTR = (sum_i RecoveryTime_i) / n
+  to_value: MTTR = (sum_i RecoveryTime_i) / n; detection latency excluded
+  change_severity: substantive
+  semantic_change_disposition: deprecate
+  new_identity_required: true
+  rationale: >
+    The prior definition is deprecated and a replacement Metric identity carries the
+    corrected window; historical Observations retain their original context.
+
+- metric_ref: dea:metric-governed-deprecated-completion-rate
+  changed_attribute: lifecycle_status
+  from_value: active
+  to_value: retired
+  change_severity: cosmetic
+  semantic_change_disposition: replace
+  new_identity_required: false
+  rationale: A replacement relationship points at the successor Metric.

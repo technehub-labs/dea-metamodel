@@ -3444,6 +3444,26 @@ entities:
   membership:
     kind: profile
     profile: dea:assessment
+- id: dea:IndicatorDesignation
+  name: Indicator Designation
+  legacy_ids: []
+  definition: "A governed management designation applied to a PerformanceMetric (CR-MET-008 binding). Carries designation_type (KPI, KRI, KCI, SLI, Operational), measurement_orientation (leading, lagging, neutral), management_purpose, associated_objective_ref, organizational_scope, accountable_owner_ref, reporting_frequency, target_reference, threshold_reference, escalation_rules, effective_period, approval_status. The Metric identity is preserved across designations (EGV-004). One Metric may carry multiple designations (e.g. KPI Lagging and KRI Leading) for different management purposes without fragmenting the underlying measurement definition."
+  layer: null
+  dimension: measurement-dimension
+  building_block: null
+  abstract: false
+  status: normative
+  lifecycle: proposed
+  class_alias: null
+  catalog_repo: null
+  artifacts:
+    json_schema: schemas/entities/indicator-designation.json
+    sqlite_table: indicator_designations
+    pydantic_model: pydantic/indicator_designation.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:assessment
 
 relationships:
 - id: dea:composes
@@ -6532,6 +6552,28 @@ relationships:
     source: 0..*
     target: 0..*
   inverse: dea:supports-objective
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: proposed
+
+- id: dea:has-designation
+  name: Has Designation
+  definition: "The PerformanceMetric has the IndicatorDesignation as a governed management designation. CR-MET-008 binding: cardinality source 0..* (a Metric may carry any number of designations), target 1 (each designation applies to exactly one Metric). The Metric identity is preserved; the designation adds management context without altering measurement identity (EGV-004)."
+  category: governance
+  direction: source-to-target
+  source:
+    types:
+      - dea:PerformanceMetric
+  target:
+    types:
+      - dea:IndicatorDesignation
+  cardinality:
+    source: 0..*
+    target: "1"
+  inverse: dea:designates
   transitive: false
   symmetric: false
   temporal: true

@@ -74,6 +74,7 @@
         "from-state",
         "governs",
         "grants",
+        "has-designation",
         "has-oversight",
         "has-skill",
         "has-target",

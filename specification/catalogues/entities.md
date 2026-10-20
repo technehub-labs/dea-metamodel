@@ -1,6 +1,6 @@
 # OpenDEA Concept Catalogue (generated)
 
-Version 1.0.0; 157 concepts. Source: `metamodel/dea-metamodel.yaml`.
+Version 1.0.0; 158 concepts. Source: `metamodel/dea-metamodel.yaml`.
 
 | Concept | Category | Abstract | Definition |
 |---|---|---|---|
@@ -161,3 +161,4 @@ Version 1.0.0; 157 concepts. Source: `metamodel/dea-metamodel.yaml`.
 | `dea:PerformanceTarget` | dea:assessment | no | A value-level desired measurement result (CR-MET-006 binding). Sibling of dea:AssessmentTarget (maturity-level, CR-5 section 21); the two target types coexist and neither subsumes the other. PerformanceTarget carries target_value or target_range, target_direction, effective_period, owner_ref, associated_objective_ref, approval_status, supporting_rationale. |
 | `dea:Threshold` | dea:assessment | no | A directional boundary used to classify or trigger an evaluation (CR-MET-006 binding). 4 directional models (higher_is_better, lower_is_better, bounded_optimum, exact_match) and 4 levels (critical, warning, acceptable, optimal) per user-supplied section 6. A Metric MAY have multiple Thresholds (one per level); the threshold_level discriminator distinguishes them. |
 | `dea:PerformanceInterpretation` | dea:assessment | no | The meaning assigned to a result under defined criteria (CR-MET-006 binding). Carries interpretation_kind (variance_evaluation, threshold_evaluation, benchmark_evaluation, composite_judgment), interpretation_state (exceeds_target, meets_target, within_tolerance, warning, critical, unknown), reference_used, absolute_variance, relative_variance, narrative. Sibling of dea:AssessmentResult (which carries score); PerformanceInterpretation carries judgment. CR-MET-006 binding disposition: Variance itself is a derived view (no entity); PerformanceInterpretation is the auditable record of how the variance/threshold/benchmark was interpreted. |
+| `dea:IndicatorDesignation` | dea:assessment | no | A governed management designation applied to a PerformanceMetric (CR-MET-008 binding). Carries designation_type (KPI, KRI, KCI, SLI, Operational), measurement_orientation (leading, lagging, neutral), management_purpose, associated_objective_ref, organizational_scope, accountable_owner_ref, reporting_frequency, target_reference, threshold_reference, escalation_rules, effective_period, approval_status. The Metric identity is preserved across designations (EGV-004). One Metric may carry multiple designations (e.g. KPI Lagging and KRI Leading) for different management purposes without fragmenting the underlying measurement definition. |

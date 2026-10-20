@@ -1,0 +1,181 @@
+# CR-MET-008 representative indicator-designation fixtures.
+# 8 designations demonstrating the 5 designation_types + the cross-cutting
+# measurement_orientation + the same-Metric-multiple-designations pattern.
+# Consumed by tests/conformance/test_028_indicator_designations.py.
+version: 1.0.0
+designations:
+
+  # 1. KPI Lagging designation on Customer Retention Rate metric
+  #    User-supplied section 6: KPI requires objective + owner + reporting + interpretation.
+  - id: dea:designation-customer-retention-kpi-lagging
+    name: Customer Retention Rate - KPI Lagging
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: KPI
+    measurement_orientation: lagging
+    associated_metric_ref: dea:metric-customer-retention-rate
+    management_purpose: >
+      Quarterly executive review of customer retention performance.
+      Lagging because it reports realized historical conditions.
+    associated_objective_ref: dea:strategic-objective-retail-growth
+    organizational_scope:
+      - business_unit:retail
+    accountable_owner_ref: dea:actor-retail-vp
+    reporting_frequency: quarterly
+    target_reference: dea:performance-target-retention-band-2025
+    threshold_reference: dea:threshold-retention-target
+    escalation_rules:
+      - dea:escalation-rule-quarterly-review
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 2. KRI Leading designation on the SAME Metric (Customer Retention Rate)
+  #    Demonstrates the same-Metric-multiple-designations pattern.
+  #    User-supplied section 7: KRI requires risk association, escalation, owner.
+  - id: dea:designation-customer-retention-kri-leading
+    name: Customer Retention Rate - KRI Leading
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: KRI
+    measurement_orientation: leading
+    associated_metric_ref: dea:metric-customer-retention-rate
+    management_purpose: >
+      Early-warning risk monitoring of customer retention as a leading
+      indicator of churn risk exposure. Leading because the
+      quarterly retention rate predicts the next quarter's risk
+      exposure before realized losses.
+    associated_objective_ref: dea:risk-customer-churn
+    organizational_scope:
+      - business_unit:retail
+    accountable_owner_ref: dea:actor-risk-officer
+    reporting_frequency: monthly
+    threshold_reference: dea:threshold-retention-target
+    escalation_rules:
+      - dea:escalation-rule-churn-risk-warning
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 3. KCI designation on Control Effectiveness metric
+  #    User-supplied section 8: KCI requires control association, evidence, owner.
+  - id: dea:designation-control-effectiveness-kci
+    name: Control Effectiveness - KCI
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: KCI
+    measurement_orientation: lagging
+    associated_metric_ref: dea:metric-control-effectiveness
+    management_purpose: >
+      Evaluating the Segregation of Duties control operation and
+      effectiveness. Lagging because it reports realized control
+      execution outcomes.
+    associated_objective_ref: dea:control-segregation-of-duties
+    organizational_scope: enterprise
+    accountable_owner_ref: dea:actor-compliance-officer
+    reporting_frequency: monthly
+    target_reference: dea:performance-target-control-effectiveness-2025
+    threshold_reference: dea:threshold-control-effectiveness-warning
+    escalation_rules:
+      - dea:escalation-rule-control-failure
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 4. SLI designation on System Availability metric
+  - id: dea:designation-system-availability-sli
+    name: System Availability - SLI
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: SLI
+    measurement_orientation: neutral
+    associated_metric_ref: dea:metric-system-availability
+    management_purpose: >
+      Service-Level Indicator for the Payment Processing service.
+      Quantifies the service characteristic for SLO compliance.
+    associated_objective_ref: dea:service-level-agreement-payment-processing
+    organizational_scope:
+      - enterprise
+      - capability:payment_processing
+    accountable_owner_ref: dea:actor-sre-team
+    reporting_frequency: real_time
+    target_reference: dea:performance-target-availability-2025
+    threshold_reference: dea:threshold-availability-warning
+    escalation_rules:
+      - dea:escalation-rule-sli-violation
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 5. Operational Indicator on Incident Frequency metric
+  - id: dea:designation-incident-frequency-operational
+    name: Incident Frequency - Operational Indicator
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: Operational
+    measurement_orientation: neutral
+    associated_metric_ref: dea:metric-incident-frequency
+    management_purpose: >
+      Operational monitoring of incident frequency for daily
+      operations review. Not promoted to KPI/KRI/KCI; provides
+      operational visibility.
+    organizational_scope: enterprise
+    accountable_owner_ref: dea:actor-sre-team
+    reporting_frequency: daily
+    target_reference: dea:performance-target-incident-decrease-2025
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 6. Leading-only orientation designation (single-orientation, neutral designation)
+  - id: dea:designation-pipeline-coverage-leading
+    name: Pipeline Coverage - Leading Operational
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: Operational
+    measurement_orientation: leading
+    associated_metric_ref: dea:metric-pipeline-coverage
+    management_purpose: >
+      Leading-only measurement: pipeline coverage predicts future
+      revenue outcomes. Operational designation because not yet
+      promoted to executive KPI status.
+    organizational_scope:
+      - business_unit:retail
+    accountable_owner_ref: dea:actor-sales-director
+    reporting_frequency: weekly
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 7. Lagging-only orientation designation (historical reporting)
+  - id: dea:designation-revenue-recognition-lagging
+    name: Revenue Recognition - Lagging KPI
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: KPI
+    measurement_orientation: lagging
+    associated_metric_ref: dea:metric-revenue-recognition
+    management_purpose: >
+      Quarterly recognized revenue for financial reporting.
+      Lagging because it reports realized historical transactions.
+    associated_objective_ref: dea:strategic-objective-revenue-growth
+    organizational_scope: enterprise
+    accountable_owner_ref: dea:actor-cfo
+    reporting_frequency: quarterly
+    target_reference: dea:performance-target-revenue-2025
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved
+
+  # 8. KPI Leading combination (Customer Satisfaction as leading KPI for retention)
+  - id: dea:designation-customer-satisfaction-kpi-leading
+    name: Customer Satisfaction - KPI Leading
+    type: IndicatorDesignation
+    version: 1.0.0
+    designation_type: KPI
+    measurement_orientation: leading
+    associated_metric_ref: dea:metric-customer-satisfaction
+    management_purpose: >
+      Leading KPI: customer satisfaction in the current period
+      predicts retention in the next period. Quarterly cadence.
+    associated_objective_ref: dea:strategic-objective-retail-growth
+    organizational_scope:
+      - business_unit:retail
+    accountable_owner_ref: dea:actor-retail-vp
+    reporting_frequency: quarterly
+    target_reference: dea:performance-target-satisfaction-2025
+    effective_period: dea:temporal-interval-2025-fy
+    approval_status: approved

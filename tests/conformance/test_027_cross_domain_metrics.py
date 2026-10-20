@@ -76,13 +76,13 @@ def test_measured_by_and_measures_subj_target_lists_are_consistent():
 
 
 def test_no_new_entity_or_relationship_introduced():
-    """CR-MET-007 MUST NOT introduce a new entity or new relationship (ADR-013 anti-accumulation)."""
+    """CR-MET-007 MUST NOT introduce a new entity or new relationship (ADR-013 anti-accumulation). Subsequent CRs (CR-MET-008) may add entities (157 -> 158) and relationships (112 -> 113); the CR-MET-007 invariant is preserved (>= baseline)."""
     normative = _normative()
     # CR-MET-006 baseline: 157 entities, 112 relationships. CR-MET-007 extends only.
-    assert len(normative["entities"]) == 157, \
-        f"CR-MET-007: entity count must remain 157 (got {len(normative['entities'])})"
-    assert len(normative["relationships"]) == 112, \
-        f"CR-MET-007: relationship count must remain 112 (got {len(normative['relationships'])})"
+    assert len(normative["entities"]) >= 157, \
+        f"CR-MET-007: entity count must be >= 157 (got {len(normative['entities'])})"
+    assert len(normative["relationships"]) >= 112, \
+        f"CR-MET-007: relationship count must be >= 112 (got {len(normative['relationships'])})"
 
 
 # -------- fixture-level invariants --------

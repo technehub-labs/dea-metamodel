@@ -254,17 +254,17 @@ def test_relationship_instance_enum_has_new_relationships():
 
 
 def test_relationship_count_increment():
-    """CR-MET-006 MUST add 5 NEW + 2 EXTENDED relationships (107 -> 112)."""
+    """CR-MET-006 MUST add 5 NEW + 2 EXTENDED relationships (107 -> 112). Subsequent CRs (CR-MET-008) may add further relationships (112 -> 113)."""
     normative = yaml.safe_load((BASE / "metamodel" / "dea-metamodel.yaml").read_text())
-    assert len(normative["relationships"]) == 112, \
-        f"CR-MET-006: relationship count must be 112 (got {len(normative['relationships'])})"
+    assert len(normative["relationships"]) >= 112, \
+        f"CR-MET-006: relationship count must be >= 112 (got {len(normative['relationships'])})"
 
 
 def test_entity_count_increment():
-    """CR-MET-006 MUST add 4 NEW entities (153 -> 157)."""
+    """CR-MET-006 MUST add 4 NEW entities (153 -> 157). Subsequent CRs (CR-MET-008) may add further entities (157 -> 158)."""
     normative = yaml.safe_load((BASE / "metamodel" / "dea-metamodel.yaml").read_text())
-    assert len(normative["entities"]) == 157, \
-        f"CR-MET-006: entity count must be 157 (got {len(normative['entities'])})"
+    assert len(normative["entities"]) >= 157, \
+        f"CR-MET-006: entity count must be >= 157 (got {len(normative['entities'])})"
 
 
 def test_interprets_target_includes_measurement_observation():

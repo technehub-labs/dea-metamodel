@@ -1,6 +1,6 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 112 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 113 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
@@ -116,3 +116,4 @@ Version 1.0.0; 112 relationship types. Canonical direction is source-to-target (
 | `dea:specifies-target` | structural | `dea:has-target-specification` | yes | The PerformanceTarget specifies a desired target value for the PerformanceMetric. CR-MET-006 binding: cardinality 1 (a PerformanceTarget specifies exactly one Metric). |
 | `dea:interprets` | assessment | `dea:interpreted-by` | yes | The PerformanceInterpretation interprets the target Observation under defined criteria. CR-MET-006 binding: distinct from dea:assesses (assessment-side scoring); PerformanceInterpretation carries judgment of a measurement observation. Cardinality source 1..1 (an interpretation is one judgment); target 0..* (an observation MAY be interpreted multiple times). |
 | `dea:has-target` | governance | `dea:supports-objective` | yes | The StrategicObjective is supported by the PerformanceTarget. CR-MET-006 binding: a StrategicObjective MAY have multiple PerformanceTargets (one per scope/period). |
+| `dea:has-designation` | governance | `dea:designates` | yes | The PerformanceMetric has the IndicatorDesignation as a governed management designation. CR-MET-008 binding: cardinality source 0..* (a Metric may carry any number of designations), target 1 (each designation applies to exactly one Metric). The Metric identity is preserved; the designation adds management context without altering measurement identity (EGV-004). |

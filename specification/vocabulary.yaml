@@ -1503,3 +1503,16 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:IndicatorDesignation
+  name: Indicator Designation
+  canonical_name: IndicatorDesignation
+  definition: A governed management designation applied to a PerformanceMetric (CR-MET-008 binding). Carries designation_type
+    (KPI, KRI, KCI, SLI, Operational), measurement_orientation (leading, lagging, neutral), management_purpose, associated_objective_ref,
+    organizational_scope, accountable_owner_ref, reporting_frequency, target_reference, threshold_reference, escalation_rules,
+    effective_period, approval_status. The Metric identity is preserved across designations (EGV-004). One Metric may carry
+    multiple designations (e.g. KPI Lagging and KRI Leading) for different management purposes without fragmenting the underlying
+    measurement definition.
+  semantic_category: dea:assessment
+  abstract: false
+  status: normative
+  version: 1.0.0

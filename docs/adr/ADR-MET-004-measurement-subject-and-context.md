@@ -1,12 +1,22 @@
 # ADR-MET-004: Measurement subject and context via the existing `dea:measured-by` source extension
 
-- Status: Proposed
+- Status: Accepted (landed with CR-MET-007)
 - Date: 2026-10-18
 - Deciders: OpenDEA Metric capability programme
 - Programme: CR-MET-000..012
 - Source CR: CR-MET-007 (Metric-to-Enterprise Entity Relationships)
 - Supersedes: nothing
 - Referenced by: CR-MET-007, CR-MET-001, ADR-MET-009
+
+## Drift note
+
+This ADR as originally written names the design-time relationship
+`dea:applies-to`. The shipped implementation is `dea:applies-subject`,
+because pre-existing `applies_to` properties in `maturity-rule.json` and
+`policy-rule.json` collided with the bare name and violated E003. Decision
+items 2 and 8 below should be read with the substitution
+`dea:applies-to` -> `dea:applies-subject`. See ADR-MET-009 for the
+authoritative relationship-architecture decision.
 
 ## Context
 

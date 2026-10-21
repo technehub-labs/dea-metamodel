@@ -212,16 +212,48 @@ Six constraints do most of the work. Each is machine-checked.
 
 ---
 
-## 9. Known gaps
+## 9. Known gaps and viewer status
 
-Stated plainly rather than left to be discovered:
+### 9.1 Why none of the Metric entities appear in the viewer
 
-1. **`viewer/metamodel.svg` is stale.** It was last regenerated 2026-09-05, before this programme. It contains zero references to any Metric entity. `viewer/entity-graph.json` holds 54 entities against the canonical 163.
-2. **No entity carries the `measurement-dimension` tag** that CR-MET-000 assigned to `dea:PerformanceMetric`, while `visualization/profile/visualization.yaml` lists `measurement-dimension` as an overlay dimension. The overlay declares a dimension nothing populates.
-3. **No `dea:AnalyticalService` entity exists.** `dea:analyses-metric` records the semantic dependency; the service itself is properly a runtime and deployment concern.
-4. **Expression well-formedness is unchecked.** `Metric.formula_definition.expression` is a string. Nothing validates that it parses or matches its declared operators and inputs.
+**This is by design, not by breakage.** The viewer is generated from a different repository:
 
-Items 1 and 2 mean the visual map will not agree with this document until a regeneration pipeline exists.
+```
+dea-architecture-framework / model/opendeam-model.yaml   <- single source of truth
+    -> .github/scripts/generate_entity_graph.py           (in dea-metamodel)
+    -> viewer/entity-graph.json -> PUML -> metamodel.svg
+```
+
+`generate_entity_graph.py` reads entity **allocation** only from the pinned root model. `dea-metamodel` contributes the relationship crosswalk, the relationship registry, and membership stamping. It cannot introduce an entity to the viewer, and adding one here cannot make it appear there.
+
+The pipeline is fully built and wired. `opendeam-sync.yml` regenerates from the pinned tag; `render-metamodel.yml` validates, renders the SVG, injects interactivity attributes, and runs a cross-format validator. The SVG is not stale from a missed regeneration: it is current with its pin.
+
+Consequences:
+
+- None of the 13 Metric entities appear in the graph, because `v0.7.0` of the root model contains none of them. This requires an upstream CR in `dea-architecture-framework`, tracked as card **#559**.
+- Our pin is `v0.6.0` (54 allocation entities). Upstream `v0.7.0` has 58, adding four L5 information-system components (ISC, ISF, ISS, IF).
+- **The pin cannot currently be advanced.** Running the generator against `v0.7.0` hard-fails: `no crosswalk disposition for ('executed by', 'realization') -- R012`, exit 1. The crosswalk knows seven `rel_type` values; `v0.7.0` introduces three more (`contract`, `execution`, `serving`). R012 is a deliberate hard failure so an unknown label is never silently accepted. Tracked as card **#560**, which blocks #559.
+
+**Naming trap.** `viewer/entity-graph.schema.json` requires `entity_id` matching `^dea:entity-[a-z-]+$` (kebab-case). All 13 Metric entities use CamelCase, so none match. The root model uses kebab-case identifiers (for example `dea:entity-metric` for MTR) that map to canonical metamodel identifiers via `legacy_ids`. Attempting to push metamodel entities directly into `entity-graph.json` would fail schema validation, which is presumably why the boundary is clean.
+
+### 9.2 `measurement-dimension` is populated, on both sides
+
+An earlier draft of this section reported the `measurement-dimension` overlay as declared-but-unpopulated. **That was wrong, and is corrected here.** The claim came from querying the wrong key: the source uses `dimension` (singular), not `dimensions`, so the query returned nothing and a real population was read as an absence.
+
+The dimension is populated in **both** places:
+
+- `metamodel/dea-metamodel.yaml`: 39 entities carry `dimension: measurement-dimension`, including all 13 Metric-programme entities (`dea:PerformanceMetric`, `dea:Measurement`, `dea:MeasurementObservation`, `dea:Baseline`, `dea:PerformanceTarget`, `dea:Threshold`, `dea:PerformanceInterpretation`, `dea:IndicatorDesignation`, `dea:AnalyticalResult`, `dea:Correlation`, `dea:CausalHypothesis`, plus the inherited assessment lineage). `dea:Provenance` carries `provenance-dimension` and `dea:ReportingPeriod` carries `temporal-dimension`.
+- `viewer/entity-graph.json`: `dea:entity-metric` (MTR, Performance Metric) carries `dimension: measurement-dimension`, and `dea:entity-concept` (CON) carries `semantic-dimension`.
+
+Per ADR-0002 D1, measurement is deliberately an orthogonal dimension and not a layer. Both sides agree, and `visualization/profile/visualization.yaml` lists the dimension among the overlay dimensions that actually have members. **There is no defect here and nothing to fix.**
+
+This correction is worth recording for its own sake: two of the four "gaps" investigated in this document turned out to be artefacts of my own queries, not properties of the model. Checking a claim against the file that actually consumes it, and checking the key name it actually uses, is what caught both.
+
+### 9.3 Genuine open items
+
+1. **No `dea:AnalyticalService` entity.** `dea:analyses-metric` records the semantic dependency; the service itself is properly a runtime and deployment concern.
+2. **Expression well-formedness is unchecked.** `Metric.formula_definition.expression` is a string. Nothing validates that it parses or matches its declared operators and inputs.
+3. **Ten of the thirteen Metric entities have no `class_alias`**, while the viewer graph schema requires a string alias of at most five characters. Alias assignment is a prerequisite for the upstream allocation, not a cosmetic follow-up.
 
 ---
 

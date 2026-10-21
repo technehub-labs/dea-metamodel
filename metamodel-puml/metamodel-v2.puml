@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.6.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.7.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -232,11 +232,27 @@ package "Layer 5: Technology & Execution" #783C48 {
         + id : string
         + name : string
     }
+    entity "Integration Interface" as IF {
+        + id : string
+        + name : string
+    }
     entity "Infrastructure Component" as IFC {
         + id : string
         + name : string
     }
     entity "Integration Component" as IGC {
+        + id : string
+        + name : string
+    }
+    entity "Information System Component" as ISC {
+        + id : string
+        + name : string
+    }
+    entity "Information System Function" as ISF {
+        + id : string
+        + name : string
+    }
+    entity "Information System Service" as ISS {
         + id : string
         + name : string
     }
@@ -277,6 +293,7 @@ PHR --|> RES
 APC --|> SC
 IFC --|> SC
 IGC --|> SC
+ISC --|> SC
 
 ' --- RELATIONSHIPS (from graph; style derived from rel_type) ---
 SO .. II : "drives [1:0..N]"
@@ -349,7 +366,16 @@ IA .. DE : "contextualized from [0..N:1..N]"
 IA -- AC : "consumed by [0..N:0..N]"
 KA .. AC : "captured from [0..N:0..N]"
 KA .. TNT : "informs [0..N:0..N]"
+ISF -- ISC : "executed by [0..N:1..N]"
+ISC -- ISF : "executes [1:0..N]"
+ISC -- ISC : "composed of [1:0..N]"
+ISC -- ISS : "provides [1:0..N]"
+ISS -- IF : "exposed via [1:0..N]"
+API -- IF : "specifies [0..N:0..N]"
+ISS -- PS : "specializes (conditional per D-3) [0..N:0..N]"
+ISC -- APC : "specializes [0..N:0..N]"
+ISC -- IGC : "specializes [0..N:0..N]"
 
-' Generated 70 relationship edges, 7 specialization edges
+' Generated 79 relationship edges, 8 specialization edges
 
 @enduml

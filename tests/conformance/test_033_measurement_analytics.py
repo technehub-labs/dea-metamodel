@@ -226,6 +226,20 @@ def test_section6_hypothesis_records_counter_evidence_and_falsification():
             f"CR-MET-012 section 6: {h['id']} MUST declare how it would be refuted"
 
 
+def test_section6_counter_evidence_is_schema_level_required():
+    """The counter-evidence obligation is a schema requirement, not only a fixture convention.
+
+    Fixture-level assertions alone would pass even if the schema permitted a
+    hypothesis with no counter-evidence, leaving the rule unenforced for every
+    authoring surface outside the conformance fixture.
+    """
+    schema = _schema("causal-hypothesis")
+    assert "counter_evidence" in schema["required"], \
+        "CR-MET-012 section 6: counter_evidence must be required by the schema"
+    assert "falsification_test" in schema["required"], \
+        "CR-MET-012 section 6: falsification_test must be required by the schema"
+
+
 def test_section6_hypothesis_confidence_may_not_exceed_correlation_strength():
     """Confidence in a mechanism is bounded by the strength of the association observed
     for it. A 0.63 correlation cannot license a 0.9 causal confidence."""

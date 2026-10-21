@@ -2,7 +2,7 @@
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.6.0",
+  "opendeam_model_pin": "v0.7.0",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived). As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a known conformant adopter carries a `catalog_summary` field with the latest CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), latest_modified date, metamodel_version, and abbreviation; populated at build time from the cross-repo consumer (vendored at .github/scripts/cross_repo_consumer/).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -73,7 +73,7 @@
       "catalog_repo": null,
       "repo_url": null,
       "status": "planned",
-      "description": "Terms governing cooperation with an ecosystem actor — cooperative or mandated.",
+      "description": "Terms governing cooperation with an ecosystem actor:cooperative or mandated.",
       "layer": "L1",
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-agreements",
@@ -92,7 +92,7 @@
       "catalog_repo": null,
       "repo_url": null,
       "status": "planned",
-      "description": "External party that actively exchanges value with the enterprise — supplier, customer, regulator, partner.",
+      "description": "External party that actively exchanges value with the enterprise:supplier, customer, regulator, partner.",
       "layer": "L1",
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-external-parties",
@@ -164,7 +164,7 @@
       "catalog_repo": null,
       "repo_url": null,
       "status": "planned",
-      "description": "A flow of value between the enterprise and an ecosystem actor — information, goods, or funds; inbound or outbound.",
+      "description": "A flow of value between the enterprise and an ecosystem actor:information, goods, or funds; inbound or outbound.",
       "layer": "L1",
       "layer_name": "Ecosystem & Value Network",
       "building_block": "L1-value-flows",
@@ -207,7 +207,7 @@
       "building_block": "L2-reusable-knowledge",
       "building_block_name": "Patterns & Blueprints",
       "color": "#FBBF24",
-      "migration_note": "Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5) — now explicitly composed of Architecture Patterns rather than standing alone.",
+      "migration_note": "Renamed from Reference Model (RM) in v0.4.0 (ADR-0004 D5):now explicitly composed of Architecture Patterns rather than standing alone.",
       "membership": {
         "kind": "profile",
         "profile": "dea:digital"
@@ -256,14 +256,14 @@
       "catalog_repo": "dea-catalog-guardrails",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-guardrails",
       "status": "planned",
-      "description": "An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory | automated-warn | automated-block | platform-enforced) — modeling policy-as-code / platform-guardrail practice rather than a static compliance document someone checks against manually.\n",
+      "description": "An enforceable constraint on technology or solution choices. Carries an enforcement maturity level (advisory | automated-warn | automated-block | platform-enforced) : modeling policy-as-code / platform-guardrail practice rather than a static compliance document someone checks against manually.\n",
       "layer": "L2",
       "layer_name": "Strategic & Governance",
       "building_block": "L2-rules-guidance",
       "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24",
       "enforcement": "automated-block",
-      "migration_note": "Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4) — now governs Technology/Solution Component and implements Control, closing the gap where Technology claimed to be \"governed via Standards\" with no such relationship existing.",
+      "migration_note": "Renamed from Standard (STD) in v0.4.0 (ADR-0004 D4):now governs Technology/Solution Component and implements Control, closing the gap where Technology claimed to be \"governed via Standards\" with no such relationship existing.",
       "membership": {
         "kind": "profile",
         "profile": "dea:governance"
@@ -372,7 +372,7 @@
       "building_block": "L2-rules-guidance",
       "building_block_name": "Tenets & Guardrails",
       "color": "#FBBF24",
-      "migration_note": "Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3) — a non-binding belief that informs Guardrails, rather than a standalone documentation-catalog entry.",
+      "migration_note": "Renamed from Principle (PR) in v0.4.0 (ADR-0004 D3):a non-binding belief that informs Guardrails, rather than a standalone documentation-catalog entry.",
       "membership": {
         "kind": "profile",
         "profile": "dea:governance"
@@ -403,7 +403,7 @@
       "catalog_repo": "dea-catalog-actors",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-actors",
       "status": "scaffold",
-      "description": "A performer of enterprise processes — human, team, system, or AI agent.",
+      "description": "A performer of enterprise processes:human, team, system, or AI agent.",
       "layer": "L3",
       "layer_name": "Business Operating Model",
       "building_block": "L3-work-organization",
@@ -473,16 +473,16 @@
       ],
       "entity_role": "content",
       "catalog_summary": {
-        "entity_count": 2,
-        "canonical": 2,
+        "entity_count": 3723,
+        "canonical": 3722,
         "candidates": 0,
-        "retired": 0,
-        "research_files": 5,
-        "latest_modified": "2026-09-05",
+        "retired": 1,
+        "research_files": 339,
+        "latest_modified": "2026-10-21",
         "metamodel_version": "1.0.0",
         "abbreviation": "BP",
         "catalog_name": "Business Process",
-        "generated_at": "2026-09-05T12:59:30Z"
+        "generated_at": "2026-10-21T22:50:19Z"
       }
     },
     {
@@ -528,16 +528,16 @@
         "profile": null
       },
       "catalog_summary": {
-        "entity_count": 26,
-        "canonical": 26,
-        "candidates": 0,
+        "entity_count": 32,
+        "canonical": 0,
+        "candidates": 32,
         "retired": 0,
-        "research_files": 3,
-        "latest_modified": "2026-09-05",
+        "research_files": 2,
+        "latest_modified": "2026-10-14",
         "metamodel_version": "1.0.0",
         "abbreviation": "BC",
         "catalog_name": "Business Capability",
-        "generated_at": "2026-09-05T12:59:30Z"
+        "generated_at": "2026-10-21T22:50:19Z"
       }
     },
     {
@@ -859,7 +859,7 @@
       "catalog_repo": "dea-catalog-information-assets",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-information-assets",
       "status": "proposed",
-      "description": "Data given context and form for a specific consuming purpose (a report, dashboard, invoice) — distinct from the raw Data Entity it's contextualized from.",
+      "description": "Data given context and form for a specific consuming purpose (a report, dashboard, invoice):distinct from the raw Data Entity it's contextualized from.",
       "layer": "L4",
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-information-knowledge",
@@ -896,7 +896,7 @@
       "catalog_repo": "dea-catalog-knowledge-assets",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-knowledge-assets",
       "status": "proposed",
-      "description": "Applied know-how made explicit and durable, existing independent of any one Actor — distinct from Skill (L3), which an Actor personally possesses.",
+      "description": "Applied know-how made explicit and durable, existing independent of any one Actor:distinct from Skill (L3), which an Actor personally possesses.",
       "layer": "L4",
       "layer_name": "Digital & Intelligence",
       "building_block": "L4-information-knowledge",
@@ -984,6 +984,24 @@
       }
     },
     {
+      "entity_id": "dea:entity-integration-interface",
+      "class_alias": "IF",
+      "display_name": "Integration Interface",
+      "catalog_repo": "dea-catalog-information-system-integration-interfaces",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-information-system-integration-interfaces",
+      "status": "planned",
+      "description": "A defined interaction boundary between an information system (or one of its components) and one or more internal or external consumers or providers, specifying the means, protocols, interaction patterns and contractual constraints through which information or functionality is exchanged. CR-AR-FMWK-04; introduced in dea-metamodel CR-021 (D-4 disposition); distinct from dea:entity-api (the contract that may specify it). Class alias IF is used here to avoid collision with the existing Investment Initiative alias II.",
+      "layer": "L5",
+      "layer_name": "Technology & Execution",
+      "building_block": "L5-integration",
+      "building_block_name": "Integration",
+      "color": "#FB7185",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
+    },
+    {
       "entity_id": "dea:entity-infrastructure-component",
       "class_alias": "IFC",
       "display_name": "Infrastructure Component",
@@ -1018,6 +1036,61 @@
       "color": "#FB7185",
       "specializes": "SC",
       "discriminator": "component_type",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
+    },
+    {
+      "entity_id": "dea:entity-information-system-component",
+      "class_alias": "ISC",
+      "display_name": "Information System Component",
+      "catalog_repo": "dea-catalog-information-system-components",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-information-system-components",
+      "status": "planned",
+      "description": "An identifiable architectural constituent of an information system that encapsulates a defined responsibility, structure or execution boundary. CR-AR-FMWK-04; introduced in dea-metamodel CR-019 (D-2 disposition); abstract kind that ApplicationComponent and IntegrationComponent specialise. Specialises dea:entity-solution-component (the parent abstract kind per ADR-0002 D3).",
+      "layer": "L5",
+      "layer_name": "Technology & Execution",
+      "building_block": "L5-systems",
+      "building_block_name": "Systems & Applications",
+      "color": "#FB7185",
+      "specializes": "SC",
+      "discriminator": "component_type",
+      "membership": {
+        "kind": "profile",
+        "profile": "dea:digital"
+      }
+    },
+    {
+      "entity_id": "dea:entity-information-system-function",
+      "class_alias": "ISF",
+      "display_name": "Information System Function",
+      "catalog_repo": "dea-catalog-information-system-functions",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-information-system-functions",
+      "status": "planned",
+      "description": "A defined unit of functional behaviour performed by an information system or one of its components. CR-AR-FMWK-04 (OpenDEAM extension; post-CR-022 closure 2026-10-16); introduced in dea-metamodel CR-018 (D-1 disposition); supersedes dea:entity-system-function (the legacy SF identity retained for EGV-004 identity continuity).",
+      "layer": "L5",
+      "layer_name": "Technology & Execution",
+      "building_block": "L5-systems",
+      "building_block_name": "Systems & Applications",
+      "color": "#FB7185",
+      "measured_by": [
+        "MTR"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-information-system-service",
+      "class_alias": "ISS",
+      "display_name": "Information System Service",
+      "catalog_repo": "dea-catalog-information-system-services",
+      "repo_url": "https://github.com/technehub-labs/dea-catalog-information-system-services",
+      "status": "planned",
+      "description": "A service provided by an information system or a software platform to a consumer, expressed as a contract about the exchange of capability, functionality or data. CR-AR-FMWK-04; introduced in dea-metamodel CR-020 (D-3 disposition); specialises Core dea:entity-service. The dea:entity-platform-service conditional specialisation (D-3) is recorded in the metamodel canonical source. Note: OpenDEAM does not allocate Core entities; the specialisation to Core dea:entity-service is recorded in the metamodel only, not in the OpenDEAM allocation (matches the pattern for dea:entity-business-service and other Profile-level services).",
+      "layer": "L5",
+      "layer_name": "Technology & Execution",
+      "building_block": "L5-integration",
+      "building_block_name": "Integration",
+      "color": "#FB7185",
       "membership": {
         "kind": "profile",
         "profile": "dea:digital"
@@ -1088,7 +1161,7 @@
       "catalog_repo": "dea-catalog-concepts",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-concepts",
       "status": "proposed",
-      "description": "A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not a static glossary document. No longer allocated to a layer/building_block — belongs to orthogonal_allocators.semantic-dimension.\n",
+      "description": "A canonical, definable unit of meaning (business term or classification node) that other entities link to via defined_by. Merged from Glossary Term + Taxonomy Node in v0.4.0 (ADR-0004 D2); framed as a queryable concept graph, not a static glossary document. No longer allocated to a layer/building_block:belongs to orthogonal_allocators.semantic-dimension.\n",
       "dimension": "semantic-dimension",
       "color": "#9CA3AF",
       "scope_layers": [
@@ -1111,7 +1184,7 @@
       "catalog_repo": "dea-catalog-metrics",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-metrics",
       "status": "existing",
-      "description": "A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0 — belongs to orthogonal_allocators.measurement-dimension instead (ADR-0002 D1).\n",
+      "description": "A measured quantity used to evaluate outcomes against targets. MECE taxonomy: kpi | health | maturity | performance | adoption | compliance | risk. No longer allocated to a layer/building_block as of v0.2.0:belongs to orthogonal_allocators.measurement-dimension instead (ADR-0002 D1).\n",
       "dimension": "measurement-dimension",
       "color": "#9CA3AF",
       "scope_layers": [
@@ -1122,8 +1195,8 @@
         "L5"
       ],
       "membership": {
-        "kind": "profile",
-        "profile": "dea:assessment"
+        "kind": "core",
+        "profile": null
       }
     }
   ],
@@ -1941,9 +2014,207 @@
       "rel_ids": [
         "dea:informs"
       ]
+    },
+    {
+      "from": "ISF",
+      "to": "ISC",
+      "label": "executed by",
+      "rel_type": "realization",
+      "cardinality": "0..N:1..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:executes"
+      ],
+      "canonical_inverse": true
+    },
+    {
+      "from": "ISC",
+      "to": "ISF",
+      "label": "executes",
+      "rel_type": "execution",
+      "cardinality": "1:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:executes"
+      ]
+    },
+    {
+      "from": "ISC",
+      "to": "ISC",
+      "label": "composed of",
+      "rel_type": "composition",
+      "cardinality": "1:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:composes"
+      ],
+      "canonical_inverse": true
+    },
+    {
+      "from": "ISC",
+      "to": "ISS",
+      "label": "provides",
+      "rel_type": "serving",
+      "cardinality": "1:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:provides"
+      ]
+    },
+    {
+      "from": "ISS",
+      "to": "IF",
+      "label": "exposed via",
+      "rel_type": "serving",
+      "cardinality": "1:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:exposes"
+      ]
+    },
+    {
+      "from": "API",
+      "to": "IF",
+      "label": "specifies",
+      "rel_type": "contract",
+      "cardinality": "0..N:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:specifies"
+      ]
+    },
+    {
+      "from": "ISS",
+      "to": "PS",
+      "label": "specializes (conditional per D-3)",
+      "rel_type": "realization",
+      "cardinality": "0..N:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:specializes"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
+    },
+    {
+      "from": "ISC",
+      "to": "APC",
+      "label": "specializes",
+      "rel_type": "realization",
+      "cardinality": "0..N:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:specializes"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
+    },
+    {
+      "from": "ISC",
+      "to": "IGC",
+      "label": "specializes",
+      "rel_type": "realization",
+      "cardinality": "0..N:0..N",
+      "style": "solid",
+      "rel_ids": [
+        "dea:specializes"
+      ],
+      "canonical_inverse": true,
+      "disposition": "review-required"
     }
   ],
   "relationship_definitions": [
+    {
+      "id": "dea:has-provenance",
+      "name": "Has Provenance",
+      "definition": "The source carries the target as its provenance record, recording how the source came to exist (CR-MET-011 section 5). One Provenance per Observation: provenance is a 1:1 fact about a single result, not a shared reusable assertion.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1"
+      },
+      "inverse": "dea:has-provenance-inverse",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:corrects",
+      "name": "Corrects",
+      "definition": "The source is a corrected restatement of the target, which was found to be erroneous. Distinct from dea:supersedes (section 7, Q19a): a correction asserts the original was WRONG, whereas a supersession asserts a NEWER authoritative value exists for the same period. Both may target the same Observation. A correction MUST NOT silently overwrite the original value.",
+      "category": "traceability",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:corrected-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:applies-period",
+      "name": "Applies Period",
+      "definition": "The source reports on the target reporting period. Establishes the bounded interval a result represents, distinct from when the result was produced (the measurement time dimension) and when it was published (the publication time dimension). CR-MET-011 section 3: these are distinct facts and MUST NOT be collapsed into one timestamp.",
+      "category": "temporal",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1"
+      },
+      "inverse": "dea:applies-period-inverse",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:correlates",
+      "name": "Correlates",
+      "definition": "The source phenomenon is statistically associated with the target phenomenon, WITHOUT asserting causation (CR-MET-012 section 6, Q22c). Symmetric: correlation has no direction. A correlation does NOT establish a causal mechanism; a dea:CausalHypothesis asserts a mechanism that this relationship does not.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:correlates",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:tests-hypothesis",
+      "name": "Tests Hypothesis",
+      "definition": "The source Correlation is the evidence used to test the target Causal Hypothesis (CR-MET-012 section 6, Q22c). A hypothesis is a claim requiring validation; the correlation is the observation that may or may not support it. Testing a hypothesis with a correlation does not establish it: a strong correlation is not evidence of causation.",
+      "category": "information",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:tested-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:analyses-metric",
+      "name": "Analyses Metric",
+      "definition": "The source analytical service produced the target AnalyticalResult from the target Metric and its Observations as evidence (CR-MET-012 section 4). The analytical service is an architectural role realized by a runtime engine; the metamodel records the semantic dependency, not the engine.",
+      "category": "realization",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:analysed-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:informs-decision",
+      "name": "Informs Decision",
+      "definition": "The source AnalyticalResult was used as input to the target Decision (CR-MET-012 section 6). A Recommendation informs a Decision; it does not become one. The distinction is binding: an analytical output is a derived artifact, an authorized management choice is a governance act with an accountable authority.",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:informed-by",
+      "lifecycle": "proposed"
+    },
     {
       "id": "dea:composes",
       "name": "Composes",
@@ -2077,7 +2348,7 @@
     {
       "id": "dea:constrains",
       "name": "Constrains",
-      "definition": "The source limits the permissible design or behaviour space of the target.",
+      "definition": "The source limits the permissible design or behaviour space of the target. CR-MET-006 extended source types with dea:Threshold (a Threshold constrains a Metric); extended target types with dea:PerformanceMetric.",
       "category": "dependency",
       "direction": "source-to-target",
       "cardinality": {
@@ -2111,6 +2382,32 @@
         "target": "0..*"
       },
       "inverse": "dea:produced-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:applies-metric",
+      "name": "Applies Metric",
+      "definition": "The Measurement (source) applies the Metric definition (target) version. Cardinality 1:1; every Measurement applies exactly one Metric definition version. The reference MAY include the semantic version (e.g. dea:metric-customer-retention-rate@1.0.0).",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "1",
+        "target": "1"
+      },
+      "inverse": "dea:applied-by",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:measures-subject",
+      "name": "Measures Subject",
+      "definition": "The Measurement (source) targets the entity (target) that is being measured. Cardinality 1:1; every Measurement targets exactly one subject. The target list is the same as dea:measured-by's source list. CR-MET-003 declared the original 7-entity target list; CR-MET-007 extends it to 16 entity types (matching the extended dea:measured-by source list): AssessmentDimension, Control, DataEntity, MaturityModel, OrganizationalUnit, Policy, Risk, Service, ValueStream.",
+      "category": "flow",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "1",
+        "target": "1"
+      },
+      "inverse": "dea:measured-by",
       "lifecycle": "active"
     },
     {
@@ -2168,7 +2465,7 @@
     {
       "id": "dea:uses",
       "name": "Uses",
-      "definition": "The source consumes the target service or resource as offered (usage, not depletion — contrast consumes).",
+      "definition": "The source consumes the target service or resource as offered (usage, not depletion; contrast consumes).",
       "category": "serving",
       "direction": "source-to-target",
       "cardinality": {
@@ -2189,6 +2486,19 @@
         "target": "0..*"
       },
       "inverse": "dea:exposed-via",
+      "lifecycle": "active"
+    },
+    {
+      "id": "dea:specifies",
+      "name": "Specifies",
+      "definition": "A contract, specification, or formal definition that defines the interaction semantics of the target entity. Per CR-021 (D-4 disposition 2026-10-16; audit-then-specifies posture): the existing relationship vocabulary was audited in CR-021 §3.1 (covering dea:exposes, dea:uses, dea:provides, dea:serves, dea:realizes, dea:implements, dea:supports, dea:governs, dea:describes). No existing relationship has the exact semantic \"API contract specifies an interaction boundary\". This relationship is therefore introduced in CR-021 with the bounded source (dea:API) and target (dea:IntegrationInterface). Direction: source-to-target. Inverse: dea:specified-by. The relationship does not create, own, or execute the target; it formally defines the interaction contract that the target implements.",
+      "category": "contract",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:specified-by",
       "lifecycle": "active"
     },
     {
@@ -2285,7 +2595,7 @@
     {
       "id": "dea:owns",
       "name": "Owns",
-      "definition": "The source holds ownership of the target — accountability for its lifecycle and value.",
+      "definition": "The source holds ownership of the target; accountability for its lifecycle and value.",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -2350,7 +2660,7 @@
     {
       "id": "dea:informs",
       "name": "Informs",
-      "definition": "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence — section 17).",
+      "definition": "The source provides knowledge, evidence, or meaning that shapes the target (incl. semantic definition and weak influence; section 17).",
       "category": "information",
       "direction": "source-to-target",
       "cardinality": {
@@ -2441,7 +2751,7 @@
     {
       "id": "dea:measured-by",
       "name": "Measured By",
-      "definition": "The source's performance, health, or maturity is quantified by the target metric.",
+      "definition": "The source's performance, health, or maturity is quantified by the target metric. CR-MET-007 extended source types from 7 to 16 (added: AssessmentDimension, Control, DataEntity, MaturityModel, OrganizationalUnit, Policy, Risk, Service, ValueStream) covering user-supplied cross-domain integration domains (Strategy, Organization, Business architecture, Value architecture, Product and service, Information architecture, Technology architecture, Governance, Transformation, Maturity). Deferred entities that do not exist yet (Strategy, Initiative, Function, ValueStage, CustomerSegment, Journey, Experience, Product, ServiceOffering, InformationObject, InformationSystem, Infrastructure, TransformationInitiative) to future per-domain CRs.",
       "category": "assessment",
       "direction": "source-to-target",
       "cardinality": {
@@ -2467,7 +2777,7 @@
     {
       "id": "dea:benchmarked-against",
       "name": "Benchmarked Against",
-      "definition": "The source is compared against the target reference, standard, or peer. Extended by CR-5 §28: AssessmentResult vs BenchmarkReference (a benchmark is never a result, A011).",
+      "definition": "The source is compared against the target reference, standard, or peer. Extended by CR-5 section 28 (AssessmentResult vs BenchmarkReference; a benchmark is never a result, A011). CR-MET-006 extended source types with dea:PerformanceMetric (a Metric is benchmarked against a BenchmarkReference).",
       "category": "assessment",
       "direction": "source-to-target",
       "cardinality": {
@@ -2662,7 +2972,7 @@
     {
       "id": "dea:defines",
       "name": "Defines",
-      "definition": "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12) — dimensions, criteria, indicators, levels, scales and rules.",
+      "definition": "An AssessmentFramework or MaturityModel declares the target element as part of its methodology (CR-5 §5/§12); dimensions, criteria, indicators, levels, scales and rules.",
       "category": "assessment",
       "direction": "source-to-target",
       "cardinality": {
@@ -2701,7 +3011,7 @@
     {
       "id": "dea:evaluated-by",
       "name": "Evaluated By",
-      "definition": "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009) — arithmetic is never hard-coded into the ontology.",
+      "definition": "An AssessmentResult is produced under a declared AggregationRule or ScoringRule (CR-5 §26; A009); arithmetic is never hard-coded into the ontology.",
       "category": "assessment",
       "direction": "source-to-target",
       "cardinality": {
@@ -2805,7 +3115,7 @@
     {
       "id": "dea:contains",
       "name": "Contains",
-      "definition": "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state — not structural composition (contrast dea:composes).",
+      "definition": "An ArchitectureState, Snapshot or Scenario contains architecture elements as members (CR-6 §9/§26/§30). Membership in a state; not structural composition (contrast dea:composes).",
       "category": "structural",
       "direction": "source-to-target",
       "cardinality": {
@@ -2883,7 +3193,7 @@
     {
       "id": "dea:modifies",
       "name": "Modifies",
-      "definition": "A Change modifies an architecture element in place (CR-6 §15) — more specific than the broad dea:affects.",
+      "definition": "A Change modifies an architecture element in place (CR-6 §15); more specific than the broad dea:affects.",
       "category": "transformation",
       "direction": "source-to-target",
       "cardinality": {
@@ -2896,7 +3206,7 @@
     {
       "id": "dea:in-state",
       "name": "In State",
-      "definition": "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027 — never overwritten (T005).",
+      "definition": "The source entity is in the target LifecycleState over a temporal extent (CR-6 §7/§17). State history is preserved: Active 2024→2027, Retired effective 2027; never overwritten (T005).",
       "category": "temporal",
       "direction": "source-to-target",
       "cardinality": {
@@ -2909,7 +3219,7 @@
     {
       "id": "dea:records",
       "name": "Records",
-      "definition": "A LifecycleEvent records something that happened to the target entity (CR-6 §28) — the auditable lifecycle history of the architecture.",
+      "definition": "A LifecycleEvent records something that happened to the target entity (CR-6 §28); the auditable lifecycle history of the architecture.",
       "category": "temporal",
       "direction": "source-to-target",
       "cardinality": {
@@ -3000,7 +3310,7 @@
     {
       "id": "dea:constrained-by",
       "name": "Constrained By",
-      "definition": "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits — the two are not conflated (§9).",
+      "definition": "The source is limited or directed by a Policy, PolicyRule or Constraint (CR-7 §4/§9; G004/G008). Policy directs; Constraint limits; the two are not conflated (§9).",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3039,7 +3349,7 @@
     {
       "id": "dea:informed-by",
       "name": "Informed By",
-      "definition": "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002) — reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type.",
+      "definition": "A Decision or PolicyDecision is informed by Evidence (CR-7 §16; G002); reusing the CR-5 Evidence ontology (assessment, measure, observation, simulation, forecast, benchmark, judgement, agent analysis) rather than a separate DecisionEvidence type.",
       "category": "traceability",
       "direction": "source-to-target",
       "cardinality": {
@@ -3052,7 +3362,7 @@
     {
       "id": "dea:delegates",
       "name": "Delegates",
-      "definition": "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51) — the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005).",
+      "definition": "An Actor or GovernanceBody delegates to another Actor or Agent (CR-7 §19/§51); the delegation act; the Delegation entity carries scope, constraints, duration and revocation (G005).",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3117,7 +3427,7 @@
     {
       "id": "dea:consults",
       "name": "Consults",
-      "definition": "The source consults the target in a decision or action context (CR-7 §37) — the 'C' in RACI-style semantics without making RACI itself foundational.",
+      "definition": "The source consults the target in a decision or action context (CR-7 §37); the 'C' in RACI-style semantics without making RACI itself foundational.",
       "category": "traceability",
       "direction": "source-to-target",
       "cardinality": {
@@ -3130,7 +3440,7 @@
     {
       "id": "dea:mitigates",
       "name": "Mitigates",
-      "definition": "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk — mitigation is the control-bearing disposition.",
+      "definition": "A Decision, Control or Change mitigates a Risk (CR-7 §42; G012). Decisions may also create, accept or transfer risk; mitigation is the control-bearing disposition.",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3143,7 +3453,7 @@
     {
       "id": "dea:escalates-to",
       "name": "Escalates To",
-      "definition": "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011) — escalate or fail safely.",
+      "definition": "An Action, Agent or Escalation escalates to an Actor or GovernanceBody when authority, confidence or policy boundaries are exceeded (CR-7 §25/§43; G011); escalate or fail safely.",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3169,7 +3479,7 @@
     {
       "id": "dea:has-skill",
       "name": "Has Skill",
-      "definition": "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability — a skill may implement or contribute to one (G014).",
+      "definition": "An Agent possesses an AgentSkill (CR-7 §48/§50). AgentSkill ≠ BusinessCapability; a skill may implement or contribute to one (G014).",
       "category": "structural",
       "direction": "source-to-target",
       "cardinality": {
@@ -3221,7 +3531,7 @@
     {
       "id": "dea:permits",
       "name": "Permits",
-      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014) — the positive half of the agent action boundary.",
+      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission permits an Action, Tool use or Skill invocation (CR-7 §24; G009/G014); the positive half of the agent action boundary.",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3234,7 +3544,7 @@
     {
       "id": "dea:prohibits",
       "name": "Prohibits",
-      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24) — the negative half of the agent action boundary.",
+      "definition": "An AgentProfile, AutonomyPolicy or ToolPermission prohibits an Action, Tool use or Skill invocation (CR-7 §24); the negative half of the agent action boundary.",
       "category": "governance",
       "direction": "source-to-target",
       "cardinality": {
@@ -3273,7 +3583,7 @@
     {
       "id": "dea:accesses",
       "name": "Accesses",
-      "definition": "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33) — reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates.",
+      "definition": "An Agent accesses Information, knowledge assets or Memory (CR-7 §32/§33); reusing DEA information semantics rather than AgentKnowledge/AgentData duplicates.",
       "category": "serving",
       "direction": "source-to-target",
       "cardinality": {
@@ -3282,6 +3592,84 @@
       },
       "inverse": "dea:accessed-by",
       "lifecycle": "active"
+    },
+    {
+      "id": "dea:references",
+      "name": "References",
+      "definition": "The source references the target as a semantic anchor. CR-MET-006 binding: Baseline references the PerformanceMetric it is a Baseline FOR. Cardinality 1 (a Baseline is a reference value of exactly one Metric).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "1",
+        "target": "1"
+      },
+      "inverse": "dea:referenced-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:applies-subject",
+      "name": "Applies Subject",
+      "definition": "The source applies to or concerns the target subject. CR-MET-006 introduced this for Baseline and PerformanceTarget. CR-MET-007 extended source types with dea:PerformanceMetric (a Metric's design-time intended applicability to a subject, distinct from the runtime measurement via dea:measures-subject). Cardinality source 0..* (a Metric may declare applicability to multiple subjects), target 1 (each declaration targets exactly one subject). Relationship renamed from dea:applies-to to dea:applies-subject to avoid collision with pre-existing applies_to properties in maturity-rule.json and policy-rule.json.",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1"
+      },
+      "inverse": "dea:subject-applied-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:specifies-target",
+      "name": "Specifies Target",
+      "definition": "The PerformanceTarget specifies a desired target value for the PerformanceMetric. CR-MET-006 binding: cardinality 1 (a PerformanceTarget specifies exactly one Metric).",
+      "category": "structural",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "1",
+        "target": "1"
+      },
+      "inverse": "dea:has-target-specification",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:interprets",
+      "name": "Interprets",
+      "definition": "The PerformanceInterpretation interprets the target Observation under defined criteria. CR-MET-006 binding: distinct from dea:assesses (assessment-side scoring); PerformanceInterpretation carries judgment of a measurement observation. Cardinality source 1..1 (an interpretation is one judgment); target 0..* (an observation MAY be interpreted multiple times).",
+      "category": "assessment",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "1",
+        "target": "0..*"
+      },
+      "inverse": "dea:interpreted-by",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:has-target",
+      "name": "Has Target",
+      "definition": "The StrategicObjective is supported by the PerformanceTarget. CR-MET-006 binding: a StrategicObjective MAY have multiple PerformanceTargets (one per scope/period).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "0..*"
+      },
+      "inverse": "dea:supports-objective",
+      "lifecycle": "proposed"
+    },
+    {
+      "id": "dea:has-designation",
+      "name": "Has Designation",
+      "definition": "The PerformanceMetric has the IndicatorDesignation as a governed management designation. CR-MET-008 binding: cardinality source 0..* (a Metric may carry any number of designations), target 1 (each designation applies to exactly one Metric). The Metric identity is preserved; the designation adds management context without altering measurement identity (EGV-004).",
+      "category": "governance",
+      "direction": "source-to-target",
+      "cardinality": {
+        "source": "0..*",
+        "target": "1"
+      },
+      "inverse": "dea:designates",
+      "lifecycle": "proposed"
     }
   ]
 }

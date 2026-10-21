@@ -12,7 +12,7 @@ This script derives the T1 viewer graph deterministically from it:
                        home layer, e.g. MTR) carry `dimension` instead of
                        `layer`/`layer_name`/`building_block`
   - relationships[] <- model relationships, with `style` derived from
-                       `rel_type` (style is deprecated as of v0.2.0 —
+                       `rel_type` (style is deprecated as of v0.2.0;
                        viewers should render from rel_type)
 
 Usage:
@@ -46,7 +46,7 @@ _SCRIPTS_DIR = Path(__file__).resolve().parent
 if str(_SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS_DIR))
 
-# style is DEPRECATED (ADR-0002 D4) — derived from rel_type for T3
+# style is DEPRECATED (ADR-0002 D4); derived from rel_type for T3
 # back-compat only. Viewers should render from rel_type directly.
 STYLE_BY_REL_TYPE = {
     "realization": "solid",
@@ -56,11 +56,18 @@ STYLE_BY_REL_TYPE = {
     "dependency": "dashed",
     "governance": "dashed",
     "association": "dashed",
+    # OpenDEAM v0.7.0 (CR-AR-FMWK-04) added execution, serving, and contract to
+    # the rel_type vocabulary. All three are structural/functional facts about
+    # what a component IS and DOES, not policy or obligation, so they render
+    # solid alongside realization and composition.
+    "execution": "solid",
+    "serving": "solid",
+    "contract": "solid",
 }
 
 # Dimension entity -> orthogonal allocator id. The OpenDEAM model declares
 # the allocators but not which dimension entity backs each, so the mapping
-# is maintained here (v0.4.0: CON joins MTR — ADR-0004 D2).
+# is maintained here (v0.4.0: CON joins MTR, ADR-0004 D2).
 DIMENSION_ALLOCATOR = {
     "MTR": "measurement-dimension",
     "CON": "semantic-dimension",
@@ -70,7 +77,7 @@ DIMENSION_ALLOCATOR = {
 def darken(hex_color: str, factor: float = 0.45, bg: str = "#0d1117") -> str:
     """Blend a bright layer color toward the dark theme background.
 
-    Deterministic dark fill for PUML packages — replaces the hardcoded
+    Deterministic dark fill for PUML packages; replaces the hardcoded
     dark_palette that drifted from the model's authoritative colors.
     """
     c = hex_color.lstrip("#")
@@ -148,7 +155,7 @@ def main() -> int:
                 "color": l["color"],
             })
         else:
-            # OpenDEAM v0.4.0 (ADR-0004): two dimension entities — MTR backs
+            # OpenDEAM v0.4.0 (ADR-0004): two dimension entities; MTR backs
             # measurement-dimension, CON backs semantic-dimension. The model
             # does not declare the entity->allocator link, so it is kept here;
             # unknown dimension entities warn rather than silently mislabel.
@@ -185,7 +192,7 @@ def main() -> int:
             continue
         mapping = cw_by_key.get((r["label"], r["rel_type"]))
         if mapping is None:
-            print(f"ERROR: no crosswalk disposition for ({r['label']!r}, {r['rel_type']!r}) — R012",
+            print(f"ERROR: no crosswalk disposition for ({r['label']!r}, {r['rel_type']!r}); R012",
                   file=sys.stderr)
             return 1
         if mapping["status"] == "split":
@@ -305,7 +312,7 @@ def main() -> int:
         print(f"  catalog_summary: skipped ({type(exc).__name__}: {exc})")
 
     OUT.write_text(json.dumps(graph, indent=2, ensure_ascii=False) + "\n")
-    print(f"Wrote {OUT} — {len(graph_layers)} layers, {len(graph_dims)} dimensions, "
+    print(f"Wrote {OUT}: {len(graph_layers)} layers, {len(graph_dims)} dimensions, "
           f"{len(graph_entities)} entities, {len(graph_rels)} relationships (model v{version})")
     return 0
 

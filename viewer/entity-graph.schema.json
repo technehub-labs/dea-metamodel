@@ -139,7 +139,7 @@
           "from": { "type": "string", "maxLength": 5 },
           "to": { "type": "string", "maxLength": 5 },
           "label": { "type": "string" },
-          "rel_type": { "type": "string", "enum": ["realization", "composition", "aggregation", "dependency", "flow", "governance", "association"] },
+          "rel_type": { "type": "string", "enum": ["realization", "composition", "aggregation", "dependency", "flow", "governance", "association", "execution", "serving", "contract"] },
           "cardinality": { "type": "string", "pattern": "^(0\\.\\.1|1|0\\.\\.N|1\\.\\.N):(0\\.\\.1|1|0\\.\\.N|1\\.\\.N)$" },
           "style": { "type": "string", "enum": ["solid", "dashed"], "deprecated": true }
         }

@@ -1,4 +1,4 @@
-# Relationship Crosswalk (CR-2 §16) — every legacy relationship explicitly dispositioned
+# Relationship Crosswalk (CR-2 §16); every legacy relationship explicitly dispositioned
 crosswalk:
   version: 0.7.0
   description: 'CR-2C/CR-2G: disposition of every pre-0.7.0 relationship representation. No silent reinterpretation.'
@@ -66,7 +66,7 @@ crosswalk:
     proposed: dea:informs
     reverse: false
     status: review-required
-    notes: Concept defines BusinessCapability — semantic definition as information relation.
+    notes: Concept defines BusinessCapability; semantic definition as information relation.
   - current: deployed on
     rel_type: dependency
     proposed: dea:depends-on
@@ -174,7 +174,7 @@ crosswalk:
     proposed: dea:composes
     reverse: true
     status: review-required
-    notes: SystemFunction hosted by ApplicationComponent — runtime containment (section 14).
+    notes: SystemFunction hosted by ApplicationComponent; runtime containment (section 14).
   - current: hosts
     rel_type: aggregation
     proposed: dea:aggregates
@@ -327,6 +327,48 @@ crosswalk:
     proposed: dea:triggers
     reverse: false
     status: accepted
+  - current: executes
+    rel_type: execution
+    proposed: dea:executes
+    reverse: false
+    status: accepted
+    notes: 'OpenDEAM v0.7.0 rel_type `execution` mirrors dea:executes (CR-019 D-2). ISC executes ISF.'
+  - current: executed by
+    rel_type: realization
+    proposed: dea:executes
+    reverse: true
+    status: accepted
+    notes: 'Inverse of the `executes`/execution entry. ISF is executed by ISC; dea:executes carries the reverse form.'
+  - current: exposed via
+    rel_type: serving
+    proposed: dea:exposes
+    reverse: false
+    status: accepted
+    notes: 'OpenDEAM v0.7.0 rel_type `serving` mirrors dea:exposes (CR-021 D-4). Distinct from the pre-existing realization entry carrying the same label.'
+  - current: provides
+    rel_type: serving
+    proposed: dea:provides
+    reverse: false
+    status: accepted
+    notes: 'OpenDEAM v0.7.0 rel_type `serving` mirrors dea:provides (CR-020 D-3). ISC provides ISS.'
+  - current: specializes
+    rel_type: realization
+    proposed: dea:specializes
+    reverse: true
+    status: review-required
+    notes: 'ISC is the abstract parent and APC and IGC are its children (CR-019 D-2), so the model edge is drawn parent-to-child while dea:specializes runs child-to-parent. Neither dea:ApplicationComponent nor dea:IntegrationComponent is admitted on either endpoint of dea:specializes, so no canonical disposition can be asserted yet. Requires a registry endpoint extension before this can become accepted.'
+  - current: specializes (conditional per D-3)
+    rel_type: realization
+    proposed: dea:specializes
+    reverse: true
+    status: review-required
+    notes: 'ISS specialises PlatformService only when the service is a genuine software-platform service (CR-020 D-3). dea:PlatformService is not admitted on either endpoint of dea:specializes, and the edge is conditional by construction, so no canonical disposition can be asserted until the registry admits the endpoint.'
+  - current: specifies
+    rel_type: contract
+    proposed: dea:specifies
+    reverse: false
+    status: accepted
+    notes: 'OpenDEAM v0.7.0 rel_type `contract` mirrors dea:specifies and the contract category (M) introduced by CR-021 D-4. API specifies IF.'
   instance_vocabulary_mappings:
   - current: maps-to
     proposed: dea:maps-to

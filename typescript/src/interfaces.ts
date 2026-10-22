@@ -734,6 +734,97 @@ export type AnyEntity =
   | InformationSystemFunction
   | InformationSystemComponent
   | InformationSystemService
+  | Entity
+  | Stakeholder
+  | Actor
+  | BusinessObject
+  | BusinessProcess
+  | BusinessCapability
+  | OrganizationalUnit
+  | IntegrationInterface
+  | Technology
+  | PerformanceMetric
+  | Decision
+  | Outcome
+  | Requirement
+  | Constraint
+  | Change
+  | Assessment
+  | AssessmentFramework
+  | AssessmentDimension
+  | AssessmentCriterion
+  | Indicator
+  | Observation
+  | Measure
+  | Score
+  | Scale
+  | Unit
+  | AssessmentResult
+  | AssessmentSubject
+  | AssessmentScope
+  | AssessmentTarget
+  | AssessmentGap
+  | MaturityModel
+  | MaturityLevel
+  | MaturityScale
+  | MaturityRule
+  | AggregationRule
+  | ScoringRule
+  | MaturityMappingRule
+  | Evidence
+  | EvidenceSource
+  | EvidenceArtifact
+  | Benchmark
+  | BenchmarkPopulation
+  | BenchmarkReference
+  | TemporalInterval
+  | LifecycleState
+  | LifecycleEvent
+  | LifecycleTransition
+  | Transition
+  | ArchitectureState
+  | BaselineState
+  | CurrentState
+  | TargetState
+  | TransitionState
+  | Scenario
+  | ScenarioState
+  | ScenarioAssumption
+  | ArchitectureSnapshot
+  | ArchitectureDelta
+  | Version
+  | Intent
+  | Objective
+  | Policy
+  | PolicyRule
+  | PolicyEvaluation
+  | PolicyDecision
+  | DecisionOption
+  | DecisionCriterion
+  | DecisionRecord
+  | Authority
+  | Delegation
+  | GovernanceBody
+  | GovernanceRule
+  | Action
+  | Agent
+  | AgentProfile
+  | AgentSkill
+  | Tool
+  | ToolPermission
+  | Orchestrator
+  | Controller
+  | Orchestration
+  | Workflow
+  | Task
+  | AutonomyPolicy
+  | AutonomyLevel
+  | HumanOversight
+  | Approval
+  | Escalation
+  | AgenticSystem
+  | AgentOpportunity
+  | Memory
   | IntegrationInterface;
 
 // ─── Metamodel index ──────────────────────────────────────
@@ -791,6 +882,95 @@ export const ENTITY_TYPES = [
   'InformationSystemComponent',
   'InformationSystemService',
   'IntegrationInterface',
+  'Entity',
+  'Stakeholder',
+  'Actor',
+  'BusinessObject',
+  'BusinessProcess',
+  'BusinessCapability',
+  'OrganizationalUnit',
+  'PerformanceMetric',
+  'Decision',
+  'Outcome',
+  'Requirement',
+  'Constraint',
+  'Change',
+  'Assessment',
+  'AssessmentFramework',
+  'AssessmentDimension',
+  'AssessmentCriterion',
+  'Indicator',
+  'Observation',
+  'Measure',
+  'Score',
+  'Scale',
+  'Unit',
+  'AssessmentResult',
+  'AssessmentSubject',
+  'AssessmentScope',
+  'AssessmentTarget',
+  'AssessmentGap',
+  'MaturityModel',
+  'MaturityLevel',
+  'MaturityScale',
+  'MaturityRule',
+  'AggregationRule',
+  'ScoringRule',
+  'MaturityMappingRule',
+  'Evidence',
+  'EvidenceSource',
+  'EvidenceArtifact',
+  'Benchmark',
+  'BenchmarkPopulation',
+  'BenchmarkReference',
+  'TemporalInterval',
+  'LifecycleState',
+  'LifecycleEvent',
+  'LifecycleTransition',
+  'Transition',
+  'ArchitectureState',
+  'BaselineState',
+  'CurrentState',
+  'TargetState',
+  'TransitionState',
+  'Scenario',
+  'ScenarioState',
+  'ScenarioAssumption',
+  'ArchitectureSnapshot',
+  'ArchitectureDelta',
+  'Version',
+  'Intent',
+  'Objective',
+  'Policy',
+  'PolicyRule',
+  'PolicyEvaluation',
+  'PolicyDecision',
+  'DecisionOption',
+  'DecisionCriterion',
+  'DecisionRecord',
+  'Authority',
+  'Delegation',
+  'GovernanceBody',
+  'GovernanceRule',
+  'Action',
+  'Agent',
+  'AgentProfile',
+  'AgentSkill',
+  'Tool',
+  'ToolPermission',
+  'Orchestrator',
+  'Controller',
+  'Orchestration',
+  'Workflow',
+  'Task',
+  'AutonomyPolicy',
+  'AutonomyLevel',
+  'HumanOversight',
+  'Approval',
+  'Escalation',
+  'AgenticSystem',
+  'AgentOpportunity',
+  'Memory',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [
@@ -1163,4 +1343,808 @@ export interface CausalHypothesis extends BaseEntity {
   falsification_test: string;
   // The accountable party for the hypothesis assertion.
   responsible_party_ref?: string;
+}
+// ══════════════════════════════════════════════════════════════════════
+// Generated entity interfaces.
+//
+// Field names, optionality, and union types are derived from each
+// entity's canonical JSON Schema (properties, required, enums), so they
+// cannot drift from metamodel/dea-metamodel.yaml. Regenerate rather
+// than hand-edit:
+//     python3 .github/scripts/generate_db_and_ts_artifacts.py
+// ══════════════════════════════════════════════════════════════════════
+
+export interface Entity extends BaseEntity {
+  type: 'Entity';
+  tags?: string[];
+  // CR-6 §4/§5: reusable temporal pattern. The clocks are NOT interchangeable: valid time (when true in the enterprise), transaction time (when the model knows), observation time, planned time (expected ; never actual), effective time (when a change takes effect).
+  temporal?: Record<string, unknown>;
+}
+
+export interface BusinessProcess extends BaseEntity {
+  type: 'BusinessProcess';
+  // The process's role in the enterprise. 'operational' executes defined recurring work; 'support' enables other processes without producing the primary output; 'management' decides, plans, allocates, or governs. See docs/process-type-taxonomy.md for boundary rules.
+  process_intent: 'operational' | 'support' | 'management';
+  // The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' ; see technehub-labs/dea-metaframework REPORT.md §2.
+  process_audience: 'governance-existence' | 'strategy-direction' | 'agency-organization' | 'party-relationship' | 'product-value' | 'enablement-operations' | 'finance-accounting';
+  // What initiates this process.
+  trigger?: string;
+  // Expected result of process completion.
+  outcome?: string;
+  capabilities_delivered?: string[];
+  services_provided?: string[];
+  components_involved?: string[];
+  kpis?: string[];
+}
+
+export interface BusinessCapability extends BaseEntity {
+  type: 'BusinessCapability';
+  // Abstraction level of the capability (ADR-015 section 5): strategic, operational, or support. Governed enumeration attribute; orthogonal to kind (entity type) and to ECF coordinates.
+  capability_layer?: 'strategic' | 'operational' | 'support';
+  // Business domain this capability belongs to.
+  domain?: string;
+}
+
+export interface PerformanceMetric extends BaseEntity {
+  type: 'PerformanceMetric';
+  // The type of phenomenon or property measured (CR-MET-001 binding). Normative: required, distinguishes a Metric by what it measures rather than by its MECE label.
+  subject_concept: string;
+  // The data nature of the value produced by applying this Metric. Normative: required. CR-MET-001 binding.
+  measurement_nature: 'numeric' | 'ordinal' | 'nominal' | 'boolean' | 'composite';
+  // Measurement subject axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple subject classifications; a non-empty value is recommended for catalog discoverability.
+  subject_classification?: 'dea:subject-financial' | 'dea:subject-customer' | 'dea:subject-organizational' | 'dea:subject-operational' | 'dea:subject-technology' | 'dea:subject-data' | 'dea:subject-risk' | 'dea:subject-capability' | 'dea:subject-strategic' | 'dea:subject-sustainability'[];
+  // Measurement purpose axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple purpose classifications.
+  purpose_classification?: 'performance_measurement' | 'risk_monitoring' | 'compliance_monitoring' | 'quality_measurement' | 'efficiency_measurement' | 'effectiveness_measurement' | 'maturity_measurement' | 'outcome_measurement' | 'diagnostic_measurement' | 'predictive_measurement'[];
+  // Measurement orientation axis (CR-MET-002 binding ADR-MET-003). Mirrors Indicator.kind. A Metric MAY have multiple orientation classifications only where the definitions genuinely support them.
+  orientation_classification?: 'leading' | 'lagging' | 'diagnostic' | 'concurrent'[];
+  // Measurement scope axis (CR-MET-002 binding ADR-MET-003). A Metric MAY have multiple scope classifications. process refers to dea:BusinessProcess (line 592; L3); there is no dea:Activity (per user reminder 2026-10-18).
+  scope_classification?: 'enterprise' | 'business_domain' | 'business_unit' | 'organizational_unit' | 'value_stream' | 'capability' | 'process' | 'product_or_service' | 'system_or_component' | 'individual_subject'[];
+  // The structured calculation definition (CR-MET-005 binding). 8-field object per user-supplied section 5.
+  formula_definition?: Record<string, unknown>;
+  // The structured Composite Metric definition (CR-MET-005 binding). 6-field object per user-supplied section 7. Required iff measurement_nature: composite.
+  composite_definition?: Record<string, unknown>;
+  // Significant figures for the result (CR-MET-005 binding).
+  precision?: number;
+  // Decimal places for the result (CR-MET-005 binding).
+  decimal_scale?: number;
+  // Rounding rule for the result (CR-MET-005 binding). 4-value enum.
+  rounding_rule?: 'half_up' | 'half_even' | 'half_down' | 'truncate';
+  // How null/missing values are interpreted (CR-MET-005 binding). Examples: 'excluded_from_aggregation', 'treated_as_zero', 'propagates_null'.
+  null_value_semantics?: string;
+  // Management significance axis (CR-MET-002 binding ADR-MET-003). Designations, not specializations. Full IndicatorDesignation entity in CR-MET-008.
+  management_significance?: 'general_metric' | 'kpi' | 'kri' | 'kci' | 'sli' | 'other_governed_designation'[];
+  // Desired interpretation of increasing or decreasing values. CR-MET-001 binding.
+  directionality?: 'higher_is_better' | 'lower_is_better' | 'target_is_better' | 'nominal';
+  // Formula or computational definition. Required when measurement_nature is numeric and the value is computed; for ordinal/nominal/boolean values a textual rule suffices.
+  calculation_definition?: string;
+  // Measurement unit (cross-reference to the unit registry per CR-MET-005). Optional: required only when measurement_nature is numeric. Examples: %, count, days, USD, ms.
+  unit?: string;
+  // How this metric is collected or calculated.
+  measurement_method?: string;
+  baseline_value?: number;
+  target_value?: number;
+  thresholds?: Record<string, unknown>;
+  frequency?: 'realtime' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'quarterly';
+  // Architecture layers this metric may evaluate (OpenDEAM v0.2.0 measurement-dimension scope).
+  scope_layers?: string[];
+  // DEPRECATED. The pre-CR-MET-001 MECE taxonomy value. Preserved for one release cycle to allow migration of existing catalog records. New records MUST use the binding six-axis classification per CR-MET-002 / ADR-MET-003.
+  legacy_metric_type?: 'kpi' | 'health' | 'maturity' | 'performance' | 'adoption' | 'compliance' | 'risk';
+  // CR-MET-010 section 4 governance role accountability. One individual may fulfil multiple roles, but accountability MUST remain explicit.
+  governance?: Record<string, unknown>;
+  // CR-MET-010 section 6: the ten reusable quality dimensions evaluated for this Metric definition. Definition quality MUST be distinguished from individual Observation quality.
+  quality_dimensions?: Record<string, unknown>[];
+  // CR-MET-010 section 7: three conformance levels. Level 1 structural (schema, required attributes, identity, references, data types). Level 2 semantic (unambiguous definition, valid classification, appropriate unit or scale, valid formula semantics, subject concept, relationships). Level 3 governance (owner, steward, approval status, lifecycle compliance, source documentation, evidence, versioning, change traceability).
+  conformance?: Record<string, unknown>;
+}
+
+export interface Decision extends BaseEntity {
+  type: 'Decision';
+  // The decision statement in natural language.
+  statement?: string;
+  // CR-7 §11: why this option was selected (G002).
+  rationale?: string;
+  // CR-7 §18; G001: the Authority under which the decision was made.
+  authority_ref?: string;
+  // CR-7 §17: decision confidence.
+  confidence?: Record<string, unknown>;
+  // CR-7 §17: known uncertainty, e.g. cost estimate ±20%.
+  uncertainty?: string;
+  // CR-7 §17: assumptions the decision rests on.
+  assumptions?: string[];
+}
+
+export interface Outcome extends BaseEntity {
+  type: 'Outcome';
+  // The outcome statement in natural language.
+  statement?: string;
+}
+
+export interface Requirement extends BaseEntity {
+  type: 'Requirement';
+  // The requirement statement in natural language.
+  statement?: string;
+}
+
+export interface Constraint extends BaseEntity {
+  type: 'Constraint';
+  // The constraint statement in natural language.
+  statement?: string;
+  // CR-7 §10: constraint strength ; hard (must), soft (should), preference, guideline.
+  strength?: 'hard' | 'soft' | 'preference' | 'guideline';
+}
+
+export interface Change extends BaseEntity {
+  type: 'Change';
+  // The change statement in natural language.
+  statement?: string;
+}
+
+export interface Assessment extends BaseEntity {
+  type: 'Assessment';
+  // Reference to the AssessmentFramework this assessment is conducted under (A001: exactly one).
+  framework_ref?: string;
+  // Reference to the AssessmentScope bounding this assessment (CR-5 §15).
+  scope_ref?: string;
+  started_at?: string;
+  completed_at?: string;
+  // Actor, team or system performing the assessment.
+  assessor?: string;
+  assessment_status?: 'planned' | 'in-progress' | 'completed' | 'superseded' | 'withdrawn';
+  methodology?: string;
+}
+
+export interface AssessmentFramework extends BaseEntity {
+  type: 'AssessmentFramework';
+  // Framework's own version, governed independently of the metamodel (A012).
+  framework_version?: string;
+  // The body that owns and publishes the framework.
+  authority?: string;
+  // Reference to the MaturityModel the framework defines, if any.
+  maturity_model_ref?: string;
+}
+
+export interface AssessmentDimension extends BaseEntity {
+  type: 'AssessmentDimension';
+  dimension_order?: number;
+  evaluation_perspective?: string;
+}
+
+export interface AssessmentCriterion extends BaseEntity {
+  type: 'AssessmentCriterion';
+  // Reference to the parent AssessmentDimension.
+  dimension_ref?: string;
+  applicability?: string;
+  evaluation_guidance?: string;
+}
+
+export interface Indicator extends BaseEntity {
+  type: 'Indicator';
+  criterion_ref?: string;
+  signal_type?: 'quantitative' | 'qualitative' | 'binary';
+  // Indicator kind discriminator (CR-MET-002 binding ADR-MET-003 decision 6). Mirrors Metric.orientation_classification. A change of kind does not alter the Indicator identity.
+  kind?: 'leading' | 'lagging' | 'diagnostic' | 'concurrent';
+}
+
+export interface Observation extends BaseEntity {
+  type: 'Observation';
+  statement?: string;
+  observed_at?: string;
+  // Reference to the EvidenceSource of the observation.
+  source_ref?: string;
+}
+
+export interface Measure extends BaseEntity {
+  type: 'Measure';
+  indicator_ref?: string;
+  value?: number;
+  // Reference to the Unit the value is expressed in.
+  unit_ref?: string;
+  observed_at?: string;
+  source?: string;
+}
+
+export interface Score extends BaseEntity {
+  type: 'Score';
+  value?: number;
+  // Reference to the declared Scale (A004: scores use a declared scale).
+  scale_ref?: string;
+}
+
+export interface Scale extends BaseEntity {
+  type: 'Scale';
+  // The scale type (CR-5 Phase 2; CR-MET-005 binding extension). Categorical and boolean added in CR-MET-005 per the user-supplied binding; ordinal/categorical/boolean scales must not be treated as physical measurement units.
+  scale_type?: 'nominal' | 'ordinal' | 'interval' | 'ratio' | 'categorical' | 'boolean';
+  minimum?: number;
+  maximum?: number;
+  // The allowed values for the scale (CR-MET-005). Required for scale_type: categorical, ordinal, and boolean (boolean MUST have exactly two entries). Optional for scale_type: nominal. For scale_type: interval and ratio, the numeric minimum/maximum apply.
+  scale_values?: string[];
+  // Whether the scale is ordered (CR-MET-005). True for ordinal, interval, ratio; false for nominal, categorical, boolean (boolean is two-valued but not ordinal).
+  ordered?: boolean;
+}
+
+export interface Unit extends BaseEntity {
+  type: 'Unit';
+  symbol?: string;
+  // e.g. ratio, duration, currency, count.
+  quantity_kind?: string;
+  // The dimensionality of the Unit (CR-MET-005). Time, length, mass, currency, count, temperature, information quantity, rate, ratio, dimensionless index, or composite.
+  dimensionality?: 'time' | 'length' | 'mass' | 'currency' | 'count' | 'temperature' | 'information_quantity' | 'rate' | 'ratio' | 'dimensionless_index' | 'composite';
+  // Canonical symbol for interoperability (e.g. UCUM-style).
+  canonical_symbol?: string;
+  // Reference to the Unified Code for Units of Measure (UCUM) for this Unit. The canonical UCUM data is held externally per CR-MET-005 section 2.2; this field is a reference handle, not the table.
+  ucum_code?: string;
+  // The multiplicative factor for conversion to the base Unit of the same dimensionality (e.g. minutes -> seconds: 60).
+  conversion_to_base_factor?: number;
+  // The additive offset for conversion to the base Unit of the same dimensionality (e.g. Celsius -> Kelvin: -273.15 inverted as +273.15).
+  conversion_to_base_offset?: number;
+  // For Units with dimensionality: composite; the dimensional components with their exponents (e.g. velocity = distance / time -> [{dimensionality: length, exponent: 1}, {dimensionality: time, exponent: -1}]). Optional; informational warning (not a conformance failure) when absent for a composite Unit.
+  composite_dimensions?: Record<string, unknown>[];
+}
+
+export interface AssessmentResult extends BaseEntity {
+  type: 'AssessmentResult';
+  assessment_ref?: string;
+  // Reference to the AssessmentSubject (A002).
+  subject_ref?: string;
+  // Reference to the AssessmentCriterion (A003).
+  criterion_ref?: string;
+  score?: Record<string, unknown>;
+  // MaturityLevel within the framework's MaturityModel (A005).
+  maturity_level_ref?: string;
+  // CR-5 §18 common confidence structure.
+  confidence?: Record<string, unknown>;
+  // CR-5 §20/§29: role of this result in the maturity trajectory.
+  state_role?: 'baseline' | 'current' | 'target' | 'forecast';
+  // When the underlying evidence was collected (CR-5 §22).
+  observed_at?: string;
+  // When the assessment was performed (CR-5 §22).
+  assessed_at?: string;
+  // When the result is considered applicable (CR-5 §22).
+  valid_from?: string;
+  assessor?: string;
+  // CR-5 §19: who assessed, with what framework, when, based on what evidence.
+  provenance?: string;
+  evidence_refs?: string[];
+}
+
+export interface AssessmentSubject extends BaseEntity {
+  type: 'AssessmentSubject';
+  // Reference to the assessed DEA entity.
+  entity_ref?: string;
+  // e.g. organizational_unit, geography, business_unit.
+  scope_qualifiers?: Record<string, unknown>;
+}
+
+export interface AssessmentScope extends BaseEntity {
+  type: 'AssessmentScope';
+  scope_kind?: 'enterprise' | 'domain' | 'capability' | 'business-unit' | 'geography' | 'product' | 'program';
+  // References to the DEA entities bounding the scope.
+  entity_refs?: string[];
+}
+
+export interface AssessmentTarget extends BaseEntity {
+  type: 'AssessmentTarget';
+  subject_ref?: string;
+  framework_ref?: string;
+  criterion_ref?: string;
+  target_value?: number;
+  target_level_ref?: string;
+  // A010: temporal targets must identify their target date.
+  target_date?: string;
+  rationale?: string;
+  approved_by?: string;
+}
+
+export interface AssessmentGap extends BaseEntity {
+  type: 'AssessmentGap';
+  subject_ref?: string;
+  current_result_ref?: string;
+  target_ref?: string;
+  gap_value?: number;
+  // CR-5 §30: gaps are always derived.
+  derived?: boolean;
+}
+
+export interface MaturityModel extends BaseEntity {
+  type: 'MaturityModel';
+  framework_ref?: string;
+  model_version?: string;
+  level_count?: number;
+}
+
+export interface MaturityScale extends BaseEntity {
+  type: 'MaturityScale';
+  model_ref?: string;
+  minimum?: number;
+  maximum?: number;
+  granularity?: number;
+}
+
+export interface MaturityRule extends BaseEntity {
+  type: 'MaturityRule';
+  rule_type?: 'mapping' | 'gating' | 'ceiling' | 'threshold';
+  // Machine- or human-readable rule expression.
+  expression?: string;
+  // Criterion, dimension or model reference the rule applies to.
+  applies_to?: string;
+}
+
+export interface AggregationRule extends BaseEntity {
+  type: 'AggregationRule';
+  rule_kind?: 'weighted-average' | 'minimum-threshold' | 'gating' | 'ceiling' | 'qualitative-judgement' | 'evidence-sufficiency' | 'rule-based';
+  // The aggregation operator (CR-MET-005). 11-value enum per the user-supplied binding section 6.
+  operator?: 'SUM' | 'COUNT' | 'MIN' | 'MAX' | 'MEAN' | 'WEIGHTED_MEAN' | 'MEDIAN' | 'PERCENTILE' | 'RATE' | 'RATIO' | 'DISTINCT_COUNT';
+  // Required when operator is WEIGHTED_MEAN; the basis for the weighting (e.g. 'numerator_denominator', 'population_size', 'time_period'). CR-MET-005 binding cross-field invariant.
+  weight_basis?: string;
+  // The input and output unit references for the aggregation (CR-MET-005).
+  unit_semantics?: Record<string, unknown>;
+  // Optional criterion/dimension weight map.
+  weights?: Record<string, unknown>;
+  expression?: string;
+}
+
+export interface ScoringRule extends BaseEntity {
+  type: 'ScoringRule';
+  input_measure_refs?: string[];
+  expression?: string;
+  output_scale_ref?: string;
+}
+
+export interface MaturityMappingRule extends BaseEntity {
+  type: 'MaturityMappingRule';
+  score_scale_ref?: string;
+  mappings?: Record<string, unknown>[];
+}
+
+export interface Evidence extends BaseEntity {
+  type: 'Evidence';
+  evidence_type?: 'document' | 'inventory' | 'interview' | 'survey' | 'metric' | 'audit-report' | 'process-observation' | 'system-log' | 'api-measurement' | 'control-test';
+  // Reference to the EvidenceSource.
+  source_ref?: string;
+  // Locator for the evidence (URI, document id, system path).
+  reference?: string;
+  collected_at?: string;
+  collected_by?: string;
+  // Validity window or qualifier for the evidence.
+  validity?: string;
+  confidence?: Record<string, unknown>;
+}
+
+export interface EvidenceSource extends BaseEntity {
+  type: 'EvidenceSource';
+  source_kind?: 'system' | 'document-store' | 'interview' | 'survey' | 'audit' | 'log-pipeline' | 'api' | 'manual';
+  system_ref?: string;
+  locator?: string;
+}
+
+export interface EvidenceArtifact extends BaseEntity {
+  type: 'EvidenceArtifact';
+  artifact_type?: string;
+  // Locator or identifier of the artifact.
+  artifact_ref?: string;
+  collected_at?: string;
+}
+
+export interface Benchmark extends BaseEntity {
+  type: 'Benchmark';
+  framework_ref?: string;
+  population_ref?: string;
+  // The body publishing the benchmark.
+  authority?: string;
+  published_at?: string;
+}
+
+export interface BenchmarkPopulation extends BaseEntity {
+  type: 'BenchmarkPopulation';
+  // Industry, geography, size band or other segmentation.
+  segment?: string;
+  population_size?: number;
+}
+
+export interface BenchmarkReference extends BaseEntity {
+  type: 'BenchmarkReference';
+  benchmark_ref?: string;
+  value?: number;
+  percentile?: number;
+  criterion_ref?: string;
+}
+
+export interface TemporalInterval extends BaseEntity {
+  type: 'TemporalInterval';
+  // Valid time start (T001: valid_from < valid_to).
+  valid_from?: string;
+  valid_to?: string;
+  // Transaction time ; when the model learned this.
+  recorded_at?: string;
+  observed_at?: string;
+  planned_start?: string;
+  planned_end?: string;
+  effective_from?: string;
+  effective_to?: string;
+}
+
+export interface LifecycleState extends BaseEntity {
+  type: 'LifecycleState';
+  state_name?: string;
+  sequence?: number;
+  // Whether this state ends the lifecycle absent an explicit reactivation transition (T002).
+  terminal?: boolean;
+}
+
+export interface LifecycleEvent extends BaseEntity {
+  type: 'LifecycleEvent';
+  event_type?: 'created' | 'approved' | 'activated' | 'modified' | 'suspended' | 'deprecated' | 'retired' | 'reactivated' | 'superseded';
+  // Entity the event happened to.
+  subject_ref?: string;
+  occurred_at?: string;
+  // Who/what performed or authorized the event.
+  actor?: string;
+  reason?: string;
+  source?: string;
+}
+
+export interface LifecycleTransition extends BaseEntity {
+  type: 'LifecycleTransition';
+  from_state_ref?: string;
+  to_state_ref?: string;
+  // Entity type or profile this transition applies to.
+  entity_scope?: string;
+  // T002: marks a transition that legitimately reverses a terminal state.
+  reactivation?: boolean;
+}
+
+export interface Transition extends BaseEntity {
+  type: 'Transition';
+  from_state_ref?: string;
+  to_state_ref?: string;
+  // The Change causing this transition.
+  change_ref?: string;
+  planned_start?: string;
+  planned_end?: string;
+  actual_start?: string;
+  actual_end?: string;
+  transition_status?: 'planned' | 'active' | 'completed' | 'cancelled';
+}
+
+export interface ArchitectureState extends BaseEntity {
+  type: 'ArchitectureState';
+  state_kind?: 'current' | 'baseline' | 'target' | 'transition' | 'scenario';
+  captured_at?: string;
+  valid_at?: string;
+  scope?: string;
+  source?: string;
+}
+
+export interface BaselineState extends BaseEntity {
+  type: 'BaselineState';
+  captured_at?: string;
+  valid_at?: string;
+  scope?: string;
+  source?: string;
+  // Authority that formally adopted this baseline.
+  adopted_by?: string;
+}
+
+export interface CurrentState extends BaseEntity {
+  type: 'CurrentState';
+  as_of?: string;
+  scope?: string;
+}
+
+export interface TargetState extends BaseEntity {
+  type: 'TargetState';
+  target_date?: string;
+  approved_by?: string;
+  rationale?: string;
+}
+
+export interface TransitionState extends BaseEntity {
+  type: 'TransitionState';
+  sequence?: number;
+  // The phase/plateaux this state represents (e.g. ERP migration phase 1).
+  phase_ref?: string;
+}
+
+export interface Scenario extends BaseEntity {
+  type: 'Scenario';
+  scenario_status?: 'draft' | 'under-evaluation' | 'adopted-as-target' | 'rejected' | 'archived';
+}
+
+export interface ScenarioState extends BaseEntity {
+  type: 'ScenarioState';
+  scenario_ref?: string;
+}
+
+export interface ScenarioAssumption extends BaseEntity {
+  type: 'ScenarioAssumption';
+  scenario_ref?: string;
+  statement?: string;
+}
+
+export interface ArchitectureSnapshot extends BaseEntity {
+  type: 'ArchitectureSnapshot';
+  scope?: string;
+  captured_at?: string;
+  valid_at?: string;
+  model_version?: string;
+  source?: string;
+  approved?: boolean;
+  // T010: if this snapshot revises another, the superseded snapshot id.
+  revision_of?: string;
+}
+
+export interface ArchitectureDelta extends BaseEntity {
+  type: 'ArchitectureDelta';
+  from_state_ref?: string;
+  to_state_ref?: string;
+  changes?: Record<string, unknown>[];
+  derived?: boolean;
+}
+
+export interface Version extends BaseEntity {
+  type: 'Version';
+  // The versioned entity.
+  entity_ref?: string;
+  version_number?: string;
+  predecessor_ref?: string;
+  released_at?: string;
+}
+
+export interface Intent extends BaseEntity {
+  type: 'Intent';
+  // e.g. enterprise, strategic, transformation ; composition is supported, never hard-coded (§4).
+  intent_kind?: string;
+  statement?: string;
+}
+
+export interface Objective extends BaseEntity {
+  type: 'Objective';
+  intent_ref?: string;
+  statement?: string;
+  target_value?: number;
+  unit?: string;
+  target_date?: string;
+}
+
+export interface Policy extends BaseEntity {
+  type: 'Policy';
+  policy_kind?: 'enterprise' | 'domain' | 'architecture' | 'operational' | 'agent';
+  statement?: string;
+  // G004: the scope this policy applies to.
+  applicability?: string;
+}
+
+export interface PolicyRule extends BaseEntity {
+  type: 'PolicyRule';
+  policy_ref?: string;
+  expression?: string;
+  applies_to?: string;
+}
+
+export interface PolicyEvaluation extends BaseEntity {
+  type: 'PolicyEvaluation';
+  policy_ref?: string;
+  subject_ref?: string;
+  action_ref?: string;
+  context?: string;
+  result?: 'compliant' | 'non-compliant' | 'conditional' | 'not-applicable';
+  reason?: string;
+  evaluated_at?: string;
+}
+
+export interface PolicyDecision extends BaseEntity {
+  type: 'PolicyDecision';
+  evaluation_ref?: string;
+  decision?: 'permit' | 'deny' | 'permit-with-conditions' | 'escalate';
+  decided_at?: string;
+}
+
+export interface DecisionOption extends BaseEntity {
+  type: 'DecisionOption';
+  decision_ref?: string;
+  cost?: string;
+  benefit?: string;
+  risk?: string;
+  expected_outcome?: string;
+  selected?: boolean;
+}
+
+export interface DecisionCriterion extends BaseEntity {
+  type: 'DecisionCriterion';
+  criterion_kind?: string;
+  weight?: number;
+  evaluation_guidance?: string;
+}
+
+export interface DecisionRecord extends BaseEntity {
+  type: 'DecisionRecord';
+  decision_ref?: string;
+  recorded_at?: string;
+  authority_ref?: string;
+  rationale?: string;
+}
+
+export interface Authority extends BaseEntity {
+  type: 'Authority';
+  // G005/G006: what the authority covers.
+  scope?: string;
+  // e.g. value ceilings, domains, conditions.
+  limits?: string;
+  valid_from?: string;
+  valid_to?: string;
+}
+
+export interface Delegation extends BaseEntity {
+  type: 'Delegation';
+  delegator_ref?: string;
+  delegate_ref?: string;
+  authority_ref?: string;
+  scope?: string;
+  conditions?: string;
+  valid_from?: string;
+  valid_to?: string;
+  // Revocation conditions or record.
+  revocation?: string;
+}
+
+export interface GovernanceBody extends BaseEntity {
+  type: 'GovernanceBody';
+  body_kind?: string;
+  mandate?: string;
+}
+
+export interface GovernanceRule extends BaseEntity {
+  type: 'GovernanceRule';
+  body_ref?: string;
+  statement?: string;
+  enforced_by?: string;
+}
+
+export interface Action extends BaseEntity {
+  type: 'Action';
+  action_kind?: string;
+  decision_ref?: string;
+  reversibility?: 'reversible' | 'irreversible' | 'conditionally-reversible';
+  // e.g. financial, external, safety, legal ; drives control strictness (§41).
+  materiality?: string;
+}
+
+export interface Agent extends BaseEntity {
+  type: 'Agent';
+  agent_type?: 'human' | 'organizational' | 'software' | 'ai' | 'autonomous-system' | 'composite';
+  purpose?: string;
+  autonomy_level_ref?: string;
+  // G007: accountable owner.
+  owner_ref?: string;
+}
+
+export interface AgentProfile extends BaseEntity {
+  type: 'AgentProfile';
+  agent_ref?: string;
+  decision_scope?: string;
+  action_scope?: string;
+  human_oversight_ref?: string;
+  // G012: risk profile for control strictness.
+  risk_profile?: string;
+}
+
+export interface AgentSkill extends BaseEntity {
+  type: 'AgentSkill';
+  purpose?: string;
+  inputs?: string;
+  outputs?: string;
+  preconditions?: string;
+  postconditions?: string;
+  failure_modes?: string;
+  escalation?: string;
+}
+
+export interface Tool extends BaseEntity {
+  type: 'Tool';
+  tool_kind?: string;
+  // The service/API the tool invokes, where applicable.
+  endpoint_ref?: string;
+}
+
+export interface ToolPermission extends BaseEntity {
+  type: 'ToolPermission';
+  tool_ref?: string;
+  agent_ref?: string;
+  scope?: string;
+  constraints?: string;
+  authority_ref?: string;
+}
+
+export interface Orchestrator extends BaseEntity {
+  type: 'Orchestrator';
+  coordination_scope?: string;
+}
+
+export interface Controller extends BaseEntity {
+  type: 'Controller';
+  control_scope?: string;
+}
+
+export interface Orchestration extends BaseEntity {
+  type: 'Orchestration';
+  orchestrator_ref?: string;
+  workflow_ref?: string;
+  orchestration_status?: 'defined' | 'running' | 'paused' | 'completed' | 'failed' | 'aborted';
+}
+
+export interface Workflow extends BaseEntity {
+  type: 'Workflow';
+  definition?: string;
+}
+
+export interface Task extends BaseEntity {
+  type: 'Task';
+  workflow_ref?: string;
+  sequence?: number;
+  task_kind?: string;
+}
+
+export interface AutonomyPolicy extends BaseEntity {
+  type: 'AutonomyPolicy';
+  policy_ref?: string;
+  rules?: string;
+}
+
+export interface AutonomyLevel extends BaseEntity {
+  type: 'AutonomyLevel';
+  // The AutonomyPolicy/model this level belongs to.
+  model_ref?: string;
+  level_order?: number;
+  level_name?: string;
+}
+
+export interface HumanOversight extends BaseEntity {
+  type: 'HumanOversight';
+  oversight_pattern?: 'approve-before' | 'review-after' | 'intervene-on-exception' | 'continuous-supervision';
+  // The human/role/body providing oversight.
+  overseer_ref?: string;
+}
+
+export interface Approval extends BaseEntity {
+  type: 'Approval';
+  approver_ref?: string;
+  // The action/decision/change being approved.
+  subject_ref?: string;
+  decision?: 'granted' | 'denied' | 'granted-with-conditions';
+  approved_at?: string;
+}
+
+export interface Escalation extends BaseEntity {
+  type: 'Escalation';
+  trigger?: string;
+  raised_by?: string;
+  // Who/what the escalation goes to.
+  target_ref?: string;
+  reason?: string;
+  raised_at?: string;
+}
+
+export interface AgenticSystem extends BaseEntity {
+  type: 'AgenticSystem';
+  system_purpose?: string;
+}
+
+export interface AgentOpportunity extends BaseEntity {
+  type: 'AgentOpportunity';
+  subject_ref?: string;
+  potential_agent_ref?: string;
+  expected_value?: string;
+  risk?: string;
+  readiness?: string;
+  recommended_autonomy?: string;
+  derived?: boolean;
+}
+
+export interface Memory extends BaseEntity {
+  type: 'Memory';
+  memory_kind?: 'working' | 'persistent' | 'episodic' | 'semantic';
+  // Retention policy reference or period.
+  retention?: string;
+  // Who controls the memory.
+  controller_ref?: string;
 }

@@ -2,7 +2,7 @@
   "COLLIDING class_alias": 0,
   "MISSING json_schema": 0,
   "MISSING pydantic_model": 0,
-  "MISSING sqlite_table": 32,
-  "MISSING ts_interface": 84,
+  "MISSING sqlite_table": 0,
+  "MISSING ts_interface": 0,
   "STALE generator output": 0
 }

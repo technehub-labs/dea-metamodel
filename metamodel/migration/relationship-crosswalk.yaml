@@ -355,14 +355,14 @@ crosswalk:
     rel_type: realization
     proposed: dea:specializes
     reverse: true
-    status: review-required
-    notes: 'ISC is the abstract parent and APC and IGC are its children (CR-019 D-2), so the model edge is drawn parent-to-child while dea:specializes runs child-to-parent. Neither dea:ApplicationComponent nor dea:IntegrationComponent is admitted on either endpoint of dea:specializes, so no canonical disposition can be asserted yet. Requires a registry endpoint extension before this can become accepted.'
+    status: accepted
+    notes: 'ISC is the abstract parent and APC and IGC are its children (CR-019 D-2), so the model edge is drawn parent-to-child while dea:specializes runs child-to-parent. Direction ruled by eaojnr on 2026-10-23: dea:ApplicationComponent, dea:IntegrationComponent, and dea:PlatformService each specialize dea:InformationSystemComponent. The three children are now admitted as sources and ISC as a target of dea:specializes, so the reversal is expressible without ambiguity.'
   - current: specializes (conditional per D-3)
     rel_type: realization
     proposed: dea:specializes
     reverse: true
     status: review-required
-    notes: 'ISS specialises PlatformService only when the service is a genuine software-platform service (CR-020 D-3). dea:PlatformService is not admitted on either endpoint of dea:specializes, and the edge is conditional by construction, so no canonical disposition can be asserted until the registry admits the endpoint.'
+    notes: 'ISS specialises PlatformService only when the service is a genuine software-platform service (CR-020 D-3). The endpoint blocker is now cleared: dea:PlatformService is admitted as a source of dea:specializes under the 2026-10-23 direction ruling. This entry stays review-required for a DIFFERENT reason that the ruling does not address. The ruling settles the hierarchy (children specialize ISC); it does not say whether ISS-to-PlatformService is an unconditional or a conditional edge, and conditionality cannot be expressed in a type-list that admits the pair unconditionally. Admitting the endpoint does not resolve the conditional, so a separate decision is still required before this can become accepted.'
   - current: specifies
     rel_type: contract
     proposed: dea:specifies

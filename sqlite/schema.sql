@@ -18,7 +18,14 @@ CREATE TABLE entities (
         'ApplicationComponent','InfrastructureComponent','IntegrationComponent',
         'InformationSystemFunction','InformationSystemComponent',
         'InformationSystemService','IntegrationInterface',
-        'Technology','Metric','Concept'
+        'Technology','Metric','Concept',
+        -- Metric programme (CR-MET-001..012). Every table below references
+        -- entities(id); without these type values the Metric tables are
+        -- declared but unwritable, so this list must admit them.
+        'Measurement','MeasurementObservation','Baseline','PerformanceTarget',
+        'Threshold','PerformanceInterpretation','IndicatorDesignation',
+        'ReportingPeriod','Provenance','AnalyticalResult','Correlation',
+        'CausalHypothesis'
     )),
     name            TEXT NOT NULL,
     description     TEXT,
@@ -1116,3 +1123,216 @@ CREATE TABLE IF NOT EXISTS entity_external_references (
 );
 
 CREATE INDEX IF NOT EXISTS ix_ext_ref ON entity_external_references(system, identifier);
+
+-- ═══════════════════════════════════════════════════════════
+-- Metric programme tables (CR-MET-001..012)
+--
+-- Generated from the canonical JSON Schemas: column names and CHECK
+-- constraints are derived from each schema's properties and enums, so
+-- these cannot drift from metamodel/dea-metamodel.yaml. Regenerate
+-- rather than hand-edit when a column needs to change. The artifact
+-- drift gate (.github/scripts/validate_artifacts.py) enforces that the
+-- declared table for every entity exists.
+-- ═══════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS measurements (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    applies_metric       TEXT,
+    measures_subject     TEXT,
+    measurement_method   TEXT,
+    measurement_time     TEXT,
+    reporting_period_start TEXT,
+    reporting_period_end TEXT,
+    measurement_source   TEXT,
+    measurement_status   TEXT CHECK(measurement_status IN ('planned','initiated','in_progress','pending_validation','validated','completed','failed','cancelled','rejected','superseded')),
+    execution_mode       TEXT CHECK(execution_mode IN ('automated','manual','calculated','aggregated','external','assessed','simulated','ai_assisted')),
+    state_transitions    TEXT,
+    logical_measurement_event TEXT,
+    configuration_reference TEXT,
+    evidence_reference   TEXT,
+    context              TEXT,
+    temporal             TEXT,
+    responsible_party    TEXT,
+    configuration        TEXT
+);
+
+CREATE TABLE IF NOT EXISTS measurement_observations (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    produced_by          TEXT,
+    value                REAL,
+    observed_at          TEXT,
+    valid_from           TEXT,
+    valid_to             TEXT,
+    reporting_period_start TEXT,
+    reporting_period_end TEXT,
+    observation_quality  TEXT,
+    observation_status   TEXT CHECK(observation_status IN ('proposed','active','superseded','retired')),
+    verification_state   TEXT CHECK(verification_state IN ('unverified','ai_estimated','independently_verified','human_verified')),
+    supersedes_observation TEXT,
+    provenance_reference TEXT,
+    uncertainty_reference TEXT,
+    comparability_requirements TEXT,
+    precision            REAL,
+    evidence_reference   TEXT,
+    unit                 TEXT,
+    temporal             TEXT,
+    record_state         TEXT CHECK(record_state IN ('original','corrected','superseded','invalid','retracted')),
+    correction_reason    TEXT,
+    corrects_observation_ref TEXT,
+    supersedes_observation_reason TEXT,
+    confidence           REAL
+);
+
+CREATE TABLE IF NOT EXISTS baselines (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    kind                 TEXT CHECK(kind IN ('historical','initial','strategic','operational','regulatory','scenario_derived')),
+    approval_status      TEXT CHECK(approval_status IN ('draft','proposed','approved','retired')),
+    reference_metric_ref TEXT,
+    subject_ref          TEXT,
+    reference_value      TEXT,
+    establishment_date   TEXT,
+    applicable_period    TEXT,
+    organizational_scope TEXT,
+    measurement_methodology TEXT,
+    source_evidence      TEXT,
+    supersedes_baselines TEXT
+);
+
+CREATE TABLE IF NOT EXISTS performance_targets (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    target_metric_ref    TEXT,
+    target_subject_ref   TEXT,
+    target_scope         TEXT,
+    target_value         REAL,
+    target_range         TEXT,
+    target_direction     TEXT CHECK(target_direction IN ('increase','decrease','maintain','bounded','exact_match')),
+    effective_period     TEXT,
+    owner_ref            TEXT,
+    associated_objective_ref TEXT,
+    approval_status      TEXT CHECK(approval_status IN ('draft','proposed','approved','retired')),
+    supporting_rationale TEXT
+);
+
+CREATE TABLE IF NOT EXISTS thresholds (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    threshold_metric_ref TEXT,
+    threshold_value      TEXT,
+    threshold_level      TEXT CHECK(threshold_level IN ('critical','warning','acceptable','optimal')),
+    direction            TEXT CHECK(direction IN ('higher_is_better','lower_is_better','bounded_optimum','exact_match')),
+    effective_period     TEXT,
+    owner_ref            TEXT,
+    escalation_rule_ref  TEXT
+);
+
+CREATE TABLE IF NOT EXISTS performance_interpretations (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    interprets_metric_ref TEXT,
+    interprets_observation_ref TEXT,
+    interpretation_kind  TEXT CHECK(interpretation_kind IN ('variance_evaluation','threshold_evaluation','benchmark_evaluation','composite_judgment')),
+    interpretation_state TEXT CHECK(interpretation_state IN ('exceeds_target','meets_target','within_tolerance','warning','critical','unknown')),
+    reference_used       TEXT,
+    absolute_variance    REAL,
+    relative_variance    REAL,
+    narrative            TEXT,
+    evaluator_ref        TEXT,
+    evaluated_at         TEXT
+);
+
+CREATE TABLE IF NOT EXISTS indicator_designations (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    designation_type     TEXT CHECK(designation_type IN ('KPI','KRI','KCI','SLI','Operational')),
+    associated_metric_ref TEXT,
+    management_purpose   TEXT,
+    associated_objective_ref TEXT,
+    organizational_scope TEXT,
+    accountable_owner_ref TEXT,
+    reporting_frequency  TEXT CHECK(reporting_frequency IN ('real_time','hourly','daily','weekly','monthly','quarterly','semi_annual','annual')),
+    target_reference     TEXT,
+    threshold_reference  TEXT,
+    escalation_rules     TEXT,
+    measurement_orientation TEXT CHECK(measurement_orientation IN ('leading','lagging','neutral')),
+    effective_period     TEXT,
+    approval_status      TEXT CHECK(approval_status IN ('draft','proposed','approved','retired'))
+);
+
+CREATE TABLE IF NOT EXISTS reporting_periods (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    period_type          TEXT CHECK(period_type IN ('instantaneous','point_in_time','fixed_duration','rolling','cumulative','event_based','irregular')),
+    period_semantics     TEXT CHECK(period_semantics IN ('calendar','fiscal','rolling','event_based','custom')),
+    period_start         TEXT,
+    period_end           TEXT,
+    anchor_reference     TEXT,
+    window_size          TEXT,
+    interval_count       REAL,
+    calendar_reference   TEXT,
+    fiscal_year_ref      TEXT,
+    effective_from       TEXT,
+    effective_to         TEXT,
+    organizational_scope_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS provenances (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    source_ref           TEXT,
+    source_record_ref    TEXT,
+    collection_activity  TEXT,
+    calculation_activity TEXT,
+    transformation_chain TEXT,
+    responsible_party_ref TEXT,
+    configuration_ref    TEXT,
+    formula_version_ref  TEXT,
+    metric_version_ref   TEXT,
+    evidence_refs        TEXT,
+    timestamps           TEXT,
+    reproducibility      TEXT
+);
+
+CREATE TABLE IF NOT EXISTS analytical_results (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    result_type          TEXT CHECK(result_type IN ('estimate','forecast','simulation_result','recommendation')),
+    analytical_capability TEXT CHECK(analytical_capability IN ('descriptive','diagnostic','predictive','prescriptive','comparative','scenario_simulation')),
+    subject_ref          TEXT,
+    value                REAL,
+    unit                 TEXT,
+    reporting_period_ref TEXT,
+    horizon_ref          TEXT,
+    evidence_refs        TEXT,
+    provenance_reference TEXT,
+    confidence           REAL,
+    uncertainty          TEXT,
+    model_ref            TEXT,
+    scenario_ref         TEXT,
+    aggregation_rule_ref TEXT,
+    alternative_considered TEXT,
+    responsible_party_ref TEXT
+);
+
+CREATE TABLE IF NOT EXISTS correlations (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    source_phenomenon_ref TEXT,
+    target_phenomenon_ref TEXT,
+    coefficient          REAL,
+    method               TEXT,
+    sample_size          REAL,
+    reporting_period_ref TEXT,
+    evidence_refs        TEXT,
+    confounder_candidates TEXT,
+    confusion_guard      INTEGER CHECK(confusion_guard IN (0,1)),
+    strength             TEXT CHECK(strength IN ('negligible','weak','moderate','strong','very_strong')),
+    directional_note     TEXT,
+    provenance_reference TEXT
+);
+
+CREATE TABLE IF NOT EXISTS causal_hypotheses (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    cause_ref            TEXT,
+    effect_ref           TEXT,
+    mechanism            TEXT,
+    confidence           REAL,
+    uncertainty          TEXT,
+    validation_state     TEXT CHECK(validation_state IN ('asserted','correlation_supported','experiment_running','validated','refuted')),
+    supporting_correlation_refs TEXT,
+    counter_evidence     TEXT,
+    falsification_test   TEXT,
+    responsible_party_ref TEXT
+);

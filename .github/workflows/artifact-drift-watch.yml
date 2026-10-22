@@ -1,0 +1,86 @@
+name: Artifact Drift Watch
+
+# The loud part of the drift gate.
+#
+# A ratchet inside the PR workflow only protects pull requests. It says nothing
+# about the state of `main` after a merge, which is exactly how the pydantic
+# drift went unnoticed for six days across twelve merged CRs: the failing job was
+# not the one anyone was looking at, and a red check on main does not announce
+# itself to anyone.
+#
+# This workflow runs on a schedule and on manual dispatch. It re-runs the
+# artifact gate against `main` and fails loudly, and it surfaces the full
+# backlog as a job summary so the size and direction of the problem are visible
+# without opening logs.
+#
+# The gate itself ratchets: it fails when a finding count rises above the
+# recorded baseline. This workflow is what makes that ratchet impossible to
+# ignore, not what defines it.
+
+on:
+  schedule:
+    # Hourly off the hour. Scheduled workflows only run on the default branch,
+    # which is what we want: this audits main, not a PR.
+    - cron: '23 * * * *'
+  workflow_dispatch:
+    inputs:
+      strict:
+        description: 'Fail on any finding, not only on ratchet regression'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: python3 -m pip install --upgrade --quiet jsonschema pyyaml pytest
+
+      - name: Artifact drift gate (ratchet)
+        id: gate
+        run: |
+          set +e
+          python3 .github/scripts/validate_artifacts.py
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Full report for the summary
+        if: always()
+        id: report
+        run: |
+          set +e
+          python3 .github/scripts/validate_artifacts.py --report > drift-report.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          set -e
+          {
+            echo '## Artifact drift on `main`'
+            echo
+            echo '```'
+            cat drift-report.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail loudly on regression
+        if: steps.gate.outputs.exit_code != '0'
+        run: |
+          echo "::error::Artifact drift regressed on main. The gate is a ratchet:"
+          echo "::error::a finding count rose above .github/artifact-drift-baseline.json."
+          echo "::error::See the job summary for the full report."
+          exit 1
+
+      - name: Fail on any finding (strict mode, manual dispatch only)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.strict == 'true' && steps.report.outputs.exit_code != '0' }}
+        run: |
+          echo "::error::Strict mode: findings exist on main. Re-run without strict to enforce the ratchet only."
+          exit 1

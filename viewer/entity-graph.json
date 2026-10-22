@@ -482,7 +482,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "BP",
         "catalog_name": "Business Process",
-        "generated_at": "2026-10-22T13:21:24Z"
+        "generated_at": "2026-10-22T15:13:55Z"
       }
     },
     {
@@ -537,7 +537,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "BC",
         "catalog_name": "Business Capability",
-        "generated_at": "2026-10-22T13:21:24Z"
+        "generated_at": "2026-10-22T15:13:55Z"
       }
     },
     {

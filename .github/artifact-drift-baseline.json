@@ -1,4 +1,5 @@
 {
+  "COLLIDING class_alias": 0,
   "MISSING json_schema": 0,
   "MISSING pydantic_model": 0,
   "MISSING sqlite_table": 32,

@@ -176,6 +176,50 @@ def check_typescript(entities: list[dict]) -> tuple[list[str], dict]:
     }
 
 
+def check_alias_uniqueness(entities: list[dict]) -> tuple[list[str], dict]:
+    """class_alias must be unique across the whole metamodel.
+
+    Aliases are load-bearing in the consumed artefacts: the viewer keys nodes on
+    class_alias, and the viewer graph schema caps it at five characters. Two
+    entities sharing an alias is therefore a real defect, not a style issue,
+    and it is invisible to every other check here.
+
+    A live collision already existed before this gate: InvestmentInitiative and
+    IntegrationInterface both carried II. The viewer binds II to
+    dea:entity-investment-initiative, so InvestmentInitiative keeps II and
+    IntegrationInterface became IFI.
+
+    Uniqueness is enforced globally rather than per family so that a future
+    metric alias cannot collide with a kernel alias.
+    """
+    from collections import defaultdict
+
+    owners: dict[str, list[str]] = defaultdict(list)
+    for e in entities:
+        alias = e.get("class_alias")
+        if alias:
+            owners[alias].append(e["id"].split(":", 1)[-1])
+    collisions = {
+        alias: names for alias, names in owners.items() if len(names) > 1
+    }
+    findings = [
+        f"class_alias '{alias}' is shared by {', '.join(sorted(names))}; "
+        "the viewer keys nodes on this value, so the collision is observable"
+        for alias, names in sorted(collisions.items())
+    ]
+    too_long = [
+        f"{e['id']} has class_alias '{e['class_alias']}' "
+        f"({len(e['class_alias'])} chars); the viewer schema caps it at 5"
+        for e in entities
+        if e.get("class_alias") and len(e["class_alias"]) > 5
+    ]
+    findings += too_long
+    return findings, {
+        "assigned": sum(len(v) for v in owners.values()),
+        "unassigned": sum(1 for e in entities if not e.get("class_alias")),
+    }
+
+
 def check_file_backed(entities: list[dict], kind: str) -> list[str]:
     """json_schema and pydantic_model are file paths; each must exist."""
     missing = []
@@ -231,6 +275,7 @@ def main() -> int:
     missing_pydantic = check_file_backed(entities, "pydantic_model")
     missing_sqlite, sqlite_stats = check_sqlite(entities)
     missing_ts, ts_stats = check_typescript(entities)
+    alias_conflicts, alias_stats = check_alias_uniqueness(entities)
 
     sections = [
         ("STALE generator output", stale),
@@ -238,6 +283,7 @@ def main() -> int:
         ("MISSING pydantic_model", missing_pydantic),
         ("MISSING sqlite_table", missing_sqlite),
         ("MISSING ts_interface", missing_ts),
+        ("COLLIDING class_alias", alias_conflicts),
     ]
 
     counts = {label: len(v) for label, v in sections}
@@ -259,6 +305,10 @@ def main() -> int:
     print(
         f"typescript: {ts_stats.get('exported_names', 0)} exported interfaces across "
         f"{ts_stats.get('declared_files', 0)} declared file(s)"
+    )
+    print(
+        f"aliases: {alias_stats.get('assigned', 0)} assigned, "
+        f"{alias_stats.get('unassigned', 0)} entities carry no alias"
     )
     print(f"TOTAL FINDINGS: {total}")
 

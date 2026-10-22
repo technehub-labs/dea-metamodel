@@ -3821,9 +3821,12 @@ relationships:
     - dea:BusinessService
     - dea:Concept
     - dea:Capability
+    - dea:ApplicationComponent
+    - dea:IntegrationComponent
     - dea:InformationSystemComponent
     - dea:InformationSystemFunction
     - dea:InformationSystemService
+    - dea:PlatformService
     - dea:SystemCapability
     - dea:InfrastructureCapability
     - dea:AIAugmentedCapability
@@ -3842,6 +3845,7 @@ relationships:
     - dea:BusinessService
     - dea:Concept
     - dea:Capability
+    - dea:InformationSystemComponent
     - dea:Process
   cardinality:
     source: 0..*

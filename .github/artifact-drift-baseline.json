@@ -1,0 +1,7 @@
+{
+  "MISSING json_schema": 0,
+  "MISSING pydantic_model": 0,
+  "MISSING sqlite_table": 32,
+  "MISSING ts_interface": 84,
+  "STALE generator output": 0
+}

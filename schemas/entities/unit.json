@@ -3,7 +3,7 @@
   "$id": "https://technehub-labs.github.io/dea-metamodel/schemas/entities/unit.json",
   "metamodel_version": "1.0.0",
   "title": "Unit",
-  "description": "A standard quantity in which a measure is expressed (CR-5 \u00a79/Phase 2) \u2014 percent, ratio, months, currency, count. Referenced by measures; never embedded in names.",
+  "description": "A standard quantity in which a measure is expressed (CR-5 \u00a79/Phase 2); percent, ratio, months, currency, count. Referenced by measures; never embedded in names.",
   "type": "object",
   "required": [
     "id",

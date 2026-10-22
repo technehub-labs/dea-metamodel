@@ -23,6 +23,12 @@ class AggregationRule(Entity):
     external_references: Optional[list[str]] = None
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     rule_kind: Optional[Literal['weighted-average', 'minimum-threshold', 'gating', 'ceiling', 'qualitative-judgement', 'evidence-sufficiency', 'rule-based']] = None
+    operator: Optional[Literal['SUM', 'COUNT', 'MIN', 'MAX', 'MEAN', 'WEIGHTED_MEAN', 'MEDIAN', 'PERCENTILE', 'RATE', 'RATIO', 'DISTINCT_COUNT']] = None
+    """The aggregation operator (CR-MET-005). 11-value enum per the user-supplied binding section 6."""
+    weight_basis: Optional[str] = None
+    """Required when operator is WEIGHTED_MEAN; the basis for the weighting (e.g. 'numerator_denominator', 'population_size', 'time_period'). CR-MET-005 binding cross-field invariant."""
+    unit_semantics: Optional[dict[str, Any]] = None
+    """The input and output unit references for the aggregation (CR-MET-005)."""
     weights: Optional[dict[str, Any]] = None
     """Optional criterion/dimension weight map."""
     expression: Optional[str] = None

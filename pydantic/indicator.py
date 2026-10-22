@@ -24,3 +24,5 @@ class Indicator(Entity):
     """CR-3P: identifiers in external systems. Never a substitute for the OpenDEA id (E004)."""
     criterion_ref: Optional[str] = None
     signal_type: Optional[Literal['quantitative', 'qualitative', 'binary']] = None
+    kind: Optional[Literal['leading', 'lagging', 'diagnostic', 'concurrent']] = None
+    """Indicator kind discriminator (CR-MET-002 binding ADR-MET-003 decision 6). Mirrors Metric.orientation_classification. A change of kind does not alter the Indicator identity."""

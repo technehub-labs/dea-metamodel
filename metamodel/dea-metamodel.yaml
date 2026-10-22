@@ -1267,7 +1267,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: planned
-  class_alias: II
+  class_alias: IFI
   catalog_repo: dea-catalog-api-contracts
   artifacts:
     json_schema: schemas/entities/integration-interface.json
@@ -3377,7 +3377,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: BSL
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/baseline.json
@@ -3397,7 +3397,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: PTG
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/performance-target.json
@@ -3417,7 +3417,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: THR
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/threshold.json
@@ -3437,7 +3437,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: PIT
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/performance-interpretation.json
@@ -3457,7 +3457,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: IDS
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/indicator-designation.json
@@ -3478,7 +3478,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: RPT
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/reporting-period.json
@@ -3498,7 +3498,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: PRV
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/provenance.json
@@ -3519,7 +3519,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: ANR
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/analytical-result.json
@@ -3539,7 +3539,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: COR
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/correlation.json
@@ -3559,7 +3559,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: proposed
-  class_alias: null
+  class_alias: CSH
   catalog_repo: null
   artifacts:
     json_schema: schemas/entities/causal-hypothesis.json

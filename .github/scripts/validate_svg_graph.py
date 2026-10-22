@@ -3,7 +3,7 @@
 canonical entity-graph.
 
 Reads:
-  - viewer/metamodel.svg (the rendered diagram — written by CI)
+  - viewer/metamodel.svg (the rendered diagram; written by CI)
   - viewer/entity-graph.json (canonical registry)
 
 Checks:
@@ -46,6 +46,20 @@ LAYER_START = re.compile(r'<g\s+id="cluster_')
 # the file.
 LINK_BLOCK_PATTERN = re.compile(r'<g\s+(?:id="link_[^"]*"|class="link")[^>]*>.*?</g>', re.DOTALL)
 
+# PlantUML does NOT wrap relationship edges in a <g> element, so LINK_BLOCK_PATTERN
+# cannot remove them. An italic <text> is therefore a relationship edge label or
+# cardinality annotation, never an entity display name.
+#
+# This matters because entity name selection uses max(candidates, key=len): with
+# the edge label left in the block, "contextualized" (13 chars) outranks "Concept"
+# (7 chars) and Concept is silently reported missing from the SVG. That produced a
+# false DRIFT DETECTED once entity blocks became long enough for an edge label to
+# land after the last real label.
+#
+# Verified against a real PlantUML SVG: 352 italic text nodes, all edge labels or
+# cardinality fragments such as "[0..N:0..1]" and "(governed_by)".
+EDGE_LABEL_PATTERN = re.compile(r'<text[^>]*font-style="italic"[^>]*>.*?</text>', re.DOTALL)
+
 
 def is_attribute_label(text: str) -> bool:
     return bool(ATTRIBUTE_PATTERN.match(text.strip()))
@@ -60,7 +74,19 @@ def is_noise(text: str) -> bool:
     return False
 
 
-def extract_svg_entity_names():
+def scrub_svg(content: str) -> str:
+    """Remove relationship chrome so only entity blocks remain.
+
+    Two passes are required. LINK_BLOCK_PATTERN removes <g> link wrappers.
+    EDGE_LABEL_PATTERN removes italic relationship-edge labels, which PlantUML
+    emits with no <g> wrapper at all and which therefore land inside the
+    FOLLOWING entity block. Neither class is ever an entity display name.
+    """
+    scrubbed = LINK_BLOCK_PATTERN.sub("", content)
+    return EDGE_LABEL_PATTERN.sub("", scrubbed)
+
+
+def extract_svg_entity_names() -> None:
     """Parse SVG and extract entity display names.
 
     Strategy: chop out all <g id="link_*"> / <g class="link"> blocks
@@ -71,8 +97,7 @@ def extract_svg_entity_names():
     if not SVG.exists():
         return []
 
-    content = SVG.read_text()
-    scrubbed = LINK_BLOCK_PATTERN.sub("", content)
+    scrubbed = scrub_svg(SVG.read_text())
 
     starts = [(m.start(), m.group(1)) for m in ENTITY_START.finditer(scrubbed)]
 
@@ -155,7 +180,7 @@ def main():
     errors = []
 
     if not svg_names:
-        print("\nERROR: SVG has no entities — render may have failed")
+        print("\nERROR: SVG has no entities; render may have failed")
         return 1
 
     # Check 1: entity name alignment
@@ -191,7 +216,7 @@ def main():
         print("⚠ WARNING: SVG has 0 relationship lines. Check that the PUML")
         print("  includes typed relationships (e.g. `SO -- II : \"drives\"`).")
         print()
-        # Don't fail — just warn
+        # Do not fail; just warn
     elif rel_count > 0:
         print(f"✓ SVG has {rel_count} relationship lines")
 

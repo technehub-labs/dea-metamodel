@@ -71,6 +71,22 @@ STYLE_BY_REL_TYPE = {
 DIMENSION_ALLOCATOR = {
     "MTR": "measurement-dimension",
     "CON": "semantic-dimension",
+    # Metric programme (CR-MET-001..012). All thirteen are evaluative overlay
+    # entities with no home layer, so the same rule that applies to MTR applies
+    # to them: absence of a `layer` key routes them to the measurement
+    # dimension rather than mislabelling them "unknown".
+    "MMT": "measurement-dimension",   # Measurement
+    "MOBS": "measurement-dimension",  # MeasurementObservation
+    "IDS": "measurement-dimension",   # IndicatorDesignation
+    "BSL": "measurement-dimension",   # Baseline
+    "PTG": "measurement-dimension",   # PerformanceTarget
+    "THR": "measurement-dimension",   # Threshold
+    "PIT": "measurement-dimension",   # PerformanceInterpretation
+    "RPT": "measurement-dimension",   # ReportingPeriod
+    "PRV": "measurement-dimension",   # Provenance
+    "ANR": "measurement-dimension",   # AnalyticalResult
+    "COR": "measurement-dimension",   # Correlation
+    "CSH": "measurement-dimension",   # CausalHypothesis
 }
 
 

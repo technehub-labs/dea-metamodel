@@ -2,7 +2,7 @@
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.7.0",
+  "opendeam_model_pin": "v0.7.1",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived). As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a known conformant adopter carries a `catalog_summary` field with the latest CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), latest_modified date, metamodel_version, and abbreviation; populated at build time from the cross-repo consumer (vendored at .github/scripts/cross_repo_consumer/).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -482,7 +482,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "BP",
         "catalog_name": "Business Process",
-        "generated_at": "2026-10-21T22:50:19Z"
+        "generated_at": "2026-10-22T13:21:24Z"
       }
     },
     {
@@ -537,7 +537,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "BC",
         "catalog_name": "Business Capability",
-        "generated_at": "2026-10-21T22:50:19Z"
+        "generated_at": "2026-10-22T13:21:24Z"
       }
     },
     {
@@ -1155,6 +1155,42 @@
       }
     },
     {
+      "entity_id": "dea:entity-analytical-result",
+      "class_alias": "ANR",
+      "display_name": "Analytical Result",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A derived outcome of analysis over measurements, classified as an estimate, forecast, simulation result, or recommendation.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-baseline",
+      "class_alias": "BSL",
+      "display_name": "Baseline",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A declared reference point for comparison, carrying a value, unit, scale, and the basis on which it was established.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
       "entity_id": "dea:entity-concept",
       "class_alias": "CON",
       "display_name": "Concept",
@@ -1178,6 +1214,96 @@
       }
     },
     {
+      "entity_id": "dea:entity-correlation",
+      "class_alias": "COR",
+      "display_name": "Correlation",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "An observed statistical association between two quantities, carrying a coefficient, sample, and an explicit non-causal declaration.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-causal-hypothesis",
+      "class_alias": "CSH",
+      "display_name": "Causal Hypothesis",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A testable claim that one quantity causes another, carrying a mechanism, counter-evidence, and a falsification test.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-indicator-designation",
+      "class_alias": "IDS",
+      "display_name": "Indicator Designation",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A declaration that a named indicator expresses a Metric as a KPI, KRI, or KCI, with a declared perspective and cadence.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-measurement",
+      "class_alias": "MMT",
+      "display_name": "Measurement",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "The execution or application of a Metric to a subject within a defined context, using an identified measurement method and applicable configuration.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-measurement-observation",
+      "class_alias": "MOBS",
+      "display_name": "Measurement Observation",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A single recorded result produced by a Measurement, carrying the observed value, unit, method, and temporal context.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
       "entity_id": "dea:entity-metric",
       "class_alias": "MTR",
       "display_name": "Performance Metric",
@@ -1198,6 +1324,96 @@
         "kind": "core",
         "profile": null
       }
+    },
+    {
+      "entity_id": "dea:entity-performance-interpretation",
+      "class_alias": "PIT",
+      "display_name": "Performance Interpretation",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A qualitative reading of a measured result against a declared scale, giving the result evaluative meaning.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-provenance",
+      "class_alias": "PRV",
+      "display_name": "Provenance",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "The record of where a measurement, interpretation, or analytical result came from and under what configuration it was produced.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-performance-target",
+      "class_alias": "PTG",
+      "display_name": "Performance Target",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A declared value or band that a measured result is intended to meet, bound to a Metric and a ReportingPeriod.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-reporting-period",
+      "class_alias": "RPT",
+      "display_name": "Reporting Period",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A temporal interval over which results are collected and reported, used to bound a Target or a Baseline.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
+    },
+    {
+      "entity_id": "dea:entity-threshold",
+      "class_alias": "THR",
+      "display_name": "Threshold",
+      "catalog_repo": null,
+      "repo_url": null,
+      "status": "proposed",
+      "description": "A declared boundary on a measured result, carrying a comparison direction and an action consequence of crossing it.",
+      "dimension": "measurement-dimension",
+      "color": "#9CA3AF",
+      "scope_layers": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5"
+      ]
     }
   ],
   "relationships": [

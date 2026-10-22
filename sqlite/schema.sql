@@ -554,197 +554,33 @@ CREATE TABLE IF NOT EXISTS benchmark_references (
 -- CR-5: Assessment, Measurement & DMM integration (profile dea:assessment)
 -- ═══════════════════════════════════════════════════════════
 
-CREATE TABLE IF NOT EXISTS assessments (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    framework_ref   TEXT,
-    assessment_status TEXT,
-    started_at      TEXT,
-    completed_at    TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_frameworks (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    framework_version TEXT,
-    authority       TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_dimensions (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    dimension_order INTEGER
-);
 
-CREATE TABLE IF NOT EXISTS assessment_criteria (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    dimension_ref   TEXT,
-    evaluation_guidance TEXT
-);
 
-CREATE TABLE IF NOT EXISTS indicators (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    criterion_ref   TEXT,
-    signal_type     TEXT
-);
 
-CREATE TABLE IF NOT EXISTS observations (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    statement       TEXT,
-    observed_at     TEXT,
-    source_ref      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS measures (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    indicator_ref   TEXT,
-    value           REAL,
-    unit_ref        TEXT,
-    observed_at     TEXT
-);
 
-CREATE TABLE IF NOT EXISTS scores (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    value           REAL,
-    scale_ref       TEXT
-);
 
-CREATE TABLE IF NOT EXISTS scales (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    scale_type      TEXT,
-    minimum         REAL,
-    maximum         REAL
-);
 
-CREATE TABLE IF NOT EXISTS units (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    symbol          TEXT,
-    quantity_kind   TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_results (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    assessment_ref  TEXT,
-    subject_ref     TEXT,
-    criterion_ref   TEXT,
-    score_value     REAL,
-    maturity_level_ref TEXT,
-    confidence_value REAL,
-    state_role      TEXT,
-    assessed_at     TEXT,
-    valid_from      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_subjects (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    entity_ref      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_scopes (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    scope_kind      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_targets (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    subject_ref     TEXT,
-    target_value    REAL,
-    target_level_ref TEXT,
-    target_date     TEXT
-);
 
-CREATE TABLE IF NOT EXISTS assessment_gaps (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    subject_ref     TEXT,
-    current_result_ref TEXT,
-    target_ref      TEXT,
-    gap_value       REAL
-);
 
-CREATE TABLE IF NOT EXISTS maturity_models (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    framework_ref   TEXT,
-    model_version   TEXT,
-    level_count     INTEGER
-);
 
-CREATE TABLE IF NOT EXISTS maturity_levels (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    model_ref       TEXT,
-    level_order     INTEGER,
-    level_name      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS maturity_scales (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    model_ref       TEXT,
-    minimum         REAL,
-    maximum         REAL
-);
 
-CREATE TABLE IF NOT EXISTS maturity_rules (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    rule_type       TEXT,
-    expression      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS aggregation_rules (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    rule_kind       TEXT,
-    expression      TEXT
-);
 
-CREATE TABLE IF NOT EXISTS scoring_rules (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    expression      TEXT,
-    output_scale_ref TEXT
-);
 
-CREATE TABLE IF NOT EXISTS maturity_mapping_rules (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    score_scale_ref TEXT
-);
 
-CREATE TABLE IF NOT EXISTS evidence (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    evidence_type   TEXT,
-    source_ref      TEXT,
-    reference       TEXT,
-    collected_at    TEXT,
-    collected_by    TEXT
-);
 
-CREATE TABLE IF NOT EXISTS evidence_sources (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    source_kind     TEXT,
-    system_ref      TEXT,
-    locator         TEXT
-);
 
-CREATE TABLE IF NOT EXISTS evidence_artifacts (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    artifact_type   TEXT,
-    artifact_ref    TEXT,
-    collected_at    TEXT
-);
 
-CREATE TABLE IF NOT EXISTS benchmarks (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    framework_ref   TEXT,
-    population_ref  TEXT,
-    authority       TEXT,
-    published_at    TEXT
-);
 
-CREATE TABLE IF NOT EXISTS benchmark_populations (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    segment         TEXT,
-    population_size INTEGER
-);
 
-CREATE TABLE IF NOT EXISTS benchmark_references (
-    entity_id       TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
-    benchmark_ref   TEXT,
-    value           REAL,
-    percentile      REAL
-);
 
 
 -- ═══════════════════════════════════════════════════════════
@@ -1335,4 +1171,233 @@ CREATE TABLE IF NOT EXISTS causal_hypotheses (
     counter_evidence     TEXT,
     falsification_test   TEXT,
     responsible_party_ref TEXT
+);
+
+-- ══════════════════════════════════════════════════════════════════════
+-- Generated entity tables.
+--
+-- Column names and CHECK constraints are derived from each entity's canonical
+-- JSON Schema (properties and enums), so they cannot drift from
+-- metamodel/dea-metamodel.yaml. Regenerate rather than hand-edit:
+--     python3 .github/scripts/generate_db_and_ts_artifacts.py
+-- The artifact drift gate (.github/scripts/validate_artifacts.py) enforces that
+-- every entity's declared table exists.
+-- ══════════════════════════════════════════════════════════════════════
+
+CREATE TABLE IF NOT EXISTS collaboration_agreements (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    agreement_kind       TEXT CHECK(agreement_kind IN ('cooperative','mandated')),
+    effective_from       TEXT,
+    effective_to         TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ecosystem_actors (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    actor_kind           TEXT CHECK(actor_kind IN ('customer','supplier','partner','regulator','platform','competitor')),
+    exchange_directions  TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ecosystem_platforms (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    platform_kind        TEXT CHECK(platform_kind IN ('marketplace','developer-portal','partner-api-program','data-exchange')),
+    participant_count    REAL,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS stakeholders (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    stakeholder_type     TEXT CHECK(stakeholder_type IN ('customer','partner','supplier','regulator','investor','community','board')),
+    primary_contact      TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS value_exchanges (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    flow_type            TEXT CHECK(flow_type IN ('information','goods','funds','service')),
+    direction            TEXT CHECK(direction IN ('inbound','outbound','bidirectional')),
+    counterparty_ref     TEXT,
+    payload_refs         TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS controls (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    control_type         TEXT CHECK(control_type IN ('preventive','detective','corrective')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS experiments (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    hypothesis           TEXT,
+    signal_ref           TEXT,
+    outcome              TEXT CHECK(outcome IN ('pending','validated','invalidated','inconclusive')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS regulations (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    jurisdiction         TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS risks (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    risk_category        TEXT CHECK(risk_category IN ('strategic','operational','regulatory','technology','financial','reputational')),
+    likelihood           TEXT CHECK(likelihood IN ('rare','unlikely','possible','likely','almost-certain')),
+    impact               TEXT CHECK(impact IN ('negligible','minor','moderate','major','severe')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS signals (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    signal_source        TEXT CHECK(signal_source IN ('market','technology','regulatory','competitor','customer')),
+    strength             TEXT CHECK(strength IN ('weak','emerging','strong')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS technology_radar_entries (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    radar_ring           TEXT CHECK(radar_ring IN ('assess','trial','adopt','hold')),
+    graduates_to         TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS actors (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    actor_type           TEXT CHECK(actor_type IN ('human','team','system','ai-agent','hybrid')),
+    scope                TEXT CHECK(scope IN ('individual','team','departmental','enterprise','ecosystem')),
+    links                TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS business_functions (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    owning_unit_ref      TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS change_initiatives (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    change_scope         TEXT CHECK(change_scope IN ('skills','roles','culture','structure')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS financial_resources (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    liquidity            TEXT CHECK(liquidity IN ('cash','near-liquid','credit-facility','instrument','other')),
+    currency             TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS intangible_resources (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    protection_type      TEXT CHECK(protection_type IN ('patent','trademark','copyright','trade-secret','license','brand','other')),
+    protection_expiry    TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS physical_resources (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    maintenance_regime   TEXT,
+    location             TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS resources (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    resource_kind        TEXT CHECK(resource_kind IN ('financial','physical','intangible')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS roles (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS skills (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    skill_domain         TEXT,
+    proficiency_levels   TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS information_assets (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    consumption_form     TEXT CHECK(consumption_form IN ('report','dashboard','document','feed','other')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS knowledge_assets (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    knowledge_form       TEXT CHECK(knowledge_form IN ('playbook','runbook','guideline','case-study','lesson-learned','other')),
+    review_cycle         TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS model_deployments (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_ref            TEXT,
+    environment          TEXT CHECK(environment IN ('dev','staging','production')),
+    deployment_kind      TEXT CHECK(deployment_kind IN ('api-endpoint','batch','embedded','streaming')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS information_system_components (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS application_components (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    deployment_unit      TEXT CHECK(deployment_unit IN ('service','batch-job','scheduled-task','event-handler','lambda','daemon')),
+    runtime              TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS integration_interfaces (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS infrastructure_components (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    infrastructure_type  TEXT CHECK(infrastructure_type IN ('compute','network','storage','security','container','serverless','database-host')),
+    iac_tool             TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS integration_components (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    integration_pattern  TEXT CHECK(integration_pattern IN ('api-gateway','message-queue','file-transfer','event-stream','etl','rpc','graphql-federation')),
+    direction            TEXT CHECK(direction IN ('inbound','outbound','bidirectional')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS information_system_services (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS information_system_functions (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    is_part_of           TEXT,
+    enabled_by_components TEXT,
+    realizes_capability  TEXT,
+    enables_process      TEXT,
+    consumes_data        TEXT,
+    produces_data        TEXT,
+    consumes_events      TEXT,
+    produces_events      TEXT,
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS technologies (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    technology_category  TEXT CHECK(technology_category IN ('language','framework','runtime','database','library','build-tool','ci-cd','monitoring','orchestration','platform')),
+    vendor               TEXT,
+    version_requirement  TEXT,
+    tags                 TEXT,
+    adoption_status      TEXT CHECK(adoption_status IN ('approved','deprecated','banned','experimental'))
 );

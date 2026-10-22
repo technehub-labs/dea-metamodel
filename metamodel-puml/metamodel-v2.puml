@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.7.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.7.1) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -270,6 +270,20 @@ package "Layer 5: Technology & Execution" #783C48 {
     }
 }
 
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Analytical Result" as ANR {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Baseline" as BSL {
+        + id : string
+        + name : string
+    }
+}
+
 package "Semantic Dimension (cross-cutting)" <<dimension>> #374151 {
     entity "Concept" as CON {
         + id : string
@@ -278,8 +292,78 @@ package "Semantic Dimension (cross-cutting)" <<dimension>> #374151 {
 }
 
 package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Correlation" as COR {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Causal Hypothesis" as CSH {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Indicator Designation" as IDS {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Measurement" as MMT {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Measurement Observation" as MOBS {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
     ' (existing)
     entity "Performance Metric" as MTR {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Performance Interpretation" as PIT {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Provenance" as PRV {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Performance Target" as PTG {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Reporting Period" as RPT {
+        + id : string
+        + name : string
+    }
+}
+
+package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
+    entity "Threshold" as THR {
         + id : string
         + name : string
     }

@@ -1,0 +1,278 @@
+# Canonical Unit records (dea-metamodel CR-MET-013).
+#
+# The Unit entity type is admitted in the metamodel (dea:Unit), but until this
+# file the only Unit records anywhere were three conformance fixtures. The
+# dea-catalog-metrics seed ingestion (dea-catalog-metrics CR-MET-016) found
+# 21 unit references in real catalog use, none of them resolvable. This file
+# admits the 19 canonical units those references resolve to; the seed's flat
+# and plural spellings ride on each record's `aliases` list (Q19 ruling:
+# the ratio form and singular names are canonical).
+#
+# Every record conforms to schemas/entities/unit.json and is validated by
+# tests/conformance/test_034_canonical_units.py.
+version: 1.0.0
+units:
+- id: dea:unit-ratio-percent
+  name: Percent
+  type: Unit
+  version: 1.0.0
+  symbol: '%'
+  canonical_symbol: '%'
+  quantity_kind: ratio
+  dimensionality: ratio
+  ucum_code: '%'
+  aliases:
+  - dea:unit-percent
+  description: >
+    A ratio expressed per hundred. Canonical under the Q19 ruling: the seed
+    spelling dea:unit-percent is an alias. UCUM code "%".
+- id: dea:unit-ratio
+  name: Ratio
+  type: Unit
+  version: 1.0.0
+  quantity_kind: ratio
+  dimensionality: ratio
+  description: >
+    A bare ratio of two quantities of the same kind, expressed as a
+    dimensionless number (0 to 1 for shares; unbounded for multiples).
+- id: dea:unit-minute
+  name: Minute
+  type: Unit
+  version: 1.0.0
+  symbol: min
+  canonical_symbol: min
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: min
+  conversion_to_base_factor: 60
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-minutes
+  description: >
+    Time duration in minutes. UCUM code "min"; conversion to the SI base
+    (seconds) is factor 60.
+- id: dea:unit-hour
+  name: Hour
+  type: Unit
+  version: 1.0.0
+  symbol: h
+  canonical_symbol: h
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: h
+  conversion_to_base_factor: 3600
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-hours
+  description: >
+    Time duration in hours. UCUM code "h"; conversion to the SI base
+    (seconds) is factor 3600.
+- id: dea:unit-day
+  name: Day
+  type: Unit
+  version: 1.0.0
+  symbol: d
+  canonical_symbol: d
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: d
+  conversion_to_base_factor: 86400
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-days
+  description: >
+    Time duration in days. UCUM code "d"; conversion to the SI base
+    (seconds) is factor 86400.
+- id: dea:unit-second
+  name: Second
+  type: Unit
+  version: 1.0.0
+  symbol: s
+  canonical_symbol: s
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: s
+  conversion_to_base_factor: 1
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-seconds
+  description: >
+    Time duration in seconds. The SI base unit of time; UCUM code "s".
+- id: dea:unit-millisecond
+  name: Millisecond
+  type: Unit
+  version: 1.0.0
+  symbol: ms
+  canonical_symbol: ms
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: ms
+  conversion_to_base_factor: 0.001
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-milliseconds
+  description: >
+    Time duration in milliseconds. UCUM code "ms"; conversion to the SI
+    base (seconds) is factor 0.001.
+- id: dea:unit-week
+  name: Week
+  type: Unit
+  version: 1.0.0
+  symbol: wk
+  canonical_symbol: wk
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: wk
+  conversion_to_base_factor: 604800
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-weeks
+  description: >
+    Time duration in weeks. UCUM code "wk"; conversion to the SI base
+    (seconds) is factor 604800.
+- id: dea:unit-month
+  name: Month
+  type: Unit
+  version: 1.0.0
+  symbol: mo
+  canonical_symbol: mo
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: mo
+  aliases:
+  - dea:unit-months
+  description: >
+    Time duration in calendar months. UCUM code "mo". No fixed conversion
+    factor is declared: a calendar month is variable in length, and a
+    nominal factor would misstate real durations.
+- id: dea:unit-year
+  name: Year
+  type: Unit
+  version: 1.0.0
+  symbol: a
+  canonical_symbol: a
+  quantity_kind: duration
+  dimensionality: time
+  ucum_code: a
+  aliases:
+  - dea:unit-years
+  description: >
+    Time duration in calendar years. UCUM code "a" (annus). As with the
+    month, no fixed conversion factor is declared.
+- id: dea:unit-currency
+  name: Currency
+  type: Unit
+  version: 1.0.0
+  quantity_kind: currency
+  dimensionality: currency
+  description: >
+    A monetary amount in an unspecified currency. Specific currencies are
+    their own Unit records (the conformance fixture dea:unit-usd is the
+    exemplar); a record that knows its currency should reference the
+    specific unit, not this generic one.
+- id: dea:unit-score
+  name: Score
+  type: Unit
+  version: 1.0.0
+  quantity_kind: score
+  dimensionality: dimensionless_index
+  description: >
+    A dimensionless score on a defined scale (for example 0 to 5 or 0 to
+    100). The scale is a property of the metric, not of this unit.
+- id: dea:unit-count
+  name: Count
+  type: Unit
+  version: 1.0.0
+  quantity_kind: count
+  dimensionality: count
+  description: >
+    A tally of discrete items.
+- id: dea:unit-event
+  name: Event
+  type: Unit
+  version: 1.0.0
+  quantity_kind: count
+  dimensionality: count
+  aliases:
+  - dea:unit-events
+  description: >
+    A count of occurrences of an event class (incidents, deployments,
+    failures). Distinct from dea:unit-count, which is a tally of items;
+    this unit counts things that happen.
+- id: dea:unit-index
+  name: Index
+  type: Unit
+  version: 1.0.0
+  quantity_kind: index
+  dimensionality: dimensionless_index
+  description: >
+    A dimensionless index value relative to a defined base (for example a
+    performance index with base 1.0 or 100).
+- id: dea:unit-times
+  name: Times
+  type: Unit
+  version: 1.0.0
+  quantity_kind: count
+  dimensionality: count
+  description: >
+    A count of occurrences, read as "times" (for example a factor of three
+    is "3 times"). Carries as-is under Q19: the singular "time" would read
+    as a duration, which this unit is not.
+- id: dea:unit-tonne
+  name: Tonne
+  type: Unit
+  version: 1.0.0
+  symbol: t
+  canonical_symbol: t
+  quantity_kind: mass
+  dimensionality: mass
+  ucum_code: t
+  conversion_to_base_factor: 1000
+  conversion_to_base_offset: 0
+  aliases:
+  - dea:unit-tonnes
+  description: >
+    Mass in metric tonnes. UCUM code "t"; conversion to the SI base
+    (kilograms) is factor 1000.
+- id: dea:unit-kilolitre
+  name: Kilolitre
+  type: Unit
+  version: 1.0.0
+  symbol: kL
+  canonical_symbol: kL
+  quantity_kind: volume
+  dimensionality: composite
+  composite_dimensions:
+  - dimensionality: length
+    exponent: 3
+  ucum_code: kL
+  aliases:
+  - dea:unit-kilolitres
+  description: >
+    Volume in kilolitres. One kilolitre is one cubic metre. The
+    dimensionality vocabulary has no volume value (CR-MET-005), so this
+    unit is declared composite with length cubed, per the CR-MET-005
+    composite-dimension rule.
+- id: dea:unit-megawatthour
+  name: Megawatt-Hour
+  type: Unit
+  version: 1.0.0
+  symbol: MWh
+  canonical_symbol: MWh
+  quantity_kind: energy
+  dimensionality: composite
+  composite_dimensions:
+  - dimensionality: mass
+    exponent: 1
+  - dimensionality: length
+    exponent: 2
+  - dimensionality: time
+    exponent: -2
+  ucum_code: MW.h
+  aliases:
+  - dea:unit-megawatthours
+  description: >
+    Energy in megawatt-hours. The dimensionality vocabulary has no energy
+    value (CR-MET-005), so this unit is declared composite with the SI
+    dimensional formula for energy (mass times length squared over time
+    squared).

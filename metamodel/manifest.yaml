@@ -1,4 +1,4 @@
-# Metamodel Manifest (CR-1.2) — machine-readable declaration of the canonical model
+# Metamodel Manifest (CR-1.2) : machine-readable declaration of the canonical model
 metamodel:
   id: opendea
   name: OpenDEA Metamodel
@@ -17,6 +17,7 @@ metamodel:
   vocabularies:
     lifecycle: metamodel/vocabularies/lifecycle.yaml
     classifications: metamodel/vocabularies/classifications.yaml
+    units: metamodel/vocabularies/units.yaml
   migration:
     relationship_crosswalk: metamodel/migration/relationship-crosswalk.yaml
     entity_normalization: metamodel/migration/entity-normalization.yaml

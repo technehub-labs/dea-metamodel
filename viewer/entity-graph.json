@@ -2,7 +2,7 @@
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.7.1",
+  "opendeam_model_pin": "v0.7.2",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived). As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a known conformant adopter carries a `catalog_summary` field with the latest CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), latest_modified date, metamodel_version, and abbreviation; populated at build time from the cross-repo consumer (vendored at .github/scripts/cross_repo_consumer/).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -155,6 +155,18 @@
       "membership": {
         "kind": "profile",
         "profile": "dea:ecosystem"
+      },
+      "catalog_summary": {
+        "entity_count": 0,
+        "canonical": 0,
+        "candidates": 0,
+        "retired": 0,
+        "research_files": 0,
+        "latest_modified": null,
+        "metamodel_version": "^0.2.1",
+        "abbreviation": "SH",
+        "catalog_name": "Stakeholders",
+        "generated_at": "2026-10-27T04:46:22Z"
       }
     },
     {
@@ -478,11 +490,11 @@
         "candidates": 0,
         "retired": 1,
         "research_files": 339,
-        "latest_modified": "2026-10-21",
+        "latest_modified": "2026-10-26",
         "metamodel_version": "1.0.0",
         "abbreviation": "BP",
         "catalog_name": "Business Process",
-        "generated_at": "2026-10-22T15:13:55Z"
+        "generated_at": "2026-10-27T04:46:21Z"
       }
     },
     {
@@ -537,7 +549,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "BC",
         "catalog_name": "Business Capability",
-        "generated_at": "2026-10-22T15:13:55Z"
+        "generated_at": "2026-10-27T04:46:21Z"
       }
     },
     {
@@ -691,7 +703,7 @@
       "display_name": "Role",
       "catalog_repo": "dea-catalog-roles",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-roles",
-      "status": "proposed",
+      "status": "planned",
       "description": "A defined set of required Skills and responsibilities that an Actor fulfills within an Organizational Unit.",
       "layer": "L3",
       "layer_name": "Business Operating Model",
@@ -2322,8 +2334,7 @@
       "rel_ids": [
         "dea:specializes"
       ],
-      "canonical_inverse": true,
-      "disposition": "review-required"
+      "canonical_inverse": true
     },
     {
       "from": "ISC",
@@ -2335,8 +2346,7 @@
       "rel_ids": [
         "dea:specializes"
       ],
-      "canonical_inverse": true,
-      "disposition": "review-required"
+      "canonical_inverse": true
     }
   ],
   "relationship_definitions": [

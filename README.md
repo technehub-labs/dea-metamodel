@@ -9,7 +9,7 @@
 
 ## Overview
 
-The DEA Metamodel is the **foundation layer** for the TechneHub Labs Enterprise Architecture space.
+The Open DEA Metamodel (OpenDEAM) is the **foundation layer** for the TechneHub Labs Enterprise Architecture space.
 Every entity, relationship, and attribute used across all `dea-catalog-*` repositories is defined here
 and referenced by version pin.
 

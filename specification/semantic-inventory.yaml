@@ -33,14 +33,14 @@ entities:
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:JourneyTouchpoint
   name: Journey Touchpoint
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Stakeholder
   name: Stakeholder
@@ -61,91 +61,91 @@ entities:
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Blueprint
   name: Blueprint
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Control
   name: Control
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-7
 - id: dea:Experiment
   name: Experiment
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Guardrail
   name: Guardrail
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-7
 - id: dea:InvestmentInitiative
   name: Investment Initiative
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Regulation
   name: Regulation
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-7
 - id: dea:Risk
   name: Risk
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-7
 - id: dea:Signal
   name: Signal
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:StrategicObjective
   name: Strategic Objective
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Tenet
   name: Tenet
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-7
 - id: dea:TechnologyRadarEntry
   name: Technology Radar Entry
   semantic_category: dea:technology
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Actor
   name: Actor
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:BusinessFunction
   name: Business Function
@@ -159,7 +159,7 @@ entities:
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:Process
   name: Process
@@ -194,7 +194,7 @@ entities:
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:SystemCapability
   name: System Capability
@@ -222,7 +222,7 @@ entities:
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:FinancialResource
   name: Financial Resource
@@ -264,7 +264,7 @@ entities:
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:SolutionComponent
   name: Solution Component
@@ -278,63 +278,63 @@ entities:
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:ValueStream
   name: Value Stream
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:AIMLModel
   name: AI/ML Model
   semantic_category: dea:ai
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:DataEntity
   name: Data Entity
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:DigitalIdentity
   name: Digital Identity
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:DataProduct
   name: Data Product
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Event
   name: Event
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:InformationAsset
   name: Information Asset
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:InformationClass
   name: Information Class
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:KnowledgeAsset
   name: Knowledge Asset
@@ -348,98 +348,98 @@ entities:
   semantic_category: dea:ai
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:ModelFeedbackSignal
   name: Model Feedback Signal
   semantic_category: dea:ai
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:InformationSystemComponent
   name: Information System Component
   semantic_category: dea:digital
   abstract: true
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:ApplicationComponent
   name: Application Component
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:IntegrationInterface
   name: Integration Interface
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:API
   name: API
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:InfrastructureComponent
   name: Infrastructure Component
   semantic_category: dea:technology
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:IntegrationComponent
   name: Integration Component
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:InformationSystemService
   name: Information System Service
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:PlatformService
   name: Platform Service
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:InformationSystemFunction
   name: Information System Function
   semantic_category: dea:digital
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:SystemFunction
   name: System Function
   semantic_category: dea:digital
   abstract: false
   status: deprecated
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Technology
   name: Technology
   semantic_category: dea:technology
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Concept
   name: Concept
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:PerformanceMetric
   name: Performance Metric

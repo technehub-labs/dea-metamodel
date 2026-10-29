@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-014: Org-Wide Entity Lifecycle Audit and Backfill
+
+Backfills 42 entity `lifecycle` values to the observed GitHub state of their declared `catalog_repo` (audit of all 45 catalog repos, 2026-10-30). Six entities to `existing` (Actor, BusinessObject, InformationAsset, InformationClass, Role, ValueStream; their catalogs carry 3/74/7/8/1/111 canonical records); 36 to `scaffold` (hosting repo exists, no canonical content). Upward-only: three stale `existing` values and two `catalog_repo` naming drifts are named as follow-up CRs. `dea-catalog-information-assets` joins `KNOWN_CATALOG_REPOS` (viewer catalog cards). Registry and specification regenerated in-PR.
+
 ### CR-MM-ECF-04: Entity System Cross-Reference (Metamodel Slice)
 
 Metamodel cross-reference slice of the General Entity System institutionalisation (cross-repo cascade T7 of the umbrella programme). The Metamodel repo is a metamodel (entity-type definitions) repo; it does not contain entity records and does NOT adopt the entity-system gate. This PR records the cross-reference to `dea-governance` (DEA-ID-000 + CR-012) and enumerates the Metamodel repo's commitments to the General Entity System standard. D-004 clean. 118a/b/c authorship gates remain CONFORMANT.

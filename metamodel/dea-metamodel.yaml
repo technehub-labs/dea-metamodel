@@ -152,7 +152,7 @@ entities:
   building_block: L1-ecosystem-platforms
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: EP
   catalog_repo: dea-catalog-ecosystem-platforms
   artifacts:
@@ -173,7 +173,7 @@ entities:
   building_block: L1-experience-points
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: JT
   catalog_repo: dea-catalog-journey-touchpoints
   artifacts:
@@ -239,7 +239,7 @@ entities:
   building_block: L2-reusable-knowledge
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: AP
   catalog_repo: dea-catalog-patterns
   artifacts:
@@ -261,7 +261,7 @@ entities:
   building_block: L2-reusable-knowledge
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: BLU
   catalog_repo: dea-catalog-blueprints
   artifacts:
@@ -284,7 +284,7 @@ entities:
   building_block: L2-risk-compliance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: CTL
   catalog_repo: dea-catalog-controls
   artifacts:
@@ -305,7 +305,7 @@ entities:
   building_block: L2-innovation-foresight
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: EXP
   catalog_repo: dea-catalog-experiments
   artifacts:
@@ -330,7 +330,7 @@ entities:
   building_block: L2-rules-guidance
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: GRD
   catalog_repo: dea-catalog-guardrails
   artifacts:
@@ -353,7 +353,7 @@ entities:
   building_block: L2-intent
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: II
   catalog_repo: dea-catalog-investment-initiatives
   artifacts:
@@ -375,7 +375,7 @@ entities:
   building_block: L2-risk-compliance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: REG
   catalog_repo: dea-catalog-regulations
   artifacts:
@@ -396,7 +396,7 @@ entities:
   building_block: L2-risk-compliance
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: RSK
   catalog_repo: dea-catalog-risk-register
   artifacts:
@@ -418,7 +418,7 @@ entities:
   building_block: L2-innovation-foresight
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: SIG
   catalog_repo: dea-catalog-signals
   artifacts:
@@ -439,7 +439,7 @@ entities:
   building_block: L2-intent
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: SO
   catalog_repo: dea-catalog-strategic-objectives
   artifacts:
@@ -461,7 +461,7 @@ entities:
   building_block: L2-rules-guidance
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: TNT
   catalog_repo: dea-catalog-tenets
   artifacts:
@@ -486,7 +486,7 @@ entities:
   building_block: L2-innovation-foresight
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: TRE
   catalog_repo: dea-catalog-technology-radar
   artifacts:
@@ -507,7 +507,7 @@ entities:
   building_block: L3-work-organization
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: AC
   catalog_repo: dea-catalog-actors
   artifacts:
@@ -551,7 +551,7 @@ entities:
   building_block: L3-business-information
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: BO
   catalog_repo: dea-catalog-business-objects
   artifacts:
@@ -674,7 +674,7 @@ entities:
   building_block: L3-value-delivery
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: CAP
   catalog_repo: dea-catalog-business-capabilities
   artifacts:
@@ -761,7 +761,7 @@ entities:
   building_block: L3-people-skills-culture
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: CHI
   catalog_repo: dea-catalog-change-initiatives
   artifacts:
@@ -895,7 +895,7 @@ entities:
   building_block: L3-people-skills-culture
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   class_alias: ROL
   catalog_repo: dea-catalog-roles
   artifacts:
@@ -942,7 +942,7 @@ entities:
   building_block: L3-people-skills-culture
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: SKL
   catalog_repo: dea-catalog-skills
   artifacts:
@@ -963,7 +963,7 @@ entities:
   building_block: L3-value-delivery
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: existing
   class_alias: VS
   catalog_repo: dea-catalog-value-streams
   artifacts:
@@ -985,7 +985,7 @@ entities:
   building_block: L4-intelligence
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: AIM
   catalog_repo: dea-catalog-ai-ml-models
   artifacts:
@@ -1006,7 +1006,7 @@ entities:
   building_block: L4-data-foundation
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: DE
   catalog_repo: dea-catalog-data-entities
   artifacts:
@@ -1027,7 +1027,7 @@ entities:
   building_block: L4-digital-trust
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: DI
   catalog_repo: dea-catalog-digital-identities
   artifacts:
@@ -1048,7 +1048,7 @@ entities:
   building_block: L4-data-products
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: DP
   catalog_repo: dea-catalog-data-products
   artifacts:
@@ -1069,7 +1069,7 @@ entities:
   building_block: L4-events
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: EVT
   catalog_repo: dea-catalog-event-streams
   artifacts:
@@ -1092,7 +1092,7 @@ entities:
   building_block: L4-information-knowledge
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   class_alias: IA
   catalog_repo: dea-catalog-information-assets
   artifacts:
@@ -1113,7 +1113,7 @@ entities:
   building_block: L4-data-foundation
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: existing
   class_alias: IC
   catalog_repo: dea-catalog-information-classes
   artifacts:
@@ -1159,7 +1159,7 @@ entities:
   building_block: L4-model-operations
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: MDP
   catalog_repo: dea-catalog-model-deployments
   artifacts:
@@ -1182,7 +1182,7 @@ entities:
   building_block: L4-model-operations
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: MFS
   catalog_repo: dea-catalog-model-deployments
   artifacts:
@@ -1210,7 +1210,7 @@ entities:
   building_block: L5-systems
   abstract: true
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: ISC
   catalog_repo: dea-catalog-application-components
   artifacts:
@@ -1237,7 +1237,7 @@ entities:
   building_block: L5-systems
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: APC
   catalog_repo: dea-catalog-application-components
   artifacts:
@@ -1266,7 +1266,7 @@ entities:
   building_block: L5-integration
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: IFI
   catalog_repo: dea-catalog-api-contracts
   artifacts:
@@ -1294,7 +1294,7 @@ entities:
   building_block: L5-integration
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: API
   catalog_repo: dea-catalog-api-contracts
   artifacts:
@@ -1323,7 +1323,7 @@ entities:
   building_block: L5-infrastructure
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: IFC
   catalog_repo: dea-catalog-application-components
   artifacts:
@@ -1349,7 +1349,7 @@ entities:
   building_block: L5-integration
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: IGC
   catalog_repo: dea-catalog-application-components
   artifacts:
@@ -1377,7 +1377,7 @@ entities:
   building_block: L5-integration
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: ISS
   catalog_repo: dea-catalog-platform-services
   artifacts:
@@ -1405,7 +1405,7 @@ entities:
   building_block: L5-infrastructure
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: PS
   catalog_repo: dea-catalog-platform-services
   artifacts:
@@ -1437,7 +1437,7 @@ entities:
   building_block: L5-systems
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: ISF
   catalog_repo: dea-catalog-system-functions
   artifacts:
@@ -1462,7 +1462,7 @@ entities:
   building_block: L5-systems
   abstract: false
   status: deprecated
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: SF
   catalog_repo: dea-catalog-system-functions
   artifacts:
@@ -1483,7 +1483,7 @@ entities:
   building_block: L5-technology
   abstract: false
   status: normative
-  lifecycle: planned
+  lifecycle: scaffold
   class_alias: TEC
   catalog_repo: dea-catalog-patterns
   artifacts:
@@ -1508,7 +1508,7 @@ entities:
   building_block: null
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: CON
   catalog_repo: dea-catalog-concepts
   artifacts:

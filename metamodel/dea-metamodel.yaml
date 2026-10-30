@@ -674,7 +674,7 @@ entities:
   building_block: L3-value-delivery
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: CAP
   catalog_repo: dea-catalog-business-capabilities
   artifacts:

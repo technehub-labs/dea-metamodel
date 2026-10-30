@@ -106,7 +106,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-controls
   membership:
     kind: profile
@@ -150,7 +150,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-regulations
   membership:
     kind: profile
@@ -260,7 +260,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-processes
   membership:
     kind: profile
@@ -458,7 +458,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-data-entities
   membership:
     kind: profile
@@ -524,7 +524,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   catalog_repo: dea-catalog-knowledge-assets
   membership:
     kind: profile
@@ -678,7 +678,7 @@ entities:
   dimension: semantic-dimension
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-concepts
   membership:
     kind: profile

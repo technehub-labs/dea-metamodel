@@ -284,7 +284,7 @@ entities:
   building_block: L2-risk-compliance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: CTL
   catalog_repo: dea-catalog-controls
   artifacts:
@@ -375,7 +375,7 @@ entities:
   building_block: L2-risk-compliance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: REG
   catalog_repo: dea-catalog-regulations
   artifacts:
@@ -606,7 +606,7 @@ entities:
   building_block: L3-value-delivery
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: BP
   catalog_repo: dea-catalog-processes
   artifacts:
@@ -1006,7 +1006,7 @@ entities:
   building_block: L4-data-foundation
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: DE
   catalog_repo: dea-catalog-data-entities
   artifacts:
@@ -1136,7 +1136,7 @@ entities:
   building_block: L4-information-knowledge
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   class_alias: KA
   catalog_repo: dea-catalog-knowledge-assets
   artifacts:
@@ -1508,7 +1508,7 @@ entities:
   building_block: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: CON
   catalog_repo: dea-catalog-concepts
   artifacts:

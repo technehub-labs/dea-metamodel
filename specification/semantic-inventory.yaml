@@ -75,7 +75,7 @@ entities:
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-7
 - id: dea:Experiment
   name: Experiment
@@ -103,7 +103,7 @@ entities:
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-7
 - id: dea:Risk
   name: Risk
@@ -173,7 +173,7 @@ entities:
   semantic_category: dea:business
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:BusinessService
   name: Business Service
@@ -299,7 +299,7 @@ entities:
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:DigitalIdentity
   name: Digital Identity
@@ -341,7 +341,7 @@ entities:
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:ModelDeployment
   name: Model Deployment
@@ -439,7 +439,7 @@ entities:
   semantic_category: dea:data
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:PerformanceMetric
   name: Performance Metric

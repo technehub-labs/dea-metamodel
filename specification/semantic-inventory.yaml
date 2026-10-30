@@ -131,7 +131,7 @@ entities:
   semantic_category: dea:governance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-7
 - id: dea:TechnologyRadarEntry
   name: Technology Radar Entry
@@ -229,14 +229,14 @@ entities:
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:IntangibleResource
   name: Intangible Resource
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:OrganizationalUnit
   name: Organizational Unit
@@ -250,7 +250,7 @@ entities:
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   source_cr: CR-4
 - id: dea:Resource
   name: Resource

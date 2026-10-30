@@ -461,7 +461,7 @@ entities:
   building_block: L2-rules-guidance
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: TNT
   catalog_repo: dea-catalog-tenets
   artifacts:
@@ -784,7 +784,7 @@ entities:
   building_block: L3-resources
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: FR
   catalog_repo: dea-catalog-financial-resources
   artifacts:
@@ -807,7 +807,7 @@ entities:
   building_block: L3-resources
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: INR
   catalog_repo: dea-catalog-intangible-resources
   artifacts:
@@ -852,7 +852,7 @@ entities:
   building_block: L3-resources
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   class_alias: PHR
   catalog_repo: dea-catalog-physical-resources
   artifacts:

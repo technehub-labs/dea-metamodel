@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-017: BusinessCapability Lifecycle Correction
+
+`scaffold` -> `existing`. CR-MET-014's value came from a 0-canonical index count that was itself an upstream toolchain defect: the capabilities catalog's vendored regenerator misclassified all 29 canonical records as candidates since the mv1 id migration (colon-form-only filename lookup vs hyphen-form files; fixed dea-metaframework PR #58, corrected dea-catalog-business-capabilities CR-DEA-BC-61). One lifecycle value; registry + specification regenerated; 369 tests green.
+
 ### CR-MET-016: Waves 2-4 Boundary Lifecycle Sync
 
 Programme closure for the org-wide catalog advancement programme: Tenet to existing (owner-populated), Financial/Intangible/PhysicalResource to scaffold (created + kitted), KNOWN_CATALOG_REPOS +21. Follow-ups named: owner-active repos, alias drifts, discriminator backfill, schema defects, numbering collision.

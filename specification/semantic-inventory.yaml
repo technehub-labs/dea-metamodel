@@ -194,7 +194,7 @@ entities:
   semantic_category: core
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:SystemCapability
   name: System Capability

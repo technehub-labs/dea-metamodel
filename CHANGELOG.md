@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-015: Wave-1 Boundary Lifecycle Sync
+
+Six entities to `existing` under the CR-MET-014 rules as their catalogs populated (or were observed populated) in Wave 1 of the org-wide catalog advancement programme: DataEntity, Control, Regulation, KnowledgeAsset, Concept, BusinessProcess. KNOWN_CATALOG_REPOS extended (+data-entities, controls, regulations, knowledge-assets). Registry and specification regenerated.
+
 ### CR-MET-014: Org-Wide Entity Lifecycle Audit and Backfill
 
 Backfills 42 entity `lifecycle` values to the observed GitHub state of their declared `catalog_repo` (audit of all 45 catalog repos, 2026-10-30). Six entities to `existing` (Actor, BusinessObject, InformationAsset, InformationClass, Role, ValueStream; their catalogs carry 3/74/7/8/1/111 canonical records); 36 to `scaffold` (hosting repo exists, no canonical content). Upward-only: three stale `existing` values and two `catalog_repo` naming drifts are named as follow-up CRs. `dea-catalog-information-assets` joins `KNOWN_CATALOG_REPOS` (viewer catalog cards). Registry and specification regenerated in-PR.

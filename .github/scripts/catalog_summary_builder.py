@@ -61,6 +61,10 @@ KNOWN_CATALOG_REPOS: tuple[str, ...] = (
     "dea-catalog-digital-business-service-factory",
     "dea-catalog-stakeholders",
     "dea-catalog-information-assets",
+    "dea-catalog-data-entities",
+    "dea-catalog-controls",
+    "dea-catalog-regulations",
+    "dea-catalog-knowledge-assets",
 )
 
 

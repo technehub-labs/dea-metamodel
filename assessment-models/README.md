@@ -1,4 +1,4 @@
-# assessment-models/
+# OpenDEA Assessment Models
 
 > The **assessment sub-metamodel** of OpenDEA. A coherent sub-tree inside the canonical `technehub-labs/dea-metamodel` repository that defines the conceptual model, JSON Schemas, controlled vocabularies, governance policy, and maturity scoring v2 for the assessment domain.
 

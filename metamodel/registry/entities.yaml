@@ -194,7 +194,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-tenets
   membership:
     kind: profile
@@ -348,7 +348,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   catalog_repo: dea-catalog-financial-resources
   membership:
     kind: core
@@ -359,7 +359,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   catalog_repo: dea-catalog-intangible-resources
   membership:
     kind: core
@@ -381,7 +381,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: proposed
+  lifecycle: scaffold
   catalog_repo: dea-catalog-physical-resources
   membership:
     kind: core

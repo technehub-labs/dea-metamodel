@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-016: Waves 2-4 Boundary Lifecycle Sync
+
+Programme closure for the org-wide catalog advancement programme: Tenet to existing (owner-populated), Financial/Intangible/PhysicalResource to scaffold (created + kitted), KNOWN_CATALOG_REPOS +21. Follow-ups named: owner-active repos, alias drifts, discriminator backfill, schema defects, numbering collision.
+
 ### CR-MET-015: Wave-1 Boundary Lifecycle Sync
 
 Six entities to `existing` under the CR-MET-014 rules as their catalogs populated (or were observed populated) in Wave 1 of the org-wide catalog advancement programme: DataEntity, Control, Regulation, KnowledgeAsset, Concept, BusinessProcess. KNOWN_CATALOG_REPOS extended (+data-entities, controls, regulations, knowledge-assets). Registry and specification regenerated.

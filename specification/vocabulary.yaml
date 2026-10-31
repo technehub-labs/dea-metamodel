@@ -407,6 +407,16 @@ concepts:
   abstract: false
   status: normative
   version: 1.0.0
+- id: dea:InformationModel
+  name: Information Model
+  canonical_name: InformationModel
+  definition: A formal model that specifies the structure, semantics, and constraints of information for a domain - the conceptual
+    or logical blueprint from which Data Entities are shaped and Information Assets take form. Distinct from Information Class
+    (the sensitivity/regulatory band) and Information Asset (the consumable form).
+  semantic_category: dea:data
+  abstract: false
+  status: normative
+  version: 1.0.0
 - id: dea:InformationClass
   name: Information Class
   canonical_name: InformationClass

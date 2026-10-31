@@ -6,7 +6,7 @@ profile:
   status: draft
   depends_on:
   - dea:core
-  scope: 'Information specializations: data entities, products, assets, knowledge, classification, identity, semantic concepts.'
+  scope: 'Information specializations: data entities, products, assets, models, knowledge, classification, identity, semantic concepts.'
   entities:
   - dea:Concept
   - dea:DataEntity
@@ -14,6 +14,7 @@ profile:
   - dea:DigitalIdentity
   - dea:InformationAsset
   - dea:InformationClass
+  - dea:InformationModel
   - dea:KnowledgeAsset
   rules:
   - Profiles may extend, specialize, add entities/relationships/classifications/constraints.

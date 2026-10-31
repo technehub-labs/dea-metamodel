@@ -1103,6 +1103,30 @@ entities:
   membership:
     kind: profile
     profile: dea:data
+- id: dea:InformationModel
+  name: Information Model
+  legacy_ids:
+  - dea:entity-information-model
+  definition: A formal model that specifies the structure, semantics, and constraints of information
+    for a domain - the conceptual or logical blueprint from which Data Entities are shaped and Information
+    Assets take form. Distinct from Information Class (the sensitivity/regulatory band) and Information
+    Asset (the consumable form).
+  layer: L4
+  dimension: null
+  building_block: L4-information-knowledge
+  abstract: false
+  status: normative
+  lifecycle: planned
+  class_alias: IM
+  catalog_repo: dea-catalog-information-models
+  artifacts:
+    json_schema: schemas/entities/information-model.json
+    sqlite_table: information_models
+    pydantic_model: pydantic/information_model.py
+    ts_interface: typescript/src/interfaces.ts
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:InformationClass
   name: Information Class
   legacy_ids:
@@ -4842,6 +4866,7 @@ relationships:
     - dea:DigitalIdentity
     - dea:Event
     - dea:InformationAsset
+    - dea:InformationModel
   target:
     types:
     - dea:BusinessCapability
@@ -5011,6 +5036,30 @@ relationships:
   lifecycle: active
   supersedes:
   - trained on
+- id: dea:structures
+  name: Structures
+  definition: The source model specifies the structure, semantics, and constraints that shape the
+    target information entity (CR-MET-019). Model-level structuring; distinct from curates
+    (instance-level content maintenance) and specifies (bounded to API to IntegrationInterface).
+  category: information
+  direction: source-to-target
+  source:
+    types:
+    - dea:InformationModel
+  target:
+    types:
+    - dea:DataEntity
+    - dea:InformationAsset
+  cardinality:
+    source: 0..*
+    target: 0..*
+  inverse: dea:structured-by
+  transitive: false
+  symmetric: false
+  temporal: true
+  provenance: required
+  status: normative
+  lifecycle: active
 - id: dea:derived-from
   name: Derived From
   definition: The source is derived from the target information, event, or actor knowledge (lineage).

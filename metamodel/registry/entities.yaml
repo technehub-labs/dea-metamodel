@@ -507,6 +507,17 @@ entities:
   membership:
     kind: profile
     profile: dea:data
+- id: dea:InformationModel
+  name: Information Model
+  layer: L4
+  dimension: null
+  abstract: false
+  status: normative
+  lifecycle: planned
+  catalog_repo: dea-catalog-information-models
+  membership:
+    kind: profile
+    profile: dea:data
 - id: dea:InformationClass
   name: Information Class
   layer: L4

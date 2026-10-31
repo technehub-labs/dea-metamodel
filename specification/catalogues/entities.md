@@ -1,6 +1,6 @@
 # OpenDEA Concept Catalogue (generated)
 
-Version 1.0.0; 163 concepts. Source: `metamodel/dea-metamodel.yaml`.
+Version 1.0.0; 164 concepts. Source: `metamodel/dea-metamodel.yaml`.
 
 | Concept | Category | Abstract | Definition |
 |---|---|---|---|
@@ -50,6 +50,7 @@ Version 1.0.0; 163 concepts. Source: `metamodel/dea-metamodel.yaml`.
 | `dea:DataProduct` | dea:data | no | A curated, discoverable, governed dataset or data service with clear ownership and SLAs (data-mesh pattern). |
 | `dea:Event` | dea:digital | no | A significant state change or business occurrence that business objects participate in. |
 | `dea:InformationAsset` | dea:data | no | Data given context and form for a specific consuming purpose (a report, dashboard, invoice); distinct from the raw Data Entity it's contextualized from. |
+| `dea:InformationModel` | dea:data | no | A formal model that specifies the structure, semantics, and constraints of information for a domain - the conceptual or logical blueprint from which Data Entities are shaped and Information Assets take form. Distinct from Information Class (the sensitivity/regulatory band) and Information Asset (the consumable form). |
 | `dea:InformationClass` | dea:data | no | A classification of information by sensitivity and regulatory regime (PII, PHI, PCI). |
 | `dea:KnowledgeAsset` | dea:data | no | Applied know-how made explicit and durable, existing independent of any one Actor; distinct from Skill (L3), which an Actor personally possesses. |
 | `dea:ModelDeployment` | dea:ai | no | A running instance of an AI/ML Model, hosted on an Application Component, with its own version, monitoring state, and health. |

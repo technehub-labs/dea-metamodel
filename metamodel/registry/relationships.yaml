@@ -763,6 +763,7 @@ relationships:
   - dea:DigitalIdentity
   - dea:Event
   - dea:InformationAsset
+  - dea:InformationModel
   target:
   - dea:BusinessCapability
   - dea:BusinessObject
@@ -849,6 +850,17 @@ relationships:
   - dea:DataEntity
   - dea:DataProduct
   inverse: dea:training-of
+  status: normative
+  lifecycle: active
+- id: dea:structures
+  name: Structures
+  category: information
+  source:
+  - dea:InformationModel
+  target:
+  - dea:DataEntity
+  - dea:InformationAsset
+  inverse: dea:structured-by
   status: normative
   lifecycle: active
 - id: dea:derived-from

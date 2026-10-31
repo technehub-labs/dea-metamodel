@@ -2,8 +2,8 @@
 inventory_version: 1.0.0
 generated_from: metamodel/dea-metamodel.yaml
 counts:
-  entities: 163
-  relationships: 120
+  entities: 164
+  relationships: 121
   core_entities: 28
   profiles: 10
 entities:
@@ -328,6 +328,13 @@ entities:
   abstract: false
   status: normative
   lifecycle: existing
+  source_cr: CR-4
+- id: dea:InformationModel
+  name: Information Model
+  semantic_category: dea:data
+  abstract: false
+  status: normative
+  lifecycle: planned
   source_cr: CR-4
 - id: dea:InformationClass
   name: Information Class
@@ -1429,6 +1436,12 @@ relationships:
   name: Trained On
   category: information
   inverse: dea:training-of
+  temporal: true
+  status: normative
+- id: dea:structures
+  name: Structures
+  category: information
+  inverse: dea:structured-by
   temporal: true
   status: normative
 - id: dea:derived-from

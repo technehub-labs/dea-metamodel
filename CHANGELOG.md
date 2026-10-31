@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-019: Information Model Entity (IM) + dea:structures Relationship
+
+Introduces dea:InformationModel (IM, L4-information-knowledge, profile dea:data, planned, catalog_repo dea-catalog-information-models) - the conceptual/logical-blueprint member of the information family, distinct from InformationClass (band) and InformationAsset (consumable form). New dea:structures relationship (InformationModel -> DataEntity, InformationAsset; inverse structured-by) serves the unserved model-level structuring role. represents.source and informs.target extended; dea:Information anchor enumeration extended in all four copies; dea:data profile extended; schema + vocabulary (model_form) + relationship-instance enum + sqlite table/CHECK + TS interface + pydantic shipped in one PR (ratchet intact). Depends on CR-AR-FMWK-15 (root allocation v0.9.0) and CR-017 (register v8). All artifacts regenerated; 369 tests green; tsc clean.
+
 ### CR-MET-018: ECF Identifier Mirror and Detector Truthfulness
 
 test_035_ecf_identifier_mirror asserts all-49 identifier equality between the metaframework's normative builder (CR-ECF-012) and detect_drift.py's DOMAIN_ID - skipping offline, enforced online by ecf-conformance.yml. Detector truthfulness fixes: Domain-3 deprecated aliases, state-dir exclusion from the entity scan, DEFAULT_ROOTS real repo names. Closes the dual-source-of-truth defect exposed by a capability-admission CI failure.

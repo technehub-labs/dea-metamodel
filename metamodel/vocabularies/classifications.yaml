@@ -196,6 +196,15 @@ classifications:
     - document
     - feed
     - other
+  InformationModel.model_form:
+    entity: InformationModel
+    property: model_form
+    values:
+    - conceptual
+    - logical
+    - schema
+    - ontology
+    - other
   InfrastructureComponent.infrastructure_type:
     entity: InfrastructureComponent
     property: infrastructure_type

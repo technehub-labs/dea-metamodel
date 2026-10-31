@@ -18,6 +18,7 @@ CREATE TABLE entities (
         'ApplicationComponent','InfrastructureComponent','IntegrationComponent',
         'InformationSystemFunction','InformationSystemComponent',
         'InformationSystemService','IntegrationInterface',
+        'InformationModel',
         'Technology','Metric','Concept',
         -- Metric programme (CR-MET-001..012). Every table below references
         -- entities(id); without these type values the Metric tables are
@@ -1326,6 +1327,13 @@ CREATE TABLE IF NOT EXISTS skills (
 CREATE TABLE IF NOT EXISTS information_assets (
     entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
     consumption_form     TEXT CHECK(consumption_form IN ('report','dashboard','document','feed','other')),
+    tags                 TEXT
+);
+
+CREATE TABLE IF NOT EXISTS information_models (
+    entity_id           TEXT PRIMARY KEY REFERENCES entities(id) ON DELETE CASCADE,
+    model_form           TEXT CHECK(model_form IN ('conceptual','logical','schema','ontology','other')),
+    model_scope          TEXT,
     tags                 TEXT
 );
 

@@ -684,6 +684,15 @@ export interface KnowledgeAsset extends BaseEntity {
   review_cycle?: string;
 }
 
+// InformationModel (IM) : L4 Information & Knowledge (CR-MET-019). The
+// conceptual/logical blueprint of the information family: distinct from
+// InformationClass (band) and InformationAsset (consumable form).
+export interface InformationModel extends BaseEntity {
+  type: 'InformationModel';
+  model_form?: 'conceptual' | 'logical' | 'schema' | 'ontology' | 'other';
+  model_scope?: string;
+}
+
 // ─── Union type for all concrete entities ─────────────────
 
 export type AnyEntity =
@@ -730,6 +739,7 @@ export type AnyEntity =
   | ModelDeployment
   | ModelFeedbackSignal
   | InformationAsset
+  | InformationModel
   | KnowledgeAsset
   | InformationSystemFunction
   | InformationSystemComponent
@@ -971,6 +981,7 @@ export const ENTITY_TYPES = [
   'AgenticSystem',
   'AgentOpportunity',
   'Memory',
+  'InformationModel',
 ] as const;
 
 export const RELATIONSHIP_TYPES: RelationshipType[] = [

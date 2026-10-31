@@ -1,6 +1,6 @@
 # OpenDEA Relationship Catalogue (generated)
 
-Version 1.0.0; 120 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
+Version 1.0.0; 121 relationship types. Canonical direction is source-to-target (CR-2 R002); inverses are query aliases.
 
 | Relationship | Category | Inverse | Temporal | Definition |
 |---|---|---|---|---|
@@ -51,6 +51,7 @@ Version 1.0.0; 120 relationship types. Canonical direction is source-to-target (
 | `dea:publishes` | information | `dea:published-by` | yes | The source makes the target event or information available to subscribers. |
 | `dea:subscribes-to` | information | `dea:subscribed-by` | yes | The source consumes publications of the target event or information feed. |
 | `dea:trained-on` | information | `dea:training-of` | yes | The source AI/ML model is trained on the target data product or dataset. |
+| `dea:structures` | information | `dea:structured-by` | yes | The source model specifies the structure, semantics, and constraints that shape the target information entity (CR-MET-019). Model-level structuring; distinct from curates (instance-level content maintenance) and specifies (bounded to API to IntegrationInterface). |
 | `dea:derived-from` | information | `dea:derived-into` | yes | The source is derived from the target information, event, or actor knowledge (lineage). |
 | `dea:assessed-by` | assessment | `dea:assesses` | yes | The source is evaluated by the target assessment instrument, experiment, or framework. |
 | `dea:measured-by` | assessment | `dea:measures` | yes | The source's performance, health, or maturity is quantified by the target metric. CR-MET-007 extended source types from 7 to 16 (added: AssessmentDimension, Control, DataEntity, MaturityModel, OrganizationalUnit, Policy, Risk, Service, ValueStream) covering user-supplied cross-domain integration domains (Strategy, Organization, Business architecture, Value architecture, Product and service, Information architecture, Technology architecture, Governance, Transformation, Maturity). Deferred entities that do not exist yet (Strategy, Initiative, Function, ValueStage, CustomerSegment, Journey, Experience, Product, ServiceOffering, InformationObject, InformationSystem, Infrastructure, TransformationInitiative) to future per-domain CRs. |

@@ -271,6 +271,12 @@ dea:KnowledgeAsset a owl:Class ;
     skos:definition "Applied know-how made explicit and durable, independent of any one Actor (L4, ADR-0005)." ;
     dea:specification <schemas/entities/knowledge-asset.json> .
 
+dea:InformationModel a owl:Class ;
+    rdfs:subClassOf dea:Entity ;
+    rdfs:label "InformationModel" ;
+    skos:definition "A formal model that specifies the structure, semantics, and constraints of information for a domain - the conceptual or logical blueprint from which Data Entities are shaped and Information Assets take form. Distinct from Information Class (the sensitivity/regulatory band) and Information Asset (the consumable form). (CR-MET-019)" ;
+    dea:specification <schemas/entities/information-model.json> .
+
 # Object properties (CR-002: generated from the canonical relationship registry)
 
 # Object properties (CR-002: generated from the canonical relationship registry)
@@ -301,7 +307,7 @@ dea:Information a owl:Class ;
     rdfs:subClassOf dea:Entity ;
     dea:abstract true ;
     rdfs:label "Information" ;
-    skos:definition "Abstract foundation for all information specializations (CR-4 §12). Profiles define DataEntity, BusinessObject, InformationAsset, KnowledgeAsset, DataProduct, Dataset." .
+    skos:definition "Abstract foundation for all information specializations (CR-4 §12). Profiles define DataEntity, BusinessObject, InformationAsset, InformationModel, KnowledgeAsset, DataProduct, Dataset." .
 
 dea:Organization a owl:Class ;
     rdfs:subClassOf dea:Entity ;
@@ -570,6 +576,12 @@ dea:derivedFrom a owl:ObjectProperty ;
     dea:category "information" ;
     dea:inverseOf "dea:derived-into" ;
     a owl:TransitiveProperty .
+
+dea:structures a owl:ObjectProperty ;
+    rdfs:label "Structures" ;
+    skos:definition "The source model specifies the structure, semantics, and constraints that shape the target information entity (CR-MET-019). Model-level structuring; distinct from curates (instance-level) and specifies (API to IntegrationInterface)." ;
+    dea:category "information" ;
+    dea:inverseOf "dea:structured-by" .
 
 dea:assessedBy a owl:ObjectProperty ;
     rdfs:label "Assessed By" ;

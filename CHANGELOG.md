@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-018: ECF Identifier Mirror and Detector Truthfulness
+
+test_035_ecf_identifier_mirror asserts all-49 identifier equality between the metaframework's normative builder (CR-ECF-012) and detect_drift.py's DOMAIN_ID - skipping offline, enforced online by ecf-conformance.yml. Detector truthfulness fixes: Domain-3 deprecated aliases, state-dir exclusion from the entity scan, DEFAULT_ROOTS real repo names. Closes the dual-source-of-truth defect exposed by a capability-admission CI failure.
+
 ### CR-MET-017: BusinessCapability Lifecycle Correction
 
 `scaffold` -> `existing`. CR-MET-014's value came from a 0-canonical index count that was itself an upstream toolchain defect: the capabilities catalog's vendored regenerator misclassified all 29 canonical records as candidates since the mv1 id migration (colon-form-only filename lookup vs hyphen-form files; fixed dea-metaframework PR #58, corrected dea-catalog-business-capabilities CR-DEA-BC-61). One lifecycle value; registry + specification regenerated; 369 tests green.

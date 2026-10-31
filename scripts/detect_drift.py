@@ -41,9 +41,12 @@ STAGE_SCHEMA = FWK / 'schemas' / 'ecf-stage.schema.json'
 COORD_SCHEMA = FWK / 'schemas' / 'ecf-coordinate.schema.json'
 
 # Canonical coordinate identifier suffix mapping (PascalCase -> lowerCamelCase)
-# Derived from the actual catalog use; matching the dea-metaframework
-# schema's lowerCamelCase identifier pattern. If dea-metaframework ever
-# changes this mapping, update this table.
+# Derived from the actual catalog use; normative since CR-ECF-012 adopted
+# this table as the ECF identifier convention (the metaframework's
+# tools/ecf_coordinates.py DOMAIN_ID is the same map, and the mirror test
+# test_035_ecf_identifier_mirror asserts all-49 equality so the two repos
+# cannot drift apart silently). If the convention ever changes, change it
+# in the metaframework first and let the mirror test fail here.
 #
 # DEPRECATED KEYS (CR-ECF-008 / ADR-ECF-003): the previous names are
 # retained here during the v2.5.0 migration window so the drift detector
@@ -89,7 +92,7 @@ WRONG_TERMS = [
 # (colon-separated absolute paths).
 DEFAULT_ROOTS = [
     Path('/home/hermes/dea-work/dea-catalog-business-capabilities'),
-    Path('/home/hermes/dea-work/dea-catalog-processes'),
+    Path('/home/hermes/dea-work/dea-catalog-business-processes'),
 ]
 
 def canonical_domains() -> set[str]:
@@ -108,9 +111,11 @@ def canonical_id_space() -> set[str]:
 # (CR-MM-ECF-03 downstream CRs), this resolver may be removed.
 DEPRECATED_DOMAIN_ALIASES = {
     'OperationsAndEnablement': 'EnablementAndOperations',
+    'PeopleAndOrganization': 'AgencyAndOrganization',
 }
 DEPRECATED_DOMAIN_ID_ALIASES = {
     'operationsEnablement': 'enablementAndOperations',
+    'peopleAndOrganization': 'agencyOrganization',
 }
 
 def resolve_domain(d: str | None) -> str | None:
@@ -169,7 +174,11 @@ def main():
         if not entities_root.exists():
             continue
         files = sorted(glob.glob(str(entities_root / '**' / '*.yaml'), recursive=True))
-        files = [f for f in files if '/README' not in f and '/readme' not in f]
+        files = [
+            f for f in files
+            if '/README' not in f and '/readme' not in f
+            and not any(part in ('research', 'candidates', 'retired') for part in Path(f).parts)
+        ]
         for fp in files:
             try:
                 e = yaml.safe_load(open(fp))

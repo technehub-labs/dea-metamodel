@@ -368,6 +368,86 @@ crosswalk:
     proposed: dea:specifies
     reverse: false
     status: accepted
+  - current: analyses metric
+    rel_type: dependency
+    proposed: dea:analyses-metric
+    reverse: false
+    status: accepted
+  - current: applies metric
+    rel_type: governance
+    proposed: dea:applies-metric
+    reverse: false
+    status: accepted
+  - current: applies period
+    rel_type: governance
+    proposed: dea:applies-period
+    reverse: false
+    status: accepted
+  - current: applies to
+    rel_type: governance
+    proposed: dea:constrains
+    reverse: false
+    status: accepted
+  - current: constrains
+    rel_type: governance
+    proposed: dea:constrains
+    reverse: false
+    status: accepted
+  - current: corrects
+    rel_type: dependency
+    proposed: dea:corrects
+    reverse: false
+    status: accepted
+  - current: correlates with
+    rel_type: association
+    proposed: dea:correlates
+    reverse: false
+    status: accepted
+  - current: has designation
+    rel_type: governance
+    proposed: dea:has-designation
+    reverse: false
+    status: accepted
+  - current: has provenance
+    rel_type: governance
+    proposed: dea:has-provenance
+    reverse: false
+    status: accepted
+  - current: has target
+    rel_type: governance
+    proposed: dea:has-target
+    reverse: false
+    status: accepted
+  - current: interprets
+    rel_type: dependency
+    proposed: dea:interprets
+    reverse: false
+    status: accepted
+  - current: measures subject
+    rel_type: governance
+    proposed: dea:measures-subject
+    reverse: false
+    status: accepted
+  - current: produces
+    rel_type: dependency
+    proposed: dea:produces
+    reverse: false
+    status: accepted
+  - current: references baseline
+    rel_type: governance
+    proposed: dea:references
+    reverse: false
+    status: accepted
+  - current: specifies target
+    rel_type: governance
+    proposed: dea:specifies-target
+    reverse: false
+    status: accepted
+  - current: tests hypothesis
+    rel_type: association
+    proposed: dea:tests-hypothesis
+    reverse: false
+    status: accepted
     notes: 'OpenDEAM v0.7.0 rel_type `contract` mirrors dea:specifies and the contract category (M) introduced by CR-021 D-4. API specifies IF.'
   instance_vocabulary_mappings:
   - current: maps-to

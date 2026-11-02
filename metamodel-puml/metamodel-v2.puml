@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.7.2) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.9.0) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -53,6 +53,10 @@ package "Layer 1: Ecosystem & Value Network" #1B6963 {
 }
 
 package "Layer 2: Strategic & Governance" #785F1D {
+    entity "Architecture Element" as AE {
+        + id : string
+        + name : string
+    }
     entity "Architecture Pattern" as AP {
         + id : string
         + name : string
@@ -61,7 +65,15 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
+    entity "Constraint" as CST {
+        + id : string
+        + name : string
+    }
     entity "Control" as CTL {
+        + id : string
+        + name : string
+    }
+    entity "Decision" as DEC {
         + id : string
         + name : string
     }
@@ -77,7 +89,15 @@ package "Layer 2: Strategic & Governance" #785F1D {
         + id : string
         + name : string
     }
+    entity "Outcome" as OUT {
+        + id : string
+        + name : string
+    }
     entity "Regulation" as REG {
+        + id : string
+        + name : string
+    }
+    entity "Requirement" as REQ {
         + id : string
         + name : string
     }
@@ -109,6 +129,10 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
+    entity "Behavior" as BEH {
+        + id : string
+        + name : string
+    }
     entity "Business Function" as BF {
         + id : string
         + name : string
@@ -132,6 +156,10 @@ package "Layer 3: Business Operating Model" #205E7C {
         + id : string
         + name : string
     }
+    entity "Change" as CHG {
+        + id : string
+        + name : string
+    }
     entity "Change Initiative" as CHI {
         + id : string
         + name : string
@@ -141,6 +169,10 @@ package "Layer 3: Business Operating Model" #205E7C {
         + name : string
     }
     entity "Intangible Resource" as INR {
+        + id : string
+        + name : string
+    }
+    entity "Organization" as ORG {
         + id : string
         + name : string
     }
@@ -171,6 +203,10 @@ package "Layer 3: Business Operating Model" #205E7C {
         + name : string
     }
     entity "Skill" as SKL {
+        + id : string
+        + name : string
+    }
+    entity "Service" as SRV {
         + id : string
         + name : string
     }
@@ -206,6 +242,14 @@ package "Layer 4: Digital & Intelligence" #52487D {
         + name : string
     }
     entity "Information Class" as IC {
+        + id : string
+        + name : string
+    }
+    entity "Information Model" as IM {
+        + id : string
+        + name : string
+    }
+    entity "Information" as INF {
         + id : string
         + name : string
     }
@@ -370,10 +414,19 @@ package "Measurement Dimension (cross-cutting)" <<dimension>> #374151 {
 }
 
 ' --- SPECIALIZATION (entity.specializes) ---
+BO --|> INF
 BP --|> PRC
+BS --|> SRV
 FR --|> RES
 INR --|> RES
+OU --|> ORG
 PHR --|> RES
+PRC --|> BEH
+DE --|> INF
+DP --|> INF
+IA --|> INF
+IM --|> INF
+KA --|> INF
 APC --|> SC
 IFC --|> SC
 IGC --|> SC
@@ -459,7 +512,46 @@ API -- IF : "specifies [0..N:0..N]"
 ISS -- PS : "specializes (conditional per D-3) [0..N:0..N]"
 ISC -- APC : "specializes [0..N:0..N]"
 ISC -- IGC : "specializes [0..N:0..N]"
+MTR .. MMT : "applies metric [0..1:0..N]"
+MMT .. MOBS : "produces [1:0..N]"
+MMT .. PRV : "has provenance [1:0..1]"
+MOBS .. PRV : "has provenance [1:0..1]"
+MTR .. PRV : "has provenance [0..1:0..1]"
+MOBS .. MOBS : "corrects [0..N:0..N]"
+MTR .. SO : "applies to [0..1:0..N]"
+MMT .. SO : "measures subject [1:0..N]"
+MTR .. BSL : "references baseline [0..N:0..N]"
+MTR .. PTG : "specifies target [0..1:0..N]"
+SO .. PTG : "has target [0..N:0..N]"
+MMT .. RPT : "applies period [1:0..N]"
+MOBS .. RPT : "applies period [1:0..N]"
+BSL .. RPT : "applies period [1:0..N]"
+PTG .. RPT : "applies period [1:0..N]"
+THR .. RPT : "applies period [1:0..N]"
+PIT .. RPT : "applies period [1:0..N]"
+IDS .. RPT : "applies period [1:0..N]"
+PIT .. MOBS : "interprets [0..N:0..N]"
+THR .. MTR : "constrains [0..N:0..N]"
+MTR .. IDS : "has designation [0..1:0..N]"
+ANR .. MTR : "analyses metric [0..N:0..N]"
+COR .. CSH : "tests hypothesis [0..N:0..N]"
+COR .. MTR : "correlates with [0..N:0..N]"
+RSK .. MTR : "measured by [0..N:0..N]"
+CTL .. MTR : "measured by [0..N:0..N]"
+TRE .. MTR : "evaluated by [0..N:0..N]"
+OU .. MTR : "measured by [0..N:0..N]"
+VS .. MTR : "measured by [0..N:0..N]"
+SC .. MTR : "evaluated by [0..N:0..N]"
+DE .. MTR : "measured by [0..N:0..N]"
+AIM .. MTR : "evaluated by [0..N:0..N]"
+APC .. MTR : "measured by [0..N:0..N]"
+ISF .. MTR : "evaluated by [1:0..N]"
+PRC -- BEH : "specializes [0..N:1]"
+BS -- SRV : "specializes [0..N:1]"
+BO -- INF : "specializes [0..N:1]"
+OU -- ORG : "specializes [0..N:1]"
+DE -- INF : "specializes [0..N:1]"
 
-' Generated 79 relationship edges, 8 specialization edges
+' Generated 118 relationship edges, 17 specialization edges
 
 @enduml

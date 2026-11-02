@@ -16,7 +16,7 @@ metamodel:
   upstream_root:
     repo: technehub-labs/dea-architecture-framework
     model: model/opendeam-model.yaml
-    pin: v0.5.0
+    pin: v0.9.0
     relationship: The upstream root model governs enterprise-model allocation (layers, building blocks, dimensions). This
       file is the normative semantic definition of the metamodel itself; the enterprise model consumes and does not redefine
       it.

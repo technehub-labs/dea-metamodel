@@ -113,7 +113,12 @@ CREATE TABLE processes (
                             'finance-accounting'
                             )),
     trigger             TEXT,
-    outcome             TEXT
+    outcome             TEXT,
+    plain_language_name          TEXT,
+    plain_language_description   TEXT,
+    business_purpose             TEXT,
+    practical_context            TEXT,
+    worked_example               TEXT
 );
 
 -- Business Objects (v1.0.0-alpha)
@@ -880,6 +885,11 @@ CREATE TABLE IF NOT EXISTS tasks (
     workflow_ref       TEXT
     sequence           TEXT
     task_kind          TEXT
+    plain_language_name           TEXT
+    plain_language_description    TEXT
+    business_purpose              TEXT
+    practical_context             TEXT
+    worked_example                TEXT
 );
 
 CREATE TABLE IF NOT EXISTS autonomy_policies (

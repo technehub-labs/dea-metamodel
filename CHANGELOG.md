@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-020: Plain-Language Attribute Set on Task and BusinessProcess
+
+Five optional attributes (plain_language_name, plain_language_description, business_purpose, practical_context, worked_example{agent_type, narrative}) added to dea:Task and dea:BusinessProcess, mirroring the catalogue-side CR-BP-230 set (the companion CR-BP-230 §4 enabled, authored corpus-wide by CR-BP-233..236). All artifacts in one PR (ratchet forbids a null window): both entity schemas, regenerated pydantic (task/process), sqlite DDL + in-place ALTER-migrated checked-in db, TypeScript interfaces with a shared WorkedExample type, registry + specification regenerated (164e/121r unchanged). TTL, classifications vocabulary, and the normative YAML unchanged (datatype properties are not modeled per-entity in TTL; the nested agent_type enum is deliberately not E005-registered; the normative YAML documents entity/relationship granularity). VERSION unchanged at 1.0.0 (manifest governs). All five attributes optional — no required-set change. Ratchet TOTAL FINDINGS 0; 369 conformance tests + 290 runtime tests green; tsc --noEmit clean.
+
 ### CR-MET-019: Information Model Entity (IM) + dea:structures Relationship
 
 Introduces dea:InformationModel (IM, L4-information-knowledge, profile dea:data, planned, catalog_repo dea-catalog-information-models) - the conceptual/logical-blueprint member of the information family, distinct from InformationClass (band) and InformationAsset (consumable form). New dea:structures relationship (InformationModel -> DataEntity, InformationAsset; inverse structured-by) serves the unserved model-level structuring role. represents.source and informs.target extended; dea:Information anchor enumeration extended in all four copies; dea:data profile extended; schema + vocabulary (model_form) + relationship-instance enum + sqlite table/CHECK + TS interface + pydantic shipped in one PR (ratchet intact). Depends on CR-AR-FMWK-15 (root allocation v0.9.0) and CR-017 (register v8). All artifacts regenerated; 369 tests green; tsc clean.

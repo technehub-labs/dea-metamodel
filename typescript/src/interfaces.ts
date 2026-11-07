@@ -1379,6 +1379,12 @@ export interface BusinessProcess extends BaseEntity {
   // The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' ; see technehub-labs/dea-metaframework REPORT.md §2.
   process_audience: 'governance-existence' | 'strategy-direction' | 'agency-organization' | 'party-relationship' | 'product-value' | 'enablement-operations' | 'finance-accounting';
   // What initiates this process.
+  plain_language_name?: string;
+  plain_language_description?: string;
+  business_purpose?: string;
+  practical_context?: string;
+  worked_example?: WorkedExample;
+  // What initiates this process.
   trigger?: string;
   // Expected result of process completion.
   outcome?: string;
@@ -2088,8 +2094,20 @@ export interface Workflow extends BaseEntity {
   definition?: string;
 }
 
+// CR-MET-020: the plain-language attribute set mirrored from the catalogue
+// (dea-catalog-business-processes CR-BP-230). All five fields are optional.
+export interface WorkedExample {
+  agent_type: 'human' | 'non-human' | 'mixed';
+  narrative: string;
+}
+
 export interface Task extends BaseEntity {
   type: 'Task';
+  plain_language_name?: string;
+  plain_language_description?: string;
+  business_purpose?: string;
+  practical_context?: string;
+  worked_example?: WorkedExample;
   workflow_ref?: string;
   sequence?: number;
   task_kind?: string;

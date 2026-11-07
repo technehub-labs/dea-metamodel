@@ -30,6 +30,56 @@
       "minLength": 1,
       "maxLength": 200
     },
+    "plain_language_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "description": "Human-readable, business-familiar name (CR-MET-020). Must remain semantically equivalent to `name` - a familiar rendering, not an informal synonym. Mirrors the catalogue-side CR-BP-230 attribute set."
+    },
+    "plain_language_description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "Everyday explanation of what this entity represents in practical terms (CR-MET-020). Rendered in the catalogue README Part I. Must not restate the formal `description` verbatim (MECE); metamodel jargon denied by the catalogue HUM gates."
+    },
+    "business_purpose": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "description": "Why this entity exists and the business significance it carries (CR-MET-020)."
+    },
+    "practical_context": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "description": "When and where the work is encountered in everyday operations (CR-MET-020)."
+    },
+    "worked_example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_type",
+        "narrative"
+      ],
+      "properties": {
+        "agent_type": {
+          "type": "string",
+          "enum": [
+            "human",
+            "non-human",
+            "mixed"
+          ],
+          "description": "The kind of agent illustrated by the example: human (a person performs it), non-human (automation/system performs it), mixed (human-with-system) (CR-MET-020)."
+        },
+        "narrative": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Office-relatable worked example of the entity being carried out by the stated agent type (CR-MET-020)."
+        }
+      },
+      "description": "Worked example of this entity being performed by an agent of type human or non-human (CR-MET-020). The nested `agent_type` enum is deliberately NOT registered as a top-level E005 classification: it is embedded, mirroring the catalogue attribute set."
+    },
     "description": {
       "type": "string",
       "maxLength": 2000
@@ -88,7 +138,7 @@
         "enablement-operations",
         "finance-accounting"
       ],
-      "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' — see technehub-labs/dea-metaframework REPORT.md §2."
+      "description": "The Enterprise Concept Framework (ECF) domain whose work this process most advances. Axiom-derived from the definition of 'enterprise' \u2014 see technehub-labs/dea-metaframework REPORT.md \u00a72."
     },
     "trigger": {
       "type": "string",

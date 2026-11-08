@@ -47,7 +47,7 @@ entities:
   semantic_category: dea:ecosystem
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   source_cr: CR-4
 - id: dea:ValueExchange
   name: Value Exchange

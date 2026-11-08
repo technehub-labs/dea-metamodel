@@ -195,7 +195,7 @@ entities:
   building_block: L1-external-parties
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   class_alias: SH
   catalog_repo: dea-catalog-stakeholders
   artifacts:

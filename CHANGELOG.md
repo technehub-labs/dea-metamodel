@@ -6,6 +6,10 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-MET-021: Stakeholder Lifecycle Promotion
+
+`dea:Stakeholder` lifecycle `scaffold` → `existing` across the three mirrors (`metamodel/registry/entities.yaml`, `metamodel/dea-metamodel.yaml`, `specification/semantic-inventory.yaml`): the Stakeholders catalog landed its first canonical tranche on 2026-11-08 (11 records — 3 organisation/governance/community capacities + 8 regulators one-to-one with the regulations catalog's active records; `dea-catalog-stakeholders` CR-CATALOG-STRUCT-14, PR #17, all gates green), making the CR-MET-014 audit value stale by the CR-MET-017 rule. Forward transition (ADR-0002 D5 ladder, root-model side); promotion chain fully cited; companion root-model promotion CR-AR-FMWK-16. No schema, artifact, or pointer change; VERSION unchanged at 1.0.0 (CR-MET-017 precedent: lifecycle values are governance metadata).
+
 ### CR-MET-020: Plain-Language Attribute Set on Task and BusinessProcess
 
 Five optional attributes (plain_language_name, plain_language_description, business_purpose, practical_context, worked_example{agent_type, narrative}) added to dea:Task and dea:BusinessProcess, mirroring the catalogue-side CR-BP-230 set (the companion CR-BP-230 §4 enabled, authored corpus-wide by CR-BP-233..236). All artifacts in one PR (ratchet forbids a null window): both entity schemas, regenerated pydantic (task/process), sqlite DDL + in-place ALTER-migrated checked-in db, TypeScript interfaces with a shared WorkedExample type, registry + specification regenerated (164e/121r unchanged). TTL, classifications vocabulary, and the normative YAML unchanged (datatype properties are not modeled per-entity in TTL; the nested agent_type enum is deliberately not E005-registered; the normative YAML documents entity/relationship granularity). VERSION unchanged at 1.0.0 (manifest governs). All five attributes optional — no required-set change. Ratchet TOTAL FINDINGS 0; 369 conformance tests + 290 runtime tests green; tsc --noEmit clean.

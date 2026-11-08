@@ -21,7 +21,7 @@ skinparam arrow {
     FontSize  11
 }
 
-' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.9.0) ---
+' --- AUTO-GENERATED from viewer/entity-graph.json (OpenDEAM 1.0.0, pin v0.9.1) ---
 ' Do not edit manually — regenerate with: python3 .github/scripts/generate_puml.py
 
 package "Layer 1: Ecosystem & Value Network" #1B6963 {
@@ -41,7 +41,7 @@ package "Layer 1: Ecosystem & Value Network" #1B6963 {
         + id : string
         + name : string
     }
-    ' (scaffold)
+    ' (existing)
     entity "Stakeholder" as SH {
         + id : string
         + name : string

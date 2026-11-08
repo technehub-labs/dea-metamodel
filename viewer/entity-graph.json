@@ -2,7 +2,7 @@
   "$schema": "https://technehub-labs.github.io/dea-metamodel/viewer/entity-graph.schema.json",
   "metamodel_version": "1.0.0",
   "opendeam_model_repo": "technehub-labs/dea-architecture-framework",
-  "opendeam_model_pin": "v0.9.0",
+  "opendeam_model_pin": "v0.9.1",
   "description": "Entity-to-repo mapping for the interactive metamodel viewer, generated from the OpenDEAM root model (dea-architecture-framework). Do not edit manually; regenerate with .github/scripts/generate_entity_graph.py. As of OpenDEAM v0.2.0 (ADR-0002), measurement is an orthogonal dimension: dimension entities carry `dimension` instead of `layer`, and relationships carry rel_type + cardinality (style is derived). As of v0.2.1 (CR-CATALOG-STRUCT-07b), each entity whose catalog_repo matches a known conformant adopter carries a `catalog_summary` field with the latest CATALOG.yaml counts (entity_count, canonical, candidates, retired, research_files), latest_modified date, metamodel_version, and abbreviation; populated at build time from the cross-repo consumer (vendored at .github/scripts/cross_repo_consumer/).",
   "viewer_route": "/metamodel/",
   "viewer_url": "https://technehub-labs.github.io/metamodel/",
@@ -130,7 +130,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "EP",
         "catalog_name": "Ecosystem Platform",
-        "generated_at": "2026-11-02T20:41:14Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -160,7 +160,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "JT",
         "catalog_name": "Journey Touchpoint",
-        "generated_at": "2026-11-02T20:41:13Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -169,7 +169,7 @@
       "display_name": "Stakeholder",
       "catalog_repo": "dea-catalog-stakeholders",
       "repo_url": "https://github.com/technehub-labs/dea-catalog-stakeholders",
-      "status": "scaffold",
+      "status": "existing",
       "description": "An external or affected party whose relationship with the enterprise is engaged in or affected by enterprise processes.",
       "layer": "L1",
       "layer_name": "Ecosystem & Value Network",
@@ -181,16 +181,16 @@
         "profile": "dea:ecosystem"
       },
       "catalog_summary": {
-        "entity_count": 0,
-        "canonical": 0,
+        "entity_count": 11,
+        "canonical": 11,
         "candidates": 0,
         "retired": 0,
         "research_files": 0,
-        "latest_modified": null,
-        "metamodel_version": "^0.2.1",
+        "latest_modified": "2026-11-08",
+        "metamodel_version": "1.0.0",
         "abbreviation": "SH",
         "catalog_name": "Stakeholders",
-        "generated_at": "2026-11-02T20:41:04Z"
+        "generated_at": "2026-11-08T12:48:51Z"
       }
     },
     {
@@ -260,7 +260,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "AP",
         "catalog_name": "Architecture Pattern",
-        "generated_at": "2026-11-02T20:41:16Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -326,7 +326,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "CTL",
         "catalog_name": "Control",
-        "generated_at": "2026-11-02T20:41:06Z"
+        "generated_at": "2026-11-08T12:48:51Z"
       }
     },
     {
@@ -370,7 +370,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "EXP",
         "catalog_name": "Experiment",
-        "generated_at": "2026-11-02T20:41:18Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -420,7 +420,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "II",
         "catalog_name": "Investment Initiative",
-        "generated_at": "2026-11-02T20:41:12Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -464,7 +464,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "REG",
         "catalog_name": "Regulation",
-        "generated_at": "2026-11-02T20:41:07Z"
+        "generated_at": "2026-11-08T12:48:51Z"
       }
     },
     {
@@ -511,7 +511,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "RSK",
         "catalog_name": "Risk",
-        "generated_at": "2026-11-02T20:41:10Z"
+        "generated_at": "2026-11-08T12:48:52Z"
       }
     },
     {
@@ -541,7 +541,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "SIG",
         "catalog_name": "Signal",
-        "generated_at": "2026-11-02T20:41:20Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -571,7 +571,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "SO",
         "catalog_name": "Strategic Objective",
-        "generated_at": "2026-11-02T20:41:09Z"
+        "generated_at": "2026-11-08T12:48:52Z"
       }
     },
     {
@@ -623,7 +623,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "TRE",
         "catalog_name": "Technology Radar Entry",
-        "generated_at": "2026-11-02T20:41:17Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -729,11 +729,11 @@
         "candidates": 0,
         "retired": 1,
         "research_files": 339,
-        "latest_modified": "2026-11-02",
+        "latest_modified": "2026-11-06",
         "metamodel_version": "1.0.0",
         "abbreviation": "BP",
         "catalog_name": "Business Process",
-        "generated_at": "2026-11-02T20:41:02Z"
+        "generated_at": "2026-11-08T12:48:50Z"
       }
     },
     {
@@ -785,11 +785,11 @@
         "candidates": 3,
         "retired": 0,
         "research_files": 2,
-        "latest_modified": "2026-10-31",
+        "latest_modified": "2026-11-02",
         "metamodel_version": "1.0.0",
         "abbreviation": "BC",
         "catalog_name": "Business Capability",
-        "generated_at": "2026-11-02T20:41:03Z"
+        "generated_at": "2026-11-08T12:48:50Z"
       }
     },
     {
@@ -833,7 +833,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "CHI",
         "catalog_name": "Change Initiative",
-        "generated_at": "2026-11-02T20:41:12Z"
+        "generated_at": "2026-11-08T12:48:52Z"
       }
     },
     {
@@ -1119,7 +1119,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "AIM",
         "catalog_name": "AI/ML Model",
-        "generated_at": "2026-11-02T20:41:18Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -1153,7 +1153,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "DE",
         "catalog_name": "Data Entity",
-        "generated_at": "2026-11-02T20:41:06Z"
+        "generated_at": "2026-11-08T12:48:51Z"
       }
     },
     {
@@ -1183,7 +1183,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "DI",
         "catalog_name": "Digital Identity",
-        "generated_at": "2026-11-02T20:41:20Z"
+        "generated_at": "2026-11-08T12:48:55Z"
       }
     },
     {
@@ -1214,7 +1214,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "DP",
         "catalog_name": "Data Product",
-        "generated_at": "2026-11-02T20:41:21Z"
+        "generated_at": "2026-11-08T12:48:55Z"
       }
     },
     {
@@ -1244,7 +1244,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "EVT",
         "catalog_name": "Event",
-        "generated_at": "2026-11-02T20:41:11Z"
+        "generated_at": "2026-11-08T12:48:52Z"
       }
     },
     {
@@ -1276,7 +1276,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "IA",
         "catalog_name": "Information Asset",
-        "generated_at": "2026-11-02T20:41:05Z"
+        "generated_at": "2026-11-08T12:48:51Z"
       }
     },
     {
@@ -1383,7 +1383,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "MDP",
         "catalog_name": "Model Deployment",
-        "generated_at": "2026-11-02T20:41:19Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -1414,7 +1414,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "MDP",
         "catalog_name": "Model Deployment",
-        "generated_at": "2026-11-02T20:41:19Z"
+        "generated_at": "2026-11-08T12:48:54Z"
       }
     },
     {
@@ -1467,7 +1467,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "API",
         "catalog_name": "API",
-        "generated_at": "2026-11-02T20:41:15Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -1610,7 +1610,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "ISS",
         "catalog_name": "Information System Service",
-        "generated_at": "2026-11-02T20:41:15Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {
@@ -1662,7 +1662,7 @@
         "metamodel_version": "1.0.0",
         "abbreviation": "AP",
         "catalog_name": "Architecture Pattern",
-        "generated_at": "2026-11-02T20:41:16Z"
+        "generated_at": "2026-11-08T12:48:53Z"
       }
     },
     {

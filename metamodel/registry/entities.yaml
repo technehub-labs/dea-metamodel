@@ -62,7 +62,7 @@ entities:
   dimension: null
   abstract: false
   status: normative
-  lifecycle: scaffold
+  lifecycle: existing
   catalog_repo: dea-catalog-stakeholders
   membership:
     kind: profile

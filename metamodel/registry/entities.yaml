@@ -261,7 +261,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: existing
-  catalog_repo: dea-catalog-processes
+  catalog_repo: dea-catalog-business-processes
   membership:
     kind: profile
     profile: dea:business
@@ -272,7 +272,7 @@ entities:
   abstract: false
   status: normative
   lifecycle: existing
-  catalog_repo: dea-catalog-digital-business-service-factory
+  catalog_repo: dea-catalog-business-services
   membership:
     kind: profile
     profile: dea:business
@@ -415,7 +415,7 @@ entities:
   abstract: true
   status: normative
   lifecycle: existing
-  catalog_repo: dea-catalog-digital-business-service-factory
+  catalog_repo: dea-catalog-business-services
   membership:
     kind: profile
     profile: dea:digital

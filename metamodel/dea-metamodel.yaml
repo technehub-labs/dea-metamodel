@@ -608,7 +608,7 @@ entities:
   status: normative
   lifecycle: existing
   class_alias: BP
-  catalog_repo: dea-catalog-processes
+  catalog_repo: dea-catalog-business-processes
   artifacts:
     json_schema: schemas/entities/process.json
     sqlite_table: processes
@@ -631,7 +631,7 @@ entities:
   status: normative
   lifecycle: existing
   class_alias: BS
-  catalog_repo: dea-catalog-digital-business-service-factory
+  catalog_repo: dea-catalog-business-services
   artifacts:
     json_schema: schemas/entities/business-service.json
     sqlite_table: business_services
@@ -922,7 +922,7 @@ entities:
   status: normative
   lifecycle: existing
   class_alias: SC
-  catalog_repo: dea-catalog-digital-business-service-factory
+  catalog_repo: dea-catalog-business-services
   artifacts:
     json_schema: schemas/entities/solution-component.json
     sqlite_table: solution_components

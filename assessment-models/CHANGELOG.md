@@ -2,6 +2,45 @@
 
 All notable changes to the `assessment-models/` sub-tree of `technehub-labs/dea-metamodel` are recorded here. The sub-tree follows [Semantic Versioning](https://semver.org/) with [explicit compatibility metadata](../governance/compatibility.md).
 
+## [Unreleased] — CR-AM-12 cardinal root, cross-model relations and the dotted line
+
+CR-AM-12 completes the federation's **cardinal root**: the reference surface on which every
+maturity model in the Assessment-Models organisation is relatable and traceable, and through
+which a capability model's weak result can be traced back to weak enterprise architecture
+practice.
+
+- `catalog/reference-catalog.yaml` → **v1.1.0** (minor, additive). Now publishes all eight
+  published maturity models — `dea:maturity-technology`, `dea:maturity-modernization`,
+  `dea:maturity-operations`, `dea:maturity-services-delivery`,
+  `dea:maturity-autonomous-operations`, `dea:maturity-digital-transformation-operationalized`,
+  `dea:maturity-digital-transformation` and `dea:maturity-ea-capability` — plus the component
+  registry `dea:registry-maturity-components` and the shared band instance
+  `dea:maturity-bands-v2`. The band instance was absent from the catalogue while every model
+  depended on it as its `band_reference`: the reference root could not resolve the very
+  coordinate system the relation graph joins on.
+- **Canonical-id reconciliation.** Extending the catalogue surfaced five id divergences between
+  what a model calls itself and what the federation calls it (e.g.
+  `dea:maturity-autonomous-operations-dimensions` vs `dea:maturity-autonomous-operations`).
+  Each is corrected at source; no published artefact is renamed.
+- `catalog/model-relations.yaml` — **new**. Declares the structural relation graph over
+  canonical model references (`relationship_type` from the closed CR-AM-01 §17 vocabulary) and,
+  separately, the cross-model *comparability* surface: which model pairs may be correlated, on
+  which axis, anchored to what. The two are deliberately not the same structure — a comparison
+  is a derived analytical artefact over scores, not a structural edge between two models.
+- **A finding that shapes the comparison surface:** every capability and measure id in the
+  catalogue is domain-scoped, so *no two capability maturity models share a capability or
+  measure id*. Cross-model correlation is therefore computable today at **model-score level
+  only**. The comparability declarations say so per pair rather than implying a join that does
+  not exist.
+- `relations/examples/` — **new**. A worked `Correlation` (observed co-variation only,
+  `confusion_guard: false`) and a worked `CausalHypothesis` (the asserted dotted-line
+  mechanism, `validation_state: asserted`, with counter-evidence and a falsification test).
+  The two are never collapsed (CR-MET-012 §6): the dotted line is an asserted, falsifiable,
+  explicitly-unvalidated influence, never a proven cause.
+- `tests/relations/test_model_relations.py` + a `validate-model-relations` CI job — **new**.
+  Enforces catalogue integrity, endpoint resolution, closed-vocabulary conformance,
+  correlation/causal separation, and dotted-line totality over the federation.
+
 ## [Unreleased] — CR-AM-05A hierarchical dimensions & instruments
 
 CR-AM-05A establishes the canonical structure for hierarchical assessment

@@ -1,0 +1,234 @@
+# Maturity Model Relations — the federation's relatability graph (CR-AM-12)
+#
+# This artefact declares TWO structures that are deliberately different and
+# must not be collapsed:
+#
+#   1. `edges` — the structural relation graph over canonical maturity model
+#      references. Every edge carries a `relationship_type` drawn from the
+#      CLOSED CR-AM-01 §17 vocabulary (assessment-models/vocabulary/
+#      relationship-types.yaml). No other edge type is legal here.
+#
+#   2. `comparability` — the declared cross-model COMPARISON surface. This is
+#      not a structural edge between models: a comparison is a derived
+#      analytical artefact over scores (dea:Correlation), not a containment or
+#      derivation relationship between two models. Declaring it separately
+#      keeps the structural graph honest and stops "these two models are
+#      comparable" from being encoded as a fake structural edge.
+#
+# WHY A SEPARATE COMPARABILITY SURFACE — the finding that shapes this file:
+# every capability and measure id in the reference catalogue is DOMAIN-SCOPED
+# (`dea:capability-technology-architecture` vs
+# `dea:capability-incident-response-capability`); no two capability maturity
+# models share a single capability or measure id. The only measurement anchor
+# genuinely shared across all models is the canonical v2 band instance
+# `dea:maturity-bands-v2`. Cross-model correlation is therefore possible
+# TODAY at MODEL-SCORE level only, and this file says so per pair rather than
+# implying a capability-level join that does not exist.
+#
+# The dotted line (capability results trace back to poor EA practice) is
+# declared on the edges from the EA-practice model. The dotted line is an
+# ASSERTED INFLUENCE, not a proven cause: its evidential form is a
+# dea:CausalHypothesis with an explicit validation_state, and its observed
+# co-variation is a dea:Correlation with confusion_guard: false. Neither is
+# ever expressed as the other (CR-MET-012 §6).
+
+relations:
+  id: dea:relations-maturity-models
+  name: OpenDEA Maturity Model Relations
+  version: 1.0.0
+  status: stable
+  metamodel_version: "1.0.0"
+  description: >
+    The relation graph over the canonical maturity models published by the
+    OpenDEA Assessment Reference Catalogue (dea:catalogue-assessment-references).
+    It declares the structural edges between models (including the dotted
+    line from the EA-practice model) and the declared cross-model comparison
+    surface. It resolves canonical identity and version only; it carries no
+    repository pointers — repository location is the registry's concern
+    (Assessment-Models/assessment-registry), and the two are joined by the
+    cross-org binding check in Assessment-Models/assessment-ci.
+
+  # ---------------------------------------------------------------------------
+  # Measurement anchors — the shared coordinate systems that make scores from
+  # different models comparable at all.
+  # ---------------------------------------------------------------------------
+  anchors:
+    - id: dea:maturity-bands-v2
+      version: "1.0.0"
+      role: shared-level-resolution
+      description: >
+        The canonical v2 maturity band instance (assessment-models/maturity/
+        maturity-bands-v2.yaml). Every maturity model in the federation
+        resolves its levels against this instance, so the model-level 0-100
+        score and the resolved band (Emergent / Structured / Systematic /
+        Adaptive / Self-Optimising) are directly comparable ACROSS models.
+        This is the anchor that makes model-score-level correlation possible
+        even where no capability or measure id is shared.
+
+  # ---------------------------------------------------------------------------
+  # Structural edges — relationship_type from the closed §17 vocabulary.
+  # ---------------------------------------------------------------------------
+  edges:
+    - id: dea:edge-ea-capability-supports-technology
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-technology
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports technology-model maturity: an enterprise
+        with weak architecture practice can be expected to score weak on
+        technology lifecycle, standardisation and debt management.
+      trace:
+        from: dea:maturity-technology
+        to: dea:maturity-ea-capability
+        mechanism_ref: dea:CausalHypothesis-ea-practice-to-technology-maturity
+        note: >
+          The dotted line is traversed from the capability model back to the
+          EA-practice model: a weak capability score is READ as potentially
+          traceable to weak EA practice. The traversal direction is the
+          reverse of the structural edge, because the edge records the
+          direction of INFLUENCE while the dotted line is the direction of
+          EXPLANATION.
+
+    - id: dea:edge-ea-capability-supports-modernization
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-modernization
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports modernization-model maturity: strategy
+        coverage, pattern-library adoption and wave velocity all presuppose
+        an architecture practice capable of holding a strategy to account.
+
+    - id: dea:edge-ea-capability-supports-operations
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-operations
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports operations-model maturity: observability
+        practice, deployment automation and reliability engineering are
+        architectural commitments before they are operational ones.
+
+    - id: dea:edge-ea-capability-supports-services-delivery
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-services-delivery
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports services-delivery-model maturity: flow
+        efficiency and delivery predictability rest on an architecture that
+        makes the delivery surface explicit and governable.
+
+    - id: dea:edge-ea-capability-supports-autonomous-operations
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-autonomous-operations
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports autonomous-operations-model maturity:
+        instrumented value streams and closed-loop control presuppose an
+        architecture practice that can specify, own and evolve an intent.
+
+    - id: dea:edge-ea-capability-supports-digital-transformation
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-digital-transformation
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports the composite Digital Transformation
+        model's maturity: the composite spans technology, operations and
+        services delivery, each of which is dotted-line-dependent on EA
+        practice.
+
+    - id: dea:edge-ea-capability-supports-digital-transformation-operationalized
+      source_id: dea:maturity-ea-capability
+      target_id: dea:maturity-digital-transformation-operationalized
+      relationship_type: supports
+      dotted_line: true
+      description: >
+        EA practice maturity supports the Digital Transformation Operationalized
+        model's maturity: a digital business cannot be operated, let alone
+        compounded, on top of an ungoverned architecture practice.
+
+    - id: dea:edge-dto-derived-from-dt-composite
+      source_id: dea:maturity-digital-transformation-operationalized
+      target_id: dea:maturity-digital-transformation
+      relationship_type: derived-from
+      description: >
+        The Digital Transformation Operationalized model is re-harvested from
+        the composite Digital Transformation model's dimension ecosystem work
+        and from TM Forum DMM v5.0.2 (GB997A). It is additive — it supersedes
+        nothing.
+
+  # ---------------------------------------------------------------------------
+  # Declared comparison surface — which model pairs may be correlated, on
+  # which axis, anchored to what. This is the surface the vision's
+  # "correlations between the scores ... across the two" requires.
+  # ---------------------------------------------------------------------------
+  comparability:
+    - id: dea:comparability-technology-services-delivery
+      models:
+        - dea:maturity-technology
+        - dea:maturity-services-delivery
+      axis: model-score
+      anchor_ref: dea:maturity-bands-v2:1.0.0
+      correlation_example_ref: dea:Correlation-technology-services-delivery
+      shared_capabilities: []
+      shared_measures: []
+      note: >
+        The join is at model-score level only. Technology and Services
+        Delivery share NO capability id and NO measure id in the reference
+        catalogue, so a capability-level correlation between them is not
+        computable from the catalogue as it stands. To raise this to
+        capability level, both models must bind the same canonical capability
+        id — a content change in the catalogue, not a relation change here.
+
+    - id: dea:comparability-modernization-operations
+      models:
+        - dea:maturity-modernization
+        - dea:maturity-operations
+      axis: model-score
+      anchor_ref: dea:maturity-bands-v2:1.0.0
+      correlation_example_ref: null
+      shared_capabilities: []
+      shared_measures: []
+      note: >
+        Same axis, no shared capability or measure id. Declared so that the
+        pair is discoverable and so that an observed Correlation can be
+        attached without a structural-graph change.
+
+    - id: dea:comparability-technology-operations
+      models:
+        - dea:maturity-technology
+        - dea:maturity-operations
+      axis: model-score
+      anchor_ref: dea:maturity-bands-v2:1.0.0
+      correlation_example_ref: null
+      shared_capabilities: []
+      shared_measures: []
+      note: >
+        Same axis, no shared capability or measure id.
+
+    - id: dea:comparability-ea-capability-to-capability-models
+      models:
+        - dea:maturity-ea-capability
+        - dea:maturity-technology
+        - dea:maturity-modernization
+        - dea:maturity-operations
+        - dea:maturity-services-delivery
+        - dea:maturity-autonomous-operations
+        - dea:maturity-digital-transformation
+        - dea:maturity-digital-transformation-operationalized
+      axis: model-score
+      anchor_ref: dea:maturity-bands-v2:1.0.0
+      correlation_example_ref: null
+      shared_capabilities: []
+      shared_measures: []
+      note: >
+        The dotted line's measured form. EA-practice model score against each
+        capability model score, on the shared band anchor. The OBSERVATION is
+        a dea:Correlation (confusion_guard: false); the asserted MECHANISM is
+        a separate dea:CausalHypothesis with an explicit validation_state.
+        The two are never merged, and a correlation is never reported as
+        causation.

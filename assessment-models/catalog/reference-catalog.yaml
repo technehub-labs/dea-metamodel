@@ -1,9 +1,14 @@
 catalogue:
   id: dea:catalogue-assessment-references
   name: OpenDEA Assessment Reference Catalogue
-  version: 1.0.0
+  version: 1.1.0
   status: stable
-  description: Versioned Capability, Scenario, Measure, Evidence, ScoringModel, and MaturityModel references used by the CR-AM-03 assessment portfolio. The catalogue is the resolution authority for canonical references; it does not redefine assessment scoring or maturity semantics.
+  description: Versioned Capability, Scenario, Measure, Evidence, ScoringModel, MaturityModel and
+    ComponentRegistry references for the OpenDEA assessment federation. The catalogue is the
+    resolution authority for canonical references; it does not redefine assessment scoring or
+    maturity semantics. Version 1.1.0 extends coverage to every published maturity model (the
+    cardinal root) and to the component registry. Relatability between models is declared in
+    model-relations.yaml, not here — this catalogue resolves identity and version only.
   references:
   - kind: capability
     id: dea:capability-technology-architecture
@@ -290,12 +295,54 @@ catalogue:
   - kind: maturity-model
     id: dea:maturity-technology
     version: 1.0.0
+    domain: technology
   - kind: maturity-model
     id: dea:maturity-modernization
     version: 1.0.0
+    domain: modernization
   - kind: maturity-model
     id: dea:maturity-operations
     version: 1.0.0
+    domain: operations
   - kind: maturity-model
     id: dea:maturity-services-delivery
     version: 1.0.0
+    domain: services-delivery
+  # CR-AM-12 — cardinal root completion. The four references above are the
+  # CR-AM-03 migrated assessments. The four below are the models published
+  # under the repo-per-model topology (CR-AM-11 Phase 6). Each id here is the
+  # RECONCILED canonical id: where a model's own register file declared a
+  # divergent id, the reconciled id is the one the federation root publishes
+  # and the divergence is corrected at source (see CR-AM-12 §2).
+  - kind: maturity-model
+    id: dea:maturity-autonomous-operations
+    version: 1.0.1
+    domain: autonomous-operations
+  - kind: maturity-model
+    id: dea:maturity-digital-transformation-operationalized
+    version: 1.0.1
+    domain: digital-transformation
+  - kind: maturity-model
+    id: dea:maturity-digital-transformation
+    version: 1.0.0
+    domain: digital-transformation
+  - kind: maturity-model
+    id: dea:maturity-ea-capability
+    version: 1.0.0
+    domain: enterprise-architecture
+  - kind: component-registry
+    id: dea:registry-maturity-components
+    version: 1.0.0
+    domain: maturity
+  # CR-AM-12 — the shared measurement anchor. Every maturity model in the
+  # federation declares `band_reference: dea:maturity-bands-v2`, so this is
+  # the one reference genuinely common to all of them: it is what makes a
+  # model score from one model comparable with a model score from another.
+  # It was absent from the catalogue while being depended upon by every
+  # model — the reference root could not resolve the very coordinate system
+  # the relation graph joins on. `maturity-bands` is the target kind already
+  # named by the `scored-by-v2-bands` relationship type.
+  - kind: maturity-bands
+    id: dea:maturity-bands-v2
+    version: 1.0.0
+    domain: maturity

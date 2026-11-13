@@ -1,0 +1,52 @@
+# Worked example — Cross-model CORRELATION (CR-AM-12)
+#
+# A Correlation records OBSERVED CO-VARIATION ONLY. It does not assert a
+# mechanism, and it must never be reported as causation. The mandatory
+# `confusion_guard: false` field is the schema-enforced marker of that
+# discipline (CR-MET-012 §6): a record that reads as a causal claim from
+# co-variation alone is a governance failure and is refused.
+#
+# The asserted mechanism for this pair lives in a SEPARATE record —
+# dea:CausalHypothesis-ea-practice-to-technology-maturity — with its own
+# validation_state, confidence, counter-evidence and falsification test.
+# The two records are never merged.
+#
+# This example is illustrative: the coefficient is a synthetic worked value,
+# not a measurement of any real organisation.
+
+id: dea:Correlation-technology-services-delivery
+type: Correlation
+name: Technology and Services Delivery maturity model-score correlation
+version: 1.0.0
+lifecycle_status: active
+description: >
+  Illustrative worked example of the cross-model comparison surface declared
+  in assessment-models/catalog/model-relations.yaml. Shows the co-variation
+  between the Technology and the Services Delivery maturity MODEL scores of a
+  single organisation over one reporting period, on the shared canonical v2
+  band anchor (dea:maturity-bands-v2). Both models resolve their levels
+  against that same band instance, which is what makes a model-score-level
+  correlation computable: the two models share NO capability id and NO
+  measure id, so a capability-level correlation between them is not
+  computable from the catalogue as it stands.
+
+source_phenomenon_ref: dea:maturity-technology:1.0.0
+target_phenomenon_ref: dea:maturity-services-delivery:1.0.0
+coefficient: 0.62
+method: pearson
+sample_size: 24
+reporting_period_ref: dea:ReportingPeriod-2026Q1
+evidence_refs:
+  - dea:MeasurementObservation-technology-model-score-2026Q1
+  - dea:MeasurementObservation-services-delivery-model-score-2026Q1
+confounder_candidates:
+  - dea:maturity-ea-capability
+  - dea:ReportingPeriod-2026Q1
+confusion_guard: false
+strength: moderate
+directional_note: >
+  Positive association: the higher of the two model scores, the higher the
+  other. Association direction is NOT causal direction — this record says
+  nothing about which, if either, drives the other, and it does not
+  distinguish a common cause from a direct influence.
+provenance_reference: dea:Provenance-model-score-correlation-2026Q1

@@ -1,0 +1,78 @@
+# Worked example — Cross-model CAUSAL HYPOTHESIS (CR-AM-12)
+#
+# A CausalHypothesis records an ASSERTED MECHANISM: what is claimed to cause
+# what, by what pathway, with how much confidence, and how far it has been
+# tested. It is a claim requiring validation, not an observation. The
+# `validation_state` records that distinction honestly, and
+# `counter_evidence` plus `falsification_test` make the hypothesis testable
+# rather than a bare assertion.
+#
+# This is the dotted line's evidential form: the claim that weak enterprise
+# architecture practice UNDERLIES weak capability maturity. It is deliberately
+# NOT expressed as a Correlation — the observed co-variation is the separate
+# record dea:Correlation-technology-services-delivery, whose confusion_guard
+# is false. Correlation and causation are distinct first-class constructs and
+# must not be collapsed (CR-MET-012 §6).
+#
+# The hypothesis starts at validation_state "asserted": nobody has run the
+# falsification test yet. Raising it to "validated" requires the evidence
+# named in falsification_test to have been gathered and to have supported the
+# mechanism; "refuted" requires it to have been gathered and to have
+# contradicted it. A hypothesis that has never been tested stays "asserted".
+
+id: dea:CausalHypothesis-ea-practice-to-technology-maturity
+type: CausalHypothesis
+name: Weak EA practice as an underlying driver of weak technology maturity
+version: 1.0.0
+lifecycle_status: proposed
+description: >
+  The dotted line, stated as a falsifiable hypothesis rather than as a
+  structural fact. Mechanism: an enterprise whose architecture practice is
+  immature cannot reliably govern technology lifecycle, standardisation or
+  debt, because the standards, decision records and ownership that a
+  technology programme depends on are themselves architectural artefacts.
+  The claim is deliberately conservative — it asserts an UNDERLYING driver
+  (one contributing cause among several), not a sole or deterministic cause.
+
+cause_ref: dea:maturity-ea-capability:1.0.0
+effect_ref: dea:maturity-technology:1.0.0
+mechanism: >
+  Immature architecture practice yields weak standards, undocumented
+  decisions and unclear ownership of technology assets. A technology
+  programme operating on those foundations is assessed as weaker on
+  lifecycle compliance, standardisation and debt management — not because
+  technology management is poor, but because the practice that would make it
+  good was never institutionalised.
+confidence: 0.4
+uncertainty:
+  unmeasured_mediators:
+    - Investment appetite for platform engineering
+    - Vendor maturity and support depth
+  alternative_mechanisms:
+    - A common upstream cause (organisational design maturity) drives both
+      the architecture practice and the technology practice
+    - The relationship runs the other way — weak technology maturity erodes
+      the architecture practice
+  inference_method: >
+    Literature-informed mechanism hypothesis. No causal estimate has been
+    computed; the confidence figure reflects the plausibility of the pathway
+    and the absence of counter-evidence, NOT a statistical result.
+validation_state: asserted
+supporting_correlation_refs:
+  - dea:Correlation-technology-services-delivery
+counter_evidence:
+  - observation: >
+      No controlled observation has yet been collected. The hypothesis is
+      currently supported only by the plausibility of the stated pathway.
+    implication: >
+      The confidence figure is a prior, not a measurement. Any programme
+      that treats this hypothesis as an established finding is misreading it.
+falsification_test: >
+  Compare organisations that score in the same band on
+  dea:maturity-technology but differ in dea:maturity-ea-capability. If
+  technology maturity does not differ across that split, or if the split is
+  as large within a single EA-practice band as across bands, the mechanism
+  is not operating as described and the hypothesis must be refuted rather
+  than reinterpreted. The test requires matched comparison across at least
+  two EA-practice bands with the technology band held constant.
+responsible_party_ref: dea:Actor-chief-architect

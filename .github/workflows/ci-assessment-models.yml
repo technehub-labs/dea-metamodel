@@ -71,7 +71,9 @@ jobs:
                   sorted(glob.glob('assessment-models/maturity/migration/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/*.yaml')) + \
                   sorted(glob.glob('assessment-models/maturity/examples/*.yaml')) + \
-                  sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml'))
+                  sorted(glob.glob('assessment-models/maturity/v2-beta/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/catalog/*.yaml')) + \
+                  sorted(glob.glob('assessment-models/relations/examples/*.yaml'))
           for f in files:
               try:
                   with open(f) as fh:
@@ -1450,3 +1452,69 @@ jobs:
           print(f'OK — contract suite v{suite[\"version\"]}: {len(fams)} families, '
                 f'{len(claimed)} schemas claimed (complete coverage), all paths resolve')
           "
+
+  # CR-AM-12 — the federation's cardinal root and its relatability graph.
+  # Enforces: catalogue integrity, edge/endpoint resolution against the
+  # catalogue, relationship_type conformance against the CLOSED §17
+  # vocabulary, correlation/causal separation (CR-MET-012 §6), and dotted-
+  # line totality over the federation.
+  validate-model-relations:
+    name: Validate cardinal root + model relations (CR-AM-12)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pyyaml
+        run: pip install pyyaml
+
+      - name: Validate catalogue + relations + correlation/causal guards
+        run: python3 assessment-models/tests/relations/test_model_relations.py
+
+      - name: Validate the relation worked examples against the entity schemas
+        run: |
+          python3 - <<'PY'
+          import json, yaml, sys, warnings
+          warnings.filterwarnings('ignore')
+          from jsonschema import Draft202012Validator, RefResolver
+
+          def load(p):
+              with open(p) as fh:
+                  return json.load(fh)
+
+          store = {}
+          for p in ('schemas/entities/entity.json',
+                    'schemas/relationships/relationship-instance.json'):
+              doc = load(p)
+              store[p] = doc
+              store[doc.get('$id', p)] = doc
+
+          cases = [
+              ('schemas/entities/correlation.json',
+               'assessment-models/relations/examples/correlation-technology-services-delivery.yaml'),
+              ('schemas/entities/causal-hypothesis.json',
+               'assessment-models/relations/examples/causal-hypothesis-ea-practice-to-technology-maturity.yaml'),
+          ]
+
+          errors = 0
+          for schema_path, example_path in cases:
+              schema = load(schema_path)
+              with open(example_path) as fh:
+                  doc = yaml.safe_load(fh)
+              resolver = RefResolver(
+                  base_uri='file:///work/schemas/entities/', referrer=schema, store=store)
+              validator = Draft202012Validator(schema, resolver=resolver)
+              errs = sorted(validator.iter_errors(doc), key=lambda e: list(e.path))
+              if errs:
+                  errors += 1
+                  print(f'FAIL {example_path}:')
+                  for e in errs:
+                      print(f'  path={list(e.path)}: {e.message}')
+              else:
+                  print(f'OK  {example_path} validates against {schema_path}')
+          sys.exit(1 if errors else 0)
+          PY

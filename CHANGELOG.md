@@ -6,6 +6,23 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-AM-13 contribution (issue #213): maturity-touchpoint-contract v0.1.0-draft published
+
+New contract family in `assessment-models/contracts/contract-suite.yaml`:
+`maturity-touchpoint-contract` at v0.1.0-draft — the CR-AM-13 Handshake &
+Touchpoint Model formalized as a machine-checkable record schema. Ships
+`assessment-models/schemas/maturity-touchpoints.schema.json` (Draft 2020-12;
+declaring handshakes[] + touchpoints[] with criteria_mapping, and mirrored
+reciprocity records via mirrors/peer_touchpoint_id) and governance doc
+`assessment-models/governance/touchpoints.md`. Field union extracted from all
+seven live implementations (maturity-model-operations 2.0.0 declarations; six
+peer mirror records incl. services-delivery and technology 1.1.0). First
+per-family versioning exception (CR-AM-11 Annex A note): suite version
+unchanged at 1.0.0 (additive publication); promotion to 1.0.0 gated on at
+least three model adopters (CR-AM-13 §8). Record-formalization only: no
+metamodel entity, relationship or semantic-inventory change; VERSION
+unchanged.
+
 ### CR-MET-022: Catalog Repository Renames — catalog_repo Pointer Repoint
 
 Three `catalog_repo` pointers repointed to the renamed GitHub repositories (both renames live on origin with working redirects, confirmed by the 2026-11-11/12 portfolio sweep): `dea:BusinessProcess` `dea-catalog-processes` → `dea-catalog-business-processes`; `dea:BusinessService` and `dea:SolutionComponent` `dea-catalog-digital-business-service-factory` → `dea-catalog-business-services`. Resolves dea-governance CR-013 §4 finding 1 / CR-MET-014 §6.2 (naming drift, 2) in the repoint direction, per-entity verified. Registry regenerated (164e/121r); semantic-inventory regenerated with no diff (it does not project catalog_repo); legacy `metamodel.yaml` and `viewer/entity-graph.json` deliberately stale (frozen compat surface / upstream-pinned — CR-MET-014 §6.4 viewer-lag precedent); functional references to the old names (`ecf-conformance.yml`, `KNOWN_CATALOG_REPOS` tuple + lock-step test, `build_conformance_report.py`, `CONTRIBUTING.md` title) recorded as follow-up CR material, green via redirects. No lifecycle, schema, or VERSION change (1.0.0 unchanged). Ordering: lands **before** governance register v12 (CR-022) so reconciler R1 never sees an unregistered pointer (CR-017 window precedent).

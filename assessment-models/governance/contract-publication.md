@@ -2,7 +2,10 @@
 
 CR-AM-11 Phase 2. Governs how the six canonical contract families (CR-AM-11 §16)
 are published from `technehub-labs/dea-metamodel` and consumed by the
-Assessment-Models ecosystem.
+Assessment-Models ecosystem. The `maturity-touchpoint-contract` family
+(CR-AM-13 Handshake & Touchpoint Model, issue #213) is published alongside
+them at **v0.1.0-draft** — the first per-family versioning exception, recorded
+in the Versioning section below.
 
 ## The suite
 
@@ -22,6 +25,7 @@ resolve, every schema must be Draft 2020-12, and every file under
 | `scoring-contract` | Scoring, evaluation, aggregation | 3 schemas |
 | `conformance-contract` | Shared `$defs`, compatibility axes, relationships, vocabularies | 3 schemas + `vocabulary/` + versioning/compatibility policy |
 | `benchmark-contract` | Eligibility, cohorts, comparative benchmarking (CR-AM-06/07) | 2 schemas + 2 governance docs + `benchmark/` |
+| `maturity-touchpoint-contract` (draft) | Cross-model handshakes & touchpoints, mirrored reciprocity (CR-AM-13, issue #213) | 1 schema + 1 governance doc |
 
 ## Consuming a contract (the handshake, CR-AM-11 §15)
 
@@ -79,6 +83,13 @@ the suite (`version: 1.0.0`, matching spec/metamodel 1.0.0 — the publication i
 additive, no canonical version bump). Independent per-family versioning is a
 deliberate Phase 2 decision to be recorded in a contract-publication ADR when
 the first family needs to move at its own cadence (CR-AM-11 Annex A note).
+
+The first per-family exception is `maturity-touchpoint-contract` (issue
+#213): published at **v0.1.0-draft**, with promotion to `1.0.0` gated on at
+least three model adopters (CR-AM-13 §8 risk mitigation). Adoption already
+spans the declaring model (`maturity-model-operations`, six touchpoints) and
+six mirror-record publishers. The contract-publication ADR should record
+this deviation when it is written.
 
 ## Extraction boundary
 

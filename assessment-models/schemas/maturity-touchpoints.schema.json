@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-touchpoints.schema.json",
+  "title": "OpenDEA Maturity Touchpoints Manifest",
+  "description": "Handshake & Touchpoint Model record (CR-AM-13, issue #213). A declaring model pins contract-level handshakes and declares semantic-seam touchpoints against peer assessment models; a peer publishes a mirror record (mirrors + peer_touchpoint_id) establishing reciprocity. Reciprocity and resolvable pins are validated by ecosystem CI.",
+  "type": "object",
+  "required": [
+    "id",
+    "repo_id",
+    "version",
+    "status",
+    "touchpoints"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Canonical manifest id, e.g. dea:touchpoints-operations-v1.",
+      "pattern": "^dea:touchpoints-[a-z0-9]+(-[a-z0-9]+)*-v[0-9]+$"
+    },
+    "repo_id": {
+      "type": "string",
+      "description": "Owning repository name, e.g. maturity-model-operations."
+    },
+    "version": {
+      "$ref": "#/$defs/semanticVersion"
+    },
+    "status": {
+      "$ref": "#/$defs/lifecycleStatus"
+    },
+    "metamodel_version": {
+      "type": "string"
+    },
+    "contract": {
+      "$ref": "#/$defs/contractPin"
+    },
+    "description": {
+      "type": "string"
+    },
+    "handshakes": {
+      "type": "array",
+      "description": "Contract-level linkage pins (declaring models only).",
+      "items": {
+        "$ref": "#/$defs/handshake"
+      }
+    },
+    "touchpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/touchpoint"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$"
+    },
+    "lifecycleStatus": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "stable",
+        "deprecated",
+        "superseded"
+      ]
+    },
+    "directionType": {
+      "type": "string",
+      "enum": [
+        "feeds",
+        "consumes",
+        "shared-component",
+        "boundary"
+      ]
+    },
+    "contractPin": {
+      "type": "object",
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Contract family id from contract-suite.yaml."
+        },
+        "version": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceReference": {
+      "type": "object",
+      "required": [
+        "organization",
+        "repository"
+      ],
+      "properties": {
+        "organization": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string",
+          "description": "Immutable pin: tag or commit SHA — never a moving branch (CR-AM-11 §12)."
+        }
+      },
+      "additionalProperties": false
+    },
+    "assetReference": {
+      "type": "object",
+      "required": [
+        "id",
+        "organization",
+        "repository"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "organization": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "handshake": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "contract"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Handshake kind, e.g. scored-by, touchpoints-declared-by."
+        },
+        "contract": {
+          "$ref": "#/$defs/contractPin"
+        },
+        "asset": {
+          "$ref": "#/$defs/assetReference"
+        },
+        "source": {
+          "$ref": "#/$defs/sourceReference"
+        }
+      },
+      "additionalProperties": false
+    },
+    "touchpoint": {
+      "type": "object",
+      "required": [
+        "id",
+        "peer_asset",
+        "peer_repo",
+        "direction",
+        "mapping_type",
+        "reciprocity"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "mirrors": {
+          "type": "string",
+          "description": "Mirror records only: the declaring model's touchpoint id this record mirrors."
+        },
+        "peer_asset": {
+          "type": "string",
+          "description": "Peer model canonical id, e.g. dea:maturity-operations."
+        },
+        "peer_repo": {
+          "type": "string"
+        },
+        "peer_touchpoint_id": {
+          "type": "string"
+        },
+        "peer_contract_version": {
+          "type": "string"
+        },
+        "direction": {
+          "$ref": "#/$defs/directionType"
+        },
+        "mapping_type": {
+          "$ref": "#/$defs/directionType"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "overlap_resolution": {
+          "type": "string",
+          "description": "Boundary doctrine: which model assesses which side of the seam; shared evidence is single-assessed and cited by both."
+        },
+        "criteria_mapping": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "ours",
+              "theirs"
+            ],
+            "properties": {
+              "ours": {
+                "type": "string",
+                "description": "Permanent criterion id in the declaring model, or an anchored placeholder pending register publication."
+              },
+              "theirs": {
+                "type": "string",
+                "description": "Peer criterion id, or pending-peer-register."
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "peer_declared_relationship": {
+          "type": "string"
+        },
+        "component": {
+          "type": "object",
+          "required": [
+            "id",
+            "repository"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "repository": {
+              "type": "string"
+            },
+            "reference": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "reciprocity": {
+          "type": "string",
+          "description": "Reciprocity requirement, e.g. required; mirror records reference the mirrored touchpoint id."
+        },
+        "peer_status": {
+          "type": "string"
+        },
+        "status_note": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

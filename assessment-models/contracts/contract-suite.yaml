@@ -162,3 +162,20 @@ families:
       - assessment-models/governance/comparison-policy.md
     artifacts:
       - assessment-models/benchmark/
+
+  # Issue #213 (CR-AM-13) — the first family published outside the CR-AM-11
+  # §16 six. Draft per the issue's versioning proposal: consumers pin the
+  # v0.1.0-draft family release; promotes to 1.0.0 once at least three
+  # models adopt (CR-AM-13 §8 risk mitigation).
+  - id: maturity-touchpoint-contract
+    version: "0.1"
+    summary: >-
+      Handshake & Touchpoint Model (CR-AM-13): pinned contract-level
+      handshakes and semantic-seam touchpoints between sibling assessment
+      models, with mirrored reciprocity records in peer repositories.
+      Published at v0.1.0-draft (issue #213); promotes to 1.0.0 after at
+      least three models adopt it (CR-AM-13 §8).
+    schemas:
+      - assessment-models/schemas/maturity-touchpoints.schema.json
+    governance:
+      - assessment-models/governance/touchpoints.md

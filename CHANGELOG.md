@@ -6,6 +6,51 @@ All notable changes to the OpenDEA Metamodel are documented here. Format follows
 
 ## [Unreleased]
 
+### CR-AM-13 completion: touchpoint contract requirements R01–R06 closed, evidence shipped
+
+Completion pass over the v0.1.0-draft family publication (PR #215), closing
+the remaining CR-AM-13 requirements against the actual implementation:
+
+- **R01/AC-01**: `contract-suite.yaml` family `version: "0.1"` →
+  `"0.1.0-draft"`, aligning the declared version with the consumers'
+  handshake pins; the summary no longer claims publication ahead of the
+  immutable reference (R01/R07 — the suite must not claim availability until
+  `v0.1.0-draft` is tagged and verified).
+- **R02/AC-02**: `maturity-touchpoints.schema.json` enforces the paired
+  `mirrors`/`peer_touchpoint_id` declaration via bidirectional
+  `if/required` conditions (both-or-neither; empty strings rejected via
+  `minLength`; records without a mirroring relationship unaffected).
+- **R03/AC-03**: `reciprocity` constrained to the established
+  `mirrors-<peer-touchpoint-id>` vocabulary
+  (`^mirrors-[a-z0-9]+(-[a-z0-9]+)*$`). Portfolio compatibility assessment
+  (CR-AM-13 §6): all seven registered manifests validate against the
+  tightened schema — 12/12 records paired, 12/12 `mirrors-*`; the bare
+  `required` placeholder is retired explicitly (no live record uses it)
+  and the transition is documented in
+  `assessment-models/governance/touchpoints.md`.
+- **R04–R06/AC-04–06**: schema description and
+  `assessment-models/governance/touchpoints.md` now state that local
+  validation is structural-only, define the normative reciprocity
+  requirements, distinguish ecosystem-level semantic validation
+  (Assessment-Models/assessment-ci — **not yet implemented**) from local
+  capabilities, and record the publication status of the immutable
+  `v0.1.0-draft` reference.
+- **CI**: `validate-contract-suite` recognized the sanctioned seventh
+  family (`maturity-touchpoint-contract`) — previously the job failed on
+  main with family-set drift — and accepts draft SemVer family versions
+  (`X.Y[.Z][-prerelease]`); suite validated locally: 7 families, 35
+  schemas, complete coverage.
+- **Test evidence (AC-02/AC-03)**:
+  `tests/cross_repo_consumer/test_maturity_touchpoints_schema.py` — 13
+  cases covering the §8 positive, negative and validation-boundary
+  requirements; all green.
+
+Remaining for CR-AM-13 completion (gated, §10/§11): after this PR is
+approved and merged, publish and verify the immutable reference
+`v0.1.0-draft` (tag + release), then downstream consumer alignment and the
+separately-governed ecosystem validator. Record-formalization only: no
+metamodel entity/relationship change; VERSION unchanged.
+
 ### CR-AM-13 contribution (issue #213): maturity-touchpoint-contract v0.1.0-draft published
 
 New contract family in `assessment-models/contracts/contract-suite.yaml`:

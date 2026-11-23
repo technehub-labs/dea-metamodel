@@ -1397,22 +1397,25 @@ jobs:
           if not re.match(r'^\d+\.\d+\.\d+$', str(suite.get('version', ''))):
               errors.append(f\"suite version not SemVer: {suite.get('version')!r}\")
 
-          # Exactly the six CR-AM-11 section-16 families (was 6 at Phase 2 publication)
+          # Exactly the six CR-AM-11 section-16 families plus the sanctioned
+          # seventh: maturity-touchpoint-contract (CR-AM-13, issue #213 —
+          # first per-family versioning exception, published as 0.1.0-draft)
           expected = {'assessment-contract', 'maturity-model-contract', 'maturity-scale-contract',
-                      'scoring-contract', 'conformance-contract', 'benchmark-contract'}
+                      'scoring-contract', 'conformance-contract', 'benchmark-contract',
+                      'maturity-touchpoint-contract'}
           fams = suite.get('families') or []
           ids = [f.get('id') for f in fams]
           if len(ids) != len(set(ids)):
               errors.append('duplicate family ids')
           if set(ids) != expected:
-              errors.append(f'family set drifted (CR-AM-11 section 16): {sorted(set(ids) ^ expected)}')
+              errors.append(f'family set drifted (CR-AM-11 section 16 + CR-AM-13): {sorted(set(ids) ^ expected)}')
 
           # Every artifact path resolves; schemas parse as Draft 2020-12
           claimed = {}
           for fam in fams:
               fid = fam.get('id')
-              if not re.match(r'^\d+\.\d+(-\.\d+)?$', str(fam.get('version', ''))):
-                  errors.append(f'{fid}: version not of form X.Y[.Z]: {fam.get(\"version\")!r}')
+              if not re.match(r'^\d+\.\d+(\.\d+)?(-[0-9A-Za-z.-]+)?$', str(fam.get('version', ''))):
+                  errors.append(f'{fid}: version not of form X.Y[.Z][-prerelease]: {fam.get(\"version\")!r}')
               for section in ('schemas', 'governance', 'artifacts'):
                   for rel in fam.get(section) or []:
                       p = root / rel

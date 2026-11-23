@@ -1472,8 +1472,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pyyaml
-        run: pip install pyyaml
+      - name: Install pyyaml + jsonschema
+        run: pip install pyyaml jsonschema
 
       - name: Validate catalogue + relations + correlation/causal guards
         run: python3 assessment-models/tests/relations/test_model_relations.py

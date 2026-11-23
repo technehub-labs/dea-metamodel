@@ -168,12 +168,14 @@ families:
   # v0.1.0-draft family release; promotes to 1.0.0 once at least three
   # models adopt (CR-AM-13 §8 risk mitigation).
   - id: maturity-touchpoint-contract
-    version: "0.1"
+    version: "0.1.0-draft"
     summary: >-
       Handshake & Touchpoint Model (CR-AM-13): pinned contract-level
       handshakes and semantic-seam touchpoints between sibling assessment
       models, with mirrored reciprocity records in peer repositories.
-      Published at v0.1.0-draft (issue #213); promotes to 1.0.0 after at
+      Declared at v0.1.0-draft (issue #213); the immutable draft reference
+      is published and verified at the end of the CR-AM-13 sequence (§10) —
+      consumers must not resolve it until then. Promotes to 1.0.0 after at
       least three models adopt it (CR-AM-13 §8).
     schemas:
       - assessment-models/schemas/maturity-touchpoints.schema.json

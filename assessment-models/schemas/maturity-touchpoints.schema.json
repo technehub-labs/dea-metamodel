@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/technehub-labs/dea-metamodel/assessment-models/schemas/maturity-touchpoints.schema.json",
   "title": "OpenDEA Maturity Touchpoints Manifest",
-  "description": "Handshake & Touchpoint Model record (CR-AM-13, issue #213). A declaring model pins contract-level handshakes and declares semantic-seam touchpoints against peer assessment models; a peer publishes a mirror record (mirrors + peer_touchpoint_id) establishing reciprocity. Reciprocity and resolvable pins are validated by ecosystem CI.",
+  "description": "Handshake & Touchpoint Model record (CR-AM-13, issue #213). A declaring model pins contract-level handshakes and declares semantic-seam touchpoints against peer assessment models; a peer publishes a mirror record (mirrors + peer_touchpoint_id, declared together) establishing reciprocity. SCOPE (CR-AM-13-R04): validation against this schema establishes STRUCTURAL conformance only — required properties, types, formats, permitted values and paired declarations. It is not proof of peer repository/model/touchpoint existence, criterion existence, reciprocal-record existence or ecosystem-wide relationship integrity; those are ecosystem-level semantic properties resolved by Assessment-Models/assessment-ci (see governance/touchpoints.md §Validation boundary).",
   "type": "object",
   "required": [
     "id",
@@ -174,13 +174,40 @@
         "mapping_type",
         "reciprocity"
       ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "mirrors"
+            ]
+          },
+          "then": {
+            "required": [
+              "peer_touchpoint_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "peer_touchpoint_id"
+            ]
+          },
+          "then": {
+            "required": [
+              "mirrors"
+            ]
+          }
+        }
+      ],
       "properties": {
         "id": {
           "type": "string"
         },
         "mirrors": {
           "type": "string",
-          "description": "Mirror records only: the declaring model's touchpoint id this record mirrors."
+          "minLength": 1,
+          "description": "Mirror records only: the declaring model's touchpoint id this record mirrors. MUST be declared together with peer_touchpoint_id (CR-AM-13-R02); neither field may appear alone."
         },
         "peer_asset": {
           "type": "string",
@@ -190,7 +217,9 @@
           "type": "string"
         },
         "peer_touchpoint_id": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1,
+          "description": "Mirror records only: the peer touchpoint id this record reciprocates. MUST be declared together with mirrors (CR-AM-13-R02); neither field may appear alone."
         },
         "peer_contract_version": {
           "type": "string"
@@ -256,7 +285,8 @@
         },
         "reciprocity": {
           "type": "string",
-          "description": "Reciprocity requirement, e.g. required; mirror records reference the mirrored touchpoint id."
+          "pattern": "^mirrors-[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Reciprocity declaration (CR-AM-13-R03): mirrors-<peer-touchpoint-id>, naming the peer record this declaration reciprocates. The earlier bare `required` placeholder was retired when bidirectional mirror records landed across the portfolio; every published record now uses the mirrors-* convention (compatibility verified against all registered manifests). Structural conformance only — existence of the referenced peer record is ecosystem-level semantic validation (see governance/touchpoints.md)."
         },
         "peer_status": {
           "type": "string"
